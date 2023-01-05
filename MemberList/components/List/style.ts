@@ -51,3 +51,16 @@ export const emailStyle = css`
   color: ${getColor("grayBlue", "03")};
   margin: 0;
 `
+
+/**
+ * Table item style
+ */
+
+export const moreActionHotSpotStyle = css`
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  :hover {
+    background-color: ${getColor("grayBlue", "09")};
+  }
+`

@@ -1,5 +1,7 @@
 import { DropList, Dropdown, Switch, useModal } from "@illa-design/react"
 import { FC, MouseEvent, useCallback, useMemo } from "react"
+import { AuthShown } from "@/illa-public-component/AuthShown"
+import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { MoreActionProps } from "@/illa-public-component/MemberList/components/Header/interface"
 import { allowEditorOrViewerInviteWrapperStyle } from "@/illa-public-component/MemberList/components/Header/style"
 import { USER_ROLE } from "@/store/userInfo/userInfoState"
@@ -85,15 +87,24 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
       position="bottom"
       dropList={
         <DropList onClickItem={handleClickDropList}>
-          <DropListItem key="1">
-            <div
-              css={allowEditorOrViewerInviteWrapperStyle}
-              onClick={stopPropagation}
-            >
-              <span>Allow editors and viewers to invite members.</span>
-              <Switch onClick={stopPropagation} onChange={handleSwitchChange} />
-            </div>
-          </DropListItem>
+          <AuthShown
+            currentUserRole={currentUserRole}
+            allowRoles={[USER_ROLE.OWNER, USER_ROLE.ADMIN]}
+            rules={SHOW_RULES.EQUAL}
+          >
+            <DropListItem key="1">
+              <div
+                css={allowEditorOrViewerInviteWrapperStyle}
+                onClick={stopPropagation}
+              >
+                <span>Allow editors and viewers to invite members.</span>
+                <Switch
+                  onClick={stopPropagation}
+                  onChange={handleSwitchChange}
+                />
+              </div>
+            </DropListItem>
+          </AuthShown>
           {canShowLeaveTeam && (
             <DropListItem key="leaveTeam">
               {currentUserRole === USER_ROLE.OWNER
