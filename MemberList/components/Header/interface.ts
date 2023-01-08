@@ -1,6 +1,8 @@
 import { ReactNode } from "react"
-import { MemberListProps } from "@/illa-public-component/MemberList/interface"
-import { USER_ROLE } from "@/store/userInfo/userInfoState"
+import {
+  MemberListProps,
+  inviteByEmailResponse,
+} from "@/illa-public-component/MemberList/interface"
 
 export interface HeaderProps
   extends Pick<
@@ -11,23 +13,76 @@ export interface HeaderProps
     | "removeTeamMembers"
     | "currentUserID"
     | "hasApp"
+    | "changeTeamMembersRole"
+    | "inviteByEmail"
+    | "renewInviteLink"
+    | "fetchInviteLink"
+    | "configInviteLink"
+    | "allowInviteByLink"
   > {}
 
-export interface MoreActionProps extends HeaderProps {
+export interface MoreActionProps
+  extends Pick<
+    HeaderProps,
+    | "currentUserRole"
+    | "currentUserID"
+    | "hasApp"
+    | "updateTeamPermissionConfig"
+    | "removeTeamMembers"
+  > {
   children: ReactNode
 }
 
-export interface InviteListItemProps {
-  email: string
-  userRole: USER_ROLE
-  userAvatar: string
-  emailStatus: boolean
-}
+export interface InviteListItemProps
+  extends inviteByEmailResponse,
+    Pick<InviteListProps, "changeTeamMembersRole" | "currentUserRole"> {}
 
-export interface InviteListProps {
-  inviteList?: InviteListItemProps[]
+export interface InviteListProps
+  extends Pick<
+    InviteMemberByEmailProps,
+    "changeTeamMembersRole" | "currentUserRole"
+  > {
+  inviteList?: inviteByEmailResponse[]
 }
-
-export interface InviteMemberModalProps {
+// changeTeamMembersRole, currentUserRole, inviteByEmail, renewInviteLink
+export interface InviteMemberModalProps
+  extends Pick<
+    HeaderProps,
+    | "changeTeamMembersRole"
+    | "currentUserRole"
+    | "inviteByEmail"
+    | "renewInviteLink"
+    | "fetchInviteLink"
+    | "configInviteLink"
+    | "allowInviteByLink"
+  > {
   handleCloseModal: () => void
 }
+
+export interface InviteMemberByLinkProps
+  extends Pick<
+    InviteMemberModalContentProps,
+    | "currentUserRole"
+    | "renewInviteLink"
+    | "fetchInviteLink"
+    | "configInviteLink"
+    | "allowInviteByLink"
+  > {}
+
+export interface InviteMemberByEmailProps
+  extends Pick<
+    InviteMemberModalContentProps,
+    "currentUserRole" | "inviteByEmail" | "changeTeamMembersRole"
+  > {}
+
+export interface InviteMemberModalContentProps
+  extends Pick<
+    MemberListProps,
+    | "currentUserRole"
+    | "renewInviteLink"
+    | "fetchInviteLink"
+    | "configInviteLink"
+    | "allowInviteByLink"
+    | "inviteByEmail"
+    | "changeTeamMembersRole"
+  > {}

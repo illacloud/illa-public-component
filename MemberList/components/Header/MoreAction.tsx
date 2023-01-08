@@ -1,5 +1,6 @@
 import { DropList, Dropdown, Switch, useModal } from "@illa-design/react"
 import { FC, MouseEvent, useCallback, useMemo } from "react"
+import { useTranslation } from "react-i18next"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { MoreActionProps } from "@/illa-public-component/MemberList/components/Header/interface"
@@ -21,6 +22,8 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     removeTeamMembers,
   } = props
   const modal = useModal()
+
+  const { t } = useTranslation()
 
   const canShowLeaveTeam = useMemo(() => {
     if (currentUserRole === USER_ROLE.OWNER) {
@@ -97,7 +100,9 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
                 css={allowEditorOrViewerInviteWrapperStyle}
                 onClick={stopPropagation}
               >
-                <span>Allow editors and viewers to invite members.</span>
+                <span>
+                  {t("user_management.settings.allow_editors_invite")}
+                </span>
                 <Switch
                   onClick={stopPropagation}
                   onChange={handleSwitchChange}
@@ -108,8 +113,8 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
           {canShowLeaveTeam && (
             <DropListItem key="leaveTeam">
               {currentUserRole === USER_ROLE.OWNER
-                ? "Delete team"
-                : "Leave team"}
+                ? t("team_setting.left_panel.delete")
+                : t("team_setting.left_panel.leave")}
             </DropListItem>
           )}
         </DropList>

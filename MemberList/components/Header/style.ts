@@ -17,6 +17,7 @@ export const titleStyle = css`
   color: ${getColor("grayBlue", "02")};
   flex: 0;
   margin: 0;
+  white-space: nowrap;
 `
 
 export const buttonGroup = css`
@@ -57,7 +58,8 @@ export const maskStyle = css`
   position: absolute;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${getColor("white", "05")};
+  backdrop-filter: blur(5px);
   z-index: -1;
 `
 
@@ -130,12 +132,24 @@ export const inviteLinkWrapperStyle = css`
   gap: 8px;
 `
 
+export const inviteLinkWhenClosedStyle = css`
+  font-size: 12px;
+  line-height: 15px;
+  color: ${getColor("grayBlue", "02")};
+  margin: 0;
+`
+
+export const turnOnInviteLinkButtonStyle = css`
+  cursor: pointer;
+  color: ${getColor("techPurple", "01")};
+`
+
 export const fakerInputStyle = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: 8px;
-  background-color: ${getColor("grayBlue", "09")};
+  border: 1px solid ${getColor("grayBlue", "08")};
   gap: 8px;
   padding: 8px 16px;
   width: 378px;
@@ -145,10 +159,11 @@ export const fakerInputWithEmail = css`
   align-items: flex-start;
 `
 
-export const urlAreaStyle = css`
+export const urlAreaStyle = (isError: boolean) => css`
   max-width: 280px;
+  font-size: 14px;
   overflow-x: auto;
-  color: ${getColor("grayBlue", "02")};
+  color: ${isError ? getColor("red", "03") : getColor("grayBlue", "02")};
   flex: 1;
   width: auto;
 `
@@ -157,6 +172,7 @@ export const inviteEmailWrapperStyle = css`
   display: flex;
   justify-content: space-between;
   gap: 8px;
+  align-items: center;
 `
 
 export const inviteListWrapperStyle = css`
@@ -164,6 +180,8 @@ export const inviteListWrapperStyle = css`
   flex-direction: column;
   gap: 16px;
   margin-top: 16px;
+  max-height: 224px;
+  overflow-y: auto;
 `
 
 export const inviteListTitleWrapperStyle = css`
@@ -183,4 +201,16 @@ export const nicknameStyle = css`
   line-height: 22px;
   font-weight: 500;
   color: ${getColor("grayBlue", "02")};
+`
+
+export const settingIconStyle = css`
+  cursor: pointer;
+`
+
+export const inviteAvatarStyle = css`
+  width: 32px;
+  height: 32px;
+  border: 1px dashed ${getColor("grayBlue", "07")};
+  flex: none;
+  border-radius: 16px;
 `

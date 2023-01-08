@@ -1,12 +1,17 @@
-import { Button, MoreIcon, Select, Table } from "@illa-design/react"
-import { FC, useMemo } from "react"
+import { Select, Table } from "@illa-design/react"
+import { FC, useCallback, useMemo } from "react"
+import { useTranslation } from "react-i18next"
+import { MoreAction } from "@/illa-public-component/MemberList/components/List/MoreAction"
 import { NameSpace } from "@/illa-public-component/MemberList/components/List/NameSpace"
 import { ListProps } from "@/illa-public-component/MemberList/components/List/interface"
 import {
   listBodyStyle,
   listWrapperStyle,
 } from "@/illa-public-component/MemberList/components/List/style"
-import { geSmallThenTargetRole } from "@/illa-public-component/MemberList/utils"
+import {
+  getSmallThenTargetRole,
+  userRoleMapI18nString,
+} from "@/illa-public-component/MemberList/utils"
 import { USER_ROLE, USER_STATUS } from "@/store/userInfo/userInfoState"
 
 const userData = [
@@ -36,7 +41,7 @@ const userData = [
     email: "3",
     avatar: "2",
     userRole: USER_ROLE.EDITOR,
-    userStatus: USER_STATUS.OK,
+    userStatus: USER_STATUS.PENDING,
     createdAt: "2",
     updatedAt: "2",
   },
@@ -52,266 +57,60 @@ const userData = [
   },
 ]
 export const List: FC<ListProps> = (props) => {
-  const { userListData = userData, removeTeamMembers } = props
-  const data = useMemo(
-    () => {
-      if (!Array.isArray(userListData) || userListData.length === 0) {
-        return []
-      }
-      return userListData.map((item) => {
-        return {
-          userInfo: {
-            nickname: item.nickname,
-            avatar: item.avatar,
-            email: item.email,
-          },
-          permissions: {
-            userRole: item.userRole,
-            email: item.email,
-          },
-          actions: {
-            userRole: item.userRole,
-            email: item.email,
-          },
-        }
-      })
-    },
+  const {
+    userListData = userData,
+    currentUserRole,
+    currentUserID,
+    removeTeamMembers,
+    changeTeamMembersRole,
+  } = props
 
-    // () => [
-    //   {
-    //     id: 1,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Ameliorated explicit open system",
-    //   },
-    //   {
-    //     id: 2,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Customizable explicit solution",
-    //   },
-    //   {
-    //     id: 3,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Proactive mission-critical open architecture",
-    //   },
-    //   {
-    //     id: 4,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "De-engineered bi-directional hardware",
-    //   },
-    //   {
-    //     id: 5,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Customer-focused client-server budgetary management",
-    //   },
-    //   {
-    //     id: 6,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Distributed interactive monitoring",
-    //   },
-    //   {
-    //     id: 7,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Synchronised context-sensitive implementation",
-    //   },
-    //   {
-    //     id: 8,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "User-friendly responsive hardware",
-    //   },
-    //   {
-    //     id: 9,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Compatible upward-trending system engine",
-    //   },
-    //   {
-    //     id: 10,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Cloned scalable website",
-    //   },
-    //   {
-    //     id: 11,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "User-friendly responsive hardware",
-    //   },
-    //   {
-    //     id: 12,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Compatible upward-trending system engine",
-    //   },
-    //   {
-    //     id: 13,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Cloned scalable website",
-    //   },
-    //   {
-    //     id: 13,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Cloned scalable website",
-    //   },
-    //   {
-    //     id: 13,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Cloned scalable website",
-    //   },
-    //   {
-    //     id: 13,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Cloned scalable website",
-    //   },
-    //   {
-    //     id: 13,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Cloned scalable website",
-    //   },
-    //   {
-    //     id: 13,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Cloned scalable website",
-    //   },
-    //   {
-    //     id: 13,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Cloned scalable website",
-    //   },
-    //   {
-    //     id: 13,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Cloned scalable website",
-    //   },
-    //   {
-    //     id: 13,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Cloned scalable website",
-    //   },
-    //   {
-    //     id: 13,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Cloned scalable website",
-    //   },
-    //   {
-    //     id: 13,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Cloned scalable website",
-    //   },
-    //   {
-    //     id: 13,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Cloned scalable website",
-    //   },
-    //   {
-    //     id: 13,
-    //     name: {
-    //       img: "xxxx",
-    //       name: "xxxx",
-    //       email: "xxxx",
-    //     },
-    //     company: "Cloned scalable website",
-    //   },
-    // ],
-    [],
+  const { t } = useTranslation()
+
+  const data = useMemo(() => {
+    if (!Array.isArray(userListData) || userListData.length === 0) {
+      return []
+    }
+    return userListData.map((item) => {
+      return {
+        userInfo: {
+          nickname: item.nickname,
+          avatar: item.avatar,
+          email: item.email,
+          status: item.userStatus,
+        },
+        permissions: {
+          userRole: item.userRole,
+          email: item.email,
+        },
+        actions: {
+          userID: item.userID,
+          userRole: item.userRole,
+          email: item.email,
+          nickname: item.nickname,
+        },
+      }
+    })
+  }, [userListData])
+
+  const handleChangeRole = useCallback(
+    async (userID: string, value: USER_ROLE) => {
+      try {
+        const res = await changeTeamMembersRole(userID, value)
+        if (!res) {
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    [changeTeamMembersRole],
   )
 
   const columns = useMemo(
     () => [
       {
         id: "userInfo",
-        header: "userInfo",
+        header: t("user_management.page.member"),
         accessorKey: "userInfo",
         cell: (props: Record<string, any>) => {
           const value = props.getValue()
@@ -320,23 +119,39 @@ export const List: FC<ListProps> = (props) => {
               name={value?.nickname}
               avatar={value?.avatar}
               email={value?.email}
+              status={value?.status}
             />
           )
         },
       },
       {
         id: "permissions",
-        header: "permissions",
+        header: t("user_management.page.permission"),
         accessorKey: "permissions",
         cell: (props: Record<string, any>) => {
           const value = props.getValue()
-          const options = geSmallThenTargetRole(value.userRole, false, [
+          const options = getSmallThenTargetRole(currentUserRole, false, [
             USER_ROLE.OWNER,
             USER_ROLE.CUSTOM,
           ]).map((role) => {
-            return USER_ROLE[role]
+            const labelI18nKey = userRoleMapI18nString[role]
+
+            return {
+              label: t(labelI18nKey),
+              value: role,
+            }
           })
-          return <Select value={USER_ROLE[value.userRole]} options={options} />
+
+          return (
+            <Select
+              value={t(userRoleMapI18nString[value.userRole as USER_ROLE])}
+              options={options}
+              onChange={(userRole: USER_ROLE) => {
+                handleChangeRole(value?.userID, userRole)
+              }}
+              w="auto"
+            />
+          )
         },
       },
       {
@@ -346,25 +161,32 @@ export const List: FC<ListProps> = (props) => {
         enableSorting: false,
         cell: (props: Record<string, any>) => {
           const value = props.getValue()
+          if (!value) return <span>-</span>
           return (
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-            >
-              <Button colorScheme="grayBlue" w="32px">
-                <MoreIcon />
-              </Button>
-            </div>
+            <MoreAction
+              email={value.email}
+              userRole={value.userRole}
+              currentUserRole={currentUserRole}
+              currentUserID={currentUserID}
+              userID={value.userID}
+              name={value.nickname}
+              removeTeamMembers={removeTeamMembers}
+              changeTeamMembersRole={changeTeamMembersRole}
+            />
           )
         },
       },
     ],
-    [],
+    [
+      changeTeamMembersRole,
+      currentUserID,
+      currentUserRole,
+      handleChangeRole,
+      removeTeamMembers,
+      t,
+    ],
   )
+
   return (
     <div css={listWrapperStyle}>
       <Table

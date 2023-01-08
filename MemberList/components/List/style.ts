@@ -44,6 +44,11 @@ export const nameStyle = css`
   margin: 0;
 `
 
+export const memberStatusWhenPending = css`
+  font-weight: 400;
+  color: ${getColor("grayBlue", "04")};
+`
+
 export const emailStyle = css`
   font-size: 12px;
   font-weight: 400;
@@ -56,11 +61,9 @@ export const emailStyle = css`
  * Table item style
  */
 
-export const moreActionHotSpotStyle = css`
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-  :hover {
-    background-color: ${getColor("grayBlue", "09")};
-  }
+export const moreActionWrapper = css`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
 `

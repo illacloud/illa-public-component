@@ -19,6 +19,14 @@ export interface fetchInviteLinkResponse {
   userRole: USER_ROLE
 }
 
+export interface inviteByEmailResponse {
+  email: string
+  userID: string
+  userRole: USER_ROLE
+  userAvatar?: string
+  emailStatus: USER_STATUS
+}
+
 export interface MemberListProps {
   hasApp: boolean
   currentUserID: string
@@ -34,7 +42,10 @@ export interface MemberListProps {
   removeTeamMembers: (userID: string) => Promise<boolean>
   fetchInviteLink: (userRole: USER_ROLE) => Promise<fetchInviteLinkResponse>
   renewInviteLink: (userRole: USER_ROLE) => Promise<fetchInviteLinkResponse>
-  inviteByEmail: (email: string, userRole: USER_ROLE) => Promise<boolean>
+  inviteByEmail: (
+    email: string,
+    userRole: USER_ROLE,
+  ) => Promise<inviteByEmailResponse>
   updateTeamPermissionConfig: (
     allowEditorOrViewerInvite: boolean,
   ) => Promise<boolean>

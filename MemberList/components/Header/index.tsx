@@ -9,8 +9,6 @@ import {
   headerWrapperStyle,
   titleStyle,
 } from "@/illa-public-component/MemberList/components/Header/style"
-import { geSmallThenTargetRole } from "@/illa-public-component/MemberList/utils"
-import { USER_ROLE, USER_ROLE_ARRAY } from "@/store/userInfo/userInfoState"
 import { HeaderProps } from "./interface"
 
 export const Header: FC<HeaderProps> = (props) => {
@@ -19,13 +17,16 @@ export const Header: FC<HeaderProps> = (props) => {
     currentUserID,
     allowEditorOrViewerInvite,
     hasApp,
+    allowInviteByLink,
     updateTeamPermissionConfig,
     removeTeamMembers,
+    changeTeamMembersRole,
+    inviteByEmail,
+    renewInviteLink,
+    fetchInviteLink,
+    configInviteLink,
   } = props
   const { t } = useTranslation()
-
-  console.log("USER_ROLE_ARRAY", USER_ROLE_ARRAY)
-  console.log("getBiggerThenTargetRole", geSmallThenTargetRole(USER_ROLE.OWNER))
 
   const [showInviteMemberModal, setShowInviteMemberModal] = useState(false)
 
@@ -35,22 +36,21 @@ export const Header: FC<HeaderProps> = (props) => {
 
   return (
     <div css={headerWrapperStyle}>
-      <h1 css={titleStyle}>Member</h1>
+      <h1 css={titleStyle}>{t("user_management.page.member")}</h1>
       <div css={buttonGroup}>
         <MoreAction
           currentUserRole={currentUserRole}
-          allowEditorOrViewerInvite={allowEditorOrViewerInvite}
-          updateTeamPermissionConfig={updateTeamPermissionConfig}
           currentUserID={currentUserID}
-          removeTeamMembers={removeTeamMembers}
           hasApp={hasApp}
+          removeTeamMembers={removeTeamMembers}
+          updateTeamPermissionConfig={updateTeamPermissionConfig}
         >
           <Button w="32px" colorScheme="grayBlue">
             <MoreIcon />
           </Button>
         </MoreAction>
         <Button w="200px" colorScheme="techPurple" onClick={handleClickInvite}>
-          Invite
+          {t("user_management.page.invite")}
         </Button>
       </div>
       {showInviteMemberModal &&
@@ -59,6 +59,13 @@ export const Header: FC<HeaderProps> = (props) => {
             handleCloseModal={() => {
               setShowInviteMemberModal(false)
             }}
+            changeTeamMembersRole={changeTeamMembersRole}
+            currentUserRole={currentUserRole}
+            inviteByEmail={inviteByEmail}
+            renewInviteLink={renewInviteLink}
+            fetchInviteLink={fetchInviteLink}
+            configInviteLink={configInviteLink}
+            allowInviteByLink={allowInviteByLink}
           />,
           document.body,
         )}

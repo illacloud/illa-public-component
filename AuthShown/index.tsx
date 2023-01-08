@@ -14,11 +14,11 @@ export const AuthShown: FC<AuthHiddenProps> = (props) => {
     switch (rules) {
       case SHOW_RULES.SMALLER: {
         const allowRole = allowRoles[0]
-        return isSmallThenTargetRole(currentUserRole, allowRole)
+        return isSmallThenTargetRole(allowRole, currentUserRole)
       }
       case SHOW_RULES.BIGGER: {
         const allowRole = allowRoles[0]
-        return isBiggerThenTargetRole(currentUserRole, allowRole)
+        return isBiggerThenTargetRole(allowRole, currentUserRole)
       }
       case SHOW_RULES.EQUAL:
       default: {
