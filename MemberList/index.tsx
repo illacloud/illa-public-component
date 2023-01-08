@@ -3,7 +3,6 @@ import { Header } from "@/illa-public-component/MemberList/components/Header"
 import { List } from "@/illa-public-component/MemberList/components/List"
 import { MemberListProps } from "@/illa-public-component/MemberList/interface"
 import { MemberListWrapperStyle } from "@/illa-public-component/MemberList/style"
-import { USER_ROLE } from "@/store/userInfo/userInfoState"
 
 export const MemberList: FC<MemberListProps> = (props) => {
   const {

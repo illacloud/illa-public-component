@@ -1,4 +1,3 @@
-import { ReactNode } from "react"
 import { USER_ROLE, USER_STATUS } from "@/store/userInfo/userInfoState"
 
 interface UserData {

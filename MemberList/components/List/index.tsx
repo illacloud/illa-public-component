@@ -12,53 +12,11 @@ import {
   getSmallThenTargetRole,
   userRoleMapI18nString,
 } from "@/illa-public-component/MemberList/utils"
-import { USER_ROLE, USER_STATUS } from "@/store/userInfo/userInfoState"
+import { USER_ROLE } from "@/store/userInfo/userInfoState"
 
-const userData = [
-  {
-    userID: "1",
-    nickname: "123123123",
-    email: "1@asdasd.com",
-    avatar: "1",
-    userRole: USER_ROLE.ADMIN,
-    userStatus: USER_STATUS.OK,
-    createdAt: "1",
-    updatedAt: "1",
-  },
-  {
-    userID: "2",
-    nickname: "2",
-    email: "2",
-    avatar: "2",
-    userRole: USER_ROLE.OWNER,
-    userStatus: USER_STATUS.OK,
-    createdAt: "2",
-    updatedAt: "2",
-  },
-  {
-    userID: "3",
-    nickname: "3",
-    email: "3",
-    avatar: "2",
-    userRole: USER_ROLE.EDITOR,
-    userStatus: USER_STATUS.PENDING,
-    createdAt: "2",
-    updatedAt: "2",
-  },
-  {
-    userID: "2",
-    nickname: "2",
-    email: "2",
-    avatar: "2",
-    userRole: USER_ROLE.VIEWER,
-    userStatus: USER_STATUS.OK,
-    createdAt: "2",
-    updatedAt: "2",
-  },
-]
 export const List: FC<ListProps> = (props) => {
   const {
-    userListData = userData,
+    userListData,
     currentUserRole,
     currentUserID,
     removeTeamMembers,
