@@ -8,7 +8,7 @@ import {
   nameSpaceWrapperStyle,
   nameStyle,
 } from "@/illa-public-component/MemberList/components/List/style"
-import { USER_STATUS } from "@/store/userInfo/userInfoState"
+import { USER_STATUS } from "@/illa-public-component/UserRoleUtils/interface"
 
 export const NameSpace: FC<NameSpaceProps> = (props) => {
   const { name, email, avatar, status } = props

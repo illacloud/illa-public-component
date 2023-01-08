@@ -11,8 +11,8 @@ import {
 import {
   getSmallThenTargetRole,
   userRoleMapI18nString,
-} from "@/illa-public-component/MemberList/utils"
-import { USER_ROLE } from "@/store/userInfo/userInfoState"
+} from "@/illa-public-component/UserRoleUtils"
+import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 export const List: FC<ListProps> = (props) => {
   const {

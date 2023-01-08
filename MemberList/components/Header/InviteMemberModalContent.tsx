@@ -51,8 +51,8 @@ import { inviteByEmailResponse } from "@/illa-public-component/MemberList/interf
 import {
   getSmallThenTargetRole,
   userRoleMapI18nString,
-} from "@/illa-public-component/MemberList/utils"
-import { USER_ROLE } from "@/store/userInfo/userInfoState"
+} from "@/illa-public-component/UserRoleUtils"
+import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 const DropListItem = DropList.Item
 

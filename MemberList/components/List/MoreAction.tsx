@@ -12,8 +12,8 @@ import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { MoreActionProps } from "@/illa-public-component/MemberList/components/List/interface"
 import { moreActionWrapper } from "@/illa-public-component/MemberList/components/List/style"
-import { isSmallThenTargetRole } from "@/illa-public-component/MemberList/utils"
-import { USER_ROLE } from "@/store/userInfo/userInfoState"
+import { isSmallThenTargetRole } from "@/illa-public-component/UserRoleUtils"
+import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 export const MoreAction: FC<MoreActionProps> = (props) => {
   const {

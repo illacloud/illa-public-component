@@ -5,7 +5,7 @@ import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { MoreActionProps } from "@/illa-public-component/MemberList/components/Header/interface"
 import { allowEditorOrViewerInviteWrapperStyle } from "@/illa-public-component/MemberList/components/Header/style"
-import { USER_ROLE } from "@/store/userInfo/userInfoState"
+import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 const DropListItem = DropList.Item
 

@@ -1,4 +1,7 @@
-import { USER_ROLE, USER_STATUS } from "@/store/userInfo/userInfoState"
+import {
+  USER_ROLE,
+  USER_STATUS,
+} from "@/illa-public-component/UserRoleUtils/interface"
 
 interface UserData {
   userID: string

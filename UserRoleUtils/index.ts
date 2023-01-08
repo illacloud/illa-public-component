@@ -1,9 +1,12 @@
-import { USER_ROLE, USER_ROLE_ARRAY } from "@/store/userInfo/userInfoState"
+import { USER_ROLE } from "./interface"
 
-/**
- *  USER ROLE FUNCTION
- */
-
+export const USER_ROLE_ARRAY = [
+  USER_ROLE.OWNER,
+  USER_ROLE.ADMIN,
+  USER_ROLE.EDITOR,
+  USER_ROLE.VIEWER,
+  USER_ROLE.CUSTOM,
+]
 export const userRoleMapI18nString = {
   [USER_ROLE.CUSTOM]: "Custom",
   [USER_ROLE.OWNER]: "user_management.role.owner",

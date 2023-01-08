@@ -6,7 +6,7 @@ import {
 import {
   isBiggerThenTargetRole,
   isSmallThenTargetRole,
-} from "@/illa-public-component/MemberList/utils"
+} from "@/illa-public-component/UserRoleUtils"
 
 export const AuthShown: FC<AuthHiddenProps> = (props) => {
   const { currentUserRole, children, allowRoles, rules } = props

@@ -1,5 +1,8 @@
 import { MemberListProps } from "@/illa-public-component/MemberList/interface"
-import { USER_ROLE, USER_STATUS } from "@/store/userInfo/userInfoState"
+import {
+  USER_ROLE,
+  USER_STATUS,
+} from "@/illa-public-component/UserRoleUtils/interface"
 
 export interface NameSpaceProps {
   name: string
