@@ -7,7 +7,7 @@ import { USER_ROLE } from "@/store/userInfo/userInfoState"
 
 export const MemberList: FC<MemberListProps> = (props) => {
   const {
-    currentUserRole = USER_ROLE.OWNER,
+    currentUserRole,
     currentUserID,
     allowEditorOrViewerInvite,
     hasApp,
