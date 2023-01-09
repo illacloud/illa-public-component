@@ -33,7 +33,7 @@ export const filterUserRole = (
   }
   return roles
 }
-export const getSmallThenTargetRole = (
+export const getSmallThanTargetRole = (
   targetRole: USER_ROLE,
   notHasSelf: boolean = true,
   filterRole: USER_ROLE[] = [],
@@ -45,7 +45,7 @@ export const getSmallThenTargetRole = (
   return filterUserRole(result, filterRole)
 }
 
-export const getBiggerThenTargetRole = (
+export const getBiggerThanTargetRole = (
   targetRole: USER_ROLE,
   notHasSelf: boolean = true,
   filterRole: USER_ROLE[] = [],
@@ -57,7 +57,7 @@ export const getBiggerThenTargetRole = (
   return filterUserRole(result, filterRole)
 }
 
-export const isSmallThenTargetRole = (
+export const isSmallThanTargetRole = (
   targetRole: USER_ROLE,
   currentUserRole: USER_ROLE,
   isEqual: boolean = true,
@@ -70,7 +70,7 @@ export const isSmallThenTargetRole = (
     : currentUserRoleIndex > targetRoleIndex
 }
 
-export const isBiggerThenTargetRole = (
+export const isBiggerThanTargetRole = (
   targetRole: USER_ROLE,
   currentUserRole: USER_ROLE,
   isEqual: boolean = true,

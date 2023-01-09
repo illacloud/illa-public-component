@@ -51,7 +51,7 @@ import {
 } from "@/illa-public-component/MemberList/components/Header/style"
 import { inviteByEmailResponse } from "@/illa-public-component/MemberList/interface"
 import {
-  getSmallThenTargetRole,
+  getSmallThanTargetRole,
   userRoleMapI18nString,
 } from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
@@ -77,7 +77,7 @@ export const InviteListItem: FC<InviteListItemProps> = (props) => {
     [email, inviteByEmail],
   )
 
-  const canSelectUserRoleOptions = getSmallThenTargetRole(
+  const canSelectUserRoleOptions = getSmallThanTargetRole(
     currentUserRole,
     false,
     [USER_ROLE.OWNER, USER_ROLE.CUSTOM],
@@ -249,7 +249,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     inviteLinkRole,
   ])
 
-  const canSelectUserRoleOptions = getSmallThenTargetRole(
+  const canSelectUserRoleOptions = getSmallThanTargetRole(
     currentUserRole,
     false,
     [USER_ROLE.OWNER, USER_ROLE.CUSTOM],
@@ -366,7 +366,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
     inviteByEmailResponse[]
   >([])
 
-  const canSelectUserRoleOptions = getSmallThenTargetRole(
+  const canSelectUserRoleOptions = getSmallThanTargetRole(
     currentUserRole,
     false,
     [USER_ROLE.OWNER, USER_ROLE.CUSTOM],

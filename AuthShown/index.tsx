@@ -4,8 +4,8 @@ import {
   SHOW_RULES,
 } from "@/illa-public-component/AuthShown/interface"
 import {
-  isBiggerThenTargetRole,
-  isSmallThenTargetRole,
+  isBiggerThanTargetRole,
+  isSmallThanTargetRole,
 } from "@/illa-public-component/UserRoleUtils"
 
 export const AuthShown: FC<AuthHiddenProps> = (props) => {
@@ -14,11 +14,11 @@ export const AuthShown: FC<AuthHiddenProps> = (props) => {
     switch (rules) {
       case SHOW_RULES.SMALLER: {
         const allowRole = allowRoles[0]
-        return isSmallThenTargetRole(allowRole, currentUserRole)
+        return isSmallThanTargetRole(allowRole, currentUserRole)
       }
       case SHOW_RULES.BIGGER: {
         const allowRole = allowRoles[0]
-        return isBiggerThenTargetRole(allowRole, currentUserRole)
+        return isBiggerThanTargetRole(allowRole, currentUserRole)
       }
       case SHOW_RULES.EQUAL:
       default: {

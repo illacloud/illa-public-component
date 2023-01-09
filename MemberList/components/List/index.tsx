@@ -9,7 +9,7 @@ import {
   listWrapperStyle,
 } from "@/illa-public-component/MemberList/components/List/style"
 import {
-  getSmallThenTargetRole,
+  getSmallThanTargetRole,
   userRoleMapI18nString,
 } from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
@@ -98,7 +98,7 @@ export const List: FC<ListProps> = (props) => {
         accessorKey: "permissions",
         cell: (props: Record<string, any>) => {
           const value = props.getValue()
-          const options = getSmallThenTargetRole(currentUserRole, false, [
+          const options = getSmallThanTargetRole(currentUserRole, false, [
             USER_ROLE.OWNER,
             USER_ROLE.CUSTOM,
           ]).map((role) => {
