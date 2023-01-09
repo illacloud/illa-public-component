@@ -40,6 +40,7 @@ export const List: FC<ListProps> = (props) => {
           userID: item.userID,
         },
         permissions: {
+          userID: item.userID,
           userRole: item.userRole,
           email: item.email,
         },
