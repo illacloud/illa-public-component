@@ -60,26 +60,19 @@ const EMAIL_REGX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 export const InviteListItem: FC<InviteListItemProps> = (props) => {
-  const {
-    email,
-    userRole,
-    userAvatar,
-    userID,
-    currentUserRole,
-    changeTeamMembersRole,
-  } = props
+  const { email, userRole, userAvatar, currentUserRole, inviteByEmail } = props
   const { t } = useTranslation()
   const handleChangeRole = useCallback(
     async (value: USER_ROLE) => {
       try {
-        const res = await changeTeamMembersRole(userID, value)
+        const res = await inviteByEmail(email, value)
         if (!res) {
         }
       } catch (e) {
         console.error(e)
       }
     },
-    [changeTeamMembersRole, userID],
+    [email, inviteByEmail],
   )
 
   const canSelectUserRoleOptions = getSmallThenTargetRole(
@@ -115,19 +108,18 @@ export const InviteListItem: FC<InviteListItemProps> = (props) => {
 }
 
 export const InviteList: FC<InviteListProps> = (props) => {
-  const { inviteList, currentUserRole, changeTeamMembersRole } = props
+  const { inviteList, currentUserRole, inviteByEmail } = props
   return (
     <div css={inviteListWrapperStyle}>
       {inviteList?.map((item) => (
         <InviteListItem
           key={item.email}
-          userID={item.userID}
           email={item.email}
           emailStatus={item.emailStatus}
           userAvatar={item.userAvatar}
           userRole={item.userRole}
           currentUserRole={currentUserRole}
-          changeTeamMembersRole={changeTeamMembersRole}
+          inviteByEmail={inviteByEmail}
         />
       ))}
     </div>
@@ -493,7 +485,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         </Button>
       </div>
       <InviteList
-        changeTeamMembersRole={changeTeamMembersRoleInList}
+        inviteByEmail={inviteByEmail}
         inviteList={inviteMemberList}
         currentUserRole={currentUserRole}
       />

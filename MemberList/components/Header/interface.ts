@@ -35,13 +35,10 @@ export interface MoreActionProps
 
 export interface InviteListItemProps
   extends inviteByEmailResponse,
-    Pick<InviteListProps, "changeTeamMembersRole" | "currentUserRole"> {}
+    Pick<InviteListProps, "inviteByEmail" | "currentUserRole"> {}
 
 export interface InviteListProps
-  extends Pick<
-    InviteMemberByEmailProps,
-    "changeTeamMembersRole" | "currentUserRole"
-  > {
+  extends Pick<InviteMemberByEmailProps, "currentUserRole" | "inviteByEmail"> {
   inviteList?: inviteByEmailResponse[]
 }
 // changeTeamMembersRole, currentUserRole, inviteByEmail, renewInviteLink
