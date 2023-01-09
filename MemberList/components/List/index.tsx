@@ -1,4 +1,4 @@
-import { Select, Table } from "@illa-design/react"
+import { Select, Table, useMessage } from "@illa-design/react"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { MoreAction } from "@/illa-public-component/MemberList/components/List/MoreAction"
@@ -9,7 +9,7 @@ import {
   listWrapperStyle,
 } from "@/illa-public-component/MemberList/components/List/style"
 import {
-  getSmallThenTargetRole,
+  getSmallThanTargetRole,
   userRoleMapI18nString,
 } from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
@@ -24,6 +24,7 @@ export const List: FC<ListProps> = (props) => {
   } = props
 
   const { t } = useTranslation()
+  const message = useMessage()
 
   const data = useMemo(() => {
     if (!Array.isArray(userListData) || userListData.length === 0) {
@@ -36,8 +37,10 @@ export const List: FC<ListProps> = (props) => {
           avatar: item.avatar,
           email: item.email,
           status: item.userStatus,
+          userID: item.userID,
         },
         permissions: {
+          userID: item.userID,
           userRole: item.userRole,
           email: item.email,
         },
@@ -56,12 +59,18 @@ export const List: FC<ListProps> = (props) => {
       try {
         const res = await changeTeamMembersRole(userID, value)
         if (!res) {
+          message.error({
+            content: t("user_management.mes.change_role_fail"),
+          })
         }
       } catch (e) {
+        message.error({
+          content: t("user_management.mes.change_role_fail"),
+        })
         console.error(e)
       }
     },
-    [changeTeamMembersRole],
+    [changeTeamMembersRole, message, t],
   )
 
   const columns = useMemo(
@@ -78,6 +87,8 @@ export const List: FC<ListProps> = (props) => {
               avatar={value?.avatar}
               email={value?.email}
               status={value?.status}
+              userID={value?.userID}
+              currentUserID={currentUserID}
             />
           )
         },
@@ -88,7 +99,7 @@ export const List: FC<ListProps> = (props) => {
         accessorKey: "permissions",
         cell: (props: Record<string, any>) => {
           const value = props.getValue()
-          const options = getSmallThenTargetRole(currentUserRole, false, [
+          const options = getSmallThanTargetRole(currentUserRole, false, [
             USER_ROLE.OWNER,
             USER_ROLE.CUSTOM,
           ]).map((role) => {

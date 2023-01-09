@@ -12,7 +12,7 @@ import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { MoreActionProps } from "@/illa-public-component/MemberList/components/List/interface"
 import { moreActionWrapper } from "@/illa-public-component/MemberList/components/List/style"
-import { isSmallThenTargetRole } from "@/illa-public-component/UserRoleUtils"
+import { isSmallThanTargetRole } from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 export const MoreAction: FC<MoreActionProps> = (props) => {
@@ -32,6 +32,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
 
   const handleClickRemoveMember = useCallback(() => {
     modal.show({
+      id: "removeMember",
       title: t("user_management.remove_modal.title", { username: name }),
       children: t("user_management.remove_modal.description"),
       okText: t("user_management.remove_modal.remove"),
@@ -63,6 +64,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
 
   const handleClickTransOwner = useCallback(() => {
     modal.show({
+      id: "transOwner",
       title: t("user_management.transfer_modal.title"),
       children: t("user_management.transfer_modal.description"),
       okText: t("user_management.transfer_modal.transfer"),
@@ -126,7 +128,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         <Button
           colorScheme="grayBlue"
           w="32px"
-          disabled={isSmallThenTargetRole(userRole, currentUserRole, false)}
+          disabled={isSmallThanTargetRole(userRole, currentUserRole, false)}
         >
           <MoreIcon />
         </Button>
