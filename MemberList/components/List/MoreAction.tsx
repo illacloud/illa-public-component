@@ -32,6 +32,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
 
   const handleClickRemoveMember = useCallback(() => {
     modal.show({
+      id: "removeMember",
       title: t("user_management.remove_modal.title", { username: name }),
       children: t("user_management.remove_modal.description"),
       okText: t("user_management.remove_modal.remove"),
@@ -63,6 +64,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
 
   const handleClickTransOwner = useCallback(() => {
     modal.show({
+      id: "transOwner",
       title: t("user_management.transfer_modal.title"),
       children: t("user_management.transfer_modal.description"),
       okText: t("user_management.transfer_modal.transfer"),

@@ -46,6 +46,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
   const handleClickItem = useCallback(() => {
     if (currentUserRole === USER_ROLE.OWNER) {
       modal.show({
+        id: "deleteTeam",
         title: "Are you sure you want to delete this team?",
         children:
           "The team domain will be unavailable after deletion, and all members will be removed from this team.",
@@ -60,6 +61,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
       })
     } else {
       modal.show({
+        id: "leaveTeam",
         title: "Are you sure you want to leave this team?",
         children:
           "You will not be able to access any team resources after leaving.",
