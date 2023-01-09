@@ -7,6 +7,7 @@ import {
   Dropdown,
   InputTag,
   Select,
+  Skeleton,
   useMessage,
 } from "@illa-design/react"
 import copy from "copy-to-clipboard"
@@ -274,8 +275,6 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     }
   }, [inviteLink, message, t])
 
-  console.log("allowInviteByLink", allowInviteByLink)
-
   return (
     <div css={subBodyWrapperStyle}>
       <div css={subBodyTitleWrapperStyle}>
@@ -316,6 +315,9 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
         <div css={inviteLinkWrapperStyle}>
           <div css={fakerInputStyle}>
             <span css={urlAreaStyle(fetchInviteLinkError)}>
+              {!fetchInviteLinkError && !inviteLink && (
+                <Skeleton text={{ rows: 1, width: 280 }} animation />
+              )}
               {fetchInviteLinkError
                 ? t("user_management.modal.link.fail")
                 : inviteLink}

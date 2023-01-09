@@ -1,4 +1,4 @@
-import { Select, Table } from "@illa-design/react"
+import { Select, Table, useMessage } from "@illa-design/react"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { MoreAction } from "@/illa-public-component/MemberList/components/List/MoreAction"
@@ -24,6 +24,7 @@ export const List: FC<ListProps> = (props) => {
   } = props
 
   const { t } = useTranslation()
+  const message = useMessage()
 
   const data = useMemo(() => {
     if (!Array.isArray(userListData) || userListData.length === 0) {
@@ -57,12 +58,18 @@ export const List: FC<ListProps> = (props) => {
       try {
         const res = await changeTeamMembersRole(userID, value)
         if (!res) {
+          message.error({
+            content: t("user_management.mes.change_role_fail"),
+          })
         }
       } catch (e) {
+        message.error({
+          content: t("user_management.mes.change_role_fail"),
+        })
         console.error(e)
       }
     },
-    [changeTeamMembersRole],
+    [changeTeamMembersRole, message, t],
   )
 
   const columns = useMemo(
