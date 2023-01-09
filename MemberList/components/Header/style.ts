@@ -162,10 +162,12 @@ export const fakerInputWithEmail = css`
 export const urlAreaStyle = (isError: boolean) => css`
   max-width: 280px;
   font-size: 14px;
-  overflow-x: auto;
   color: ${isError ? getColor("red", "03") : getColor("grayBlue", "02")};
   flex: 1;
   width: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 export const inviteEmailWrapperStyle = css`

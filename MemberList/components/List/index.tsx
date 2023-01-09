@@ -36,6 +36,7 @@ export const List: FC<ListProps> = (props) => {
           avatar: item.avatar,
           email: item.email,
           status: item.userStatus,
+          userID: item.userID,
         },
         permissions: {
           userRole: item.userRole,
@@ -78,6 +79,8 @@ export const List: FC<ListProps> = (props) => {
               avatar={value?.avatar}
               email={value?.email}
               status={value?.status}
+              userID={value?.userID}
+              currentUserID={currentUserID}
             />
           )
         },

@@ -9,6 +9,9 @@ export interface NameSpaceProps {
   avatar: string
   email: string
   status: USER_STATUS
+
+  userID: string
+  currentUserID: string
 }
 
 export interface ListProps

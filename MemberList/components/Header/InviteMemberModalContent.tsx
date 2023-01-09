@@ -9,7 +9,8 @@ import {
   Select,
   useMessage,
 } from "@illa-design/react"
-import { FC, MouseEvent, useCallback, useState } from "react"
+import copy from "copy-to-clipboard"
+import { FC, MouseEvent, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
@@ -160,7 +161,6 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
         <InviteMemberModalContent
           currentUserRole={currentUserRole}
           allowInviteByLink={allowInviteByLink}
-          changeTeamMembersRole={changeTeamMembersRole}
           inviteByEmail={inviteByEmail}
           renewInviteLink={renewInviteLink}
           fetchInviteLink={fetchInviteLink}
@@ -181,6 +181,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     configInviteLink,
   } = props
   const { t } = useTranslation()
+  const message = useMessage()
 
   const [inviteLink, setInviteLink] = useState("")
   const [inviteLinkRole, setInviteLinkRole] = useState<USER_ROLE>(
@@ -213,6 +214,12 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     [fetchInviteLink, renewInviteLink],
   )
 
+  useEffect(() => {
+    if (allowInviteByLink) {
+      fetchInviteLinkHandler(USER_ROLE.VIEWER)
+    }
+  }, [allowInviteByLink, fetchInviteLinkHandler])
+
   const handleChangeInviteLinkRole = useCallback(
     async (value: any) => {
       setInviteLinkRole(value)
@@ -222,7 +229,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
   )
 
   const handleClickRenewInviteLink = useCallback(async () => {
-    await fetchInviteLinkHandler(USER_ROLE.VIEWER)
+    await fetchInviteLinkHandler(USER_ROLE.VIEWER, true)
   }, [fetchInviteLinkHandler])
 
   const handleClickConfigInviteLink = useCallback(async () => {
@@ -253,6 +260,21 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
       value: role,
     }
   })
+
+  const handleClickCopyInviteLink = useCallback(() => {
+    const copyReturned = copy(inviteLink)
+    if (copyReturned) {
+      message.success({
+        content: t("copied"),
+      })
+    } else {
+      message.error({
+        content: t("copy_failed"),
+      })
+    }
+  }, [inviteLink, message, t])
+
+  console.log("allowInviteByLink", allowInviteByLink)
 
   return (
     <div css={subBodyWrapperStyle}>
@@ -305,7 +327,12 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
               onChange={handleChangeInviteLinkRole}
             />
           </div>
-          <Button size="large" h="40px" colorScheme="black">
+          <Button
+            size="large"
+            h="40px"
+            colorScheme="black"
+            onClick={handleClickCopyInviteLink}
+          >
             {t("user_management.modal.link.copy")}
           </Button>
         </div>
@@ -325,7 +352,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
 }
 
 export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
-  const { currentUserRole, inviteByEmail, changeTeamMembersRole } = props
+  const { currentUserRole, inviteByEmail } = props
 
   const { t } = useTranslation()
   const message = useMessage()
@@ -423,28 +450,6 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       })
   }, [inviteByEmail, inviteEmails, inviteRole, message, t])
 
-  const changeTeamMembersRoleInList = useCallback(
-    (userID: string, userRole: USER_ROLE) => {
-      const findIndex = inviteMemberList.findIndex(
-        (item) => item.userID === userID,
-      )
-      if (findIndex === -1) return Promise.reject(false)
-      setInviteMemberList((prev) => {
-        return prev.map((item) => {
-          if (item.userID === userID) {
-            return {
-              ...item,
-              role: userRole,
-            }
-          }
-          return item
-        })
-      })
-      return changeTeamMembersRole(userID, userRole)
-    },
-    [changeTeamMembersRole, inviteMemberList],
-  )
-
   return (
     <div css={subBodyWrapperStyle}>
       <div css={subBodyTitleWrapperStyle}>
@@ -502,7 +507,6 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
-    changeTeamMembersRole,
     inviteByEmail,
   } = props
 
@@ -517,7 +521,6 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
       />
       <InviteMemberByEmail
         currentUserRole={currentUserRole}
-        changeTeamMembersRole={changeTeamMembersRole}
         inviteByEmail={inviteByEmail}
       />
     </div>

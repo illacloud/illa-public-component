@@ -69,7 +69,7 @@ export interface InviteMemberByLinkProps
 export interface InviteMemberByEmailProps
   extends Pick<
     InviteMemberModalContentProps,
-    "currentUserRole" | "inviteByEmail" | "changeTeamMembersRole"
+    "currentUserRole" | "inviteByEmail"
   > {}
 
 export interface InviteMemberModalContentProps
@@ -81,5 +81,4 @@ export interface InviteMemberModalContentProps
     | "configInviteLink"
     | "allowInviteByLink"
     | "inviteByEmail"
-    | "changeTeamMembersRole"
   > {}

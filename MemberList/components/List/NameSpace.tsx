@@ -11,13 +11,13 @@ import {
 import { USER_STATUS } from "@/illa-public-component/UserRoleUtils/interface"
 
 export const NameSpace: FC<NameSpaceProps> = (props) => {
-  const { name, email, avatar, status } = props
+  const { name, email, avatar, status, userID, currentUserID } = props
   return (
     <div css={nameSpaceWrapperStyle}>
       <Avatar src={avatar} colorScheme="techPurple" />
       <div css={nameAndEmailWrapperStyle}>
         <p css={nameStyle}>
-          {name}{" "}
+          {name} {userID === currentUserID && <span>(You)</span>}{" "}
           {status === USER_STATUS.PENDING && (
             <span css={memberStatusWhenPending}>(Pending)</span>
           )}
