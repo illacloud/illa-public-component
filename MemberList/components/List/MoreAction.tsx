@@ -104,15 +104,17 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         trigger="click"
         dropList={
           <DropList>
-            <AuthShown
-              currentUserRole={currentUserRole}
-              allowRoles={[USER_ROLE.OWNER]}
-              rules={SHOW_RULES.EQUAL}
-            >
-              <DropList.Item key="trans" onClick={handleClickTransOwner}>
-                {t("user_management.page.transfer")}
-              </DropList.Item>
-            </AuthShown>
+            {userRole !== USER_ROLE.OWNER && (
+              <AuthShown
+                currentUserRole={currentUserRole}
+                allowRoles={[USER_ROLE.OWNER]}
+                rules={SHOW_RULES.EQUAL}
+              >
+                <DropList.Item key="trans" onClick={handleClickTransOwner}>
+                  {t("user_management.page.transfer")}
+                </DropList.Item>
+              </AuthShown>
+            )}
             <AuthShown
               currentUserRole={currentUserRole}
               allowRoles={[userRole]}
