@@ -74,10 +74,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
       },
       onOk: async () => {
         try {
-          const result = await changeTeamMembersRole(
-            currentUserID,
-            USER_ROLE.ADMIN,
-          )
+          const result = await changeTeamMembersRole(userID, USER_ROLE.OWNER)
           if (result) {
             message.success({
               content: t("user_management.mes.transfer_suc"),
