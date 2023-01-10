@@ -33,7 +33,8 @@ export interface MemberListProps {
   currentUserID: string
   currentUserRole: USER_ROLE
   userListData: UserData[]
-  allowEditorOrViewerInvite: boolean
+  allowEditorManageTeamMember: boolean
+  allowViewerManageTeamMember: boolean
   allowInviteByLink: boolean
   changeTeamMembersRole: (
     userID: string,
@@ -48,6 +49,7 @@ export interface MemberListProps {
     userRole: USER_ROLE,
   ) => Promise<inviteByEmailResponse>
   updateTeamPermissionConfig: (
-    allowEditorOrViewerInvite: boolean,
+    allowEditorManageTeamMember: boolean,
+    allowViewerManageTeamMember: boolean,
   ) => Promise<boolean>
 }

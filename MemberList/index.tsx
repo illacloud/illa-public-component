@@ -8,7 +8,8 @@ export const MemberList: FC<MemberListProps> = (props) => {
   const {
     currentUserRole,
     currentUserID,
-    allowEditorOrViewerInvite,
+    allowEditorManageTeamMember,
+    allowViewerManageTeamMember,
     hasApp,
     allowInviteByLink,
     userListData,
@@ -26,7 +27,8 @@ export const MemberList: FC<MemberListProps> = (props) => {
         hasApp={hasApp}
         currentUserID={currentUserID}
         currentUserRole={currentUserRole}
-        allowEditorOrViewerInvite={allowEditorOrViewerInvite}
+        allowEditorManageTeamMember={allowEditorManageTeamMember}
+        allowViewerManageTeamMember={allowViewerManageTeamMember}
         allowInviteByLink={allowInviteByLink}
         changeTeamMembersRole={changeTeamMembersRole}
         configInviteLink={configInviteLink}

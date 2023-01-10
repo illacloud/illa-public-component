@@ -8,7 +8,8 @@ export interface HeaderProps
   extends Pick<
     MemberListProps,
     | "currentUserRole"
-    | "allowEditorOrViewerInvite"
+    | "allowEditorManageTeamMember"
+    | "allowViewerManageTeamMember"
     | "updateTeamPermissionConfig"
     | "removeTeamMembers"
     | "currentUserID"
@@ -29,6 +30,8 @@ export interface MoreActionProps
     | "hasApp"
     | "updateTeamPermissionConfig"
     | "removeTeamMembers"
+    | "allowEditorManageTeamMember"
+    | "allowViewerManageTeamMember"
   > {
   children: ReactNode
 }

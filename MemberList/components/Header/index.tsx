@@ -15,7 +15,8 @@ export const Header: FC<HeaderProps> = (props) => {
   const {
     currentUserRole,
     currentUserID,
-    allowEditorOrViewerInvite,
+    allowEditorManageTeamMember,
+    allowViewerManageTeamMember,
     hasApp,
     allowInviteByLink,
     updateTeamPermissionConfig,
@@ -44,6 +45,8 @@ export const Header: FC<HeaderProps> = (props) => {
           hasApp={hasApp}
           removeTeamMembers={removeTeamMembers}
           updateTeamPermissionConfig={updateTeamPermissionConfig}
+          allowEditorManageTeamMember={allowEditorManageTeamMember}
+          allowViewerManageTeamMember={allowViewerManageTeamMember}
         >
           <Button w="32px" colorScheme="grayBlue">
             <MoreIcon />

@@ -18,6 +18,8 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     currentUserID,
     currentUserRole,
     hasApp,
+    allowEditorManageTeamMember,
+    allowViewerManageTeamMember,
     updateTeamPermissionConfig,
     removeTeamMembers,
   } = props
@@ -35,7 +37,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
   const handleSwitchChange = useCallback(
     async (value: boolean) => {
       try {
-        await updateTeamPermissionConfig(value)
+        await updateTeamPermissionConfig(value, value)
       } catch (e) {
         console.error(e)
       }
@@ -108,6 +110,9 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
                 <Switch
                   onClick={stopPropagation}
                   onChange={handleSwitchChange}
+                  checked={
+                    allowEditorManageTeamMember && allowViewerManageTeamMember
+                  }
                 />
               </div>
             </DropListItem>
