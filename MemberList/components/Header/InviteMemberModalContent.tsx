@@ -130,6 +130,7 @@ export const InviteList: FC<InviteListProps> = (props) => {
 
 export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
   const {
+    userListData,
     currentUserRole,
     allowInviteByLink,
     handleCloseModal,
@@ -160,6 +161,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
         </header>
         <Divider />
         <InviteMemberModalContent
+          userListData={userListData}
           currentUserRole={currentUserRole}
           allowInviteByLink={allowInviteByLink}
           inviteByEmail={inviteByEmail}
@@ -354,7 +356,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
 }
 
 export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
-  const { currentUserRole, inviteByEmail } = props
+  const { currentUserRole, inviteByEmail, userListData } = props
 
   const { t } = useTranslation()
   const message = useMessage()
@@ -389,26 +391,49 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       if (!EMAIL_REGX.test(inputValue)) {
         return false
       }
+      if (
+        [...userListData, ...inviteMemberList].findIndex(
+          (item) => item.email === inputEmailValue,
+        )
+      ) {
+        return false
+      }
       return values?.every((item) => item?.value !== inputValue)
     },
-    [],
+    [inputEmailValue, inviteMemberList, userListData],
   )
 
   const handlePressEnter = useCallback(() => {
     setInputEmailValue("")
-    if (!EMAIL_REGX.test(inputEmailValue)) {
+    if (
+      [...userListData, ...inviteMemberList].findIndex(
+        (item) => item.email === inputEmailValue,
+      )
+    ) {
+      message.error({
+        content: t("user_management.modal.email.in_list"),
+      })
+    } else if (!EMAIL_REGX.test(inputEmailValue)) {
       message.error({
         content: `${inputEmailValue} is not email`,
       })
     }
-  }, [inputEmailValue, message])
+  }, [inputEmailValue, inviteMemberList, message, t, userListData])
 
   const handleInputValueChange = useCallback(
     (value: string) => {
       setInputEmailValue(value)
       if (value[value.length - 1] === ",") {
         const finalValue = value.slice(0, -1)
-        if (EMAIL_REGX.test(finalValue)) {
+        if (
+          [...userListData, ...inviteMemberList].findIndex(
+            (item) => item.email === inputEmailValue,
+          )
+        ) {
+          message.error({
+            content: t("user_management.modal.email.in_list"),
+          })
+        } else if (EMAIL_REGX.test(finalValue)) {
           setInviteEmails([...inviteEmails, value.slice(0, -1)])
         } else {
           message.error({
@@ -418,11 +443,20 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         setInputEmailValue("")
       }
     },
-    [inputEmailValue, inviteEmails, message],
+    [inputEmailValue, inviteEmails, inviteMemberList, message, t, userListData],
   )
 
   const handleBlurInputValue = useCallback(() => {
     if (!inputEmailValue) return
+    if (
+      [...userListData, ...inviteMemberList].findIndex(
+        (item) => item.email === inputEmailValue,
+      )
+    ) {
+      message.error({
+        content: t("user_management.modal.email.in_list"),
+      })
+    }
     if (EMAIL_REGX.test(inputEmailValue)) {
       setInviteEmails([...inviteEmails, inputEmailValue])
     } else {
@@ -431,7 +465,14 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       })
     }
     setInputEmailValue("")
-  }, [inputEmailValue, inviteEmails, message])
+  }, [
+    inputEmailValue,
+    inviteEmails,
+    inviteMemberList,
+    message,
+    t,
+    userListData,
+  ])
 
   const handleClickInviteButton = useCallback(() => {
     const requests = inviteEmails.map((email) => {
@@ -510,6 +551,7 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
     fetchInviteLink,
     configInviteLink,
     inviteByEmail,
+    userListData,
   } = props
 
   return (
@@ -522,6 +564,7 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
         renewInviteLink={renewInviteLink}
       />
       <InviteMemberByEmail
+        userListData={userListData}
         currentUserRole={currentUserRole}
         inviteByEmail={inviteByEmail}
       />

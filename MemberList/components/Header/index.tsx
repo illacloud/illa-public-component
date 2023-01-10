@@ -27,6 +27,7 @@ export const Header: FC<HeaderProps> = (props) => {
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
+    userListData,
   } = props
   const { t } = useTranslation()
 
@@ -61,6 +62,7 @@ export const Header: FC<HeaderProps> = (props) => {
       {showInviteMemberModal &&
         createPortal(
           <InviteMemberModal
+            userListData={userListData}
             handleCloseModal={() => {
               setShowInviteMemberModal(false)
             }}

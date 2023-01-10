@@ -21,6 +21,7 @@ export interface HeaderProps
     | "fetchInviteLink"
     | "configInviteLink"
     | "allowInviteByLink"
+    | "userListData"
   > {}
 
 export interface MoreActionProps
@@ -46,6 +47,7 @@ export interface InviteListProps
   extends Pick<InviteMemberByEmailProps, "currentUserRole" | "inviteByEmail"> {
   inviteList?: inviteByEmailResponse[]
 }
+
 // changeTeamMembersRole, currentUserRole, inviteByEmail, renewInviteLink
 export interface InviteMemberModalProps
   extends Pick<
@@ -57,6 +59,7 @@ export interface InviteMemberModalProps
     | "fetchInviteLink"
     | "configInviteLink"
     | "allowInviteByLink"
+    | "userListData"
   > {
   handleCloseModal: () => void
 }
@@ -74,7 +77,7 @@ export interface InviteMemberByLinkProps
 export interface InviteMemberByEmailProps
   extends Pick<
     InviteMemberModalContentProps,
-    "currentUserRole" | "inviteByEmail"
+    "currentUserRole" | "inviteByEmail" | "userListData"
   > {}
 
 export interface InviteMemberModalContentProps
@@ -86,4 +89,5 @@ export interface InviteMemberModalContentProps
     | "configInviteLink"
     | "allowInviteByLink"
     | "inviteByEmail"
+    | "userListData"
   > {}
