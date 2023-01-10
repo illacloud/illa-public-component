@@ -41,6 +41,7 @@ export interface MemberListProps {
     userRole: USER_ROLE,
   ) => Promise<boolean>
   configInviteLink: (inviteLinkEnabled: boolean) => Promise<boolean>
+  removeTeam: () => Promise<boolean>
   removeTeamMembers: (userID: string) => Promise<boolean>
   fetchInviteLink: (userRole: USER_ROLE) => Promise<fetchInviteLinkResponse>
   renewInviteLink: (userRole: USER_ROLE) => Promise<fetchInviteLinkResponse>

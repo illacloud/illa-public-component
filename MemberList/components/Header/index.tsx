@@ -20,6 +20,7 @@ export const Header: FC<HeaderProps> = (props) => {
     hasApp,
     allowInviteByLink,
     updateTeamPermissionConfig,
+    removeTeam,
     removeTeamMembers,
     changeTeamMembersRole,
     inviteByEmail,
@@ -43,6 +44,7 @@ export const Header: FC<HeaderProps> = (props) => {
           currentUserRole={currentUserRole}
           currentUserID={currentUserID}
           hasApp={hasApp}
+          removeTeam={removeTeam}
           removeTeamMembers={removeTeamMembers}
           updateTeamPermissionConfig={updateTeamPermissionConfig}
           allowEditorManageTeamMember={allowEditorManageTeamMember}

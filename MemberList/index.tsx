@@ -13,6 +13,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
     hasApp,
     allowInviteByLink,
     userListData,
+    removeTeam,
     updateTeamPermissionConfig,
     removeTeamMembers,
     changeTeamMembersRole,
@@ -30,6 +31,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
         allowEditorManageTeamMember={allowEditorManageTeamMember}
         allowViewerManageTeamMember={allowViewerManageTeamMember}
         allowInviteByLink={allowInviteByLink}
+        removeTeam={removeTeam}
         changeTeamMembersRole={changeTeamMembersRole}
         configInviteLink={configInviteLink}
         removeTeamMembers={removeTeamMembers}

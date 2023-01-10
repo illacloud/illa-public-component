@@ -22,6 +22,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     allowViewerManageTeamMember,
     updateTeamPermissionConfig,
     removeTeamMembers,
+    removeTeam,
   } = props
   const modal = useModal()
 
@@ -57,7 +58,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
           colorScheme: "red",
         },
         onOk: () => {
-          removeTeamMembers(currentUserID)
+          removeTeam()
         },
       })
     } else {
@@ -75,7 +76,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         },
       })
     }
-  }, [currentUserID, currentUserRole, modal, removeTeamMembers])
+  }, [currentUserID, currentUserRole, modal, removeTeamMembers, removeTeam])
 
   const handleClickDropList = useCallback(
     (key: string) => {
