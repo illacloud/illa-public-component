@@ -49,11 +49,10 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     if (currentUserRole === USER_ROLE.OWNER) {
       modal.show({
         id: "deleteTeam",
-        title: "Are you sure you want to delete this team?",
-        children:
-          "The team domain will be unavailable after deletion, and all members will be removed from this team.",
-        okText: "Confirm",
-        cancelText: "Cancel",
+        title: t("team_setting.delete_modal.title"),
+        children: t("team_setting.delete_modal.desctiption"),
+        okText: t("team_setting.delete_modal.delete"),
+        cancelText: t("team_setting.delete_modal.cancel"),
         okButtonProps: {
           colorScheme: "red",
         },
@@ -64,11 +63,10 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     } else {
       modal.show({
         id: "leaveTeam",
-        title: "Are you sure you want to leave this team?",
-        children:
-          "You will not be able to access any team resources after leaving.",
-        okText: "Leave",
-        cancelText: "Cancel",
+        title: t("team_setting.leave_modal.title"),
+        children: t("team_setting.leave_modal.description"),
+        okText: t("team_setting.leave_modal.leave"),
+        cancelText: t("team_setting.leave_modal.cancel"),
         okButtonProps: {
           colorScheme: "red",
         },
