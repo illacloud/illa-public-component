@@ -1,5 +1,5 @@
-import { Avatar } from "@illa-design/react"
 import { FC } from "react"
+import { Avatar } from "@/illa-public-component/Avatar"
 import { NameSpaceProps } from "@/illa-public-component/MemberList/components/List/interface"
 import {
   emailStyle,
@@ -14,7 +14,7 @@ export const NameSpace: FC<NameSpaceProps> = (props) => {
   const { name, email, avatar, status, userID, currentUserID } = props
   return (
     <div css={nameSpaceWrapperStyle}>
-      <Avatar src={avatar} colorScheme="techPurple" />
+      <Avatar avatarUrl={avatar} name={name} id={userID} />
       {name ? (
         <div css={nameAndEmailWrapperStyle}>
           <p css={nameStyle}>
