@@ -439,6 +439,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         <InputTag
           _css={emailInputStyle}
           size="large"
+          alignItems="start"
           borderColor={"techPurple"}
           suffix={
             <RoleSelect

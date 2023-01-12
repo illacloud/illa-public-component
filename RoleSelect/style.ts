@@ -39,3 +39,7 @@ export const optionItemStyle = css`
     height: 16px;
   }
 `
+
+export const pointerStyle = css`
+  cursor: pointer;
+`

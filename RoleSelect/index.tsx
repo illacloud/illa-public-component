@@ -9,7 +9,12 @@ import {
   userRoleMapI18nString,
 } from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/store/userInfo/userInfoState"
-import { optionContentStyle, optionItemStyle, valueLabelStyle } from "./style"
+import {
+  optionContentStyle,
+  optionItemStyle,
+  pointerStyle,
+  valueLabelStyle,
+} from "./style"
 
 interface RoleSelectProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
@@ -85,7 +90,7 @@ const RoleSelect: FC<RoleSelectProps> = (props) => {
         </div>
       }
     >
-      <div css={valueLabelStyle} className={className}>
+      <div css={[valueLabelStyle, pointerStyle]} className={className}>
         {t(userRoleMapI18nString[value])}
         {popupVisible ? (
           <ExpandIcon css={css({ transform: "rotate(180deg)" })} />
