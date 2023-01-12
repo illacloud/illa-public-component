@@ -6,7 +6,6 @@ import {
   DropList,
   Dropdown,
   InputTag,
-  Select,
   Skeleton,
   useMessage,
 } from "@illa-design/react"
@@ -27,8 +26,8 @@ import {
 import {
   avatarAndNameWrapperStyle,
   closeIconHotSpotStyle,
+  emailInputStyle,
   fakerInputStyle,
-  fakerInputWithEmail,
   inviteAvatarStyle,
   inviteEmailWrapperStyle,
   inviteLinkWhenClosedStyle,
@@ -50,10 +49,7 @@ import {
   urlAreaStyle,
 } from "@/illa-public-component/MemberList/components/Header/style"
 import { inviteByEmailResponse } from "@/illa-public-component/MemberList/interface"
-import {
-  getSmallThanTargetRole,
-  userRoleMapI18nString,
-} from "@/illa-public-component/UserRoleUtils"
+import RoleSelect from "@/illa-public-component/RoleSelect"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 const DropListItem = DropList.Item
@@ -77,18 +73,6 @@ export const InviteListItem: FC<InviteListItemProps> = (props) => {
     [email, inviteByEmail],
   )
 
-  const canSelectUserRoleOptions = getSmallThanTargetRole(
-    currentUserRole,
-    false,
-    [USER_ROLE.OWNER, USER_ROLE.CUSTOM],
-  ).map((role) => {
-    const labelI18nKey = userRoleMapI18nString[role]
-    return {
-      label: t(labelI18nKey),
-      value: role,
-    }
-  })
-
   return (
     <div css={inviteListTitleWrapperStyle}>
       <div css={avatarAndNameWrapperStyle}>
@@ -99,10 +83,9 @@ export const InviteListItem: FC<InviteListItemProps> = (props) => {
         )}
         <span css={nicknameStyle}>{email}</span>
       </div>
-      <Select
-        w="auto"
-        value={t(userRoleMapI18nString[userRole])}
-        options={canSelectUserRoleOptions}
+      <RoleSelect
+        value={userRole}
+        userRole={currentUserRole}
         onChange={handleChangeRole}
       />
     </div>
@@ -251,19 +234,6 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     inviteLinkRole,
   ])
 
-  const canSelectUserRoleOptions = getSmallThanTargetRole(
-    currentUserRole,
-    false,
-    [USER_ROLE.OWNER, USER_ROLE.CUSTOM],
-  ).map((role) => {
-    const labelI18nKey = userRoleMapI18nString[role]
-
-    return {
-      label: t(labelI18nKey),
-      value: role,
-    }
-  })
-
   const handleClickCopyInviteLink = useCallback(() => {
     const copyReturned = copy(inviteLink)
     if (copyReturned) {
@@ -324,10 +294,9 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
                 ? t("user_management.modal.link.fail")
                 : inviteLink}
             </span>
-            <Select
-              w="auto"
-              value={t(userRoleMapI18nString[inviteLinkRole])}
-              options={canSelectUserRoleOptions}
+            <RoleSelect
+              value={inviteLinkRole}
+              userRole={currentUserRole}
               onChange={handleChangeInviteLinkRole}
             />
           </div>
@@ -368,111 +337,84 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
     inviteByEmailResponse[]
   >([])
 
-  const canSelectUserRoleOptions = getSmallThanTargetRole(
-    currentUserRole,
-    false,
-    [USER_ROLE.OWNER, USER_ROLE.CUSTOM],
-  ).map((role) => {
-    const labelI18nKey = userRoleMapI18nString[role]
-
-    return {
-      label: t(labelI18nKey),
-      value: role,
-    }
-  })
-
   const handleChangeInviteRoleByEmail = useCallback((value: any) => {
     setInviteRole(value)
   }, [])
 
+  const checkEmail = useCallback(
+    (email: string) => {
+      if (
+        [...userListData, ...inviteMemberList].find(
+          (item) => item.email === email,
+        )
+      ) {
+        message.error({
+          content: t("user_management.modal.email.in_list"),
+        })
+      } else if (!EMAIL_REGX.test(email)) {
+        message.error({
+          content: `${email} is not email`,
+        })
+      } else {
+        return true
+      }
+    },
+    [userListData, inviteMemberList, message, t],
+  )
+
   const handleValidateInputValue = useCallback(
     (inputValue: string, values: any[]) => {
       if (!inputValue) return false
-      if (!EMAIL_REGX.test(inputValue)) {
+      if (!checkEmail(inputValue)) {
         return false
       }
-      if (
-        [...userListData, ...inviteMemberList].findIndex(
-          (item) => item.email === inputEmailValue,
-        )
-      ) {
-        return false
-      }
+      // if (!EMAIL_REGX.test(inputValue)) {
+      //   message.error({
+      //     content: `${inputValue} is not email`,
+      //   })
+      //   return false
+      // }
+      // if (
+      //   [...userListData, ...inviteMemberList].find(
+      //     (item) => item.email === inputValue,
+      //   )
+      // ) {
+      //   message.error({
+      //     content: t("user_management.modal.email.in_list"),
+      //   })
+      //   return false
+      // }
       return values?.every((item) => item?.value !== inputValue)
     },
-    [inputEmailValue, inviteMemberList, userListData],
+    [inviteMemberList, userListData],
   )
 
   const handlePressEnter = useCallback(() => {
     setInputEmailValue("")
-    if (
-      [...userListData, ...inviteMemberList].findIndex(
-        (item) => item.email === inputEmailValue,
-      )
-    ) {
-      message.error({
-        content: t("user_management.modal.email.in_list"),
-      })
-    } else if (!EMAIL_REGX.test(inputEmailValue)) {
-      message.error({
-        content: `${inputEmailValue} is not email`,
-      })
-    }
-  }, [inputEmailValue, inviteMemberList, message, t, userListData])
+  }, [])
 
   const handleInputValueChange = useCallback(
     (value: string) => {
       setInputEmailValue(value)
       if (value[value.length - 1] === ",") {
         const finalValue = value.slice(0, -1)
-        if (
-          [...userListData, ...inviteMemberList].findIndex(
-            (item) => item.email === inputEmailValue,
-          )
-        ) {
-          message.error({
-            content: t("user_management.modal.email.in_list"),
-          })
-        } else if (EMAIL_REGX.test(finalValue)) {
+        console.log(value, finalValue, "finalValue")
+        if (checkEmail(finalValue)) {
           setInviteEmails([...inviteEmails, value.slice(0, -1)])
-        } else {
-          message.error({
-            content: `${inputEmailValue} is not email`,
-          })
         }
         setInputEmailValue("")
       }
     },
-    [inputEmailValue, inviteEmails, inviteMemberList, message, t, userListData],
+    [inviteEmails],
   )
 
   const handleBlurInputValue = useCallback(() => {
     if (!inputEmailValue) return
-    if (
-      [...userListData, ...inviteMemberList].findIndex(
-        (item) => item.email === inputEmailValue,
-      )
-    ) {
-      message.error({
-        content: t("user_management.modal.email.in_list"),
-      })
-    }
-    if (EMAIL_REGX.test(inputEmailValue)) {
+    if (checkEmail(inputEmailValue)) {
       setInviteEmails([...inviteEmails, inputEmailValue])
-    } else {
-      message.error({
-        content: `${inputEmailValue} is not email`,
-      })
+      setInputEmailValue("")
     }
-    setInputEmailValue("")
-  }, [
-    inputEmailValue,
-    inviteEmails,
-    inviteMemberList,
-    message,
-    t,
-    userListData,
-  ])
+  }, [inputEmailValue, inviteEmails])
 
   const handleClickInviteButton = useCallback(() => {
     const requests = inviteEmails.map((email) => {
@@ -501,27 +443,25 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         </h4>
       </div>
       <div css={inviteEmailWrapperStyle}>
-        <div css={fakerInputWithEmail}>
-          <InputTag
-            w="180px"
-            flex="none"
-            maxH="198px"
-            ovY="auto"
-            value={inviteEmails}
-            inputValue={inputEmailValue}
-            validate={handleValidateInputValue}
-            onChange={setInviteEmails}
-            onPressEnter={handlePressEnter}
-            onInputChange={handleInputValueChange}
-            onBlur={handleBlurInputValue}
-          />
-          <Select
-            w="auto"
-            value={t(userRoleMapI18nString[inviteRole])}
-            options={canSelectUserRoleOptions}
-            onChange={handleChangeInviteRoleByEmail}
-          />
-        </div>
+        <InputTag
+          _css={emailInputStyle}
+          size="large"
+          borderColor={"techPurple"}
+          suffix={
+            <RoleSelect
+              value={inviteRole}
+              userRole={currentUserRole}
+              onChange={handleChangeInviteRoleByEmail}
+            />
+          }
+          value={inviteEmails}
+          inputValue={inputEmailValue}
+          validate={handleValidateInputValue}
+          onChange={setInviteEmails}
+          onPressEnter={handlePressEnter}
+          onInputChange={handleInputValueChange}
+          onBlur={handleBlurInputValue}
+        />
         <Button
           size="large"
           h="40px"

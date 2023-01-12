@@ -159,6 +159,16 @@ export const fakerInputWithEmail = css`
   align-items: flex-start;
 `
 
+export const initInputTagStyle = css`
+  border: unset;
+  padding: unset;
+  box-shadow: unset;
+`
+
+export const emailInputStyle = css`
+  width: 378px;
+`
+
 export const urlAreaStyle = (isError: boolean) => css`
   max-width: 280px;
   font-size: 14px;

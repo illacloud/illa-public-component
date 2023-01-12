@@ -1,4 +1,4 @@
-import { Select, Table, useMessage } from "@illa-design/react"
+import { Table, useMessage } from "@illa-design/react"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { MoreAction } from "@/illa-public-component/MemberList/components/List/MoreAction"
@@ -8,10 +8,7 @@ import {
   listBodyStyle,
   listWrapperStyle,
 } from "@/illa-public-component/MemberList/components/List/style"
-import {
-  getSmallThanTargetRole,
-  userRoleMapI18nString,
-} from "@/illa-public-component/UserRoleUtils"
+import RoleSelect from "@/illa-public-component/RoleSelect"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 export const List: FC<ListProps> = (props) => {
@@ -99,26 +96,14 @@ export const List: FC<ListProps> = (props) => {
         accessorKey: "permissions",
         cell: (props: Record<string, any>) => {
           const value = props.getValue()
-          const options = getSmallThanTargetRole(currentUserRole, false, [
-            USER_ROLE.OWNER,
-            USER_ROLE.CUSTOM,
-          ]).map((role) => {
-            const labelI18nKey = userRoleMapI18nString[role]
-
-            return {
-              label: t(labelI18nKey),
-              value: role,
-            }
-          })
 
           return (
-            <Select
-              value={t(userRoleMapI18nString[value.userRole as USER_ROLE])}
-              options={options}
+            <RoleSelect
+              value={value.userRole}
+              userRole={currentUserRole}
               onChange={(userRole: USER_ROLE) => {
                 handleChangeRole(value?.userID, userRole)
               }}
-              w="auto"
             />
           )
         },
