@@ -90,7 +90,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
   return (
     <Dropdown
       trigger="click"
-      position="bottom"
+      position="bottom-end"
       dropList={
         <DropList onClickItem={handleClickDropList}>
           <AuthShown

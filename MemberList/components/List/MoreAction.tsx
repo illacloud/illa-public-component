@@ -6,7 +6,7 @@ import {
   useMessage,
   useModal,
 } from "@illa-design/react"
-import { FC, useCallback } from "react"
+import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
@@ -30,6 +30,13 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
   const modal = useModal()
   const message = useMessage()
   const { t } = useTranslation()
+
+  const disabled = useMemo(() => {
+    return (
+      userID === currentUserID ||
+      isSmallThanTargetRole(userRole, currentUserRole, false)
+    )
+  }, [userID, currentUserID, userRole, currentUserRole])
 
   const handleClickRemoveMember = useCallback(() => {
     modal.show({
@@ -100,7 +107,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
   return (
     <div css={moreActionWrapper}>
       <Dropdown
-        position="bottom"
+        position="bottom-end"
         trigger="click"
         dropList={
           <DropList>
@@ -127,11 +134,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
           </DropList>
         }
       >
-        <Button
-          colorScheme="grayBlue"
-          w="32px"
-          disabled={isSmallThanTargetRole(userRole, currentUserRole, false)}
-        >
+        <Button colorScheme="grayBlue" w="32px" disabled={disabled}>
           <MoreIcon />
         </Button>
       </Dropdown>

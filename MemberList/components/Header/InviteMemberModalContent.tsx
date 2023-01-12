@@ -256,7 +256,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
         {allowInviteByLink && (
           <Dropdown
             trigger="click"
-            position="bottom"
+            position="bottom-end"
             dropList={
               <DropList>
                 <DropListItem key="reset" onClick={handleClickRenewInviteLink}>
@@ -368,22 +368,6 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       if (!checkEmail(inputValue)) {
         return false
       }
-      // if (!EMAIL_REGX.test(inputValue)) {
-      //   message.error({
-      //     content: `${inputValue} is not email`,
-      //   })
-      //   return false
-      // }
-      // if (
-      //   [...userListData, ...inviteMemberList].find(
-      //     (item) => item.email === inputValue,
-      //   )
-      // ) {
-      //   message.error({
-      //     content: t("user_management.modal.email.in_list"),
-      //   })
-      //   return false
-      // }
       return values?.every((item) => item?.value !== inputValue)
     },
     [inviteMemberList, userListData],
