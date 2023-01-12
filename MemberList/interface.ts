@@ -22,7 +22,9 @@ export interface fetchInviteLinkResponse {
 }
 
 export interface inviteByEmailResponse {
+  name?: string
   email: string
+  userID: string
   userRole: USER_ROLE
   userAvatar?: string
   emailStatus: USER_STATUS
