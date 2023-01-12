@@ -61,6 +61,7 @@ export interface InviteMemberModalProps
     | "allowInviteByLink"
     | "userListData"
   > {
+  maskClosable?: boolean
   handleCloseModal: () => void
 }
 

@@ -122,14 +122,15 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
+    maskClosable,
   } = props
   const { t } = useTranslation()
   const handleClickMask = useCallback(
     (e: MouseEvent<HTMLDivElement>) => {
       e.stopPropagation()
-      handleCloseModal()
+      maskClosable && handleCloseModal()
     },
-    [handleCloseModal],
+    [maskClosable, handleCloseModal],
   )
   return (
     <div css={modalWithMaskWrapperStyle}>
