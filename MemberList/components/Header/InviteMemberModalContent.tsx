@@ -308,6 +308,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
             size="large"
             h="40px"
             colorScheme="black"
+            loading={loading}
             onClick={handleClickCopyInviteLink}
           >
             {t("user_management.modal.link.copy")}
@@ -334,6 +335,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   const { t } = useTranslation()
   const message = useMessage()
 
+  const [loading, setLoading] = useState(false)
   const [inviteRole, setInviteRole] = useState<USER_ROLE>(USER_ROLE.VIEWER)
   const [inviteEmails, setInviteEmails] = useState<string[]>([])
   const [inputEmailValue, setInputEmailValue] = useState("")
@@ -407,6 +409,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
     const requests = inviteEmails.map((email) => {
       return inviteByEmail(email, inviteRole)
     })
+    setLoading(true)
     Promise.all(requests)
       .then((results) => {
         message.success({
@@ -419,6 +422,9 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         message.error({
           content: t("user_management.mes.invite_fail"),
         })
+      })
+      .finally(() => {
+        setLoading(false)
       })
   }, [inviteByEmail, inviteEmails, inviteRole, message, t])
 
@@ -453,6 +459,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
           size="large"
           h="40px"
           colorScheme="black"
+          loading={loading}
           disabled={!(Array.isArray(inviteEmails) && inviteEmails.length > 0)}
           onClick={handleClickInviteButton}
         >

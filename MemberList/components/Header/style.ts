@@ -68,6 +68,7 @@ export const modalWrapperStyle = css`
   border: 1px solid ${getColor("grayBlue", "08")};
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  width: 486px;
 `
 
 export const modalHeaderWrapperStyle = css`
@@ -153,7 +154,7 @@ export const fakerInputStyle = css`
   border: 1px solid ${getColor("grayBlue", "08")};
   gap: 8px;
   padding: 8px 16px;
-  width: 378px;
+  width: 100%;
 `
 export const fakerInputWithEmail = css`
   ${fakerInputStyle};
