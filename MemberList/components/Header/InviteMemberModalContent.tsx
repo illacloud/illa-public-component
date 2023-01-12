@@ -398,7 +398,6 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       setInputEmailValue(value)
       if (value[value.length - 1] === ",") {
         const finalValue = value.slice(0, -1)
-        console.log(value, finalValue, "finalValue")
         if (checkEmail(finalValue)) {
           setInviteEmails([...inviteEmails, value.slice(0, -1)])
         }

@@ -24,6 +24,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     removeTeamMembers,
     changeTeamMembersRole,
     name,
+    email,
   } = props
 
   const modal = useModal()
@@ -33,7 +34,9 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
   const handleClickRemoveMember = useCallback(() => {
     modal.show({
       id: "removeMember",
-      title: t("user_management.remove_modal.title", { username: name }),
+      title: t("user_management.remove_modal.title", {
+        username: name ? name : email,
+      }),
       children: t("user_management.remove_modal.description"),
       okText: t("user_management.remove_modal.remove"),
       cancelText: t("user_management.remove_modal.cancel"),
