@@ -174,11 +174,12 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
   const [inviteLinkRole, setInviteLinkRole] = useState<USER_ROLE>(
     USER_ROLE.VIEWER,
   )
-
+  const [loading, setLoading] = useState(false)
   const [fetchInviteLinkError, setFetchInviteLinkError] = useState(false)
 
   const fetchInviteLinkHandler = useCallback(
     async (userRole: USER_ROLE, isRenew: boolean = false) => {
+      setLoading(true)
       try {
         const linkConfig = isRenew
           ? await renewInviteLink(userRole)
@@ -197,6 +198,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
       } catch (e) {
         setFetchInviteLinkError(true)
       }
+      setLoading(false)
     },
     [fetchInviteLink, renewInviteLink],
   )
@@ -288,12 +290,13 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
         <div css={inviteLinkWrapperStyle}>
           <div css={fakerInputStyle}>
             <span css={urlAreaStyle(fetchInviteLinkError)}>
-              {!fetchInviteLinkError && !inviteLink && (
+              {loading ? (
                 <Skeleton text={{ rows: 1, width: 280 }} animation />
+              ) : fetchInviteLinkError ? (
+                t("user_management.modal.link.fail")
+              ) : (
+                inviteLink
               )}
-              {fetchInviteLinkError
-                ? t("user_management.modal.link.fail")
-                : inviteLink}
             </span>
             <RoleSelect
               value={inviteLinkRole}

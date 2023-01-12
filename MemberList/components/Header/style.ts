@@ -140,6 +140,7 @@ export const inviteLinkWhenClosedStyle = css`
 `
 
 export const turnOnInviteLinkButtonStyle = css`
+  margin-left: 4px;
   cursor: pointer;
   color: ${getColor("techPurple", "01")};
 `
