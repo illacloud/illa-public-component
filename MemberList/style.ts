@@ -6,3 +6,10 @@ export const MemberListWrapperStyle = css`
   display: flex;
   flex-direction: column;
 `
+
+export const fullContentStyle = css`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`

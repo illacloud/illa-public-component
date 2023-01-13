@@ -31,7 +31,8 @@ export interface inviteByEmailResponse {
 }
 
 export interface MemberListProps {
-  hasApp: boolean
+  hasApp?: boolean
+  loading?: boolean
   currentUserID: string
   currentUserRole: USER_ROLE
   userListData: UserData[]
