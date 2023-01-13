@@ -103,6 +103,7 @@ export const InviteList: FC<InviteListProps> = (props) => {
           emailStatus={item.emailStatus}
           userAvatar={item.userAvatar}
           userRole={item.userRole}
+          userID={item.userID}
           currentUserRole={currentUserRole}
           inviteByEmail={inviteByEmail}
         />
@@ -176,6 +177,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
   )
   const [loading, setLoading] = useState(false)
   const [fetchInviteLinkError, setFetchInviteLinkError] = useState(false)
+  const [turnOnLoading, setTurnOnLoading] = useState(false)
 
   const fetchInviteLinkHandler = useCallback(
     async (userRole: USER_ROLE, isRenew: boolean = false) => {
@@ -236,6 +238,13 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     fetchInviteLinkHandler,
     inviteLinkRole,
   ])
+
+  const handleClickTurnOnInviteLink = () => {
+    setTurnOnLoading(true)
+    handleClickConfigInviteLink().finally(() => {
+      setTurnOnLoading(false)
+    })
+  }
 
   const handleClickCopyInviteLink = useCallback(() => {
     const copyReturned = copy(inviteLink)
@@ -317,12 +326,15 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
       ) : (
         <p css={inviteLinkWhenClosedStyle}>
           {t("user_management.modal.link.description")}
-          <span
-            css={turnOnInviteLinkButtonStyle}
-            onClick={handleClickConfigInviteLink}
+          <Button
+            variant="text"
+            colorScheme="techPurple"
+            size="small"
+            loading={turnOnLoading}
+            onClick={handleClickTurnOnInviteLink}
           >
             {t("user_management.modal.link.turn_on")}
-          </span>
+          </Button>
         </p>
       )}
     </div>
