@@ -12,7 +12,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
     allowViewerManageTeamMember,
     hasApp,
     allowInviteByLink,
-    userListData,
+    userListData = [],
     removeTeam,
     updateTeamPermissionConfig,
     removeTeamMembers,

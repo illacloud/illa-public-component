@@ -45,7 +45,6 @@ import {
   subBodyTitleWrapperStyle,
   subBodyWrapperStyle,
   subtitleStyle,
-  turnOnInviteLinkButtonStyle,
   urlAreaStyle,
 } from "@/illa-public-component/MemberList/components/Header/style"
 import { inviteByEmailResponse } from "@/illa-public-component/MemberList/interface"
@@ -58,19 +57,19 @@ const EMAIL_REGX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 export const InviteListItem: FC<InviteListItemProps> = (props) => {
-  const { email, userRole, userAvatar, currentUserRole, inviteByEmail } = props
-  const { t } = useTranslation()
+  const {
+    email,
+    userID,
+    userRole,
+    userAvatar,
+    currentUserRole,
+    changeMembersRole,
+  } = props
   const handleChangeRole = useCallback(
-    async (value: USER_ROLE) => {
-      try {
-        const res = await inviteByEmail(email, value)
-        if (!res) {
-        }
-      } catch (e) {
-        console.error(e)
-      }
+    (value: USER_ROLE) => {
+      changeMembersRole(userID, value)
     },
-    [email, inviteByEmail],
+    [userID, changeMembersRole],
   )
 
   return (
@@ -93,7 +92,7 @@ export const InviteListItem: FC<InviteListItemProps> = (props) => {
 }
 
 export const InviteList: FC<InviteListProps> = (props) => {
-  const { inviteList, currentUserRole, inviteByEmail } = props
+  const { inviteList, currentUserRole, changeMembersRole } = props
   return (
     <div css={inviteListWrapperStyle}>
       {inviteList?.map((item) => (
@@ -105,7 +104,7 @@ export const InviteList: FC<InviteListProps> = (props) => {
           userRole={item.userRole}
           userID={item.userID}
           currentUserRole={currentUserRole}
-          inviteByEmail={inviteByEmail}
+          changeMembersRole={changeMembersRole}
         />
       ))}
     </div>
@@ -153,6 +152,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
           renewInviteLink={renewInviteLink}
           fetchInviteLink={fetchInviteLink}
           configInviteLink={configInviteLink}
+          changeTeamMembersRole={changeTeamMembersRole}
         />
       </div>
       <div css={maskStyle} onClick={handleClickMask} />
@@ -306,7 +306,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
           <div css={fakerInputStyle}>
             <span css={urlAreaStyle(fetchInviteLinkError)}>
               {loading ? (
-                <Skeleton text={{ rows: 1, width: 280 }} animation />
+                <Skeleton text={{ rows: 1, width: 280 }} opac={0.5} animation />
               ) : fetchInviteLinkError ? (
                 t("user_management.modal.link.fail")
               ) : (
@@ -348,7 +348,12 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
 }
 
 export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
-  const { currentUserRole, inviteByEmail, userListData } = props
+  const {
+    currentUserRole,
+    userListData,
+    inviteByEmail,
+    changeTeamMembersRole,
+  } = props
 
   const { t } = useTranslation()
   const message = useMessage()
@@ -446,6 +451,34 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       })
   }, [inviteByEmail, inviteEmails, inviteRole, message, t])
 
+  const handleChangeInviteMemberRole = useCallback(
+    (userID: string, userRole: USER_ROLE) => {
+      return changeTeamMembersRole(userID, userRole)
+        .then((res) => {
+          if (res) {
+            setInviteMemberList((prev) => {
+              const index = prev.findIndex((item) => item.userID === userID)
+              if (index !== -1) {
+                prev[index].userRole = userRole
+              }
+              return [...prev]
+            })
+          } else {
+            message.error({
+              content: t("user_management.mes.change_role_fail"),
+            })
+          }
+        })
+        .catch((e) => {
+          console.error(e)
+          message.error({
+            content: t("user_management.mes.change_role_fail"),
+          })
+        })
+    },
+    [changeTeamMembersRole],
+  )
+
   return (
     <div css={subBodyWrapperStyle}>
       <div css={subBodyTitleWrapperStyle}>
@@ -486,7 +519,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         </Button>
       </div>
       <InviteList
-        inviteByEmail={inviteByEmail}
+        changeMembersRole={handleChangeInviteMemberRole}
         inviteList={inviteMemberList}
         currentUserRole={currentUserRole}
       />
@@ -498,6 +531,7 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
   props,
 ) => {
   const {
+    changeTeamMembersRole,
     currentUserRole,
     allowInviteByLink,
     renewInviteLink,
@@ -520,6 +554,7 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
         userListData={userListData}
         currentUserRole={currentUserRole}
         inviteByEmail={inviteByEmail}
+        changeTeamMembersRole={changeTeamMembersRole}
       />
     </div>
   )

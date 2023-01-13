@@ -3,6 +3,7 @@ import {
   MemberListProps,
   inviteByEmailResponse,
 } from "@/illa-public-component/MemberList/interface"
+import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 export interface HeaderProps
   extends Pick<
@@ -41,11 +42,12 @@ export interface MoreActionProps
 
 export interface InviteListItemProps
   extends inviteByEmailResponse,
-    Pick<InviteListProps, "inviteByEmail" | "currentUserRole"> {}
+    Pick<InviteListProps, "currentUserRole" | "changeMembersRole"> {}
 
 export interface InviteListProps
-  extends Pick<InviteMemberByEmailProps, "currentUserRole" | "inviteByEmail"> {
+  extends Pick<InviteMemberByEmailProps, "currentUserRole"> {
   inviteList?: inviteByEmailResponse[]
+  changeMembersRole: (userID: string, userRole: USER_ROLE) => void
 }
 
 // changeTeamMembersRole, currentUserRole, inviteByEmail, renewInviteLink
@@ -78,12 +80,16 @@ export interface InviteMemberByLinkProps
 export interface InviteMemberByEmailProps
   extends Pick<
     InviteMemberModalContentProps,
-    "currentUserRole" | "inviteByEmail" | "userListData"
+    | "currentUserRole"
+    | "userListData"
+    | "inviteByEmail"
+    | "changeTeamMembersRole"
   > {}
 
 export interface InviteMemberModalContentProps
   extends Pick<
     MemberListProps,
+    | "changeTeamMembersRole"
     | "currentUserRole"
     | "renewInviteLink"
     | "fetchInviteLink"
