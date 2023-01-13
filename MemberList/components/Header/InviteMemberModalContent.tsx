@@ -231,6 +231,12 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
       }
     } catch (e) {
       console.error(e)
+      const errorMessage = allowInviteByLink
+        ? t("user_management.modal.link.turn_off_fail")
+        : t("user_management.modal.link.turn_on_fail")
+      message.error({
+        content: errorMessage,
+      })
     }
   }, [
     allowInviteByLink,
