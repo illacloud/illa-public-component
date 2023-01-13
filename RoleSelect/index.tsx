@@ -10,6 +10,7 @@ import {
 } from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/store/userInfo/userInfoState"
 import {
+  applyFontWeightStyle,
   optionContentStyle,
   optionItemStyle,
   pointerStyle,
@@ -22,10 +23,11 @@ interface RoleSelectProps
   userRole: USER_ROLE
   notHasSelf?: boolean
   onChange?: (value: USER_ROLE) => void
+  fontWeight?: number
 }
 
 const RoleSelect: FC<RoleSelectProps> = (props) => {
-  const { className, value, userRole, notHasSelf, onChange } = props
+  const { className, value, userRole, notHasSelf, fontWeight, onChange } = props
   const { t } = useTranslation()
   const [popupVisible, setPopupVisible] = useState<boolean>()
 
@@ -54,7 +56,10 @@ const RoleSelect: FC<RoleSelectProps> = (props) => {
 
   if (!canChange) {
     return (
-      <div css={valueLabelStyle} className={className}>
+      <div
+        css={[valueLabelStyle, applyFontWeightStyle(fontWeight)]}
+        className={className}
+      >
         {t(userRoleMapI18nString[value])}
       </div>
     )
@@ -71,7 +76,7 @@ const RoleSelect: FC<RoleSelectProps> = (props) => {
       popupVisible={popupVisible}
       onVisibleChange={onVisibleChange}
       content={
-        <div css={optionContentStyle}>
+        <div css={[optionContentStyle, applyFontWeightStyle(fontWeight)]}>
           {options.map((option) => {
             return (
               <div
@@ -90,7 +95,10 @@ const RoleSelect: FC<RoleSelectProps> = (props) => {
         </div>
       }
     >
-      <div css={[valueLabelStyle, pointerStyle]} className={className}>
+      <div
+        css={[valueLabelStyle, pointerStyle, applyFontWeightStyle(fontWeight)]}
+        className={className}
+      >
         {t(userRoleMapI18nString[value])}
         {popupVisible ? (
           <ExpandIcon css={css({ transform: "rotate(180deg)" })} />

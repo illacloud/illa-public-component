@@ -134,7 +134,12 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
           </DropList>
         }
       >
-        <Button colorScheme="grayBlue" w="32px" disabled={disabled}>
+        <Button
+          variant="text"
+          colorScheme="grayBlue"
+          w="32px"
+          disabled={disabled}
+        >
           <MoreIcon />
         </Button>
       </Dropdown>

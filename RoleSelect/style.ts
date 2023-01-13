@@ -6,6 +6,11 @@ export const listWrapperStyle = css`
   flex-direction: column;
   gap: 20px;
 `
+
+export const applyFontWeightStyle = (fontWeight?: number) => css`
+  font-weight: ${fontWeight ? fontWeight : "inherit"};
+`
+
 export const valueLabelStyle = css`
   display: flex;
   gap: 8px;
@@ -34,6 +39,7 @@ export const optionItemStyle = css`
   &:hover {
     background-color: ${globalColor(`--${illaPrefix}-grayBlue-09`)};
   }
+
   & > svg {
     width: 16px;
     height: 16px;

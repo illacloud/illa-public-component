@@ -7,6 +7,7 @@ import { ListProps } from "@/illa-public-component/MemberList/components/List/in
 import {
   listBodyStyle,
   listWrapperStyle,
+  nameStyle,
 } from "@/illa-public-component/MemberList/components/List/style"
 import RoleSelect from "@/illa-public-component/RoleSelect"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
@@ -99,6 +100,7 @@ export const List: FC<ListProps> = (props) => {
 
           return (
             <RoleSelect
+              fontWeight={500}
               value={value.userRole}
               userRole={currentUserRole}
               onChange={(userRole: USER_ROLE) => {
