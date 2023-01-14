@@ -26,7 +26,7 @@ export const List: FC<ListProps> = (props) => {
 
   const data = useMemo(() => {
     if (!Array.isArray(userListData) || userListData.length === 0) {
-      return []
+      return undefined
     }
     return userListData.map((item) => {
       return {
