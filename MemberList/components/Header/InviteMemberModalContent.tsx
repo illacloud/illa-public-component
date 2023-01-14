@@ -209,7 +209,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     if (allowInviteByLink) {
       fetchInviteLinkHandler(USER_ROLE.VIEWER)
     }
-  }, [allowInviteByLink, fetchInviteLinkHandler])
+  }, [])
 
   const handleChangeInviteLinkRole = useCallback(
     async (value: any) => {
