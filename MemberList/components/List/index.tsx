@@ -145,14 +145,16 @@ export const List: FC<ListProps> = (props) => {
 
   return (
     <div css={listWrapperStyle}>
-      <Table
-        data={data}
-        columns={columns}
-        css={listBodyStyle}
-        pinedHeader
-        tableLayout="auto"
-        h="100%"
-      />
+      {data?.length ? (
+        <Table
+          data={data}
+          columns={columns}
+          css={listBodyStyle}
+          pinedHeader
+          tableLayout="auto"
+          h="100%"
+        />
+      ) : null}
     </div>
   )
 }
