@@ -220,8 +220,8 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
   )
 
   const handleClickRenewInviteLink = useCallback(async () => {
-    await fetchInviteLinkHandler(USER_ROLE.VIEWER, true)
-  }, [fetchInviteLinkHandler])
+    await fetchInviteLinkHandler(inviteLinkRole, true)
+  }, [inviteLinkRole, fetchInviteLinkHandler])
 
   const handleClickConfigInviteLink = useCallback(async () => {
     try {
