@@ -107,6 +107,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
                   {t("user_management.settings.allow_editors_invite")}
                 </span>
                 <Switch
+                  colorScheme="techPurple"
                   onClick={stopPropagation}
                   onChange={handleSwitchChange}
                   checked={
