@@ -62,14 +62,15 @@ export const InviteListItem: FC<InviteListItemProps> = (props) => {
     userID,
     userRole,
     userAvatar,
+    teamMemberID,
     currentUserRole,
     changeMembersRole,
   } = props
   const handleChangeRole = useCallback(
     (value: USER_ROLE) => {
-      changeMembersRole(userID, value)
+      changeMembersRole(teamMemberID, value)
     },
-    [userID, changeMembersRole],
+    [teamMemberID, changeMembersRole],
   )
 
   return (
@@ -103,6 +104,7 @@ export const InviteList: FC<InviteListProps> = (props) => {
           userAvatar={item.userAvatar}
           userRole={item.userRole}
           userID={item.userID}
+          teamMemberID={item.teamMemberID}
           currentUserRole={currentUserRole}
           changeMembersRole={changeMembersRole}
         />
@@ -452,12 +454,14 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   }, [inviteByEmail, inviteEmails, inviteRole, message, t])
 
   const handleChangeInviteMemberRole = useCallback(
-    (userID: string, userRole: USER_ROLE) => {
-      return changeTeamMembersRole(userID, userRole)
+    (teamMemberID: string, userRole: USER_ROLE) => {
+      return changeTeamMembersRole(teamMemberID, userRole)
         .then((res) => {
           if (res) {
             setInviteMemberList((prev) => {
-              const index = prev.findIndex((item) => item.userID === userID)
+              const index = prev.findIndex(
+                (item) => item.teamMemberID === teamMemberID,
+              )
               if (index !== -1) {
                 prev[index].userRole = userRole
               }

@@ -15,6 +15,7 @@ export interface HeaderProps
     | "removeTeamMembers"
     | "removeTeam"
     | "currentUserID"
+    | "currentTeamMemberID"
     | "hasApp"
     | "changeTeamMembersRole"
     | "inviteByEmail"
@@ -28,8 +29,9 @@ export interface HeaderProps
 export interface MoreActionProps
   extends Pick<
     HeaderProps,
-    | "currentUserRole"
     | "currentUserID"
+    | "currentUserRole"
+    | "currentTeamMemberID"
     | "hasApp"
     | "updateTeamPermissionConfig"
     | "removeTeam"

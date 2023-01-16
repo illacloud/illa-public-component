@@ -19,8 +19,8 @@ export interface ListProps
     MemberListProps,
     | "userListData"
     | "removeTeamMembers"
-    | "currentUserRole"
     | "currentUserID"
+    | "currentUserRole"
     | "changeTeamMembersRole"
   > {}
 
@@ -34,7 +34,7 @@ export interface MoreActionProps
   > {
   email: string
   name: string
-
+  teamMemberID: string
   userID: string
   userRole: USER_ROLE
 }

@@ -13,8 +13,9 @@ import { HeaderProps } from "./interface"
 
 export const Header: FC<HeaderProps> = (props) => {
   const {
-    currentUserRole,
     currentUserID,
+    currentUserRole,
+    currentTeamMemberID,
     allowEditorManageTeamMember,
     allowViewerManageTeamMember,
     hasApp,
@@ -42,6 +43,7 @@ export const Header: FC<HeaderProps> = (props) => {
       <h1 css={titleStyle}>{t("user_management.page.member")}</h1>
       <div css={buttonGroup}>
         <MoreAction
+          currentTeamMemberID={currentTeamMemberID}
           currentUserRole={currentUserRole}
           currentUserID={currentUserID}
           hasApp={hasApp}

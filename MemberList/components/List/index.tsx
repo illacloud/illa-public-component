@@ -15,8 +15,8 @@ import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 export const List: FC<ListProps> = (props) => {
   const {
     userListData,
-    currentUserRole,
     currentUserID,
+    currentUserRole,
     removeTeamMembers,
     changeTeamMembersRole,
   } = props
@@ -38,6 +38,7 @@ export const List: FC<ListProps> = (props) => {
           userID: item.userID,
         },
         permissions: {
+          teamMemberID: item.teamMemberID,
           userID: item.userID,
           userRole: item.userRole,
           email: item.email,
@@ -45,6 +46,7 @@ export const List: FC<ListProps> = (props) => {
         actions: {
           userID: item.userID,
           userRole: item.userRole,
+          teamMemberID: item.teamMemberID,
           email: item.email,
           nickname: item.nickname,
         },
@@ -53,9 +55,9 @@ export const List: FC<ListProps> = (props) => {
   }, [userListData])
 
   const handleChangeRole = useCallback(
-    async (userID: string, value: USER_ROLE) => {
+    async (teamMemberID: string, value: USER_ROLE) => {
       try {
-        const res = await changeTeamMembersRole(userID, value)
+        const res = await changeTeamMembersRole(teamMemberID, value)
         if (!res) {
           message.error({
             content: t("user_management.mes.change_role_fail"),
@@ -104,7 +106,7 @@ export const List: FC<ListProps> = (props) => {
               value={value.userRole}
               userRole={currentUserRole}
               onChange={(userRole: USER_ROLE) => {
-                handleChangeRole(value?.userID, userRole)
+                handleChangeRole(value.teamMemberID, userRole)
               }}
             />
           )
@@ -124,6 +126,7 @@ export const List: FC<ListProps> = (props) => {
               userRole={value.userRole}
               currentUserRole={currentUserRole}
               currentUserID={currentUserID}
+              teamMemberID={value.teamMemberID}
               userID={value.userID}
               name={value.nickname}
               removeTeamMembers={removeTeamMembers}

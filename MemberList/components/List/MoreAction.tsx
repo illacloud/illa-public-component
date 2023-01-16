@@ -20,6 +20,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     currentUserRole,
     userRole,
     userID,
+    teamMemberID,
     currentUserID,
     removeTeamMembers,
     changeTeamMembersRole,
@@ -52,7 +53,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
       },
       onOk: async () => {
         try {
-          const result = await removeTeamMembers(userID)
+          const result = await removeTeamMembers(teamMemberID)
           if (result) {
             message.success({
               content: t("user_management.mes.remove_suc"),
@@ -70,7 +71,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         }
       },
     })
-  }, [message, modal, name, removeTeamMembers, t, userID])
+  }, [message, modal, name, removeTeamMembers, t, teamMemberID])
 
   const handleClickTransOwner = useCallback(() => {
     modal.show({
@@ -84,7 +85,10 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
       },
       onOk: async () => {
         try {
-          const result = await changeTeamMembersRole(userID, USER_ROLE.OWNER)
+          const result = await changeTeamMembersRole(
+            teamMemberID,
+            USER_ROLE.OWNER,
+          )
           if (result) {
             message.success({
               content: t("user_management.mes.transfer_suc"),
@@ -102,7 +106,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         }
       },
     })
-  }, [changeTeamMembersRole, currentUserID, message, modal, t])
+  }, [changeTeamMembersRole, teamMemberID, message, modal, t])
 
   return (
     <div css={moreActionWrapper}>

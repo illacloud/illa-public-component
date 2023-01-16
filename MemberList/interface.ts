@@ -4,6 +4,7 @@ import {
 } from "@/illa-public-component/UserRoleUtils/interface"
 
 interface UserData {
+  teamMemberID: string
   userID: string
   nickname: string
   email: string
@@ -25,6 +26,7 @@ export interface inviteByEmailResponse {
   name?: string
   email: string
   userID: string
+  teamMemberID: string
   userRole: USER_ROLE
   userAvatar?: string
   emailStatus: USER_STATUS
@@ -34,18 +36,19 @@ export interface MemberListProps {
   hasApp?: boolean
   loading?: boolean
   currentUserID: string
+  currentTeamMemberID: string
   currentUserRole: USER_ROLE
   userListData: UserData[]
   allowEditorManageTeamMember: boolean
   allowViewerManageTeamMember: boolean
   allowInviteByLink: boolean
   changeTeamMembersRole: (
-    userID: string,
+    teamMemberID: string,
     userRole: USER_ROLE,
   ) => Promise<boolean>
   configInviteLink: (inviteLinkEnabled: boolean) => Promise<boolean>
   removeTeam: () => Promise<boolean>
-  removeTeamMembers: (userID: string) => Promise<boolean>
+  removeTeamMembers: (teamMemberID: string) => Promise<boolean>
   fetchInviteLink: (userRole: USER_ROLE) => Promise<fetchInviteLinkResponse>
   renewInviteLink: (userRole: USER_ROLE) => Promise<fetchInviteLinkResponse>
   inviteByEmail: (

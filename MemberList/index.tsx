@@ -12,6 +12,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
   const {
     currentUserRole,
     currentUserID,
+    currentTeamMemberID,
     allowEditorManageTeamMember,
     allowViewerManageTeamMember,
     hasApp,
@@ -33,6 +34,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
         hasApp={hasApp}
         currentUserID={currentUserID}
         currentUserRole={currentUserRole}
+        currentTeamMemberID={currentTeamMemberID}
         userListData={userListData}
         allowEditorManageTeamMember={allowEditorManageTeamMember}
         allowViewerManageTeamMember={allowViewerManageTeamMember}
