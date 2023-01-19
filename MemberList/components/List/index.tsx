@@ -105,6 +105,7 @@ export const List: FC<ListProps> = (props) => {
               fontWeight={500}
               value={value.userRole}
               userRole={currentUserRole}
+              disabled={value.userID === currentUserID}
               onChange={(userRole: USER_ROLE) => {
                 handleChangeRole(value.teamMemberID, userRole)
               }}

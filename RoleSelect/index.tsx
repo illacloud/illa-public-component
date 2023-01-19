@@ -22,18 +22,31 @@ interface RoleSelectProps
   value: USER_ROLE
   userRole: USER_ROLE
   notHasSelf?: boolean
+  disabled?: boolean
   onChange?: (value: USER_ROLE) => void
   fontWeight?: number
 }
 
 const RoleSelect: FC<RoleSelectProps> = (props) => {
-  const { className, value, userRole, notHasSelf, fontWeight, onChange } = props
+  const {
+    className,
+    value,
+    userRole,
+    notHasSelf,
+    disabled,
+    fontWeight,
+    onChange,
+  } = props
   const { t } = useTranslation()
   const [popupVisible, setPopupVisible] = useState<boolean>()
 
   const canChange = useMemo(() => {
-    return isSmallThanTargetRole(userRole, value)
-  }, [value, userRole])
+    return (
+      isSmallThanTargetRole(userRole, value) &&
+      value !== USER_ROLE.OWNER &&
+      !disabled
+    )
+  }, [value, userRole, disabled])
 
   const options: { label: string; value: USER_ROLE }[] = useMemo(() => {
     return getSmallThanTargetRole(userRole, false, [
