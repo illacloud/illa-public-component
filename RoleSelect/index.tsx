@@ -2,13 +2,13 @@ import { css } from "@emotion/react"
 import { ExpandIcon, Trigger, zIndex } from "@illa-design/react"
 import { FC, HTMLAttributes, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { ReactComponent as CheckmarkIcon } from "@/assets/icon/success.svg"
 import {
   getSmallThanTargetRole,
   isSmallThanTargetRole,
   userRoleMapI18nString,
 } from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
+import { ReactComponent as CheckmarkIcon } from "./assets/success.svg"
 import {
   applyFontWeightStyle,
   optionContentStyle,
