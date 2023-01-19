@@ -8,7 +8,7 @@ import {
   isSmallThanTargetRole,
   userRoleMapI18nString,
 } from "@/illa-public-component/UserRoleUtils"
-import { USER_ROLE } from "@/store/userInfo/userInfoState"
+import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 import {
   applyFontWeightStyle,
   optionContentStyle,
