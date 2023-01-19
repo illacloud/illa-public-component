@@ -155,6 +155,7 @@ export const fakerInputStyle = css`
   gap: 8px;
   padding: 8px 16px;
   width: 100%;
+  overflow: hidden;
 `
 export const fakerInputWithEmail = css`
   ${fakerInputStyle};
