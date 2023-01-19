@@ -1,6 +1,5 @@
 import { SerializedStyles, css } from "@emotion/react"
 import { globalColor, illaPrefix } from "@illa-design/react"
-import { columnCenter } from "@/style"
 
 export function applyAvatarStyle(
   background: string,
@@ -13,7 +12,10 @@ export function applyAvatarStyle(
       `
     : ""
   return css`
-    ${columnCenter};
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background: #${background};
     color: ${globalColor(`--${illaPrefix}-white-01`)};
     border: 1px solid ${globalColor(`--${illaPrefix}-grayBlue-09`)};
