@@ -1,4 +1,10 @@
-import { DropList, Dropdown, Switch, useModal } from "@illa-design/react"
+import {
+  DropList,
+  Dropdown,
+  Switch,
+  useMessage,
+  useModal,
+} from "@illa-design/react"
 import { FC, MouseEvent, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { AuthShown } from "@/illa-public-component/AuthShown"
@@ -26,7 +32,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     removeTeam,
   } = props
   const modal = useModal()
-
+  const message = useMessage()
   const { t } = useTranslation()
 
   const canShowLeaveTeam = useMemo(() => {
@@ -60,6 +66,18 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         },
         onOk: () => {
           removeTeam()
+            .then((res) => {
+              if (res) {
+                message.success({
+                  content: t("team_setting.mes.delete_suc"),
+                })
+              }
+            })
+            .catch((e) => {
+              message.error({
+                content: t("team_setting.mes.delete_fail"),
+              })
+            })
         },
       })
     } else {
@@ -74,6 +92,18 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         },
         onOk: () => {
           removeTeamMembers(currentTeamMemberID)
+            .then((res) => {
+              if (res) {
+                message.success({
+                  content: t("team_setting.mes.leave_suc"),
+                })
+              }
+            })
+            .catch((e) => {
+              message.error({
+                content: t("team_setting.mes.leave_fail"),
+              })
+            })
         },
       })
     }
