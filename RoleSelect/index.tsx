@@ -59,7 +59,7 @@ const RoleSelect: FC<RoleSelectProps> = (props) => {
         value: role,
       }
     })
-  }, [userRole, notHasSelf])
+  }, [userRole, t])
 
   const onVisibleChange = (visible: boolean) => {
     if (popupVisible !== visible) {

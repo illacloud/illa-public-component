@@ -110,9 +110,11 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
   }, [
     currentTeamMemberID,
     currentUserRole,
-    modal,
     removeTeamMembers,
     removeTeam,
+    message,
+    modal,
+    t,
   ])
 
   const handleClickDropList = useCallback(

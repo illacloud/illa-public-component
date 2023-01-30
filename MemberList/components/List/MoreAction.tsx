@@ -71,7 +71,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         }
       },
     })
-  }, [message, modal, name, removeTeamMembers, t, teamMemberID])
+  }, [message, modal, name, email, removeTeamMembers, t, teamMemberID])
 
   const handleClickTransOwner = useCallback(() => {
     modal.show({

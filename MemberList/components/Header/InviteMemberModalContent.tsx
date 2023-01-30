@@ -245,6 +245,8 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     configInviteLink,
     fetchInviteLinkHandler,
     inviteLinkRole,
+    message,
+    t,
   ])
 
   const handleClickTurnOnInviteLink = () => {
@@ -401,7 +403,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       }
       return values?.every((item) => item?.value !== inputValue)
     },
-    [inviteMemberList, userListData],
+    [checkEmail],
   )
 
   const handlePressEnter = useCallback(() => {
@@ -419,7 +421,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         setInputEmailValue("")
       }
     },
-    [inviteEmails],
+    [inviteEmails, checkEmail],
   )
 
   const handleBlurInputValue = useCallback(() => {
@@ -428,7 +430,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       setInviteEmails([...inviteEmails, inputEmailValue])
       setInputEmailValue("")
     }
-  }, [inputEmailValue, inviteEmails])
+  }, [inputEmailValue, inviteEmails, checkEmail])
 
   const handleClickInviteButton = useCallback(() => {
     const requests = inviteEmails.map((email) => {
@@ -480,7 +482,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
           })
         })
     },
-    [changeTeamMembersRole],
+    [changeTeamMembersRole, message, t],
   )
 
   return (
