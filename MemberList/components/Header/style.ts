@@ -147,14 +147,15 @@ export const turnOnInviteLinkButtonStyle = css`
 `
 
 export const fakerInputStyle = css`
+  width: 378px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0;
   border-radius: 8px;
   border: 1px solid ${getColor("grayBlue", "08")};
   gap: 8px;
-  padding: 8px 16px;
-  width: 100%;
+  padding: 4px 16px;
   overflow: hidden;
 `
 export const fakerInputWithEmail = css`
@@ -170,6 +171,7 @@ export const initInputTagStyle = css`
 
 export const emailInputStyle = css`
   width: 378px;
+  flex-shrink: 0;
 `
 
 export const urlAreaStyle = (isError: boolean) => css`
@@ -228,4 +230,8 @@ export const inviteAvatarStyle = css`
   border: 1px dashed ${getColor("grayBlue", "07")};
   flex: none;
   border-radius: 16px;
+`
+
+export const applyHiddenStyle = (isHidden: boolean) => css`
+  display: ${isHidden ? "none" : "inherit"};
 `

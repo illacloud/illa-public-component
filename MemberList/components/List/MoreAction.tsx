@@ -108,7 +108,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     })
   }, [changeTeamMembersRole, teamMemberID, message, modal, t])
 
-  return (
+  return disabled ? null : (
     <div css={moreActionWrapper}>
       <Dropdown
         position="bottom-end"

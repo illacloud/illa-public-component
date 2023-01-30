@@ -24,6 +24,7 @@ import {
   InviteMemberModalProps,
 } from "@/illa-public-component/MemberList/components/Header/interface"
 import {
+  applyHiddenStyle,
   avatarAndNameWrapperStyle,
   closeIconHotSpotStyle,
   emailInputStyle,
@@ -324,13 +325,16 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
             />
           </div>
           <Button
-            size="large"
-            h="40px"
+            w="100%"
+            h="32px"
+            ov="hidden"
             colorScheme="black"
             loading={loading}
             onClick={handleClickCopyInviteLink}
           >
-            {t("user_management.modal.link.copy")}
+            <span css={applyHiddenStyle(loading)}>
+              {t("user_management.modal.link.copy")}
+            </span>
           </Button>
         </div>
       ) : (
@@ -495,7 +499,6 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       <div css={inviteEmailWrapperStyle}>
         <InputTag
           _css={emailInputStyle}
-          size="large"
           alignItems="start"
           borderColor={"techPurple"}
           suffix={
@@ -514,14 +517,17 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
           onBlur={handleBlurInputValue}
         />
         <Button
-          size="large"
-          h="40px"
+          w="100%"
+          h="32px"
+          ov="hidden"
           colorScheme="black"
           loading={loading}
           disabled={!(Array.isArray(inviteEmails) && inviteEmails.length > 0)}
           onClick={handleClickInviteButton}
         >
-          {t("user_management.modal.email.invite")}
+          <span css={applyHiddenStyle(loading)}>
+            {t("user_management.modal.email.invite")}
+          </span>
         </Button>
       </div>
       <InviteList
