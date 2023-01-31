@@ -365,7 +365,7 @@ export const canAccess = (
 export const canDelete = (
   userRole: USER_ROLE,
   attributeGroup: ATTRIBUTE_GROUP,
-  attribute: ACTION_ACCESS,
+  attribute: ACTION_DELETE,
 ) => {
   return !!deleteAttribute[userRole]?.[attributeGroup]?.[attribute]
 }
@@ -373,7 +373,7 @@ export const canDelete = (
 export const canManage = (
   userRole: USER_ROLE,
   attributeGroup: ATTRIBUTE_GROUP,
-  attribute: ACTION_ACCESS,
+  attribute: ACTION_MANAGE,
 ) => {
   return !!manageAttribute[userRole]?.[attributeGroup]?.[attribute]
 }
@@ -381,7 +381,7 @@ export const canManage = (
 export const canManageSpecial = (
   userRole: USER_ROLE,
   attributeGroup: ATTRIBUTE_GROUP,
-  attribute: ACTION_ACCESS,
+  attribute: ACTION_SPECIAL,
 ) => {
   return !!specialAttribute[userRole]?.[attributeGroup]?.[attribute]
 }
