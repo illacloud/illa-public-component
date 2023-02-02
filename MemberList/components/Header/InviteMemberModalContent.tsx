@@ -416,12 +416,17 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
 
   const handleInputValueChange = useCallback(
     (value: string) => {
+      value = value.trim()
       setInputEmailValue(value)
-      if (value[value.length - 1] === ",") {
-        const finalValue = value.slice(0, -1)
-        if (checkEmail(finalValue)) {
-          setInviteEmails([...inviteEmails, value.slice(0, -1)])
-        }
+      if (value.includes(",")) {
+        const values = value.split(",")
+        values.forEach((item) => {
+          if (!item.length) return
+          if (inviteEmails.find((email) => email == item)) return
+          if (checkEmail(item)) {
+            setInviteEmails([...inviteEmails, item])
+          }
+        })
         setInputEmailValue("")
       }
     },
