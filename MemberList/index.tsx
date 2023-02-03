@@ -50,7 +50,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
       />
       {loading ? (
         <div css={fullContentStyle}>
-          <Loading size="large" colorScheme="techPurple" />
+          <Loading colorScheme="techPurple" />
         </div>
       ) : (
         <List
