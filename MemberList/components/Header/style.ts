@@ -172,6 +172,10 @@ export const initInputTagStyle = css`
 export const emailInputStyle = css`
   width: 378px;
   flex-shrink: 0;
+
+  & > span:first-of-type {
+    overflow: hidden;
+  }
 `
 
 export const urlAreaStyle = (isError: boolean) => css`
