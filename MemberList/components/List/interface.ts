@@ -37,4 +37,5 @@ export interface MoreActionProps
   teamMemberID: string
   userID: string
   userRole: USER_ROLE
+  userStatus: USER_STATUS
 }

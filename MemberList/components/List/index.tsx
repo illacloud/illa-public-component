@@ -46,6 +46,7 @@ export const List: FC<ListProps> = (props) => {
         actions: {
           userID: item.userID,
           userRole: item.userRole,
+          userStatus: item.userStatus,
           teamMemberID: item.teamMemberID,
           email: item.email,
           nickname: item.nickname,
@@ -125,6 +126,7 @@ export const List: FC<ListProps> = (props) => {
             <MoreAction
               email={value.email}
               userRole={value.userRole}
+              userStatus={value.userStatus}
               currentUserRole={currentUserRole}
               currentUserID={currentUserID}
               teamMemberID={value.teamMemberID}

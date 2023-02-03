@@ -13,12 +13,16 @@ import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { MoreActionProps } from "@/illa-public-component/MemberList/components/List/interface"
 import { moreActionWrapper } from "@/illa-public-component/MemberList/components/List/style"
 import { isSmallThanTargetRole } from "@/illa-public-component/UserRoleUtils"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
+import {
+  USER_ROLE,
+  USER_STATUS,
+} from "@/illa-public-component/UserRoleUtils/interface"
 
 export const MoreAction: FC<MoreActionProps> = (props) => {
   const {
     currentUserRole,
     userRole,
+    userStatus,
     userID,
     teamMemberID,
     currentUserID,
@@ -115,17 +119,18 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         trigger="click"
         dropList={
           <DropList>
-            {userRole !== USER_ROLE.OWNER && (
-              <AuthShown
-                currentUserRole={currentUserRole}
-                allowRoles={[USER_ROLE.OWNER]}
-                rules={SHOW_RULES.EQUAL}
-              >
-                <DropList.Item key="trans" onClick={handleClickTransOwner}>
-                  {t("user_management.page.transfer")}
-                </DropList.Item>
-              </AuthShown>
-            )}
+            {userRole !== USER_ROLE.OWNER &&
+              userStatus !== USER_STATUS.PENDING && (
+                <AuthShown
+                  currentUserRole={currentUserRole}
+                  allowRoles={[USER_ROLE.OWNER]}
+                  rules={SHOW_RULES.EQUAL}
+                >
+                  <DropList.Item key="trans" onClick={handleClickTransOwner}>
+                    {t("user_management.page.transfer")}
+                  </DropList.Item>
+                </AuthShown>
+              )}
             <AuthShown
               currentUserRole={currentUserRole}
               allowRoles={[userRole]}
