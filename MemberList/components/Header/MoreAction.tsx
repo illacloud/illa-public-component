@@ -36,11 +36,8 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
   const { t } = useTranslation()
 
   const canShowLeaveTeam = useMemo(() => {
-    if (currentUserRole === USER_ROLE.OWNER) {
-      return !hasApp
-    }
-    return true
-  }, [currentUserRole, hasApp])
+    return currentUserRole === USER_ROLE.OWNER
+  }, [currentUserRole])
 
   const handleSwitchChange = useCallback(
     async (value: boolean) => {
