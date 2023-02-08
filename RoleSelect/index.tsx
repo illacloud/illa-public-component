@@ -1,7 +1,6 @@
-import { css } from "@emotion/react"
-import { ExpandIcon, Trigger, zIndex } from "@illa-design/react"
 import { FC, HTMLAttributes, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { DownIcon, Trigger, UpIcon, zIndex } from "@illa-design/react"
 import {
   getSmallThanTargetRole,
   isSmallThanTargetRole,
@@ -113,11 +112,7 @@ const RoleSelect: FC<RoleSelectProps> = (props) => {
         className={className}
       >
         {t(userRoleMapI18nString[value])}
-        {popupVisible ? (
-          <ExpandIcon css={css({ transform: "rotate(180deg)" })} />
-        ) : (
-          <ExpandIcon />
-        )}
+        {popupVisible ? <UpIcon /> : <DownIcon />}
       </div>
     </Trigger>
   )

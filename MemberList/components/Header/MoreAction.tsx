@@ -1,19 +1,18 @@
+import { FC, MouseEvent, useCallback, useMemo } from "react"
+import { useTranslation } from "react-i18next"
 import {
   DropList,
+  DropListItem,
   Dropdown,
   Switch,
   useMessage,
   useModal,
 } from "@illa-design/react"
-import { FC, MouseEvent, useCallback, useMemo } from "react"
-import { useTranslation } from "react-i18next"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { MoreActionProps } from "@/illa-public-component/MemberList/components/Header/interface"
 import { allowEditorOrViewerInviteWrapperStyle } from "@/illa-public-component/MemberList/components/Header/style"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
-
-const DropListItem = DropList.Item
 
 const stopPropagation = (e: MouseEvent) => {
   e.stopPropagation()
@@ -137,7 +136,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
             allowRoles={[USER_ROLE.OWNER, USER_ROLE.ADMIN]}
             rules={SHOW_RULES.EQUAL}
           >
-            <DropListItem key="1">
+            <DropListItem key="1" value="1">
               <div
                 css={allowEditorOrViewerInviteWrapperStyle}
                 onClick={stopPropagation}
@@ -157,7 +156,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
             </DropListItem>
           </AuthShown>
           {canShowLeaveTeam && (
-            <DropListItem key="leaveTeam">
+            <DropListItem key="leaveTeam" value="leaveTeam">
               {currentUserRole === USER_ROLE.OWNER
                 ? t("team_setting.left_panel.delete")
                 : t("team_setting.left_panel.leave")}
