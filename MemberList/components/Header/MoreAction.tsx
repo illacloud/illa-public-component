@@ -130,7 +130,11 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
       trigger="click"
       position="bottom-end"
       dropList={
-        <DropList onClickItem={handleClickDropList}>
+        <DropList
+          onClickItem={(key) => {
+            handleClickDropList(key as string)
+          }}
+        >
           <AuthShown
             currentUserRole={currentUserRole}
             allowRoles={[USER_ROLE.OWNER, USER_ROLE.ADMIN]}
