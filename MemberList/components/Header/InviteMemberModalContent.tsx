@@ -1,17 +1,18 @@
+import copy from "copy-to-clipboard"
+import { FC, MouseEvent, useCallback, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 import {
   Avatar,
   Button,
   CloseIcon,
   Divider,
   DropList,
+  DropListItem,
   Dropdown,
   InputTag,
   Skeleton,
   useMessage,
 } from "@illa-design/react"
-import copy from "copy-to-clipboard"
-import { FC, MouseEvent, useCallback, useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { ReactComponent as SettingIcon } from "@/illa-public-component/MemberList/assets/icon/setting.svg"
@@ -51,8 +52,6 @@ import {
 import { inviteByEmailResponse } from "@/illa-public-component/MemberList/interface"
 import RoleSelect from "@/illa-public-component/RoleSelect"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
-
-const DropListItem = DropList.Item
 
 const EMAIL_REGX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -282,11 +281,16 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
             position="bottom-end"
             dropList={
               <DropList>
-                <DropListItem key="reset" onClick={handleClickRenewInviteLink}>
+                <DropListItem
+                  key="reset"
+                  value="reset"
+                  onClick={handleClickRenewInviteLink}
+                >
                   {t("user_management.modal.link.update")}
                 </DropListItem>
                 <DropListItem
                   key="turnOff"
+                  value="turnOff"
                   onClick={handleClickConfigInviteLink}
                 >
                   {t("user_management.modal.link.turn_off")}
@@ -494,6 +498,10 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
     [changeTeamMembersRole, message, t],
   )
 
+  const onInputTagChange = (value: string[]) => {
+    setInviteEmails(value)
+  }
+
   return (
     <div css={subBodyWrapperStyle}>
       <div css={subBodyTitleWrapperStyle}>
@@ -505,7 +513,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         <InputTag
           _css={emailInputStyle}
           alignItems="start"
-          borderColor={"techPurple"}
+          colorScheme={"techPurple"}
           suffix={
             <RoleSelect
               value={inviteRole}
@@ -515,8 +523,10 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
           }
           value={inviteEmails}
           inputValue={inputEmailValue}
-          validate={handleValidateInputValue}
-          onChange={setInviteEmails}
+          // validate={handleValidateInputValue}
+          onChange={(value) => {
+            setInviteEmails(value as string[])
+          }}
           onPressEnter={handlePressEnter}
           onInputChange={handleInputValueChange}
           onBlur={handleBlurInputValue}

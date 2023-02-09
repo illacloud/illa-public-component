@@ -1,13 +1,14 @@
+import { FC, useCallback, useMemo } from "react"
+import { useTranslation } from "react-i18next"
 import {
   Button,
   DropList,
+  DropListItem,
   Dropdown,
   MoreIcon,
   useMessage,
   useModal,
 } from "@illa-design/react"
-import { FC, useCallback, useMemo } from "react"
-import { useTranslation } from "react-i18next"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { MoreActionProps } from "@/illa-public-component/MemberList/components/List/interface"
@@ -126,9 +127,13 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
                   allowRoles={[USER_ROLE.OWNER]}
                   rules={SHOW_RULES.EQUAL}
                 >
-                  <DropList.Item key="trans" onClick={handleClickTransOwner}>
+                  <DropListItem
+                    key="trans"
+                    value="trans"
+                    onClick={handleClickTransOwner}
+                  >
                     {t("user_management.page.transfer")}
-                  </DropList.Item>
+                  </DropListItem>
                 </AuthShown>
               )}
             <AuthShown
@@ -136,9 +141,13 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
               allowRoles={[userRole]}
               rules={SHOW_RULES.BIGGER}
             >
-              <DropList.Item key="remove" onClick={handleClickRemoveMember}>
+              <DropListItem
+                key="remove"
+                value="remove"
+                onClick={handleClickRemoveMember}
+              >
                 {t("user_management.page.remove")}
-              </DropList.Item>
+              </DropListItem>
             </AuthShown>
           </DropList>
         }
