@@ -390,7 +390,9 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         })
       } else if (!EMAIL_REGX.test(email)) {
         message.error({
-          content: `${email} is not email`,
+          content: t("user_management.modal.email.notmail", {
+            email: email,
+          }),
         })
       } else {
         return true
@@ -421,10 +423,18 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       if (value.includes(",")) {
         const values = value.split(",")
         values.forEach((item) => {
+          item = item.trim()
           if (!item.length) return
-          if (inviteEmails.find((email) => email == item)) return
+          if (inviteEmails.find((email) => email == item)) {
+            message.error({
+              content: t("user_management.modal.email.duplicate", {
+                email: item,
+              }),
+            })
+            return
+          }
           if (checkEmail(item)) {
-            setInviteEmails([...inviteEmails, item])
+            setInviteEmails((prev) => [...prev, item])
           }
         })
         setInputEmailValue("")
