@@ -172,7 +172,6 @@ export const attributeConfigList: AttributeConfigList = {
       [ATTRIBUTE_GROUP.HUB]: { [ACTION_DELETE.DELETE]: true },
     },
     [USER_ROLE.ADMIN]: {
-      [ATTRIBUTE_GROUP.TEAM]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.USER]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.INVITE]: { [ACTION_DELETE.DELETE]: true },

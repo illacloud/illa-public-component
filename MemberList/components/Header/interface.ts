@@ -24,6 +24,9 @@ export interface HeaderProps
     | "configInviteLink"
     | "allowInviteByLink"
     | "userListData"
+    | "appLink"
+    | "isAppPublic"
+    | "updateAppPublicConfig"
   > {}
 
 export interface MoreActionProps
@@ -64,10 +67,20 @@ export interface InviteMemberModalProps
     | "configInviteLink"
     | "allowInviteByLink"
     | "userListData"
+    | "hasApp"
+    | "appLink"
+    | "isAppPublic"
+    | "updateAppPublicConfig"
   > {
   maskClosable?: boolean
   handleCloseModal: () => void
 }
+
+export interface AppPublicContentProps
+  extends Pick<
+    InviteMemberModalProps,
+    "appLink" | "isAppPublic" | "updateAppPublicConfig"
+  > {}
 
 export interface InviteMemberByLinkProps
   extends Pick<

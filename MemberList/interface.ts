@@ -35,6 +35,8 @@ export interface inviteByEmailResponse {
 export interface MemberListProps {
   hasApp?: boolean
   loading?: boolean
+  appLink?: string
+  isAppPublic?: boolean
   currentUserID: string
   currentTeamMemberID: string
   currentUserRole: USER_ROLE
@@ -59,4 +61,5 @@ export interface MemberListProps {
     allowEditorManageTeamMember: boolean,
     allowViewerManageTeamMember: boolean,
   ) => Promise<boolean>
+  updateAppPublicConfig?: (isPublic: boolean) => Promise<boolean>
 }

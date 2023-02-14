@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useCallback, useMemo } from "react"
+import { FC, MouseEvent, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import {
   DropList,
@@ -33,10 +33,6 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
   const modal = useModal()
   const message = useMessage()
   const { t } = useTranslation()
-
-  const canShowLeaveTeam = useMemo(() => {
-    return currentUserRole === USER_ROLE.OWNER
-  }, [currentUserRole])
 
   const handleSwitchChange = useCallback(
     async (value: boolean) => {
@@ -156,13 +152,11 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
               </div>
             </DropListItem>
           </AuthShown>
-          {canShowLeaveTeam && (
-            <DropListItem key="leaveTeam" value="leaveTeam">
-              {currentUserRole === USER_ROLE.OWNER
-                ? t("team_setting.left_panel.delete")
-                : t("team_setting.left_panel.leave")}
-            </DropListItem>
-          )}
+          <DropListItem key="leaveTeam" value="leaveTeam">
+            {currentUserRole === USER_ROLE.OWNER
+              ? t("team_setting.left_panel.delete")
+              : t("team_setting.left_panel.leave")}
+          </DropListItem>
         </DropList>
       }
     >

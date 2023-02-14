@@ -87,6 +87,20 @@ export const modalTitleStyle = css`
   margin: 0;
 `
 
+export const modalTabWrapperStyle = css`
+  display: flex;
+  gap: 16px;
+`
+
+export const applyTabLabelStyle = (active: boolean) => css`
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: ${active ? 500 : 400};
+  color: ${active ? getColor("grayBlue", "02") : getColor("grayBlue", "03")};
+  text-transform: capitalize;
+  cursor: pointer;
+`
+
 export const closeIconHotSpotStyle = css`
   width: 24px;
   height: 24px;
@@ -103,6 +117,29 @@ export const modalBodyWrapperStyle = css`
   display: flex;
   flex-direction: column;
   gap: 16px;
+`
+
+export const appPublicWrapperStyle = css`
+  //height: 196px;
+  padding: 16px;
+`
+
+export const publicLabelStyle = css`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 27px;
+  font-weight: 500;
+  font-size: 14px;
+  color: ${getColor("grayBlue", "02")};
+`
+
+export const publicLinkStyle = css`
+  margin-top: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 `
 
 export const subBodyWrapperStyle = css`
