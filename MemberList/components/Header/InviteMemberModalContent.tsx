@@ -5,8 +5,10 @@ import {
   Divider,
   DropList,
   Dropdown,
+  Input,
   InputTag,
   Skeleton,
+  Switch,
   useMessage,
 } from "@illa-design/react"
 import copy from "copy-to-clipboard"
@@ -16,6 +18,7 @@ import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { ReactComponent as SettingIcon } from "@/illa-public-component/MemberList/assets/icon/setting.svg"
 import {
+  AppPublicContentProps,
   InviteListItemProps,
   InviteListProps,
   InviteMemberByEmailProps,
@@ -24,7 +27,9 @@ import {
   InviteMemberModalProps,
 } from "@/illa-public-component/MemberList/components/Header/interface"
 import {
+  appPublicWrapperStyle,
   applyHiddenStyle,
+  applyTabLabelStyle,
   avatarAndNameWrapperStyle,
   closeIconHotSpotStyle,
   emailInputStyle,
@@ -38,10 +43,13 @@ import {
   maskStyle,
   modalBodyWrapperStyle,
   modalHeaderWrapperStyle,
+  modalTabWrapperStyle,
   modalTitleStyle,
   modalWithMaskWrapperStyle,
   modalWrapperStyle,
   nicknameStyle,
+  publicLabelStyle,
+  publicLinkStyle,
   settingIconStyle,
   subBodyTitleWrapperStyle,
   subBodyWrapperStyle,
@@ -116,6 +124,7 @@ export const InviteList: FC<InviteListProps> = (props) => {
 
 export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
   const {
+    hasApp,
     userListData,
     currentUserRole,
     allowInviteByLink,
@@ -126,8 +135,24 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     fetchInviteLink,
     configInviteLink,
     maskClosable,
+    appLink,
+    isAppPublic,
+    updateAppPublicConfig,
   } = props
   const { t } = useTranslation()
+  const [activeTab, setActiveTab] = useState(0)
+
+  const tabs = [
+    {
+      id: 0,
+      label: t("user_management.modal.tab.invite"),
+    },
+    {
+      id: 1,
+      label: t("user_management.modal.tab.public"),
+    },
+  ]
+
   const handleClickMask = useCallback(
     (e: MouseEvent<HTMLDivElement>) => {
       e.stopPropagation()
@@ -135,6 +160,62 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     },
     [maskClosable, handleCloseModal],
   )
+
+  const handleTabClick = useCallback((id: number) => {
+    setActiveTab(id)
+  }, [])
+
+  if (hasApp) {
+    return (
+      <div css={modalWithMaskWrapperStyle}>
+        <div css={modalWrapperStyle}>
+          <header css={modalHeaderWrapperStyle}>
+            <div css={modalTabWrapperStyle}>
+              {tabs.map((tab) => {
+                const { id, label } = tab
+                const isActive = id === activeTab
+                return (
+                  <span
+                    css={applyTabLabelStyle(isActive)}
+                    onClick={() => {
+                      handleTabClick(id)
+                    }}
+                  >
+                    {label}
+                  </span>
+                )
+              })}
+            </div>
+            <span css={closeIconHotSpotStyle} onClick={handleCloseModal}>
+              <CloseIcon />
+            </span>
+          </header>
+          <Divider />
+          {activeTab === 0 && (
+            <InviteMemberModalContent
+              userListData={userListData}
+              currentUserRole={currentUserRole}
+              allowInviteByLink={allowInviteByLink}
+              inviteByEmail={inviteByEmail}
+              renewInviteLink={renewInviteLink}
+              fetchInviteLink={fetchInviteLink}
+              configInviteLink={configInviteLink}
+              changeTeamMembersRole={changeTeamMembersRole}
+            />
+          )}
+          {activeTab === 1 && (
+            <AppPublicContent
+              appLink={appLink}
+              isAppPublic={isAppPublic}
+              updateAppPublicConfig={updateAppPublicConfig}
+            />
+          )}
+        </div>
+        <div css={maskStyle} onClick={handleClickMask} />
+      </div>
+    )
+  }
+
   return (
     <div css={modalWithMaskWrapperStyle}>
       <div css={modalWrapperStyle}>
@@ -159,6 +240,71 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
         />
       </div>
       <div css={maskStyle} onClick={handleClickMask} />
+    </div>
+  )
+}
+
+export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
+  const { appLink, isAppPublic, updateAppPublicConfig } = props
+  const { t } = useTranslation()
+  const message = useMessage()
+
+  const handleClickCopy = useCallback(() => {
+    if (!appLink) return
+    const copyReturned = copy(appLink)
+    if (copyReturned) {
+      message.success({
+        content: t("copied"),
+      })
+    } else {
+      message.error({
+        content: t("copy_failed"),
+      })
+    }
+  }, [appLink, message, t])
+
+  const switchAppPublic = async (value: boolean) => {
+    try {
+      const success = await updateAppPublicConfig?.(value)
+      if (success) {
+        message.success({
+          content: t("user_management.modal.message.make_public_suc"),
+        })
+        return
+      }
+      message.error({
+        content: t("user_management.modal.message.make_public_failed"),
+      })
+    } catch (e) {
+      message.error({
+        content: t("user_management.modal.message.make_public_failed"),
+      })
+    }
+  }
+
+  return (
+    <div css={appPublicWrapperStyle}>
+      <div css={publicLabelStyle}>
+        <span>{t("user_management.modal.link.make_public_title")}</span>
+        <Switch
+          checked={isAppPublic ?? false}
+          colorScheme="black"
+          onChange={switchAppPublic}
+        />
+      </div>
+      <div css={publicLinkStyle}>
+        <Input _css={emailInputStyle} borderColor="techPurple" readOnly />
+        <Button
+          w="100%"
+          h="32px"
+          ov="hidden"
+          colorScheme="black"
+          disabled={!appLink}
+          onClick={handleClickCopy}
+        >
+          {t("user_management.modal.link.copy")}
+        </Button>
+      </div>
     </div>
   )
 }

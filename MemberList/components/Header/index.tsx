@@ -64,6 +64,7 @@ export const Header: FC<HeaderProps> = (props) => {
       {showInviteMemberModal &&
         createPortal(
           <InviteMemberModal
+            hasApp={hasApp}
             userListData={userListData}
             handleCloseModal={() => {
               setShowInviteMemberModal(false)
