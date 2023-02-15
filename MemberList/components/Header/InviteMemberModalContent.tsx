@@ -11,6 +11,7 @@ import {
   Dropdown,
   Input,
   InputTag,
+  Loading,
   Skeleton,
   Switch,
   useMessage,
@@ -247,6 +248,7 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
   const { appLink, isAppPublic, updateAppPublicConfig } = props
   const { t } = useTranslation()
   const message = useMessage()
+  const [loading, setLoading] = useState(false)
 
   const handleClickCopy = useCallback(() => {
     if (!appLink) return
@@ -263,12 +265,15 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
   }, [appLink, message, t])
 
   const switchAppPublic = async (value: boolean) => {
+    if (loading) return
+    setLoading(true)
     try {
       const success = await updateAppPublicConfig?.(value)
       if (success) {
         message.success({
           content: t("user_management.modal.message.make_public_suc"),
         })
+        setLoading(false)
         return
       }
       message.error({
@@ -279,36 +284,43 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
         content: t("user_management.modal.message.make_public_failed"),
       })
     }
+    setLoading(false)
   }
 
   return (
     <div css={appPublicWrapperStyle}>
       <div css={publicLabelStyle}>
         <span>{t("user_management.modal.link.make_public_title")}</span>
-        <Switch
-          checked={isAppPublic ?? false}
-          colorScheme="black"
-          onChange={switchAppPublic}
-        />
+        {loading ? (
+          <Loading colorScheme="techPurple" />
+        ) : (
+          <Switch
+            checked={isAppPublic ?? false}
+            colorScheme="black"
+            onChange={switchAppPublic}
+          />
+        )}
       </div>
-      <div css={publicLinkStyle}>
-        <Input
-          _css={emailInputStyle}
-          value={appLink}
-          colorScheme="techPurple"
-          readOnly
-        />
-        <Button
-          w="100%"
-          h="32px"
-          ov="hidden"
-          colorScheme="black"
-          disabled={!appLink}
-          onClick={handleClickCopy}
-        >
-          {t("user_management.modal.link.copy")}
-        </Button>
-      </div>
+      {isAppPublic && (
+        <div css={publicLinkStyle}>
+          <Input
+            _css={emailInputStyle}
+            value={appLink}
+            colorScheme="techPurple"
+            readOnly
+          />
+          <Button
+            w="100%"
+            h="32px"
+            ov="hidden"
+            colorScheme="black"
+            disabled={!appLink}
+            onClick={handleClickCopy}
+          >
+            {t("user_management.modal.link.copy")}
+          </Button>
+        </div>
+      )}
     </div>
   )
 }
@@ -684,7 +696,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
           }
           value={inviteEmails}
           inputValue={inputEmailValue}
-          // validate={handleValidateInputValue}
+          validate={handleValidateInputValue}
           onChange={(value) => {
             setInviteEmails(value as string[])
           }}
