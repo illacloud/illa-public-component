@@ -292,7 +292,12 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
         />
       </div>
       <div css={publicLinkStyle}>
-        <Input _css={emailInputStyle} borderColor="techPurple" readOnly />
+        <Input
+          _css={emailInputStyle}
+          value={appLink}
+          colorScheme="techPurple"
+          readOnly
+        />
         <Button
           w="100%"
           h="32px"
