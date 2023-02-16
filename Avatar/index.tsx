@@ -10,12 +10,23 @@ interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   name?: string
 }
 
+// Generate id from strings
+const stringToColour = (str?: string) => {
+  if (!str) return "#654aec"
+  let hash = 0
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash)
+    hash = hash & hash
+  }
+  return `hsl(${hash % 360}, ${100}%, ${70}%)`
+}
+
 export const Avatar: FC<AvatarProps> = (props) => {
   const { avatarUrl, id, name, className, ...otherProps } = props
 
   const { avatarBgColor, avatarText, emptyStatus } = useMemo(() => {
     return {
-      avatarBgColor: `${id}`.padEnd(6, "0").substring(0, 6) || "654aec",
+      avatarBgColor: stringToColour(id),
       avatarText: name?.substring?.(0, 1).toUpperCase() || "U",
       emptyStatus: !avatarUrl && !name,
     }

@@ -16,7 +16,7 @@ export function applyAvatarStyle(
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #${background};
+    background: ${background};
     color: ${globalColor(`--${illaPrefix}-white-01`)};
     border: 1px solid ${globalColor(`--${illaPrefix}-grayBlue-09`)};
     width: 32px;
