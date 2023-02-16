@@ -26,7 +26,7 @@ export const Avatar: FC<AvatarProps> = (props) => {
 
   const { avatarBgColor, avatarText, emptyStatus } = useMemo(() => {
     return {
-      avatarBgColor: stringToColour(id),
+      avatarBgColor: avatarUrl ? "#ffffff" : stringToColour(id),
       avatarText: name?.substring?.(0, 1).toUpperCase() || "U",
       emptyStatus: !avatarUrl && !name,
     }
