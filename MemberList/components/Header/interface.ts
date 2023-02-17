@@ -26,6 +26,7 @@ export interface HeaderProps
     | "userListData"
     | "appLink"
     | "isAppPublic"
+    | "isCloudVersion"
     | "updateAppPublicConfig"
   > {}
 
@@ -70,6 +71,7 @@ export interface InviteMemberModalProps
     | "hasApp"
     | "appLink"
     | "isAppPublic"
+    | "isCloudVersion"
     | "updateAppPublicConfig"
   > {
   maskClosable?: boolean
@@ -85,6 +87,7 @@ export interface AppPublicContentProps
 export interface InviteMemberByLinkProps
   extends Pick<
     InviteMemberModalContentProps,
+    | "isCloudVersion"
     | "currentUserRole"
     | "renewInviteLink"
     | "fetchInviteLink"
@@ -104,6 +107,7 @@ export interface InviteMemberByEmailProps
 export interface InviteMemberModalContentProps
   extends Pick<
     MemberListProps,
+    | "isCloudVersion"
     | "changeTeamMembersRole"
     | "currentUserRole"
     | "renewInviteLink"

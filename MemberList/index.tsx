@@ -1,5 +1,5 @@
-import { Loading } from "@illa-design/react"
 import { FC } from "react"
+import { Loading } from "@illa-design/react"
 import { Header } from "@/illa-public-component/MemberList/components/Header"
 import { List } from "@/illa-public-component/MemberList/components/List"
 import { MemberListProps } from "@/illa-public-component/MemberList/interface"
@@ -10,6 +10,7 @@ import {
 
 export const MemberList: FC<MemberListProps> = (props) => {
   const {
+    isCloudVersion = true,
     currentUserRole,
     currentUserID,
     currentTeamMemberID,

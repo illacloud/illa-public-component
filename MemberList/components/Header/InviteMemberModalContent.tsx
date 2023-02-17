@@ -137,6 +137,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     maskClosable,
     appLink,
     isAppPublic,
+    isCloudVersion,
     updateAppPublicConfig,
   } = props
   const { t } = useTranslation()
@@ -176,6 +177,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
                 const isActive = id === activeTab
                 return (
                   <span
+                    key={`tab-${id}`}
                     css={applyTabLabelStyle(isActive)}
                     onClick={() => {
                       handleTabClick(id)
@@ -327,6 +329,7 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
 
 export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
   const {
+    isCloudVersion,
     currentUserRole,
     allowInviteByLink,
     renewInviteLink,
@@ -344,6 +347,13 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
   const [fetchInviteLinkError, setFetchInviteLinkError] = useState(false)
   const [turnOnLoading, setTurnOnLoading] = useState(false)
 
+  // replace url href to location.href
+
+  const replaceHref = (link: string) => {
+    const url = new URL(link)
+    return `${location.origin}${url.search}`
+  }
+
   const fetchInviteLinkHandler = useCallback(
     async (userRole: USER_ROLE, isRenew: boolean = false) => {
       setLoading(true)
@@ -356,7 +366,10 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
           linkConfig.inviteLink &&
           linkConfig.userRole != undefined
         ) {
-          setInviteLink(linkConfig.inviteLink)
+          const link = isCloudVersion
+            ? linkConfig.inviteLink
+            : replaceHref(linkConfig.inviteLink)
+          setInviteLink(link)
           setInviteLinkRole(linkConfig.userRole)
           setFetchInviteLinkError(false)
         } else {
@@ -731,6 +744,7 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
   props,
 ) => {
   const {
+    isCloudVersion,
     changeTeamMembersRole,
     currentUserRole,
     allowInviteByLink,
@@ -744,6 +758,7 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
   return (
     <div css={modalBodyWrapperStyle}>
       <InviteMemberByLink
+        isCloudVersion={isCloudVersion}
         currentUserRole={currentUserRole}
         allowInviteByLink={allowInviteByLink}
         configInviteLink={configInviteLink}

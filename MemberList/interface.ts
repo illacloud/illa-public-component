@@ -33,6 +33,7 @@ export interface inviteByEmailResponse {
 }
 
 export interface MemberListProps {
+  isCloudVersion?: boolean
   hasApp?: boolean
   loading?: boolean
   appLink?: string

@@ -1,7 +1,7 @@
-import { Button, MoreIcon } from "@illa-design/react"
 import { FC, useCallback, useState } from "react"
 import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
+import { Button, MoreIcon } from "@illa-design/react"
 import { InviteMemberModal } from "@/illa-public-component/MemberList/components/Header/InviteMemberModalContent"
 import { MoreAction } from "@/illa-public-component/MemberList/components/Header/MoreAction"
 import {
@@ -29,6 +29,7 @@ export const Header: FC<HeaderProps> = (props) => {
     fetchInviteLink,
     configInviteLink,
     userListData,
+    isCloudVersion,
   } = props
   const { t } = useTranslation()
 
@@ -65,6 +66,7 @@ export const Header: FC<HeaderProps> = (props) => {
         createPortal(
           <InviteMemberModal
             hasApp={hasApp}
+            isCloudVersion={isCloudVersion}
             userListData={userListData}
             handleCloseModal={() => {
               setShowInviteMemberModal(false)
