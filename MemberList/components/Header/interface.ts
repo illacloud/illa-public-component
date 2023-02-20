@@ -42,6 +42,7 @@ export interface MoreActionProps
     | "removeTeamMembers"
     | "allowEditorManageTeamMember"
     | "allowViewerManageTeamMember"
+    | "isCloudVersion"
   > {
   children: ReactNode
 }

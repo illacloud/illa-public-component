@@ -29,6 +29,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     updateTeamPermissionConfig,
     removeTeamMembers,
     removeTeam,
+    isCloudVersion,
   } = props
   const modal = useModal()
   const message = useMessage()
@@ -152,11 +153,17 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
               </div>
             </DropListItem>
           </AuthShown>
-          <DropListItem key="leaveTeam" value="leaveTeam">
-            {currentUserRole === USER_ROLE.OWNER
-              ? t("team_setting.left_panel.delete")
-              : t("team_setting.left_panel.leave")}
-          </DropListItem>
+          {isCloudVersion ? (
+            <DropListItem key="leaveTeam" value="leaveTeam">
+              {currentUserRole === USER_ROLE.OWNER
+                ? t("team_setting.left_panel.delete")
+                : t("team_setting.left_panel.leave")}
+            </DropListItem>
+          ) : currentUserRole !== USER_ROLE.OWNER ? (
+            <DropListItem key="leaveTeam" value="leaveTeam">
+              {t("team_setting.left_panel.leave")}
+            </DropListItem>
+          ) : null}
         </DropList>
       }
     >
