@@ -9,7 +9,7 @@ import {
 } from "react"
 import EasyCropper, { Area, MediaSize } from "react-easy-crop"
 import { useTranslation } from "react-i18next"
-import { ReactComponent as RotateRightIcon } from "@/assets/icon/rotate-right.svg"
+import { ReactComponent as RotateRightIcon } from "@/illa-public-component/Cropper/assets/rotate-right.svg"
 import {
   applyZoomStyle,
   closeIconStyle,
