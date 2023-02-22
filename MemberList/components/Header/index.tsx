@@ -1,7 +1,7 @@
+import { Button, MoreIcon } from "@illa-design/react"
 import { FC, useCallback, useState } from "react"
 import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
-import { Button, MoreIcon } from "@illa-design/react"
 import { InviteMemberModal } from "@/illa-public-component/MemberList/components/Header/InviteMemberModalContent"
 import { MoreAction } from "@/illa-public-component/MemberList/components/Header/MoreAction"
 import {
@@ -44,6 +44,7 @@ export const Header: FC<HeaderProps> = (props) => {
       <h1 css={titleStyle}>{t("user_management.page.member")}</h1>
       <div css={buttonGroup}>
         <MoreAction
+          isCloudVersion={isCloudVersion}
           currentTeamMemberID={currentTeamMemberID}
           currentUserRole={currentUserRole}
           currentUserID={currentUserID}
