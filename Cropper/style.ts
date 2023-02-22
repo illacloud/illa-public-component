@@ -27,7 +27,7 @@ export const modalTitleStyle = css`
 `
 
 export const applyZoomStyle = (zoom: number) => css`
-  background-size: ${((zoom - 1) / 2) * 100}% 100%;
+  background-size: ${((zoom - 0.5) / 2.5) * 100}% 100%;
 `
 
 export const controlStyle = css`
