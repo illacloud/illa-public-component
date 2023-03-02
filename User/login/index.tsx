@@ -1,19 +1,14 @@
 import { FC } from "react"
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
+import { FormProvider, useForm } from "react-hook-form"
 import { LayoutAutoChange } from "@/illa-public-component/LayoutAutoChange"
 import { UserLayout } from "@/illa-public-component/User/layout"
 import { MobileUserLayout } from "@/illa-public-component/User/layout/mobileLayout"
 import Login from "@/illa-public-component/User/login/components/Login"
 import MobileLogin from "@/illa-public-component/User/login/components/MobileLogin"
-import { LoginFields } from "@/illa-public-component/User/login/interface"
-
-export type LoginErrorMsg = Record<keyof LoginFields, string>
-
-interface LoginPageProps {
-  loading: boolean
-  errorMsg: LoginErrorMsg
-  onSubmit: SubmitHandler<LoginFields>
-}
+import {
+  LoginFields,
+  LoginPageProps,
+} from "@/illa-public-component/User/login/interface"
 
 const LoginPage: FC<LoginPageProps> = (props) => {
   const { loading, errorMsg, onSubmit } = props
