@@ -1,7 +1,7 @@
-import { Button, Input, Password, WarningCircleIcon } from "@illa-design/react"
 import { FC } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
+import { Button, Input, Password, WarningCircleIcon } from "@illa-design/react"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import { TextLink } from "@/illa-public-component/TextLink"
 import { LoginProps } from "@/illa-public-component/User/login/components/Login/interface"
@@ -20,6 +20,7 @@ import {
 } from "@/illa-public-component/User/login/components/Login/style"
 import { LoginFields } from "@/illa-public-component/User/login/interface"
 import { toForgotPassword, toRegister } from "@/utils/navigate"
+import { isCloudVersion } from "@/utils/typeHelper"
 
 const Login: FC<LoginProps> = (props) => {
   const { t } = useTranslation()
@@ -59,11 +60,15 @@ const Login: FC<LoginProps> = (props) => {
               )}
               rules={{
                 required: t("page.user.sign_in.error_message.email.require"),
-                pattern: {
-                  value: EMAIL_FORMAT,
-                  message: t(
-                    "page.user.sign_in.error_message.email.invalid_pattern",
-                  ),
+                validate: (value: string) => {
+                  if (isCloudVersion && !EMAIL_FORMAT.test(value)) {
+                    return t("user.sign_up.error_message.email.invalid_pattern")
+                  }
+                  return value === "root"
+                    ? true
+                    : EMAIL_FORMAT.test(value)
+                    ? true
+                    : t("user.sign_up.error_message.email.invalid_pattern")
                 },
               }}
             />
