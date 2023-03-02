@@ -4,19 +4,19 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom"
+import { ERROR_FLAG } from "@/api/errorFlag"
 import { LayoutAutoChange } from "@/illa-public-component/LayoutAutoChange"
 import { UserLayout } from "@/illa-public-component/User/layout"
 import { MobileUserLayout } from "@/illa-public-component/User/layout/mobileLayout"
 import Login from "@/illa-public-component/User/login/components/Login"
 import MobileLogin from "@/illa-public-component/User/login/components/MobileLogin"
 import { LoginFields } from "@/illa-public-component/User/login/interface"
-import { ERROR_FLAG } from "@/services/errorFlag"
 import { teamActions } from "@/store/team/teamSlice"
 import { TeamInfo } from "@/store/team/teamState"
 import { userInfoActions } from "@/store/userInfo/userInfoSlice"
 import { CurrentUser } from "@/store/userInfo/userInfoState"
 import { setAuthToken } from "@/utils/auth"
-import { Api } from "@/utils/http-request"
+import { CloudApi } from "@/utils/http-request"
 import { openBuilderAppLink } from "@/utils/navigate"
 
 export type LoginErrorMsg = Record<keyof LoginFields, string>
@@ -45,7 +45,7 @@ const LoginPage: FC = () => {
     const appID = searchParams.get("appID")
     const identifier = searchParams.get("teamIdentifier")
 
-    await Api.asyncRequest<TeamInfo>({
+    await CloudApi.asyncRequest<TeamInfo>({
       method: "PUT",
       url: `/join/${inviteToken}`,
     })
@@ -82,7 +82,7 @@ const LoginPage: FC = () => {
   }
 
   const onSubmit: SubmitHandler<LoginFields> = (data) => {
-    Api.request<CurrentUser>(
+    CloudApi.request<CurrentUser>(
       { method: "POST", url: "/auth/signin", data },
       async (res) => {
         const token = res.headers["illa-token"]
