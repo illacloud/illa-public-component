@@ -30,8 +30,14 @@ import {
 import { ResetPwdFields } from "@/illa-public-component/User/resetPassword/interface"
 
 const MobileReset: FC<MobileResetProps> = (props) => {
-  const { onSubmit, errorMsg, loading, showCountDown, onCountDownChange } =
-    props
+  const {
+    onSubmit,
+    errorMsg,
+    loading,
+    showCountDown,
+    onCountDownChange,
+    sendEmail,
+  } = props
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { handleSubmit, control, formState } = useFormContext<ResetPwdFields>()
@@ -105,6 +111,7 @@ const MobileReset: FC<MobileResetProps> = (props) => {
                   usage="forgetpwd"
                   showCountDown={showCountDown}
                   onCountDownChange={onCountDownChange}
+                  sendEmail={sendEmail}
                 />
               }
               placeholder={t(

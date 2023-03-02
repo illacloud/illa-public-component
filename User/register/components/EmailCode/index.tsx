@@ -3,55 +3,42 @@ import { FC } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { LoginFields } from "@/illa-public-component/User/login/interface"
-import { CloudApi } from "@/utils/http-request"
 import { ILLACloudStorage } from "@/utils/storage"
 
 interface EmailCodeProps {
   showCountDown: boolean
   usage: "signup" | "forgetpwd"
   onCountDownChange: (showCountDown: boolean) => void
+  sendEmail: (email: string, usage: "signup" | "forgetpwd") => Promise<string>
 }
 
 export const EmailCode: FC<EmailCodeProps> = (props) => {
-  const { usage, showCountDown, onCountDownChange } = props
+  const { usage, showCountDown, onCountDownChange, sendEmail } = props
   const { getValues, trigger } = useFormContext<LoginFields>()
   const { t } = useTranslation()
   const message = useMessage()
 
-  const sendEmailCode = () => {
+  const sendEmailCode = async () => {
     onCountDownChange(true)
-    CloudApi.request<{ verificationToken: string }>(
-      {
-        method: "POST",
-        url: "/auth/verification",
-        data: {
-          email: getValues("email"),
-          usage,
-        },
-      },
-      (res) => {
-        message.success({
-          content: t("page.user.sign_up.tips.verification_code"),
-        })
-        ILLACloudStorage.setSessionStorage(
-          "verificationToken",
-          res.data.verificationToken,
-        )
-      },
-      () => {
+    try {
+      const verificationToken = await sendEmail(getValues("email"), usage)
+      message.success({
+        content: t("page.user.sign_up.tips.verification_code"),
+      })
+      ILLACloudStorage.setSessionStorage("verificationToken", verificationToken)
+    } catch (error: any) {
+      onCountDownChange(false)
+      if (error?.response) {
         message.error({
           content: t("page.user.sign_up.tips.fail_sent"),
         })
-        onCountDownChange(false)
-      },
-      () => {
+      }
+      if (error?.response == undefined && error?.request != undefined) {
         message.warning({
           content: t("network_error"),
         })
-        onCountDownChange(false)
-      },
-      () => {},
-    )
+      }
+    }
   }
   if (showCountDown) {
     return (

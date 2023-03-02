@@ -27,6 +27,7 @@ const MobileRegister: FC<MobileRegisterProps> = (props) => {
     loading,
     showCountDown,
     onCountDownChange,
+    sendEmail,
   } = props
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -138,6 +139,7 @@ const MobileRegister: FC<MobileRegisterProps> = (props) => {
                   usage="signup"
                   showCountDown={showCountDown}
                   onCountDownChange={onCountDownChange}
+                  sendEmail={sendEmail}
                 />
               }
               placeholder={t("page.user.sign_up.fields.verification_code")}

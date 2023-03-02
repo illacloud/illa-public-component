@@ -11,7 +11,7 @@ import {
 } from "@/illa-public-component/User/resetPassword/interface"
 
 const ResetPasswordPage: FC<ResetPasswordPageProps> = (props) => {
-  const { loading, errorMsg, onSubmit } = props
+  const { loading, errorMsg, onSubmit, sendEmail } = props
 
   const formProps = useForm<ResetPwdFields>({
     mode: "onSubmit",
@@ -31,6 +31,7 @@ const ResetPasswordPage: FC<ResetPasswordPageProps> = (props) => {
               errorMsg={errorMsg}
               showCountDown={showCountDown}
               onCountDownChange={setShowCountDown}
+              sendEmail={sendEmail}
             />
           </UserLayout>
         }
@@ -42,6 +43,7 @@ const ResetPasswordPage: FC<ResetPasswordPageProps> = (props) => {
               errorMsg={errorMsg}
               showCountDown={showCountDown}
               onCountDownChange={setShowCountDown}
+              sendEmail={sendEmail}
             />
           </MobileUserLayout>
         }

@@ -12,4 +12,5 @@ export interface ResetPasswordPageProps {
   loading: boolean
   errorMsg: ResetPwdErrorMsg
   onSubmit: SubmitHandler<ResetPwdFields>
+  sendEmail: (email: string, usage: "signup" | "forgetpwd") => Promise<string>
 }

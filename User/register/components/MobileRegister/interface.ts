@@ -11,4 +11,5 @@ export interface MobileRegisterProps {
   onSubmit: SubmitHandler<RegisterFields>
   showCountDown: boolean
   onCountDownChange: (showCountDown: boolean) => void
+  sendEmail: (email: string, usage: "signup" | "forgetpwd") => Promise<string>
 }

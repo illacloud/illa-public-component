@@ -29,6 +29,7 @@ const Register: FC<RegisterProps> = (props) => {
     loading,
     showCountDown,
     onCountDownChange,
+    sendEmail,
   } = props
   const navigate = useNavigate()
   const { handleSubmit, control, formState } = useFormContext<RegisterFields>()
@@ -159,6 +160,7 @@ const Register: FC<RegisterProps> = (props) => {
                       usage="signup"
                       showCountDown={showCountDown}
                       onCountDownChange={onCountDownChange}
+                      sendEmail={sendEmail}
                     />
                   }
                   placeholder={t(

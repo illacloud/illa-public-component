@@ -32,8 +32,14 @@ import { ResetPwdFields } from "@/illa-public-component/User/resetPassword/inter
 const Reset: FC<ResetProps> = (props) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { onSubmit, errorMsg, loading, showCountDown, onCountDownChange } =
-    props
+  const {
+    onSubmit,
+    errorMsg,
+    loading,
+    showCountDown,
+    onCountDownChange,
+    sendEmail,
+  } = props
   const { handleSubmit, control, formState } = useFormContext<ResetPwdFields>()
   const backToLogin = () => {
     navigate("/login")
@@ -118,6 +124,7 @@ const Reset: FC<ResetProps> = (props) => {
                       usage="forgetpwd"
                       showCountDown={showCountDown}
                       onCountDownChange={onCountDownChange}
+                      sendEmail={sendEmail}
                     />
                   }
                   placeholder={t(
