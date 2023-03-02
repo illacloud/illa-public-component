@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { ReactComponent as ILLALogoWhite } from "@/assets/illa-logo-white.svg"
 import { TextLink } from "@/illa-public-component/TextLink"
+import { ReactComponent as ILLALogoWhite } from "@/illa-public-component/User/assets/illa-logo-white.svg"
 import { LayoutProps } from "@/illa-public-component/User/layout/interface"
 import {
   illaLogoStyle,
