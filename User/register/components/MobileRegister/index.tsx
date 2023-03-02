@@ -1,8 +1,8 @@
-import { Button, Input, Password } from "@illa-design/react"
 import { FC } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
+import { Button, Input, Password } from "@illa-design/react"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import { TextLink } from "@/illa-public-component/TextLink"
 import {
@@ -18,6 +18,7 @@ import {
 import { EmailCode } from "@/illa-public-component/User/register/components/EmailCode"
 import { MobileRegisterProps } from "@/illa-public-component/User/register/components/MobileRegister/interface"
 import { RegisterFields } from "@/illa-public-component/User/register/interface"
+import { isCloudVersion } from "@/utils/typeHelper"
 
 const MobileRegister: FC<MobileRegisterProps> = (props) => {
   const {
@@ -117,47 +118,50 @@ const MobileRegister: FC<MobileRegisterProps> = (props) => {
           </div>
         )}
       </div>
-      <div css={formItemStyle}>
-        <Controller
-          name="verificationCode"
-          control={control}
-          render={({ field }) => (
-            <Input
-              {...field}
-              _css={mobileInputStyle}
-              colorScheme="techPurple"
-              maxLength={6}
-              size="large"
-              type="number"
-              error={
-                !!formState?.errors.verificationCode ||
-                !!errorMsg.verificationCode
-              }
-              variant="fill"
-              suffix={
-                <EmailCode
-                  usage="signup"
-                  showCountDown={showCountDown}
-                  onCountDownChange={onCountDownChange}
-                  sendEmail={sendEmail}
-                />
-              }
-              placeholder={t("page.user.sign_up.fields.verification_code")}
-            />
+      {isCloudVersion && (
+        <div css={formItemStyle}>
+          <Controller
+            name="verificationCode"
+            control={control}
+            render={({ field }) => (
+              <Input
+                {...field}
+                _css={mobileInputStyle}
+                colorScheme="techPurple"
+                maxLength={6}
+                size="large"
+                type="number"
+                error={
+                  !!formState?.errors.verificationCode ||
+                  !!errorMsg.verificationCode
+                }
+                variant="fill"
+                suffix={
+                  <EmailCode
+                    usage="signup"
+                    showCountDown={showCountDown}
+                    onCountDownChange={onCountDownChange}
+                    sendEmail={sendEmail}
+                  />
+                }
+                placeholder={t("page.user.sign_up.fields.verification_code")}
+              />
+            )}
+            rules={{
+              required: t(
+                "page.user.sign_up.error_message.verification_code.require",
+              ),
+            }}
+          />
+          {(formState?.errors.verificationCode ||
+            errorMsg.verificationCode) && (
+            <div css={errorMsgStyle}>
+              {formState?.errors.verificationCode?.message ||
+                errorMsg.verificationCode}
+            </div>
           )}
-          rules={{
-            required: t(
-              "page.user.sign_up.error_message.verification_code.require",
-            ),
-          }}
-        />
-        {(formState?.errors.verificationCode || errorMsg.verificationCode) && (
-          <div css={errorMsgStyle}>
-            {formState?.errors.verificationCode?.message ||
-              errorMsg.verificationCode}
-          </div>
-        )}
-      </div>
+        </div>
+      )}
       <div css={formItemStyle}>
         <Controller
           name="password"

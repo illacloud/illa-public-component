@@ -1,8 +1,8 @@
-import { Button, Input, Password, WarningCircleIcon } from "@illa-design/react"
 import { FC } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
+import { Button, Input, Password, WarningCircleIcon } from "@illa-design/react"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import { TextLink } from "@/illa-public-component/TextLink"
 import {
@@ -19,6 +19,7 @@ import {
 import { EmailCode } from "@/illa-public-component/User/register/components/EmailCode"
 import { RegisterProps } from "@/illa-public-component/User/register/components/Register/interface"
 import { RegisterFields } from "@/illa-public-component/User/register/interface"
+import { isCloudVersion } from "@/utils/typeHelper"
 
 const Register: FC<RegisterProps> = (props) => {
   const { t } = useTranslation()
@@ -134,56 +135,59 @@ const Register: FC<RegisterProps> = (props) => {
           </div>
         </section>
 
-        <section css={gridItemStyle}>
-          <label css={formLabelStyle}>
-            {t("page.user.sign_up.fields.verification_code")}
-          </label>
-          <div css={gridValidStyle}>
-            <Controller
-              name="verificationCode"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  colorScheme="techPurple"
-                  maxLength={6}
-                  size="large"
-                  type="number"
-                  autoComplete="off"
-                  error={
-                    !!formState?.errors.verificationCode ||
-                    !!errorMsg.verificationCode
-                  }
-                  variant="fill"
-                  suffix={
-                    <EmailCode
-                      usage="signup"
-                      showCountDown={showCountDown}
-                      onCountDownChange={onCountDownChange}
-                      sendEmail={sendEmail}
-                    />
-                  }
-                  placeholder={t(
-                    "page.user.sign_up.placeholder.verification_code",
-                  )}
-                />
+        {isCloudVersion && (
+          <section css={gridItemStyle}>
+            <label css={formLabelStyle}>
+              {t("page.user.sign_up.fields.verification_code")}
+            </label>
+            <div css={gridValidStyle}>
+              <Controller
+                name="verificationCode"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    colorScheme="techPurple"
+                    maxLength={6}
+                    size="large"
+                    type="number"
+                    autoComplete="off"
+                    error={
+                      !!formState?.errors.verificationCode ||
+                      !!errorMsg.verificationCode
+                    }
+                    variant="fill"
+                    suffix={
+                      <EmailCode
+                        usage="signup"
+                        showCountDown={showCountDown}
+                        onCountDownChange={onCountDownChange}
+                        sendEmail={sendEmail}
+                      />
+                    }
+                    placeholder={t(
+                      "page.user.sign_up.placeholder.verification_code",
+                    )}
+                  />
+                )}
+                rules={{
+                  required: t(
+                    "page.user.sign_up.error_message.verification_code.require",
+                  ),
+                }}
+              />
+              {(formState?.errors.verificationCode ||
+                errorMsg.verificationCode) && (
+                <div css={errorMsgStyle}>
+                  <WarningCircleIcon css={errorIconStyle} />
+                  {formState?.errors.verificationCode?.message ||
+                    errorMsg.verificationCode}
+                </div>
               )}
-              rules={{
-                required: t(
-                  "page.user.sign_up.error_message.verification_code.require",
-                ),
-              }}
-            />
-            {(formState?.errors.verificationCode ||
-              errorMsg.verificationCode) && (
-              <div css={errorMsgStyle}>
-                <WarningCircleIcon css={errorIconStyle} />
-                {formState?.errors.verificationCode?.message ||
-                  errorMsg.verificationCode}
-              </div>
-            )}
-          </div>
-        </section>
+            </div>
+          </section>
+        )}
+
         <section css={gridItemStyle}>
           <label css={formLabelStyle}>
             {t("page.user.sign_up.fields.password")}
