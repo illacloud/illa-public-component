@@ -1,6 +1,3 @@
-import copy from "copy-to-clipboard"
-import { FC, MouseEvent, useCallback, useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
 import {
   Avatar,
   Button,
@@ -16,6 +13,9 @@ import {
   Switch,
   useMessage,
 } from "@illa-design/react"
+import copy from "copy-to-clipboard"
+import { FC, MouseEvent, useCallback, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { ReactComponent as SettingIcon } from "@/illa-public-component/MemberList/assets/icon/setting.svg"

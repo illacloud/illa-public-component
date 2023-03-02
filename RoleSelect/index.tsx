@@ -1,6 +1,6 @@
+import { DownIcon, Trigger, UpIcon, zIndex } from "@illa-design/react"
 import { FC, HTMLAttributes, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { DownIcon, Trigger, UpIcon, zIndex } from "@illa-design/react"
 import {
   getSmallThanTargetRole,
   isSmallThanTargetRole,
