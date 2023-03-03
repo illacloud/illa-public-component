@@ -25,7 +25,6 @@ export const EmailCode: FC<EmailCodeProps> = (props) => {
       message.success({
         content: t("page.user.sign_up.tips.verification_code"),
       })
-      ILLACloudStorage.setSessionStorage("verificationToken", verificationToken)
     } catch (error: any) {
       onCountDownChange(false)
       if (error?.response) {
