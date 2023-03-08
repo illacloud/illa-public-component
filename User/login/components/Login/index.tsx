@@ -1,9 +1,17 @@
+import {
+  Button,
+  Divider,
+  Input,
+  Password,
+  WarningCircleIcon,
+} from "@illa-design/react"
 import { FC } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Input, Password, WarningCircleIcon } from "@illa-design/react"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import { TextLink } from "@/illa-public-component/TextLink"
+import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
+import { ReactComponent as GoogleIcon } from "@/illa-public-component/User/assets/google.svg"
 import { LoginProps } from "@/illa-public-component/User/login/components/Login/interface"
 import {
   descriptionStyle,
@@ -17,6 +25,8 @@ import {
   gridFormStyle,
   gridItemStyle,
   gridValidStyle,
+  oAuthButtonGroupStyle,
+  oAuthIconStyle,
 } from "@/illa-public-component/User/login/components/Login/style"
 import { LoginFields } from "@/illa-public-component/User/login/interface"
 import { toForgotPassword, toRegister } from "@/utils/navigate"
@@ -125,6 +135,31 @@ const Login: FC<LoginProps> = (props) => {
       <Button colorScheme="techPurple" size="large" loading={loading} fullWidth>
         {t("page.user.sign_in.actions.login")}
       </Button>
+      {isCloudVersion && (
+        <div>
+          <Divider mb="24px" colorScheme="grayBlue" text={"or"} />
+          <div css={oAuthButtonGroupStyle}>
+            <Button
+              leftIcon={<GoogleIcon css={oAuthIconStyle} />}
+              colorScheme="grayBlue"
+              variant="outline"
+              size="large"
+              fullWidth
+            >
+              Sign in with Google
+            </Button>
+            <Button
+              leftIcon={<GithubIcon css={oAuthIconStyle} />}
+              colorScheme="grayBlue"
+              variant="outline"
+              size="large"
+              fullWidth
+            >
+              Sign in with Github
+            </Button>
+          </div>
+        </div>
+      )}
     </form>
   )
 }
