@@ -1,10 +1,13 @@
+import { Button, Input, Password } from "@illa-design/react"
 import { FC } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { Button, Input, Password } from "@illa-design/react"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import { TextLink } from "@/illa-public-component/TextLink"
+import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
+import { ReactComponent as GoogleIcon } from "@/illa-public-component/User/assets/google.svg"
+import { openGithubOAuthFormLogin } from "@/illa-public-component/User/constants/users"
 import {
   descriptionStyle,
   errorMsgStyle,
@@ -13,10 +16,15 @@ import {
   formTitleStyle,
   headerStyle,
   mobileInputStyle,
+  oAuthButtonGroupStyle,
+  oAuthButtonStyle,
+  oAuthIconStyle,
+  singleSubmitButtonStyle,
   submitButtonStyle,
 } from "@/illa-public-component/User/login/components/MobileLogin/style"
 import { EmailCode } from "@/illa-public-component/User/register/components/EmailCode"
 import { MobileRegisterProps } from "@/illa-public-component/User/register/components/MobileRegister/interface"
+import { registerGroupStyle } from "@/illa-public-component/User/register/components/MobileRegister/style"
 import { RegisterFields } from "@/illa-public-component/User/register/interface"
 import { isCloudVersion } from "@/utils/typeHelper"
 
@@ -196,7 +204,7 @@ const MobileRegister: FC<MobileRegisterProps> = (props) => {
       </div>
 
       <Button
-        _css={submitButtonStyle}
+        _css={isCloudVersion ? submitButtonStyle : singleSubmitButtonStyle}
         colorScheme="techPurple"
         size="large"
         loading={loading}
@@ -204,6 +212,27 @@ const MobileRegister: FC<MobileRegisterProps> = (props) => {
       >
         {t("page.user.sign_up.actions.create")}
       </Button>
+      {isCloudVersion && (
+        <div css={[oAuthButtonGroupStyle]}>
+          <Button
+            _css={oAuthButtonStyle}
+            leftIcon={<GoogleIcon css={oAuthIconStyle} />}
+            colorScheme="grayBlue"
+            variant="outline"
+            shape="round"
+            type="button"
+          ></Button>
+          <Button
+            _css={oAuthButtonStyle}
+            leftIcon={<GithubIcon css={oAuthIconStyle} />}
+            colorScheme="grayBlue"
+            variant="outline"
+            shape="round"
+            type="button"
+            onClick={openGithubOAuthFormLogin}
+          ></Button>
+        </div>
+      )}
     </form>
   )
 }
