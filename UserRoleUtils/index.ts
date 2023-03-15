@@ -333,15 +333,18 @@ export const inviteRoleAttributeMap: InviteRoleAttributeMap = {
 interface ModifyRoleFromAttributeMap {
   [key: string]: number
 }
+
 const modifyRoleFromAttributeMap: ModifyRoleFromAttributeMap = {
   [USER_ROLE.OWNER]: ACTION_MANAGE.ROLE_FROM_OWNER,
   [USER_ROLE.ADMIN]: ACTION_MANAGE.ROLE_FROM_ADMIN,
   [USER_ROLE.EDITOR]: ACTION_MANAGE.ROLE_FROM_EDITOR,
   [USER_ROLE.VIEWER]: ACTION_MANAGE.ROLE_FROM_VIEWER,
 }
+
 interface ModifyRoleToAttributeMap {
   [key: string]: number
 }
+
 const modifyRoleToAttributeMap: ModifyRoleToAttributeMap = {
   [USER_ROLE.OWNER]: ACTION_MANAGE.ROLE_TO_OWNER,
   [USER_ROLE.ADMIN]: ACTION_MANAGE.ROLE_TO_ADMIN,
@@ -416,4 +419,16 @@ export const canModifyRoleFromTo = (
 
 export const doesNowUserAreEditorOrViewer = (userRole: USER_ROLE) => {
   return userRole === USER_ROLE.EDITOR || userRole === USER_ROLE.VIEWER
+}
+
+export const canManageApp = (
+  currentUserRole: USER_ROLE,
+  allowEditorManageTeamMember?: boolean,
+  allowViewerManageTeamMember?: boolean,
+) => {
+  if (allowViewerManageTeamMember && allowEditorManageTeamMember) {
+    return isBiggerThanTargetRole(USER_ROLE.VIEWER, currentUserRole)
+  } else {
+    return [USER_ROLE.OWNER, USER_ROLE.ADMIN].includes(currentUserRole)
+  }
 }
