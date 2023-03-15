@@ -68,6 +68,8 @@ export interface InviteMemberModalProps
     | "fetchInviteLink"
     | "configInviteLink"
     | "allowInviteByLink"
+    | "allowEditorManageTeamMember"
+    | "allowViewerManageTeamMember"
     | "userListData"
     | "hasApp"
     | "appLink"

@@ -128,6 +128,8 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     userListData,
     currentUserRole,
     allowInviteByLink,
+    allowEditorManageTeamMember,
+    allowViewerManageTeamMember,
     handleCloseModal,
     changeTeamMembersRole,
     inviteByEmail,
@@ -141,6 +143,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     updateAppPublicConfig,
   } = props
   const { t } = useTranslation()
+
   const [activeTab, setActiveTab] = useState(0)
 
   const tabs = [
