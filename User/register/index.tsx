@@ -36,14 +36,6 @@ const RegisterPage: FC<RegisterPageProps> = (props) => {
     }
   }, [email])
 
-  // useEffect(() => {
-  //   if (code) {
-  //     exchangeToken("github", code, state).then(() => {
-  //       navigate("/")
-  //     })
-  //   }
-  // }, [state, code])
-
   return (
     <FormProvider {...formProps}>
       <LayoutAutoChange
