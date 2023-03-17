@@ -1,4 +1,5 @@
 import { SubmitHandler } from "react-hook-form"
+import { OAuthURI } from "@/illa-public-component/User/login/interface"
 import {
   RegisterErrorMsg,
   RegisterFields,
@@ -8,6 +9,7 @@ export interface MobileRegisterProps {
   lockedEmail?: string | null
   loading: boolean
   errorMsg: RegisterErrorMsg
+  oAuthURI: OAuthURI
   onSubmit: SubmitHandler<RegisterFields>
   showCountDown: boolean
   onCountDownChange: (showCountDown: boolean) => void

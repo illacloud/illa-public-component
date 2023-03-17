@@ -12,7 +12,10 @@ import { EMAIL_FORMAT } from "@/constants/regExp"
 import { TextLink } from "@/illa-public-component/TextLink"
 import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
 import { ReactComponent as GoogleIcon } from "@/illa-public-component/User/assets/google.svg"
-import { openGithubOAuthFormLogin } from "@/illa-public-component/User/constants/users"
+import {
+  openGithubOAuthFormLogin,
+  openOAuthUrl,
+} from "@/illa-public-component/User/constants/users"
 import { LoginProps } from "@/illa-public-component/User/login/components/Login/interface"
 import {
   descriptionStyle,
@@ -35,7 +38,7 @@ import { isCloudVersion } from "@/utils/typeHelper"
 
 const Login: FC<LoginProps> = (props) => {
   const { t } = useTranslation()
-  const { onSubmit, errorMsg, loading } = props
+  const { onSubmit, errorMsg, loading, oAuthURI } = props
   const { handleSubmit, control, formState } = useFormContext<LoginFields>()
 
   return (
@@ -162,6 +165,9 @@ const Login: FC<LoginProps> = (props) => {
               variant="outline"
               size="large"
               fullWidth
+              onClick={() => {
+                openOAuthUrl(oAuthURI.google)
+              }}
             >
               {t("page.user.sign_in.option.google")}
             </Button>
@@ -171,7 +177,12 @@ const Login: FC<LoginProps> = (props) => {
               variant="outline"
               size="large"
               fullWidth
-              onClick={openGithubOAuthFormLogin}
+              onClick={() => {
+                // openOAuthUrl(oAuthURI.github)
+                openOAuthUrl(
+                  "https://github.com/login/oauth/authorize?client_id=171a5a900ac20f970f56&scope=read:user user:email&state=HIMGFpXzpLGIehps",
+                )
+              }}
             >
               {t("page.user.sign_in.option.github")}
             </Button>

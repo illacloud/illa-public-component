@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Input, Password } from "@illa-design/react"
+import { Button, Input, Password } from "@illa-design/react"
 import { FC } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
@@ -6,7 +6,7 @@ import { EMAIL_FORMAT } from "@/constants/regExp"
 import { TextLink } from "@/illa-public-component/TextLink"
 import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
 import { ReactComponent as GoogleIcon } from "@/illa-public-component/User/assets/google.svg"
-import { openGithubOAuthFormLogin } from "@/illa-public-component/User/constants/users"
+import { openOAuthUrl } from "@/illa-public-component/User/constants/users"
 import { MobileLoginProps } from "@/illa-public-component/User/login/components/MobileLogin/interface"
 import {
   descriptionStyle,
@@ -28,7 +28,7 @@ import { toForgotPassword, toRegister } from "@/utils/navigate"
 import { isCloudVersion } from "@/utils/typeHelper"
 
 const MobileLogin: FC<MobileLoginProps> = (props) => {
-  const { onSubmit, errorMsg, loading } = props
+  const { onSubmit, errorMsg, loading, oAuthURI } = props
   const { t } = useTranslation()
   const { handleSubmit, control, formState } = useFormContext<LoginFields>()
 
@@ -132,6 +132,9 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
             variant="outline"
             shape="round"
             type="button"
+            onClick={() => {
+              oAuthURI.google && openOAuthUrl(oAuthURI.google)
+            }}
           ></Button>
           <Button
             _css={oAuthButtonStyle}
@@ -140,7 +143,9 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
             variant="outline"
             shape="round"
             type="button"
-            onClick={openGithubOAuthFormLogin}
+            onClick={() => {
+              oAuthURI.github && openOAuthUrl(oAuthURI.github)
+            }}
           ></Button>
         </div>
       )}

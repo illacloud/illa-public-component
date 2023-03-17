@@ -7,7 +7,10 @@ import { EMAIL_FORMAT } from "@/constants/regExp"
 import { TextLink } from "@/illa-public-component/TextLink"
 import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
 import { ReactComponent as GoogleIcon } from "@/illa-public-component/User/assets/google.svg"
-import { openGithubOAuthFormLogin } from "@/illa-public-component/User/constants/users"
+import {
+  openGithubOAuthFormLogin,
+  openOAuthUrl,
+} from "@/illa-public-component/User/constants/users"
 import {
   descriptionStyle,
   errorMsgStyle,
@@ -30,6 +33,7 @@ import { isCloudVersion } from "@/utils/typeHelper"
 
 const MobileRegister: FC<MobileRegisterProps> = (props) => {
   const {
+    oAuthURI,
     lockedEmail,
     onSubmit,
     errorMsg,
@@ -222,6 +226,9 @@ const MobileRegister: FC<MobileRegisterProps> = (props) => {
             variant="outline"
             shape="round"
             type="button"
+            onClick={() => {
+              oAuthURI.google && openOAuthUrl(oAuthURI.google)
+            }}
           ></Button>
           <Button
             _css={oAuthButtonStyle}
@@ -230,7 +237,9 @@ const MobileRegister: FC<MobileRegisterProps> = (props) => {
             variant="outline"
             shape="round"
             type="button"
-            onClick={openGithubOAuthFormLogin}
+            onClick={() => {
+              oAuthURI.github && openOAuthUrl(oAuthURI.github)
+            }}
           ></Button>
         </div>
       )}

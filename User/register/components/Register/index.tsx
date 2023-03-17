@@ -13,6 +13,7 @@ import { EMAIL_FORMAT } from "@/constants/regExp"
 import { TextLink } from "@/illa-public-component/TextLink"
 import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
 import { ReactComponent as GoogleIcon } from "@/illa-public-component/User/assets/google.svg"
+import { openOAuthUrl } from "@/illa-public-component/User/constants/users"
 import {
   descriptionStyle,
   errorIconStyle,
@@ -34,6 +35,7 @@ import { isCloudVersion } from "@/utils/typeHelper"
 const Register: FC<RegisterProps> = (props) => {
   const { t } = useTranslation()
   const {
+    oAuthURI,
     lockedEmail,
     onSubmit,
     errorMsg,
@@ -274,6 +276,9 @@ const Register: FC<RegisterProps> = (props) => {
               variant="outline"
               size="large"
               fullWidth
+              onClick={() => {
+                oAuthURI.google && openOAuthUrl(oAuthURI.google)
+              }}
             >
               {t("page.user.sign_up.option.google")}
             </Button>
@@ -283,6 +288,9 @@ const Register: FC<RegisterProps> = (props) => {
               variant="outline"
               size="large"
               fullWidth
+              onClick={() => {
+                oAuthURI.github && openOAuthUrl(oAuthURI.github)
+              }}
             >
               {t("page.user.sign_up.option.github")}
             </Button>

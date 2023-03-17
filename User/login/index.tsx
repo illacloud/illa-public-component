@@ -1,5 +1,7 @@
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import { FormProvider, useForm } from "react-hook-form"
+import { useNavigate, useSearchParams } from "react-router-dom"
+import { exchangeToken } from "@/api/auth"
 import { LayoutAutoChange } from "@/illa-public-component/LayoutAutoChange"
 import { UserLayout } from "@/illa-public-component/User/layout"
 import { MobileUserLayout } from "@/illa-public-component/User/layout/mobileLayout"
@@ -11,18 +13,34 @@ import {
 } from "@/illa-public-component/User/login/interface"
 
 const LoginPage: FC<LoginPageProps> = (props) => {
-  const { loading, errorMsg, onSubmit } = props
+  const { loading, errorMsg, oAuthURI, onSubmit } = props
   const formProps = useForm<LoginFields>({
     mode: "onSubmit",
     criteriaMode: "firstError",
   })
+  const [searchParams] = useSearchParams()
+  const state = searchParams.get("state")
+  const code = searchParams.get("code")
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (code) {
+      exchangeToken("github", code, state).then(() => {
+        navigate("/")
+      })
+    }
+  }, [state, code])
 
   return (
     <FormProvider {...formProps}>
       <LayoutAutoChange
         desktopPage={
           <UserLayout>
-            <Login onSubmit={onSubmit} errorMsg={errorMsg} loading={loading} />
+            <Login
+              onSubmit={onSubmit}
+              errorMsg={errorMsg}
+              loading={loading}
+              oAuthURI={oAuthURI}
+            />
           </UserLayout>
         }
         mobilePage={
@@ -31,6 +49,7 @@ const LoginPage: FC<LoginPageProps> = (props) => {
               onSubmit={onSubmit}
               errorMsg={errorMsg}
               loading={loading}
+              oAuthURI={oAuthURI}
             />
           </MobileUserLayout>
         }
