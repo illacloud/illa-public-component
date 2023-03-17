@@ -156,6 +156,7 @@ const Login: FC<LoginProps> = (props) => {
           />
           <div css={oAuthButtonGroupStyle}>
             <Button
+              style={{ display: "none" }}
               leftIcon={<GoogleIcon css={oAuthIconStyle} />}
               colorScheme="grayBlue"
               variant="outline"

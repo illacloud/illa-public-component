@@ -215,6 +215,7 @@ const MobileRegister: FC<MobileRegisterProps> = (props) => {
       {isCloudVersion && (
         <div css={[oAuthButtonGroupStyle]}>
           <Button
+            style={{ display: "none" }}
             _css={oAuthButtonStyle}
             leftIcon={<GoogleIcon css={oAuthIconStyle} />}
             colorScheme="grayBlue"
