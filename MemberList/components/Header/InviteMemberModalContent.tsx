@@ -219,6 +219,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
           <Divider />
           {activeTab === 0 && (
             <InviteMemberModalContent
+              isCloudVersion={isCloudVersion}
               userListData={userListData}
               currentUserRole={currentUserRole}
               allowInviteByLink={allowInviteByLink}
