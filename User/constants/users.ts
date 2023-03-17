@@ -5,9 +5,8 @@ export const GITHUB_AUTHORIZE_URL = `https://github.com/login/oauth/authorize?cl
 export const LOGIN_REDIRECT_URL = `${location.protocol}//${
   import.meta.env.VITE_CLOUD_URL
 }/login`
-export const CONNECT_REDIRECT_URL = `${location.protocol}//${
-  import.meta.env.VITE_CLOUD_URL
-}/login`
+export const REGISTER_REDIRECT_URL = "https://192.168.50.170:5173/register"
+export const CONNECT_REDIRECT_URL = "https://192.168.50.170:5173/register"
 
 export const GITHUB_OAUTH_URL = `${GITHUB_AUTHORIZE_URL}&redirect_uri=${LOGIN_REDIRECT_URL}`
 

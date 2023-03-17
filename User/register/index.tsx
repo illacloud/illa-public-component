@@ -36,13 +36,13 @@ const RegisterPage: FC<RegisterPageProps> = (props) => {
     }
   }, [email])
 
-  useEffect(() => {
-    if (code) {
-      exchangeToken("github", code, state).then(() => {
-        navigate("/")
-      })
-    }
-  }, [state, code])
+  // useEffect(() => {
+  //   if (code) {
+  //     exchangeToken("github", code, state).then(() => {
+  //       navigate("/")
+  //     })
+  //   }
+  // }, [state, code])
 
   return (
     <FormProvider {...formProps}>

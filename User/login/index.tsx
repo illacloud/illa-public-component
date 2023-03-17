@@ -18,17 +18,6 @@ const LoginPage: FC<LoginPageProps> = (props) => {
     mode: "onSubmit",
     criteriaMode: "firstError",
   })
-  const [searchParams] = useSearchParams()
-  const state = searchParams.get("state")
-  const code = searchParams.get("code")
-  const navigate = useNavigate()
-  useEffect(() => {
-    if (code) {
-      exchangeToken("github", code, state).then(() => {
-        navigate("/")
-      })
-    }
-  }, [state, code])
 
   return (
     <FormProvider {...formProps}>
