@@ -79,6 +79,8 @@ export const Header: FC<HeaderProps> = (props) => {
             fetchInviteLink={fetchInviteLink}
             configInviteLink={configInviteLink}
             allowInviteByLink={allowInviteByLink}
+            allowEditorManageTeamMember={allowEditorManageTeamMember}
+            allowViewerManageTeamMember={allowViewerManageTeamMember}
           />,
           document.body,
         )}

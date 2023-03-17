@@ -1,3 +1,6 @@
+import copy from "copy-to-clipboard"
+import { FC, MouseEvent, useCallback, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 import {
   Avatar,
   Button,
@@ -13,9 +16,6 @@ import {
   Switch,
   useMessage,
 } from "@illa-design/react"
-import copy from "copy-to-clipboard"
-import { FC, MouseEvent, useCallback, useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { ReactComponent as SettingIcon } from "@/illa-public-component/MemberList/assets/icon/setting.svg"
@@ -60,7 +60,12 @@ import {
 } from "@/illa-public-component/MemberList/components/Header/style"
 import { inviteByEmailResponse } from "@/illa-public-component/MemberList/interface"
 import RoleSelect from "@/illa-public-component/RoleSelect"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
+import { canManage, canManageApp } from "@/illa-public-component/UserRoleUtils"
+import {
+  ACTION_MANAGE,
+  ATTRIBUTE_GROUP,
+  USER_ROLE,
+} from "@/illa-public-component/UserRoleUtils/interface"
 
 const EMAIL_REGX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -128,6 +133,8 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     userListData,
     currentUserRole,
     allowInviteByLink,
+    allowEditorManageTeamMember,
+    allowViewerManageTeamMember,
     handleCloseModal,
     changeTeamMembersRole,
     inviteByEmail,
@@ -141,16 +148,31 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     updateAppPublicConfig,
   } = props
   const { t } = useTranslation()
-  const [activeTab, setActiveTab] = useState(0)
+
+  const canSetPublic = canManageApp(
+    currentUserRole,
+    allowEditorManageTeamMember,
+    allowViewerManageTeamMember,
+  )
+
+  const canEditApp = canManage(
+    currentUserRole,
+    ATTRIBUTE_GROUP.APP,
+    ACTION_MANAGE.EDIT_APP,
+  )
+
+  const [activeTab, setActiveTab] = useState(canSetPublic ? 0 : 1)
 
   const tabs = [
     {
       id: 0,
       label: t("user_management.modal.tab.invite"),
+      hidden: !canSetPublic,
     },
     {
       id: 1,
       label: t("user_management.modal.tab.public"),
+      hidden: !canEditApp,
     },
   ]
 
@@ -173,8 +195,10 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
           <header css={modalHeaderWrapperStyle}>
             <div css={modalTabWrapperStyle}>
               {tabs.map((tab) => {
-                const { id, label } = tab
+                const { id, label, hidden } = tab
                 const isActive = id === activeTab
+                if (hidden) return null
+
                 return (
                   <span
                     key={`tab-${id}`}
