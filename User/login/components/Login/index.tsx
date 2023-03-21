@@ -166,7 +166,7 @@ const Login: FC<LoginProps> = (props) => {
               size="large"
               fullWidth
               onClick={() => {
-                openOAuthUrl(oAuthURI.google)
+                oAuthURI.google && openOAuthUrl(oAuthURI.google)
               }}
             >
               {t("page.user.sign_in.option.google")}
@@ -178,10 +178,7 @@ const Login: FC<LoginProps> = (props) => {
               size="large"
               fullWidth
               onClick={() => {
-                // openOAuthUrl(oAuthURI.github)
-                openOAuthUrl(
-                  "https://github.com/login/oauth/authorize?client_id=171a5a900ac20f970f56&scope=read:user user:email&state=HIMGFpXzpLGIehps",
-                )
+                oAuthURI.github && openOAuthUrl(oAuthURI.github)
               }}
             >
               {t("page.user.sign_in.option.github")}

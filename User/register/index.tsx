@@ -17,8 +17,6 @@ const RegisterPage: FC<RegisterPageProps> = (props) => {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const email = searchParams.get("email")
-  const state = searchParams.get("state")
-  const code = searchParams.get("code")
 
   const formProps = useForm<RegisterFields>({
     mode: "onSubmit",
