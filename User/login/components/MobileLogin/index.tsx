@@ -63,13 +63,15 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
             required: t("page.user.sign_in.error_message.email.require"),
             validate: (value: string) => {
               if (isCloudVersion && !EMAIL_FORMAT.test(value)) {
-                return t("user.sign_up.error_message.email.invalid_pattern")
+                return t(
+                  "page.user.sign_up.error_message.email.invalid_pattern",
+                )
               }
               return value === "root"
                 ? true
                 : EMAIL_FORMAT.test(value)
                 ? true
-                : t("user.sign_up.error_message.email.invalid_pattern")
+                : t("page.user.sign_up.error_message.email.invalid_pattern")
             },
           }}
         />

@@ -78,14 +78,16 @@ const Login: FC<LoginProps> = (props) => {
                   validate: (value: string) => {
                     if (isCloudVersion && !EMAIL_FORMAT.test(value)) {
                       return t(
-                        "user.sign_up.error_message.email.invalid_pattern",
+                        "page.user.sign_up.error_message.email.invalid_pattern",
                       )
                     }
                     return value === "root"
                       ? true
                       : EMAIL_FORMAT.test(value)
                       ? true
-                      : t("user.sign_up.error_message.email.invalid_pattern")
+                      : t(
+                          "page.user.sign_up.error_message.email.invalid_pattern",
+                        )
                   },
                 }}
               />
