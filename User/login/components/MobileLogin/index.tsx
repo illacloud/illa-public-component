@@ -2,6 +2,7 @@ import { Button, Input, Password } from "@illa-design/react"
 import { FC } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import { TextLink } from "@/illa-public-component/TextLink"
 import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
@@ -24,11 +25,11 @@ import {
   submitButtonStyle,
 } from "@/illa-public-component/User/login/components/MobileLogin/style"
 import { LoginFields } from "@/illa-public-component/User/login/interface"
-import { toForgotPassword, toRegister } from "@/utils/navigate"
 import { isCloudVersion } from "@/utils/typeHelper"
 
 const MobileLogin: FC<MobileLoginProps> = (props) => {
   const { onSubmit, errorMsg, loading, oAuthURI } = props
+  const navigate = useNavigate()
   const { t } = useTranslation()
   const { handleSubmit, control, formState } = useFormContext<LoginFields>()
 
@@ -40,7 +41,14 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
           <Trans
             i18nKey="page.user.sign_in.description.register"
             t={t}
-            components={[<TextLink key="text-link" onClick={toRegister} />]}
+            components={[
+              <TextLink
+                key="text-link"
+                onClick={() => {
+                  navigate({ pathname: "/register", search: location.search })
+                }}
+              />,
+            ]}
           />
         </div>
       </header>
@@ -111,7 +119,14 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
         )}
       </div>
       <div css={forgotPwdStyle}>
-        <TextLink onClick={toForgotPassword}>
+        <TextLink
+          onClick={() => {
+            navigate({
+              pathname: "/forgotPassword",
+              search: location.search,
+            })
+          }}
+        >
           {t("page.user.sign_in.description.forgot_password")}
         </TextLink>
       </div>

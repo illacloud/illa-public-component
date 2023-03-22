@@ -42,7 +42,7 @@ const Reset: FC<ResetProps> = (props) => {
   } = props
   const { handleSubmit, control, formState } = useFormContext<ResetPwdFields>()
   const backToLogin = () => {
-    navigate("/login")
+    navigate({ pathname: "/login", search: location.search })
   }
 
   return (

@@ -1,7 +1,5 @@
-import { FC, useEffect } from "react"
+import { FC } from "react"
 import { FormProvider, useForm } from "react-hook-form"
-import { useNavigate, useSearchParams } from "react-router-dom"
-import { exchangeToken } from "@/api/auth"
 import { LayoutAutoChange } from "@/illa-public-component/LayoutAutoChange"
 import { UserLayout } from "@/illa-public-component/User/layout"
 import { MobileUserLayout } from "@/illa-public-component/User/layout/mobileLayout"

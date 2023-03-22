@@ -27,7 +27,6 @@ import {
 } from "@/illa-public-component/User/login/components/MobileLogin/style"
 import { EmailCode } from "@/illa-public-component/User/register/components/EmailCode"
 import { MobileRegisterProps } from "@/illa-public-component/User/register/components/MobileRegister/interface"
-import { registerGroupStyle } from "@/illa-public-component/User/register/components/MobileRegister/style"
 import { RegisterFields } from "@/illa-public-component/User/register/interface"
 import { isCloudVersion } from "@/utils/typeHelper"
 

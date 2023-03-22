@@ -8,14 +8,12 @@ import {
 import { FC } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import { TextLink } from "@/illa-public-component/TextLink"
 import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
 import { ReactComponent as GoogleIcon } from "@/illa-public-component/User/assets/google.svg"
-import {
-  openGithubOAuthFormLogin,
-  openOAuthUrl,
-} from "@/illa-public-component/User/constants/users"
+import { openOAuthUrl } from "@/illa-public-component/User/constants/users"
 import { LoginProps } from "@/illa-public-component/User/login/components/Login/interface"
 import {
   descriptionStyle,
@@ -33,11 +31,12 @@ import {
   oAuthIconStyle,
 } from "@/illa-public-component/User/login/components/Login/style"
 import { LoginFields } from "@/illa-public-component/User/login/interface"
-import { toForgotPassword, toRegister } from "@/utils/navigate"
+import { toForgotPassword } from "@/utils/navigate"
 import { isCloudVersion } from "@/utils/typeHelper"
 
 const Login: FC<LoginProps> = (props) => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const { onSubmit, errorMsg, loading, oAuthURI } = props
   const { handleSubmit, control, formState } = useFormContext<LoginFields>()
 
@@ -50,7 +49,14 @@ const Login: FC<LoginProps> = (props) => {
             <Trans
               i18nKey="page.user.sign_in.description.register"
               t={t}
-              components={[<TextLink key="text-link" onClick={toRegister} />]}
+              components={[
+                <TextLink
+                  key="text-link"
+                  onClick={() => {
+                    navigate({ pathname: "/register", search: location.search })
+                  }}
+                />,
+              ]}
             />
           </div>
         </header>
@@ -104,7 +110,15 @@ const Login: FC<LoginProps> = (props) => {
               <label css={formLabelStyle}>
                 {t("page.user.sign_in.fields.password")}
               </label>
-              <TextLink css={forgotPwdStyle} onClick={toForgotPassword}>
+              <TextLink
+                css={forgotPwdStyle}
+                onClick={() => {
+                  navigate({
+                    pathname: "/forgotPassword",
+                    search: location.search,
+                  })
+                }}
+              >
                 {t("page.user.sign_in.description.forgot_password")}
               </TextLink>
             </div>
