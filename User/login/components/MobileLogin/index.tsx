@@ -1,9 +1,13 @@
+import { Button, Input, Password } from "@illa-design/react"
 import { FC } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Input, Password } from "@illa-design/react"
+import { useNavigate } from "react-router-dom"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import { TextLink } from "@/illa-public-component/TextLink"
+import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
+import { ReactComponent as GoogleIcon } from "@/illa-public-component/User/assets/google.svg"
+import { openOAuthUrl } from "@/illa-public-component/User/constants/users"
 import { MobileLoginProps } from "@/illa-public-component/User/login/components/MobileLogin/interface"
 import {
   descriptionStyle,
@@ -14,14 +18,18 @@ import {
   formTitleStyle,
   headerStyle,
   mobileInputStyle,
+  oAuthButtonGroupStyle,
+  oAuthButtonStyle,
+  oAuthIconStyle,
+  singleSubmitButtonStyle,
   submitButtonStyle,
 } from "@/illa-public-component/User/login/components/MobileLogin/style"
 import { LoginFields } from "@/illa-public-component/User/login/interface"
-import { toForgotPassword, toRegister } from "@/utils/navigate"
 import { isCloudVersion } from "@/utils/typeHelper"
 
 const MobileLogin: FC<MobileLoginProps> = (props) => {
-  const { onSubmit, errorMsg, loading } = props
+  const { onSubmit, errorMsg, loading, oAuthURI } = props
+  const navigate = useNavigate()
   const { t } = useTranslation()
   const { handleSubmit, control, formState } = useFormContext<LoginFields>()
 
@@ -33,7 +41,14 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
           <Trans
             i18nKey="page.user.sign_in.description.register"
             t={t}
-            components={[<TextLink key="text-link" onClick={toRegister} />]}
+            components={[
+              <TextLink
+                key="text-link"
+                onClick={() => {
+                  navigate({ pathname: "/register", search: location.search })
+                }}
+              />,
+            ]}
           />
         </div>
       </header>
@@ -56,13 +71,15 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
             required: t("page.user.sign_in.error_message.email.require"),
             validate: (value: string) => {
               if (isCloudVersion && !EMAIL_FORMAT.test(value)) {
-                return t("user.sign_up.error_message.email.invalid_pattern")
+                return t(
+                  "page.user.sign_up.error_message.email.invalid_pattern",
+                )
               }
               return value === "root"
                 ? true
                 : EMAIL_FORMAT.test(value)
                 ? true
-                : t("user.sign_up.error_message.email.invalid_pattern")
+                : t("page.user.sign_up.error_message.email.invalid_pattern")
             },
           }}
         />
@@ -102,12 +119,19 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
         )}
       </div>
       <div css={forgotPwdStyle}>
-        <TextLink onClick={toForgotPassword}>
+        <TextLink
+          onClick={() => {
+            navigate({
+              pathname: "/forgotPassword",
+              search: location.search,
+            })
+          }}
+        >
           {t("page.user.sign_in.description.forgot_password")}
         </TextLink>
       </div>
       <Button
-        _css={submitButtonStyle}
+        _css={isCloudVersion ? submitButtonStyle : singleSubmitButtonStyle}
         colorScheme="techPurple"
         size="large"
         loading={loading}
@@ -115,6 +139,33 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
       >
         {t("page.user.sign_in.actions.login")}
       </Button>
+      {isCloudVersion && (
+        <div css={oAuthButtonGroupStyle}>
+          <Button
+            style={{ display: "none" }}
+            _css={oAuthButtonStyle}
+            leftIcon={<GoogleIcon css={oAuthIconStyle} />}
+            colorScheme="grayBlue"
+            variant="outline"
+            shape="round"
+            type="button"
+            onClick={() => {
+              oAuthURI.google && openOAuthUrl(oAuthURI.google)
+            }}
+          ></Button>
+          <Button
+            _css={oAuthButtonStyle}
+            leftIcon={<GithubIcon css={oAuthIconStyle} />}
+            colorScheme="grayBlue"
+            variant="outline"
+            shape="round"
+            type="button"
+            onClick={() => {
+              oAuthURI.github && openOAuthUrl(oAuthURI.github)
+            }}
+          ></Button>
+        </div>
+      )}
     </form>
   )
 }

@@ -11,4 +11,10 @@ export interface LoginPageProps {
   loading: boolean
   errorMsg: LoginErrorMsg
   onSubmit: SubmitHandler<LoginFields>
+  oAuthURI: OAuthURI
+}
+
+export interface OAuthURI {
+  github?: string
+  google?: string
 }

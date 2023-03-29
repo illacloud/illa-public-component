@@ -42,7 +42,7 @@ const MobileReset: FC<MobileResetProps> = (props) => {
   const navigate = useNavigate()
   const { handleSubmit, control, formState } = useFormContext<ResetPwdFields>()
   const backToLogin = () => {
-    navigate("/login")
+    navigate({ pathname: "/login", search: location.search })
   }
 
   return (
