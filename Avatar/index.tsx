@@ -11,13 +11,21 @@ interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   name?: string
 }
 
+const getFirstChar = (str: string | undefined) => {
+  if (!str) return "U"
+  const trimStr = str.trim()
+  const regex = /^./u
+  const match = trimStr.match(regex)
+  return match ? match[0].toUpperCase() : "U"
+}
+
 export const Avatar: FC<AvatarProps> = (props) => {
   const { avatarUrl, id, name, className, ...otherProps } = props
 
   const { avatarBgColor, avatarText, emptyStatus } = useMemo(() => {
     return {
       avatarBgColor: avatarUrl ? "#ffffff" : getColorByString(id || ""),
-      avatarText: name?.substring?.(0, 1).toUpperCase() || "U",
+      avatarText: getFirstChar(name),
       emptyStatus: !avatarUrl && !name,
     }
   }, [id, name, avatarUrl])
