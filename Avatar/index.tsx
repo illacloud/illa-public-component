@@ -3,7 +3,7 @@ import {
   applyAvatarStyle,
   avatarImgStyle,
 } from "@/illa-public-component/Avatar/style"
-import { getColorByIndex, getColorIndexByString } from "@/utils/colorHelper"
+import { getColorByString } from "@/utils/colorHelper"
 
 interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   avatarUrl?: string
@@ -16,9 +16,7 @@ export const Avatar: FC<AvatarProps> = (props) => {
 
   const { avatarBgColor, avatarText, emptyStatus } = useMemo(() => {
     return {
-      avatarBgColor: avatarUrl
-        ? "#ffffff"
-        : getColorByIndex(getColorIndexByString(id || "")),
+      avatarBgColor: avatarUrl ? "#ffffff" : getColorByString(id || ""),
       avatarText: name?.substring?.(0, 1).toUpperCase() || "U",
       emptyStatus: !avatarUrl && !name,
     }
