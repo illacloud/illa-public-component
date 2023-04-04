@@ -13,7 +13,7 @@ export type RegisterErrorMsg = Partial<Record<keyof RegisterFields, string>>
 
 export interface RegisterPageProps {
   loading: boolean
-  oAuthURI: OAuthURI
+  oAuthURI?: OAuthURI
   errorMsg: RegisterErrorMsg
   onSubmit: SubmitHandler<RegisterFields>
   sendEmail: (email: string, usage: "signup" | "forgetpwd") => Promise<string>

@@ -11,7 +11,7 @@ export interface LoginPageProps {
   loading: boolean
   errorMsg: LoginErrorMsg
   onSubmit: SubmitHandler<LoginFields>
-  oAuthURI: OAuthURI
+  oAuthURI?: OAuthURI
 }
 
 export interface OAuthURI {

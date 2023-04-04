@@ -1,8 +1,8 @@
-import { Button, Input, Password } from "@illa-design/react"
 import { FC } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
+import { Button, Input, Password } from "@illa-design/react"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import { TextLink } from "@/illa-public-component/TextLink"
 import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
@@ -150,7 +150,7 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
             shape="round"
             type="button"
             onClick={() => {
-              oAuthURI.google && openOAuthUrl(oAuthURI.google)
+              oAuthURI?.google && openOAuthUrl(oAuthURI.google)
             }}
           ></Button>
           <Button
@@ -161,7 +161,7 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
             shape="round"
             type="button"
             onClick={() => {
-              oAuthURI.github && openOAuthUrl(oAuthURI.github)
+              oAuthURI?.github && openOAuthUrl(oAuthURI.github)
             }}
           ></Button>
         </div>

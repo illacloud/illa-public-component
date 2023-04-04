@@ -9,7 +9,7 @@ export interface MobileRegisterProps {
   lockedEmail?: string | null
   loading: boolean
   errorMsg: RegisterErrorMsg
-  oAuthURI: OAuthURI
+  oAuthURI?: OAuthURI
   onSubmit: SubmitHandler<RegisterFields>
   showCountDown: boolean
   onCountDownChange: (showCountDown: boolean) => void

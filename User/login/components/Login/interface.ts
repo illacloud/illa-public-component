@@ -8,6 +8,6 @@ import {
 export interface LoginProps {
   loading: boolean
   errorMsg: LoginErrorMsg
-  oAuthURI: OAuthURI
+  oAuthURI?: OAuthURI
   onSubmit: SubmitHandler<LoginFields>
 }

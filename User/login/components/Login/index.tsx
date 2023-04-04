@@ -1,3 +1,7 @@
+import { FC } from "react"
+import { Controller, useFormContext } from "react-hook-form"
+import { Trans, useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 import {
   Button,
   Divider,
@@ -5,10 +9,6 @@ import {
   Password,
   WarningCircleIcon,
 } from "@illa-design/react"
-import { FC } from "react"
-import { Controller, useFormContext } from "react-hook-form"
-import { Trans, useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import { TextLink } from "@/illa-public-component/TextLink"
 import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
@@ -31,7 +31,6 @@ import {
   oAuthIconStyle,
 } from "@/illa-public-component/User/login/components/Login/style"
 import { LoginFields } from "@/illa-public-component/User/login/interface"
-import { toForgotPassword } from "@/utils/navigate"
 import { isCloudVersion } from "@/utils/typeHelper"
 
 const Login: FC<LoginProps> = (props) => {
@@ -182,7 +181,7 @@ const Login: FC<LoginProps> = (props) => {
               size="large"
               fullWidth
               onClick={() => {
-                oAuthURI.google && openOAuthUrl(oAuthURI.google)
+                oAuthURI?.google && openOAuthUrl(oAuthURI.google)
               }}
             >
               {t("page.user.sign_in.option.google")}
@@ -194,7 +193,7 @@ const Login: FC<LoginProps> = (props) => {
               size="large"
               fullWidth
               onClick={() => {
-                oAuthURI.github && openOAuthUrl(oAuthURI.github)
+                oAuthURI?.github && openOAuthUrl(oAuthURI.github)
               }}
             >
               {t("page.user.sign_in.option.github")}

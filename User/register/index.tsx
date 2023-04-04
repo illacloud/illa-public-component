@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
-import { useNavigate, useSearchParams } from "react-router-dom"
-import { exchangeToken } from "@/api/auth"
+import { useSearchParams } from "react-router-dom"
 import { LayoutAutoChange } from "@/illa-public-component/LayoutAutoChange"
 import { UserLayout } from "@/illa-public-component/User/layout"
 import { MobileUserLayout } from "@/illa-public-component/User/layout/mobileLayout"
@@ -15,7 +14,6 @@ import {
 const RegisterPage: FC<RegisterPageProps> = (props) => {
   const { loading, errorMsg, onSubmit, sendEmail, oAuthURI } = props
   const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
   const email = searchParams.get("email")
 
   const formProps = useForm<RegisterFields>({
