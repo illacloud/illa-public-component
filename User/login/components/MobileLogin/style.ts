@@ -1,19 +1,26 @@
 import { SerializedStyles, css } from "@emotion/react"
 import { globalColor, illaPrefix } from "@illa-design/react"
 import { pxToRem } from "@/style"
+import { isCloudVersion } from "@/utils/typeHelper"
 
 export const formStyle: SerializedStyles = css`
   position: relative;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 `
 export const headerStyle: SerializedStyles = css`
   display: grid;
   gap: 16rem;
 `
 
-export const formItemStyle = css`
-  margin-top: 64rem;
-`
+export const formItemStyle = isCloudVersion
+  ? css`
+      margin-top: 54rem;
+    `
+  : css`
+      margin-top: 64rem;
+    `
 
 export const formTitleStyle: SerializedStyles = css`
   font-size: 48rem;
@@ -54,12 +61,35 @@ export const mobileInputStyle = css`
   }
 `
 export const submitButtonStyle: SerializedStyles = css`
-  position: absolute;
-  bottom: 0;
+  margin-top: ${pxToRem(54)};
   height: ${pxToRem(88)};
   border-radius: ${pxToRem(16)};
 
   & > span {
     font-size: ${pxToRem(32)};
   }
+`
+
+export const singleSubmitButtonStyle = css`
+  position: absolute;
+  bottom: 0;
+  ${submitButtonStyle};
+`
+
+export const oAuthButtonGroupStyle = css`
+  width: 100%;
+  display: flex;
+  gap: 64rem;
+  justify-content: center;
+  margin: auto 0 0;
+`
+
+export const oAuthButtonStyle = css`
+  width: ${pxToRem(88)};
+  height: ${pxToRem(88)};
+`
+
+export const oAuthIconStyle = css`
+  width: 32rem;
+  height: 32rem;
 `

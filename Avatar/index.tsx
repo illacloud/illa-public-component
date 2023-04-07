@@ -3,6 +3,7 @@ import {
   applyAvatarStyle,
   avatarImgStyle,
 } from "@/illa-public-component/Avatar/style"
+import { getColorByString } from "@/utils/colorHelper"
 
 interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   avatarUrl?: string
@@ -10,15 +11,12 @@ interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   name?: string
 }
 
-// Generate id from strings
-const stringToColour = (str?: string) => {
-  if (!str) return "#654aec"
-  let hash = 0
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash)
-    hash = hash & hash
-  }
-  return `hsl(${hash % 360}, ${100}%, ${70}%)`
+const getFirstChar = (str: string | undefined) => {
+  if (!str) return "U"
+  const trimStr = str.trim()
+  const regex = /^./u
+  const match = trimStr.match(regex)
+  return match ? match[0].toUpperCase() : "U"
 }
 
 export const Avatar: FC<AvatarProps> = (props) => {
@@ -26,8 +24,8 @@ export const Avatar: FC<AvatarProps> = (props) => {
 
   const { avatarBgColor, avatarText, emptyStatus } = useMemo(() => {
     return {
-      avatarBgColor: avatarUrl ? "#ffffff" : stringToColour(id),
-      avatarText: name?.substring?.(0, 1).toUpperCase() || "U",
+      avatarBgColor: avatarUrl ? "#ffffff" : getColorByString(id || ""),
+      avatarText: getFirstChar(name),
       emptyStatus: !avatarUrl && !name,
     }
   }, [id, name, avatarUrl])

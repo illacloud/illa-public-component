@@ -11,7 +11,7 @@ import {
 } from "@/illa-public-component/User/login/interface"
 
 const LoginPage: FC<LoginPageProps> = (props) => {
-  const { loading, errorMsg, onSubmit } = props
+  const { loading, errorMsg, oAuthURI, onSubmit } = props
   const formProps = useForm<LoginFields>({
     mode: "onSubmit",
     criteriaMode: "firstError",
@@ -22,7 +22,12 @@ const LoginPage: FC<LoginPageProps> = (props) => {
       <LayoutAutoChange
         desktopPage={
           <UserLayout>
-            <Login onSubmit={onSubmit} errorMsg={errorMsg} loading={loading} />
+            <Login
+              onSubmit={onSubmit}
+              errorMsg={errorMsg}
+              loading={loading}
+              oAuthURI={oAuthURI}
+            />
           </UserLayout>
         }
         mobilePage={
@@ -31,6 +36,7 @@ const LoginPage: FC<LoginPageProps> = (props) => {
               onSubmit={onSubmit}
               errorMsg={errorMsg}
               loading={loading}
+              oAuthURI={oAuthURI}
             />
           </MobileUserLayout>
         }

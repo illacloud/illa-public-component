@@ -19,12 +19,13 @@ export const leftAsideWrapperStyle = css`
 `
 
 export const rightAsideWrapperStyle = css`
-  height: 100%;
+  max-height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  overflow: auto;
+  margin: auto;
 `
 
 export const sectionBackgroundStyle = css`

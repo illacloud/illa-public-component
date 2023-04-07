@@ -12,9 +12,10 @@ import {
 } from "@/illa-public-component/User/register/interface"
 
 const RegisterPage: FC<RegisterPageProps> = (props) => {
-  const { loading, errorMsg, onSubmit, sendEmail } = props
+  const { loading, errorMsg, onSubmit, sendEmail, oAuthURI } = props
   const [searchParams] = useSearchParams()
   const email = searchParams.get("email")
+
   const formProps = useForm<RegisterFields>({
     mode: "onSubmit",
     criteriaMode: "firstError",
@@ -38,6 +39,7 @@ const RegisterPage: FC<RegisterPageProps> = (props) => {
           <UserLayout>
             <Register
               onSubmit={onSubmit}
+              oAuthURI={oAuthURI}
               lockedEmail={email}
               loading={loading}
               errorMsg={errorMsg}
@@ -51,6 +53,7 @@ const RegisterPage: FC<RegisterPageProps> = (props) => {
           <MobileUserLayout>
             <MobileRegister
               onSubmit={onSubmit}
+              oAuthURI={oAuthURI}
               lockedEmail={email}
               loading={loading}
               errorMsg={errorMsg}

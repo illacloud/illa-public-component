@@ -69,3 +69,15 @@ export const mobileInputStyle = css`
   font-size: 28rem;
   height: 44rem;
 `
+
+export const oAuthButtonGroupStyle = css`
+  width: 100%;
+  display: flex;
+  gap: 18px;
+`
+
+export const oAuthIconStyle = css`
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+`
