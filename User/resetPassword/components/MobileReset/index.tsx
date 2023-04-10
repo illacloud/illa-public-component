@@ -10,6 +10,11 @@ import { Controller, useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { EMAIL_FORMAT } from "@/constants/regExp"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
+} from "@/illa-public-component/MixpanelUtils/interface"
+import { validateReport } from "@/illa-public-component/User/utils/reportUtils"
 import { errorIconStyle } from "@/illa-public-component/User/login/components/Login/style"
 import {
   errorMsgStyle,
@@ -28,6 +33,7 @@ import {
   resetPasswordSubtitleWrapperStyle,
 } from "@/illa-public-component/User/resetPassword/components/MobileReset/style"
 import { ResetPwdFields } from "@/illa-public-component/User/resetPassword/interface"
+import { track } from "@/utils/mixpanelHelper"
 
 const MobileReset: FC<MobileResetProps> = (props) => {
   const {
@@ -40,9 +46,37 @@ const MobileReset: FC<MobileResetProps> = (props) => {
   } = props
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { handleSubmit, control, formState } = useFormContext<ResetPwdFields>()
-  const backToLogin = () => {
+  const { handleSubmit, control, formState, getValues, trigger } =
+    useFormContext<ResetPwdFields>()
+  const {errors} = formState
+    const backToLogin = () => {
     navigate({ pathname: "/login", search: location.search })
+  }
+
+  const validReport = async() => {
+    track(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD,
+      {
+        element: "reset_password",
+      }
+    )
+    let valid = await trigger()
+    if(!valid) {
+      validateReport(
+        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD,
+        "reset_password",
+        false,
+        errors,
+      )
+    } else {
+      validateReport(
+        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD,
+        "reset_password",
+        true,
+        errors,
+      )
+    }
   }
 
   return (
@@ -70,6 +104,12 @@ const MobileReset: FC<MobileResetProps> = (props) => {
               error={!!formState?.errors.email || !!errorMsg.email}
               variant="fill"
               placeholder={t("page.user.forgot_password.fields.email")}
+              onFocus={() => {
+                track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'username_input', parameter3: getValues().email.length ?? 0})
+              }}
+              onBlur={() => {
+                track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'username_input', parameter3: getValues().email.length ?? 0})
+              }}
             />
           )}
           rules={{
@@ -114,6 +154,12 @@ const MobileReset: FC<MobileResetProps> = (props) => {
                   sendEmail={sendEmail}
                 />
               }
+              onFocus={() => {
+                track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'verification_code_input', parameter3: getValues().verificationCode.length ?? 0})
+              }}
+              onBlur={() => {
+                track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'verification_code_input', parameter3: getValues().verificationCode.length ?? 0})
+              }}
               placeholder={t(
                 "page.user.forgot_password.fields.verification_code",
               )}
@@ -146,6 +192,12 @@ const MobileReset: FC<MobileResetProps> = (props) => {
               error={!!formState?.errors.newPassword}
               variant="fill"
               placeholder={t("page.user.forgot_password.fields.newPassword")}
+              onFocus={() => {
+                track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'password_input', parameter3: getValues().newPassword.length ?? 0})
+              }}
+              onBlur={() => {
+                track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'password_input', parameter3: getValues().newPassword.length ?? 0})
+              }}
             />
           )}
           rules={{
@@ -172,6 +224,7 @@ const MobileReset: FC<MobileResetProps> = (props) => {
         size="large"
         loading={loading}
         fullWidth
+        onClick={validReport}
       >
         {t("page.user.forgot_password.actions.reset")}
       </Button>

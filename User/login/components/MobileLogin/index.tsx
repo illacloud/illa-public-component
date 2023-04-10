@@ -26,12 +26,42 @@ import {
 } from "@/illa-public-component/User/login/components/MobileLogin/style"
 import { LoginFields } from "@/illa-public-component/User/login/interface"
 import { isCloudVersion } from "@/utils/typeHelper"
+import { ILLA_MIXPANEL_EVENT_TYPE, ILLA_MIXPANEL_PUBLIC_PAGE_NAME } from "@/illa-public-component/MixpanelUtils/interface"
+import { validateReport } from "@/illa-public-component/User/utils/reportUtils"
+import { track } from "@/utils/mixpanelHelper"
 
 const MobileLogin: FC<MobileLoginProps> = (props) => {
   const { onSubmit, errorMsg, loading, oAuthURI } = props
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const { handleSubmit, control, formState } = useFormContext<LoginFields>()
+  const { handleSubmit, control, formState, getValues, trigger } = useFormContext<LoginFields>()
+  const {errors} = formState
+
+  const validReport = async() => {
+    track(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+      {
+        element: "sign_in",
+      }
+    )
+    let valid = await trigger()
+    if(!valid) {
+      validateReport(
+        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+        "sign_in",
+        false,
+        errors,
+      )
+    } else {
+      validateReport(
+        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+        "sign_in",
+        true,
+        errors,
+      )
+    }
+  }
 
   return (
     <form css={formStyle} onSubmit={handleSubmit(onSubmit)}>
@@ -45,6 +75,7 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
               <TextLink
                 key="text-link"
                 onClick={() => {
+                  track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, {element: 'create_account'})
                   navigate({ pathname: "/register", search: location.search })
                 }}
               />,
@@ -65,6 +96,12 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
               variant="fill"
               placeholder={t("page.user.sign_in.placeholder.email")}
               colorScheme="techPurple"
+              onFocus={() => {
+                track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, {element: 'email_input', parameter3: getValues().email.length ?? 0})
+              }}
+              onBlur={() => {
+                track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, {element: 'email_input', parameter3: getValues().email.length ?? 0})
+              }}
             />
           )}
           rules={{
@@ -102,6 +139,12 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
               variant="fill"
               placeholder={t("page.user.password.placeholder")}
               colorScheme="techPurple"
+              onFocus={() => {
+                track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, {element: 'password_input', parameter3: getValues().password.length ?? 0})
+              }}
+              onBlur={() => {
+                track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, {element: 'password_input', parameter3: getValues().password.length ?? 0})
+              }}
             />
           )}
           rules={{
@@ -121,6 +164,7 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
       <div css={forgotPwdStyle}>
         <TextLink
           onClick={() => {
+            track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, {element: 'forget_password'})
             navigate({
               pathname: "/forgotPassword",
               search: location.search,
@@ -136,6 +180,7 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
         size="large"
         loading={loading}
         fullWidth
+        onClick={validReport}
       >
         {t("page.user.sign_in.actions.login")}
       </Button>
@@ -161,6 +206,7 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
             shape="round"
             type="button"
             onClick={() => {
+              track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, {element: 'github_sign_in'})
               oAuthURI?.github && openOAuthUrl(oAuthURI.github)
             }}
           ></Button>

@@ -29,6 +29,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
     configInviteLink,
     loading,
   } = props
+
   return (
     <div css={MemberListWrapperStyle}>
       <Header
