@@ -66,7 +66,7 @@ class ILLAMixpanelTools {
     if (import.meta.env.VITE_INSTANCE_ID === "CLOUD") {
       mixpanel.track("page_duration", {
         page: pageName,
-        parameter12: teamIdentifier,
+        team_id: teamIdentifier,
       })
     }
   }

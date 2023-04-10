@@ -12,6 +12,7 @@ interface ILLABaseProperties {
   page: ILLA_PAGE_NAME
   element?: string
   consume?: number
+  team_id?: string
 }
 
 type ILLAPrefixedExtendProperties = ILLAPrefixedPropertiesInterface<
@@ -42,6 +43,7 @@ export enum ILLA_MIXPANEL_EVENT_TYPE {
   VISIT = "visit",
   SHOW = "show",
   CLICK = "click",
+  INITIALIZE = "initialize",
   VALIDATE = "validate",
   REQUEST = "request",
   SELECT = "select",
