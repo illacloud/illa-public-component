@@ -11,3 +11,11 @@ export const getDeviceUUID = () => {
   }
   return ILLAPublicStorage.getLocalStorage("deviceID") as string
 }
+
+export const getBrowserLanguage = () => {
+  return navigator.language || ""
+}
+
+export const getIllaLanguage = () => {
+  return localStorage.getItem("i18nextLng") || ""
+}

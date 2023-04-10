@@ -1,7 +1,11 @@
 /* eslint-disable import/no-named-as-default-member */
 import mixpanel from "mixpanel-browser"
-import { ILLAProperties, ILLA_MIXPANEL_EVENT_TYPE } from "./interface"
-import { getDeviceUUID } from "./utils"
+import {
+  ILLAProperties,
+  ILLA_MIXPANEL_EVENT_TYPE,
+  ILLA_PAGE_NAME,
+} from "./interface"
+import { getBrowserLanguage, getDeviceUUID, getIllaLanguage } from "./utils"
 
 class ILLAMixpanelTools {
   private static instance: ILLAMixpanelTools | null = null
@@ -26,6 +30,8 @@ class ILLAMixpanelTools {
               ? "development"
               : import.meta.env.ILLA_BUILDER_ENV ||
                 import.meta.env.ILLA_CLOUD_ENV,
+            browser_language: getBrowserLanguage(),
+            illa_language: getIllaLanguage(),
           })
         }
       },
@@ -43,6 +49,16 @@ class ILLAMixpanelTools {
   public track(event: ILLA_MIXPANEL_EVENT_TYPE, properties: ILLAProperties) {
     mixpanel.track(event, {
       ...properties,
+    })
+  }
+
+  public pageTimeEvent() {
+    mixpanel.time_event("page_duration")
+  }
+
+  public trackTimeEvent(pageName: ILLA_PAGE_NAME, properties: ILLAProperties) {
+    mixpanel.track("page_duration", {
+      page: pageName,
     })
   }
 }

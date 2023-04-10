@@ -9,10 +9,7 @@ interface ILLAExtendedProperties {
 }
 
 interface ILLABaseProperties {
-  page:
-    | ILLA_MIXPANEL_CLOUD_PAGE_NAME
-    | ILLA_MIXPANEL_PUBLIC_PAGE_NAME
-    | ILLA_MIXPANEL_BUILDER_PAGE_NAME
+  page: ILLA_PAGE_NAME
   element?: string
   consume?: number
 }
@@ -82,3 +79,8 @@ export enum ILLA_MIXPANEL_BUILDER_PAGE_NAME {
   PREVIEW = "app_preview",
   DEPLOY = "builder_deploy",
 }
+
+export type ILLA_PAGE_NAME =
+  | ILLA_MIXPANEL_CLOUD_PAGE_NAME
+  | ILLA_MIXPANEL_PUBLIC_PAGE_NAME
+  | ILLA_MIXPANEL_BUILDER_PAGE_NAME
