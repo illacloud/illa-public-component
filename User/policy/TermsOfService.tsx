@@ -10,18 +10,26 @@ import TermsOfServiceCN from "@/illa-public-component/User/policy/zh-CN/terms-of
 const TermsOfService = () => {
   const { i18n, t } = useTranslation()
   const localLanguage = i18n.language
+  const lng = useMemo(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    return urlParams.get('lng')
+  }, [])
+
+  const mergeLng = lng ?? localLanguage
 
   const ReturnedComponent = useMemo(() => {
-    if (localLanguage === "en-US") {
-      return <TermsOfServiceUS />
-    } else if (localLanguage === "zh-CN") {
-      return <TermsOfServiceCN />
-    } else if (localLanguage === "ja-JP") {
-      return <TermsOfServiceJP />
-    } else if (localLanguage === "ko-KR") {
-      return <TermsOfServiceKR />
+    switch (mergeLng) {
+      default:
+      case 'en-US':
+        return <TermsOfServiceUS />
+      case 'zh-CN':
+        return <TermsOfServiceCN />
+      case 'ja-JP':
+        return <TermsOfServiceJP />
+      case 'ko-KR':
+        return <TermsOfServiceKR />
     }
-  }, [localLanguage])
+  }, [mergeLng])
 
   return (
     <div css={policyContainer}>

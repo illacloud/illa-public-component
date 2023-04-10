@@ -10,18 +10,26 @@ import PrivacyPolicyCN from "@/illa-public-component/User/policy/zh-CN/privacy-p
 const PrivacyPolicy = () => {
   const { i18n, t } = useTranslation()
   const localLanguage = i18n.language
+  const lng = useMemo(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    return urlParams.get('lng')
+  }, [])
+
+  const mergeLng = lng ?? localLanguage
 
   const ReturnedComponent = useMemo(() => {
-    if (localLanguage === "en-US") {
-      return <PrivacyPolicyUS />
-    } else if (localLanguage === "zh-CN") {
-      return <PrivacyPolicyCN />
-    } else if (localLanguage === "ja-JP") {
-      return <PrivacyPolicyJP />
-    } else if (localLanguage === "ko-KR") {
-      return <PrivacyPolicyKR />
+    switch (mergeLng) {
+      default:
+      case 'en-US':
+        return <PrivacyPolicyUS />
+      case 'zh-CN':
+        return <PrivacyPolicyCN />
+      case 'ja-JP':
+        return <PrivacyPolicyJP />
+      case 'ko-KR':
+        return <PrivacyPolicyKR />
     }
-  }, [localLanguage])
+  }, [mergeLng])
 
   return (
     <div css={policyContainer}>
