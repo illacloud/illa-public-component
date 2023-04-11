@@ -57,6 +57,7 @@ export enum ILLA_MIXPANEL_EVENT_TYPE {
   RENAME = "rename",
   HOVER = "hover",
   CHANGE = "change",
+  DELETE = "delete",
 }
 
 export enum ILLA_MIXPANEL_CLOUD_PAGE_NAME {
