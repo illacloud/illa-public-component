@@ -5,7 +5,7 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   ILLA_PAGE_NAME,
 } from "./interface"
-import { ILLA_DEVICE_ID, getBrowserLanguage, getIllaLanguage } from "./utils"
+import { getBrowserLanguage, getDeviceUUID, getIllaLanguage } from "./utils"
 
 class ILLAMixpanelTools {
   private static instance: ILLAMixpanelTools | null = null
@@ -20,20 +20,23 @@ class ILLAMixpanelTools {
           import.meta.env.ILLA_CLOUD_ENV !== "production",
         ignore_dnt: import.meta.env.DEV,
         loaded(mixpanelProto) {
-          mixpanelProto.identify(ILLA_DEVICE_ID)
-          const originalTrack = mixpanelProto.track
-          mixpanelProto.track = function (event, properties) {
-            originalTrack.call(mixpanelProto, event, {
-              ...properties,
-              $device_id: ILLA_DEVICE_ID,
-              environment: import.meta.env.DEV
-                ? "development"
-                : import.meta.env.ILLA_BUILDER_ENV ||
-                  import.meta.env.ILLA_CLOUD_ENV,
-              browser_language: getBrowserLanguage(),
-              illa_language: getIllaLanguage(),
-            })
-          }
+          getDeviceUUID().then((deviceID) => {
+            mixpanelProto.identify(deviceID)
+            const originalTrack = mixpanelProto.track
+            mixpanelProto.track = function (event, properties) {
+              originalTrack.call(mixpanelProto, event, {
+                ...properties,
+                $device_id: deviceID,
+                environment: import.meta.env.DEV
+                  ? "development"
+                  : import.meta.env.ILLA_BUILDER_ENV ||
+                    import.meta.env.ILLA_CLOUD_ENV,
+                browser_language: getBrowserLanguage(),
+                illa_language: getIllaLanguage(),
+                $user_id: properties?.user_id,
+              })
+            }
+          })
         },
       })
     }
