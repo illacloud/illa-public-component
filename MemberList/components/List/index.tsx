@@ -10,6 +10,7 @@ import {
   nameStyle,
 } from "@/illa-public-component/MemberList/components/List/style"
 import RoleSelect from "@/illa-public-component/RoleSelect"
+import { UsageCard } from "@/illa-public-component/UsageCard"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 export const List: FC<ListProps> = (props) => {
@@ -151,6 +152,7 @@ export const List: FC<ListProps> = (props) => {
 
   return (
     <div css={listWrapperStyle}>
+      <UsageCard type={"License"} />
       {data?.length ? (
         <Table
           data={data}
