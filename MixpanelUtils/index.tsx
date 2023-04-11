@@ -5,38 +5,36 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   ILLA_PAGE_NAME,
 } from "./interface"
-import { getBrowserLanguage, getDeviceUUID, getIllaLanguage } from "./utils"
+import { ILLA_DEVICE_ID, getBrowserLanguage, getIllaLanguage } from "./utils"
 
 class ILLAMixpanelTools {
   private static instance: ILLAMixpanelTools | null = null
 
   constructor() {
     if (import.meta.env.VITE_INSTANCE_ID === "CLOUD") {
-      getDeviceUUID().then((deviceID) => {
-        mixpanel.init(import.meta.env.ILLA_MIXPANEL_API_KEY, {
-          debug: import.meta.env.DEV,
-          test:
-            import.meta.env.DEV ||
-            import.meta.env.ILLA_BUILDER_ENV !== "production" ||
-            import.meta.env.ILLA_CLOUD_ENV !== "production",
-          ignore_dnt: import.meta.env.DEV,
-          loaded(mixpanelProto) {
-            mixpanelProto.identify(deviceID)
-            const originalTrack = mixpanelProto.track
-            mixpanelProto.track = function (event, properties) {
-              originalTrack.call(mixpanelProto, event, {
-                ...properties,
-                $device_id: deviceID,
-                environment: import.meta.env.DEV
-                  ? "development"
-                  : import.meta.env.ILLA_BUILDER_ENV ||
-                    import.meta.env.ILLA_CLOUD_ENV,
-                browser_language: getBrowserLanguage(),
-                illa_language: getIllaLanguage(),
-              })
-            }
-          },
-        })
+      mixpanel.init(import.meta.env.ILLA_MIXPANEL_API_KEY, {
+        debug: import.meta.env.DEV,
+        test:
+          import.meta.env.DEV ||
+          import.meta.env.ILLA_BUILDER_ENV !== "production" ||
+          import.meta.env.ILLA_CLOUD_ENV !== "production",
+        ignore_dnt: import.meta.env.DEV,
+        loaded(mixpanelProto) {
+          mixpanelProto.identify(ILLA_DEVICE_ID)
+          const originalTrack = mixpanelProto.track
+          mixpanelProto.track = function (event, properties) {
+            originalTrack.call(mixpanelProto, event, {
+              ...properties,
+              $device_id: ILLA_DEVICE_ID,
+              environment: import.meta.env.DEV
+                ? "development"
+                : import.meta.env.ILLA_BUILDER_ENV ||
+                  import.meta.env.ILLA_CLOUD_ENV,
+              browser_language: getBrowserLanguage(),
+              illa_language: getIllaLanguage(),
+            })
+          }
+        },
       })
     }
   }

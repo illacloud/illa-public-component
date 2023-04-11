@@ -17,6 +17,8 @@ export const getDeviceUUID = async () => {
   return ILLAPublicStorage.getLocalStorage("deviceID") as string
 }
 
+export const ILLA_DEVICE_ID = await getDeviceUUID()
+
 export const getBrowserLanguage = () => {
   return navigator.language || ""
 }
