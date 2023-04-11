@@ -13,6 +13,7 @@ interface ILLABaseProperties {
   element?: string
   consume?: number
   team_id?: string
+  user_id?: string
 }
 
 type ILLAPrefixedExtendProperties = ILLAPrefixedPropertiesInterface<
