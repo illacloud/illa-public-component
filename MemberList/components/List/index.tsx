@@ -152,7 +152,7 @@ export const List: FC<ListProps> = (props) => {
 
   return (
     <div css={listWrapperStyle}>
-      <UsageCard type={"License"} />
+      <UsageCard type={"License"} current={3} total={10} />
       {data?.length ? (
         <Table
           data={data}
