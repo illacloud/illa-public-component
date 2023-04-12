@@ -1,19 +1,28 @@
-import { Button, Progress, getColor } from "@illa-design/react"
+import {
+  Button,
+  ButtonColorScheme,
+  Progress,
+  getColor,
+} from "@illa-design/react"
 import { FC, HTMLAttributes, useMemo } from "react"
 import {
+  actionButtonStyle,
   currentTextStyle,
   iconStyle,
   lastLineStyle,
+  mobileActionButtonStyle,
   mobileCurrentTextStyle,
   mobileIconStyle,
   mobileLastLineStyle,
   mobileTitleLineStyle,
   mobileUsageCardStyle,
   mobileUsageProgressStyle,
+  optionDesStyle,
   titleLineStyle,
   usageCardStyle,
   usageProgressStyle,
 } from "@/illa-public-component/UsageCard/style"
+import { getStorageSize } from "@/utils/storage/calculateSize"
 import DriveIcon from "./assets/drive.svg"
 import LicenseIcon from "./assets/license.svg"
 import TrafficIcon from "./assets/traffic.svg"
@@ -24,22 +33,36 @@ interface UsageCardProps extends HTMLAttributes<HTMLDivElement> {
   total: number
   current: number
   isMobile?: boolean
+  actionDes?: string
+  buttonColorScheme?: ButtonColorScheme
 }
 
 export const UsageCard: FC<UsageCardProps> = (props) => {
-  const { type, total, current, isMobile, onClick, ...rest } = props
+  const {
+    type,
+    total,
+    current,
+    isMobile,
+    actionDes,
+    buttonColorScheme = "techPurple",
+    onClick,
+    ...rest
+  } = props
 
   const config = {
     License: {
       name: "License usage",
+      actionText: "Manage seats",
       icon: LicenseIcon,
     },
     Drive: {
       name: "Drive",
+      actionText: "Manage storage",
       icon: DriveIcon,
     },
     Traffic: {
       name: "Traffic",
+      actionText: "Expand",
       icon: TrafficIcon,
     },
   }
@@ -60,6 +83,7 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
     progressStyle,
     currentStyle,
     lastActionsStyle,
+    buttonStyle,
   } = useMemo(() => {
     if (isMobile)
       return {
@@ -69,6 +93,7 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
         progressStyle: mobileUsageProgressStyle,
         currentStyle: mobileCurrentTextStyle,
         lastActionsStyle: mobileLastLineStyle,
+        buttonStyle: mobileActionButtonStyle,
       }
     return {
       cardStyle: usageCardStyle,
@@ -77,6 +102,7 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
       progressStyle: usageProgressStyle,
       currentStyle: currentTextStyle,
       lastActionsStyle: lastLineStyle,
+      buttonStyle: actionButtonStyle,
     }
   }, [isMobile])
 
@@ -93,12 +119,22 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
         percent={percent}
         showText={false}
       />
-      <div>
-        <span css={currentStyle}>{current}</span>
-        <span>{`of ${total} Licenses used`}</span>
-      </div>
+      {type === "License" ? (
+        <div>
+          <span css={currentStyle}>{current}</span>
+          <span>{`of ${total} Licenses used`}</span>
+        </div>
+      ) : (
+        <div css={optionDesStyle}>
+          <span>{getStorageSize(current)}</span>
+          <span>{getStorageSize(total)}</span>
+        </div>
+      )}
       <div css={lastActionsStyle}>
-        <Button>Manage seats</Button>
+        {actionDes && <span>{actionDes}</span>}
+        <Button _css={buttonStyle} colorScheme={buttonColorScheme}>
+          {config[type].actionText}
+        </Button>
       </div>
     </div>
   )
