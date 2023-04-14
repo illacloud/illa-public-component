@@ -38,6 +38,7 @@ class ILLAMixpanelTools {
                 browser_language: getBrowserLanguage(),
                 illa_language: getIllaLanguage(),
                 $user_id: properties?.user_id,
+                fe_version_code: import.meta.env.ILLA_APP_VERSION,
               })
             }
           })
