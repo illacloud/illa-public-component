@@ -12,7 +12,7 @@ export const MobileUserLayout: FC<LayoutProps> = ({ children }) => {
   const {track} = useContext(MixpanelTrackContext)
 
   const handleLinkOpenClick = (link: string) => {
-    track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {element: /privacy/.test(link) ? 'privacy' : 'terms'})
+    track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {element: /privacy/.test(link) ? 'privacy' : 'terms'})
     handleLinkOpen(link)
   }
 
