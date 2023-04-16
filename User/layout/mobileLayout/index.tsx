@@ -1,12 +1,20 @@
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { TextLink } from "@/illa-public-component/TextLink"
 import { LayoutProps } from "@/illa-public-component/User/layout/interface"
 import { handleLinkOpen } from "@/utils/navigate"
 import { contentStyle, layoutStyle, policyStyle } from "./style"
+import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
+import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 
 export const MobileUserLayout: FC<LayoutProps> = ({ children }) => {
   const { t } = useTranslation()
+  const {track} = useContext(MixpanelTrackContext)
+
+  const handleLinkOpenClick = (link: string) => {
+    track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {element: /privacy/.test(link) ? 'privacy' : 'terms'})
+    handleLinkOpen(link)
+  }
 
   return (
     <div css={layoutStyle}>
@@ -18,11 +26,15 @@ export const MobileUserLayout: FC<LayoutProps> = ({ children }) => {
           components={[
             <TextLink
               key="text-link"
-              onClick={() => handleLinkOpen("/privacy-policy")}
+              onClick={() => {
+                handleLinkOpenClick("/privacy-policy")
+              }}
             />,
             <TextLink
               key="text-link"
-              onClick={() => handleLinkOpen("/terms-and-conditions")}
+              onClick={() => {
+                handleLinkOpenClick("/terms-and-conditions")
+              }}
             />,
           ]}
         />

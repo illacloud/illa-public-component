@@ -45,6 +45,7 @@ export interface MoreActionProps
     | "isCloudVersion"
   > {
   children: ReactNode
+  userNumber: number
 }
 
 export interface InviteListItemProps
@@ -79,12 +80,13 @@ export interface InviteMemberModalProps
   > {
   maskClosable?: boolean
   handleCloseModal: () => void
+  appID?: string
 }
 
 export interface AppPublicContentProps
   extends Pick<
     InviteMemberModalProps,
-    "appLink" | "isAppPublic" | "updateAppPublicConfig"
+    "appLink" | "isAppPublic" | "updateAppPublicConfig" | "appID"
   > {}
 
 export interface InviteMemberByLinkProps
@@ -96,6 +98,7 @@ export interface InviteMemberByLinkProps
     | "fetchInviteLink"
     | "configInviteLink"
     | "allowInviteByLink"
+    | "appID"
   > {}
 
 export interface InviteMemberByEmailProps
@@ -105,6 +108,7 @@ export interface InviteMemberByEmailProps
     | "userListData"
     | "inviteByEmail"
     | "changeTeamMembersRole"
+    | "appID"
   > {}
 
 export interface InviteMemberModalContentProps
@@ -119,4 +123,6 @@ export interface InviteMemberModalContentProps
     | "allowInviteByLink"
     | "inviteByEmail"
     | "userListData"
-  > {}
+  > {
+  appID?: string
+}

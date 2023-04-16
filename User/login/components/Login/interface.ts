@@ -10,4 +10,5 @@ export interface LoginProps {
   errorMsg: LoginErrorMsg
   oAuthURI?: OAuthURI
   onSubmit: SubmitHandler<LoginFields>
+  validEventReport?: () => void
 }

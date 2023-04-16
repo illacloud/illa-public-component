@@ -67,6 +67,7 @@ export enum ILLA_MIXPANEL_CLOUD_PAGE_NAME {
   MEMBER = "cloud_member",
   PROFILE_SETTING = "profile_setting",
   TEAM_SETTING = "team_setting",
+  TEAM_MEMBER = "team_member",
 }
 
 export enum ILLA_MIXPANEL_PUBLIC_PAGE_NAME {
@@ -82,6 +83,7 @@ export enum ILLA_MIXPANEL_BUILDER_PAGE_NAME {
   EDITOR = "builder_editor",
   PREVIEW = "app_preview",
   DEPLOY = "builder_deploy",
+  BUILDER_TUTORIAL_PREVIEW = 'builder_tutorial_preview'
 }
 
 export type ILLA_PAGE_NAME =

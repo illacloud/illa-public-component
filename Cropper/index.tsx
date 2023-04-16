@@ -3,6 +3,8 @@ import {
   ChangeEvent,
   FC,
   HTMLAttributes,
+  useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -33,6 +35,8 @@ import {
   saveButtonStyle,
 } from "@/illa-public-component/Cropper/style"
 import { pxToRem } from "@/style"
+import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
+import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 
 export function getRadianAngle(degreeValue: number) {
   return (degreeValue * Math.PI) / 180
@@ -155,6 +159,7 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
   const [zoom, setZoom] = useState(FILE_INIT_ZOOM)
   const [rotation, setRotation] = useState(FILE_INIT_ROTATION)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>()
+  const { track } = useContext(MixpanelTrackContext)
 
   const resetCrop = () => {
     setZoom(FILE_INIT_ZOOM)
@@ -163,6 +168,9 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
   }
 
   const onCloseModal = () => {
+    track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+      element: "avater_crop_close",
+    })
     setModalVisible(false)
     setFile(null)
     inputRef.current && (inputRef.current.value = "")
@@ -182,11 +190,21 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
       if (file.size >= FILE_SIZE_LIMIT) {
         message.error({ content: t("image_exceed") })
         e.target.value = ""
+        track?.(ILLA_MIXPANEL_EVENT_TYPE.VALIDATE, {
+          element: "avater_crop_save",
+          parameter1: Math.floor(file.size / 1024),
+          parameter2: "failed",
+        })
         return
       }
       setUrl(URL.createObjectURL(file))
       setFile(file)
       setModalVisible(true)
+      track?.(ILLA_MIXPANEL_EVENT_TYPE.VALIDATE, {
+        element: "avater_crop_save",
+        parameter1: Math.floor(file.size / 1024),
+        parameter2: "suc",
+      })
     }
   }
 
@@ -210,6 +228,9 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
   }
 
   const handleCrop = async () => {
+    track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+      element: "avater_crop_save",
+    })
     if (loading || !file || !croppedAreaPixels) return
     setLoading(true)
     const blob = await getCroppedImg(url || "", croppedAreaPixels, rotation)
@@ -229,6 +250,14 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
     }
     setLoading(false)
   }
+
+  useEffect(() => {
+    if (modalVisible) {
+      track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
+        element: "avater_crop",
+      })
+    }
+  }, [modalVisible, track])
 
   const [
     applyModalStyle,
