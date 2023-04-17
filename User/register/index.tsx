@@ -13,6 +13,7 @@ import {
   RegisterPageProps,
 } from "@/illa-public-component/User/register/interface"
 import { track } from "@/utils/mixpanelHelper"
+import { validateReport } from "@/illa-public-component/User/utils/reportUtils"
 
 const RegisterPage: FC<RegisterPageProps> = (props) => {
   const { loading, errorMsg, onSubmit, sendEmail, oAuthURI } = props
@@ -34,6 +35,7 @@ const RegisterPage: FC<RegisterPageProps> = (props) => {
       formProps.setValue("email", email)
     }
   }, [email])
+
 
   return (
     <FormProvider {...formProps}>

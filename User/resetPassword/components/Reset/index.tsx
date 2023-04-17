@@ -5,7 +5,7 @@ import {
   PreviousIcon,
   WarningCircleIcon,
 } from "@illa-design/react"
-import { FC } from "react"
+import { FC, useEffect, useState } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
@@ -48,11 +48,13 @@ const Reset: FC<ResetProps> = (props) => {
   } = props
   const { handleSubmit, control, formState, getValues, trigger } =
     useFormContext<ResetPwdFields>()
-  const {errors} = formState
     const backToLogin = () => {
     navigate({ pathname: "/login", search: location.search })
   }
-  const validReport = async() => {
+  const {errors} = formState
+  const [asyncValid, setAsyncValid] = useState<{ isValid: boolean } | undefined>()
+
+  const validReport = async () => {
     track(
       ILLA_MIXPANEL_EVENT_TYPE.CLICK,
       ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD,
@@ -60,23 +62,28 @@ const Reset: FC<ResetProps> = (props) => {
         element: "reset_password",
       }
     )
-    let valid = await trigger()
-    if(!valid) {
+    let isValid = await trigger()
+    if(isValid) {
+      validateReport(
+        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD,
+        "reset_password",
+        true,
+        {},
+      )
+    }
+    setAsyncValid({ isValid })
+  }
+
+  useEffect(() => {
+    if (asyncValid && !asyncValid.isValid) {
       validateReport(
         ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD,
         "reset_password",
         false,
         errors,
       )
-    } else {
-      validateReport(
-        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD,
-        "reset_password",
-        true,
-        errors,
-      )
     }
-  }
+  }, [errors, asyncValid])
 
   return (
     <form
@@ -111,10 +118,10 @@ const Reset: FC<ResetProps> = (props) => {
                   variant="fill"
                   placeholder={t("page.user.forgot_password.placeholder.email")}
                   onFocus={() => {
-                    track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'username_input', parameter3: getValues().email.length ?? 0})
+                    track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'username_input', parameter3: getValues().email?.length ?? 0})
                   }}
                   onBlur={() => {
-                    track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'username_input', parameter3: getValues().email.length ?? 0})
+                    track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'username_input', parameter3: getValues().email?.length ?? 0})
                   }}
                 />
               )}
@@ -167,10 +174,10 @@ const Reset: FC<ResetProps> = (props) => {
                     />
                   }
                   onFocus={() => {
-                    track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'verification_code_input', parameter3: getValues().verificationCode.length ?? 0})
+                    track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'verification_code_input', parameter3: getValues().verificationCode?.length ?? 0})
                   }}
                   onBlur={() => {
-                    track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'verification_code_input', parameter3: getValues().verificationCode.length ?? 0})
+                    track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'verification_code_input', parameter3: getValues().verificationCode?.length ?? 0})
                   }}
                   placeholder={t(
                     "page.user.forgot_password.placeholder.verification_code",
@@ -211,10 +218,10 @@ const Reset: FC<ResetProps> = (props) => {
                   variant="fill"
                   placeholder={t("page.user.password.placeholder")}
                   onFocus={() => {
-                    track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'password_input', parameter3: getValues().newPassword.length ?? 0})
+                    track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'password_input', parameter3: getValues().newPassword?.length ?? 0})
                   }}
                   onBlur={() => {
-                    track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'password_input', parameter3: getValues().newPassword.length ?? 0})
+                    track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'password_input', parameter3: getValues().newPassword?.length ?? 0})
                   }}
                 />
               )}
