@@ -24,12 +24,13 @@ interface MixpanelTrackProviderProps {
   ) => void
   pageName: ILLA_PAGE_NAME
   children: ReactNode
+  parameter1?: string
 }
 
 export const MixpanelTrackProvider: FC<MixpanelTrackProviderProps> = (
   props,
 ) => {
-  const { children, basicTrack, pageName } = props
+  const { children, basicTrack, pageName, parameter1 } = props
 
   const track = useCallback(
     (
@@ -37,9 +38,10 @@ export const MixpanelTrackProvider: FC<MixpanelTrackProviderProps> = (
       properties: Omit<ILLAProperties, "page">,
       extendProperty?: "userRole" | "team_id" | "both",
     ) => {
-      basicTrack(event, pageName, properties, extendProperty)
+      const mergeParam = parameter1 ? {...properties, parameter1} : properties
+      basicTrack(event, pageName, mergeParam, extendProperty)
     },
-    [basicTrack, pageName],
+    [basicTrack, pageName, parameter1],
   )
 
   const injectValue = useMemo(() => {
