@@ -5,6 +5,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react"
 import { useTranslation } from "react-i18next"
@@ -463,6 +464,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
   const [loading, setLoading] = useState(false)
   const [fetchInviteLinkError, setFetchInviteLinkError] = useState(false)
   const [turnOnLoading, setTurnOnLoading] = useState(false)
+  const cacheInviteLink = useRef(inviteLink)
 
   // replace url href to location.href
 
@@ -602,7 +604,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
   }, [allowInviteByLink, appID, track])
 
   useEffect(() => {
-    inviteLink &&
+    if(inviteLink && inviteLink !== cacheInviteLink.current) {
       track?.(
         ILLA_MIXPANEL_EVENT_TYPE.SHOW,
         {
@@ -612,6 +614,8 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
         },
         "both",
       )
+      cacheInviteLink.current = inviteLink
+    }
   }, [inviteLinkRole, inviteLink, track, appID])
 
   return (
