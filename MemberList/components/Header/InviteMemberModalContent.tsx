@@ -402,7 +402,7 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
             colorScheme="black"
             onChange={switchAppPublic}
             onClick={() => {
-              track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
+              track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
                 element: "invite_modal_public_switch",
                 parameter4: isAppPublic ? "on" : "off",
                 parameter5: appID,
@@ -427,7 +427,7 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
             disabled={!appLink}
             onClick={() => {
               handleClickCopy()
-              track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
+              track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
                 element: "invite_modal_public_copy",
                 parameter5: appID,
               })
