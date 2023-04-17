@@ -148,7 +148,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         track?.(
           ILLA_MIXPANEL_EVENT_TYPE.CLICK,
           {
-            element: "remove_modal_cancel",
+            element: "transfer_modal_cancel",
           },
           "both",
         )

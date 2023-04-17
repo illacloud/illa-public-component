@@ -120,7 +120,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
             {
               element: "leave_modal_leave",
             },
-            "team_id",
+            "both",
           )
           removeTeamMembers(currentTeamMemberID)
             .then((res) => {
@@ -145,9 +145,13 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
             })
         },
         onCancel: () => {
-          track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
-            element: "leave_modal_cancel",
-          })
+          track?.(
+            ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+            {
+              element: "leave_modal_cancel",
+            },
+            "both",
+          )
         },
       })
       track?.(
@@ -155,7 +159,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         {
           element: "leave_modal",
         },
-        "team_id",
+        "both",
       )
     }
   }, [
@@ -191,7 +195,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
           },
           "team_id",
         )
-        break;
+        break
       }
       default: {
         track?.(
