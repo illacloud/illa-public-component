@@ -19,9 +19,7 @@ class ILLAMixpanelTools {
       mixpanel.init(import.meta.env.ILLA_MIXPANEL_API_KEY, {
         debug: import.meta.env.DEV,
         test:
-          import.meta.env.DEV ||
-          import.meta.env.ILLA_BUILDER_ENV !== "production" ||
-          import.meta.env.ILLA_CLOUD_ENV !== "production",
+          import.meta.env.DEV || import.meta.env.ILLA_APP_ENV !== "production",
         ignore_dnt: import.meta.env.DEV,
         loaded(mixpanelProto) {
           getDeviceUUID().then((deviceID) => {
@@ -33,8 +31,7 @@ class ILLAMixpanelTools {
                 $device_id: deviceID,
                 environment: import.meta.env.DEV
                   ? "development"
-                  : import.meta.env.ILLA_BUILDER_ENV ||
-                    import.meta.env.ILLA_CLOUD_ENV,
+                  : import.meta.env.ILLA_APP_ENV,
                 browser_language: getBrowserLanguage(),
                 illa_language: getIllaLanguage(),
                 $user_id: properties?.user_id,
