@@ -74,6 +74,8 @@ export enum ILLA_MIXPANEL_PUBLIC_PAGE_NAME {
   LOGIN = "login",
   SIGNUP = "sign_up",
   FORGET_PASSWORD = "forget_password",
+  ERROR_PAGE = "error_page",
+  MOBILE_FORBIDDEN = "mobile_forbidden",
 }
 
 export enum ILLA_MIXPANEL_BUILDER_PAGE_NAME {
@@ -83,7 +85,7 @@ export enum ILLA_MIXPANEL_BUILDER_PAGE_NAME {
   EDITOR = "builder_editor",
   PREVIEW = "app_preview",
   DEPLOY = "builder_deploy",
-  BUILDER_TUTORIAL_PREVIEW = 'builder_tutorial_preview'
+  BUILDER_TUTORIAL_PREVIEW = "builder_tutorial_preview",
 }
 
 export type ILLA_PAGE_NAME =
