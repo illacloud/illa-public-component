@@ -213,6 +213,9 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     <Dropdown
       trigger="click"
       position="bottom-end"
+      triggerProps={{
+        zIndex: 2,
+      }}
       onVisibleChange={(show: boolean) => {
         if (show) {
           track?.(

@@ -80,6 +80,7 @@ export const List: FC<ListProps> = (props) => {
         id: "userInfo",
         header: t("user_management.page.member"),
         accessorKey: "userInfo",
+        size: 400,
         cell: (props: Record<string, any>) => {
           const value = props.getValue()
           return (
@@ -117,6 +118,7 @@ export const List: FC<ListProps> = (props) => {
       {
         id: "action",
         header: " ",
+        size: 100,
         accessorKey: "actions",
         enableSorting: false,
         cell: (props: Record<string, any>) => {

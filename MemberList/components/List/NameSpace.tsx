@@ -5,6 +5,7 @@ import {
   emailStyle,
   memberStatusWhenPending,
   nameAndEmailWrapperStyle,
+  nameSpaceStyle,
   nameSpaceWrapperStyle,
   nameStyle,
 } from "@/illa-public-component/MemberList/components/List/style"
@@ -14,7 +15,7 @@ export const NameSpace: FC<NameSpaceProps> = (props) => {
   const { name, email, avatar, status, userID, currentUserID } = props
   return (
     <div css={nameSpaceWrapperStyle}>
-      <Avatar avatarUrl={avatar} name={name} id={userID} />
+      <Avatar css={nameSpaceStyle} avatarUrl={avatar} name={name} id={userID} />
       {name ? (
         <div css={nameAndEmailWrapperStyle}>
           <p css={nameStyle}>

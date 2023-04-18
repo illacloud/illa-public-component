@@ -31,6 +31,10 @@ export const nameSpaceWrapperStyle = css`
   align-items: center;
 `
 
+export const nameSpaceStyle = css`
+  flex: none;
+`
+
 export const nameAndEmailWrapperStyle = css`
   display: flex;
   flex-direction: column;
