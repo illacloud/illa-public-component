@@ -1,5 +1,12 @@
 import { Button, MoreIcon } from "@illa-design/react"
-import { FC, useCallback, useState } from "react"
+import {
+  FC,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
 import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
 import { InviteMemberModal } from "@/illa-public-component/MemberList/components/Header/InviteMemberModalContent"
@@ -9,7 +16,30 @@ import {
   headerWrapperStyle,
   titleStyle,
 } from "@/illa-public-component/MemberList/components/Header/style"
+import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
+import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
+import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 import { HeaderProps } from "./interface"
+
+const getInviteButtonStatus = (
+  allowEditorManageTeamMember: boolean,
+  allowViewerManageTeamMember: boolean,
+  currentUserRole: USER_ROLE,
+) => {
+  if (
+    currentUserRole === USER_ROLE.OWNER ||
+    currentUserRole === USER_ROLE.ADMIN
+  ) {
+    return "not_disable"
+  }
+  if (currentUserRole === USER_ROLE.EDITOR && allowEditorManageTeamMember) {
+    return "not_disable"
+  }
+  if (currentUserRole === USER_ROLE.VIEWER && allowViewerManageTeamMember) {
+    return "not_disable"
+  }
+  return "disable"
+}
 
 export const Header: FC<HeaderProps> = (props) => {
   const {
@@ -32,12 +62,66 @@ export const Header: FC<HeaderProps> = (props) => {
     isCloudVersion,
   } = props
   const { t } = useTranslation()
+  const { track } = useContext(MixpanelTrackContext)
 
   const [showInviteMemberModal, setShowInviteMemberModal] = useState(false)
 
   const handleClickInvite = useCallback(() => {
     setShowInviteMemberModal(true)
   }, [])
+
+  const inviteButtonStatus = useMemo(
+    () =>
+      getInviteButtonStatus(
+        allowEditorManageTeamMember,
+        allowViewerManageTeamMember,
+        currentUserRole,
+      ),
+    [allowEditorManageTeamMember, allowViewerManageTeamMember, currentUserRole],
+  )
+
+  useEffect(() => {
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+      {
+        element: "invite_button",
+        parameter4: inviteButtonStatus,
+      },
+      "both",
+    )
+  }, [inviteButtonStatus, track])
+
+  useEffect(() => {
+    showInviteMemberModal &&
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        {
+          element: "invite_modal",
+        },
+        "both",
+      )
+  }, [showInviteMemberModal, track])
+
+  const handleClickMoreIcon = useCallback(() => {
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      {
+        element: "more",
+      },
+      "both",
+    )
+  }, [track])
+
+  const handleClickInviteButton = useCallback(() => {
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      {
+        element: "invite_button",
+      },
+      "both",
+    )
+    handleClickInvite()
+  }, [handleClickInvite, track])
 
   return (
     <div css={headerWrapperStyle}>
@@ -54,12 +138,17 @@ export const Header: FC<HeaderProps> = (props) => {
           updateTeamPermissionConfig={updateTeamPermissionConfig}
           allowEditorManageTeamMember={allowEditorManageTeamMember}
           allowViewerManageTeamMember={allowViewerManageTeamMember}
+          userNumber={userListData.length}
         >
-          <Button w="32px" colorScheme="grayBlue">
+          <Button w="32px" colorScheme="grayBlue" onClick={handleClickMoreIcon}>
             <MoreIcon />
           </Button>
         </MoreAction>
-        <Button w="200px" colorScheme="techPurple" onClick={handleClickInvite}>
+        <Button
+          w="200px"
+          colorScheme="techPurple"
+          onClick={handleClickInviteButton}
+        >
           {t("user_management.page.invite")}
         </Button>
       </div>

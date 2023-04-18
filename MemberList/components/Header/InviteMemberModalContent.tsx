@@ -1,5 +1,13 @@
 import copy from "copy-to-clipboard"
-import { FC, MouseEvent, useCallback, useEffect, useState } from "react"
+import {
+  FC,
+  MouseEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
 import { useTranslation } from "react-i18next"
 import {
   Avatar,
@@ -16,7 +24,7 @@ import {
   Switch,
   useMessage,
 } from "@illa-design/react"
-import { AuthShown } from "@/illa-public-component/AuthShown"
+import { AuthShown, canAuthShow } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { ReactComponent as SettingIcon } from "@/illa-public-component/MemberList/assets/icon/setting.svg"
 import {
@@ -59,6 +67,8 @@ import {
   urlAreaStyle,
 } from "@/illa-public-component/MemberList/components/Header/style"
 import { inviteByEmailResponse } from "@/illa-public-component/MemberList/interface"
+import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
+import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import RoleSelect from "@/illa-public-component/RoleSelect"
 import { canManage, canManageApp } from "@/illa-public-component/UserRoleUtils"
 import {
@@ -146,7 +156,9 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     isAppPublic,
     isCloudVersion,
     updateAppPublicConfig,
+    appID,
   } = props
+  const { track } = useContext(MixpanelTrackContext)
   const { t } = useTranslation()
 
   const canSetPublic = canManageApp(
@@ -188,6 +200,19 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     setActiveTab(id)
   }, [])
 
+  useEffect(() => {
+    if (hasApp && appID) {
+      track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
+        element: "invite_modal_public_tab",
+        parameter5: appID,
+      })
+      track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
+        element: "invite_modal_invite_tab",
+        parameter5: appID,
+      })
+    }
+  }, [appID, hasApp, track])
+
   if (hasApp) {
     return (
       <div css={modalWithMaskWrapperStyle}>
@@ -204,6 +229,12 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
                     key={`tab-${id}`}
                     css={applyTabLabelStyle(isActive)}
                     onClick={() => {
+                      if (id === 1) {
+                        track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                          element: "invite_modal_public_tab",
+                          parameter5: appID,
+                        })
+                      }
                       handleTabClick(id)
                     }}
                   >
@@ -212,7 +243,20 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
                 )
               })}
             </div>
-            <span css={closeIconHotSpotStyle} onClick={handleCloseModal}>
+            <span
+              css={closeIconHotSpotStyle}
+              onClick={() => {
+                track?.(
+                  ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                  {
+                    element: "invite_modal_close",
+                    parameter5: appID,
+                  },
+                  "both",
+                )
+                handleCloseModal()
+              }}
+            >
               <CloseIcon />
             </span>
           </header>
@@ -228,6 +272,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
               fetchInviteLink={fetchInviteLink}
               configInviteLink={configInviteLink}
               changeTeamMembersRole={changeTeamMembersRole}
+              appID={appID}
             />
           )}
           {activeTab === 1 && (
@@ -235,6 +280,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
               appLink={appLink}
               isAppPublic={isAppPublic}
               updateAppPublicConfig={updateAppPublicConfig}
+              appID={appID}
             />
           )}
         </div>
@@ -250,7 +296,19 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
           <h3 css={modalTitleStyle}>
             {t("user_management.modal.title.invite_members")}
           </h3>
-          <span css={closeIconHotSpotStyle} onClick={handleCloseModal}>
+          <span
+            css={closeIconHotSpotStyle}
+            onClick={() => {
+              track?.(
+                ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                {
+                  element: "invite_modal_close",
+                },
+                "both",
+              )
+              handleCloseModal()
+            }}
+          >
             <CloseIcon />
           </span>
         </header>
@@ -272,8 +330,10 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
 }
 
 export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
-  const { appLink, isAppPublic, updateAppPublicConfig } = props
+  const { appLink, isAppPublic, appID, updateAppPublicConfig } = props
   const { t } = useTranslation()
+  const { track } = useContext(MixpanelTrackContext)
+
   const message = useMessage()
   const [loading, setLoading] = useState(false)
 
@@ -313,6 +373,23 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
     }
     setLoading(false)
   }
+  useEffect(() => {
+    track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
+      element: "invite_modal_public_switch",
+      parameter4: isAppPublic ? "on" : "off",
+      parameter5: appID,
+    })
+  }, [appID, isAppPublic, track])
+
+  useEffect(() => {
+    if (isAppPublic) {
+      track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
+        element: "invite_modal_public_copy",
+        parameter5: appID,
+      })
+      // showPublicCopyReport && showPublicCopyReport()
+    }
+  }, [appID, isAppPublic, track])
 
   return (
     <div css={appPublicWrapperStyle}>
@@ -325,6 +402,13 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
             checked={isAppPublic ?? false}
             colorScheme="black"
             onChange={switchAppPublic}
+            onClick={() => {
+              track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                element: "invite_modal_public_switch",
+                parameter4: isAppPublic ? "on" : "off",
+                parameter5: appID,
+              })
+            }}
           />
         )}
       </div>
@@ -342,7 +426,13 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
             ov="hidden"
             colorScheme="black"
             disabled={!appLink}
-            onClick={handleClickCopy}
+            onClick={() => {
+              handleClickCopy()
+              track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                element: "invite_modal_public_copy",
+                parameter5: appID,
+              })
+            }}
           >
             {t("user_management.modal.link.copy")}
           </Button>
@@ -357,10 +447,13 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     isCloudVersion,
     currentUserRole,
     allowInviteByLink,
+    appID,
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
   } = props
+
+  const { track } = useContext(MixpanelTrackContext)
   const { t } = useTranslation()
   const message = useMessage()
 
@@ -371,6 +464,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
   const [loading, setLoading] = useState(false)
   const [fetchInviteLinkError, setFetchInviteLinkError] = useState(false)
   const [turnOnLoading, setTurnOnLoading] = useState(false)
+  const cacheInviteLink = useRef(inviteLink)
 
   // replace url href to location.href
 
@@ -450,14 +544,36 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     t,
   ])
 
-  const handleClickTurnOnInviteLink = () => {
+  const handleClickTurnOnInviteLink = useCallback(() => {
     setTurnOnLoading(true)
+    canAuthShow(
+      currentUserRole,
+      [USER_ROLE.ADMIN, USER_ROLE.OWNER],
+      SHOW_RULES.EQUAL,
+    ) &&
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+        {
+          element: "invite_link_on",
+          parameter5: appID,
+        },
+        "both",
+      )
     handleClickConfigInviteLink().finally(() => {
       setTurnOnLoading(false)
     })
-  }
+  }, [appID, currentUserRole, handleClickConfigInviteLink, track])
 
   const handleClickCopyInviteLink = useCallback(() => {
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      {
+        element: "invite_link_copy",
+        parameter1: inviteLinkRole,
+        parameter5: appID,
+      },
+      "both",
+    )
     const copyReturned = copy(inviteLink)
     if (copyReturned) {
       message.success({
@@ -468,7 +584,39 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
         content: t("copy_failed"),
       })
     }
-  }, [inviteLink, message, t])
+  }, [appID, inviteLink, inviteLinkRole, message, t, track])
+
+  useEffect(() => {
+    !allowInviteByLink &&
+      canAuthShow(
+        currentUserRole,
+        [USER_ROLE.ADMIN, USER_ROLE.OWNER],
+        SHOW_RULES.EQUAL,
+      )
+  }, [allowInviteByLink, appID, currentUserRole, track])
+
+  useEffect(() => {
+    !allowInviteByLink && track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+      { element: "invite_link_on", parameter5: appID },
+      "both",
+    )
+  }, [allowInviteByLink, appID, track])
+
+  useEffect(() => {
+    if(inviteLink && inviteLink !== cacheInviteLink.current) {
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        {
+          element: "invite_link",
+          parameter1: inviteLinkRole,
+          parameter5: appID,
+        },
+        "both",
+      )
+      cacheInviteLink.current = inviteLink
+    }
+  }, [inviteLinkRole, inviteLink, track, appID])
 
   return (
     <div css={subBodyWrapperStyle}>
@@ -485,14 +633,45 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
                 <DropListItem
                   key="reset"
                   value="reset"
-                  onClick={handleClickRenewInviteLink}
+                  onClick={() => {
+                    canAuthShow(
+                      currentUserRole,
+                      [USER_ROLE.ADMIN, USER_ROLE.OWNER],
+                      SHOW_RULES.EQUAL,
+                    ) &&
+                      track?.(
+                        ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                        {
+                          element: "invite_link_update",
+                          parameter1: inviteLinkRole,
+                          parameter5: appID,
+                        },
+                        "both",
+                      )
+                    handleClickRenewInviteLink()
+                  }}
                 >
                   {t("user_management.modal.link.update")}
                 </DropListItem>
                 <DropListItem
                   key="turnOff"
                   value="turnOff"
-                  onClick={handleClickConfigInviteLink}
+                  onClick={() => {
+                    canAuthShow(
+                      currentUserRole,
+                      [USER_ROLE.ADMIN, USER_ROLE.OWNER],
+                      SHOW_RULES.EQUAL,
+                    ) &&
+                      track?.(
+                        ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                        {
+                          element: "invite_link_close",
+                          parameter5: appID,
+                        },
+                        "both",
+                      )
+                    handleClickConfigInviteLink()
+                  }}
                 >
                   {t("user_management.modal.link.turn_off")}
                 </DropListItem>
@@ -564,9 +743,11 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   const {
     currentUserRole,
     userListData,
+    appID,
     inviteByEmail,
     changeTeamMembersRole,
   } = props
+  const { track } = useContext(MixpanelTrackContext)
 
   const { t } = useTranslation()
   const message = useMessage()
@@ -749,7 +930,19 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
           colorScheme="black"
           loading={loading}
           disabled={!(Array.isArray(inviteEmails) && inviteEmails.length > 0)}
-          onClick={handleClickInviteButton}
+          onClick={() => {
+            track?.(
+              ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+              {
+                element: "invite_email_button",
+                parameter1: inviteRole,
+                parameter2: inviteEmails.length,
+                parameter5: appID,
+              },
+              "both",
+            )
+            handleClickInviteButton()
+          }}
         >
           <span css={applyHiddenStyle(loading)}>
             {t("user_management.modal.email.invite")}
@@ -778,6 +971,7 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
     configInviteLink,
     inviteByEmail,
     userListData,
+    appID,
   } = props
 
   return (
@@ -786,6 +980,7 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
         isCloudVersion={isCloudVersion}
         currentUserRole={currentUserRole}
         allowInviteByLink={allowInviteByLink}
+        appID={appID}
         configInviteLink={configInviteLink}
         fetchInviteLink={fetchInviteLink}
         renewInviteLink={renewInviteLink}
@@ -793,6 +988,7 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
       <InviteMemberByEmail
         userListData={userListData}
         currentUserRole={currentUserRole}
+        appID={appID}
         inviteByEmail={inviteByEmail}
         changeTeamMembersRole={changeTeamMembersRole}
       />

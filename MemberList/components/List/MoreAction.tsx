@@ -7,12 +7,14 @@ import {
   useMessage,
   useModal,
 } from "@illa-design/react"
-import { FC, useCallback, useMemo } from "react"
+import { FC, useCallback, useContext, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { MoreActionProps } from "@/illa-public-component/MemberList/components/List/interface"
 import { moreActionWrapper } from "@/illa-public-component/MemberList/components/List/style"
+import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
+import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import { isSmallThanTargetRole } from "@/illa-public-component/UserRoleUtils"
 import {
   USER_ROLE,
@@ -32,6 +34,8 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     name,
     email,
   } = props
+
+  const { track } = useContext(MixpanelTrackContext)
 
   const modal = useModal()
   const message = useMessage()
@@ -57,6 +61,13 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         colorScheme: "red",
       },
       onOk: async () => {
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          {
+            element: "remove_modal_remove",
+          },
+          "both",
+        )
         try {
           const result = await removeTeamMembers(teamMemberID)
           if (result) {
@@ -75,8 +86,24 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
           console.error(e)
         }
       },
+      onCancel: () => {
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          {
+            element: "remove_modal_cancel",
+          },
+          "both",
+        )
+      },
     })
-  }, [message, modal, name, email, removeTeamMembers, t, teamMemberID])
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+      {
+        element: "remove_modal",
+      },
+      "both",
+    )
+  }, [modal, t, name, email, track, removeTeamMembers, teamMemberID, message])
 
   const handleClickTransOwner = useCallback(() => {
     modal.show({
@@ -89,6 +116,13 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         colorScheme: "red",
       },
       onOk: async () => {
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          {
+            element: "transfer_modal_transfer",
+          },
+          "both",
+        )
         try {
           const result = await changeTeamMembersRole(
             teamMemberID,
@@ -110,14 +144,62 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
           console.error(e)
         }
       },
+      onCancel: () => {
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          {
+            element: "transfer_modal_cancel",
+          },
+          "both",
+        )
+      },
     })
-  }, [changeTeamMembersRole, teamMemberID, message, modal, t])
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+      {
+        element: "transfer_modal",
+      },
+      "both",
+    )
+  }, [modal, t, track, changeTeamMembersRole, teamMemberID, message])
+
+  useEffect(() => {
+    if (!disabled) {
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        {
+          element: "more_by_member",
+        },
+        "both",
+      )
+    }
+  }, [disabled, track])
 
   return disabled ? null : (
     <div css={moreActionWrapper}>
       <Dropdown
         position="bottom-end"
         trigger="click"
+        onVisibleChange={(visible) => {
+          if (visible) {
+            if (currentUserRole === USER_ROLE.OWNER) {
+              track?.(
+                ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+                {
+                  element: "transfer",
+                },
+                "both",
+              )
+            }
+            track?.(
+              ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+              {
+                element: "remove",
+              },
+              "both",
+            )
+          }
+        }}
         dropList={
           <DropList>
             {userRole !== USER_ROLE.OWNER &&
@@ -130,7 +212,16 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
                   <DropListItem
                     key="trans"
                     value="trans"
-                    onClick={handleClickTransOwner}
+                    onClick={() => {
+                      track?.(
+                        ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                        {
+                          element: "transfer",
+                        },
+                        "both",
+                      )
+                      handleClickTransOwner()
+                    }}
                   >
                     {t("user_management.page.transfer")}
                   </DropListItem>
@@ -144,7 +235,16 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
               <DropListItem
                 key="remove"
                 value="remove"
-                onClick={handleClickRemoveMember}
+                onClick={() => {
+                  track?.(
+                    ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                    {
+                      element: "remove",
+                    },
+                    "both",
+                  )
+                  handleClickRemoveMember()
+                }}
               >
                 {t("user_management.page.remove")}
               </DropListItem>

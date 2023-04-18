@@ -3,7 +3,8 @@ import { useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { Countdown, Link, getColor, useMessage } from "@illa-design/react"
 import { LoginFields } from "@/illa-public-component/User/login/interface"
-
+import { ILLA_MIXPANEL_EVENT_TYPE, ILLA_MIXPANEL_PUBLIC_PAGE_NAME } from "@/illa-public-component/MixpanelUtils/interface"
+import { track } from "@/utils/mixpanelHelper"
 interface EmailCodeProps {
   showCountDown: boolean
   usage: "signup" | "forgetpwd"
@@ -16,6 +17,7 @@ export const EmailCode: FC<EmailCodeProps> = (props) => {
   const { getValues, trigger } = useFormContext<LoginFields>()
   const { t } = useTranslation()
   const message = useMessage()
+
 
   const sendEmailCode = async () => {
     onCountDownChange(true)
@@ -62,6 +64,7 @@ export const EmailCode: FC<EmailCodeProps> = (props) => {
       colorScheme="techPurple"
       hoverable={false}
       onClick={async () => {
+        track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, usage === 'signup' ? ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP :  ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD, {element: 'send_code'})
         const canSend = await trigger("email")
         if (canSend) {
           sendEmailCode()

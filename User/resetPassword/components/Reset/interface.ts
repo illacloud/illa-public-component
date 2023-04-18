@@ -11,4 +11,5 @@ export interface ResetProps {
   showCountDown: boolean
   onCountDownChange: (showCountDown: boolean) => void
   sendEmail: (email: string, usage: "signup" | "forgetpwd") => Promise<string>
+  validEventReport?: () => void
 }

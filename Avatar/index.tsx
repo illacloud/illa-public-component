@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, useMemo } from "react"
+import { FC, HTMLAttributes, useEffect, useMemo } from "react"
 import {
   applyAvatarStyle,
   avatarImgStyle,
@@ -9,6 +9,7 @@ interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   avatarUrl?: string
   id?: string
   name?: string
+  onMount?: () => void
 }
 
 const getFirstChar = (str: string | undefined) => {
@@ -20,7 +21,7 @@ const getFirstChar = (str: string | undefined) => {
 }
 
 export const Avatar: FC<AvatarProps> = (props) => {
-  const { avatarUrl, id, name, className, ...otherProps } = props
+  const { avatarUrl, id, name, className, onMount, ...otherProps } = props
 
   const { avatarBgColor, avatarText, emptyStatus } = useMemo(() => {
     return {
@@ -29,6 +30,10 @@ export const Avatar: FC<AvatarProps> = (props) => {
       emptyStatus: !avatarUrl && !name,
     }
   }, [id, name, avatarUrl])
+
+  useEffect(() => {
+    onMount?.()
+  }, [onMount])
 
   return (
     <div
