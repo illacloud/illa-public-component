@@ -59,6 +59,7 @@ export enum ILLA_MIXPANEL_EVENT_TYPE {
   HOVER = "hover",
   CHANGE = "change",
   DELETE = "delete",
+  ILLA_ACTIVE = "illa_active",
 }
 
 export enum ILLA_MIXPANEL_CLOUD_PAGE_NAME {
@@ -76,6 +77,7 @@ export enum ILLA_MIXPANEL_PUBLIC_PAGE_NAME {
   FORGET_PASSWORD = "forget_password",
   ERROR_PAGE = "error_page",
   MOBILE_FORBIDDEN = "mobile_forbidden",
+  PLACEHOLDER = "illa",
 }
 
 export enum ILLA_MIXPANEL_BUILDER_PAGE_NAME {
