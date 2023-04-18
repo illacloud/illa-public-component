@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useEffect, useState } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
@@ -45,8 +45,9 @@ const MobileRegister: FC<MobileRegisterProps> = (props) => {
   const navigate = useNavigate()
   const { handleSubmit, control, formState, getValues, trigger } = useFormContext<RegisterFields>()
   const {errors} = formState
+  const [asyncValid, setAsyncValid] = useState<{ isValid: boolean } | undefined>()
 
-  const validReport = async() => {
+  const validReport = async () => {
     track(
       ILLA_MIXPANEL_EVENT_TYPE.CLICK,
       ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
@@ -54,23 +55,28 @@ const MobileRegister: FC<MobileRegisterProps> = (props) => {
         element: "create_account",
       }
     )
-    let valid = await trigger()
-    if(!valid) {
+    let isValid = await trigger()
+    if(isValid) {
+      validateReport(
+        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
+        "create_account",
+        true,
+        {},
+      )
+    }
+    setAsyncValid({ isValid })
+  }
+
+  useEffect(() => {
+    if (asyncValid && !asyncValid.isValid) {
       validateReport(
         ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
         "create_account",
         false,
         errors,
       )
-    } else {
-      validateReport(
-        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
-        "create_account",
-        true,
-        errors,
-      )
     }
-  }
+  }, [errors, asyncValid])
 
 
   return (
@@ -108,10 +114,10 @@ const MobileRegister: FC<MobileRegisterProps> = (props) => {
               variant="fill"
               placeholder={t("page.user.sign_up.fields.username")}
               onFocus={() => {
-                track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'username_input', parameter3: getValues().nickname.length ?? 0})
+                track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'username_input', parameter3: getValues().nickname?.length ?? 0})
               }}
               onBlur={() => {
-                track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'username_input', parameter3: getValues().nickname.length ?? 0})
+                track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'username_input', parameter3: getValues().nickname?.length ?? 0})
               }}
             />
           )}
@@ -147,10 +153,10 @@ const MobileRegister: FC<MobileRegisterProps> = (props) => {
               placeholder={t("page.user.sign_up.fields.email")}
               {...(lockedEmail && { value: lockedEmail, disabled: true })}
               onFocus={() => {
-                track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'email_input', parameter3: getValues().email.length ?? 0})
+                track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'email_input', parameter3: getValues().email?.length ?? 0})
               }}
               onBlur={() => {
-                track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'email_input', parameter3: getValues().email.length ?? 0})
+                track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'email_input', parameter3: getValues().email?.length ?? 0})
               }}
             />
           )}
@@ -198,10 +204,10 @@ const MobileRegister: FC<MobileRegisterProps> = (props) => {
                 }
                 placeholder={t("page.user.sign_up.fields.verification_code")}
                 onFocus={() => {
-                  track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'verification_code_input', parameter3: getValues().verificationCode.length ?? 0})
+                  track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'verification_code_input', parameter3: getValues().verificationCode?.length ?? 0})
                 }}
                 onBlur={() => {
-                  track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'verification_code_input', parameter3: getValues().verificationCode.length ?? 0})
+                  track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'verification_code_input', parameter3: getValues().verificationCode?.length ?? 0})
                 }}
               />
             )}
@@ -234,10 +240,10 @@ const MobileRegister: FC<MobileRegisterProps> = (props) => {
               variant="fill"
               placeholder={t("page.user.sign_up.fields.password")}
               onFocus={() => {
-                track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'password', parameter3: getValues().password.length ?? 0})
+                track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'password', parameter3: getValues().password?.length ?? 0})
               }}
               onBlur={() => {
-                track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'password', parameter3: getValues().password.length ?? 0})
+                track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'password', parameter3: getValues().password?.length ?? 0})
               }}
             />
           )}
