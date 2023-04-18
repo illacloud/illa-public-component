@@ -182,7 +182,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         trigger="click"
         onVisibleChange={(visible) => {
           if (visible) {
-            if (currentUserRole === USER_ROLE.OWNER) {
+            if (currentUserRole === USER_ROLE.OWNER && userStatus !== USER_STATUS.PENDING) {
               track?.(
                 ILLA_MIXPANEL_EVENT_TYPE.SHOW,
                 {
