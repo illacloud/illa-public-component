@@ -8,6 +8,7 @@ import {
   nameSpaceStyle,
   nameSpaceWrapperStyle,
   nameStyle,
+  textOverflowStyle,
 } from "@/illa-public-component/MemberList/components/List/style"
 import { USER_STATUS } from "@/illa-public-component/UserRoleUtils/interface"
 
@@ -19,17 +20,17 @@ export const NameSpace: FC<NameSpaceProps> = (props) => {
       {name ? (
         <div css={nameAndEmailWrapperStyle}>
           <p css={nameStyle}>
-            {name} {userID === currentUserID && <span>(You)</span>}{" "}
+            <span css={textOverflowStyle}>{name}</span>{userID === currentUserID && <span>(You)</span>}{" "}
             {status === USER_STATUS.PENDING && (
               <span css={memberStatusWhenPending}>(Pending)</span>
             )}
           </p>
-          <p css={emailStyle}>{email}</p>
+          <p css={[emailStyle, textOverflowStyle]}>{email}</p>
         </div>
       ) : (
         <div css={nameAndEmailWrapperStyle}>
           <p css={nameStyle}>
-            {email}{" "}
+            <span css={textOverflowStyle}>{email}</span>
             {status === USER_STATUS.PENDING && (
               <span css={memberStatusWhenPending}>(Pending)</span>
             )}
