@@ -1,5 +1,5 @@
 import { SerializedStyles, css } from "@emotion/react"
-import { getColor, globalColor, illaPrefix } from "@illa-design/react"
+import { globalColor, illaPrefix } from "@illa-design/react"
 
 export const gridFormStyle: SerializedStyles = css`
   display: grid;

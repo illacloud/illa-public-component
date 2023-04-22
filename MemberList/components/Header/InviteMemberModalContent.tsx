@@ -83,7 +83,6 @@ const EMAIL_REGX =
 export const InviteListItem: FC<InviteListItemProps> = (props) => {
   const {
     email,
-    userID,
     userRole,
     userAvatar,
     teamMemberID,
@@ -499,14 +498,14 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
       }
       setLoading(false)
     },
-    [fetchInviteLink, renewInviteLink],
+    [fetchInviteLink, renewInviteLink, isCloudVersion],
   )
 
   useEffect(() => {
     if (allowInviteByLink) {
       fetchInviteLinkHandler(USER_ROLE.VIEWER)
     }
-  }, [])
+  }, [allowInviteByLink, fetchInviteLinkHandler])
 
   const handleChangeInviteLinkRole = useCallback(
     async (value: any) => {
@@ -596,15 +595,16 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
   }, [allowInviteByLink, appID, currentUserRole, track])
 
   useEffect(() => {
-    !allowInviteByLink && track?.(
-      ILLA_MIXPANEL_EVENT_TYPE.SHOW,
-      { element: "invite_link_on", parameter5: appID },
-      "both",
-    )
+    !allowInviteByLink &&
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        { element: "invite_link_on", parameter5: appID },
+        "both",
+      )
   }, [allowInviteByLink, appID, track])
 
   useEffect(() => {
-    if(inviteLink && inviteLink !== cacheInviteLink.current) {
+    if (inviteLink && inviteLink !== cacheInviteLink.current) {
       track?.(
         ILLA_MIXPANEL_EVENT_TYPE.SHOW,
         {
@@ -826,7 +826,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         setInputEmailValue("")
       }
     },
-    [inviteEmails, checkEmail],
+    [inviteEmails, checkEmail, message, t],
   )
 
   const handleBlurInputValue = useCallback(() => {
@@ -889,10 +889,6 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
     },
     [changeTeamMembersRole, message, t],
   )
-
-  const onInputTagChange = (value: string[]) => {
-    setInviteEmails(value)
-  }
 
   return (
     <div css={subBodyWrapperStyle}>
