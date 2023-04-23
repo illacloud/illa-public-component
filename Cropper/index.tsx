@@ -1,4 +1,3 @@
-import { Button, CloseIcon, Modal, Spin, useMessage } from "@illa-design/react"
 import {
   ChangeEvent,
   FC,
@@ -11,6 +10,7 @@ import {
 } from "react"
 import EasyCropper, { Area, MediaSize } from "react-easy-crop"
 import { useTranslation } from "react-i18next"
+import { Button, CloseIcon, Modal, Spin, useMessage } from "@illa-design/react"
 import { ReactComponent as RotateRightIcon } from "@/illa-public-component/Cropper/assets/rotate-right.svg"
 import {
   applyZoomStyle,
@@ -121,7 +121,7 @@ export async function getCroppedImg(
   // return canvas.toDataURL('image/jpeg');
 
   // As a blob
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     canvas.toBlob((blob) => {
       resolve(blob)
     })
@@ -226,8 +226,8 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
   }
 
   const onMediaLoaded = (mediaSize: MediaSize) => {
-    const { width, height } = mediaSize
-    const ratioWidth = height * FILE_INIT_ASPECT
+    const { height } = mediaSize
+    const _ratioWidth = height * FILE_INIT_ASPECT
 
     setTimeout(() => {
       setRotation(360)

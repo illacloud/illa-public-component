@@ -7,7 +7,6 @@ import { ListProps } from "@/illa-public-component/MemberList/components/List/in
 import {
   listBodyStyle,
   listWrapperStyle,
-  nameStyle,
 } from "@/illa-public-component/MemberList/components/List/style"
 import RoleSelect from "@/illa-public-component/RoleSelect"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"

@@ -1,3 +1,5 @@
+import { FC, MouseEvent, useCallback, useContext } from "react"
+import { useTranslation } from "react-i18next"
 import {
   DropList,
   DropListItem,
@@ -6,8 +8,6 @@ import {
   useMessage,
   useModal,
 } from "@illa-design/react"
-import { FC, MouseEvent, useCallback, useContext } from "react"
-import { useTranslation } from "react-i18next"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { MoreActionProps } from "@/illa-public-component/MemberList/components/Header/interface"
@@ -22,10 +22,8 @@ const stopPropagation = (e: MouseEvent) => {
 export const MoreAction: FC<MoreActionProps> = (props) => {
   const {
     children,
-    currentUserID,
     currentUserRole,
     currentTeamMemberID,
-    hasApp,
     allowEditorManageTeamMember,
     allowViewerManageTeamMember,
     updateTeamPermissionConfig,
@@ -79,7 +77,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
                 })
               }
             })
-            .catch((e) => {
+            .catch(() => {
               message.error({
                 content: t("team_setting.mes.delete_fail"),
               })
@@ -138,7 +136,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
                 )
               }
             })
-            .catch((e) => {
+            .catch(() => {
               message.error({
                 content: t("team_setting.mes.leave_fail"),
               })
