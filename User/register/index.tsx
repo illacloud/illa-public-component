@@ -2,6 +2,8 @@ import { FC, useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { useSearchParams } from "react-router-dom"
 import { LayoutAutoChange } from "@/illa-public-component/LayoutAutoChange"
+import { ILLA_MIXPANEL_PUBLIC_PAGE_NAME } from "@/illa-public-component/MixpanelUtils/interface"
+import { MixpanelTrackProvider } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import { UserLayout } from "@/illa-public-component/User/layout"
 import { MobileUserLayout } from "@/illa-public-component/User/layout/mobileLayout"
 import MobileRegister from "@/illa-public-component/User/register/components/MobileRegister"
@@ -10,6 +12,7 @@ import {
   RegisterFields,
   RegisterPageProps,
 } from "@/illa-public-component/User/register/interface"
+import { track } from "@/utils/mixpanelHelper"
 
 const RegisterPage: FC<RegisterPageProps> = (props) => {
   const { loading, errorMsg, onSubmit, sendEmail, oAuthURI } = props
@@ -30,38 +33,48 @@ const RegisterPage: FC<RegisterPageProps> = (props) => {
     if (email) {
       formProps.setValue("email", email)
     }
-  }, [email])
+  }, [email, formProps])
 
   return (
     <FormProvider {...formProps}>
       <LayoutAutoChange
         desktopPage={
-          <UserLayout>
-            <Register
-              onSubmit={onSubmit}
-              oAuthURI={oAuthURI}
-              lockedEmail={email}
-              loading={loading}
-              errorMsg={errorMsg}
-              showCountDown={showCountDown}
-              onCountDownChange={setShowCountDown}
-              sendEmail={sendEmail}
-            />
-          </UserLayout>
+          <MixpanelTrackProvider
+            basicTrack={track}
+            pageName={ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP}
+          >
+            <UserLayout>
+              <Register
+                onSubmit={onSubmit}
+                oAuthURI={oAuthURI}
+                lockedEmail={email}
+                loading={loading}
+                errorMsg={errorMsg}
+                showCountDown={showCountDown}
+                onCountDownChange={setShowCountDown}
+                sendEmail={sendEmail}
+              />
+            </UserLayout>
+          </MixpanelTrackProvider>
         }
         mobilePage={
-          <MobileUserLayout>
-            <MobileRegister
-              onSubmit={onSubmit}
-              oAuthURI={oAuthURI}
-              lockedEmail={email}
-              loading={loading}
-              errorMsg={errorMsg}
-              showCountDown={showCountDown}
-              onCountDownChange={setShowCountDown}
-              sendEmail={sendEmail}
-            />
-          </MobileUserLayout>
+          <MixpanelTrackProvider
+            basicTrack={track}
+            pageName={ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP}
+          >
+            <MobileUserLayout>
+              <MobileRegister
+                onSubmit={onSubmit}
+                oAuthURI={oAuthURI}
+                lockedEmail={email}
+                loading={loading}
+                errorMsg={errorMsg}
+                showCountDown={showCountDown}
+                onCountDownChange={setShowCountDown}
+                sendEmail={sendEmail}
+              />
+            </MobileUserLayout>
+          </MixpanelTrackProvider>
         }
       />
     </FormProvider>

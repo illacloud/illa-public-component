@@ -9,6 +9,9 @@ import {
   ResetPasswordPageProps,
   ResetPwdFields,
 } from "@/illa-public-component/User/resetPassword/interface"
+import { MixpanelTrackProvider } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
+import { track } from "@/utils/mixpanelHelper"
+import { ILLA_MIXPANEL_PUBLIC_PAGE_NAME } from "@/illa-public-component/MixpanelUtils/interface"
 
 const ResetPasswordPage: FC<ResetPasswordPageProps> = (props) => {
   const { loading, errorMsg, onSubmit, sendEmail } = props
@@ -24,6 +27,10 @@ const ResetPasswordPage: FC<ResetPasswordPageProps> = (props) => {
     <FormProvider {...formProps}>
       <LayoutAutoChange
         desktopPage={
+          <MixpanelTrackProvider
+          basicTrack={track}
+          pageName={ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD}
+        >
           <UserLayout>
             <Reset
               onSubmit={onSubmit}
@@ -34,8 +41,13 @@ const ResetPasswordPage: FC<ResetPasswordPageProps> = (props) => {
               sendEmail={sendEmail}
             />
           </UserLayout>
+        </MixpanelTrackProvider>
         }
         mobilePage={
+          <MixpanelTrackProvider
+          basicTrack={track}
+          pageName={ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD}
+        >
           <MobileUserLayout>
             <MobileReset
               onSubmit={onSubmit}
@@ -46,6 +58,7 @@ const ResetPasswordPage: FC<ResetPasswordPageProps> = (props) => {
               sendEmail={sendEmail}
             />
           </MobileUserLayout>
+        </MixpanelTrackProvider>
         }
       />
     </FormProvider>

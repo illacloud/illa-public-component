@@ -31,9 +31,20 @@ export const nameSpaceWrapperStyle = css`
   align-items: center;
 `
 
+export const nameSpaceStyle = css`
+  flex: none;
+`
+
 export const nameAndEmailWrapperStyle = css`
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+`
+
+export const textOverflowStyle = css`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 export const nameStyle = css`
@@ -42,6 +53,8 @@ export const nameStyle = css`
   line-height: 22px;
   color: ${getColor("grayBlue", "02")};
   margin: 0;
+  display: flex;
+  gap: 4px;
 `
 
 export const memberStatusWhenPending = css`

@@ -1,3 +1,5 @@
+import { FC, MouseEvent, useCallback, useContext } from "react"
+import { useTranslation } from "react-i18next"
 import {
   DropList,
   DropListItem,
@@ -6,12 +8,12 @@ import {
   useMessage,
   useModal,
 } from "@illa-design/react"
-import { FC, MouseEvent, useCallback } from "react"
-import { useTranslation } from "react-i18next"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { MoreActionProps } from "@/illa-public-component/MemberList/components/Header/interface"
 import { allowEditorOrViewerInviteWrapperStyle } from "@/illa-public-component/MemberList/components/Header/style"
+import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
+import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 const stopPropagation = (e: MouseEvent) => {
@@ -20,20 +22,20 @@ const stopPropagation = (e: MouseEvent) => {
 export const MoreAction: FC<MoreActionProps> = (props) => {
   const {
     children,
-    currentUserID,
     currentUserRole,
     currentTeamMemberID,
-    hasApp,
     allowEditorManageTeamMember,
     allowViewerManageTeamMember,
     updateTeamPermissionConfig,
     removeTeamMembers,
     removeTeam,
     isCloudVersion,
+    userNumber,
   } = props
   const modal = useModal()
   const message = useMessage()
   const { t } = useTranslation()
+  const { track } = useContext(MixpanelTrackContext)
 
   const handleSwitchChange = useCallback(
     async (value: boolean) => {
@@ -58,6 +60,15 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
           colorScheme: "red",
         },
         onOk: () => {
+          track?.(
+            ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+            {
+              element: "delete_modal_delete",
+              parameter1: "delete_select",
+              parameter4: userNumber,
+            },
+            "team_id",
+          )
           removeTeam()
             .then((res) => {
               if (res) {
@@ -66,13 +77,31 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
                 })
               }
             })
-            .catch((e) => {
+            .catch(() => {
               message.error({
                 content: t("team_setting.mes.delete_fail"),
               })
             })
         },
+        onCancel: () => {
+          track?.(
+            ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+            {
+              element: "delete_modal_cancel",
+            },
+            "team_id",
+          )
+        },
       })
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        {
+          element: "delete_modal",
+          parameter1: "delete_select",
+          parameter4: userNumber,
+        },
+        "team_id",
+      )
     } else {
       modal.show({
         id: "leaveTeam",
@@ -84,30 +113,63 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
           colorScheme: "red",
         },
         onOk: () => {
+          track?.(
+            ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+            {
+              element: "leave_modal_leave",
+            },
+            "both",
+          )
           removeTeamMembers(currentTeamMemberID)
             .then((res) => {
               if (res) {
                 message.success({
                   content: t("team_setting.mes.leave_suc"),
                 })
+                track?.(
+                  ILLA_MIXPANEL_EVENT_TYPE.REQUEST,
+                  {
+                    element: "delete",
+                    parameter1: "delete_select",
+                  },
+                  "team_id",
+                )
               }
             })
-            .catch((e) => {
+            .catch(() => {
               message.error({
                 content: t("team_setting.mes.leave_fail"),
               })
             })
         },
+        onCancel: () => {
+          track?.(
+            ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+            {
+              element: "leave_modal_cancel",
+            },
+            "both",
+          )
+        },
       })
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        {
+          element: "leave_modal",
+        },
+        "both",
+      )
     }
   }, [
-    currentTeamMemberID,
     currentUserRole,
-    removeTeamMembers,
-    removeTeam,
-    message,
+    track,
+    userNumber,
     modal,
     t,
+    removeTeam,
+    message,
+    removeTeamMembers,
+    currentTeamMemberID,
   ])
 
   const handleClickDropList = useCallback(
@@ -119,10 +181,61 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     [handleClickItem],
   )
 
+  const handleClickDeleteOrLeaveTeam = useCallback(() => {
+    switch (currentUserRole) {
+      case USER_ROLE.OWNER: {
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          {
+            element: "delete",
+            parameter1: "delete_select",
+            parameter2: userNumber,
+          },
+          "team_id",
+        )
+        break
+      }
+      default: {
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          {
+            element: "leave",
+          },
+          "both",
+        )
+      }
+    }
+  }, [currentUserRole, track, userNumber])
+
   return (
     <Dropdown
       trigger="click"
       position="bottom-end"
+      triggerProps={{
+        zIndex: 2,
+      }}
+      onVisibleChange={(show: boolean) => {
+        if (show) {
+          track?.(
+            ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+            {
+              element: "more",
+            },
+            "both",
+          )
+          track?.(
+            ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+            {
+              element: "allow_manage",
+              parameter2:
+                allowEditorManageTeamMember && allowViewerManageTeamMember
+                  ? "on"
+                  : "off",
+            },
+            "both",
+          )
+        }
+      }}
       dropList={
         <DropList
           onClickItem={(key) => {
@@ -145,7 +258,17 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
                 <Switch
                   colorScheme="techPurple"
                   onClick={stopPropagation}
-                  onChange={handleSwitchChange}
+                  onChange={(value) => {
+                    handleSwitchChange(value)
+                    track?.(
+                      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                      {
+                        element: "allow_manage",
+                        parameter2: value ? "on" : "off",
+                      },
+                      "both",
+                    )
+                  }}
                   checked={
                     allowEditorManageTeamMember && allowViewerManageTeamMember
                   }
@@ -154,7 +277,11 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
             </DropListItem>
           </AuthShown>
           {isCloudVersion ? (
-            <DropListItem key="leaveTeam" value="leaveTeam">
+            <DropListItem
+              key="leaveTeam"
+              value="leaveTeam"
+              onClick={handleClickDeleteOrLeaveTeam}
+            >
               {currentUserRole === USER_ROLE.OWNER
                 ? t("team_setting.left_panel.delete")
                 : t("team_setting.left_panel.leave")}

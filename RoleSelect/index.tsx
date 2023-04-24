@@ -1,6 +1,6 @@
-import { DownIcon, Trigger, UpIcon, zIndex } from "@illa-design/react"
 import { FC, HTMLAttributes, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { DownIcon, Trigger, UpIcon, zIndex } from "@illa-design/react"
 import {
   getSmallThanTargetRole,
   isSmallThanTargetRole,
@@ -27,15 +27,7 @@ interface RoleSelectProps
 }
 
 const RoleSelect: FC<RoleSelectProps> = (props) => {
-  const {
-    className,
-    value,
-    userRole,
-    notHasSelf,
-    disabled,
-    fontWeight,
-    onChange,
-  } = props
+  const { className, value, userRole, disabled, fontWeight, onChange } = props
   const { t } = useTranslation()
   const [popupVisible, setPopupVisible] = useState<boolean>()
 

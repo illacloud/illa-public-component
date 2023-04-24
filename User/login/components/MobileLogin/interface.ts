@@ -10,4 +10,5 @@ export interface MobileLoginProps {
   errorMsg: LoginErrorMsg
   oAuthURI?: OAuthURI
   onSubmit: SubmitHandler<LoginFields>
+  validEventReport?: () => void
 }
