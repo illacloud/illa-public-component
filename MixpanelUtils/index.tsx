@@ -60,6 +60,10 @@ class ILLAMixpanelTools {
     }
   }
 
+  public getOriginalMixpanel() {
+    return mixpanel
+  }
+
   public pageTimeEvent() {
     if (this.enable) {
       mixpanel.time_event("page_duration")
