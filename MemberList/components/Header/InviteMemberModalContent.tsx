@@ -156,6 +156,8 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     isCloudVersion,
     updateAppPublicConfig,
     appID,
+    teamName,
+    userNickname,
   } = props
   const { track } = useContext(MixpanelTrackContext)
   const { t } = useTranslation()
@@ -269,6 +271,8 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
               inviteByEmail={inviteByEmail}
               renewInviteLink={renewInviteLink}
               fetchInviteLink={fetchInviteLink}
+              teamName={teamName}
+              userNickname={userNickname}
               configInviteLink={configInviteLink}
               changeTeamMembersRole={changeTeamMembersRole}
               appID={appID}
@@ -317,6 +321,8 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
           currentUserRole={currentUserRole}
           allowInviteByLink={allowInviteByLink}
           inviteByEmail={inviteByEmail}
+          teamName={teamName}
+          userNickname={userNickname}
           renewInviteLink={renewInviteLink}
           fetchInviteLink={fetchInviteLink}
           configInviteLink={configInviteLink}
@@ -447,6 +453,8 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     currentUserRole,
     allowInviteByLink,
     appID,
+    userNickname,
+    teamName,
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
@@ -573,7 +581,13 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
       },
       "both",
     )
-    const copyReturned = copy(inviteLink)
+    const copyReturned = copy(
+      t("user_management.modal.custom_copy_text", {
+        userName: userNickname,
+        teamName: teamName,
+        inviteLink: inviteLink,
+      }),
+    )
     if (copyReturned) {
       message.success({
         content: t("copied"),
@@ -969,6 +983,8 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
     inviteByEmail,
     userListData,
     appID,
+    userNickname,
+    teamName,
   } = props
 
   return (
@@ -978,6 +994,8 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
         currentUserRole={currentUserRole}
         allowInviteByLink={allowInviteByLink}
         appID={appID}
+        userNickname={userNickname}
+        teamName={teamName}
         configInviteLink={configInviteLink}
         fetchInviteLink={fetchInviteLink}
         renewInviteLink={renewInviteLink}

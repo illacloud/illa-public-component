@@ -27,6 +27,8 @@ export const MemberList: FC<MemberListProps> = (props) => {
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
+    teamName,
+    userNickName,
     loading,
   } = props
 
@@ -48,6 +50,8 @@ export const MemberList: FC<MemberListProps> = (props) => {
         fetchInviteLink={fetchInviteLink}
         renewInviteLink={renewInviteLink}
         inviteByEmail={inviteByEmail}
+        teamName={teamName}
+        userNickName={userNickName}
         updateTeamPermissionConfig={updateTeamPermissionConfig}
         isCloudVersion={isCloudVersion}
       />

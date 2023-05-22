@@ -28,6 +28,8 @@ export interface HeaderProps
     | "isAppPublic"
     | "isCloudVersion"
     | "updateAppPublicConfig"
+    | "teamName"
+    | "userNickName"
   > {}
 
 export interface MoreActionProps
@@ -81,6 +83,8 @@ export interface InviteMemberModalProps
   maskClosable?: boolean
   handleCloseModal: () => void
   appID?: string
+  teamName?: string
+  userNickname?: string
 }
 
 export interface AppPublicContentProps
@@ -99,6 +103,8 @@ export interface InviteMemberByLinkProps
     | "configInviteLink"
     | "allowInviteByLink"
     | "appID"
+    | "teamName"
+    | "userNickname"
   > {}
 
 export interface InviteMemberByEmailProps
@@ -125,4 +131,6 @@ export interface InviteMemberModalContentProps
     | "userListData"
   > {
   appID?: string
+  teamName?: string
+  userNickname?: string
 }

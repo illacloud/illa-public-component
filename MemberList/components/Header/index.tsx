@@ -58,6 +58,8 @@ export const Header: FC<HeaderProps> = (props) => {
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
+    teamName,
+    userNickName,
     userListData,
     isCloudVersion,
   } = props
@@ -161,6 +163,8 @@ export const Header: FC<HeaderProps> = (props) => {
             handleCloseModal={() => {
               setShowInviteMemberModal(false)
             }}
+            teamName={teamName}
+            userNickname={userNickName}
             changeTeamMembersRole={changeTeamMembersRole}
             currentUserRole={currentUserRole}
             inviteByEmail={inviteByEmail}
