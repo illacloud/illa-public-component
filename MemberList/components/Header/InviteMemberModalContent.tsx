@@ -936,7 +936,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
           value={inviteEmails}
           inputValue={inputEmailValue}
           validate={handleValidateInputValue}
-          onChange={(value: string[]) => {
+          onChange={(value: any) => {
             setInviteEmails(value as string[])
           }}
           onPressEnter={handlePressEnter}

@@ -238,7 +238,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
       }}
       dropList={
         <DropList
-          onClickItem={(key: string) => {
+          onClickItem={(key: any) => {
             handleClickDropList(key as string)
           }}
         >
