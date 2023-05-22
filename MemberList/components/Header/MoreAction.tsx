@@ -238,7 +238,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
       }}
       dropList={
         <DropList
-          onClickItem={(key) => {
+          onClickItem={(key: string) => {
             handleClickDropList(key as string)
           }}
         >
@@ -258,7 +258,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
                 <Switch
                   colorScheme="techPurple"
                   onClick={stopPropagation}
-                  onChange={(value) => {
+                  onChange={(value: boolean) => {
                     handleSwitchChange(value)
                     track?.(
                       ILLA_MIXPANEL_EVENT_TYPE.CLICK,
