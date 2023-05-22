@@ -60,6 +60,12 @@ class ILLAMixpanelTools {
     }
   }
 
+  public setGroup(teamIdentifier: string | string[]) {
+    if (this.enable) {
+      mixpanel.set_group("team", teamIdentifier)
+    }
+  }
+
   public pageTimeEvent() {
     if (this.enable) {
       mixpanel.time_event("page_duration")

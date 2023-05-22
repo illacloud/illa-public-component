@@ -1,14 +1,3 @@
-import copy from "copy-to-clipboard"
-import {
-  FC,
-  MouseEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
-import { useTranslation } from "react-i18next"
 import {
   Avatar,
   Button,
@@ -24,6 +13,17 @@ import {
   Switch,
   useMessage,
 } from "@illa-design/react"
+import copy from "copy-to-clipboard"
+import {
+  FC,
+  MouseEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
+import { useTranslation } from "react-i18next"
 import { AuthShown, canAuthShow } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { ReactComponent as SettingIcon } from "@/illa-public-component/MemberList/assets/icon/setting.svg"
@@ -628,6 +628,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
           <Dropdown
             trigger="click"
             position="bottom-end"
+            triggerProps={{ zIndex: 2 }}
             dropList={
               <DropList>
                 <DropListItem
