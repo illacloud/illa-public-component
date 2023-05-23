@@ -281,6 +281,8 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
           {activeTab === 1 && (
             <AppPublicContent
               appLink={appLink}
+              teamName={teamName}
+              userNickname={userNickname}
               isAppPublic={isAppPublic}
               updateAppPublicConfig={updateAppPublicConfig}
               appID={appID}
@@ -335,7 +337,14 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
 }
 
 export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
-  const { appLink, isAppPublic, appID, updateAppPublicConfig } = props
+  const {
+    appLink,
+    isAppPublic,
+    appID,
+    updateAppPublicConfig,
+    teamName,
+    userNickname,
+  } = props
   const { t } = useTranslation()
   const { track } = useContext(MixpanelTrackContext)
 
@@ -344,7 +353,13 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
 
   const handleClickCopy = useCallback(() => {
     if (!appLink) return
-    const copyReturned = copy(appLink)
+    const copyReturned = copy(
+      t("user_management.modal.custom_copy_text_public", {
+        teamName,
+        userName: userNickname,
+        inviteLink: appLink,
+      }),
+    )
     if (copyReturned) {
       message.success({
         content: t("copied"),
@@ -354,7 +369,7 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
         content: t("copy_failed"),
       })
     }
-  }, [appLink, message, t])
+  }, [appLink, message, t, teamName, userNickname])
 
   const switchAppPublic = async (value: boolean) => {
     if (loading) return

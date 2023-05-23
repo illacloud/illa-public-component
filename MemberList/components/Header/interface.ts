@@ -90,7 +90,12 @@ export interface InviteMemberModalProps
 export interface AppPublicContentProps
   extends Pick<
     InviteMemberModalProps,
-    "appLink" | "isAppPublic" | "updateAppPublicConfig" | "appID"
+    | "appLink"
+    | "isAppPublic"
+    | "updateAppPublicConfig"
+    | "appID"
+    | "teamName"
+    | "userNickname"
   > {}
 
 export interface InviteMemberByLinkProps
