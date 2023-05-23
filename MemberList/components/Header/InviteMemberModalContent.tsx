@@ -473,6 +473,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
+    from,
   } = props
 
   const { track } = useContext(MixpanelTrackContext)
@@ -597,11 +598,17 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
       "both",
     )
     const copyReturned = copy(
-      t("user_management.modal.custom_copy_text", {
-        userName: userNickname,
-        teamName: teamName,
-        inviteLink: inviteLink,
-      }),
+      from === "cloud_dashboard"
+        ? t("user_management.modal.custom_copy_text", {
+            userName: userNickname,
+            teamName: teamName,
+            inviteLink: inviteLink,
+          })
+        : t("user_management.modal.custom_copy_text_app_invite", {
+            userName: userNickname,
+            teamName: teamName,
+            inviteLink: inviteLink,
+          }),
     )
     if (copyReturned) {
       message.success({
@@ -614,6 +621,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     }
   }, [
     appID,
+    from,
     inviteLink,
     inviteLinkRole,
     message,
@@ -1009,11 +1017,13 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
     appID,
     userNickname,
     teamName,
+    from,
   } = props
 
   return (
     <div css={modalBodyWrapperStyle}>
       <InviteMemberByLink
+        from={from}
         isCloudVersion={isCloudVersion}
         currentUserRole={currentUserRole}
         allowInviteByLink={allowInviteByLink}

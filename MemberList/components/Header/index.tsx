@@ -158,6 +158,7 @@ export const Header: FC<HeaderProps> = (props) => {
         createPortal(
           <InviteMemberModal
             hasApp={hasApp}
+            from="cloud_dashboard"
             isCloudVersion={isCloudVersion}
             userListData={userListData}
             handleCloseModal={() => {

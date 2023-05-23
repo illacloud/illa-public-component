@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import { InviteModalProps } from "@/illa-public-component/MemberList/components/Header/InviteModal"
 import {
   MemberListProps,
   inviteByEmailResponse,
@@ -85,6 +86,7 @@ export interface InviteMemberModalProps
   appID?: string
   teamName?: string
   userNickname?: string
+  from?: "cloud_dashboard" | "builder_dashboard"
 }
 
 export interface AppPublicContentProps
@@ -110,6 +112,7 @@ export interface InviteMemberByLinkProps
     | "appID"
     | "teamName"
     | "userNickname"
+    | "from"
   > {}
 
 export interface InviteMemberByEmailProps
@@ -124,17 +127,18 @@ export interface InviteMemberByEmailProps
 
 export interface InviteMemberModalContentProps
   extends Pick<
-    MemberListProps,
-    | "isCloudVersion"
-    | "changeTeamMembersRole"
-    | "currentUserRole"
-    | "renewInviteLink"
-    | "fetchInviteLink"
-    | "configInviteLink"
-    | "allowInviteByLink"
-    | "inviteByEmail"
-    | "userListData"
-  > {
+      MemberListProps,
+      | "isCloudVersion"
+      | "changeTeamMembersRole"
+      | "currentUserRole"
+      | "renewInviteLink"
+      | "fetchInviteLink"
+      | "configInviteLink"
+      | "allowInviteByLink"
+      | "inviteByEmail"
+      | "userListData"
+    >,
+    Pick<InviteModalProps, "from"> {
   appID?: string
   teamName?: string
   userNickname?: string
