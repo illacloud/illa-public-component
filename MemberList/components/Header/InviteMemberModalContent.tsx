@@ -1,3 +1,14 @@
+import copy from "copy-to-clipboard"
+import {
+  FC,
+  MouseEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
+import { useTranslation } from "react-i18next"
 import {
   Avatar,
   Button,
@@ -13,17 +24,6 @@ import {
   Switch,
   useMessage,
 } from "@illa-design/react"
-import copy from "copy-to-clipboard"
-import {
-  FC,
-  MouseEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
-import { useTranslation } from "react-i18next"
 import { AuthShown, canAuthShow } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { ReactComponent as SettingIcon } from "@/illa-public-component/MemberList/assets/icon/setting.svg"
@@ -597,7 +597,16 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
         content: t("copy_failed"),
       })
     }
-  }, [appID, inviteLink, inviteLinkRole, message, t, track])
+  }, [
+    appID,
+    inviteLink,
+    inviteLinkRole,
+    message,
+    t,
+    teamName,
+    track,
+    userNickname,
+  ])
 
   useEffect(() => {
     !allowInviteByLink &&
@@ -927,7 +936,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
           value={inviteEmails}
           inputValue={inputEmailValue}
           validate={handleValidateInputValue}
-          onChange={(value) => {
+          onChange={(value: any) => {
             setInviteEmails(value as string[])
           }}
           onPressEnter={handlePressEnter}
