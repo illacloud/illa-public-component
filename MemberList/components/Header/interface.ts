@@ -29,7 +29,7 @@ export interface HeaderProps
     | "isCloudVersion"
     | "updateAppPublicConfig"
     | "teamName"
-    | "userNickName"
+    | "userNickname"
   > {}
 
 export interface MoreActionProps
