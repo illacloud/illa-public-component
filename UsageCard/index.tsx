@@ -1,10 +1,10 @@
+import { FC, HTMLAttributes, useMemo } from "react"
 import {
   Button,
   ButtonColorScheme,
   Progress,
   getColor,
 } from "@illa-design/react"
-import { FC, HTMLAttributes, useMemo } from "react"
 import {
   actionButtonStyle,
   currentTextStyle,
@@ -22,7 +22,7 @@ import {
   usageCardStyle,
   usageProgressStyle,
 } from "@/illa-public-component/UsageCard/style"
-import { getStorageSize } from "@/utils/storage/calculateSize"
+// import { getStorageSize } from "@/utils/storage/calculateSize"
 import DriveIcon from "./assets/drive.svg"
 import LicenseIcon from "./assets/license.svg"
 import TrafficIcon from "./assets/traffic.svg"
@@ -74,7 +74,7 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
   )
 
   // get the unit
-  const unit = type === "License" ? "seats" : "GB"
+  // const unit = type === "License" ? "seats" : "GB"
 
   const {
     cardStyle,
@@ -126,8 +126,8 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
         </div>
       ) : (
         <div css={optionDesStyle}>
-          <span>{getStorageSize(current)}</span>
-          <span>{getStorageSize(total)}</span>
+          {/*<span>{getStorageSize(current)}</span>*/}
+          {/*<span>{getStorageSize(total)}</span>*/}
         </div>
       )}
       <div css={lastActionsStyle}>

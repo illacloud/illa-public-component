@@ -1,4 +1,4 @@
-import { SerializedStyles, css } from "@emotion/react"
+import { css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
 import { pxToRem } from "@/style"
 

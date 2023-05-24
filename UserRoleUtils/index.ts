@@ -229,6 +229,7 @@ export const attributeConfigList: AttributeConfigList = {
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
         [ACTION_MANAGE.EDIT_APP]: true,
+        [ACTION_MANAGE.APP_WATER_MARK_CONFIG]: true,
       },
       [ATTRIBUTE_GROUP.RESOURCE]: {
         [ACTION_MANAGE.CREATE_RESOURCE]: true,
@@ -268,6 +269,7 @@ export const attributeConfigList: AttributeConfigList = {
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
         [ACTION_MANAGE.EDIT_APP]: true,
+        [ACTION_MANAGE.APP_WATER_MARK_CONFIG]: true,
       },
       [ATTRIBUTE_GROUP.RESOURCE]: {
         [ACTION_MANAGE.CREATE_RESOURCE]: true,
@@ -283,6 +285,7 @@ export const attributeConfigList: AttributeConfigList = {
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
         [ACTION_MANAGE.EDIT_APP]: true,
+        [ACTION_MANAGE.APP_WATER_MARK_CONFIG]: true,
       },
       [ATTRIBUTE_GROUP.RESOURCE]: {
         [ACTION_MANAGE.CREATE_RESOURCE]: true,
