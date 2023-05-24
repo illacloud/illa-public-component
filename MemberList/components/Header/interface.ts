@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import { InviteModalProps } from "@/illa-public-component/MemberList/components/Header/InviteModal"
 import {
   MemberListProps,
   inviteByEmailResponse,
@@ -28,6 +29,8 @@ export interface HeaderProps
     | "isAppPublic"
     | "isCloudVersion"
     | "updateAppPublicConfig"
+    | "teamName"
+    | "userNickname"
   > {}
 
 export interface MoreActionProps
@@ -81,12 +84,20 @@ export interface InviteMemberModalProps
   maskClosable?: boolean
   handleCloseModal: () => void
   appID?: string
+  teamName?: string
+  userNickname?: string
+  from?: "cloud_dashboard" | "builder_dashboard"
 }
 
 export interface AppPublicContentProps
   extends Pick<
     InviteMemberModalProps,
-    "appLink" | "isAppPublic" | "updateAppPublicConfig" | "appID"
+    | "appLink"
+    | "isAppPublic"
+    | "updateAppPublicConfig"
+    | "appID"
+    | "teamName"
+    | "userNickname"
   > {}
 
 export interface InviteMemberByLinkProps
@@ -99,6 +110,9 @@ export interface InviteMemberByLinkProps
     | "configInviteLink"
     | "allowInviteByLink"
     | "appID"
+    | "teamName"
+    | "userNickname"
+    | "from"
   > {}
 
 export interface InviteMemberByEmailProps
@@ -113,16 +127,19 @@ export interface InviteMemberByEmailProps
 
 export interface InviteMemberModalContentProps
   extends Pick<
-    MemberListProps,
-    | "isCloudVersion"
-    | "changeTeamMembersRole"
-    | "currentUserRole"
-    | "renewInviteLink"
-    | "fetchInviteLink"
-    | "configInviteLink"
-    | "allowInviteByLink"
-    | "inviteByEmail"
-    | "userListData"
-  > {
+      MemberListProps,
+      | "isCloudVersion"
+      | "changeTeamMembersRole"
+      | "currentUserRole"
+      | "renewInviteLink"
+      | "fetchInviteLink"
+      | "configInviteLink"
+      | "allowInviteByLink"
+      | "inviteByEmail"
+      | "userListData"
+    >,
+    Pick<InviteModalProps, "from"> {
   appID?: string
+  teamName?: string
+  userNickname?: string
 }

@@ -14,7 +14,7 @@ export const InviteModal: FC<InviteModalProps> = (props) => {
     <div>
       {visible &&
         createPortal(
-          <InviteMemberModal {...memberModalProps} />,
+          <InviteMemberModal from="builder_dashboard" {...memberModalProps} />,
           document.body,
         )}
     </div>

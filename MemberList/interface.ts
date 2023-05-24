@@ -44,6 +44,8 @@ export interface MemberListProps {
   userListData: UserData[]
   allowEditorManageTeamMember: boolean
   allowViewerManageTeamMember: boolean
+  userNickname: string
+  teamName: string
   allowInviteByLink: boolean
   changeTeamMembersRole: (
     teamMemberID: string,

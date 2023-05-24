@@ -1,4 +1,3 @@
-import { Button, MoreIcon } from "@illa-design/react"
 import {
   FC,
   useCallback,
@@ -9,6 +8,7 @@ import {
 } from "react"
 import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
+import { Button, MoreIcon } from "@illa-design/react"
 import { InviteMemberModal } from "@/illa-public-component/MemberList/components/Header/InviteMemberModalContent"
 import { MoreAction } from "@/illa-public-component/MemberList/components/Header/MoreAction"
 import {
@@ -58,6 +58,8 @@ export const Header: FC<HeaderProps> = (props) => {
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
+    teamName,
+    userNickname,
     userListData,
     isCloudVersion,
   } = props
@@ -156,11 +158,14 @@ export const Header: FC<HeaderProps> = (props) => {
         createPortal(
           <InviteMemberModal
             hasApp={hasApp}
+            from="cloud_dashboard"
             isCloudVersion={isCloudVersion}
             userListData={userListData}
             handleCloseModal={() => {
               setShowInviteMemberModal(false)
             }}
+            teamName={teamName}
+            userNickname={userNickname}
             changeTeamMembersRole={changeTeamMembersRole}
             currentUserRole={currentUserRole}
             inviteByEmail={inviteByEmail}

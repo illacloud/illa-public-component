@@ -1,5 +1,5 @@
-import { Loading } from "@illa-design/react"
 import { FC } from "react"
+import { Loading } from "@illa-design/react"
 import { Header } from "@/illa-public-component/MemberList/components/Header"
 import { List } from "@/illa-public-component/MemberList/components/List"
 import { MemberListProps } from "@/illa-public-component/MemberList/interface"
@@ -27,6 +27,8 @@ export const MemberList: FC<MemberListProps> = (props) => {
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
+    teamName,
+    userNickname,
     loading,
   } = props
 
@@ -48,6 +50,8 @@ export const MemberList: FC<MemberListProps> = (props) => {
         fetchInviteLink={fetchInviteLink}
         renewInviteLink={renewInviteLink}
         inviteByEmail={inviteByEmail}
+        teamName={teamName}
+        userNickname={userNickname}
         updateTeamPermissionConfig={updateTeamPermissionConfig}
         isCloudVersion={isCloudVersion}
       />

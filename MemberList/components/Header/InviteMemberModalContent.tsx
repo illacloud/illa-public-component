@@ -1,3 +1,14 @@
+import copy from "copy-to-clipboard"
+import {
+  FC,
+  MouseEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
+import { useTranslation } from "react-i18next"
 import {
   Avatar,
   Button,
@@ -13,17 +24,6 @@ import {
   Switch,
   useMessage,
 } from "@illa-design/react"
-import copy from "copy-to-clipboard"
-import {
-  FC,
-  MouseEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
-import { useTranslation } from "react-i18next"
 import { AuthShown, canAuthShow } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { ReactComponent as SettingIcon } from "@/illa-public-component/MemberList/assets/icon/setting.svg"
@@ -156,6 +156,8 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     isCloudVersion,
     updateAppPublicConfig,
     appID,
+    teamName,
+    userNickname,
   } = props
   const { track } = useContext(MixpanelTrackContext)
   const { t } = useTranslation()
@@ -269,6 +271,8 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
               inviteByEmail={inviteByEmail}
               renewInviteLink={renewInviteLink}
               fetchInviteLink={fetchInviteLink}
+              teamName={teamName}
+              userNickname={userNickname}
               configInviteLink={configInviteLink}
               changeTeamMembersRole={changeTeamMembersRole}
               appID={appID}
@@ -277,6 +281,8 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
           {activeTab === 1 && (
             <AppPublicContent
               appLink={appLink}
+              teamName={teamName}
+              userNickname={userNickname}
               isAppPublic={isAppPublic}
               updateAppPublicConfig={updateAppPublicConfig}
               appID={appID}
@@ -317,6 +323,8 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
           currentUserRole={currentUserRole}
           allowInviteByLink={allowInviteByLink}
           inviteByEmail={inviteByEmail}
+          teamName={teamName}
+          userNickname={userNickname}
           renewInviteLink={renewInviteLink}
           fetchInviteLink={fetchInviteLink}
           configInviteLink={configInviteLink}
@@ -329,7 +337,14 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
 }
 
 export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
-  const { appLink, isAppPublic, appID, updateAppPublicConfig } = props
+  const {
+    appLink,
+    isAppPublic,
+    appID,
+    updateAppPublicConfig,
+    teamName,
+    userNickname,
+  } = props
   const { t } = useTranslation()
   const { track } = useContext(MixpanelTrackContext)
 
@@ -338,7 +353,13 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
 
   const handleClickCopy = useCallback(() => {
     if (!appLink) return
-    const copyReturned = copy(appLink)
+    const copyReturned = copy(
+      t("user_management.modal.custom_copy_text_public", {
+        teamName,
+        userName: userNickname,
+        inviteLink: appLink,
+      }),
+    )
     if (copyReturned) {
       message.success({
         content: t("copied"),
@@ -348,7 +369,7 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
         content: t("copy_failed"),
       })
     }
-  }, [appLink, message, t])
+  }, [appLink, message, t, teamName, userNickname])
 
   const switchAppPublic = async (value: boolean) => {
     if (loading) return
@@ -447,9 +468,12 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     currentUserRole,
     allowInviteByLink,
     appID,
+    userNickname,
+    teamName,
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
+    from,
   } = props
 
   const { track } = useContext(MixpanelTrackContext)
@@ -573,7 +597,19 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
       },
       "both",
     )
-    const copyReturned = copy(inviteLink)
+    const copyReturned = copy(
+      from === "cloud_dashboard"
+        ? t("user_management.modal.custom_copy_text", {
+            userName: userNickname,
+            teamName: teamName,
+            inviteLink: inviteLink,
+          })
+        : t("user_management.modal.custom_copy_text_app_invite", {
+            userName: userNickname,
+            teamName: teamName,
+            inviteLink: inviteLink,
+          }),
+    )
     if (copyReturned) {
       message.success({
         content: t("copied"),
@@ -583,7 +619,17 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
         content: t("copy_failed"),
       })
     }
-  }, [appID, inviteLink, inviteLinkRole, message, t, track])
+  }, [
+    appID,
+    from,
+    inviteLink,
+    inviteLinkRole,
+    message,
+    t,
+    teamName,
+    track,
+    userNickname,
+  ])
 
   useEffect(() => {
     !allowInviteByLink &&
@@ -913,7 +959,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
           value={inviteEmails}
           inputValue={inputEmailValue}
           validate={handleValidateInputValue}
-          onChange={(value) => {
+          onChange={(value: any) => {
             setInviteEmails(value as string[])
           }}
           onPressEnter={handlePressEnter}
@@ -969,15 +1015,21 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
     inviteByEmail,
     userListData,
     appID,
+    userNickname,
+    teamName,
+    from,
   } = props
 
   return (
     <div css={modalBodyWrapperStyle}>
       <InviteMemberByLink
+        from={from}
         isCloudVersion={isCloudVersion}
         currentUserRole={currentUserRole}
         allowInviteByLink={allowInviteByLink}
         appID={appID}
+        userNickname={userNickname}
+        teamName={teamName}
         configInviteLink={configInviteLink}
         fetchInviteLink={fetchInviteLink}
         renewInviteLink={renewInviteLink}
