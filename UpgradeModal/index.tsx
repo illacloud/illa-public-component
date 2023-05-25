@@ -1,10 +1,21 @@
-import { CloseIcon, Link, Modal, ModalProps, Trigger } from "@illa-design/react"
+import {
+  Button,
+  CloseIcon,
+  Link,
+  Modal,
+  ModalProps,
+  Trigger,
+} from "@illa-design/react"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
+import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
 import { ReactComponent as ModalDecorate } from "@/illa-public-component/UpgradeModal/assets/upgrad-modal-bg.svg"
 import {
   decorateStyle,
+  footerStyle,
   modalStyle,
+  priceContentStyle,
+  priceStyle,
 } from "@/illa-public-component/UpgradeModal/style"
 import { ReactComponent as DoubtIcon } from "@/page/billing/assets/doubt.svg"
 import { ReactComponent as TipIcon } from "@/page/billing/assets/pricing-tip.svg"
@@ -78,6 +89,18 @@ export const UpgradeModal: FC<UpgradeModalProps> = (props) => {
           <Link colorScheme="techPurple">
             {t("billing.modal.upgrade_now_admin.learn_more")}
           </Link>
+        </div>
+        <div css={footerStyle}>
+          <div>
+            <div css={priceStyle}>$8.3</div>
+            <div css={priceContentStyle}>
+              {t("billing.modal.upgrade_now_admin.pricing")}
+            </div>
+          </div>
+          <Button colorScheme="techPurple">
+            <UpgradeIcon />
+            {t("billing.modal.upgrade_now_admin.upgrade")}
+          </Button>
         </div>
       </div>
     </Modal>

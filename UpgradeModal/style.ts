@@ -19,3 +19,23 @@ export const modalDecorateStyle = css`
   ${decorateStyle};
   background-image: url(${decorate});
 `
+
+export const footerStyle = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px;
+`
+
+export const priceContentStyle = css`
+  font-size: 12px;
+  line-height: 20px;
+  color: ${getColor("grayBlue", "03")};
+`
+
+export const priceStyle = css`
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: ${getColor("grayBlue", "02")};
+`
