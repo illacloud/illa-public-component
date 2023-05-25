@@ -11,10 +11,8 @@ export const modalStyle = css`
   border-radius: 8px;
 `
 
-const decorateStyle = css`
-  background-repeat: no-repeat;
-  width: 130px;
-  height: 251px;
+export const decorateStyle = css`
+  width: 100%;
 `
 
 export const modalDecorateStyle = css`
