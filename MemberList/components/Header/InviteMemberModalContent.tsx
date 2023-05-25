@@ -1,14 +1,3 @@
-import copy from "copy-to-clipboard"
-import {
-  FC,
-  MouseEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
-import { useTranslation } from "react-i18next"
 import {
   Avatar,
   Button,
@@ -24,6 +13,17 @@ import {
   Switch,
   useMessage,
 } from "@illa-design/react"
+import copy from "copy-to-clipboard"
+import {
+  FC,
+  MouseEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
+import { useTranslation } from "react-i18next"
 import { AuthShown, canAuthShow } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { ReactComponent as SettingIcon } from "@/illa-public-component/MemberList/assets/icon/setting.svg"
@@ -158,6 +158,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     appID,
     teamName,
     userNickname,
+    from,
   } = props
   const { track } = useContext(MixpanelTrackContext)
   const { t } = useTranslation()
@@ -273,6 +274,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
               fetchInviteLink={fetchInviteLink}
               teamName={teamName}
               userNickname={userNickname}
+              from={from}
               configInviteLink={configInviteLink}
               changeTeamMembersRole={changeTeamMembersRole}
               appID={appID}
@@ -324,6 +326,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
           allowInviteByLink={allowInviteByLink}
           inviteByEmail={inviteByEmail}
           teamName={teamName}
+          from={from}
           userNickname={userNickname}
           renewInviteLink={renewInviteLink}
           fetchInviteLink={fetchInviteLink}
