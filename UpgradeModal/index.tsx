@@ -6,16 +6,20 @@ import {
   ModalProps,
   Trigger,
 } from "@illa-design/react"
-import { FC } from "react"
+import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
 import { ReactComponent as ModalDecorate } from "@/illa-public-component/UpgradeModal/assets/upgrad-modal-bg.svg"
 import {
   decorateStyle,
+  descriptionStyle,
   footerStyle,
+  headerStyle,
+  modalCloseIconStyle,
   modalStyle,
   priceContentStyle,
   priceStyle,
+  titleStyle,
 } from "@/illa-public-component/UpgradeModal/style"
 import { ReactComponent as DoubtIcon } from "@/page/billing/assets/doubt.svg"
 import { ReactComponent as TipIcon } from "@/page/billing/assets/pricing-tip.svg"
@@ -24,12 +28,13 @@ import {
   doubtStyle,
   iconStyle,
 } from "@/page/billing/components/pricing/style"
-import {
-  modalCloseIconStyle,
-  modalMaskStyle,
-} from "@/page/workspace/components/CreateTeamModal/style"
+import { modalMaskStyle } from "@/page/workspace/components/CreateTeamModal/style"
 
-interface UpgradeModalProps extends ModalProps {}
+interface UpgradeModalProps extends ModalProps {
+  title?: ReactNode
+  description?: ReactNode
+  upgradeType?: "upgrade" | "add license"
+}
 
 const featureConfig = [
   {
@@ -48,8 +53,27 @@ const featureConfig = [
 ]
 
 export const UpgradeModal: FC<UpgradeModalProps> = (props) => {
-  const { onCancel, ...otherProps } = props
+  const { upgradeType = "upgrade", onCancel, ...otherProps } = props
   const { t } = useTranslation()
+
+  const { title, description, buttonText } = useMemo(() => {
+    if (upgradeType === "add license") {
+      return {
+        title: t("billing.modal.upgrade_now_admin.insufficient_license_title"),
+        description: t(
+          "billing.modal.upgrade_now_admin.insufficient_license_description",
+        ),
+        buttonText: t(
+          "billing.modal.upgrade_now_admin.insufficient_license_button",
+        ),
+      }
+    }
+    return {
+      title: t("billing.modal.upgrade_now_admin.upgrade_to_plus"),
+      description: t("billing.modal.upgrade_now_admin.this_feature_is_avai"),
+      buttonText: t("billing.modal.upgrade_now_admin.upgrade"),
+    }
+  }, [upgradeType, t])
 
   return (
     <Modal
@@ -65,6 +89,10 @@ export const UpgradeModal: FC<UpgradeModalProps> = (props) => {
         <CloseIcon size="12px" />
       </div>
       <ModalDecorate css={decorateStyle} />
+      <div css={headerStyle}>
+        <div css={titleStyle}>{title}</div>
+        <div css={descriptionStyle}>{description}</div>
+      </div>
       <div>
         {featureConfig.map(({ label, tip }, i) => {
           return (
@@ -99,7 +127,7 @@ export const UpgradeModal: FC<UpgradeModalProps> = (props) => {
           </div>
           <Button colorScheme="techPurple">
             <UpgradeIcon />
-            {t("billing.modal.upgrade_now_admin.upgrade")}
+            {buttonText}
           </Button>
         </div>
       </div>
