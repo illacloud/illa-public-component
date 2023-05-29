@@ -7,8 +7,15 @@ export const drawerMaskStyle = css`
 `
 
 export const drawerContentStyle = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
   padding: 24px;
   color: ${getColor("grayBlue", "02")};
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
 `
 export const titleStyle = css`
   font-weight: 600;
@@ -35,4 +42,12 @@ export const manageItemStyle = css`
 
 export const subTotalStyle = css`
   padding: 24px 0;
+`
+
+export const descriptionStyle = css`
+  margin-top: 8px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  color: ${getColor("grayBlue", "03")};
 `

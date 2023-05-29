@@ -10,10 +10,10 @@ import { FC, ReactNode, createContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useWindowSize } from "react-use"
 import {
+  descriptionStyle,
   drawerContentStyle,
   manageContentStyle,
   manageItemStyle,
-  manageLabelStyle,
   subTotalStyle,
   titleStyle,
 } from "@/illa-public-component/UpgradeDrawer/style"
@@ -84,32 +84,42 @@ export const UpgradeDrawerProvider: FC<ProviderProps> = (props) => {
         onCancel={handleCloseDrawer}
       >
         <div css={drawerContentStyle}>
-          <div css={titleStyle}>{config.title}</div>
-          <div css={manageContentStyle}>
-            <label css={manageLabelStyle}>{config.manageLabel}</label>
-            <div css={manageItemStyle}>
-              <Select
-                w="auto"
-                colorScheme="techPurple"
-                options={paymentOptions}
-                dropdownProps={{ triggerProps: { zIndex: zIndex.drawer } }}
-              />
-              <InputNumber mode="button" colorScheme="techPurple" />
+          <div>
+            <div css={titleStyle}>{config.title}</div>
+            <div css={manageContentStyle}>
+              <label>{config.manageLabel}</label>
+              <div css={manageItemStyle}>
+                <Select
+                  w="auto"
+                  colorScheme="techPurple"
+                  options={paymentOptions}
+                  dropdownProps={{ triggerProps: { zIndex: zIndex.drawer } }}
+                />
+                <InputNumber mode="button" colorScheme="techPurple" />
+              </div>
+            </div>
+            <Divider />
+            <div css={subTotalStyle}>
+              <div>{t("billing.payment_sidebar.price_label.total")}</div>
+              <div></div>
+            </div>
+            <Button
+              w="100%"
+              size="large"
+              colorScheme="blackAlpha"
+              mt={isMobile ? pxToRem(32) : "16px"}
+            >
+              Subscribe
+            </Button>
+          </div>
+          <div>
+            <div>
+              {t("billing.payment_sidebar.description_title.add_license")}
+            </div>
+            <div css={descriptionStyle}>
+              {t("billing.payment_sidebar.description.add_license")}
             </div>
           </div>
-          <Divider />
-          <div css={subTotalStyle}>
-            <div>{t("billing.payment_sidebar.price_label.total")}</div>
-            <div></div>
-          </div>
-          <Button
-            w="100%"
-            size="large"
-            colorScheme="blackAlpha"
-            mt={isMobile ? pxToRem(32) : "16px"}
-          >
-            Subscribe
-          </Button>
         </div>
       </Drawer>
       {children}
