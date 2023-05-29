@@ -32,3 +32,7 @@ export const manageItemStyle = css`
   gap: 16px;
   padding-top: 8px;
 `
+
+export const subTotalStyle = css`
+  padding: 24px 0;
+`

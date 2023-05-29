@@ -1,4 +1,5 @@
 import {
+  Button,
   Divider,
   Drawer,
   InputNumber,
@@ -13,8 +14,10 @@ import {
   manageContentStyle,
   manageItemStyle,
   manageLabelStyle,
+  subTotalStyle,
   titleStyle,
 } from "@/illa-public-component/UpgradeDrawer/style"
+import { pxToRem } from "@/style"
 import { isMobileByWindowSize } from "@/utils/screen"
 
 interface ProviderProps {
@@ -87,13 +90,26 @@ export const UpgradeDrawerProvider: FC<ProviderProps> = (props) => {
             <div css={manageItemStyle}>
               <Select
                 w="auto"
+                colorScheme="techPurple"
                 options={paymentOptions}
                 dropdownProps={{ triggerProps: { zIndex: zIndex.drawer } }}
               />
-              <InputNumber />
+              <InputNumber mode="button" colorScheme="techPurple" />
             </div>
           </div>
           <Divider />
+          <div css={subTotalStyle}>
+            <div>{t("billing.payment_sidebar.price_label.total")}</div>
+            <div></div>
+          </div>
+          <Button
+            w="100%"
+            size="large"
+            colorScheme="blackAlpha"
+            mt={isMobile ? pxToRem(32) : "16px"}
+          >
+            Subscribe
+          </Button>
         </div>
       </Drawer>
       {children}
