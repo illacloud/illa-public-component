@@ -11,11 +11,15 @@ import { useTranslation } from "react-i18next"
 import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
 import { ReactComponent as ModalDecorate } from "@/illa-public-component/UpgradeModal/assets/upgrad-modal-bg.svg"
 import {
+  applyCardListStyle,
   decorateStyle,
   descriptionStyle,
+  doubtStyle,
   footerStyle,
   headerStyle,
+  iconStyle,
   modalCloseIconStyle,
+  modalMaskStyle,
   modalStyle,
   priceContentStyle,
   priceStyle,
@@ -23,12 +27,6 @@ import {
 } from "@/illa-public-component/UpgradeModal/style"
 import { ReactComponent as DoubtIcon } from "@/page/billing/assets/doubt.svg"
 import { ReactComponent as TipIcon } from "@/page/billing/assets/pricing-tip.svg"
-import {
-  applyCardListStyle,
-  doubtStyle,
-  iconStyle,
-} from "@/page/billing/components/pricing/style"
-import { modalMaskStyle } from "@/page/workspace/components/CreateTeamModal/style"
 
 interface UpgradeModalProps extends ModalProps {
   title?: ReactNode

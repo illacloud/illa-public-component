@@ -1,6 +1,11 @@
 import { css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
-import decorate from "@/illa-public-component/UpgradeModal/assets/upgrad-modal-bg.svg"
+import { applyMobileStyle } from "@/style"
+
+export const modalMaskStyle = css`
+  background-color: ${getColor("white", "05")};
+  backdrop-filter: blur(5px);
+`
 
 export const modalStyle = css`
   border: unset;
@@ -66,4 +71,63 @@ export const priceStyle = css`
   font-size: 14px;
   line-height: 22px;
   color: ${getColor("grayBlue", "02")};
+`
+
+const hiddenListContent = css`
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: block;
+    padding: 4px 24px;
+  }
+`
+
+export const blockListContent = css`
+  padding: 4px 24px;
+`
+
+export const applyCardListStyle = (text?: string) => css`
+  ${text ? blockListContent : hiddenListContent};
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: start;
+
+  ${applyMobileStyle(css`
+    gap: 16rem;
+    font-size: 28rem;
+    line-height: 48rem;
+  `)};
+`
+
+export const doubtStyle = css`
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+
+  &:hover .tips {
+    display: block;
+  }
+
+  ${applyMobileStyle(css`
+    width: 32rem;
+    height: 32rem;
+  `)};
+`
+
+export const iconStyle = css`
+  height: 16px;
+  width: 16px;
+  flex-shrink: 0;
+
+  ${applyMobileStyle(css`
+    width: 32rem;
+    height: 32rem;
+  `)};
 `
