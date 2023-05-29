@@ -1,23 +1,58 @@
-import { Drawer } from "@illa-design/react"
+import {
+  Divider,
+  Drawer,
+  InputNumber,
+  Select,
+  zIndex,
+} from "@illa-design/react"
 import { FC, ReactNode, createContext, useState } from "react"
-import { drawerStyle } from "@/page/workspace/layout/mobileLayout/style"
-import { pxToRem } from "@/style"
+import { useTranslation } from "react-i18next"
+import { useWindowSize } from "react-use"
+import {
+  drawerContentStyle,
+  manageContentStyle,
+  manageItemStyle,
+  manageLabelStyle,
+  titleStyle,
+} from "@/illa-public-component/UpgradeDrawer/style"
+import { isMobileByWindowSize } from "@/utils/screen"
 
 interface ProviderProps {
   children: ReactNode
 }
 
 interface Inject extends Omit<ProviderProps, "children"> {
-  handleDrawerVisible: (visible: boolean) => void
+  handleLicenseDrawerVisible: (visible: boolean) => void
 }
 
 export const UpgradeDrawerContext = createContext<Inject>({} as Inject)
 
 export const UpgradeDrawerProvider: FC<ProviderProps> = (props) => {
   const { children } = props
+  const { t } = useTranslation()
+  const { width } = useWindowSize()
+  const isMobile = isMobileByWindowSize(width)
+
   const [visible, setVisible] = useState<boolean>(false)
 
-  const handleDrawerVisible = (visible: boolean) => {
+  const config = {
+    title: t("billing.payment_sidebar.title.manage_licenses"),
+    manageLabel: t("billing.payment_sidebar.plan_label.License"),
+    inputUnit: t("billing.payment_sidebar.plan_number_input_label.License"),
+  }
+
+  const paymentOptions = [
+    {
+      label: t("billing.payment_sidebar.select_option.Yearly"),
+      value: "yearly",
+    },
+    {
+      label: t("billing.payment_sidebar.select_option.Monthly"),
+      value: "monthly",
+    },
+  ]
+
+  const handleLicenseDrawerVisible = (visible: boolean) => {
     setVisible((prevState) => {
       if (prevState !== visible) {
         return visible
@@ -32,22 +67,34 @@ export const UpgradeDrawerProvider: FC<ProviderProps> = (props) => {
 
   const value = {
     ...props,
-    handleDrawerVisible,
+    handleLicenseDrawerVisible,
   }
 
   return (
     <UpgradeDrawerContext.Provider value={value}>
       <Drawer
-        css={drawerStyle}
-        w={pxToRem(600)}
+        w={isMobile ? "100%" : "520px"}
+        placement={isMobile ? "bottom" : "right"}
         visible={visible}
-        placement={"left"}
-        closable={false}
+        // closable={false}
         footer={false}
         onCancel={handleCloseDrawer}
       >
-        <div>123</div>
-        <div>456</div>
+        <div css={drawerContentStyle}>
+          <div css={titleStyle}>{config.title}</div>
+          <div css={manageContentStyle}>
+            <label css={manageLabelStyle}>{config.manageLabel}</label>
+            <div css={manageItemStyle}>
+              <Select
+                w="auto"
+                options={paymentOptions}
+                dropdownProps={{ triggerProps: { zIndex: zIndex.drawer } }}
+              />
+              <InputNumber />
+            </div>
+          </div>
+          <Divider />
+        </div>
       </Drawer>
       {children}
     </UpgradeDrawerContext.Provider>
