@@ -153,7 +153,9 @@ export const List: FC<ListProps> = (props) => {
 
   return (
     <div css={listWrapperStyle}>
-      <UsageCard type={"License"} current={3} total={10} />
+      {import.meta.env.VITE_CLOUD_BILLING === "true" ? (
+        <UsageCard type={"License"} current={3} total={10} />
+      ) : null}
       {data?.length ? (
         <Table
           data={data}
@@ -162,6 +164,7 @@ export const List: FC<ListProps> = (props) => {
           pinedHeader
           tableLayout="auto"
           h="100%"
+          customCellPadding="14px 16px"
           clickOutsideToResetRowSelect
         />
       ) : null}
