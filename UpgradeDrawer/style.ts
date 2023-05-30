@@ -1,5 +1,6 @@
 import { css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
+import { applyMobileStyle } from "@/style"
 
 export const drawerMaskStyle = css`
   background-color: ${getColor("white", "05")};
@@ -16,32 +17,63 @@ export const drawerContentStyle = css`
   font-weight: 500;
   font-size: 14px;
   line-height: 22px;
+
+  ${applyMobileStyle(css`
+    padding: 48rem;
+    font-size: 28rem;
+    line-height: 44rem;
+  `)}
 `
+
 export const titleStyle = css`
   font-weight: 600;
   font-size: 18px;
   line-height: 24px;
   margin-bottom: 16px;
+
+  ${applyMobileStyle(css`
+    font-size: 36rem;
+    line-height: 48rem;
+    margin-bottom: 32rem;
+  `)}
 `
 
 export const manageContentStyle = css`
   padding: 8px 0 24px;
+
+  ${applyMobileStyle(css`
+    padding: 16rem 0 48rem;
+  `)}
 `
 
-export const manageLabelStyle = css`
+export const labelStyle = css`
   font-weight: 500;
   font-size: 14px;
   line-height: 22px;
+
+  ${applyMobileStyle(css`
+    font-size: 28rem;
+    line-height: 44rem;
+  `)}
 `
 
 export const manageItemStyle = css`
   display: flex;
   gap: 16px;
   padding-top: 8px;
+
+  ${applyMobileStyle(css`
+    gap: 32rem;
+    padding-top: 16rem;
+  `)}
 `
 
 export const subTotalStyle = css`
   padding: 24px 0;
+
+  ${applyMobileStyle(css`
+    padding: 48rem 0;
+  `)}
 `
 
 export const descriptionStyle = css`
@@ -50,4 +82,10 @@ export const descriptionStyle = css`
   font-size: 12px;
   line-height: 20px;
   color: ${getColor("grayBlue", "03")};
+
+  ${applyMobileStyle(css`
+    margin-top: 16rem;
+    font-size: 24rem;
+    line-height: 40rem;
+  `)}
 `
