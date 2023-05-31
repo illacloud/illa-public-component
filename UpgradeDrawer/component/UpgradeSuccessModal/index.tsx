@@ -1,7 +1,7 @@
 import { Button, CloseIcon, Modal, ModalProps } from "@illa-design/react"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
+import { actionAreaStyle } from "@/illa-public-component/UpgradeDrawer/component/UpgradeSuccessModal/style"
 import { ReactComponent as ModalDecorate } from "@/illa-public-component/UpgradeModal/assets/upgrad-modal-bg.svg"
 import {
   decorateStyle,
@@ -68,10 +68,11 @@ export const UpgradeSuccessModal: FC<UpgradeSuccessModalProps> = (props) => {
         <div css={titleStyle}>{t(title)}</div>
         <div css={descriptionStyle}>{t(description)}</div>
       </div>
-      <Button colorScheme="techPurple">
-        <UpgradeIcon />
-        {t("billing.modal.sub_suc.got_it")}
-      </Button>
+      <div css={actionAreaStyle}>
+        <Button colorScheme="techPurple" size="large" onClick={onCancel}>
+          {t("billing.modal.sub_suc.got_it")}
+        </Button>
+      </div>
     </Modal>
   )
 }
