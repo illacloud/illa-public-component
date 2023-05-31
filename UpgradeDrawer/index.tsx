@@ -9,6 +9,7 @@ import {
 import { FC, ReactNode, createContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useWindowSize } from "react-use"
+import { UpgradeSuccessModal } from "@/illa-public-component/UpgradeDrawer/component/UpgradeSuccessModal"
 import {
   descriptionStyle,
   drawerContentStyle,
@@ -29,6 +30,7 @@ interface ProviderProps {
 
 interface Inject extends Omit<ProviderProps, "children"> {
   handleLicenseDrawerVisible: (visible: boolean) => void
+  handleSuccessModalVisible: (visible: boolean) => void
 }
 
 export const UpgradeDrawerContext = createContext<Inject>({} as Inject)
@@ -39,14 +41,14 @@ export const UpgradeDrawerProvider: FC<ProviderProps> = (props) => {
   const { width } = useWindowSize()
   const isMobile = isMobileByWindowSize(width)
 
-  const [visible, setVisible] = useState<boolean>(false)
+  const [drawerVisible, setDrawerVisible] = useState(false)
+  const [successModalVisible, setSuccessModalVisible] = useState(false)
 
   const config = {
     title: t("billing.payment_sidebar.title.manage_licenses"),
     manageLabel: t("billing.payment_sidebar.plan_label.License"),
     inputUnit: t("billing.payment_sidebar.plan_number_input_label.License"),
   }
-
   const paymentOptions = [
     {
       label: t("billing.payment_sidebar.select_option.Yearly"),
@@ -59,7 +61,7 @@ export const UpgradeDrawerProvider: FC<ProviderProps> = (props) => {
   ]
 
   const handleLicenseDrawerVisible = (visible: boolean) => {
-    setVisible((prevState) => {
+    setDrawerVisible((prevState) => {
       if (prevState !== visible) {
         return visible
       }
@@ -68,22 +70,37 @@ export const UpgradeDrawerProvider: FC<ProviderProps> = (props) => {
   }
 
   const handleCloseDrawer = () => {
-    setVisible(false)
+    setDrawerVisible(false)
+  }
+
+  const handleSuccessModalVisible = (visible: boolean) => {
+    setSuccessModalVisible((prevState) => {
+      if (prevState !== visible) {
+        return visible
+      }
+      return prevState
+    })
+  }
+
+  const handleCloseSuccessModal = () => {
+    setSuccessModalVisible(false)
   }
 
   const value = {
     ...props,
     handleLicenseDrawerVisible,
+    handleSuccessModalVisible,
   }
 
   return (
     <UpgradeDrawerContext.Provider value={value}>
+      {children}
       <Drawer
         css={drawerStyle}
         w={isMobile ? "100%" : "520px"}
         placement={isMobile ? "bottom" : "right"}
         maskStyle={drawerMaskStyle}
-        visible={visible}
+        visible={drawerVisible}
         // closable={false}
         footer={false}
         onCancel={handleCloseDrawer}
@@ -131,7 +148,10 @@ export const UpgradeDrawerProvider: FC<ProviderProps> = (props) => {
           </div>
         </div>
       </Drawer>
-      {children}
+      <UpgradeSuccessModal
+        visible={successModalVisible}
+        onCancel={handleCloseSuccessModal}
+      />
     </UpgradeDrawerContext.Provider>
   )
 }
