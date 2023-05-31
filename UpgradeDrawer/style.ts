@@ -7,19 +7,31 @@ export const drawerMaskStyle = css`
   backdrop-filter: blur(5px);
 `
 
+export const drawerStyle = css`
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+`
+
+export const drawerPaddingStyle = css`
+  padding: 0 24px;
+
+  ${applyMobileStyle(css`
+    padding: 0 48rem;
+  `)}
+`
+
 export const drawerContentStyle = css`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  padding: 24px;
+  //padding: 24px;
   color: ${getColor("grayBlue", "02")};
   font-weight: 500;
   font-size: 14px;
   line-height: 22px;
 
   ${applyMobileStyle(css`
-    padding: 48rem;
+    //padding: 48rem;
     font-size: 28rem;
     line-height: 44rem;
   `)}
@@ -29,12 +41,12 @@ export const titleStyle = css`
   font-weight: 600;
   font-size: 18px;
   line-height: 24px;
-  margin-bottom: 16px;
+  margin: 24px 0 16px;
 
   ${applyMobileStyle(css`
     font-size: 36rem;
     line-height: 48rem;
-    margin-bottom: 32rem;
+    margin: 48rem 0 32rem;
   `)}
 `
 
@@ -78,6 +90,7 @@ export const subTotalStyle = css`
 
 export const descriptionStyle = css`
   margin-top: 8px;
+  margin-bottom: 24px;
   font-weight: 400;
   font-size: 12px;
   line-height: 20px;
@@ -85,6 +98,7 @@ export const descriptionStyle = css`
 
   ${applyMobileStyle(css`
     margin-top: 16rem;
+    margin-bottom: 48rem;
     font-size: 24rem;
     line-height: 40rem;
   `)}
