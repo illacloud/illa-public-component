@@ -50,7 +50,7 @@ const featureConfig = [
   },
 ]
 
-export const UpgradeModal: FC<UpgradeModalProps> = (props) => {
+export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
   const { upgradeType = "upgrade", onCancel, ...otherProps } = props
   const { t } = useTranslation()
 
@@ -133,4 +133,4 @@ export const UpgradeModal: FC<UpgradeModalProps> = (props) => {
   )
 }
 
-UpgradeModal.displayName = "UpgradeModal"
+SubscriptionReminderModal.displayName = "UpgradeModal"

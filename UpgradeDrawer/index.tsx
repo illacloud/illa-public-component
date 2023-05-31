@@ -9,6 +9,7 @@ import {
 import { FC, ReactNode, createContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useWindowSize } from "react-use"
+import { InsufficientNoticeModal } from "@/illa-public-component/InsufficientNoticeModal"
 import { UpgradeSuccessModal } from "@/illa-public-component/UpgradeDrawer/component/UpgradeSuccessModal"
 import {
   descriptionStyle,
@@ -148,6 +149,10 @@ export const UpgradeDrawerProvider: FC<ProviderProps> = (props) => {
           </div>
         </div>
       </Drawer>
+      {/*<InsufficientNoticeModal*/}
+      {/*  visible={successModalVisible}*/}
+      {/*  onCancel={handleCloseSuccessModal}*/}
+      {/*/>*/}
       <UpgradeSuccessModal
         visible={successModalVisible}
         onCancel={handleCloseSuccessModal}
