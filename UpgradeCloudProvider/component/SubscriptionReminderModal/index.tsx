@@ -28,10 +28,26 @@ import {
 import { ReactComponent as DoubtIcon } from "@/page/billing/assets/doubt.svg"
 import { ReactComponent as TipIcon } from "@/page/billing/assets/pricing-tip.svg"
 
+const modalConfigKey = {
+  "add-license": {
+    title: "billing.modal.upgrade_now_admin.insufficient_license_title",
+    description:
+      "billing.modal.upgrade_now_admin.insufficient_license_description",
+    buttonText: "billing.modal.upgrade_now_admin.insufficient_license_button",
+  },
+  upgrade: {
+    title: "billing.modal.upgrade_now_admin.upgrade_to_plus",
+    description: "billing.modal.upgrade_now_admin.this_feature_is_avai",
+    buttonText: "billing.modal.upgrade_now_admin.upgrade",
+  },
+}
+
+export type UpgradeModalType = keyof typeof modalConfigKey
+
 interface UpgradeModalProps extends ModalProps {
   title?: ReactNode
   description?: ReactNode
-  upgradeType?: "upgrade" | "add license"
+  configType?: UpgradeModalType
 }
 
 const featureConfig = [
@@ -51,27 +67,12 @@ const featureConfig = [
 ]
 
 export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
-  const { upgradeType = "upgrade", onCancel, ...otherProps } = props
+  const { configType = "upgrade", onCancel, ...otherProps } = props
   const { t } = useTranslation()
 
   const { title, description, buttonText } = useMemo(() => {
-    if (upgradeType === "add license") {
-      return {
-        title: t("billing.modal.upgrade_now_admin.insufficient_license_title"),
-        description: t(
-          "billing.modal.upgrade_now_admin.insufficient_license_description",
-        ),
-        buttonText: t(
-          "billing.modal.upgrade_now_admin.insufficient_license_button",
-        ),
-      }
-    }
-    return {
-      title: t("billing.modal.upgrade_now_admin.upgrade_to_plus"),
-      description: t("billing.modal.upgrade_now_admin.this_feature_is_avai"),
-      buttonText: t("billing.modal.upgrade_now_admin.upgrade"),
-    }
-  }, [upgradeType, t])
+    return modalConfigKey[configType]
+  }, [configType])
 
   return (
     <Modal
@@ -88,8 +89,8 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
       </div>
       <ModalDecorate css={decorateStyle} />
       <div css={headerStyle}>
-        <div css={titleStyle}>{title}</div>
-        <div css={descriptionStyle}>{description}</div>
+        <div css={titleStyle}>{t(title)}</div>
+        <div css={descriptionStyle}>{t(description)}</div>
       </div>
       <div>
         {featureConfig.map(({ label, tip }, i) => {
@@ -125,7 +126,7 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
           </div>
           <Button colorScheme="techPurple">
             <UpgradeIcon />
-            {buttonText}
+            {t(buttonText)}
           </Button>
         </div>
       </div>

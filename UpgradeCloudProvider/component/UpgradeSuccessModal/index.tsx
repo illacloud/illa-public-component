@@ -36,19 +36,19 @@ const modalConfigKey = {
   },
 }
 
-type ModalType = keyof typeof modalConfigKey
+export type UpgradeSuccessModalType = keyof typeof modalConfigKey
 
 interface UpgradeSuccessModalProps extends ModalProps {
-  successType?: ModalType
+  configType?: UpgradeSuccessModalType
 }
 
 export const UpgradeSuccessModal: FC<UpgradeSuccessModalProps> = (props) => {
-  const { successType = "renew", onCancel, ...otherProps } = props
+  const { configType = "renew", onCancel, ...otherProps } = props
   const { t } = useTranslation()
 
   const { title, description } = useMemo(() => {
-    return modalConfigKey[successType]
-  }, [successType])
+    return modalConfigKey[configType]
+  }, [configType])
 
   return (
     <Modal

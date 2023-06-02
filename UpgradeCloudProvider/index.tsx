@@ -7,10 +7,7 @@ import { UpgradeDrawer } from "@/illa-public-component/UpgradeCloudProvider/comp
 import { UpgradeSuccessModal } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal"
 import { canManagePayment } from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
-import {
-  getCurrentTeamInfo,
-  getCurrentTeamRole,
-} from "@/store/team/teamSelector"
+import { getCurrentTeamInfo } from "@/store/team/teamSelector"
 
 interface ProviderProps {
   children: ReactNode

@@ -31,10 +31,10 @@ const modalConfigKey = {
   },
 }
 
-type ModalType = keyof typeof modalConfigKey
+export type InsufficientNoticeModalType = keyof typeof modalConfigKey
 
 interface InsufficientNoticeModalProps extends ModalProps {
-  configType?: ModalType
+  configType?: InsufficientNoticeModalType
 }
 
 export const InsufficientNoticeModal: FC<InsufficientNoticeModalProps> = (
