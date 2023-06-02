@@ -1,7 +1,7 @@
-import { InsufficientNoticeModal } from "illa-public-component/UpgradeCloudProvider/component/InsufficientNoticeModal"
 import { FC, ReactNode, createContext, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
+import { InsufficientNoticeModal } from "@/illa-public-component/UpgradeCloudProvider/component/InsufficientNoticeModal"
 import { SubscriptionReminderModal } from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal"
 import { UpgradeDrawer } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeDrawer"
 import { UpgradeSuccessModal } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal"
