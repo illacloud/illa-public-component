@@ -13,18 +13,18 @@ import {
 import { actionAreaStyle } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal/style"
 
 const modalConfigKey = {
-  license: {
+  "add-license": {
     title: "billing.modal.upgrade_not_admin.insufficient_license_title",
     description:
       "billing.modal.upgrade_not_admin.insufficient_license_description",
     buttonText: "billing.modal.upgrade_not_admin.insufficient_license_button",
   },
-  storage: {
+  "add-storage": {
     title: "billing.modal.storage_insufficient.not_owner_title",
     description: "billing.modal.storage_insufficient.not_owner_description",
     buttonText: "billing.modal.storage_insufficient.not_owner_button",
   },
-  traffic: {
+  "add-traffic": {
     title: "billing.modal.traffic_insufficient.not_owner_title",
     description: "billing.modal.traffic_insufficient.not_owner_description",
     buttonText: "billing.modal.traffic_insufficient.not_owner_button",
@@ -40,7 +40,7 @@ interface InsufficientNoticeModalProps extends ModalProps {
 export const InsufficientNoticeModal: FC<InsufficientNoticeModalProps> = (
   props,
 ) => {
-  const { configType = "license", onCancel, ...otherProps } = props
+  const { configType = "add-license", onCancel, ...otherProps } = props
   const { t } = useTranslation()
 
   const { title, description, buttonText } = useMemo(() => {
