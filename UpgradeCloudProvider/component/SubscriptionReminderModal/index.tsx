@@ -9,7 +9,7 @@ import {
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
-import { ReactComponent as ModalDecorate } from "@/illa-public-component/UpgradeModal/assets/upgrad-modal-bg.svg"
+import { ReactComponent as ModalDecorate } from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/assets/upgrad-modal-bg.svg"
 import {
   applyCardListStyle,
   decorateStyle,
@@ -24,7 +24,7 @@ import {
   priceContentStyle,
   priceStyle,
   titleStyle,
-} from "@/illa-public-component/UpgradeModal/style"
+} from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/style"
 import { ReactComponent as DoubtIcon } from "@/page/billing/assets/doubt.svg"
 import { ReactComponent as TipIcon } from "@/page/billing/assets/pricing-tip.svg"
 
@@ -133,4 +133,4 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
   )
 }
 
-SubscriptionReminderModal.displayName = "UpgradeModal"
+SubscriptionReminderModal.displayName = "SubscriptionReminderModal"

@@ -75,6 +75,7 @@ export enum ACTION_MANAGE {
   TEAM_DOMAIN, // 更新 Team Domain
   APP_DOMAIN, // 更新 App domain
   // Billing Attribute
+  SUBSCRIBE, // 进行订阅
   PAYMENT_INFO, // 编辑付款信息
   // App Attribute
   CREATE_APP, // 创建 APP
@@ -100,4 +101,11 @@ export enum ACTION_SPECIAL {
   TRANSFER_OWNER, // 转移 owner 的 Attribute
   // Invite Attribute
   INVITE_LINK_RENEW, // 更新邀请链接
+}
+
+export enum TEAM_SUB_STATUS {
+  SUBSCRIBED = 1,
+  NOT_ENOUGH_LICENSES,
+  EXPIRED,
+  NOT_SUBSCRIBED,
 }

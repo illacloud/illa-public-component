@@ -5,6 +5,7 @@ import {
   ACTION_SPECIAL,
   ATTRIBUTE_CATEGORY,
   ATTRIBUTE_GROUP,
+  TEAM_SUB_STATUS,
   USER_ROLE,
 } from "./interface"
 
@@ -225,7 +226,10 @@ export const attributeConfigList: AttributeConfigList = {
         [ACTION_MANAGE.TEAM_DOMAIN]: true,
         [ACTION_MANAGE.APP_DOMAIN]: true,
       },
-      [ATTRIBUTE_GROUP.BILLING]: { [ACTION_MANAGE.PAYMENT_INFO]: true },
+      [ATTRIBUTE_GROUP.BILLING]: {
+        [ACTION_MANAGE.SUBSCRIBE]: true,
+        [ACTION_MANAGE.PAYMENT_INFO]: true,
+      },
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
         [ACTION_MANAGE.EDIT_APP]: true,
@@ -266,6 +270,7 @@ export const attributeConfigList: AttributeConfigList = {
         [ACTION_MANAGE.TEAM_DOMAIN]: true,
         [ACTION_MANAGE.APP_DOMAIN]: true,
       },
+      [ATTRIBUTE_GROUP.BILLING]: { [ACTION_MANAGE.PAYMENT_INFO]: true },
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
         [ACTION_MANAGE.EDIT_APP]: true,
@@ -381,6 +386,17 @@ export const canManage = (
   attribute: ACTION_MANAGE,
 ) => {
   return !!manageAttribute[userRole]?.[attributeGroup]?.[attribute]
+}
+
+export const canManagePayment = (
+  userRole: USER_ROLE,
+  subscribeStatus?: TEAM_SUB_STATUS,
+) => {
+  const attribute =
+    subscribeStatus === TEAM_SUB_STATUS.SUBSCRIBED
+      ? ACTION_MANAGE.PAYMENT_INFO
+      : ACTION_MANAGE.SUBSCRIBE
+  return !!manageAttribute[userRole]?.[ATTRIBUTE_CATEGORY.MANAGE]?.[attribute]
 }
 
 export const canManageSpecial = (

@@ -5,12 +5,12 @@ import {
   descriptionStyle,
   modalStyle,
   titleStyle,
-} from "@/illa-public-component/InsufficientNoticeModal/style"
-import { actionAreaStyle } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal/style"
+} from "@/illa-public-component/UpgradeCloudProvider/component/InsufficientNoticeModal/style"
 import {
   modalCloseIconStyle,
   modalMaskStyle,
-} from "@/illa-public-component/UpgradeModal/style"
+} from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/style"
+import { actionAreaStyle } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal/style"
 
 const modalConfigKey = {
   license: {

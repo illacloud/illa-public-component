@@ -1,8 +1,7 @@
 import { Button, CloseIcon, Modal, ModalProps } from "@illa-design/react"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { actionAreaStyle } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal/style"
-import { ReactComponent as ModalDecorate } from "@/illa-public-component/UpgradeModal/assets/upgrad-modal-bg.svg"
+import { ReactComponent as ModalDecorate } from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/assets/upgrad-modal-bg.svg"
 import {
   decorateStyle,
   descriptionStyle,
@@ -11,7 +10,8 @@ import {
   modalMaskStyle,
   modalStyle,
   titleStyle,
-} from "@/illa-public-component/UpgradeModal/style"
+} from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/style"
+import { actionAreaStyle } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal/style"
 
 const modalConfigKey = {
   "subscribe-license": {
