@@ -6,7 +6,7 @@ import {
   modalStyle,
   titleStyle,
 } from "@/illa-public-component/InsufficientNoticeModal/style"
-import { actionAreaStyle } from "@/illa-public-component/UpgradeDrawer/component/UpgradeSuccessModal/style"
+import { actionAreaStyle } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal/style"
 import {
   modalCloseIconStyle,
   modalMaskStyle,

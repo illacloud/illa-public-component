@@ -1,7 +1,7 @@
 import { Button, CloseIcon, Modal, ModalProps } from "@illa-design/react"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { actionAreaStyle } from "@/illa-public-component/UpgradeDrawer/component/UpgradeSuccessModal/style"
+import { actionAreaStyle } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal/style"
 import { ReactComponent as ModalDecorate } from "@/illa-public-component/UpgradeModal/assets/upgrad-modal-bg.svg"
 import {
   decorateStyle,
