@@ -25,8 +25,8 @@ import {
   priceStyle,
   titleStyle,
 } from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/style"
-import { ReactComponent as DoubtIcon } from "@/page/billing/assets/doubt.svg"
-import { ReactComponent as TipIcon } from "@/page/billing/assets/pricing-tip.svg"
+import { ReactComponent as DoubtIcon } from "./assets/doubt.svg"
+import { ReactComponent as TipIcon } from "./assets/pricing-tip.svg"
 
 const modalConfigKey = {
   "add-license": {
