@@ -1,5 +1,5 @@
 import { Table, useMessage } from "@illa-design/react"
-import { FC, useCallback, useMemo } from "react"
+import { FC, useCallback, useContext, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { MoreAction } from "@/illa-public-component/MemberList/components/List/MoreAction"
 import { NameSpace } from "@/illa-public-component/MemberList/components/List/NameSpace"
@@ -9,6 +9,7 @@ import {
   listWrapperStyle,
 } from "@/illa-public-component/MemberList/components/List/style"
 import RoleSelect from "@/illa-public-component/RoleSelect"
+import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
 import { UsageCard } from "@/illa-public-component/UsageCard"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
@@ -17,12 +18,15 @@ export const List: FC<ListProps> = (props) => {
     userListData,
     currentUserID,
     currentUserRole,
+    teamCurrentLicense,
     removeTeamMembers,
     changeTeamMembersRole,
   } = props
 
   const { t } = useTranslation()
   const message = useMessage()
+
+  const { handleLicenseDrawerVisible } = useContext(UpgradeCloudContext)
 
   const data = useMemo(() => {
     if (!Array.isArray(userListData) || userListData.length === 0) {
@@ -151,10 +155,19 @@ export const List: FC<ListProps> = (props) => {
     ],
   )
 
+  const openDrawer = () => {
+    handleLicenseDrawerVisible(true)
+  }
+
   return (
     <div css={listWrapperStyle}>
       {import.meta.env.VITE_CLOUD_BILLING === "true" ? (
-        <UsageCard type={"License"} current={3} total={10} />
+        <UsageCard
+          type="License"
+          current={teamCurrentLicense.volume - teamCurrentLicense.balance}
+          total={teamCurrentLicense.volume}
+          onClick={openDrawer}
+        />
       ) : null}
       {data?.length ? (
         <Table

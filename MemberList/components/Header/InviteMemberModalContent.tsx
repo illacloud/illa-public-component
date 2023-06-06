@@ -1,14 +1,3 @@
-import copy from "copy-to-clipboard"
-import {
-  FC,
-  MouseEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
-import { useTranslation } from "react-i18next"
 import {
   Avatar,
   Button,
@@ -24,6 +13,17 @@ import {
   Switch,
   useMessage,
 } from "@illa-design/react"
+import copy from "copy-to-clipboard"
+import {
+  FC,
+  MouseEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
+import { useTranslation } from "react-i18next"
 import { AuthShown, canAuthShow } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { ReactComponent as SettingIcon } from "@/illa-public-component/MemberList/assets/icon/setting.svg"
@@ -66,10 +66,12 @@ import {
   subtitleStyle,
   urlAreaStyle,
 } from "@/illa-public-component/MemberList/components/Header/style"
+import { MemberListContext } from "@/illa-public-component/MemberList/context/MemberListContext"
 import { inviteByEmailResponse } from "@/illa-public-component/MemberList/interface"
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
 import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import RoleSelect from "@/illa-public-component/RoleSelect"
+import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
 import { canManage, canManageApp } from "@/illa-public-component/UserRoleUtils"
 import {
   ACTION_MANAGE,
@@ -799,6 +801,9 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   const { t } = useTranslation()
   const message = useMessage()
 
+  const { teamCurrentLicense } = useContext(MemberListContext)
+  const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
+
   const [loading, setLoading] = useState(false)
   const [inviteRole, setInviteRole] = useState<USER_ROLE>(USER_ROLE.VIEWER)
   const [inviteEmails, setInviteEmails] = useState<string[]>([])
@@ -813,6 +818,12 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
 
   const checkEmail = useCallback(
     (email: string) => {
+      if (
+        [...userListData, ...inviteEmails].length >= teamCurrentLicense.volume
+      ) {
+        handleUpgradeModalVisible(true, "add-license")
+        return false
+      }
       if (
         [...userListData, ...inviteMemberList].find(
           (item) => item.email === email,
@@ -831,7 +842,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         return true
       }
     },
-    [userListData, inviteMemberList, message, t],
+    [userListData, inviteEmails, inviteMemberList, message, t],
   )
 
   const handleValidateInputValue = useCallback(
@@ -855,25 +866,44 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       setInputEmailValue(value)
       if (value.includes(",")) {
         const values = value.split(",")
-        values.forEach((item) => {
-          item = item.trim()
-          if (!item.length) return
+        for (const value of values) {
+          let item = value.trim()
+
+          if (!item.length) continue
+
           if (inviteEmails.find((email) => email == item)) {
             message.error({
               content: t("user_management.modal.email.duplicate", {
                 email: item,
               }),
             })
-            return
+            continue
           }
+
+          if (
+            [...userListData, ...inviteEmails].length >=
+            teamCurrentLicense.volume
+          ) {
+            handleUpgradeModalVisible(true, "add-license")
+            break
+          }
+
           if (checkEmail(item)) {
-            setInviteEmails((prev) => [...prev, item])
+            setInviteEmails((prev) => {
+              if (
+                [...userListData, ...prev].length >= teamCurrentLicense.volume
+              ) {
+                handleUpgradeModalVisible(true, "add-license")
+                return prev
+              }
+              return [...prev, item]
+            })
           }
-        })
+        }
         setInputEmailValue("")
       }
     },
-    [inviteEmails, checkEmail, message, t],
+    [inviteEmails, message, t, handleUpgradeModalVisible, checkEmail],
   )
 
   const handleBlurInputValue = useCallback(() => {

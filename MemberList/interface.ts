@@ -16,6 +16,32 @@ interface UserData {
   updatedAt: string
 }
 
+export enum SUBSCRIBE_PLAN {
+  TEAM_LICENSE_FREE = 1,
+  TEAM_LICENSE_PLUS,
+  TEAM_LICENSE_ENTERPRISE,
+  DRIVE_VOLUME_FREE,
+  DRIVE_VOLUME_PAID,
+  TEAM_LICENSE_EXPIRED,
+  DRIVE_VOLUME_EXPIRED,
+  TEAM_LICENSE_INSUFFICIENT,
+  DRIVE_VOLUME_INSUFFICIENT,
+}
+
+export enum SUBSCRIPTION_CYCLE {
+  MONTHLY = 1,
+  YEARLY,
+}
+
+export interface SubscribeInfo {
+  volume: number
+  balance: number
+  plan: SUBSCRIBE_PLAN
+  invoiceIssueDate: string
+  cycle: SUBSCRIPTION_CYCLE
+  amount: number
+}
+
 export interface fetchInviteLinkResponse {
   inviteLink: string
   teamID: number
@@ -40,6 +66,7 @@ export interface MemberListProps {
   isAppPublic?: boolean
   currentUserID: string
   currentTeamMemberID: string
+  teamCurrentLicense: SubscribeInfo
   currentUserRole: USER_ROLE
   userListData: UserData[]
   allowEditorManageTeamMember: boolean

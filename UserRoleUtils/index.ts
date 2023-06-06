@@ -1,3 +1,4 @@
+import { SUBSCRIBE_PLAN } from "@/illa-public-component/MemberList/interface"
 import {
   ACTION_ACCESS,
   ACTION_DELETE,
@@ -5,7 +6,6 @@ import {
   ACTION_SPECIAL,
   ATTRIBUTE_CATEGORY,
   ATTRIBUTE_GROUP,
-  TEAM_SUB_STATUS,
   USER_ROLE,
 } from "./interface"
 
@@ -388,14 +388,20 @@ export const canManage = (
   return !!manageAttribute[userRole]?.[attributeGroup]?.[attribute]
 }
 
+export const isSubscribe = (subscribePlan?: SUBSCRIBE_PLAN) => {
+  return (
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS ||
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE
+  )
+}
+
 export const canManagePayment = (
   userRole: USER_ROLE,
-  subscribeStatus?: TEAM_SUB_STATUS,
+  subscribePlan?: SUBSCRIBE_PLAN,
 ) => {
-  const attribute =
-    subscribeStatus === TEAM_SUB_STATUS.SUBSCRIBED
-      ? ACTION_MANAGE.PAYMENT_INFO
-      : ACTION_MANAGE.SUBSCRIBE
+  const attribute = isSubscribe(subscribePlan)
+    ? ACTION_MANAGE.PAYMENT_INFO
+    : ACTION_MANAGE.SUBSCRIBE
   return !!manageAttribute[userRole]?.[ATTRIBUTE_CATEGORY.MANAGE]?.[attribute]
 }
 

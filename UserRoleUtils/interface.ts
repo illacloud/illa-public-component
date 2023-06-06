@@ -102,10 +102,3 @@ export enum ACTION_SPECIAL {
   // Invite Attribute
   INVITE_LINK_RENEW, // 更新邀请链接
 }
-
-export enum TEAM_SUB_STATUS {
-  SUBSCRIBED = 1,
-  NOT_ENOUGH_LICENSES,
-  EXPIRED,
-  NOT_SUBSCRIBED,
-}

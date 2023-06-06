@@ -54,9 +54,9 @@ export const UpgradeCloudProvider: FC<ProviderProps> = (props) => {
     () =>
       canManagePayment(
         currentTeamInfo?.myRole ?? USER_ROLE.VIEWER,
-        currentTeamInfo?.teamSubscriptionStatus,
+        currentTeamInfo?.teamCurrentLicense?.plan,
       ),
-    [currentTeamInfo?.myRole, currentTeamInfo?.teamSubscriptionStatus],
+    [currentTeamInfo?.myRole, currentTeamInfo?.teamCurrentLicense?.plan],
   )
 
   const handleLicenseDrawerVisible = (visible: boolean) => {
