@@ -4,10 +4,12 @@ import { useSelector } from "react-redux"
 import {
   InsufficientNoticeModal,
   InsufficientNoticeModalType,
+  insufficientModalConfigKeys,
 } from "@/illa-public-component/UpgradeCloudProvider/component/InsufficientNoticeModal"
 import {
   SubscriptionReminderModal,
   UpgradeModalType,
+  upgradeModalConfigKeys,
 } from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal"
 import { UpgradeDrawer } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeDrawer"
 import {
@@ -15,7 +17,6 @@ import {
   UpgradeSuccessModalType,
 } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal"
 import { canManagePayment } from "@/illa-public-component/UserRoleUtils"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 import { getCurrentTeamInfo } from "@/store/team/teamSelector"
 
 interface ProviderProps {
@@ -53,7 +54,7 @@ export const UpgradeCloudProvider: FC<ProviderProps> = (props) => {
   const canPay = useMemo(
     () =>
       canManagePayment(
-        currentTeamInfo?.myRole ?? USER_ROLE.VIEWER,
+        currentTeamInfo?.myRole,
         currentTeamInfo?.teamCurrentLicense?.plan,
       ),
     [currentTeamInfo?.myRole, currentTeamInfo?.teamCurrentLicense?.plan],
@@ -84,13 +85,19 @@ export const UpgradeCloudProvider: FC<ProviderProps> = (props) => {
     visible: boolean,
     modalType: UpgradeModalType | InsufficientNoticeModalType,
   ) => {
-    setUpgradeModalType(modalType)
-    setUpgradeModalVisible((prevState) => {
-      if (prevState !== visible) {
-        return visible
-      }
-      return prevState
-    })
+    if (
+      canPay
+        ? upgradeModalConfigKeys.includes(modalType)
+        : insufficientModalConfigKeys.includes(modalType)
+    ) {
+      setUpgradeModalType(modalType)
+      setUpgradeModalVisible((prevState) => {
+        if (prevState !== visible) {
+          return visible
+        }
+        return prevState
+      })
+    }
   }
 
   const handleCloseDrawer = () => {

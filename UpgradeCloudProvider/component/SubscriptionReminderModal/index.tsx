@@ -42,6 +42,8 @@ const modalConfigKey = {
   },
 }
 
+export const upgradeModalConfigKeys = Object.keys(modalConfigKey)
+
 export type UpgradeModalType = keyof typeof modalConfigKey
 
 interface UpgradeModalProps extends ModalProps {

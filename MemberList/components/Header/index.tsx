@@ -1,3 +1,4 @@
+import { Button, MoreIcon } from "@illa-design/react"
 import {
   FC,
   useCallback,
@@ -8,7 +9,6 @@ import {
 } from "react"
 import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
-import { Button, MoreIcon } from "@illa-design/react"
 import { InviteMemberModal } from "@/illa-public-component/MemberList/components/Header/InviteMemberModalContent"
 import { MoreAction } from "@/illa-public-component/MemberList/components/Header/MoreAction"
 import {
@@ -18,6 +18,8 @@ import {
 } from "@/illa-public-component/MemberList/components/Header/style"
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
 import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
+import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
+import { isSubscribe } from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 import { HeaderProps } from "./interface"
 
@@ -62,9 +64,11 @@ export const Header: FC<HeaderProps> = (props) => {
     userNickname,
     userListData,
     isCloudVersion,
+    teamCurrentLicense,
   } = props
   const { t } = useTranslation()
   const { track } = useContext(MixpanelTrackContext)
+  const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
 
   const [showInviteMemberModal, setShowInviteMemberModal] = useState(false)
 
@@ -122,8 +126,17 @@ export const Header: FC<HeaderProps> = (props) => {
       },
       "both",
     )
-    handleClickInvite()
-  }, [handleClickInvite, track])
+    if (isSubscribe(teamCurrentLicense?.plan)) {
+      handleClickInvite()
+    } else {
+      handleUpgradeModalVisible(true, "upgrade")
+    }
+  }, [
+    track,
+    teamCurrentLicense?.plan,
+    handleClickInvite,
+    handleUpgradeModalVisible,
+  ])
 
   return (
     <div css={headerWrapperStyle}>

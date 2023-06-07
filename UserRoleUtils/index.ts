@@ -396,13 +396,13 @@ export const isSubscribe = (subscribePlan?: SUBSCRIBE_PLAN) => {
 }
 
 export const canManagePayment = (
-  userRole: USER_ROLE,
+  userRole: USER_ROLE = USER_ROLE.VIEWER,
   subscribePlan?: SUBSCRIBE_PLAN,
 ) => {
   const attribute = isSubscribe(subscribePlan)
     ? ACTION_MANAGE.PAYMENT_INFO
     : ACTION_MANAGE.SUBSCRIBE
-  return !!manageAttribute[userRole]?.[ATTRIBUTE_CATEGORY.MANAGE]?.[attribute]
+  return !!manageAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[attribute]
 }
 
 export const canManageSpecial = (

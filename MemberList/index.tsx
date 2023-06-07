@@ -57,6 +57,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
           userNickname={userNickname}
           updateTeamPermissionConfig={updateTeamPermissionConfig}
           isCloudVersion={isCloudVersion}
+          teamCurrentLicense={teamCurrentLicense}
         />
         {loading ? (
           <div css={fullContentStyle}>

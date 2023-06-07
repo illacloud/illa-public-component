@@ -1,6 +1,5 @@
 import {
   Button,
-  CloseIcon,
   Divider,
   Drawer,
   DrawerProps,
@@ -11,6 +10,11 @@ import {
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { useWindowSize } from "react-use"
+import { PurchaseItem, purchase, subscribe } from "@/api/billing"
+import {
+  SUBSCRIBE_PLAN,
+  SUBSCRIPTION_CYCLE,
+} from "@/illa-public-component/MemberList/interface"
 import { pxToRem } from "@/style"
 import { isMobileByWindowSize } from "@/utils/screen"
 import {
@@ -51,6 +55,27 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     },
   ]
 
+  const handleSubscribe = () => {
+    // purchase({
+    //   item: PurchaseItem.DRIVE_TRAFFIC_1GB,
+    //   quantity: 1,
+    //   successRedirect: window.location.href,
+    //   cancelRedirect: window.location.href,
+    // }).then((res) => {
+    //   console.log(res, "purchase res")
+    // })
+
+    subscribe({
+      plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
+      quantity: 1,
+      cycle: SUBSCRIPTION_CYCLE.YEARLY,
+      successRedirect: window.location.href,
+      cancelRedirect: window.location.href,
+    }).then((res) => {
+      console.log(res, "subscribe res")
+    })
+  }
+
   return (
     <Drawer
       css={drawerStyle}
@@ -90,6 +115,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
               size="large"
               colorScheme="blackAlpha"
               mt={isMobile ? pxToRem(32) : "16px"}
+              onClick={handleSubscribe}
             >
               Subscribe
             </Button>

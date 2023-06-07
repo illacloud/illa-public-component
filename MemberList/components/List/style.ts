@@ -13,11 +13,8 @@ export const listBodyStyle = css`
 `
 
 export const listWrapperStyle = css`
-  width: 100%;
-  height: 100%;
   padding: 0 32px 32px;
   box-sizing: border-box;
-  overflow: hidden;
 `
 
 /**

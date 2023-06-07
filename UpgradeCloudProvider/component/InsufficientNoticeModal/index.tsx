@@ -31,6 +31,8 @@ const modalConfigKey = {
   },
 }
 
+export const insufficientModalConfigKeys = Object.keys(modalConfigKey)
+
 export type InsufficientNoticeModalType = keyof typeof modalConfigKey
 
 interface InsufficientNoticeModalProps extends ModalProps {
@@ -44,7 +46,7 @@ export const InsufficientNoticeModal: FC<InsufficientNoticeModalProps> = (
   const { t } = useTranslation()
 
   const { title, description, buttonText } = useMemo(() => {
-    return modalConfigKey[configType]
+    return modalConfigKey[configType] ?? {}
   }, [configType])
 
   return (
