@@ -62,6 +62,18 @@ const ConfigKey = {
   },
 }
 
+const unitPriceMap = {
+  license: {
+    [SUBSCRIPTION_CYCLE.MONTHLY]: 10,
+    [SUBSCRIPTION_CYCLE.YEARLY]: 100,
+  },
+  storage: {
+    [SUBSCRIPTION_CYCLE.MONTHLY]: 0.99,
+    [SUBSCRIPTION_CYCLE.YEARLY]: 9.99,
+  },
+  traffic: { [PurchaseItem.DRIVE_TRAFFIC_1GB]: 0.99 },
+}
+
 const isSubscribe = (subscribePlan?: SUBSCRIBE_PLAN) => {
   return (
     subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS ||
@@ -73,7 +85,13 @@ const isSubscribe = (subscribePlan?: SUBSCRIBE_PLAN) => {
 }
 
 export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
-  const { defaultConfig = { type: "license" }, onCancel, ...otherProps } = props
+  const {
+    defaultConfig = {
+      type: "license",
+    },
+    onCancel,
+    ...otherProps
+  } = props
   const { t } = useTranslation()
 
   const { width } = useWindowSize()
@@ -87,6 +105,16 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
   const { title, manageLabel } = useMemo(() => {
     return ConfigKey[defaultConfig?.type ?? "license"]
   }, [defaultConfig?.type])
+
+  const unitPrice = useMemo(() => {
+    if (defaultConfig?.type === "traffic")
+      return unitPriceMap[defaultConfig?.type][
+        defaultConfig?.purchaseInfo?.item ?? PurchaseItem.DRIVE_TRAFFIC_1GB
+      ]
+    return unitPriceMap[defaultConfig?.type][
+      cycle ?? SUBSCRIPTION_CYCLE.MONTHLY
+    ]
+  }, [defaultConfig.type, defaultConfig.purchaseInfo?.item, cycle])
 
   const paymentOptions = [
     {
@@ -250,11 +278,11 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
                   colorScheme="techPurple"
                   value={quantity}
                   onChange={setQuantity}
-                  formatter={quantityFormatter}
+                  // formatter={quantityFormatter}
                   min={
                     defaultConfig.type === "traffic"
-                      ? defaultConfig.purchaseInfo?.quantity
-                      : undefined
+                      ? defaultConfig.purchaseInfo?.quantity ?? 0
+                      : 0
                   }
                 />
               </div>
@@ -264,7 +292,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
           <div css={drawerPaddingStyle}>
             <div css={subTotalStyle}>
               <div>{t("billing.payment_sidebar.price_label.total")}</div>
-              <div></div>
+              <div>{`$${unitPrice} × ${quantity} licenses × 1 year`}</div>
             </div>
             <Button
               w="100%"

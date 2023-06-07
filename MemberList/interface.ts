@@ -36,6 +36,7 @@ export enum SUBSCRIPTION_CYCLE {
 export interface SubscribeInfo {
   volume: number
   balance: number
+  quantity: number
   plan: SUBSCRIBE_PLAN
   invoiceIssueDate: string
   cycle: SUBSCRIPTION_CYCLE
