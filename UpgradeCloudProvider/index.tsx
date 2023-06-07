@@ -86,6 +86,7 @@ export const UpgradeCloudProvider: FC<ProviderProps> = (props) => {
     visible: boolean,
     modalType: UpgradeSuccessModalType,
   ) => {
+    setSuccessModalType(modalType)
     setSuccessModalVisible((prevState) => {
       if (prevState !== visible) {
         return visible

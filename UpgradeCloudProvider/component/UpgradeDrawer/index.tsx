@@ -7,7 +7,7 @@ import {
   Select,
   zIndex,
 } from "@illa-design/react"
-import { FC, useCallback, useState } from "react"
+import { FC, useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useWindowSize } from "react-use"
 import { PurchaseItem, purchase, subscribe } from "@/api/billing"
@@ -30,9 +30,10 @@ import {
 } from "./style"
 
 export interface DrawerDefaultConfig {
-  type: "license" | "drive" | "traffic"
+  type: "license" | "storage" | "traffic"
   subscribeInfo?: {
     plan: SUBSCRIBE_PLAN
+    currentPlan?: SUBSCRIBE_PLAN
     cycle: SUBSCRIPTION_CYCLE
     quantity: number
   }
@@ -43,11 +44,36 @@ export interface DrawerDefaultConfig {
 }
 
 interface UpgradeDrawerProps extends DrawerProps {
-  defaultConfig?: DrawerDefaultConfig
+  defaultConfig: DrawerDefaultConfig
+}
+
+const ConfigKey = {
+  license: {
+    title: "billing.payment_sidebar.title.manage_licenses",
+    manageLabel: "billing.payment_sidebar.plan_label.License",
+  },
+  storage: {
+    title: "billing.modal.storage_insufficient.not_owner_title",
+    manageLabel: "billing.payment_sidebar.plan_label.Storage",
+  },
+  traffic: {
+    title: "billing.modal.traffic_insufficient.not_owner_title",
+    manageLabel: "billing.payment_sidebar.plan_label.Traffic",
+  },
+}
+
+const isSubscribe = (subscribePlan?: SUBSCRIBE_PLAN) => {
+  return (
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS ||
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE ||
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_INSUFFICIENT ||
+    subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_PAID ||
+    subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_INSUFFICIENT
+  )
 }
 
 export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
-  const { defaultConfig, onCancel, ...otherProps } = props
+  const { defaultConfig = { type: "license" }, onCancel, ...otherProps } = props
   const { t } = useTranslation()
 
   const { width } = useWindowSize()
@@ -58,11 +84,9 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
   )
   const [quantity, setQuantity] = useState<number>(1)
 
-  const config = {
-    title: t("billing.payment_sidebar.title.manage_licenses"),
-    manageLabel: t("billing.payment_sidebar.plan_label.License"),
-    inputUnit: t("billing.payment_sidebar.plan_number_input_label.License"),
-  }
+  const { title, manageLabel } = useMemo(() => {
+    return ConfigKey[defaultConfig?.type ?? "license"]
+  }, [defaultConfig?.type])
 
   const paymentOptions = [
     {
@@ -75,6 +99,50 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     },
   ]
 
+  const description = useMemo(() => {
+    const { type, subscribeInfo } = defaultConfig
+    switch (type) {
+      case "license":
+      case "storage":
+        if (!subscribeInfo) return ""
+        if (isSubscribe(subscribeInfo?.currentPlan)) {
+          if (quantity === 0) {
+            return t(`billing.payment_sidebar.description.remove_${type}`)
+          } else if (cycle !== subscribeInfo.cycle) {
+            if (quantity < subscribeInfo.quantity) {
+              return t(
+                `billing.payment_sidebar.description.update_plan_remove_${type}`,
+              )
+            } else {
+              return t(
+                `billing.payment_sidebar.description.update_plan_increase_${type}`,
+              )
+            }
+          } else {
+            if (quantity < subscribeInfo.quantity) {
+              return t(`billing.payment_sidebar.description.remove_${type}`)
+            } else {
+              return t(`billing.payment_sidebar.description.add_${type}`)
+            }
+          }
+        } else {
+          if (cycle === SUBSCRIPTION_CYCLE.YEARLY) {
+            return t(
+              `billing.payment_sidebar.description.subscribe_${type}_yearly`,
+            )
+          } else {
+            return t(
+              `billing.payment_sidebar.description.subscribe_${type}_monthly`,
+            )
+          }
+        }
+      case "traffic":
+        return t("billing.payment_sidebar.description.add_traffic")
+      default:
+        return ""
+    }
+  }, [defaultConfig, quantity, cycle, t])
+
   const quantityFormatter = useCallback(
     (value: number | string) => {
       switch (defaultConfig?.type) {
@@ -82,7 +150,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
           return `${value} ${t(
             "billing.payment_sidebar.plan_number_input_label.License",
           )}`
-        case "drive":
+        case "storage":
           return `${value} ${t(
             "billing.payment_sidebar.plan_number_input_label.Storage_traffic",
           )}`
@@ -123,6 +191,32 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     }
   }
 
+  useEffect(() => {
+    console.log(defaultConfig, "defaultConfig")
+    switch (defaultConfig?.type) {
+      case "license":
+      case "storage":
+        if (defaultConfig?.subscribeInfo) {
+          setCycle(defaultConfig.subscribeInfo.cycle)
+          setQuantity(defaultConfig.subscribeInfo.quantity)
+        }
+        break
+      case "traffic":
+        if (defaultConfig?.purchaseInfo) {
+          setQuantity(defaultConfig.purchaseInfo.quantity)
+        }
+        break
+      default:
+        break
+    }
+  }, [
+    defaultConfig?.subscribeInfo,
+    defaultConfig?.purchaseInfo,
+    defaultConfig?.type,
+  ])
+
+  console.log({ cycle, quantity }, "cycle, quantity")
+
   return (
     <Drawer
       css={drawerStyle}
@@ -137,9 +231,9 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       <div css={drawerContentStyle}>
         <div>
           <div css={drawerPaddingStyle}>
-            <div css={titleStyle}>{config.title}</div>
+            <div css={titleStyle}>{t(title)}</div>
             <div css={manageContentStyle}>
-              <label>{config.manageLabel}</label>
+              <label>{t(manageLabel)}</label>
               <div css={manageItemStyle}>
                 <Select
                   w="auto"
@@ -157,6 +251,11 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
                   value={quantity}
                   onChange={setQuantity}
                   formatter={quantityFormatter}
+                  min={
+                    defaultConfig.type === "traffic"
+                      ? defaultConfig.purchaseInfo?.quantity
+                      : undefined
+                  }
                 />
               </div>
             </div>
@@ -179,9 +278,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
           </div>
         </div>
         <div css={drawerPaddingStyle}>
-          <div css={descriptionStyle}>
-            {t("billing.payment_sidebar.description.add_license")}
-          </div>
+          <div css={descriptionStyle}>{description}</div>
         </div>
       </div>
     </Drawer>

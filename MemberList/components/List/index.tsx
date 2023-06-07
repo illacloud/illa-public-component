@@ -156,7 +156,15 @@ export const List: FC<ListProps> = (props) => {
   )
 
   const openDrawer = () => {
-    handleLicenseDrawerVisible(true)
+    handleLicenseDrawerVisible(true, {
+      type: "license",
+      subscribeInfo: {
+        quantity: teamCurrentLicense.volume,
+        cycle: teamCurrentLicense.cycle,
+        plan: teamCurrentLicense.plan,
+        currentPlan: teamCurrentLicense.plan,
+      },
+    })
   }
 
   return (
