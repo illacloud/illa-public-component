@@ -11,7 +11,10 @@ import {
   UpgradeModalType,
   upgradeModalConfigKeys,
 } from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal"
-import { UpgradeDrawer } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeDrawer"
+import {
+  DrawerDefaultConfig,
+  UpgradeDrawer,
+} from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeDrawer"
 import {
   UpgradeSuccessModal,
   UpgradeSuccessModalType,
@@ -24,7 +27,10 @@ interface ProviderProps {
 }
 
 interface Inject extends Omit<ProviderProps, "children"> {
-  handleLicenseDrawerVisible: (visible: boolean) => void
+  handleLicenseDrawerVisible: (
+    visible: boolean,
+    drawerConfig: DrawerDefaultConfig,
+  ) => void
   handleSuccessModalVisible: (
     visible: boolean,
     modalType: UpgradeSuccessModalType,
@@ -42,6 +48,9 @@ export const UpgradeCloudProvider: FC<ProviderProps> = (props) => {
   const { t } = useTranslation()
   const currentTeamInfo = useSelector(getCurrentTeamInfo)
 
+  const [drawerConfig, setDrawerConfig] = useState<DrawerDefaultConfig>({
+    type: "license",
+  })
   const [drawerVisible, setDrawerVisible] = useState(false)
   const [successModalVisible, setSuccessModalVisible] = useState(false)
   const [successModalType, setSuccessModalType] =
@@ -60,7 +69,11 @@ export const UpgradeCloudProvider: FC<ProviderProps> = (props) => {
     [currentTeamInfo?.myRole, currentTeamInfo?.teamCurrentLicense?.plan],
   )
 
-  const handleLicenseDrawerVisible = (visible: boolean) => {
+  const handleLicenseDrawerVisible = (
+    visible: boolean,
+    config: DrawerDefaultConfig,
+  ) => {
+    setDrawerConfig(config)
     setDrawerVisible((prevState) => {
       if (prevState !== visible) {
         return visible
@@ -121,7 +134,11 @@ export const UpgradeCloudProvider: FC<ProviderProps> = (props) => {
   return (
     <UpgradeCloudContext.Provider value={value}>
       {children}
-      <UpgradeDrawer visible={drawerVisible} onCancel={handleCloseDrawer} />
+      <UpgradeDrawer
+        visible={drawerVisible}
+        defaultConfig={drawerConfig}
+        onCancel={handleCloseDrawer}
+      />
       <UpgradeSuccessModal
         configType={successModalType}
         visible={successModalVisible}
