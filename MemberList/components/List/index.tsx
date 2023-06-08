@@ -162,6 +162,7 @@ export const List: FC<ListProps> = (props) => {
           pinedHeader
           tableLayout="auto"
           h="100%"
+          customCellPadding="14px 16px"
           clickOutsideToResetRowSelect
         />
       ) : null}
