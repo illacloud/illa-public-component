@@ -10,7 +10,13 @@ import {
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useWindowSize } from "react-use"
-import { PurchaseItem, purchase, subscribe } from "@/api/billing"
+import {
+  PurchaseItem,
+  cancelSubscribe,
+  modifySubscribe,
+  purchase,
+  subscribe,
+} from "@/api/billing"
 import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
@@ -135,37 +141,41 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
         if (!subscribeInfo) return ""
         if (isSubscribe(subscribeInfo?.currentPlan)) {
           if (quantity === 0) {
-            return t(`billing.payment_sidebar.description.remove_${type}`)
+            return t(
+              `billing.payment_sidebar.description_title.unsubscribe_${type}`,
+            )
           } else if (cycle !== subscribeInfo.cycle) {
             if (quantity < subscribeInfo.quantity) {
               return t(
-                `billing.payment_sidebar.description.update_plan_remove_${type}`,
+                `billing.payment_sidebar.description_title.update_plan_remove_${type}`,
               )
             } else {
               return t(
-                `billing.payment_sidebar.description.update_plan_increase_${type}`,
+                `billing.payment_sidebar.description_title.update_plan_increase_${type}`,
               )
             }
           } else {
             if (quantity < subscribeInfo.quantity) {
-              return t(`billing.payment_sidebar.description.remove_${type}`)
+              return t(
+                `billing.payment_sidebar.description_title.remove_${type}`,
+              )
             } else {
-              return t(`billing.payment_sidebar.description.add_${type}`)
+              return t(`billing.payment_sidebar.description_title.add_${type}`)
             }
           }
         } else {
           if (cycle === SUBSCRIPTION_CYCLE.YEARLY) {
             return t(
-              `billing.payment_sidebar.description.subscribe_${type}_yearly`,
+              `billing.payment_sidebar.description_title.subscribe_${type}_yearly`,
             )
           } else {
             return t(
-              `billing.payment_sidebar.description.subscribe_${type}_monthly`,
+              `billing.payment_sidebar.description_title.subscribe_${type}_monthly`,
             )
           }
         }
       case "traffic":
-        return t("billing.payment_sidebar.description.add_traffic")
+        return t("billing.payment_sidebar.description_title.add_traffic")
       default:
         return ""
     }
@@ -194,6 +204,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
   )
 
   const handleSubscribe = () => {
+    const { type, subscribeInfo } = defaultConfig
     if (defaultConfig?.type === "traffic") {
       purchase({
         item:
@@ -203,19 +214,38 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
         cancelRedirect: window.location.href,
       }).then((res) => {
         console.log(res, "purchase res")
+        res.data.url && window.open(res.data.url, "_blank")
       })
     } else {
-      subscribe({
-        plan:
-          defaultConfig?.subscribeInfo?.plan ??
-          SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
-        quantity,
-        cycle,
-        successRedirect: window.location.href,
-        cancelRedirect: window.location.href,
-      }).then((res) => {
-        console.log(res, "subscribe res")
-      })
+      if (
+        subscribeInfo?.currentPlan &&
+        isSubscribe(subscribeInfo?.currentPlan)
+      ) {
+        if (quantity === 0) {
+          cancelSubscribe(subscribeInfo?.currentPlan).then((res) => {
+            console.log(res, "cancelSubscribe res")
+          })
+        } else {
+          modifySubscribe({
+            plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
+            quantity,
+            cycle,
+          }).then((res) => {
+            console.log(res, "modifySubscribe res")
+          })
+        }
+      } else {
+        subscribe({
+          plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
+          quantity,
+          cycle,
+          successRedirect: window.location.href,
+          cancelRedirect: window.location.href,
+        }).then((res) => {
+          console.log(res, "subscribe res")
+          res.data.url && window.open(res.data.url, "_blank")
+        })
+      }
     }
   }
 
