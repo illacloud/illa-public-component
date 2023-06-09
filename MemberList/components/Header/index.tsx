@@ -19,7 +19,7 @@ import {
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
 import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
-import { isSubscribe } from "@/illa-public-component/UserRoleUtils"
+import { isSubscribeLicense } from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 import { HeaderProps } from "./interface"
 
@@ -126,7 +126,7 @@ export const Header: FC<HeaderProps> = (props) => {
       },
       "both",
     )
-    if (isSubscribe(teamCurrentLicense?.plan)) {
+    if (isSubscribeLicense(teamCurrentLicense?.plan)) {
       handleClickInvite()
     } else {
       handleUpgradeModalVisible(true, "upgrade")

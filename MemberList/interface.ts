@@ -40,7 +40,7 @@ export interface SubscribeInfo {
   plan: SUBSCRIBE_PLAN
   invoiceIssueDate: string
   cycle: SUBSCRIPTION_CYCLE
-  amount: number
+  totalAmount: number
 }
 
 export interface fetchInviteLinkResponse {
