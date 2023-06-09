@@ -35,14 +35,16 @@ import {
   titleStyle,
 } from "./style"
 
+interface DrawerSubscribeInfo {
+  plan: SUBSCRIBE_PLAN
+  currentPlan?: SUBSCRIBE_PLAN
+  cycle: SUBSCRIPTION_CYCLE
+  quantity: number
+}
+
 export interface DrawerDefaultConfig {
   type: "license" | "storage" | "traffic"
-  subscribeInfo?: {
-    plan: SUBSCRIBE_PLAN
-    currentPlan?: SUBSCRIBE_PLAN
-    cycle: SUBSCRIPTION_CYCLE
-    quantity: number
-  }
+  subscribeInfo?: DrawerSubscribeInfo
   purchaseInfo?: {
     item: PurchaseItem
     quantity: number
@@ -89,6 +91,71 @@ const isSubscribe = (subscribePlan?: SUBSCRIBE_PLAN) => {
     subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_INSUFFICIENT
   )
 }
+// 函数：判断订阅的数量是否为0
+const isCancelSubscribe = (quantity: number) => quantity === 0
+
+// 函数：判断是否减少了数量
+const isQuantityDecreased = (
+  quantity: number,
+  subscribeInfo: DrawerSubscribeInfo,
+) => quantity < subscribeInfo.quantity
+
+const subscriptionStatus = {
+  unknown: "Unknown Subscription Status",
+  subscribed_cancelled: "Subscription has been cancelled",
+  subscribed_plan_decreased_with_update:
+    "Subscription plan has been updated with decreased quantity",
+  subscribed_plan_increased_with_update:
+    "Subscription plan has been updated with increased quantity",
+  subscribed_quantity_decreased:
+    "Subscription quantity has been decreased without plan update",
+  subscribed_quantity_increased:
+    "Subscription quantity has been increased without plan update",
+  subscribed_yearly: "Subscription has been switched to yearly",
+  subscribed_monthly: "Subscription has been switched to monthly",
+  traffic_added: "Additional traffic has been subscribed",
+}
+
+const getSubscriptionStatus = (
+  defaultConfig: DrawerDefaultConfig,
+  quantity: number,
+  cycle: SUBSCRIPTION_CYCLE,
+) => {
+  const { type, subscribeInfo } = defaultConfig
+
+  switch (type) {
+    case "license":
+    case "storage":
+      if (!subscribeInfo) return "unknown"
+      if (isSubscribe(subscribeInfo?.currentPlan)) {
+        if (isCancelSubscribe(quantity)) {
+          return "subscribed_cancelled"
+        } else if (cycle !== subscribeInfo.cycle) {
+          if (isQuantityDecreased(quantity, subscribeInfo)) {
+            return "subscribed_plan_decreased_with_update"
+          } else {
+            return "subscribed_plan_increased_with_update"
+          }
+        } else {
+          if (isQuantityDecreased(quantity, subscribeInfo)) {
+            return "subscribed_quantity_decreased"
+          } else {
+            return "subscribed_quantity_increased"
+          }
+        }
+      } else {
+        if (cycle === SUBSCRIPTION_CYCLE.YEARLY) {
+          return "subscribed_yearly"
+        } else {
+          return "subscribed_monthly"
+        }
+      }
+    case "traffic":
+      return "traffic_added"
+    default:
+      return "unknown"
+  }
+}
 
 export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
   const {
@@ -107,6 +174,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     SUBSCRIPTION_CYCLE.MONTHLY,
   )
   const [quantity, setQuantity] = useState<number>(1)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const { title, manageLabel } = useMemo(() => {
     return ConfigKey[defaultConfig?.type ?? "license"]
@@ -135,6 +203,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
 
   const description = useMemo(() => {
     const { type, subscribeInfo } = defaultConfig
+    console.log(defaultConfig, "defaultConfig")
     switch (type) {
       case "license":
       case "storage":
@@ -203,49 +272,57 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     [defaultConfig?.type, t],
   )
 
-  const handleSubscribe = () => {
-    const { type, subscribeInfo } = defaultConfig
-    if (defaultConfig?.type === "traffic") {
-      purchase({
-        item:
-          defaultConfig?.purchaseInfo?.item ?? PurchaseItem.DRIVE_TRAFFIC_1GB,
-        quantity,
-        successRedirect: window.location.href,
-        cancelRedirect: window.location.href,
-      }).then((res) => {
+  const handleSubscribe = async () => {
+    const { type, subscribeInfo, purchaseInfo } = defaultConfig
+    if (loading) return
+    setLoading(true)
+
+    try {
+      if (type === "traffic") {
+        const res = await purchase({
+          item: purchaseInfo?.item ?? PurchaseItem.DRIVE_TRAFFIC_1GB,
+          quantity,
+          successRedirect: window.location.href,
+          cancelRedirect: window.location.href,
+        })
         console.log(res, "purchase res")
-        res.data.url && window.open(res.data.url, "_blank")
-      })
-    } else {
-      if (
-        subscribeInfo?.currentPlan &&
-        isSubscribe(subscribeInfo?.currentPlan)
-      ) {
-        if (quantity === 0) {
-          cancelSubscribe(subscribeInfo?.currentPlan).then((res) => {
+        if (res.data.url) {
+          window.open(res.data.url, "_blank")
+        }
+      } else {
+        if (
+          subscribeInfo?.currentPlan &&
+          isSubscribe(subscribeInfo?.currentPlan)
+        ) {
+          if (quantity === 0) {
+            const res = await cancelSubscribe(subscribeInfo?.currentPlan)
             console.log(res, "cancelSubscribe res")
-          })
+          } else {
+            const res = await modifySubscribe({
+              plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
+              quantity,
+              cycle,
+            })
+            console.log(res, "modifySubscribe res")
+          }
         } else {
-          modifySubscribe({
+          const res = await subscribe({
             plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
             quantity,
             cycle,
-          }).then((res) => {
-            console.log(res, "modifySubscribe res")
+            successRedirect: window.location.href,
+            cancelRedirect: window.location.href,
           })
-        }
-      } else {
-        subscribe({
-          plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
-          quantity,
-          cycle,
-          successRedirect: window.location.href,
-          cancelRedirect: window.location.href,
-        }).then((res) => {
           console.log(res, "subscribe res")
-          res.data.url && window.open(res.data.url, "_blank")
-        })
+          if (res.data.url) {
+            window.open(res.data.url, "_blank")
+          }
+        }
       }
+    } catch (error) {
+      console.error("An error occurred while subscribe:", error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -328,6 +405,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
               w="100%"
               size="large"
               colorScheme="blackAlpha"
+              loading={loading}
               mt={isMobile ? pxToRem(32) : "16px"}
               onClick={handleSubscribe}
             >
