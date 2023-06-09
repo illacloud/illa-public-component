@@ -801,7 +801,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   const { t } = useTranslation()
   const message = useMessage()
 
-  const { teamCurrentLicense } = useContext(MemberListContext)
+  const { currentTeamLicense } = useContext(MemberListContext)
   const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
 
   const [loading, setLoading] = useState(false)
@@ -819,7 +819,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   const checkEmail = useCallback(
     (email: string) => {
       if (
-        [...userListData, ...inviteEmails].length >= teamCurrentLicense.volume
+        [...userListData, ...inviteEmails].length >= currentTeamLicense.volume
       ) {
         handleUpgradeModalVisible(true, "add-license")
         return false
@@ -882,7 +882,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
 
           if (
             [...userListData, ...inviteEmails].length >=
-            teamCurrentLicense.volume
+            currentTeamLicense.volume
           ) {
             handleUpgradeModalVisible(true, "add-license")
             break
@@ -891,7 +891,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
           if (checkEmail(item)) {
             setInviteEmails((prev) => {
               if (
-                [...userListData, ...prev].length >= teamCurrentLicense.volume
+                [...userListData, ...prev].length >= currentTeamLicense.volume
               ) {
                 handleUpgradeModalVisible(true, "add-license")
                 return prev

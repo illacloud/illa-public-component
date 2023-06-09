@@ -28,14 +28,14 @@ export const MemberList: FC<MemberListProps> = (props) => {
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
-    teamCurrentLicense,
+    currentTeamLicense,
     teamName,
     userNickname,
     loading,
   } = props
 
   return (
-    <MemberListContext.Provider value={{ teamCurrentLicense }}>
+    <MemberListContext.Provider value={{ currentTeamLicense }}>
       <div css={MemberListWrapperStyle}>
         <Header
           hasApp={hasApp}
@@ -57,7 +57,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
           userNickname={userNickname}
           updateTeamPermissionConfig={updateTeamPermissionConfig}
           isCloudVersion={isCloudVersion}
-          teamCurrentLicense={teamCurrentLicense}
+          currentTeamLicense={currentTeamLicense}
         />
         {loading ? (
           <div css={fullContentStyle}>
@@ -68,7 +68,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
             currentUserID={currentUserID}
             currentUserRole={currentUserRole}
             userListData={userListData}
-            teamCurrentLicense={teamCurrentLicense}
+            currentTeamLicense={currentTeamLicense}
             changeTeamMembersRole={changeTeamMembersRole}
             removeTeamMembers={removeTeamMembers}
           />

@@ -64,7 +64,7 @@ export const Header: FC<HeaderProps> = (props) => {
     userNickname,
     userListData,
     isCloudVersion,
-    teamCurrentLicense,
+    currentTeamLicense,
   } = props
   const { t } = useTranslation()
   const { track } = useContext(MixpanelTrackContext)
@@ -126,14 +126,14 @@ export const Header: FC<HeaderProps> = (props) => {
       },
       "both",
     )
-    if (isSubscribeLicense(teamCurrentLicense?.plan)) {
+    if (isSubscribeLicense(currentTeamLicense?.plan)) {
       handleClickInvite()
     } else {
       handleUpgradeModalVisible(true, "upgrade")
     }
   }, [
     track,
-    teamCurrentLicense?.plan,
+    currentTeamLicense?.plan,
     handleClickInvite,
     handleUpgradeModalVisible,
   ])

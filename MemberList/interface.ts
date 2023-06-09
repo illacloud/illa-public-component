@@ -67,7 +67,7 @@ export interface MemberListProps {
   isAppPublic?: boolean
   currentUserID: string
   currentTeamMemberID: string
-  teamCurrentLicense: SubscribeInfo
+  currentTeamLicense: SubscribeInfo
   currentUserRole: USER_ROLE
   userListData: UserData[]
   allowEditorManageTeamMember: boolean

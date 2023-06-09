@@ -11,6 +11,7 @@ import {
 import RoleSelect from "@/illa-public-component/RoleSelect"
 import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
 import { UsageCard } from "@/illa-public-component/UsageCard"
+import { canManagePayment } from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 export const List: FC<ListProps> = (props) => {
@@ -18,7 +19,7 @@ export const List: FC<ListProps> = (props) => {
     userListData,
     currentUserID,
     currentUserRole,
-    teamCurrentLicense,
+    currentTeamLicense,
     removeTeamMembers,
     changeTeamMembersRole,
   } = props
@@ -27,6 +28,10 @@ export const List: FC<ListProps> = (props) => {
   const message = useMessage()
 
   const { handleLicenseDrawerVisible } = useContext(UpgradeCloudContext)
+
+  const hasPaymentManagementPermission = useMemo(() => {
+    return canManagePayment(currentUserRole, currentTeamLicense?.plan)
+  }, [currentUserRole, currentTeamLicense?.plan])
 
   const data = useMemo(() => {
     if (!Array.isArray(userListData) || userListData.length === 0) {
@@ -159,21 +164,21 @@ export const List: FC<ListProps> = (props) => {
     handleLicenseDrawerVisible(true, {
       type: "license",
       subscribeInfo: {
-        quantity: teamCurrentLicense.volume,
-        cycle: teamCurrentLicense.cycle,
-        plan: teamCurrentLicense.plan,
-        currentPlan: teamCurrentLicense.plan,
+        quantity: currentTeamLicense.volume,
+        cycle: currentTeamLicense.cycle,
+        plan: currentTeamLicense.plan,
+        currentPlan: currentTeamLicense.plan,
       },
     })
   }
 
   return (
     <div css={listWrapperStyle}>
-      {import.meta.env.VITE_CLOUD_BILLING === "true" ? (
+      {hasPaymentManagementPermission ? (
         <UsageCard
           type="License"
-          current={teamCurrentLicense.volume - teamCurrentLicense.balance}
-          total={teamCurrentLicense.volume}
+          current={currentTeamLicense.volume - currentTeamLicense.balance}
+          total={currentTeamLicense.volume}
           onClick={openDrawer}
         />
       ) : null}

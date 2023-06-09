@@ -31,7 +31,7 @@ export interface HeaderProps
     | "updateAppPublicConfig"
     | "teamName"
     | "userNickname"
-    | "teamCurrentLicense"
+    | "currentTeamLicense"
   > {}
 
 export interface MoreActionProps
