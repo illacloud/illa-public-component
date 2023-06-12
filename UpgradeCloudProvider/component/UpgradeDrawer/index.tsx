@@ -8,7 +8,7 @@ import {
   zIndex,
 } from "@illa-design/react"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import { useWindowSize } from "react-use"
 import {
   PurchaseItem,
@@ -21,6 +21,7 @@ import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
 } from "@/illa-public-component/MemberList/interface"
+import { TextLink } from "@/illa-public-component/TextLink"
 import { pxToRem } from "@/style"
 import { isMobileByWindowSize } from "@/utils/screen"
 import {
@@ -101,31 +102,13 @@ const isSubscribe = (subscribePlan?: SUBSCRIBE_PLAN) => {
     subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_INSUFFICIENT
   )
 }
-// 函数：判断订阅的数量是否为0
+
 const isCancelSubscribe = (quantity: number) => quantity === 0
 
-// 函数：判断是否减少了数量
 const isQuantityDecreased = (
   quantity: number,
   subscribeInfo: DrawerSubscribeInfo,
 ) => quantity < subscribeInfo.quantity
-
-const subscriptionStatus = {
-  unknown: "Unknown Subscription Status",
-  un_changed: "Subscription has not been changed",
-  subscribed_cancelled: "Subscription has been cancelled",
-  subscribed_plan_decreased_with_update:
-    "Subscription plan has been updated with decreased quantity",
-  subscribed_plan_increased_with_update:
-    "Subscription plan has been updated with increased quantity",
-  subscribed_quantity_decreased:
-    "Subscription quantity has been decreased without plan update",
-  subscribed_quantity_increased:
-    "Subscription quantity has been increased without plan update",
-  subscribed_yearly: "Subscription has been switched to yearly",
-  subscribed_monthly: "Subscription has been switched to monthly",
-  traffic_added: "Additional traffic has been subscribed",
-}
 
 const getSubscriptionStatus = (
   defaultConfig: DrawerDefaultConfig,
@@ -173,6 +156,9 @@ const getSubscriptionStatus = (
       return "unknown"
   }
 }
+
+export const LEARN_MORE_LINK =
+  "https://builder.illacloud.com/illa_policy/deploy/app/ILAex4p1C7sk"
 
 export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
   const {
@@ -258,7 +244,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
 
   const unChanged = useMemo(() => {
     const subscribeInfo = defaultConfig.subscribeInfo
-    const purchaseInfo = defaultConfig.purchaseInfo
+
     switch (defaultConfig.type) {
       case "license":
       case "storage":
@@ -270,44 +256,25 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       default:
         return false
     }
-  }, [
-    defaultConfig.type,
-    defaultConfig?.subscribeInfo,
-    defaultConfig?.purchaseInfo,
-    quantity,
-    cycle,
-  ])
+  }, [defaultConfig.type, defaultConfig?.subscribeInfo, quantity, cycle])
 
   const description = useMemo(() => {
     const { type } = defaultConfig
-    const statusLabel = {
+    const statusLabelKeys = {
       unknown: "",
       un_changed: "",
-      subscribed_cancelled: t(
-        `billing.payment_sidebar.description_title.unsubscribe_${type}`,
-      ),
-      subscribed_plan_decreased_with_update: t(
-        `billing.payment_sidebar.description_title.update_plan_remove_${type}`,
-      ),
-      subscribed_plan_increased_with_update: t(
-        `billing.payment_sidebar.description_title.update_plan_increase_${type}`,
-      ),
-      subscribed_quantity_decreased: t(
-        `billing.payment_sidebar.description_title.remove_${type}`,
-      ),
-      subscribed_quantity_increased: t(
-        `billing.payment_sidebar.description_title.add_${type}`,
-      ),
-      subscribed_yearly: t(
-        `billing.payment_sidebar.description_title.subscribe_${type}_yearly`,
-      ),
-      subscribed_monthly: t(
-        `billing.payment_sidebar.description_title.subscribe_${type}_monthly`,
-      ),
-      traffic_added: t("billing.payment_sidebar.description_title.add_traffic"),
+      subscribed_cancelled: `billing.payment_sidebar.description_title.unsubscribe_${type}`,
+      subscribed_plan_decreased_with_update: `billing.payment_sidebar.description_title.update_plan_remove_${type}`,
+      subscribed_plan_increased_with_update: `billing.payment_sidebar.description_title.update_plan_increase_${type}`,
+      subscribed_quantity_decreased: `billing.payment_sidebar.description_title.remove_${type}`,
+      subscribed_quantity_increased: `billing.payment_sidebar.description_title.add_${type}`,
+      subscribed_yearly: `billing.payment_sidebar.description_title.subscribe_${type}_yearly`,
+      subscribed_monthly: `billing.payment_sidebar.description_title.subscribe_${type}_monthly`,
+      traffic_added: "billing.payment_sidebar.description_title.add_traffic",
     }
     const status = getSubscriptionStatus(defaultConfig, quantity, cycle)
-    return statusLabel[status] ?? ""
+
+    return t(statusLabelKeys[status], { changeNum: quantity }) ?? ""
   }, [defaultConfig, quantity, cycle, t])
 
   const quantityFormatter = useCallback(
@@ -485,7 +452,20 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
           </div>
         </div>
         <div css={drawerPaddingStyle}>
-          <div css={descriptionStyle}>{description}</div>
+          <div css={descriptionStyle}>
+            <Trans
+              i18nKey={description}
+              t={t}
+              components={[
+                <TextLink
+                  key="text-link"
+                  onClick={() => {
+                    window.open(LEARN_MORE_LINK, "_blank")
+                  }}
+                />,
+              ]}
+            />
+          </div>
         </div>
       </div>
     </Drawer>

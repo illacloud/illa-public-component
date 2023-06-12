@@ -42,6 +42,7 @@ export interface SubscribeInfo {
   invoiceIssueDate: string
   cycle: SUBSCRIPTION_CYCLE
   totalAmount: number
+  cancelAtPeriodEnd: boolean
 }
 
 export interface fetchInviteLinkResponse {

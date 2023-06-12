@@ -164,7 +164,9 @@ export const List: FC<ListProps> = (props) => {
     handleLicenseDrawerVisible(true, {
       type: "license",
       subscribeInfo: {
-        quantity: currentTeamLicense.volume,
+        quantity: currentTeamLicense.cancelAtPeriodEnd
+          ? 0
+          : currentTeamLicense.volume,
         cycle: currentTeamLicense.cycle,
         plan: currentTeamLicense.plan,
         currentPlan: currentTeamLicense.plan,
