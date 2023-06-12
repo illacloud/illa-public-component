@@ -189,6 +189,7 @@ export const List: FC<ListProps> = (props) => {
           css={listBodyStyle}
           pinedHeader
           tableLayout="auto"
+          h="100%"
           customCellPadding="14px 16px"
           clickOutsideToResetRowSelect
         />
