@@ -14,6 +14,7 @@ export const InviteModal: FC<InviteModalProps> = (props) => {
     <div>
       {visible &&
         createPortal(
+          // current only one reference to this component for builder_dashboard
           <InviteMemberModal from="builder_dashboard" {...memberModalProps} />,
           document.body,
         )}

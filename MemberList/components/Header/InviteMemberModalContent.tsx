@@ -160,6 +160,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     appID,
     teamName,
     userNickname,
+    from,
   } = props
   const { track } = useContext(MixpanelTrackContext)
   const { t } = useTranslation()
@@ -275,6 +276,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
               fetchInviteLink={fetchInviteLink}
               teamName={teamName}
               userNickname={userNickname}
+              from={from}
               configInviteLink={configInviteLink}
               changeTeamMembersRole={changeTeamMembersRole}
               appID={appID}
@@ -326,6 +328,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
           allowInviteByLink={allowInviteByLink}
           inviteByEmail={inviteByEmail}
           teamName={teamName}
+          from={from}
           userNickname={userNickname}
           renewInviteLink={renewInviteLink}
           fetchInviteLink={fetchInviteLink}
@@ -364,11 +367,11 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
     )
     if (copyReturned) {
       message.success({
-        content: t("copied"),
+        content: t("user_management.modal.link.copied_suc"),
       })
     } else {
       message.error({
-        content: t("copy_failed"),
+        content: t("user_management.modal.link.failed_to_copy"),
       })
     }
   }, [appLink, message, t, teamName, userNickname])
@@ -614,11 +617,11 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     )
     if (copyReturned) {
       message.success({
-        content: t("copied"),
+        content: t("user_management.modal.link.copied_suc"),
       })
     } else {
       message.error({
-        content: t("copy_failed"),
+        content: t("user_management.modal.link.failed_to_copy"),
       })
     }
   }, [
