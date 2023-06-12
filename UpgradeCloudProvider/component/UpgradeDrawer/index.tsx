@@ -54,6 +54,7 @@ export interface DrawerDefaultConfig {
     item: PurchaseItem
     quantity: number
   }
+  onSubscribeCallback?: () => void
 }
 
 interface UpgradeDrawerProps extends DrawerProps {
@@ -265,7 +266,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
           subscribeInfo?.quantity === quantity && subscribeInfo?.cycle === cycle
         )
       case "traffic":
-        return purchaseInfo?.quantity === quantity
+        return false
       default:
         return false
     }
@@ -356,6 +357,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
           if (quantity === 0) {
             const res = await cancelSubscribe(subscribeInfo?.currentPlan)
             console.log(res, "cancelSubscribe res")
+            defaultConfig?.onSubscribeCallback?.()
           } else {
             const res = await modifySubscribe({
               plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
@@ -363,6 +365,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
               cycle,
             })
             console.log(res, "modifySubscribe res")
+            defaultConfig?.onSubscribeCallback?.()
           }
         } else {
           const res = await subscribe({
