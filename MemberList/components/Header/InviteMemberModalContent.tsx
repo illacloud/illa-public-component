@@ -845,7 +845,15 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         return true
       }
     },
-    [userListData, inviteEmails, inviteMemberList, message, t],
+    [
+      userListData,
+      inviteEmails,
+      inviteMemberList,
+      currentTeamLicense.volume,
+      handleUpgradeModalVisible,
+      message,
+      t,
+    ],
   )
 
   const handleValidateInputValue = useCallback(
@@ -906,7 +914,15 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         setInputEmailValue("")
       }
     },
-    [inviteEmails, message, t, handleUpgradeModalVisible, checkEmail],
+    [
+      inviteEmails,
+      userListData,
+      currentTeamLicense.volume,
+      handleUpgradeModalVisible,
+      checkEmail,
+      message,
+      t,
+    ],
   )
 
   const handleBlurInputValue = useCallback(() => {

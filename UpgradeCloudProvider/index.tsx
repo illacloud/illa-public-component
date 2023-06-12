@@ -1,5 +1,4 @@
 import { FC, ReactNode, createContext, useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import {
   InsufficientNoticeModal,
@@ -45,7 +44,6 @@ export const UpgradeCloudContext = createContext<Inject>({} as Inject)
 
 export const UpgradeCloudProvider: FC<ProviderProps> = (props) => {
   const { children } = props
-  const { t } = useTranslation()
   const currentTeamInfo = useSelector(getCurrentTeamInfo)
 
   const [drawerConfig, setDrawerConfig] = useState<DrawerDefaultConfig>({

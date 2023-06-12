@@ -326,8 +326,9 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     }
   }
 
+  console.log(defaultConfig, "defaultConfig")
+
   useEffect(() => {
-    console.log(defaultConfig, "defaultConfig")
     switch (defaultConfig?.type) {
       case "license":
       case "storage":
