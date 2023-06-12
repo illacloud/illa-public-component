@@ -31,6 +31,9 @@ import {
   drawerStyle,
   manageContentStyle,
   manageItemStyle,
+  priceStyle,
+  priceTotalLabelStyle,
+  priceTotalStyle,
   subTotalStyle,
   titleStyle,
 } from "./style"
@@ -42,8 +45,10 @@ interface DrawerSubscribeInfo {
   quantity: number
 }
 
+export type DrawerType = "license" | "storage" | "traffic"
+
 export interface DrawerDefaultConfig {
-  type: "license" | "storage" | "traffic"
+  type: DrawerType
   subscribeInfo?: DrawerSubscribeInfo
   purchaseInfo?: {
     item: PurchaseItem
@@ -70,16 +75,20 @@ const ConfigKey = {
   },
 }
 
-const unitPriceMap = {
+export const subscribeUnitPrice = {
   license: {
+    [SUBSCRIPTION_CYCLE.FREE]: 0,
     [SUBSCRIPTION_CYCLE.MONTHLY]: 10,
     [SUBSCRIPTION_CYCLE.YEARLY]: 100,
   },
   storage: {
+    [SUBSCRIPTION_CYCLE.FREE]: 0,
     [SUBSCRIPTION_CYCLE.MONTHLY]: 0.99,
     [SUBSCRIPTION_CYCLE.YEARLY]: 9.99,
   },
-  traffic: { [PurchaseItem.DRIVE_TRAFFIC_1GB]: 0.99 },
+  traffic: {
+    [PurchaseItem.DRIVE_TRAFFIC_1GB]: 0.99,
+  },
 }
 
 const isSubscribe = (subscribePlan?: SUBSCRIBE_PLAN) => {
@@ -102,6 +111,7 @@ const isQuantityDecreased = (
 
 const subscriptionStatus = {
   unknown: "Unknown Subscription Status",
+  un_changed: "Subscription has not been changed",
   subscribed_cancelled: "Subscription has been cancelled",
   subscribed_plan_decreased_with_update:
     "Subscription plan has been updated with decreased quantity",
@@ -127,6 +137,12 @@ const getSubscriptionStatus = (
     case "license":
     case "storage":
       if (!subscribeInfo) return "unknown"
+      if (
+        subscribeInfo.quantity === quantity &&
+        subscribeInfo.cycle === cycle
+      ) {
+        return "un_changed"
+      }
       if (isSubscribe(subscribeInfo?.currentPlan)) {
         if (isCancelSubscribe(quantity)) {
           return "subscribed_cancelled"
@@ -182,10 +198,10 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
 
   const unitPrice = useMemo(() => {
     if (defaultConfig?.type === "traffic")
-      return unitPriceMap[defaultConfig?.type][
+      return subscribeUnitPrice[defaultConfig?.type][
         defaultConfig?.purchaseInfo?.item ?? PurchaseItem.DRIVE_TRAFFIC_1GB
       ]
-    return unitPriceMap[defaultConfig?.type][
+    return subscribeUnitPrice[defaultConfig?.type][
       cycle ?? SUBSCRIPTION_CYCLE.MONTHLY
     ]
   }, [defaultConfig.type, defaultConfig.purchaseInfo?.item, cycle])
@@ -201,53 +217,96 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     },
   ]
 
-  const description = useMemo(() => {
-    const { type, subscribeInfo } = defaultConfig
-    console.log(defaultConfig, "defaultConfig")
-    switch (type) {
+  const priceLabel = useMemo(() => {
+    const translateKey = {
+      unitPrice: "$" + unitPrice,
+      licenseNum: quantity,
+      storageNum: quantity,
+      trafficNum: quantity,
+    }
+    switch (defaultConfig.type) {
       case "license":
+        return cycle === SUBSCRIPTION_CYCLE.YEARLY
+          ? t(
+              "billing.payment_sidebar.price_cal.next_period_yearly",
+              translateKey,
+            )
+          : t(
+              "billing.payment_sidebar.price_cal.next_period_monthly",
+              translateKey,
+            )
       case "storage":
-        if (!subscribeInfo) return ""
-        if (isSubscribe(subscribeInfo?.currentPlan)) {
-          if (quantity === 0) {
-            return t(
-              `billing.payment_sidebar.description_title.unsubscribe_${type}`,
+        return cycle === SUBSCRIPTION_CYCLE.YEARLY
+          ? t(
+              "billing.payment_sidebar.price_cal.next_period_yearly_remove_storage",
+              translateKey,
             )
-          } else if (cycle !== subscribeInfo.cycle) {
-            if (quantity < subscribeInfo.quantity) {
-              return t(
-                `billing.payment_sidebar.description_title.update_plan_remove_${type}`,
-              )
-            } else {
-              return t(
-                `billing.payment_sidebar.description_title.update_plan_increase_${type}`,
-              )
-            }
-          } else {
-            if (quantity < subscribeInfo.quantity) {
-              return t(
-                `billing.payment_sidebar.description_title.remove_${type}`,
-              )
-            } else {
-              return t(`billing.payment_sidebar.description_title.add_${type}`)
-            }
-          }
-        } else {
-          if (cycle === SUBSCRIPTION_CYCLE.YEARLY) {
-            return t(
-              `billing.payment_sidebar.description_title.subscribe_${type}_yearly`,
+          : t(
+              "billing.payment_sidebar.price_cal.next_period_monthly_remove_storage",
+              translateKey,
             )
-          } else {
-            return t(
-              `billing.payment_sidebar.description_title.subscribe_${type}_monthly`,
-            )
-          }
-        }
       case "traffic":
-        return t("billing.payment_sidebar.description_title.add_traffic")
+        return t(
+          "billing.payment_sidebar.price_type.payment_description_traffic",
+          translateKey,
+        )
       default:
         return ""
     }
+  }, [defaultConfig.type, unitPrice, cycle, quantity, t])
+
+  const unChanged = useMemo(() => {
+    const subscribeInfo = defaultConfig.subscribeInfo
+    const purchaseInfo = defaultConfig.purchaseInfo
+    switch (defaultConfig.type) {
+      case "license":
+      case "storage":
+        return (
+          subscribeInfo?.quantity === quantity && subscribeInfo?.cycle === cycle
+        )
+      case "traffic":
+        return purchaseInfo?.quantity === quantity
+      default:
+        return false
+    }
+  }, [
+    defaultConfig.type,
+    defaultConfig?.subscribeInfo,
+    defaultConfig?.purchaseInfo,
+    quantity,
+    cycle,
+  ])
+
+  const description = useMemo(() => {
+    const { type } = defaultConfig
+    const statusLabel = {
+      unknown: "",
+      un_changed: "",
+      subscribed_cancelled: t(
+        `billing.payment_sidebar.description_title.unsubscribe_${type}`,
+      ),
+      subscribed_plan_decreased_with_update: t(
+        `billing.payment_sidebar.description_title.update_plan_remove_${type}`,
+      ),
+      subscribed_plan_increased_with_update: t(
+        `billing.payment_sidebar.description_title.update_plan_increase_${type}`,
+      ),
+      subscribed_quantity_decreased: t(
+        `billing.payment_sidebar.description_title.remove_${type}`,
+      ),
+      subscribed_quantity_increased: t(
+        `billing.payment_sidebar.description_title.add_${type}`,
+      ),
+      subscribed_yearly: t(
+        `billing.payment_sidebar.description_title.subscribe_${type}_yearly`,
+      ),
+      subscribed_monthly: t(
+        `billing.payment_sidebar.description_title.subscribe_${type}_monthly`,
+      ),
+      traffic_added: t("billing.payment_sidebar.description_title.add_traffic"),
+    }
+    const status = getSubscriptionStatus(defaultConfig, quantity, cycle)
+    return statusLabel[status] ?? ""
   }, [defaultConfig, quantity, cycle, t])
 
   const quantityFormatter = useCallback(
@@ -371,16 +430,18 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
             <div css={manageContentStyle}>
               <label>{t(manageLabel)}</label>
               <div css={manageItemStyle}>
-                <Select
-                  w="auto"
-                  colorScheme="techPurple"
-                  value={cycle}
-                  options={paymentOptions}
-                  dropdownProps={{ triggerProps: { zIndex: zIndex.drawer } }}
-                  onChange={(value) => {
-                    setCycle(value as SUBSCRIPTION_CYCLE)
-                  }}
-                />
+                {defaultConfig?.type === "traffic" ? null : (
+                  <Select
+                    w="auto"
+                    colorScheme="techPurple"
+                    value={cycle}
+                    options={paymentOptions}
+                    dropdownProps={{ triggerProps: { zIndex: zIndex.drawer } }}
+                    onChange={(value) => {
+                      setCycle(value as SUBSCRIPTION_CYCLE)
+                    }}
+                  />
+                )}
                 <InputNumber
                   mode="button"
                   colorScheme="techPurple"
@@ -400,12 +461,18 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
           <div css={drawerPaddingStyle}>
             <div css={subTotalStyle}>
               <div>{t("billing.payment_sidebar.price_label.total")}</div>
-              <div>{`$${unitPrice} × ${quantity} licenses × 1 year`}</div>
+              <div css={priceStyle}>
+                <div css={priceTotalStyle}>
+                  ${(unitPrice * quantity).toFixed(2)}
+                </div>
+                <div css={priceTotalLabelStyle}>{priceLabel}</div>
+              </div>
             </div>
             <Button
               w="100%"
               size="large"
               colorScheme="blackAlpha"
+              disabled={unChanged}
               loading={loading}
               mt={isMobile ? pxToRem(32) : "16px"}
               onClick={handleSubscribe}

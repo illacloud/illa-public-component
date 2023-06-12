@@ -81,10 +81,42 @@ export const manageItemStyle = css`
 `
 
 export const subTotalStyle = css`
+  display: flex;
+  justify-content: space-between;
   padding: 24px 0;
 
   ${applyMobileStyle(css`
     padding: 48rem 0;
+  `)}
+`
+
+export const priceStyle = css`
+  text-align: end;
+`
+
+export const priceTotalStyle = css`
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: ${getColor("techPurple", "01")};
+  margin-bottom: 4px;
+
+  ${applyMobileStyle(css`
+    font-size: 32rem;
+    line-height: 48rem;
+    margin-bottom: 8rem;
+  `)}
+`
+
+export const priceTotalLabelStyle = css`
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  color: ${getColor("grayBlue", "03")};
+
+  ${applyMobileStyle(css`
+    font-size: 24rem;
+    line-height: 40rem;
   `)}
 `
 

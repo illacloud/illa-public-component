@@ -29,6 +29,7 @@ export enum SUBSCRIBE_PLAN {
 }
 
 export enum SUBSCRIPTION_CYCLE {
+  FREE = 0,
   MONTHLY = 1,
   YEARLY,
 }
