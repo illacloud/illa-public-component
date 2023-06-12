@@ -1,6 +1,6 @@
 import { css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
-import { applyMobileStyle } from "@/style"
+import { applyMobileStyle, pxToRem } from "@/style"
 
 export const modalMaskStyle = css`
   background-color: ${getColor("white", "05")};
@@ -14,6 +14,13 @@ export const modalStyle = css`
   border: 1px solid ${getColor("grayBlue", "08")};
   box-shadow: 0 4px 16px rgb(0 0 0 / 8%);
   border-radius: 8px;
+  overflow: hidden;
+
+  ${applyMobileStyle(css`
+    width: ${pxToRem(716)};
+    min-width: ${pxToRem(716)};
+    border-radius: ${pxToRem(16)};
+  `)}
 `
 
 export const modalCloseIconStyle = css`
@@ -33,6 +40,10 @@ export const modalCloseIconStyle = css`
 
 export const decorateStyle = css`
   width: 100%;
+
+  ${applyMobileStyle(css`
+    height: 405rem;
+  `)};
 `
 
 export const headerStyle = css`
@@ -44,6 +55,12 @@ export const titleStyle = css`
   font-size: 18px;
   line-height: 22px;
   margin-bottom: 8px;
+
+  ${applyMobileStyle(css`
+    font-size: 36rem;
+    line-height: 44rem;
+    margin-bottom: 16rem;
+  `)};
 `
 
 export const descriptionStyle = css`
@@ -51,6 +68,11 @@ export const descriptionStyle = css`
   font-size: 14px;
   line-height: 17px;
   color: ${getColor("grayBlue", "03")};
+
+  ${applyMobileStyle(css`
+    font-size: 28rem;
+    line-height: 34rem;
+  `)};
 `
 
 export const footerStyle = css`
@@ -64,6 +86,11 @@ export const priceContentStyle = css`
   font-size: 12px;
   line-height: 20px;
   color: ${getColor("grayBlue", "03")};
+
+  ${applyMobileStyle(css`
+    font-size: 24rem;
+    line-height: 40rem;
+  `)};
 `
 
 export const priceStyle = css`

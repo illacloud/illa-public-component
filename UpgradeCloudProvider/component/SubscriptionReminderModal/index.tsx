@@ -126,8 +126,7 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
               {t("billing.modal.upgrade_now_admin.pricing")}
             </div>
           </div>
-          <Button colorScheme="techPurple">
-            <UpgradeIcon />
+          <Button leftIcon={<UpgradeIcon />} colorScheme="techPurple">
             {t(buttonText)}
           </Button>
         </div>
