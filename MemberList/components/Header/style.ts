@@ -101,6 +101,13 @@ export const applyTabLabelStyle = (active: boolean) => css`
   cursor: pointer;
 `
 
+export const upgradeTabLabelStyle = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+`
+
 export const closeIconHotSpotStyle = css`
   width: 24px;
   height: 24px;

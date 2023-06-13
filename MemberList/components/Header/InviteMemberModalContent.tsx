@@ -1,3 +1,14 @@
+import copy from "copy-to-clipboard"
+import {
+  FC,
+  MouseEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
+import { useTranslation } from "react-i18next"
 import {
   Avatar,
   Button,
@@ -11,21 +22,12 @@ import {
   Loading,
   Skeleton,
   Switch,
+  getColor,
   useMessage,
 } from "@illa-design/react"
-import copy from "copy-to-clipboard"
-import {
-  FC,
-  MouseEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
-import { useTranslation } from "react-i18next"
 import { AuthShown, canAuthShow } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
+import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
 import { ReactComponent as SettingIcon } from "@/illa-public-component/MemberList/assets/icon/setting.svg"
 import {
   AppPublicContentProps,
@@ -64,6 +66,7 @@ import {
   subBodyTitleWrapperStyle,
   subBodyWrapperStyle,
   subtitleStyle,
+  upgradeTabLabelStyle,
   urlAreaStyle,
 } from "@/illa-public-component/MemberList/components/Header/style"
 import { MemberListContext } from "@/illa-public-component/MemberList/context/MemberListContext"
@@ -72,7 +75,11 @@ import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/
 import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import RoleSelect from "@/illa-public-component/RoleSelect"
 import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
-import { canManage, canManageApp } from "@/illa-public-component/UserRoleUtils"
+import {
+  canManage,
+  canManageApp,
+  isSubscribeLicense,
+} from "@/illa-public-component/UserRoleUtils"
 import {
   ACTION_MANAGE,
   ATTRIBUTE_GROUP,
@@ -162,8 +169,12 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     userNickname,
     from,
   } = props
-  const { track } = useContext(MixpanelTrackContext)
   const { t } = useTranslation()
+  const { track } = useContext(MixpanelTrackContext)
+  const { currentTeamLicense } = useContext(MemberListContext)
+  const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
+
+  const isSubscribe = isSubscribeLicense(currentTeamLicense.plan)
 
   const canSetPublic = canManageApp(
     currentUserRole,
@@ -187,7 +198,12 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     },
     {
       id: 1,
-      label: t("user_management.modal.tab.public"),
+      label: (
+        <div css={upgradeTabLabelStyle}>
+          {t("user_management.modal.tab.public")}
+          {!isSubscribe && <UpgradeIcon color={getColor("techPurple", "01")} />}
+        </div>
+      ),
       hidden: !canEditApp,
     },
   ]
@@ -238,6 +254,10 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
                           element: "invite_modal_public_tab",
                           parameter5: appID,
                         })
+                        if (isCloudVersion && !isSubscribe) {
+                          handleUpgradeModalVisible(true, "upgrade")
+                          return
+                        }
                       }
                       handleTabClick(id)
                     }}

@@ -1,3 +1,6 @@
+import { FC, ReactNode, useCallback, useContext, useMemo } from "react"
+import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
 import {
   Button,
   CloseIcon,
@@ -6,9 +9,6 @@ import {
   ModalProps,
   Trigger,
 } from "@illa-design/react"
-import { FC, ReactNode, useCallback, useContext, useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
 import {
   SUBSCRIBE_PLAN,
@@ -31,7 +31,7 @@ import {
   priceStyle,
   titleStyle,
 } from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/style"
-import { getCurrentTeamInfo } from "@/store/team/teamSelector"
+import { getCurrentTeamInfo } from "@/redux/team/teamSelector"
 import { ReactComponent as DoubtIcon } from "./assets/doubt.svg"
 import { ReactComponent as TipIcon } from "./assets/pricing-tip.svg"
 

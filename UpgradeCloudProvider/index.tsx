@@ -1,4 +1,3 @@
-import { useMessage } from "@illa-design/react"
 import {
   FC,
   ReactNode,
@@ -8,6 +7,7 @@ import {
   useState,
 } from "react"
 import { useSelector } from "react-redux"
+import { useMessage } from "@illa-design/react"
 import {
   InsufficientNoticeModal,
   InsufficientNoticeModalType,
@@ -27,7 +27,7 @@ import {
   UpgradeSuccessModalType,
 } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal"
 import { canManagePayment } from "@/illa-public-component/UserRoleUtils"
-import { getCurrentTeamInfo } from "@/store/team/teamSelector"
+import { getCurrentTeamInfo } from "@/redux/team/teamSelector"
 
 interface ProviderProps {
   children: ReactNode

@@ -1,3 +1,6 @@
+import { FC, useCallback, useEffect, useMemo, useState } from "react"
+import { Trans, useTranslation } from "react-i18next"
+import { useWindowSize } from "react-use"
 import {
   Button,
   Divider,
@@ -5,12 +8,9 @@ import {
   DrawerProps,
   InputNumber,
   Select,
+  useMessage,
   zIndex,
 } from "@illa-design/react"
-import { message } from "antd"
-import { FC, useCallback, useEffect, useMemo, useState } from "react"
-import { Trans, useTranslation } from "react-i18next"
-import { useWindowSize } from "react-use"
 import {
   PurchaseItem,
   cancelSubscribe,
@@ -181,6 +181,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
 
   const { width } = useWindowSize()
   const isMobile = isMobileByWindowSize(width)
+  const message = useMessage()
 
   const [cycle, setCycle] = useState<SUBSCRIPTION_CYCLE>(
     SUBSCRIPTION_CYCLE.MONTHLY,
@@ -456,7 +457,9 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
                   mode="button"
                   colorScheme="techPurple"
                   value={quantity}
-                  onChange={setQuantity}
+                  onChange={(value) => {
+                    setQuantity(value ?? 0)
+                  }}
                   // formatter={quantityFormatter}
                   min={
                     defaultConfig.type === "traffic"
