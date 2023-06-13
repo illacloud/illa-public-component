@@ -7,6 +7,7 @@ import {
   Select,
   zIndex,
 } from "@illa-design/react"
+import { message } from "antd"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useWindowSize } from "react-use"
@@ -344,16 +345,20 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
           isSubscribe(subscribeInfo?.currentPlan)
         ) {
           if (quantity === 0) {
-            const res = await cancelSubscribe(subscribeInfo?.currentPlan)
-            console.log(res, "cancelSubscribe res")
+            await cancelSubscribe(subscribeInfo?.currentPlan)
+            message.success({
+              content: t("billing.message.unsubscription_suc"),
+            })
             defaultConfig?.onSubscribeCallback?.()
           } else {
-            const res = await modifySubscribe({
+            await modifySubscribe({
               plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
               quantity,
               cycle,
             })
-            console.log(res, "modifySubscribe res")
+            message.success({
+              content: t("billing.message.successfully_changed"),
+            })
             defaultConfig?.onSubscribeCallback?.()
           }
         } else {
@@ -374,6 +379,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       console.error("An error occurred while subscribe:", error)
     } finally {
       setLoading(false)
+      onCancel?.()
     }
   }
 
