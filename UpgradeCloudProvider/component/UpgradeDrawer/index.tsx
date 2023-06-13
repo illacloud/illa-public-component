@@ -325,7 +325,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     const { type, subscribeInfo, purchaseInfo } = defaultConfig
     if (loading) return
     setLoading(true)
-
+    console.log(quantityFormatter)
     try {
       if (type === "traffic") {
         const res = await purchase({
@@ -377,8 +377,6 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     }
   }
 
-  console.log(defaultConfig, "defaultConfig")
-
   useEffect(() => {
     switch (defaultConfig?.type) {
       case "license":
@@ -403,8 +401,6 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     defaultConfig?.purchaseInfo,
     defaultConfig?.type,
   ])
-
-  console.log({ cycle, quantity, quantityFormatter }, "cycle, quantity")
 
   return (
     <Drawer

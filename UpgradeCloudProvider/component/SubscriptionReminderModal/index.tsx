@@ -6,9 +6,15 @@ import {
   ModalProps,
   Trigger,
 } from "@illa-design/react"
-import { FC, ReactNode, useMemo } from "react"
+import { FC, ReactNode, useCallback, useContext, useMemo } from "react"
 import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
 import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
+import {
+  SUBSCRIBE_PLAN,
+  SUBSCRIPTION_CYCLE,
+} from "@/illa-public-component/MemberList/interface"
+import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
 import { ReactComponent as ModalDecorate } from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/assets/upgrad-modal-bg.svg"
 import {
   applyCardListStyle,
@@ -25,6 +31,7 @@ import {
   priceStyle,
   titleStyle,
 } from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/style"
+import { getCurrentTeamInfo } from "@/store/team/teamSelector"
 import { ReactComponent as DoubtIcon } from "./assets/doubt.svg"
 import { ReactComponent as TipIcon } from "./assets/pricing-tip.svg"
 
@@ -39,6 +46,11 @@ const modalConfigKey = {
     title: "billing.modal.upgrade_now_admin.upgrade_to_plus",
     description: "billing.modal.upgrade_now_admin.this_feature_is_avai",
     buttonText: "billing.modal.upgrade_now_admin.upgrade",
+  },
+  expired: {
+    title: "billing.modal.expired.your_subscription_ha",
+    description: "billing.modal.expired.all_members_except_f",
+    buttonText: "billing.modal.expired.upgrade",
   },
 }
 
@@ -71,10 +83,35 @@ const featureConfig = [
 export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
   const { configType = "upgrade", onCancel, ...otherProps } = props
   const { t } = useTranslation()
+  const { handleLicenseDrawerVisible } = useContext(UpgradeCloudContext)
+
+  const teamInfo = useSelector(getCurrentTeamInfo)
 
   const { title, description, buttonText } = useMemo(() => {
     return modalConfigKey[configType]
   }, [configType])
+
+  const billingUrl = useMemo(() => {
+    if (!teamInfo?.identifier) return ""
+    return `${location.protocol}//${import.meta.env.VITE_CLOUD_URL}/team/${
+      teamInfo?.identifier
+    }/billing`
+  }, [teamInfo?.identifier])
+
+  const openDrawer = useCallback(() => {
+    const currentTeamLicense = teamInfo?.currentTeamLicense
+    handleLicenseDrawerVisible(true, {
+      type: "license",
+      subscribeInfo: {
+        quantity: currentTeamLicense?.cancelAtPeriodEnd
+          ? 0
+          : currentTeamLicense?.volume ?? 0,
+        cycle: currentTeamLicense?.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
+        plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
+        currentPlan: currentTeamLicense?.plan,
+      },
+    })
+  }, [teamInfo?.currentTeamLicense, handleLicenseDrawerVisible])
 
   return (
     <Modal
@@ -115,7 +152,7 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
           )
         })}
         <div css={applyCardListStyle("learn_more")}>
-          <Link colorScheme="techPurple">
+          <Link colorScheme="techPurple" href={billingUrl}>
             {t("billing.modal.upgrade_now_admin.learn_more")}
           </Link>
         </div>
@@ -126,7 +163,11 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
               {t("billing.modal.upgrade_now_admin.pricing")}
             </div>
           </div>
-          <Button leftIcon={<UpgradeIcon />} colorScheme="techPurple">
+          <Button
+            leftIcon={<UpgradeIcon />}
+            colorScheme="techPurple"
+            onClick={openDrawer}
+          >
             {t(buttonText)}
           </Button>
         </div>
