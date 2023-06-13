@@ -400,9 +400,8 @@ export const canAccessManage = (
   subscribePlan?: SUBSCRIBE_PLAN,
 ) => {
   const isSubscribe = isSubscribeLicense(subscribePlan)
-  if (isSubscribe) {
-    return true
-  }
+  if (isSubscribe) return true
+
   return !!accessAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[
     ACTION_ACCESS.VIEW
   ]

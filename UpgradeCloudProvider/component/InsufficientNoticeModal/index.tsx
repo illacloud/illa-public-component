@@ -13,6 +13,11 @@ import {
 import { actionAreaStyle } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal/style"
 
 const modalConfigKey = {
+  upgrade: {
+    title: "billing.modal.expired.your_subscription_ha_not_owner",
+    description: "billing.modal.expired.all_members_except_f_not_owner",
+    buttonText: "billing.modal.expired.upgrade_not_owner",
+  },
   "add-license": {
     title: "billing.modal.upgrade_not_admin.insufficient_license_title",
     description:
