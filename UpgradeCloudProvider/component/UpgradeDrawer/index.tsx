@@ -98,9 +98,10 @@ const isSubscribe = (subscribePlan?: SUBSCRIBE_PLAN) => {
   return (
     subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS ||
     subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE ||
-    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_INSUFFICIENT ||
-    subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_PAID ||
-    subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_INSUFFICIENT
+    subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_PAID
+    // ||
+    // subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_INSUFFICIENT ||
+    // subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_INSUFFICIENT
   )
 }
 
@@ -156,6 +157,13 @@ const getSubscriptionStatus = (
     default:
       return "unknown"
   }
+}
+
+function appendQueryParam(key: string, value: string) {
+  const currentURL = window.location.href
+  const url = new URL(currentURL)
+  url.searchParams.set(key, value)
+  return url.toString()
 }
 
 export const LEARN_MORE_LINK =
@@ -246,6 +254,10 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
   const unChanged = useMemo(() => {
     const subscribeInfo = defaultConfig.subscribeInfo
 
+    if (!isSubscribe(subscribeInfo?.currentPlan)) {
+      return false
+    }
+
     switch (defaultConfig.type) {
       case "license":
       case "storage":
@@ -327,17 +339,19 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     if (loading) return
     setLoading(true)
     console.log(quantityFormatter)
+    const successRedirect = appendQueryParam("stripeSuccessType", type)
+    const cancelRedirect = appendQueryParam("stripeCancelType", type)
     try {
       if (type === "traffic") {
         const res = await purchase({
           item: purchaseInfo?.item ?? PurchaseItem.DRIVE_TRAFFIC_1GB,
           quantity,
-          successRedirect: window.location.href,
-          cancelRedirect: window.location.href,
+          successRedirect,
+          cancelRedirect,
         })
         console.log(res, "purchase res")
         if (res.data.url) {
-          window.open(res.data.url, "_blank")
+          window.open(res.data.url, "_self")
         }
       } else {
         if (
@@ -366,12 +380,12 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
             plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
             quantity,
             cycle,
-            successRedirect: window.location.href,
-            cancelRedirect: window.location.href,
+            successRedirect,
+            cancelRedirect,
           })
           console.log(res, "subscribe res")
           if (res.data.url) {
-            window.open(res.data.url, "_blank")
+            window.open(res.data.url, "_self")
           }
         }
       }
