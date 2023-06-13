@@ -68,11 +68,11 @@ const ConfigKey = {
     manageLabel: "billing.payment_sidebar.plan_label.License",
   },
   storage: {
-    title: "billing.modal.storage_insufficient.not_owner_title",
+    title: "billing.payment_sidebar.title.manage_licenses",
     manageLabel: "billing.payment_sidebar.plan_label.Storage",
   },
   traffic: {
-    title: "billing.modal.traffic_insufficient.not_owner_title",
+    title: "billing.payment_sidebar.title.expand_traffic_capac",
     manageLabel: "billing.payment_sidebar.plan_label.Traffic",
   },
 }
@@ -277,6 +277,28 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     return t(statusLabelKeys[status], { changeNum: quantity }) ?? ""
   }, [defaultConfig, quantity, cycle, t])
 
+  const actionButtonText = useMemo(() => {
+    const { type } = defaultConfig
+    const typeKey = type === "license" ? "license" : "storage_traffic"
+    const statusLabelKeys = {
+      unknown: "billing.payment_sidebar.button.subscribe",
+      un_changed: "billing.payment_sidebar.button.subscribe",
+      subscribed_cancelled: "billing.payment_sidebar.button.unsubscribe",
+      subscribed_plan_decreased_with_update:
+        "billing.payment_sidebar.button.change_plan",
+      subscribed_plan_increased_with_update:
+        "billing.payment_sidebar.button.change_plan",
+      subscribed_quantity_decreased: `billing.payment_sidebar.button.${typeKey}_remove`,
+      subscribed_quantity_increased: `billing.payment_sidebar.button.${typeKey}_increase`,
+      subscribed_yearly: "billing.payment_sidebar.button.subscribe",
+      subscribed_monthly: "billing.payment_sidebar.button.subscribe",
+      traffic_added: "billing.payment_sidebar.button.storage_traffic_increase",
+    }
+    const status = getSubscriptionStatus(defaultConfig, quantity, cycle)
+
+    return t(statusLabelKeys[status], { changeNum: quantity }) ?? ""
+  }, [defaultConfig, quantity, cycle, t])
+
   const quantityFormatter = useCallback(
     (value: number | string) => {
       switch (defaultConfig?.type) {
@@ -447,7 +469,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
               mt={isMobile ? pxToRem(32) : "16px"}
               onClick={handleSubscribe}
             >
-              Subscribe
+              {actionButtonText}
             </Button>
           </div>
         </div>
