@@ -384,7 +384,9 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       case "license":
       case "storage":
         if (defaultConfig?.subscribeInfo) {
-          setCycle(defaultConfig.subscribeInfo.cycle)
+          setCycle(
+            defaultConfig.subscribeInfo.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
+          )
           setQuantity(defaultConfig.subscribeInfo.quantity)
         }
         break
@@ -402,7 +404,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     defaultConfig?.type,
   ])
 
-  console.log({ cycle, quantity }, "cycle, quantity")
+  console.log({ cycle, quantity, quantityFormatter }, "cycle, quantity")
 
   return (
     <Drawer

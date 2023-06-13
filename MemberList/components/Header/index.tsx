@@ -16,6 +16,7 @@ import {
   headerWrapperStyle,
   titleStyle,
 } from "@/illa-public-component/MemberList/components/Header/style"
+import { SUBSCRIBE_PLAN } from "@/illa-public-component/MemberList/interface"
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
 import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
@@ -128,6 +129,10 @@ export const Header: FC<HeaderProps> = (props) => {
     )
     if (isSubscribeLicense(currentTeamLicense?.plan)) {
       handleClickInvite()
+    } else if (
+      currentTeamLicense?.plan === SUBSCRIBE_PLAN.TEAM_LICENSE_INSUFFICIENT
+    ) {
+      handleUpgradeModalVisible(true, "add-license")
     } else {
       handleUpgradeModalVisible(true, "upgrade")
     }

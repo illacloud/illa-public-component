@@ -405,6 +405,16 @@ export const canManagePayment = (
   return !!manageAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[attribute]
 }
 
+export const canSubscribeLicense = (
+  userRole: USER_ROLE = USER_ROLE.VIEWER,
+  subscribePlan?: SUBSCRIBE_PLAN,
+) => {
+  if (subscribePlan !== SUBSCRIBE_PLAN.TEAM_LICENSE_FREE) return false
+  return !!manageAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[
+    ACTION_MANAGE.SUBSCRIBE
+  ]
+}
+
 export const canManageSpecial = (
   userRole: USER_ROLE,
   attributeGroup: ATTRIBUTE_GROUP,
