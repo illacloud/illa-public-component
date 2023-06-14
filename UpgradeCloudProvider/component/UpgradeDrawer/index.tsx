@@ -69,7 +69,7 @@ const ConfigKey = {
     manageLabel: "billing.payment_sidebar.plan_label.License",
   },
   storage: {
-    title: "billing.payment_sidebar.title.manage_licenses",
+    title: "billing.payment_sidebar.title.manage_storage",
     manageLabel: "billing.payment_sidebar.plan_label.Storage",
   },
   traffic: {

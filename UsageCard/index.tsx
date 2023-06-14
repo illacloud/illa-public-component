@@ -22,7 +22,6 @@ import {
   usageCardStyle,
   usageProgressStyle,
 } from "@/illa-public-component/UsageCard/style"
-// import { getStorageSize } from "@/utils/storage/calculateSize"
 import DriveIcon from "./assets/drive.svg"
 import LicenseIcon from "./assets/license.svg"
 import TrafficIcon from "./assets/traffic.svg"
@@ -35,6 +34,7 @@ interface UsageCardProps extends HTMLAttributes<HTMLDivElement> {
   isMobile?: boolean
   actionDes?: string
   buttonColorScheme?: ButtonColorScheme
+  onClick?: () => void
 }
 
 export const UsageCard: FC<UsageCardProps> = (props) => {
@@ -107,7 +107,7 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
   }, [isMobile])
 
   return (
-    <div css={cardStyle} onClick={onClick} {...rest}>
+    <div css={cardStyle} {...rest}>
       <div css={firstLineStyle}>
         <img css={iconTypeStyle} src={config[type].icon} alt="" />
         <span>{config[type].name}</span>
@@ -132,7 +132,11 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
       )}
       <div css={lastActionsStyle}>
         {actionDes && <span>{actionDes}</span>}
-        <Button _css={buttonStyle} colorScheme={buttonColorScheme}>
+        <Button
+          _css={buttonStyle}
+          colorScheme={buttonColorScheme}
+          onClick={onClick}
+        >
           {config[type].actionText}
         </Button>
       </div>

@@ -8,6 +8,10 @@ import {
   listBodyStyle,
   listWrapperStyle,
 } from "@/illa-public-component/MemberList/components/List/style"
+import {
+  SUBSCRIBE_PLAN,
+  SUBSCRIPTION_CYCLE,
+} from "@/illa-public-component/MemberList/interface"
 import RoleSelect from "@/illa-public-component/RoleSelect"
 import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
 import { UsageCard } from "@/illa-public-component/UsageCard"
@@ -167,8 +171,8 @@ export const List: FC<ListProps> = (props) => {
         quantity: currentTeamLicense.cancelAtPeriodEnd
           ? 0
           : currentTeamLicense.volume,
-        cycle: currentTeamLicense.cycle,
-        plan: currentTeamLicense.plan,
+        cycle: currentTeamLicense.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
+        plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
         currentPlan: currentTeamLicense.plan,
       },
     })
