@@ -1,6 +1,3 @@
-import { FC, ReactNode, useCallback, useContext, useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import {
   Button,
   CloseIcon,
@@ -9,6 +6,9 @@ import {
   ModalProps,
   Trigger,
 } from "@illa-design/react"
+import { FC, ReactNode, useCallback, useContext, useMemo } from "react"
+import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
 import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
 import {
   SUBSCRIBE_PLAN,

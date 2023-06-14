@@ -1,6 +1,3 @@
-import { FC, useCallback, useEffect, useMemo, useState } from "react"
-import { Trans, useTranslation } from "react-i18next"
-import { useWindowSize } from "react-use"
 import {
   Button,
   Divider,
@@ -11,6 +8,9 @@ import {
   useMessage,
   zIndex,
 } from "@illa-design/react"
+import { FC, useCallback, useEffect, useMemo, useState } from "react"
+import { Trans, useTranslation } from "react-i18next"
+import { useWindowSize } from "react-use"
 import {
   PurchaseItem,
   cancelSubscribe,

@@ -1,3 +1,4 @@
+import { useMessage } from "@illa-design/react"
 import {
   FC,
   ReactNode,
@@ -7,7 +8,6 @@ import {
   useState,
 } from "react"
 import { useSelector } from "react-redux"
-import { useMessage } from "@illa-design/react"
 import {
   InsufficientNoticeModal,
   InsufficientNoticeModalType,

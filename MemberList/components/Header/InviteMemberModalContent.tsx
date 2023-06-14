@@ -1,14 +1,3 @@
-import copy from "copy-to-clipboard"
-import {
-  FC,
-  MouseEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
-import { useTranslation } from "react-i18next"
 import {
   Avatar,
   Button,
@@ -25,6 +14,17 @@ import {
   getColor,
   useMessage,
 } from "@illa-design/react"
+import copy from "copy-to-clipboard"
+import {
+  FC,
+  MouseEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
+import { useTranslation } from "react-i18next"
 import { AuthShown, canAuthShow } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"

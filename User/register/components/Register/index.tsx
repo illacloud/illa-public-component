@@ -1,7 +1,3 @@
-import { FC, useEffect, useState } from "react"
-import { Controller, useFormContext } from "react-hook-form"
-import { Trans, useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
 import {
   Button,
   Divider,
@@ -9,7 +5,15 @@ import {
   Password,
   WarningCircleIcon,
 } from "@illa-design/react"
+import { FC, useEffect, useState } from "react"
+import { Controller, useFormContext } from "react-hook-form"
+import { Trans, useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 import { EMAIL_FORMAT } from "@/constants/regExp"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
+} from "@/illa-public-component/MixpanelUtils/interface"
 import { TextLink } from "@/illa-public-component/TextLink"
 import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
 import { ReactComponent as GoogleIcon } from "@/illa-public-component/User/assets/google.svg"
@@ -30,11 +34,9 @@ import {
 import { EmailCode } from "@/illa-public-component/User/register/components/EmailCode"
 import { RegisterProps } from "@/illa-public-component/User/register/components/Register/interface"
 import { RegisterFields } from "@/illa-public-component/User/register/interface"
-import { isCloudVersion } from "@/utils/typeHelper"
-import { ILLA_MIXPANEL_EVENT_TYPE, ILLA_MIXPANEL_PUBLIC_PAGE_NAME } from "@/illa-public-component/MixpanelUtils/interface"
 import { validateReport } from "@/illa-public-component/User/utils/reportUtils"
 import { track } from "@/utils/mixpanelHelper"
-
+import { isCloudVersion } from "@/utils/typeHelper"
 
 const Register: FC<RegisterProps> = (props) => {
   const { t } = useTranslation()
@@ -49,9 +51,12 @@ const Register: FC<RegisterProps> = (props) => {
     sendEmail,
   } = props
   const navigate = useNavigate()
-  const { handleSubmit, control, formState, getValues, trigger } = useFormContext<RegisterFields>()
-  const {errors} = formState
-  const [asyncValid, setAsyncValid] = useState<{ isValid: boolean } | undefined>()
+  const { handleSubmit, control, formState, getValues, trigger } =
+    useFormContext<RegisterFields>()
+  const { errors } = formState
+  const [asyncValid, setAsyncValid] = useState<
+    { isValid: boolean } | undefined
+  >()
 
   const validReport = async () => {
     track(
@@ -59,10 +64,10 @@ const Register: FC<RegisterProps> = (props) => {
       ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
       {
         element: "create_account",
-      }
+      },
     )
     let isValid = await trigger()
-    if(isValid) {
+    if (isValid) {
       validateReport(
         ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
         "create_account",
@@ -101,7 +106,11 @@ const Register: FC<RegisterProps> = (props) => {
                 <TextLink
                   key="go-to-login"
                   onClick={() => {
-                    track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'sign_in'})
+                    track(
+                      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                      ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
+                      { element: "sign_in" },
+                    )
                     navigate({ pathname: "/login", search: location.search })
                   }}
                 />,
@@ -127,10 +136,24 @@ const Register: FC<RegisterProps> = (props) => {
                     variant="fill"
                     placeholder={t("page.user.sign_up.placeholder.username")}
                     onFocus={() => {
-                      track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'username_input', parameter3: getValues().nickname?.length ?? 0})
+                      track(
+                        ILLA_MIXPANEL_EVENT_TYPE.FOCUS,
+                        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
+                        {
+                          element: "username_input",
+                          parameter3: getValues().nickname?.length ?? 0,
+                        },
+                      )
                     }}
                     onBlur={() => {
-                      track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'username_input', parameter3: getValues().nickname?.length ?? 0})
+                      track(
+                        ILLA_MIXPANEL_EVENT_TYPE.BLUR,
+                        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
+                        {
+                          element: "username_input",
+                          parameter3: getValues().nickname?.length ?? 0,
+                        },
+                      )
                     }}
                   />
                 )}
@@ -178,10 +201,24 @@ const Register: FC<RegisterProps> = (props) => {
                     placeholder={t("page.user.sign_up.placeholder.email")}
                     {...(lockedEmail && { value: lockedEmail, disabled: true })}
                     onFocus={() => {
-                      track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'email_input', parameter3: getValues().email?.length ?? 0})
+                      track(
+                        ILLA_MIXPANEL_EVENT_TYPE.FOCUS,
+                        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
+                        {
+                          element: "email_input",
+                          parameter3: getValues().email?.length ?? 0,
+                        },
+                      )
                     }}
                     onBlur={() => {
-                      track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'email_input', parameter3: getValues().email?.length ?? 0})
+                      track(
+                        ILLA_MIXPANEL_EVENT_TYPE.BLUR,
+                        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
+                        {
+                          element: "email_input",
+                          parameter3: getValues().email?.length ?? 0,
+                        },
+                      )
                     }}
                   />
                 )}
@@ -238,10 +275,26 @@ const Register: FC<RegisterProps> = (props) => {
                         "page.user.sign_up.placeholder.verification_code",
                       )}
                       onFocus={() => {
-                        track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'verification_code_input', parameter3: getValues().verificationCode?.length ?? 0})
+                        track(
+                          ILLA_MIXPANEL_EVENT_TYPE.FOCUS,
+                          ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
+                          {
+                            element: "verification_code_input",
+                            parameter3:
+                              getValues().verificationCode?.length ?? 0,
+                          },
+                        )
                       }}
                       onBlur={() => {
-                        track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'verification_code_input', parameter3: getValues().verificationCode?.length ?? 0})
+                        track(
+                          ILLA_MIXPANEL_EVENT_TYPE.BLUR,
+                          ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
+                          {
+                            element: "verification_code_input",
+                            parameter3:
+                              getValues().verificationCode?.length ?? 0,
+                          },
+                        )
                       }}
                     />
                   )}
@@ -281,10 +334,24 @@ const Register: FC<RegisterProps> = (props) => {
                     variant="fill"
                     placeholder={t("page.user.password.placeholder")}
                     onFocus={() => {
-                      track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'password', parameter3: getValues().password?.length ?? 0})
+                      track(
+                        ILLA_MIXPANEL_EVENT_TYPE.FOCUS,
+                        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
+                        {
+                          element: "password",
+                          parameter3: getValues().password?.length ?? 0,
+                        },
+                      )
                     }}
                     onBlur={() => {
-                      track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'password', parameter3: getValues().password?.length ?? 0})
+                      track(
+                        ILLA_MIXPANEL_EVENT_TYPE.BLUR,
+                        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
+                        {
+                          element: "password",
+                          parameter3: getValues().password?.length ?? 0,
+                        },
+                      )
                     }}
                   />
                 )}
@@ -352,7 +419,11 @@ const Register: FC<RegisterProps> = (props) => {
               size="large"
               fullWidth
               onClick={() => {
-                track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP, {element: 'github_sign_up'})
+                track(
+                  ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                  ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
+                  { element: "github_sign_up" },
+                )
                 oAuthURI?.github && openOAuthUrl(oAuthURI.github)
               }}
             >

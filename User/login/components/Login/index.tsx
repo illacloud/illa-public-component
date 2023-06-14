@@ -1,7 +1,3 @@
-import { FC, useEffect, useState } from "react"
-import { Controller, useFormContext } from "react-hook-form"
-import { Trans, useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
 import {
   Button,
   Divider,
@@ -9,6 +5,10 @@ import {
   Password,
   WarningCircleIcon,
 } from "@illa-design/react"
+import { FC, useEffect, useState } from "react"
+import { Controller, useFormContext } from "react-hook-form"
+import { Trans, useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
@@ -45,8 +45,10 @@ const Login: FC<LoginProps> = (props) => {
   const { onSubmit, errorMsg, loading, oAuthURI } = props
   const { handleSubmit, control, formState, getValues, trigger } =
     useFormContext<LoginFields>()
-  const {errors} = formState
-  const [asyncValid, setAsyncValid] = useState<{ isValid: boolean } | undefined>()
+  const { errors } = formState
+  const [asyncValid, setAsyncValid] = useState<
+    { isValid: boolean } | undefined
+  >()
 
   const validReport = async () => {
     track(
@@ -57,13 +59,8 @@ const Login: FC<LoginProps> = (props) => {
       },
     )
     let isValid = await trigger()
-    if(isValid) {
-      validateReport(
-        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
-        "sign_in",
-        true,
-        {},
-      )
+    if (isValid) {
+      validateReport(ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, "sign_in", true, {})
     }
     setAsyncValid({ isValid })
   }
@@ -122,10 +119,24 @@ const Login: FC<LoginProps> = (props) => {
                     placeholder={t("page.user.sign_in.placeholder.email")}
                     colorScheme="techPurple"
                     onFocus={() => {
-                      track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, {element: 'email_input', parameter3: getValues().email?.length ?? 0})
+                      track(
+                        ILLA_MIXPANEL_EVENT_TYPE.FOCUS,
+                        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+                        {
+                          element: "email_input",
+                          parameter3: getValues().email?.length ?? 0,
+                        },
+                      )
                     }}
                     onBlur={() => {
-                      track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, {element: 'email_input', parameter3: getValues().email?.length ?? 0})
+                      track(
+                        ILLA_MIXPANEL_EVENT_TYPE.BLUR,
+                        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+                        {
+                          element: "email_input",
+                          parameter3: getValues().email?.length ?? 0,
+                        },
+                      )
                     }}
                   />
                 )}
@@ -163,7 +174,11 @@ const Login: FC<LoginProps> = (props) => {
               <TextLink
                 css={forgotPwdStyle}
                 onClick={() => {
-                  track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, {element: 'forget_password'})
+                  track(
+                    ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                    ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+                    { element: "forget_password" },
+                  )
                   navigate({
                     pathname: "/forgotPassword",
                     search: location.search,
@@ -186,10 +201,24 @@ const Login: FC<LoginProps> = (props) => {
                     placeholder={t("page.user.password.placeholder")}
                     colorScheme="techPurple"
                     onFocus={() => {
-                      track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, {element: 'password_input', parameter3: getValues().password?.length ?? 0})
+                      track(
+                        ILLA_MIXPANEL_EVENT_TYPE.FOCUS,
+                        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+                        {
+                          element: "password_input",
+                          parameter3: getValues().password?.length ?? 0,
+                        },
+                      )
                     }}
                     onBlur={() => {
-                      track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, {element: 'password_input', parameter3: getValues().password?.length ?? 0})
+                      track(
+                        ILLA_MIXPANEL_EVENT_TYPE.BLUR,
+                        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+                        {
+                          element: "password_input",
+                          parameter3: getValues().password?.length ?? 0,
+                        },
+                      )
                     }}
                   />
                 )}
@@ -252,7 +281,11 @@ const Login: FC<LoginProps> = (props) => {
               size="large"
               fullWidth
               onClick={() => {
-                track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, {element: 'github_sign_in'})
+                track(
+                  ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                  ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+                  { element: "github_sign_in" },
+                )
                 oAuthURI?.github && openOAuthUrl(oAuthURI.github)
               }}
             >

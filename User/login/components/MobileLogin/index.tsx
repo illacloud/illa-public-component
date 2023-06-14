@@ -29,17 +29,20 @@ import {
   submitButtonStyle,
 } from "@/illa-public-component/User/login/components/MobileLogin/style"
 import { LoginFields } from "@/illa-public-component/User/login/interface"
+import { validateReport } from "@/illa-public-component/User/utils/reportUtils"
 import { track } from "@/utils/mixpanelHelper"
 import { isCloudVersion } from "@/utils/typeHelper"
-import { validateReport } from "@/illa-public-component/User/utils/reportUtils"
 
 const MobileLogin: FC<MobileLoginProps> = (props) => {
   const { onSubmit, errorMsg, loading, oAuthURI } = props
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const { handleSubmit, control, formState, getValues, trigger } = useFormContext<LoginFields>()
-  const {errors} = formState
-  const [asyncValid, setAsyncValid] = useState<{ isValid: boolean } | undefined>()
+  const { handleSubmit, control, formState, getValues, trigger } =
+    useFormContext<LoginFields>()
+  const { errors } = formState
+  const [asyncValid, setAsyncValid] = useState<
+    { isValid: boolean } | undefined
+  >()
 
   const validReport = async () => {
     track(
@@ -50,13 +53,8 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
       },
     )
     let isValid = await trigger()
-    if(isValid) {
-      validateReport(
-        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
-        "sign_in",
-        true,
-        {},
-      )
+    if (isValid) {
+      validateReport(ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, "sign_in", true, {})
     }
     setAsyncValid({ isValid })
   }
