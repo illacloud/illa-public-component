@@ -22,7 +22,7 @@ import {
   modifySubscribe,
   purchase,
   subscribe,
-} from "@/service/billing"
+} from "@/services/billing"
 import { pxToRem } from "@/style"
 import { isMobileByWindowSize } from "@/utils/screen"
 import {
