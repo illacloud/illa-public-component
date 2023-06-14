@@ -240,6 +240,20 @@ export const inviteEmailWrapperStyle = css`
   align-items: flex-start;
 `
 
+export const remainInviteCountStyle = css`
+  margin-top: 8px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  color: ${getColor("grayBlue", "03")};
+`
+
+export const applyInviteCountStyle = (count: number) => {
+  return css`
+    color: ${count > 0 ? getColor("grayBlue", "03") : getColor("red", "03")};
+  `
+}
+
 export const inviteListWrapperStyle = css`
   display: flex;
   flex-direction: column;

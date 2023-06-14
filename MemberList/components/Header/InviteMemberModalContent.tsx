@@ -21,6 +21,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react"
@@ -41,6 +42,7 @@ import {
 import {
   appPublicWrapperStyle,
   applyHiddenStyle,
+  applyInviteCountStyle,
   applyTabLabelStyle,
   avatarAndNameWrapperStyle,
   closeIconHotSpotStyle,
@@ -62,6 +64,7 @@ import {
   nicknameStyle,
   publicLabelStyle,
   publicLinkStyle,
+  remainInviteCountStyle,
   settingIconStyle,
   subBodyTitleWrapperStyle,
   subBodyWrapperStyle,
@@ -839,6 +842,10 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
     setInviteRole(value)
   }, [])
 
+  const remainInviteCount = useMemo(() => {
+    return currentTeamLicense.balance - inviteMemberList.length
+  }, [currentTeamLicense.balance, inviteMemberList.length])
+
   const checkEmail = useCallback(
     (email: string) => {
       if (
@@ -897,8 +904,8 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       setInputEmailValue(value)
       if (value.includes(",")) {
         const values = value.split(",")
-        for (const value of values) {
-          let item = value.trim()
+        for (let index = 0; index < values.length; index++) {
+          let item = values[index].trim()
 
           if (!item.length) continue
 
@@ -911,33 +918,20 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
             continue
           }
 
-          if (
-            [...userListData, ...inviteEmails].length >=
-            currentTeamLicense.volume
-          ) {
-            handleUpgradeModalVisible(true, "add-license")
-            break
-          }
-
           if (checkEmail(item)) {
-            setInviteEmails((prev) => {
-              if (
-                [...userListData, ...prev].length >= currentTeamLicense.volume
-              ) {
-                handleUpgradeModalVisible(true, "add-license")
-                return prev
-              }
-              return [...prev, item]
-            })
+            if (inviteEmails.length + index + 1 > remainInviteCount) {
+              handleUpgradeModalVisible(true, "add-license")
+              break
+            }
+            setInviteEmails((prev) => [...prev, item])
           }
         }
         setInputEmailValue("")
       }
     },
     [
+      remainInviteCount,
       inviteEmails,
-      userListData,
-      currentTeamLicense.volume,
       handleUpgradeModalVisible,
       checkEmail,
       message,
@@ -1060,6 +1054,12 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
             {t("user_management.modal.email.invite")}
           </span>
         </Button>
+      </div>
+      <div css={remainInviteCountStyle}>
+        {t("user_management.modal.tips.license_insufficient") + " "}
+        <span css={applyInviteCountStyle(remainInviteCount)}>
+          {remainInviteCount}
+        </span>
       </div>
       <InviteList
         changeMembersRole={handleChangeInviteMemberRole}
