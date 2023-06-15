@@ -34,6 +34,10 @@ export enum SUBSCRIPTION_CYCLE {
   YEARLY,
 }
 
+export enum CUSTOM_CYCLE {
+  LIFETIME = 3,
+}
+
 export interface SubscribeInfo {
   volume: number
   balance: number
@@ -43,6 +47,12 @@ export interface SubscribeInfo {
   cycle: SUBSCRIPTION_CYCLE
   totalAmount: number
   cancelAtPeriodEnd: boolean
+}
+
+export interface TotalLicenseInfo {
+  volume: number
+  balance: number
+  teamLicensePurchased: boolean // 用于区分免费团队和付费团队
 }
 
 export interface fetchInviteLinkResponse {
@@ -70,6 +80,7 @@ export interface MemberListProps {
   currentUserID: string
   currentTeamMemberID: string
   currentTeamLicense: SubscribeInfo
+  totalLicenseInfo: TotalLicenseInfo
   currentUserRole: USER_ROLE
   userListData: UserData[]
   allowEditorManageTeamMember: boolean

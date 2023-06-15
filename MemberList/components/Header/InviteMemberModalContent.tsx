@@ -78,11 +78,7 @@ import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/
 import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import RoleSelect from "@/illa-public-component/RoleSelect"
 import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
-import {
-  canManage,
-  canManageApp,
-  isSubscribeLicense,
-} from "@/illa-public-component/UserRoleUtils"
+import { canManage, canManageApp } from "@/illa-public-component/UserRoleUtils"
 import {
   ACTION_MANAGE,
   ATTRIBUTE_GROUP,
@@ -174,10 +170,10 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
   } = props
   const { t } = useTranslation()
   const { track } = useContext(MixpanelTrackContext)
-  const { currentTeamLicense } = useContext(MemberListContext)
+  const { totalLicenseInfo } = useContext(MemberListContext)
   const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
 
-  const isSubscribe = isSubscribeLicense(currentTeamLicense.plan)
+  const isSubscribe = totalLicenseInfo?.teamLicensePurchased
 
   const canSetPublic = canManageApp(
     currentUserRole,
@@ -827,7 +823,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   const { t } = useTranslation()
   const message = useMessage()
 
-  const { currentTeamLicense } = useContext(MemberListContext)
+  const { totalLicenseInfo } = useContext(MemberListContext)
   const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
 
   const [loading, setLoading] = useState(false)
@@ -843,13 +839,13 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   }, [])
 
   const remainInviteCount = useMemo(() => {
-    return currentTeamLicense.balance - inviteMemberList.length
-  }, [currentTeamLicense.balance, inviteMemberList.length])
+    return totalLicenseInfo.balance - inviteMemberList.length
+  }, [totalLicenseInfo.balance, inviteMemberList.length])
 
   const checkEmail = useCallback(
     (email: string) => {
       if (
-        [...userListData, ...inviteEmails].length >= currentTeamLicense.volume
+        [...userListData, ...inviteEmails].length >= totalLicenseInfo.volume
       ) {
         handleUpgradeModalVisible(true, "add-license")
         return false
@@ -876,7 +872,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       userListData,
       inviteEmails,
       inviteMemberList,
-      currentTeamLicense.volume,
+      totalLicenseInfo?.volume,
       handleUpgradeModalVisible,
       message,
       t,

@@ -24,6 +24,7 @@ export const List: FC<ListProps> = (props) => {
     currentUserID,
     currentUserRole,
     currentTeamLicense,
+    totalLicenseInfo,
     removeTeamMembers,
     changeTeamMembersRole,
   } = props
@@ -34,8 +35,11 @@ export const List: FC<ListProps> = (props) => {
   const { handleLicenseDrawerVisible } = useContext(UpgradeCloudContext)
 
   const hasPaymentManagementPermission = useMemo(() => {
-    return canManagePayment(currentUserRole, currentTeamLicense?.plan)
-  }, [currentUserRole, currentTeamLicense?.plan])
+    return canManagePayment(
+      currentUserRole,
+      totalLicenseInfo?.teamLicensePurchased,
+    )
+  }, [currentUserRole, totalLicenseInfo?.teamLicensePurchased])
 
   const data = useMemo(() => {
     if (!Array.isArray(userListData) || userListData.length === 0) {
@@ -183,8 +187,8 @@ export const List: FC<ListProps> = (props) => {
       {hasPaymentManagementPermission ? (
         <UsageCard
           type="License"
-          current={currentTeamLicense.volume - currentTeamLicense.balance}
-          total={currentTeamLicense.volume}
+          current={totalLicenseInfo.volume - totalLicenseInfo.balance}
+          total={totalLicenseInfo.volume}
           onClick={openDrawer}
         />
       ) : null}

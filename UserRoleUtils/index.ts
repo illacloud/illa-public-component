@@ -397,9 +397,8 @@ export const isSubscribeLicense = (subscribePlan?: SUBSCRIBE_PLAN) => {
 
 export const canAccessManage = (
   userRole: USER_ROLE = USER_ROLE.VIEWER,
-  subscribePlan?: SUBSCRIBE_PLAN,
+  isSubscribe?: boolean,
 ) => {
-  const isSubscribe = isSubscribeLicense(subscribePlan)
   if (isSubscribe) return true
 
   return !!accessAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[
@@ -408,22 +407,12 @@ export const canAccessManage = (
 }
 export const canManagePayment = (
   userRole: USER_ROLE = USER_ROLE.VIEWER,
-  subscribePlan?: SUBSCRIBE_PLAN,
+  isSubscribe?: boolean,
 ) => {
-  const attribute = isSubscribeLicense(subscribePlan)
+  const attribute = isSubscribe
     ? ACTION_MANAGE.PAYMENT_INFO
     : ACTION_MANAGE.SUBSCRIBE
   return !!manageAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[attribute]
-}
-
-export const canSubscribeLicense = (
-  userRole: USER_ROLE = USER_ROLE.VIEWER,
-  subscribePlan?: SUBSCRIBE_PLAN,
-) => {
-  if (subscribePlan !== SUBSCRIBE_PLAN.TEAM_LICENSE_FREE) return false
-  return !!manageAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[
-    ACTION_MANAGE.SUBSCRIBE
-  ]
 }
 
 export const canManageSpecial = (

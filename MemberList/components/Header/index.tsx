@@ -16,11 +16,10 @@ import {
   headerWrapperStyle,
   titleStyle,
 } from "@/illa-public-component/MemberList/components/Header/style"
-import { SUBSCRIBE_PLAN } from "@/illa-public-component/MemberList/interface"
+import { MemberListContext } from "@/illa-public-component/MemberList/context/MemberListContext"
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
 import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
-import { isSubscribeLicense } from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 import { HeaderProps } from "./interface"
 
@@ -65,11 +64,11 @@ export const Header: FC<HeaderProps> = (props) => {
     userNickname,
     userListData,
     isCloudVersion,
-    currentTeamLicense,
   } = props
   const { t } = useTranslation()
   const { track } = useContext(MixpanelTrackContext)
   const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
+  const { totalLicenseInfo } = useContext(MemberListContext)
 
   const [showInviteMemberModal, setShowInviteMemberModal] = useState(false)
 
@@ -127,18 +126,17 @@ export const Header: FC<HeaderProps> = (props) => {
       },
       "both",
     )
-    if (isSubscribeLicense(currentTeamLicense?.plan)) {
+    if (!totalLicenseInfo?.teamLicensePurchased) {
       handleClickInvite()
-    } else if (
-      currentTeamLicense?.plan === SUBSCRIBE_PLAN.TEAM_LICENSE_INSUFFICIENT
-    ) {
+    } else if (totalLicenseInfo.balance <= 0) {
       handleUpgradeModalVisible(true, "add-license")
     } else {
       handleUpgradeModalVisible(true, "upgrade")
     }
   }, [
     track,
-    currentTeamLicense?.plan,
+    totalLicenseInfo.balance,
+    totalLicenseInfo?.teamLicensePurchased,
     handleClickInvite,
     handleUpgradeModalVisible,
   ])
