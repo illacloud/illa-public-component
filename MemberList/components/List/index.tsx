@@ -24,7 +24,7 @@ export const List: FC<ListProps> = (props) => {
     currentUserID,
     currentUserRole,
     currentTeamLicense,
-    totalLicenseInfo,
+    totalTeamLicense,
     removeTeamMembers,
     changeTeamMembersRole,
   } = props
@@ -37,9 +37,9 @@ export const List: FC<ListProps> = (props) => {
   const hasPaymentManagementPermission = useMemo(() => {
     return canManagePayment(
       currentUserRole,
-      totalLicenseInfo?.teamLicensePurchased,
+      totalTeamLicense?.teamLicensePurchased,
     )
-  }, [currentUserRole, totalLicenseInfo?.teamLicensePurchased])
+  }, [currentUserRole, totalTeamLicense?.teamLicensePurchased])
 
   const data = useMemo(() => {
     if (!Array.isArray(userListData) || userListData.length === 0) {
@@ -187,8 +187,8 @@ export const List: FC<ListProps> = (props) => {
       {hasPaymentManagementPermission ? (
         <UsageCard
           type="License"
-          current={totalLicenseInfo.volume - totalLicenseInfo.balance}
-          total={totalLicenseInfo.volume}
+          current={totalTeamLicense.volume - totalTeamLicense.balance}
+          total={totalTeamLicense.volume}
           onClick={openDrawer}
         />
       ) : null}

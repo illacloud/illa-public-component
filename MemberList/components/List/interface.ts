@@ -23,7 +23,7 @@ export interface ListProps
     | "currentUserRole"
     | "changeTeamMembersRole"
     | "currentTeamLicense"
-    | "totalLicenseInfo"
+    | "totalTeamLicense"
   > {}
 
 export interface MoreActionProps

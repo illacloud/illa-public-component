@@ -68,7 +68,7 @@ export const Header: FC<HeaderProps> = (props) => {
   const { t } = useTranslation()
   const { track } = useContext(MixpanelTrackContext)
   const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
-  const { totalLicenseInfo } = useContext(MemberListContext)
+  const { totalTeamLicense } = useContext(MemberListContext)
 
   const [showInviteMemberModal, setShowInviteMemberModal] = useState(false)
 
@@ -126,17 +126,17 @@ export const Header: FC<HeaderProps> = (props) => {
       },
       "both",
     )
-    if (!totalLicenseInfo?.teamLicensePurchased) {
+    if (!totalTeamLicense?.teamLicensePurchased) {
       handleClickInvite()
-    } else if (totalLicenseInfo.balance <= 0) {
+    } else if (totalTeamLicense.balance <= 0) {
       handleUpgradeModalVisible(true, "add-license")
     } else {
       handleUpgradeModalVisible(true, "upgrade")
     }
   }, [
     track,
-    totalLicenseInfo.balance,
-    totalLicenseInfo?.teamLicensePurchased,
+    totalTeamLicense.balance,
+    totalTeamLicense?.teamLicensePurchased,
     handleClickInvite,
     handleUpgradeModalVisible,
   ])

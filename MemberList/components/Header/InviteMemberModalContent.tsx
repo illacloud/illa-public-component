@@ -170,10 +170,10 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
   } = props
   const { t } = useTranslation()
   const { track } = useContext(MixpanelTrackContext)
-  const { totalLicenseInfo } = useContext(MemberListContext)
+  const { totalTeamLicense } = useContext(MemberListContext)
   const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
 
-  const isSubscribe = totalLicenseInfo?.teamLicensePurchased
+  const isSubscribe = totalTeamLicense?.teamLicensePurchased
 
   const canSetPublic = canManageApp(
     currentUserRole,
@@ -823,7 +823,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   const { t } = useTranslation()
   const message = useMessage()
 
-  const { totalLicenseInfo } = useContext(MemberListContext)
+  const { totalTeamLicense } = useContext(MemberListContext)
   const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
 
   const [loading, setLoading] = useState(false)
@@ -839,13 +839,13 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   }, [])
 
   const remainInviteCount = useMemo(() => {
-    return totalLicenseInfo.balance - inviteMemberList.length
-  }, [totalLicenseInfo.balance, inviteMemberList.length])
+    return totalTeamLicense.balance - inviteMemberList.length
+  }, [totalTeamLicense.balance, inviteMemberList.length])
 
   const checkEmail = useCallback(
     (email: string) => {
       if (
-        [...userListData, ...inviteEmails].length >= totalLicenseInfo.volume
+        [...userListData, ...inviteEmails].length >= totalTeamLicense.volume
       ) {
         handleUpgradeModalVisible(true, "add-license")
         return false
@@ -872,7 +872,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       userListData,
       inviteEmails,
       inviteMemberList,
-      totalLicenseInfo?.volume,
+      totalTeamLicense?.volume,
       handleUpgradeModalVisible,
       message,
       t,

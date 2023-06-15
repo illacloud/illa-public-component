@@ -1,12 +1,12 @@
 import { createContext } from "react"
 import {
   SubscribeInfo,
-  TotalLicenseInfo,
+  TotalTeamLicense,
 } from "@/illa-public-component/MemberList/interface"
 
 interface MemberListContextTypeProps {
   currentTeamLicense: SubscribeInfo
-  totalLicenseInfo: TotalLicenseInfo
+  totalTeamLicense: TotalTeamLicense
 }
 
 export const MemberListContext = createContext<MemberListContextTypeProps>(

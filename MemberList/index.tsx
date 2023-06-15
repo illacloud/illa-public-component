@@ -28,7 +28,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
-    totalLicenseInfo,
+    totalTeamLicense,
     currentTeamLicense,
     teamName,
     userNickname,
@@ -37,7 +37,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
 
   return (
     <MemberListContext.Provider
-      value={{ currentTeamLicense, totalLicenseInfo }}
+      value={{ currentTeamLicense, totalTeamLicense }}
     >
       <div css={MemberListWrapperStyle}>
         <Header
@@ -72,7 +72,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
             currentUserRole={currentUserRole}
             userListData={userListData}
             currentTeamLicense={currentTeamLicense}
-            totalLicenseInfo={totalLicenseInfo}
+            totalTeamLicense={totalTeamLicense}
             changeTeamMembersRole={changeTeamMembersRole}
             removeTeamMembers={removeTeamMembers}
           />

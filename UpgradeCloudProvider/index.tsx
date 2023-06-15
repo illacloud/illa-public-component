@@ -81,11 +81,11 @@ export const UpgradeCloudProvider: FC<ProviderProps> = (props) => {
     () =>
       canManagePayment(
         currentTeamInfo?.myRole,
-        currentTeamInfo?.totalLicenseInfo?.teamLicensePurchased,
+        currentTeamInfo?.totalTeamLicense?.teamLicensePurchased,
       ),
     [
       currentTeamInfo?.myRole,
-      currentTeamInfo?.totalLicenseInfo?.teamLicensePurchased,
+      currentTeamInfo?.totalTeamLicense?.teamLicensePurchased,
     ],
   )
 

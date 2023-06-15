@@ -49,7 +49,7 @@ export interface SubscribeInfo {
   cancelAtPeriodEnd: boolean
 }
 
-export interface TotalLicenseInfo {
+export interface TotalTeamLicense {
   volume: number
   balance: number
   teamLicensePurchased: boolean // 用于区分免费团队和付费团队
@@ -80,7 +80,7 @@ export interface MemberListProps {
   currentUserID: string
   currentTeamMemberID: string
   currentTeamLicense: SubscribeInfo
-  totalLicenseInfo: TotalLicenseInfo
+  totalTeamLicense: TotalTeamLicense
   currentUserRole: USER_ROLE
   userListData: UserData[]
   allowEditorManageTeamMember: boolean
