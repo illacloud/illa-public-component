@@ -123,14 +123,13 @@ const getSubscriptionStatus = (
     case "license":
     case "storage":
       if (!subscribeInfo) return "unknown"
-      if (
-        subscribeInfo.quantity === quantity &&
-        subscribeInfo.cycle === cycle
-      ) {
-        return "un_changed"
-      }
       if (isSubscribe(subscribeInfo?.currentPlan)) {
-        if (isCancelSubscribe(quantity)) {
+        if (
+          subscribeInfo.quantity === quantity &&
+          subscribeInfo.cycle === cycle
+        ) {
+          return "un_changed"
+        } else if (isCancelSubscribe(quantity)) {
           return "subscribed_cancelled"
         } else if (cycle !== subscribeInfo.cycle) {
           if (isQuantityDecreased(quantity, subscribeInfo)) {
