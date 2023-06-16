@@ -114,9 +114,11 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
       </div>
       <Progress
         _css={progressStyle}
-        color={getColor("techPurple", "01")}
+        color={
+          percent > 75 ? getColor("red", "03") : getColor("techPurple", "01")
+        }
         w={"100%"}
-        percent={percent}
+        percent={percent > 100 ? 100 : percent}
         showText={false}
       />
       {type === "License" ? (
