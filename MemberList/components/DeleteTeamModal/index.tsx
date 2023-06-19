@@ -3,7 +3,6 @@ import { FC, useContext, useMemo } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
-import { removeTeam } from "@/api/team"
 import {
   mobileModalButtonStyle,
   mobileModalContentStyle,
@@ -18,6 +17,7 @@ import {
   getCurrentMemberList,
   getCurrentTeamInfo,
 } from "@/redux/team/teamSelector"
+import { removeTeam } from "@/services/team"
 import { pxToRem } from "@/style"
 
 const DeleteTeamModal: FC<ModalProps> = (props) => {
