@@ -32,7 +32,7 @@ const DeleteTeamModal: FC<ModalProps> = (props) => {
   const message = useMessage()
   const teamInfo = useSelector(getCurrentTeamInfo)
   const memberList = useSelector(getCurrentMemberList)
-  const { control, formState, trigger, watch } = useForm<{
+  const { control, formState, trigger, watch, reset } = useForm<{
     name: string
   }>({
     mode: "onSubmit",
@@ -84,6 +84,7 @@ const DeleteTeamModal: FC<ModalProps> = (props) => {
       "team_id",
     )
     onCancel?.()
+    reset()
   }
 
   const config = {
