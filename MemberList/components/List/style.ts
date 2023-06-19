@@ -17,6 +17,10 @@ export const listWrapperStyle = css`
   box-sizing: border-box;
 `
 
+export const cardStyle = css`
+  margin-bottom: 24px;
+`
+
 /**
  * NameSpace style
  */

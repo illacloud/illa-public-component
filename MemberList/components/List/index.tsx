@@ -5,6 +5,7 @@ import { MoreAction } from "@/illa-public-component/MemberList/components/List/M
 import { NameSpace } from "@/illa-public-component/MemberList/components/List/NameSpace"
 import { ListProps } from "@/illa-public-component/MemberList/components/List/interface"
 import {
+  cardStyle,
   listBodyStyle,
   listWrapperStyle,
 } from "@/illa-public-component/MemberList/components/List/style"
@@ -186,9 +187,12 @@ export const List: FC<ListProps> = (props) => {
     <div css={listWrapperStyle}>
       {hasPaymentManagementPermission ? (
         <UsageCard
+          css={cardStyle}
           type="License"
           current={totalTeamLicense.volume - totalTeamLicense.balance}
           total={totalTeamLicense.volume}
+          buttonColorScheme="grayBlue"
+          buttonVariant="outline"
           onClick={openDrawer}
         />
       ) : null}

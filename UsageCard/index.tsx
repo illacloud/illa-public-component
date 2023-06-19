@@ -1,17 +1,17 @@
 import {
   Button,
   ButtonColorScheme,
+  ButtonVariant,
   Progress,
   getColor,
 } from "@illa-design/react"
 import { FC, HTMLAttributes, useMemo } from "react"
+import { useTranslation } from "react-i18next"
 import {
   actionButtonStyle,
-  currentTextStyle,
   iconStyle,
   lastLineStyle,
   mobileActionButtonStyle,
-  mobileCurrentTextStyle,
   mobileIconStyle,
   mobileLastLineStyle,
   mobileTitleLineStyle,
@@ -34,6 +34,7 @@ interface UsageCardProps extends HTMLAttributes<HTMLDivElement> {
   isMobile?: boolean
   actionDes?: string
   buttonColorScheme?: ButtonColorScheme
+  buttonVariant?: ButtonVariant
   onClick?: () => void
 }
 
@@ -45,9 +46,11 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
     isMobile,
     actionDes,
     buttonColorScheme = "techPurple",
+    buttonVariant,
     onClick,
     ...rest
   } = props
+  const { t } = useTranslation()
 
   const config = {
     License: {
@@ -81,7 +84,6 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
     firstLineStyle,
     iconTypeStyle,
     progressStyle,
-    currentStyle,
     lastActionsStyle,
     buttonStyle,
   } = useMemo(() => {
@@ -91,7 +93,6 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
         firstLineStyle: mobileTitleLineStyle,
         iconTypeStyle: mobileIconStyle,
         progressStyle: mobileUsageProgressStyle,
-        currentStyle: mobileCurrentTextStyle,
         lastActionsStyle: mobileLastLineStyle,
         buttonStyle: mobileActionButtonStyle,
       }
@@ -100,7 +101,6 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
       firstLineStyle: titleLineStyle,
       iconTypeStyle: iconStyle,
       progressStyle: usageProgressStyle,
-      currentStyle: currentTextStyle,
       lastActionsStyle: lastLineStyle,
       buttonStyle: actionButtonStyle,
     }
@@ -123,8 +123,10 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
       />
       {type === "License" ? (
         <div>
-          <span css={currentStyle}>{current}</span>
-          <span>{`of ${total} Licenses used`}</span>
+          {t("billing.subscription_card.capacity.License", {
+            total: total,
+            used: current,
+          })}
         </div>
       ) : (
         <div css={optionDesStyle}>
@@ -137,6 +139,7 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
         <Button
           _css={buttonStyle}
           colorScheme={buttonColorScheme}
+          variant={buttonVariant}
           onClick={onClick}
         >
           {config[type].actionText}
