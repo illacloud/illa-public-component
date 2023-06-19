@@ -338,7 +338,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     const { type, subscribeInfo, purchaseInfo } = defaultConfig
     if (loading) return
     setLoading(true)
-    console.log(quantityFormatter)
+    console.log(quantityFormatter(1))
     const successRedirect = appendQueryParam("stripeSuccessType", type)
     const cancelRedirect = appendQueryParam("stripeCancelType", type)
     try {
@@ -349,7 +349,6 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
           successRedirect,
           cancelRedirect,
         })
-        console.log(res, "purchase res")
         if (res.data.url) {
           window.open(res.data.url, "_self")
         }
@@ -383,7 +382,6 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
             successRedirect,
             cancelRedirect,
           })
-          console.log(res, "subscribe res")
           if (res.data.url) {
             window.open(res.data.url, "_self")
           }
@@ -391,6 +389,24 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       }
     } catch (error) {
       console.error("An error occurred while subscribe:", error)
+      if (
+        subscribeInfo?.currentPlan &&
+        isSubscribe(subscribeInfo?.currentPlan)
+      ) {
+        if (quantity === 0) {
+          message.error({
+            content: t("billing.message.failed_to_unsubscrib"),
+          })
+        } else {
+          message.error({
+            content: t("billing.message.failed_to_change"),
+          })
+        }
+      } else {
+        message.error({
+          content: t("billing.message.error_subscribe"),
+        })
+      }
     } finally {
       setLoading(false)
       onCancel?.()
