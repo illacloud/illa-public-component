@@ -10,6 +10,7 @@ export const modalMaskStyle = css`
 export const modalStyle = css`
   border: unset;
   width: 486px;
+  min-width: 486px;
   background: ${getColor("white", "01")};
   border: 1px solid ${getColor("grayBlue", "08")};
   box-shadow: 0 4px 16px rgb(0 0 0 / 8%);

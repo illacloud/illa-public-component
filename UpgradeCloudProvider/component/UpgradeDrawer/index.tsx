@@ -340,7 +340,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     setLoading(true)
     console.log(quantityFormatter(1))
     const successRedirect = appendQueryParam("stripeSuccessType", type)
-    const cancelRedirect = appendQueryParam("stripeCancelType", type)
+    const cancelRedirect = window.location.href
     try {
       if (type === "traffic") {
         const res = await purchase({
