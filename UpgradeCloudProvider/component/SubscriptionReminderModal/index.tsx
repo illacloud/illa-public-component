@@ -100,6 +100,7 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
 
   const openDrawer = useCallback(() => {
     const currentTeamLicense = teamInfo?.currentTeamLicense
+    onCancel?.()
     handleLicenseDrawerVisible(true, {
       type: "license",
       subscribeInfo: {
@@ -111,7 +112,7 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
         currentPlan: currentTeamLicense?.plan,
       },
     })
-  }, [teamInfo?.currentTeamLicense, handleLicenseDrawerVisible])
+  }, [onCancel, teamInfo?.currentTeamLicense, handleLicenseDrawerVisible])
 
   return (
     <Modal
