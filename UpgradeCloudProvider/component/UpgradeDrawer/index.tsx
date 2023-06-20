@@ -454,6 +454,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       maskStyle={drawerMaskStyle}
       closable={false}
       footer={false}
+      autoFocus={false}
       onCancel={onCancel}
       {...otherProps}
     >
