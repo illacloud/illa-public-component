@@ -174,11 +174,12 @@ export const List: FC<ListProps> = (props) => {
       type: "license",
       subscribeInfo: {
         quantity: currentTeamLicense.cancelAtPeriodEnd
-          ? 0
+          ? 1
           : currentTeamLicense.volume,
         cycle: currentTeamLicense.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
         plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
         currentPlan: currentTeamLicense.plan,
+        cancelAtPeriodEnd: currentTeamLicense?.cancelAtPeriodEnd,
       },
     })
   }

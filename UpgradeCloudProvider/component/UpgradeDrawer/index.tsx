@@ -47,6 +47,7 @@ interface DrawerSubscribeInfo {
   currentPlan?: SUBSCRIBE_PLAN
   cycle: SUBSCRIPTION_CYCLE
   quantity: number
+  cancelAtPeriodEnd?: boolean
 }
 
 export type DrawerType = "license" | "storage" | "traffic"
@@ -124,7 +125,10 @@ const getSubscriptionStatus = (
     case "license":
     case "storage":
       if (!subscribeInfo) return "unknown"
-      if (isSubscribe(subscribeInfo?.currentPlan)) {
+      if (
+        isSubscribe(subscribeInfo?.currentPlan) &&
+        !subscribeInfo.cancelAtPeriodEnd
+      ) {
         if (
           subscribeInfo.quantity === quantity &&
           subscribeInfo.cycle === cycle
@@ -252,11 +256,14 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     }
   }, [defaultConfig.type, unitPrice, cycle, quantity, t])
 
-  const unChanged = useMemo(() => {
+  const actionDisabled = useMemo(() => {
     const subscribeInfo = defaultConfig.subscribeInfo
 
-    if (!isSubscribe(subscribeInfo?.currentPlan)) {
-      return false
+    if (
+      !isSubscribe(subscribeInfo?.currentPlan) ||
+      subscribeInfo?.cancelAtPeriodEnd
+    ) {
+      return quantity === 0
     }
 
     switch (defaultConfig.type) {
@@ -505,7 +512,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
               w="100%"
               size="large"
               colorScheme="blackAlpha"
-              disabled={unChanged}
+              disabled={actionDisabled}
               loading={loading}
               mt={isMobile ? pxToRem(32) : "16px"}
               onClick={handleSubscribe}

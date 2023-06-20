@@ -105,11 +105,12 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
       type: "license",
       subscribeInfo: {
         quantity: currentTeamLicense?.cancelAtPeriodEnd
-          ? 0
+          ? 1
           : currentTeamLicense?.volume ?? 1,
         cycle: currentTeamLicense?.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
         plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
         currentPlan: currentTeamLicense?.plan,
+        cancelAtPeriodEnd: currentTeamLicense?.cancelAtPeriodEnd,
       },
     })
   }, [onCancel, teamInfo?.currentTeamLicense, handleLicenseDrawerVisible])
