@@ -100,10 +100,9 @@ const isSubscribe = (subscribePlan?: SUBSCRIBE_PLAN) => {
   return (
     subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS ||
     subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE ||
-    subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_PAID
-    // ||
-    // subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_INSUFFICIENT ||
-    // subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_INSUFFICIENT
+    subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_PAID ||
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_INSUFFICIENT ||
+    subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_INSUFFICIENT
   )
 }
 
@@ -486,11 +485,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
                     setQuantity(value ?? 0)
                   }}
                   // formatter={quantityFormatter}
-                  min={
-                    defaultConfig.type === "traffic"
-                      ? defaultConfig.purchaseInfo?.quantity ?? 0
-                      : 0
-                  }
+                  min={0}
                 />
               </div>
             </div>
