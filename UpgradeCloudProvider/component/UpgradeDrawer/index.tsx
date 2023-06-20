@@ -1,5 +1,6 @@
 import {
   Button,
+  CloseIcon,
   Divider,
   Drawer,
   DrawerProps,
@@ -26,6 +27,7 @@ import {
 import { pxToRem } from "@/style"
 import { isMobileByWindowSize } from "@/utils/screen"
 import {
+  closeIconStyle,
   descriptionStyle,
   drawerContentStyle,
   drawerMaskStyle,
@@ -450,7 +452,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       w={isMobile ? "100%" : "520px"}
       placement={isMobile ? "bottom" : "right"}
       maskStyle={drawerMaskStyle}
-      // closable={false}
+      closable={false}
       footer={false}
       onCancel={onCancel}
       {...otherProps}
@@ -458,6 +460,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       <div css={drawerContentStyle}>
         <div>
           <div css={drawerPaddingStyle}>
+            <CloseIcon containerStyle={closeIconStyle} onClick={onCancel} />
             <div css={titleStyle}>{t(title)}</div>
             <div css={manageContentStyle}>
               <label>{t(manageLabel)}</label>

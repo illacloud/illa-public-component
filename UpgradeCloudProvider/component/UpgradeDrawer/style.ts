@@ -1,6 +1,6 @@
 import { css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
-import { applyMobileStyle } from "@/style"
+import { applyMobileStyle, pxToRem } from "@/style"
 
 export const drawerMaskStyle = css`
   background-color: ${getColor("white", "05")};
@@ -12,10 +12,25 @@ export const drawerStyle = css`
 `
 
 export const drawerPaddingStyle = css`
+  position: relative;
   padding: 0 24px;
 
   ${applyMobileStyle(css`
     padding: 0 48rem;
+  `)}
+`
+
+export const closeIconStyle = css`
+  cursor: pointer;
+  position: absolute;
+  top: 6px;
+  right: 24px;
+  font-size: 12px;
+
+  ${applyMobileStyle(css`
+    top: ${pxToRem(12)};
+    right: ${pxToRem(48)};
+    font-size: ${pxToRem(24)};
   `)}
 `
 
