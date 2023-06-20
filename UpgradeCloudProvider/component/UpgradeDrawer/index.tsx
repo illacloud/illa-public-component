@@ -163,11 +163,24 @@ const getSubscriptionStatus = (
   }
 }
 
-function appendQueryParam(key: string, value: string) {
-  const currentURL = window.location.href
-  const url = new URL(currentURL)
-  url.searchParams.set(key, value)
-  return url.toString()
+// function appendQueryParam(key: string, value: string) {
+//   const currentURL = window.location.href
+//   const url = new URL(currentURL)
+//   url.searchParams.set(key, value)
+//   return url.toString()
+// }
+
+function getSuccessRedirectWithParams(params: Record<string, string>): string {
+  const baseUrl = window.location.origin
+  const redirectPath = "/landing/subscribed"
+  const paramString = Object.entries(params)
+    .map(
+      ([key, value]) =>
+        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
+    )
+    .join("&")
+
+  return `${baseUrl}${redirectPath}?${paramString}`
 }
 
 export const LEARN_MORE_LINK =
@@ -353,7 +366,10 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     if (loading) return
     setLoading(true)
     console.log(quantityFormatter(1))
-    const successRedirect = appendQueryParam("stripeSuccessType", type)
+    const successRedirect = getSuccessRedirectWithParams({
+      returnTo: window.location.href,
+      type,
+    })
     const cancelRedirect = window.location.href
     try {
       if (type === "traffic") {
