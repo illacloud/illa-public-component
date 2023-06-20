@@ -272,7 +272,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
   }, [defaultConfig.type, defaultConfig?.subscribeInfo, quantity, cycle])
 
   const description = useMemo(() => {
-    const { type } = defaultConfig
+    const { type, subscribeInfo } = defaultConfig
     const statusLabelKeys = {
       unknown: "",
       un_changed: "",
@@ -286,12 +286,15 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       traffic_added: "billing.payment_sidebar.description_title.add_traffic",
     }
     const status = getSubscriptionStatus(defaultConfig, quantity, cycle)
-
-    return t(statusLabelKeys[status], { changeNum: quantity }) ?? ""
+    const changeNum =
+      type === "traffic"
+        ? quantity
+        : Math.abs(quantity - (subscribeInfo?.quantity ?? 0))
+    return t(statusLabelKeys[status], { changeNum }) ?? ""
   }, [defaultConfig, quantity, cycle, t])
 
   const actionButtonText = useMemo(() => {
-    const { type } = defaultConfig
+    const { type, subscribeInfo } = defaultConfig
     const typeKey = type === "license" ? "license" : "storage_traffic"
     const statusLabelKeys = {
       unknown: "billing.payment_sidebar.button.subscribe",
@@ -308,8 +311,11 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       traffic_added: "billing.payment_sidebar.button.storage_traffic_increase",
     }
     const status = getSubscriptionStatus(defaultConfig, quantity, cycle)
-
-    return t(statusLabelKeys[status], { changeNum: quantity }) ?? ""
+    const changeNum =
+      type === "traffic"
+        ? quantity
+        : Math.abs(quantity - (subscribeInfo?.quantity ?? 0))
+    return t(statusLabelKeys[status], { changeNum }) ?? ""
   }, [defaultConfig, quantity, cycle, t])
 
   const quantityFormatter = useCallback(
