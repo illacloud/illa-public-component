@@ -839,13 +839,18 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   }, [])
 
   const remainInviteCount = useMemo(() => {
-    return totalTeamLicense.balance - inviteMemberList.length
-  }, [totalTeamLicense.balance, inviteMemberList.length])
+    const needLicenseList = inviteMemberList.filter((item) => {
+      return item.userRole !== USER_ROLE.VIEWER
+    })
+    return totalTeamLicense.balance - needLicenseList.length
+  }, [totalTeamLicense.balance, inviteMemberList])
 
   const checkEmail = useCallback(
     (email: string) => {
       if (
-        [...userListData, ...inviteEmails].length >= totalTeamLicense.volume
+        inviteRole === USER_ROLE.VIEWER
+          ? remainInviteCount < 0
+          : remainInviteCount < inviteEmails.length + 1
       ) {
         handleUpgradeModalVisible(true, "add-license")
         return false
@@ -872,7 +877,8 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       userListData,
       inviteEmails,
       inviteMemberList,
-      totalTeamLicense?.volume,
+      inviteRole,
+      remainInviteCount,
       handleUpgradeModalVisible,
       message,
       t,
@@ -915,7 +921,11 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
           }
 
           if (checkEmail(item)) {
-            if (inviteEmails.length + index + 1 > remainInviteCount) {
+            if (
+              inviteRole === USER_ROLE.VIEWER
+                ? remainInviteCount < 0
+                : inviteEmails.length + index + 1 > remainInviteCount
+            ) {
               handleUpgradeModalVisible(true, "add-license")
               break
             }
@@ -928,6 +938,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
     [
       remainInviteCount,
       inviteEmails,
+      inviteRole,
       handleUpgradeModalVisible,
       checkEmail,
       message,
