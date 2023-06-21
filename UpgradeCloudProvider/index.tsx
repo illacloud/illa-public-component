@@ -1,12 +1,4 @@
-import { useMessage } from "@illa-design/react"
-import {
-  FC,
-  ReactNode,
-  createContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react"
+import { FC, ReactNode, createContext, useMemo, useState } from "react"
 import { useSelector } from "react-redux"
 import {
   InsufficientNoticeModal,
@@ -48,21 +40,11 @@ interface Inject extends Omit<ProviderProps, "children"> {
   ) => void
 }
 
-function removeSearchParameter(currentURL: string) {
-  const url = new URL(currentURL)
-  url.search = ""
-  const newPath = url.toString()
-  window.history.replaceState(null, "", newPath)
-}
-
 export const UpgradeCloudContext = createContext<Inject>({} as Inject)
 
 export const UpgradeCloudProvider: FC<ProviderProps> = (props) => {
   const { children } = props
   const currentTeamInfo = useSelector(getCurrentTeamInfo)
-  const searchParams = new URLSearchParams(window.location.search)
-  const stripeSuccessType = searchParams.get("stripeSuccessType")
-  const stripeCancelType = searchParams.get("stripeCancelType")
   const [drawerConfig, setDrawerConfig] = useState<DrawerDefaultConfig>({
     type: "license",
   })
@@ -74,8 +56,6 @@ export const UpgradeCloudProvider: FC<ProviderProps> = (props) => {
   const [upgradeModalType, setUpgradeModalType] = useState<
     UpgradeModalType | InsufficientNoticeModalType
   >()
-
-  const message = useMessage()
 
   const canPay = useMemo(
     () =>
@@ -151,38 +131,6 @@ export const UpgradeCloudProvider: FC<ProviderProps> = (props) => {
     handleSuccessModalVisible,
     handleUpgradeModalVisible,
   }
-
-  useEffect(() => {
-    if (stripeSuccessType) {
-      switch (stripeSuccessType) {
-        case "license":
-          handleSuccessModalVisible(true, "subscribe-license")
-          break
-        case "storage":
-          handleSuccessModalVisible(true, "upgrade-storage")
-          break
-        case "traffic":
-          handleSuccessModalVisible(true, "upgrade-traffic")
-          break
-      }
-      removeSearchParameter(window.location.href)
-    }
-  }, [stripeSuccessType])
-
-  useEffect(() => {
-    if (stripeCancelType) {
-      switch (stripeCancelType) {
-        case "license":
-        case "storage":
-        case "traffic":
-          message.error({
-            content: "billing.message.cancel_purchase",
-          })
-          removeSearchParameter(window.location.href)
-          break
-      }
-    }
-  }, [stripeCancelType, message])
 
   return (
     <UpgradeCloudContext.Provider value={value}>

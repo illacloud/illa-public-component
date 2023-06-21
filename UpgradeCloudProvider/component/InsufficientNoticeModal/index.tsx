@@ -2,15 +2,15 @@ import { Button, CloseIcon, Modal, ModalProps } from "@illa-design/react"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import {
-  descriptionStyle,
-  modalStyle,
-  titleStyle,
-} from "@/illa-public-component/UpgradeCloudProvider/component/InsufficientNoticeModal/style"
-import {
   modalCloseIconStyle,
   modalMaskStyle,
 } from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/style"
-import { actionAreaStyle } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal/style"
+import {
+  actionAreaStyle,
+  descriptionStyle,
+  modalStyle,
+  titleStyle,
+} from "./style"
 
 const modalConfigKey = {
   upgrade: {
@@ -60,8 +60,10 @@ export const InsufficientNoticeModal: FC<InsufficientNoticeModalProps> = (
       withoutPadding
       maskClosable={false}
       footer={false}
-      onCancel={onCancel}
+      autoFocus={false}
+      // onCancel={onCancel}
       maskStyle={modalMaskStyle}
+      onOk={() => {}}
       {...otherProps}
     >
       <div css={modalCloseIconStyle} onClick={onCancel}>
@@ -70,7 +72,7 @@ export const InsufficientNoticeModal: FC<InsufficientNoticeModalProps> = (
       <div css={titleStyle}>{t(title)}</div>
       <div css={descriptionStyle}>{t(description)}</div>
       <div css={actionAreaStyle}>
-        <Button colorScheme="techPurple" size="large" onClick={onCancel}>
+        <Button colorScheme="techPurple" onClick={onCancel}>
           {t(buttonText)}
         </Button>
       </div>

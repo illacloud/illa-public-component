@@ -885,15 +885,30 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
     ],
   )
 
+  const checkRemainCount = useCallback(() => {
+    if (
+      inviteRole === USER_ROLE.VIEWER
+        ? remainInviteCount < 0
+        : remainInviteCount < inviteEmails.length + 1
+    ) {
+      handleUpgradeModalVisible(true, "add-license")
+      return false
+    }
+    return true
+  }, [inviteRole, remainInviteCount, inviteEmails, handleUpgradeModalVisible])
+
   const handleValidateInputValue = useCallback(
     (inputValue: string, values: any[]) => {
       if (!inputValue) return false
       if (!checkEmail(inputValue)) {
         return false
       }
+      if (!checkRemainCount()) {
+        return false
+      }
       return values?.every((item) => item?.value !== inputValue)
     },
-    [checkEmail],
+    [checkEmail, checkRemainCount],
   )
 
   const handlePressEnter = useCallback(() => {
@@ -920,39 +935,23 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
             continue
           }
 
-          if (checkEmail(item)) {
-            if (
-              inviteRole === USER_ROLE.VIEWER
-                ? remainInviteCount < 0
-                : inviteEmails.length + index + 1 > remainInviteCount
-            ) {
-              handleUpgradeModalVisible(true, "add-license")
-              break
-            }
+          if (checkEmail(item) && checkRemainCount()) {
             setInviteEmails((prev) => [...prev, item])
           }
         }
         setInputEmailValue("")
       }
     },
-    [
-      remainInviteCount,
-      inviteEmails,
-      inviteRole,
-      handleUpgradeModalVisible,
-      checkEmail,
-      message,
-      t,
-    ],
+    [inviteEmails, message, t, checkEmail, checkRemainCount],
   )
 
   const handleBlurInputValue = useCallback(() => {
     if (!inputEmailValue) return
-    if (checkEmail(inputEmailValue)) {
+    if (checkEmail(inputEmailValue) && checkRemainCount()) {
       setInviteEmails([...inviteEmails, inputEmailValue])
       setInputEmailValue("")
     }
-  }, [inputEmailValue, inviteEmails, checkEmail])
+  }, [inputEmailValue, inviteEmails, checkEmail, checkRemainCount])
 
   const handleClickInviteButton = useCallback(() => {
     const requests = inviteEmails.map((email) => {
