@@ -1,4 +1,3 @@
-import { Button, CloseIcon, Modal, Spin, useMessage } from "@illa-design/react"
 import {
   ChangeEvent,
   FC,
@@ -11,6 +10,7 @@ import {
 } from "react"
 import EasyCropper, { Area, MediaSize } from "react-easy-crop"
 import { useTranslation } from "react-i18next"
+import { Button, CloseIcon, Modal, Spin, useMessage } from "@illa-design/react"
 import { ReactComponent as RotateRightIcon } from "@/illa-public-component/Cropper/assets/rotate-right.svg"
 import {
   applyZoomStyle,

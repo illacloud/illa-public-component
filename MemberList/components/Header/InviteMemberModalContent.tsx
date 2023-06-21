@@ -1,3 +1,15 @@
+import copy from "copy-to-clipboard"
+import {
+  FC,
+  MouseEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
+import { useTranslation } from "react-i18next"
 import {
   Avatar,
   Button,
@@ -14,18 +26,6 @@ import {
   getColor,
   useMessage,
 } from "@illa-design/react"
-import copy from "copy-to-clipboard"
-import {
-  FC,
-  MouseEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react"
-import { useTranslation } from "react-i18next"
 import { AuthShown, canAuthShow } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
@@ -78,7 +78,11 @@ import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/
 import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import RoleSelect from "@/illa-public-component/RoleSelect"
 import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
-import { canManage, canManageApp } from "@/illa-public-component/UserRoleUtils"
+import {
+  canManage,
+  canManageApp,
+  canUseUpgradeFeature,
+} from "@/illa-public-component/UserRoleUtils"
 import {
   ACTION_MANAGE,
   ATTRIBUTE_GROUP,
@@ -173,18 +177,20 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
   const { totalTeamLicense } = useContext(MemberListContext)
   const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
 
-  const isSubscribe = totalTeamLicense?.teamLicenseAllPaid
-
   const canSetPublic = canManageApp(
     currentUserRole,
     allowEditorManageTeamMember,
     allowViewerManageTeamMember,
   )
 
-  const canEditApp = canManage(
+  const canEditApp =
+    isCloudVersion &&
+    canManage(currentUserRole, ATTRIBUTE_GROUP.APP, ACTION_MANAGE.EDIT_APP)
+
+  const canUseBillingFeature = canUseUpgradeFeature(
     currentUserRole,
-    ATTRIBUTE_GROUP.APP,
-    ACTION_MANAGE.EDIT_APP,
+    totalTeamLicense?.teamLicensePurchased,
+    totalTeamLicense?.teamLicenseAllPaid,
   )
 
   const [activeTab, setActiveTab] = useState(canSetPublic ? 0 : 1)
@@ -200,7 +206,9 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
       label: (
         <div css={upgradeTabLabelStyle}>
           {t("user_management.modal.tab.public")}
-          {!isSubscribe && <UpgradeIcon color={getColor("techPurple", "01")} />}
+          {!canUseBillingFeature && (
+            <UpgradeIcon color={getColor("techPurple", "01")} />
+          )}
         </div>
       ),
       hidden: !canEditApp,
@@ -253,7 +261,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
                           element: "invite_modal_public_tab",
                           parameter5: appID,
                         })
-                        if (isCloudVersion && !isSubscribe) {
+                        if (!canUseBillingFeature) {
                           handleUpgradeModalVisible(true, "upgrade")
                           return
                         }

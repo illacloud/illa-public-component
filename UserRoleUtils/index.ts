@@ -405,6 +405,19 @@ export const canAccessManage = (
     ACTION_ACCESS.VIEW
   ]
 }
+export const canUseUpgradeFeature = (
+  userRole: USER_ROLE = USER_ROLE.VIEWER,
+  isSubscribe?: boolean,
+  isSubscribeAndSufficient?: boolean,
+) => {
+  if (!isSubscribe) return false
+
+  return (
+    isSubscribeAndSufficient ||
+    !!accessAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[ACTION_ACCESS.VIEW]
+  )
+}
+
 export const canManagePayment = (
   userRole: USER_ROLE = USER_ROLE.VIEWER,
   isSubscribe?: boolean,

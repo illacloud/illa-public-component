@@ -1,3 +1,5 @@
+import { FC, MouseEvent, useCallback, useContext, useState } from "react"
+import { useTranslation } from "react-i18next"
 import {
   DropList,
   DropListItem,
@@ -6,8 +8,6 @@ import {
   useMessage,
   useModal,
 } from "@illa-design/react"
-import { FC, MouseEvent, useCallback, useContext, useState } from "react"
-import { useTranslation } from "react-i18next"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import DeleteTeamModal from "@/illa-public-component/MemberList/components/DeleteTeamModal"

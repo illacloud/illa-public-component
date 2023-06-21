@@ -1,3 +1,5 @@
+import { FC, HTMLAttributes, useMemo } from "react"
+import { useTranslation } from "react-i18next"
 import {
   Button,
   ButtonColorScheme,
@@ -5,8 +7,6 @@ import {
   Progress,
   getColor,
 } from "@illa-design/react"
-import { FC, HTMLAttributes, useMemo } from "react"
-import { useTranslation } from "react-i18next"
 import {
   actionButtonStyle,
   iconStyle,
