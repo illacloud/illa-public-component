@@ -173,7 +173,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
   const { totalTeamLicense } = useContext(MemberListContext)
   const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
 
-  const isSubscribe = totalTeamLicense?.teamLicensePurchased
+  const isSubscribe = totalTeamLicense?.teamLicenseAllPaid
 
   const canSetPublic = canManageApp(
     currentUserRole,

@@ -397,9 +397,9 @@ export const isSubscribeLicense = (subscribePlan?: SUBSCRIBE_PLAN) => {
 
 export const canAccessManage = (
   userRole: USER_ROLE = USER_ROLE.VIEWER,
-  isSubscribe?: boolean,
+  isSubscribeAndSufficient?: boolean,
 ) => {
-  if (isSubscribe) return true
+  if (isSubscribeAndSufficient) return true
 
   return !!accessAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[
     ACTION_ACCESS.VIEW

@@ -126,7 +126,7 @@ export const Header: FC<HeaderProps> = (props) => {
       },
       "both",
     )
-    if (totalTeamLicense?.teamLicensePurchased) {
+    if (totalTeamLicense?.teamLicenseAllPaid) {
       handleClickInvite()
     } else if (totalTeamLicense.balance <= 0) {
       handleUpgradeModalVisible(true, "add-license")
@@ -136,7 +136,7 @@ export const Header: FC<HeaderProps> = (props) => {
   }, [
     track,
     totalTeamLicense.balance,
-    totalTeamLicense?.teamLicensePurchased,
+    totalTeamLicense?.teamLicenseAllPaid,
     handleClickInvite,
     handleUpgradeModalVisible,
   ])

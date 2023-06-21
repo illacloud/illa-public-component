@@ -53,6 +53,7 @@ export interface TotalTeamLicense {
   volume: number
   balance: number
   teamLicensePurchased: boolean // 用于区分免费团队和付费团队
+  teamLicenseAllPaid: boolean // 用于区分团队是否已付费并且license充足
 }
 
 export interface fetchInviteLinkResponse {

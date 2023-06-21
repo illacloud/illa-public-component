@@ -38,9 +38,9 @@ export const List: FC<ListProps> = (props) => {
   const hasPaymentManagementPermission = useMemo(() => {
     return canManagePayment(
       currentUserRole,
-      totalTeamLicense?.teamLicensePurchased,
+      totalTeamLicense?.teamLicenseAllPaid,
     )
-  }, [currentUserRole, totalTeamLicense?.teamLicensePurchased])
+  }, [currentUserRole, totalTeamLicense?.teamLicenseAllPaid])
 
   const data = useMemo(() => {
     if (!Array.isArray(userListData) || userListData.length === 0) {
