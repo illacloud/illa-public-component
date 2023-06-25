@@ -83,6 +83,10 @@ export const footerStyle = css`
   padding: 16px;
 `
 
+export const upgradeButtonStyle = css`
+  align-self: center;
+`
+
 export const priceContentStyle = css`
   font-size: 12px;
   line-height: 20px;
