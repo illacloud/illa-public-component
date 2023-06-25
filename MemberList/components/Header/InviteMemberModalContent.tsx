@@ -1,15 +1,3 @@
-import copy from "copy-to-clipboard"
-import {
-  FC,
-  MouseEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react"
-import { useTranslation } from "react-i18next"
 import {
   Avatar,
   Button,
@@ -26,6 +14,18 @@ import {
   getColor,
   useMessage,
 } from "@illa-design/react"
+import copy from "copy-to-clipboard"
+import {
+  FC,
+  MouseEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
+import { useTranslation } from "react-i18next"
 import { AuthShown, canAuthShow } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
@@ -842,10 +842,6 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
     inviteByEmailResponse[]
   >([])
 
-  const handleChangeInviteRoleByEmail = useCallback((value: any) => {
-    setInviteRole(value)
-  }, [])
-
   const remainInviteCount = useMemo(() => {
     const needLicenseList = inviteMemberList.filter((item) => {
       return item.userRole !== USER_ROLE.VIEWER
@@ -904,6 +900,25 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
     }
     return true
   }, [inviteRole, remainInviteCount, inviteEmails, handleUpgradeModalVisible])
+
+  const handleChangeInviteRoleByEmail = useCallback(
+    (value: USER_ROLE) => {
+      setInviteRole(value)
+      if (inviteEmails.length) {
+        if (
+          value === USER_ROLE.VIEWER
+            ? remainInviteCount < 0
+            : remainInviteCount < inviteEmails.length
+        ) {
+          handleUpgradeModalVisible(true, "add-license")
+          setInviteEmails((prev) => {
+            return prev.slice(0, remainInviteCount)
+          })
+        }
+      }
+    },
+    [inviteEmails.length, remainInviteCount, handleUpgradeModalVisible],
+  )
 
   const handleValidateInputValue = useCallback(
     (inputValue: string, values: any[]) => {
@@ -973,11 +988,6 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         })
         setInviteMemberList((prev) => [...prev, ...results])
         setInviteEmails([])
-      })
-      .catch(() => {
-        message.error({
-          content: t("user_management.mes.invite_fail"),
-        })
       })
       .finally(() => {
         setLoading(false)
