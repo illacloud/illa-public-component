@@ -1,6 +1,3 @@
-import { FC, useCallback, useEffect, useMemo, useState } from "react"
-import { Trans, useTranslation } from "react-i18next"
-import { useWindowSize } from "react-use"
 import {
   Button,
   CloseIcon,
@@ -12,6 +9,10 @@ import {
   useMessage,
   zIndex,
 } from "@illa-design/react"
+import { FC, useCallback, useEffect, useMemo, useState } from "react"
+import { Trans, useTranslation } from "react-i18next"
+import { matchPath } from "react-router-dom"
+import { useWindowSize } from "react-use"
 import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
@@ -169,6 +170,13 @@ const getSubscriptionStatus = (
 //   url.searchParams.set(key, value)
 //   return url.toString()
 // }
+
+function updateHash(newHash: string) {
+  const currentURL = window.location.href
+  const parsedUrl = new URL(currentURL)
+  parsedUrl.hash = newHash
+  return parsedUrl.toString()
+}
 
 function getSuccessRedirectWithParams(params: Record<string, string>): string {
   const baseUrl = window.location.origin
@@ -366,8 +374,11 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     if (loading) return
     setLoading(true)
     console.log(quantityFormatter(1))
+    const match = matchPath("/team/:teamIdentifier/billing", location.pathname)
     const successRedirect = getSuccessRedirectWithParams({
-      returnTo: window.location.href,
+      returnTo: match
+        ? updateHash(type === "license" ? "#license" : "#drive")
+        : window.location.href,
       type,
     })
     const cancelRedirect = window.location.href
