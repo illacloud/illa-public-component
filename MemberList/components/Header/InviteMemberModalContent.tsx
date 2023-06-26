@@ -996,32 +996,21 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
 
   const handleChangeInviteMemberRole = useCallback(
     (teamMemberID: string, userRole: USER_ROLE) => {
-      return changeTeamMembersRole(teamMemberID, userRole)
-        .then((res) => {
-          if (res) {
-            setInviteMemberList((prev) => {
-              const index = prev.findIndex(
-                (item) => item.teamMemberID === teamMemberID,
-              )
-              if (index !== -1) {
-                prev[index].userRole = userRole
-              }
-              return [...prev]
-            })
-          } else {
-            message.error({
-              content: t("user_management.mes.change_role_fail"),
-            })
-          }
-        })
-        .catch((e) => {
-          console.error(e)
-          message.error({
-            content: t("user_management.mes.change_role_fail"),
+      return changeTeamMembersRole(teamMemberID, userRole).then((res) => {
+        if (res) {
+          setInviteMemberList((prev) => {
+            const index = prev.findIndex(
+              (item) => item.teamMemberID === teamMemberID,
+            )
+            if (index !== -1) {
+              prev[index].userRole = userRole
+            }
+            return [...prev]
           })
-        })
+        }
+      })
     },
-    [changeTeamMembersRole, message, t],
+    [changeTeamMembersRole],
   )
 
   return (

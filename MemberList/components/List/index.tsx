@@ -1,6 +1,6 @@
-import { FC, useCallback, useContext, useMemo } from "react"
+import { Table } from "@illa-design/react"
+import { FC, useContext, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Table, useMessage } from "@illa-design/react"
 import { MoreAction } from "@/illa-public-component/MemberList/components/List/MoreAction"
 import { NameSpace } from "@/illa-public-component/MemberList/components/List/NameSpace"
 import { ListProps } from "@/illa-public-component/MemberList/components/List/interface"
@@ -31,7 +31,6 @@ export const List: FC<ListProps> = (props) => {
   } = props
 
   const { t } = useTranslation()
-  const message = useMessage()
 
   const { handleLicenseDrawerVisible } = useContext(UpgradeCloudContext)
 
@@ -73,25 +72,6 @@ export const List: FC<ListProps> = (props) => {
     })
   }, [userListData])
 
-  const handleChangeRole = useCallback(
-    async (teamMemberID: string, value: USER_ROLE) => {
-      try {
-        const res = await changeTeamMembersRole(teamMemberID, value)
-        if (!res) {
-          message.error({
-            content: t("user_management.mes.change_role_fail"),
-          })
-        }
-      } catch (e) {
-        message.error({
-          content: t("user_management.mes.change_role_fail"),
-        })
-        console.error(e)
-      }
-    },
-    [changeTeamMembersRole, message, t],
-  )
-
   const columns = useMemo(
     () => [
       {
@@ -126,8 +106,8 @@ export const List: FC<ListProps> = (props) => {
               value={value.userRole}
               userRole={currentUserRole}
               disabled={value.userID === currentUserID}
-              onChange={(userRole: USER_ROLE) => {
-                handleChangeRole(value.teamMemberID, userRole)
+              onChange={async (userRole: USER_ROLE) => {
+                await changeTeamMembersRole(value.teamMemberID, userRole)
               }}
             />
           )
@@ -163,7 +143,6 @@ export const List: FC<ListProps> = (props) => {
       changeTeamMembersRole,
       currentUserID,
       currentUserRole,
-      handleChangeRole,
       removeTeamMembers,
       t,
     ],
