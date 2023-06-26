@@ -1,3 +1,4 @@
+import { Button, MoreIcon } from "@illa-design/react"
 import {
   FC,
   useCallback,
@@ -8,7 +9,6 @@ import {
 } from "react"
 import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
-import { Button, MoreIcon } from "@illa-design/react"
 import { InviteMemberModal } from "@/illa-public-component/MemberList/components/Header/InviteMemberModalContent"
 import { MoreAction } from "@/illa-public-component/MemberList/components/Header/MoreAction"
 import {
@@ -126,7 +126,9 @@ export const Header: FC<HeaderProps> = (props) => {
       },
       "both",
     )
-    if (totalTeamLicense?.teamLicenseAllPaid) {
+    if (!isCloudVersion) {
+      handleClickInvite()
+    } else if (totalTeamLicense?.teamLicenseAllPaid) {
       handleClickInvite()
     } else if (totalTeamLicense.balance <= 0) {
       handleUpgradeModalVisible(true, "add-license")
@@ -139,6 +141,7 @@ export const Header: FC<HeaderProps> = (props) => {
     totalTeamLicense?.teamLicenseAllPaid,
     handleClickInvite,
     handleUpgradeModalVisible,
+    isCloudVersion,
   ])
 
   return (

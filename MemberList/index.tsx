@@ -1,5 +1,5 @@
-import { FC } from "react"
 import { Loading } from "@illa-design/react"
+import { FC } from "react"
 import { Header } from "@/illa-public-component/MemberList/components/Header"
 import { List } from "@/illa-public-component/MemberList/components/List"
 import { MemberListContext } from "@/illa-public-component/MemberList/context/MemberListContext"
@@ -37,7 +37,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
 
   return (
     <MemberListContext.Provider
-      value={{ currentTeamLicense, totalTeamLicense }}
+      value={{ isCloudVersion, currentTeamLicense, totalTeamLicense }}
     >
       <div css={MemberListWrapperStyle}>
         <Header
@@ -68,6 +68,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
           </div>
         ) : (
           <List
+            isCloudVersion={isCloudVersion}
             currentUserID={currentUserID}
             currentUserRole={currentUserRole}
             userListData={userListData}

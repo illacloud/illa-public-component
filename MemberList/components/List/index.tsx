@@ -21,6 +21,7 @@ import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 export const List: FC<ListProps> = (props) => {
   const {
+    isCloudVersion,
     userListData,
     currentUserID,
     currentUserRole,
@@ -165,7 +166,7 @@ export const List: FC<ListProps> = (props) => {
 
   return (
     <div css={listWrapperStyle}>
-      {hasPaymentManagementPermission ? (
+      {isCloudVersion && hasPaymentManagementPermission ? (
         <UsageCard
           css={cardStyle}
           type="License"

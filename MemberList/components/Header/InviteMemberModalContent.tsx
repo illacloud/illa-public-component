@@ -206,7 +206,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
       label: (
         <div css={upgradeTabLabelStyle}>
           {t("user_management.modal.tab.public")}
-          {!canUseBillingFeature && (
+          {isCloudVersion && !canUseBillingFeature && (
             <UpgradeIcon color={getColor("techPurple", "01")} />
           )}
         </div>
@@ -261,7 +261,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
                           element: "invite_modal_public_tab",
                           parameter5: appID,
                         })
-                        if (!canUseBillingFeature) {
+                        if (isCloudVersion && !canUseBillingFeature) {
                           handleUpgradeModalVisible(true, "upgrade")
                           return
                         }
@@ -831,7 +831,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   const { t } = useTranslation()
   const message = useMessage()
 
-  const { totalTeamLicense } = useContext(MemberListContext)
+  const { totalTeamLicense, isCloudVersion } = useContext(MemberListContext)
   const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
 
   const [loading, setLoading] = useState(false)
@@ -852,7 +852,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   const checkEmail = useCallback(
     (email: string) => {
       if (
-        inviteRole === USER_ROLE.VIEWER
+        isCloudVersion && inviteRole === USER_ROLE.VIEWER
           ? remainInviteCount < 0
           : remainInviteCount < inviteEmails.length + 1
       ) {
@@ -878,6 +878,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       }
     },
     [
+      isCloudVersion,
       userListData,
       inviteEmails,
       inviteMemberList,
@@ -890,6 +891,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   )
 
   const checkRemainCount = useCallback(() => {
+    if (!isCloudVersion) return true
     if (
       inviteRole === USER_ROLE.VIEWER
         ? remainInviteCount < 0
@@ -899,12 +901,18 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       return false
     }
     return true
-  }, [inviteRole, remainInviteCount, inviteEmails, handleUpgradeModalVisible])
+  }, [
+    isCloudVersion,
+    inviteRole,
+    remainInviteCount,
+    inviteEmails,
+    handleUpgradeModalVisible,
+  ])
 
   const handleChangeInviteRoleByEmail = useCallback(
     (value: USER_ROLE) => {
       setInviteRole(value)
-      if (inviteEmails.length) {
+      if (isCloudVersion && inviteEmails.length) {
         if (
           value === USER_ROLE.VIEWER
             ? remainInviteCount < 0
@@ -917,7 +925,12 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         }
       }
     },
-    [inviteEmails.length, remainInviteCount, handleUpgradeModalVisible],
+    [
+      isCloudVersion,
+      inviteEmails.length,
+      remainInviteCount,
+      handleUpgradeModalVisible,
+    ],
   )
 
   const handleValidateInputValue = useCallback(
@@ -1068,12 +1081,14 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
           </span>
         </Button>
       </div>
-      <div css={remainInviteCountStyle}>
-        {t("user_management.modal.tips.license_insufficient") + " "}
-        <span css={applyInviteCountStyle(remainInviteCount)}>
-          {remainInviteCount}
-        </span>
-      </div>
+      {isCloudVersion && (
+        <div css={remainInviteCountStyle}>
+          {t("user_management.modal.tips.license_insufficient") + " "}
+          <span css={applyInviteCountStyle(remainInviteCount)}>
+            {remainInviteCount}
+          </span>
+        </div>
+      )}
       <InviteList
         changeMembersRole={handleChangeInviteMemberRole}
         inviteList={inviteMemberList}

@@ -7,6 +7,7 @@ import {
 interface MemberListContextTypeProps {
   currentTeamLicense: SubscribeInfo
   totalTeamLicense: TotalTeamLicense
+  isCloudVersion?: boolean
 }
 
 export const MemberListContext = createContext<MemberListContextTypeProps>(
