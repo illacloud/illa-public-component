@@ -18,6 +18,7 @@ import {
   SUBSCRIPTION_CYCLE,
 } from "@/illa-public-component/MemberList/interface"
 import { TextLink } from "@/illa-public-component/TextLink"
+import { cloudUrl } from "@/router/constant"
 import {
   PurchaseItem,
   cancelSubscribe,
@@ -172,7 +173,7 @@ function updateHash(newHash: string) {
 }
 
 function getSuccessRedirectWithParams(params: Record<string, string>): string {
-  const baseUrl = window.location.origin
+  const baseUrl = cloudUrl
   const redirectPath = "/landing/subscribed"
   const paramString = Object.entries(params)
     .map(
