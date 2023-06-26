@@ -1,3 +1,7 @@
+import { FC, useEffect, useMemo, useState } from "react"
+import { Trans, useTranslation } from "react-i18next"
+import { matchPath } from "react-router-dom"
+import { useWindowSize } from "react-use"
 import {
   Button,
   CloseIcon,
@@ -9,10 +13,6 @@ import {
   useMessage,
   zIndex,
 } from "@illa-design/react"
-import { FC, useCallback, useEffect, useMemo, useState } from "react"
-import { Trans, useTranslation } from "react-i18next"
-import { matchPath } from "react-router-dom"
-import { useWindowSize } from "react-use"
 import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
@@ -163,13 +163,6 @@ const getSubscriptionStatus = (
       return "unknown"
   }
 }
-
-// function appendQueryParam(key: string, value: string) {
-//   const currentURL = window.location.href
-//   const url = new URL(currentURL)
-//   url.searchParams.set(key, value)
-//   return url.toString()
-// }
 
 function updateHash(newHash: string) {
   const currentURL = window.location.href
@@ -347,33 +340,32 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     return t(statusLabelKeys[status], { changeNum }) ?? ""
   }, [defaultConfig, quantity, cycle, t])
 
-  const quantityFormatter = useCallback(
-    (value: number | string) => {
-      switch (defaultConfig?.type) {
-        case "license":
-          return `${value} ${t(
-            "billing.payment_sidebar.plan_number_input_label.License",
-          )}`
-        case "storage":
-          return `${value} ${t(
-            "billing.payment_sidebar.plan_number_input_label.Storage_traffic",
-          )}`
-        case "traffic":
-          return `${value} ${t(
-            "billing.payment_sidebar.plan_number_input_label.Storage_traffic",
-          )}`
-        default:
-          return `${value}`
-      }
-    },
-    [defaultConfig?.type, t],
-  )
+  // const quantityFormatter = useCallback(
+  //   (value: number | string) => {
+  //     switch (defaultConfig?.type) {
+  //       case "license":
+  //         return `${value} ${t(
+  //           "billing.payment_sidebar.plan_number_input_label.License",
+  //         )}`
+  //       case "storage":
+  //         return `${value} ${t(
+  //           "billing.payment_sidebar.plan_number_input_label.Storage_traffic",
+  //         )}`
+  //       case "traffic":
+  //         return `${value} ${t(
+  //           "billing.payment_sidebar.plan_number_input_label.Storage_traffic",
+  //         )}`
+  //       default:
+  //         return `${value}`
+  //     }
+  //   },
+  //   [defaultConfig?.type, t],
+  // )
 
   const handleSubscribe = async () => {
     const { type, subscribeInfo, purchaseInfo } = defaultConfig
     if (loading) return
     setLoading(true)
-    console.log(quantityFormatter(1))
     const match = matchPath("/team/:teamIdentifier/billing", location.pathname)
     const successRedirect = getSuccessRedirectWithParams({
       returnTo: match
