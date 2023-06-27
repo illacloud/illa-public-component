@@ -1,5 +1,3 @@
-import { FC, HTMLAttributes, useMemo } from "react"
-import { useTranslation } from "react-i18next"
 import {
   Button,
   ButtonColorScheme,
@@ -7,6 +5,8 @@ import {
   Progress,
   getColor,
 } from "@illa-design/react"
+import { FC, HTMLAttributes, useMemo } from "react"
+import { useTranslation } from "react-i18next"
 import {
   actionButtonStyle,
   iconStyle,
@@ -17,7 +17,6 @@ import {
   mobileTitleLineStyle,
   mobileUsageCardStyle,
   mobileUsageProgressStyle,
-  optionDesStyle,
   titleLineStyle,
   usageCardStyle,
   usageProgressStyle,
@@ -54,8 +53,8 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
 
   const config = {
     License: {
-      name: "License usage",
-      actionText: "Manage seats",
+      name: t("billing.subscription_card.title.License"),
+      actionText: t("billing.subscription_card.button.License"),
       icon: LicenseIcon,
     },
     Drive: {
@@ -75,9 +74,6 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
     () => Math.round((current / total) * 100),
     [total, current],
   )
-
-  // get the unit
-  // const unit = type === "License" ? "seats" : "GB"
 
   const {
     cardStyle,
@@ -128,12 +124,7 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
             used: current,
           })}
         </div>
-      ) : (
-        <div css={optionDesStyle}>
-          {/*<span>{getStorageSize(current)}</span>*/}
-          {/*<span>{getStorageSize(total)}</span>*/}
-        </div>
-      )}
+      ) : null}
       <div css={lastActionsStyle}>
         {actionDes && <span>{actionDes}</span>}
         <Button
