@@ -28,6 +28,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
+    onSubscribe,
     totalTeamLicense,
     currentTeamLicense,
     teamName,
@@ -76,6 +77,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
             totalTeamLicense={totalTeamLicense}
             changeTeamMembersRole={changeTeamMembersRole}
             removeTeamMembers={removeTeamMembers}
+            onSubscribe={onSubscribe}
           />
         )}
       </div>

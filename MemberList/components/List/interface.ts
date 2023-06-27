@@ -25,6 +25,7 @@ export interface ListProps
     | "currentTeamLicense"
     | "totalTeamLicense"
     | "isCloudVersion"
+    | "onSubscribe"
   > {}
 
 export interface MoreActionProps

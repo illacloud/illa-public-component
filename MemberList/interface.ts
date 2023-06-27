@@ -107,4 +107,5 @@ export interface MemberListProps {
     allowViewerManageTeamMember: boolean,
   ) => Promise<boolean>
   updateAppPublicConfig?: (isPublic: boolean) => Promise<boolean>
+  onSubscribe?: () => void
 }

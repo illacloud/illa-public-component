@@ -29,6 +29,7 @@ export const List: FC<ListProps> = (props) => {
     totalTeamLicense,
     removeTeamMembers,
     changeTeamMembersRole,
+    onSubscribe,
   } = props
 
   const { t } = useTranslation()
@@ -161,6 +162,7 @@ export const List: FC<ListProps> = (props) => {
         currentPlan: currentTeamLicense.plan,
         cancelAtPeriodEnd: currentTeamLicense?.cancelAtPeriodEnd,
       },
+      onSubscribeCallback: onSubscribe,
     })
   }
 
