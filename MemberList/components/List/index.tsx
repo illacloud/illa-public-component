@@ -176,6 +176,11 @@ export const List: FC<ListProps> = (props) => {
           total={totalTeamLicense.volume}
           buttonColorScheme="grayBlue"
           buttonVariant="outline"
+          actionDes={
+            currentTeamLicense?.cycle === SUBSCRIPTION_CYCLE.YEARLY
+              ? t(`billing.license_price_new.yearly`)
+              : t(`billing.license_price_new.monthly`)
+          }
           onClick={openDrawer}
         />
       ) : null}
