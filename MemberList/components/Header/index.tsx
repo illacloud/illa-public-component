@@ -1,4 +1,3 @@
-import { Button, MoreIcon } from "@illa-design/react"
 import {
   FC,
   useCallback,
@@ -9,6 +8,7 @@ import {
 } from "react"
 import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
+import { Button, MoreIcon } from "@illa-design/react"
 import { InviteMemberModal } from "@/illa-public-component/MemberList/components/Header/InviteMemberModalContent"
 import { MoreAction } from "@/illa-public-component/MemberList/components/Header/MoreAction"
 import {
@@ -137,7 +137,7 @@ export const Header: FC<HeaderProps> = (props) => {
     }
   }, [
     track,
-    totalTeamLicense.balance,
+    totalTeamLicense?.balance,
     totalTeamLicense?.teamLicenseAllPaid,
     handleClickInvite,
     handleUpgradeModalVisible,
