@@ -12,7 +12,7 @@ const PrivacyPolicy = () => {
   const localLanguage = i18n.language
   const lng = useMemo(() => {
     const urlParams = new URLSearchParams(window.location.search)
-    return urlParams.get('lng')
+    return urlParams.get("lng")
   }, [])
 
   const mergeLng = lng ?? localLanguage
@@ -20,13 +20,13 @@ const PrivacyPolicy = () => {
   const ReturnedComponent = useMemo(() => {
     switch (mergeLng) {
       default:
-      case 'en-US':
+      case "en-US":
         return <PrivacyPolicyUS />
-      case 'zh-CN':
+      case "zh-CN":
         return <PrivacyPolicyCN />
-      case 'ja-JP':
+      case "ja-JP":
         return <PrivacyPolicyJP />
-      case 'ko-KR':
+      case "ko-KR":
         return <PrivacyPolicyKR />
     }
   }, [mergeLng])

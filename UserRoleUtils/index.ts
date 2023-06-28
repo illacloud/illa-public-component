@@ -1,3 +1,4 @@
+import { SUBSCRIBE_PLAN } from "@/illa-public-component/MemberList/interface"
 import {
   ACTION_ACCESS,
   ACTION_DELETE,
@@ -225,10 +226,14 @@ export const attributeConfigList: AttributeConfigList = {
         [ACTION_MANAGE.TEAM_DOMAIN]: true,
         [ACTION_MANAGE.APP_DOMAIN]: true,
       },
-      [ATTRIBUTE_GROUP.BILLING]: { [ACTION_MANAGE.PAYMENT_INFO]: true },
+      [ATTRIBUTE_GROUP.BILLING]: {
+        [ACTION_MANAGE.SUBSCRIBE]: true,
+        [ACTION_MANAGE.PAYMENT_INFO]: true,
+      },
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
         [ACTION_MANAGE.EDIT_APP]: true,
+        [ACTION_MANAGE.APP_WATER_MARK_CONFIG]: true,
       },
       [ATTRIBUTE_GROUP.RESOURCE]: {
         [ACTION_MANAGE.CREATE_RESOURCE]: true,
@@ -265,9 +270,11 @@ export const attributeConfigList: AttributeConfigList = {
         [ACTION_MANAGE.TEAM_DOMAIN]: true,
         [ACTION_MANAGE.APP_DOMAIN]: true,
       },
+      [ATTRIBUTE_GROUP.BILLING]: { [ACTION_MANAGE.PAYMENT_INFO]: true },
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
         [ACTION_MANAGE.EDIT_APP]: true,
+        [ACTION_MANAGE.APP_WATER_MARK_CONFIG]: true,
       },
       [ATTRIBUTE_GROUP.RESOURCE]: {
         [ACTION_MANAGE.CREATE_RESOURCE]: true,
@@ -283,6 +290,7 @@ export const attributeConfigList: AttributeConfigList = {
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
         [ACTION_MANAGE.EDIT_APP]: true,
+        [ACTION_MANAGE.APP_WATER_MARK_CONFIG]: true,
       },
       [ATTRIBUTE_GROUP.RESOURCE]: {
         [ACTION_MANAGE.CREATE_RESOURCE]: true,
@@ -378,6 +386,46 @@ export const canManage = (
   attribute: ACTION_MANAGE,
 ) => {
   return !!manageAttribute[userRole]?.[attributeGroup]?.[attribute]
+}
+
+export const isSubscribeLicense = (subscribePlan?: SUBSCRIBE_PLAN) => {
+  return (
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS ||
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE
+  )
+}
+
+export const canAccessManage = (
+  userRole: USER_ROLE = USER_ROLE.VIEWER,
+  isSubscribeAndSufficient?: boolean,
+) => {
+  if (isSubscribeAndSufficient) return true
+
+  return !!accessAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[
+    ACTION_ACCESS.VIEW
+  ]
+}
+export const canUseUpgradeFeature = (
+  userRole: USER_ROLE = USER_ROLE.VIEWER,
+  isSubscribe?: boolean,
+  isSubscribeAndSufficient?: boolean,
+) => {
+  if (!isSubscribe) return false
+
+  return (
+    isSubscribeAndSufficient ||
+    !!accessAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[ACTION_ACCESS.VIEW]
+  )
+}
+
+export const canManagePayment = (
+  userRole: USER_ROLE = USER_ROLE.VIEWER,
+  isSubscribe?: boolean,
+) => {
+  const attribute = isSubscribe
+    ? ACTION_MANAGE.PAYMENT_INFO
+    : ACTION_MANAGE.SUBSCRIBE
+  return !!manageAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[attribute]
 }
 
 export const canManageSpecial = (

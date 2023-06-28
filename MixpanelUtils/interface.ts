@@ -11,7 +11,7 @@ interface ILLAExtendedProperties {
 interface ILLABaseProperties {
   page: ILLA_PAGE_NAME
   element?: string
-  consume?: number
+  consume?: string | number
   team_id?: string
   user_id?: string
 }
@@ -69,6 +69,10 @@ export enum ILLA_MIXPANEL_CLOUD_PAGE_NAME {
   PROFILE_SETTING = "profile_setting",
   TEAM_SETTING = "team_setting",
   TEAM_MEMBER = "team_member",
+  DRIVE_FILES = "drive_files",
+  DRIVE_PREVIEW = "drive_preview",
+  DRIVE_SHARE = "drive_share",
+  DRIVE_CAPACITY = "drive_capacity",
 }
 
 export enum ILLA_MIXPANEL_PUBLIC_PAGE_NAME {
