@@ -1,3 +1,15 @@
+import copy from "copy-to-clipboard"
+import {
+  FC,
+  MouseEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
+import { useTranslation } from "react-i18next"
 import {
   Avatar,
   Button,
@@ -14,18 +26,6 @@ import {
   getColor,
   useMessage,
 } from "@illa-design/react"
-import copy from "copy-to-clipboard"
-import {
-  FC,
-  MouseEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react"
-import { useTranslation } from "react-i18next"
 import { AuthShown, canAuthShow } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
@@ -843,18 +843,20 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   >([])
 
   const remainInviteCount = useMemo(() => {
+    if (!isCloudVersion) return 0
     const needLicenseList = inviteMemberList.filter((item) => {
       return item.userRole !== USER_ROLE.VIEWER
     })
     return totalTeamLicense.balance - needLicenseList.length
-  }, [totalTeamLicense.balance, inviteMemberList])
+  }, [totalTeamLicense?.balance, inviteMemberList, isCloudVersion])
 
   const checkEmail = useCallback(
     (email: string) => {
       if (
-        isCloudVersion && inviteRole === USER_ROLE.VIEWER
+        isCloudVersion &&
+        (inviteRole === USER_ROLE.VIEWER
           ? remainInviteCount < 0
-          : remainInviteCount < inviteEmails.length + 1
+          : remainInviteCount < inviteEmails.length + 1)
       ) {
         handleUpgradeModalVisible(true, "add-license")
         return false
