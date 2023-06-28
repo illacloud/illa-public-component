@@ -73,6 +73,7 @@ export enum ILLA_MIXPANEL_CLOUD_PAGE_NAME {
   DRIVE_PREVIEW = "drive_preview",
   DRIVE_SHARE = "drive_share",
   DRIVE_CAPACITY = "drive_capacity",
+  AUDIT_LOGS = "audit_logs",
 }
 
 export enum ILLA_MIXPANEL_PUBLIC_PAGE_NAME {
