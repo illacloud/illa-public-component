@@ -123,26 +123,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
           },
           "both",
         )
-        try {
-          const result = await changeTeamMembersRole(
-            teamMemberID,
-            USER_ROLE.OWNER,
-          )
-          if (result) {
-            message.success({
-              content: t("user_management.mes.transfer_suc"),
-            })
-          } else {
-            message.error({
-              content: t("user_management.mes.transfer_fail"),
-            })
-          }
-        } catch (e) {
-          message.error({
-            content: t("user_management.mes.transfer_fail"),
-          })
-          console.error(e)
-        }
+        await changeTeamMembersRole(teamMemberID, USER_ROLE.OWNER)
       },
       onCancel: () => {
         track?.(
@@ -161,7 +142,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
       },
       "both",
     )
-  }, [modal, t, track, changeTeamMembersRole, teamMemberID, message])
+  }, [modal, t, track, changeTeamMembersRole, teamMemberID])
 
   useEffect(() => {
     if (!disabled) {
@@ -182,7 +163,10 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         trigger="click"
         onVisibleChange={(visible) => {
           if (visible) {
-            if (currentUserRole === USER_ROLE.OWNER && userStatus !== USER_STATUS.PENDING) {
+            if (
+              currentUserRole === USER_ROLE.OWNER &&
+              userStatus !== USER_STATUS.PENDING
+            ) {
               track?.(
                 ILLA_MIXPANEL_EVENT_TYPE.SHOW,
                 {

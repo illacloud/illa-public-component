@@ -16,8 +16,10 @@ import {
   headerWrapperStyle,
   titleStyle,
 } from "@/illa-public-component/MemberList/components/Header/style"
+import { MemberListContext } from "@/illa-public-component/MemberList/context/MemberListContext"
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
 import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
+import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 import { HeaderProps } from "./interface"
 
@@ -65,6 +67,8 @@ export const Header: FC<HeaderProps> = (props) => {
   } = props
   const { t } = useTranslation()
   const { track } = useContext(MixpanelTrackContext)
+  const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
+  const { totalTeamLicense } = useContext(MemberListContext)
 
   const [showInviteMemberModal, setShowInviteMemberModal] = useState(false)
 
@@ -122,8 +126,23 @@ export const Header: FC<HeaderProps> = (props) => {
       },
       "both",
     )
-    handleClickInvite()
-  }, [handleClickInvite, track])
+    if (!isCloudVersion) {
+      handleClickInvite()
+    } else if (totalTeamLicense?.teamLicenseAllPaid) {
+      handleClickInvite()
+    } else if (totalTeamLicense.balance <= 0) {
+      handleUpgradeModalVisible(true, "add-license")
+    } else {
+      handleUpgradeModalVisible(true, "upgrade")
+    }
+  }, [
+    track,
+    totalTeamLicense?.balance,
+    totalTeamLicense?.teamLicenseAllPaid,
+    handleClickInvite,
+    handleUpgradeModalVisible,
+    isCloudVersion,
+  ])
 
   return (
     <div css={headerWrapperStyle}>

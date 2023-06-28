@@ -22,6 +22,10 @@ export interface ListProps
     | "currentUserID"
     | "currentUserRole"
     | "changeTeamMembersRole"
+    | "currentTeamLicense"
+    | "totalTeamLicense"
+    | "isCloudVersion"
+    | "onSubscribe"
   > {}
 
 export interface MoreActionProps

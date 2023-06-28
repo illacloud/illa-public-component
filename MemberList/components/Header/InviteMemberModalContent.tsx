@@ -1,3 +1,15 @@
+import copy from "copy-to-clipboard"
+import {
+  FC,
+  MouseEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
+import { useTranslation } from "react-i18next"
 import {
   Avatar,
   Button,
@@ -11,21 +23,12 @@ import {
   Loading,
   Skeleton,
   Switch,
+  getColor,
   useMessage,
 } from "@illa-design/react"
-import copy from "copy-to-clipboard"
-import {
-  FC,
-  MouseEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
-import { useTranslation } from "react-i18next"
 import { AuthShown, canAuthShow } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
+import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
 import { ReactComponent as SettingIcon } from "@/illa-public-component/MemberList/assets/icon/setting.svg"
 import {
   AppPublicContentProps,
@@ -39,6 +42,7 @@ import {
 import {
   appPublicWrapperStyle,
   applyHiddenStyle,
+  applyInviteCountStyle,
   applyTabLabelStyle,
   avatarAndNameWrapperStyle,
   closeIconHotSpotStyle,
@@ -60,17 +64,25 @@ import {
   nicknameStyle,
   publicLabelStyle,
   publicLinkStyle,
+  remainInviteCountStyle,
   settingIconStyle,
   subBodyTitleWrapperStyle,
   subBodyWrapperStyle,
   subtitleStyle,
+  upgradeTabLabelStyle,
   urlAreaStyle,
 } from "@/illa-public-component/MemberList/components/Header/style"
+import { MemberListContext } from "@/illa-public-component/MemberList/context/MemberListContext"
 import { inviteByEmailResponse } from "@/illa-public-component/MemberList/interface"
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
 import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import RoleSelect from "@/illa-public-component/RoleSelect"
-import { canManage, canManageApp } from "@/illa-public-component/UserRoleUtils"
+import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
+import {
+  canManage,
+  canManageApp,
+  canUseUpgradeFeature,
+} from "@/illa-public-component/UserRoleUtils"
 import {
   ACTION_MANAGE,
   ATTRIBUTE_GROUP,
@@ -160,8 +172,10 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     userNickname,
     from,
   } = props
-  const { track } = useContext(MixpanelTrackContext)
   const { t } = useTranslation()
+  const { track } = useContext(MixpanelTrackContext)
+  const { totalTeamLicense } = useContext(MemberListContext)
+  const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
 
   const canSetPublic = canManageApp(
     currentUserRole,
@@ -169,10 +183,14 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     allowViewerManageTeamMember,
   )
 
-  const canEditApp = canManage(
+  const canEditApp =
+    isCloudVersion &&
+    canManage(currentUserRole, ATTRIBUTE_GROUP.APP, ACTION_MANAGE.EDIT_APP)
+
+  const canUseBillingFeature = canUseUpgradeFeature(
     currentUserRole,
-    ATTRIBUTE_GROUP.APP,
-    ACTION_MANAGE.EDIT_APP,
+    totalTeamLicense?.teamLicensePurchased,
+    totalTeamLicense?.teamLicenseAllPaid,
   )
 
   const [activeTab, setActiveTab] = useState(canSetPublic ? 0 : 1)
@@ -185,7 +203,14 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     },
     {
       id: 1,
-      label: t("user_management.modal.tab.public"),
+      label: (
+        <div css={upgradeTabLabelStyle}>
+          {t("user_management.modal.tab.public")}
+          {isCloudVersion && !canUseBillingFeature && (
+            <UpgradeIcon color={getColor("techPurple", "01")} />
+          )}
+        </div>
+      ),
       hidden: !canEditApp,
     },
   ]
@@ -236,6 +261,10 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
                           element: "invite_modal_public_tab",
                           parameter5: appID,
                         })
+                        if (isCloudVersion && !canUseBillingFeature) {
+                          handleUpgradeModalVisible(true, "upgrade")
+                          return
+                        }
                       }
                       handleTabClick(id)
                     }}
@@ -802,6 +831,9 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   const { t } = useTranslation()
   const message = useMessage()
 
+  const { totalTeamLicense, isCloudVersion } = useContext(MemberListContext)
+  const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
+
   const [loading, setLoading] = useState(false)
   const [inviteRole, setInviteRole] = useState<USER_ROLE>(USER_ROLE.VIEWER)
   const [inviteEmails, setInviteEmails] = useState<string[]>([])
@@ -810,12 +842,25 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
     inviteByEmailResponse[]
   >([])
 
-  const handleChangeInviteRoleByEmail = useCallback((value: any) => {
-    setInviteRole(value)
-  }, [])
+  const remainInviteCount = useMemo(() => {
+    if (!isCloudVersion) return 0
+    const needLicenseList = inviteMemberList.filter((item) => {
+      return item.userRole !== USER_ROLE.VIEWER
+    })
+    return totalTeamLicense.balance - needLicenseList.length
+  }, [totalTeamLicense?.balance, inviteMemberList, isCloudVersion])
 
   const checkEmail = useCallback(
     (email: string) => {
+      if (
+        isCloudVersion &&
+        (inviteRole === USER_ROLE.VIEWER
+          ? remainInviteCount < 0
+          : remainInviteCount < inviteEmails.length + 1)
+      ) {
+        handleUpgradeModalVisible(true, "add-license")
+        return false
+      }
       if (
         [...userListData, ...inviteMemberList].find(
           (item) => item.email === email,
@@ -834,7 +879,60 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         return true
       }
     },
-    [userListData, inviteMemberList, message, t],
+    [
+      isCloudVersion,
+      userListData,
+      inviteEmails,
+      inviteMemberList,
+      inviteRole,
+      remainInviteCount,
+      handleUpgradeModalVisible,
+      message,
+      t,
+    ],
+  )
+
+  const checkRemainCount = useCallback(() => {
+    if (!isCloudVersion) return true
+    if (
+      inviteRole === USER_ROLE.VIEWER
+        ? remainInviteCount < 0
+        : remainInviteCount < inviteEmails.length + 1
+    ) {
+      handleUpgradeModalVisible(true, "add-license")
+      return false
+    }
+    return true
+  }, [
+    isCloudVersion,
+    inviteRole,
+    remainInviteCount,
+    inviteEmails,
+    handleUpgradeModalVisible,
+  ])
+
+  const handleChangeInviteRoleByEmail = useCallback(
+    (value: USER_ROLE) => {
+      setInviteRole(value)
+      if (isCloudVersion && inviteEmails.length) {
+        if (
+          value === USER_ROLE.VIEWER
+            ? remainInviteCount < 0
+            : remainInviteCount < inviteEmails.length
+        ) {
+          handleUpgradeModalVisible(true, "add-license")
+          setInviteEmails((prev) => {
+            return prev.slice(0, remainInviteCount)
+          })
+        }
+      }
+    },
+    [
+      isCloudVersion,
+      inviteEmails.length,
+      remainInviteCount,
+      handleUpgradeModalVisible,
+    ],
   )
 
   const handleValidateInputValue = useCallback(
@@ -843,9 +941,12 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       if (!checkEmail(inputValue)) {
         return false
       }
+      if (!checkRemainCount()) {
+        return false
+      }
       return values?.every((item) => item?.value !== inputValue)
     },
-    [checkEmail],
+    [checkEmail, checkRemainCount],
   )
 
   const handlePressEnter = useCallback(() => {
@@ -858,34 +959,37 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
       setInputEmailValue(value)
       if (value.includes(",")) {
         const values = value.split(",")
-        values.forEach((item) => {
-          item = item.trim()
-          if (!item.length) return
+        for (let index = 0; index < values.length; index++) {
+          let item = values[index].trim()
+
+          if (!item.length) continue
+
           if (inviteEmails.find((email) => email == item)) {
             message.error({
               content: t("user_management.modal.email.duplicate", {
                 email: item,
               }),
             })
-            return
+            continue
           }
-          if (checkEmail(item)) {
+
+          if (checkEmail(item) && checkRemainCount()) {
             setInviteEmails((prev) => [...prev, item])
           }
-        })
+        }
         setInputEmailValue("")
       }
     },
-    [inviteEmails, checkEmail, message, t],
+    [inviteEmails, message, t, checkEmail, checkRemainCount],
   )
 
   const handleBlurInputValue = useCallback(() => {
     if (!inputEmailValue) return
-    if (checkEmail(inputEmailValue)) {
+    if (checkEmail(inputEmailValue) && checkRemainCount()) {
       setInviteEmails([...inviteEmails, inputEmailValue])
       setInputEmailValue("")
     }
-  }, [inputEmailValue, inviteEmails, checkEmail])
+  }, [inputEmailValue, inviteEmails, checkEmail, checkRemainCount])
 
   const handleClickInviteButton = useCallback(() => {
     const requests = inviteEmails.map((email) => {
@@ -900,11 +1004,6 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         setInviteMemberList((prev) => [...prev, ...results])
         setInviteEmails([])
       })
-      .catch(() => {
-        message.error({
-          content: t("user_management.mes.invite_fail"),
-        })
-      })
       .finally(() => {
         setLoading(false)
       })
@@ -912,32 +1011,21 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
 
   const handleChangeInviteMemberRole = useCallback(
     (teamMemberID: string, userRole: USER_ROLE) => {
-      return changeTeamMembersRole(teamMemberID, userRole)
-        .then((res) => {
-          if (res) {
-            setInviteMemberList((prev) => {
-              const index = prev.findIndex(
-                (item) => item.teamMemberID === teamMemberID,
-              )
-              if (index !== -1) {
-                prev[index].userRole = userRole
-              }
-              return [...prev]
-            })
-          } else {
-            message.error({
-              content: t("user_management.mes.change_role_fail"),
-            })
-          }
-        })
-        .catch((e) => {
-          console.error(e)
-          message.error({
-            content: t("user_management.mes.change_role_fail"),
+      return changeTeamMembersRole(teamMemberID, userRole).then((res) => {
+        if (res) {
+          setInviteMemberList((prev) => {
+            const index = prev.findIndex(
+              (item) => item.teamMemberID === teamMemberID,
+            )
+            if (index !== -1) {
+              prev[index].userRole = userRole
+            }
+            return [...prev]
           })
-        })
+        }
+      })
     },
-    [changeTeamMembersRole, message, t],
+    [changeTeamMembersRole],
   )
 
   return (
@@ -995,6 +1083,14 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
           </span>
         </Button>
       </div>
+      {isCloudVersion && (
+        <div css={remainInviteCountStyle}>
+          {t("user_management.modal.tips.license_insufficient") + " "}
+          <span css={applyInviteCountStyle(remainInviteCount)}>
+            {remainInviteCount}
+          </span>
+        </div>
+      )}
       <InviteList
         changeMembersRole={handleChangeInviteMemberRole}
         inviteList={inviteMemberList}

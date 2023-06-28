@@ -20,7 +20,8 @@ export const NameSpace: FC<NameSpaceProps> = (props) => {
       {name ? (
         <div css={nameAndEmailWrapperStyle}>
           <p css={nameStyle}>
-            <span css={textOverflowStyle}>{name}</span>{userID === currentUserID && <span>(You)</span>}{" "}
+            <span css={textOverflowStyle}>{name}</span>
+            {userID === currentUserID && <span>(You)</span>}{" "}
             {status === USER_STATUS.PENDING && (
               <span css={memberStatusWhenPending}>(Pending)</span>
             )}

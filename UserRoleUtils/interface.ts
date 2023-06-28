@@ -75,6 +75,7 @@ export enum ACTION_MANAGE {
   TEAM_DOMAIN, // 更新 Team Domain
   APP_DOMAIN, // 更新 App domain
   // Billing Attribute
+  SUBSCRIBE, // 进行订阅
   PAYMENT_INFO, // 编辑付款信息
   // App Attribute
   CREATE_APP, // 创建 APP
@@ -82,6 +83,8 @@ export enum ACTION_MANAGE {
   // Resource Attribute
   CREATE_RESOURCE, // 创建 Resource
   EDIT_RESOURCE, // 编辑 Resource
+  // App config
+  APP_WATER_MARK_CONFIG, // 移除 App 水印
 }
 
 export enum ACTION_DELETE {

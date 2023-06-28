@@ -12,7 +12,7 @@ const TermsOfService = () => {
   const localLanguage = i18n.language
   const lng = useMemo(() => {
     const urlParams = new URLSearchParams(window.location.search)
-    return urlParams.get('lng')
+    return urlParams.get("lng")
   }, [])
 
   const mergeLng = lng ?? localLanguage
@@ -20,13 +20,13 @@ const TermsOfService = () => {
   const ReturnedComponent = useMemo(() => {
     switch (mergeLng) {
       default:
-      case 'en-US':
+      case "en-US":
         return <TermsOfServiceUS />
-      case 'zh-CN':
+      case "zh-CN":
         return <TermsOfServiceCN />
-      case 'ja-JP':
+      case "ja-JP":
         return <TermsOfServiceJP />
-      case 'ko-KR':
+      case "ko-KR":
         return <TermsOfServiceKR />
     }
   }, [mergeLng])

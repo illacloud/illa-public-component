@@ -11,6 +11,7 @@ interface IInject {
     properties: Omit<ILLAProperties, "page">,
     extendProperty?: "userRole" | "team_id" | "both",
   ) => void
+  pageName: ILLA_PAGE_NAME
 }
 
 export const MixpanelTrackContext = createContext<IInject>({} as IInject)
@@ -45,8 +46,9 @@ export const MixpanelTrackProvider: FC<MixpanelTrackProviderProps> = (
   const injectValue = useMemo(() => {
     return {
       track,
+      pageName,
     }
-  }, [track])
+  }, [pageName, track])
 
   return (
     <MixpanelTrackContext.Provider value={injectValue}>
