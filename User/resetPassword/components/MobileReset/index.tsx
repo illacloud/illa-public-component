@@ -1,7 +1,3 @@
-import { FC, useEffect, useState } from "react"
-import { Controller, useFormContext } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
 import {
   Button,
   Input,
@@ -9,6 +5,10 @@ import {
   PreviousIcon,
   WarningCircleIcon,
 } from "@illa-design/react"
+import { FC, useEffect, useState } from "react"
+import { Controller, useFormContext } from "react-hook-form"
+import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
@@ -40,6 +40,8 @@ const MobileReset: FC<MobileResetProps> = (props) => {
     onSubmit,
     errorMsg,
     loading,
+    hideNav,
+    lockedEmail,
     showCountDown,
     onCountDownChange,
     sendEmail,
@@ -91,12 +93,14 @@ const MobileReset: FC<MobileResetProps> = (props) => {
     <form css={formStyle} onSubmit={handleSubmit(onSubmit)}>
       <header css={headerStyle}>
         <span css={formTitleStyle}>{t("page.user.forgot_password.title")}</span>
-        <div css={resetPasswordSubtitleWrapperStyle} onClick={backToLogin}>
-          <span css={hotspotWrapperStyle}>
-            <PreviousIcon css={prevIconStyle} />
-            {t("page.user.forgot_password.subtitle")}
-          </span>
-        </div>
+        {hideNav ? null : (
+          <div css={resetPasswordSubtitleWrapperStyle} onClick={backToLogin}>
+            <span css={hotspotWrapperStyle}>
+              <PreviousIcon css={prevIconStyle} />
+              {t("page.user.forgot_password.subtitle")}
+            </span>
+          </div>
+        )}
       </header>
 
       <div css={formItemStyle}>
@@ -112,6 +116,7 @@ const MobileReset: FC<MobileResetProps> = (props) => {
               error={!!formState?.errors.email || !!errorMsg.email}
               variant="fill"
               placeholder={t("page.user.forgot_password.fields.email")}
+              {...(lockedEmail && { value: lockedEmail, disabled: true })}
               onFocus={() => {
                 track(
                   ILLA_MIXPANEL_EVENT_TYPE.FOCUS,

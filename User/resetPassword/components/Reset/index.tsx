@@ -1,7 +1,3 @@
-import { FC, useEffect, useState } from "react"
-import { Controller, useFormContext } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
 import {
   Button,
   Input,
@@ -9,6 +5,10 @@ import {
   PreviousIcon,
   WarningCircleIcon,
 } from "@illa-design/react"
+import { FC, useEffect, useState } from "react"
+import { Controller, useFormContext } from "react-hook-form"
+import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
@@ -42,6 +42,8 @@ const Reset: FC<ResetProps> = (props) => {
     onSubmit,
     errorMsg,
     loading,
+    hideNav,
+    lockedEmail,
     showCountDown,
     onCountDownChange,
     sendEmail,
@@ -95,12 +97,14 @@ const Reset: FC<ResetProps> = (props) => {
     >
       <header css={formTitleStyle}>
         {t("page.user.forgot_password.title")}
-        <div css={resetPasswordSubtitleWrapperStyle} onClick={backToLogin}>
-          <span css={hotspotWrapperStyle}>
-            <PreviousIcon css={prevIconStyle} />
-            {t("page.user.forgot_password.subtitle")}
-          </span>
-        </div>
+        {hideNav ? null : (
+          <div css={resetPasswordSubtitleWrapperStyle} onClick={backToLogin}>
+            <span css={hotspotWrapperStyle}>
+              <PreviousIcon css={prevIconStyle} />
+              {t("page.user.forgot_password.subtitle")}
+            </span>
+          </div>
+        )}
       </header>
       <section css={gridFormFieldStyle}>
         <section css={gridItemStyle}>
@@ -119,6 +123,7 @@ const Reset: FC<ResetProps> = (props) => {
                   error={!!formState?.errors.email || !!errorMsg.email}
                   variant="fill"
                   placeholder={t("page.user.forgot_password.placeholder.email")}
+                  {...(lockedEmail && { value: lockedEmail, disabled: true })}
                   onFocus={() => {
                     track(
                       ILLA_MIXPANEL_EVENT_TYPE.FOCUS,
