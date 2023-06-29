@@ -47,6 +47,7 @@ export interface SubscribeInfo {
   cycle: SUBSCRIPTION_CYCLE
   totalAmount: number
   cancelAtPeriodEnd: boolean
+  invoiceURL: string
 }
 
 export interface TotalTeamLicense {
