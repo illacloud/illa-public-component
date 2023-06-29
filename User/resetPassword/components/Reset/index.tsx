@@ -44,6 +44,7 @@ const Reset: FC<ResetProps> = (props) => {
     loading,
     hideNav,
     lockedEmail,
+    resetLabel,
     showCountDown,
     onCountDownChange,
     sendEmail,
@@ -96,7 +97,9 @@ const Reset: FC<ResetProps> = (props) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <header css={formTitleStyle}>
-        {t("page.user.forgot_password.title")}
+        {hideNav
+          ? t("page.user.sign_in.title")
+          : t("page.user.forgot_password.title")}
         {hideNav ? null : (
           <div css={resetPasswordSubtitleWrapperStyle} onClick={backToLogin}>
             <span css={hotspotWrapperStyle}>
@@ -302,7 +305,7 @@ const Reset: FC<ResetProps> = (props) => {
         fullWidth
         onClick={validReport}
       >
-        {t("page.user.forgot_password.actions.reset")}
+        {resetLabel ? resetLabel : t("page.user.forgot_password.actions.reset")}
       </Button>
     </form>
   )

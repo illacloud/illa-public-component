@@ -42,6 +42,7 @@ const MobileReset: FC<MobileResetProps> = (props) => {
     loading,
     hideNav,
     lockedEmail,
+    resetLabel,
     showCountDown,
     onCountDownChange,
     sendEmail,
@@ -92,7 +93,11 @@ const MobileReset: FC<MobileResetProps> = (props) => {
   return (
     <form css={formStyle} onSubmit={handleSubmit(onSubmit)}>
       <header css={headerStyle}>
-        <span css={formTitleStyle}>{t("page.user.forgot_password.title")}</span>
+        <span css={formTitleStyle}>
+          {hideNav
+            ? t("page.user.sign_in.title")
+            : t("page.user.forgot_password.title")}
+        </span>
         {hideNav ? null : (
           <div css={resetPasswordSubtitleWrapperStyle} onClick={backToLogin}>
             <span css={hotspotWrapperStyle}>
@@ -281,7 +286,7 @@ const MobileReset: FC<MobileResetProps> = (props) => {
         fullWidth
         onClick={validReport}
       >
-        {t("page.user.forgot_password.actions.reset")}
+        {resetLabel ? resetLabel : t("page.user.forgot_password.actions.reset")}
       </Button>
     </form>
   )

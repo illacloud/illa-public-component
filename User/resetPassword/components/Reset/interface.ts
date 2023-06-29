@@ -8,6 +8,7 @@ export interface ResetProps {
   loading: boolean
   errorMsg: ResetPwdErrorMsg
   onSubmit: SubmitHandler<ResetPwdFields>
+  resetLabel?: string
   lockedEmail?: string | null
   hideNav?: boolean
   showCountDown: boolean
