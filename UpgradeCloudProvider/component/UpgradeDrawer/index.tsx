@@ -1,7 +1,3 @@
-import { FC, useEffect, useMemo, useState } from "react"
-import { Trans, useTranslation } from "react-i18next"
-import { matchPath } from "react-router-dom"
-import { useWindowSize } from "react-use"
 import {
   Button,
   CloseIcon,
@@ -9,10 +5,15 @@ import {
   Drawer,
   DrawerProps,
   InputNumber,
+  Link,
   Select,
   useMessage,
   zIndex,
 } from "@illa-design/react"
+import { FC, useEffect, useMemo, useState } from "react"
+import { Trans, useTranslation } from "react-i18next"
+import { matchPath } from "react-router-dom"
+import { useWindowSize } from "react-use"
 import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
@@ -29,6 +30,7 @@ import {
 import { pxToRem } from "@/style"
 import { isMobileByWindowSize } from "@/utils/screen"
 import {
+  appSumoLinkStyle,
   closeIconStyle,
   descriptionStyle,
   drawerContentStyle,
@@ -41,6 +43,7 @@ import {
   priceTotalLabelStyle,
   priceTotalStyle,
   subTotalStyle,
+  textCenterStyle,
   titleStyle,
 } from "./style"
 
@@ -61,6 +64,7 @@ export interface DrawerDefaultConfig {
     item: PurchaseItem
     quantity: number
   }
+  appSumoInvoiceURL?: string
   onSubscribeCallback?: () => void
 }
 
@@ -542,6 +546,17 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
           </div>
         </div>
         <div css={drawerPaddingStyle}>
+          {defaultConfig?.appSumoInvoiceURL ? (
+            <div css={textCenterStyle}>
+              <Link
+                _css={appSumoLinkStyle}
+                colorScheme="techPurple"
+                href={defaultConfig?.appSumoInvoiceURL}
+              >
+                {t("billing.appsumo.update")}
+              </Link>
+            </div>
+          ) : null}
           <div css={descriptionStyle}>
             <Trans
               i18nKey={description}
