@@ -31,6 +31,7 @@ import {
   gridFormStyle,
   gridItemStyle,
   gridValidStyle,
+  inputDisabledStyle,
   oAuthButtonGroupStyle,
   oAuthIconStyle,
 } from "@/illa-public-component/User/login/components/Login/style"
@@ -126,6 +127,7 @@ const Login: FC<LoginProps> = (props) => {
                 render={({ field }) => (
                   <Input
                     {...field}
+                    css={inputDisabledStyle}
                     size="large"
                     error={!!formState?.errors.email || !!errorMsg.email}
                     variant="fill"

@@ -1,8 +1,8 @@
+import { Button, Input, Password } from "@illa-design/react"
 import { FC, useEffect, useState } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { Button, Input, Password } from "@illa-design/react"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
@@ -12,6 +12,7 @@ import { TextLink } from "@/illa-public-component/TextLink"
 import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
 import { ReactComponent as GoogleIcon } from "@/illa-public-component/User/assets/google.svg"
 import { openOAuthUrl } from "@/illa-public-component/User/constants/users"
+import { inputDisabledStyle } from "@/illa-public-component/User/login/components/Login/style"
 import {
   descriptionStyle,
   errorMsgStyle,
@@ -116,6 +117,7 @@ const MobileRegister: FC<MobileRegisterProps> = (props) => {
           render={({ field }) => (
             <Input
               {...field}
+              css={inputDisabledStyle}
               _css={mobileInputStyle}
               colorScheme="techPurple"
               size="large"

@@ -14,7 +14,10 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
 } from "@/illa-public-component/MixpanelUtils/interface"
-import { errorIconStyle } from "@/illa-public-component/User/login/components/Login/style"
+import {
+  errorIconStyle,
+  inputDisabledStyle,
+} from "@/illa-public-component/User/login/components/Login/style"
 import {
   errorMsgStyle,
   formItemStyle,
@@ -115,6 +118,7 @@ const MobileReset: FC<MobileResetProps> = (props) => {
           render={({ field }) => (
             <Input
               {...field}
+              css={inputDisabledStyle}
               _css={mobileInputStyle}
               colorScheme="techPurple"
               size="large"

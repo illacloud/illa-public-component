@@ -12,6 +12,7 @@ import { TextLink } from "@/illa-public-component/TextLink"
 import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
 import { ReactComponent as GoogleIcon } from "@/illa-public-component/User/assets/google.svg"
 import { openOAuthUrl } from "@/illa-public-component/User/constants/users"
+import { inputDisabledStyle } from "@/illa-public-component/User/login/components/Login/style"
 import { MobileLoginProps } from "@/illa-public-component/User/login/components/MobileLogin/interface"
 import {
   descriptionStyle,
@@ -111,6 +112,7 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
           render={({ field }) => (
             <Input
               {...field}
+              css={inputDisabledStyle}
               _css={mobileInputStyle}
               size="large"
               error={!!formState?.errors.email || !!errorMsg.email}

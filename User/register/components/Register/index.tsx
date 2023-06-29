@@ -1,7 +1,3 @@
-import { FC, useEffect, useState } from "react"
-import { Controller, useFormContext } from "react-hook-form"
-import { Trans, useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
 import {
   Button,
   Divider,
@@ -9,6 +5,10 @@ import {
   Password,
   WarningCircleIcon,
 } from "@illa-design/react"
+import { FC, useEffect, useState } from "react"
+import { Controller, useFormContext } from "react-hook-form"
+import { Trans, useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
@@ -28,6 +28,7 @@ import {
   gridFormStyle,
   gridItemStyle,
   gridValidStyle,
+  inputDisabledStyle,
   oAuthButtonGroupStyle,
   oAuthIconStyle,
 } from "@/illa-public-component/User/login/components/Login/style"
@@ -194,6 +195,7 @@ const Register: FC<RegisterProps> = (props) => {
                 render={({ field }) => (
                   <Input
                     {...field}
+                    css={inputDisabledStyle}
                     colorScheme="techPurple"
                     size="large"
                     error={!!formState?.errors.email || !!errorMsg.email}

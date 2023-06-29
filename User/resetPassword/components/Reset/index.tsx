@@ -23,6 +23,7 @@ import {
   gridFormStyle,
   gridItemStyle,
   gridValidStyle,
+  inputDisabledStyle,
 } from "@/illa-public-component/User/login/components/Login/style"
 import { EmailCode } from "@/illa-public-component/User/register/components/EmailCode"
 import { ResetProps } from "@/illa-public-component/User/resetPassword/components/Reset/interface"
@@ -121,6 +122,7 @@ const Reset: FC<ResetProps> = (props) => {
               render={({ field }) => (
                 <Input
                   {...field}
+                  css={inputDisabledStyle}
                   colorScheme="techPurple"
                   size="large"
                   error={!!formState?.errors.email || !!errorMsg.email}
