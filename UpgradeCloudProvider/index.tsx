@@ -1,4 +1,4 @@
-import { FC, ReactNode, createContext, useMemo, useState } from "react"
+import { FC, ReactNode, createContext, useCallback, useMemo, useState } from "react"
 import { useSelector } from "react-redux"
 import {
   InsufficientNoticeModal,
@@ -95,7 +95,7 @@ export const UpgradeCloudProvider: FC<ProviderProps> = (props) => {
     })
   }
 
-  const handleUpgradeModalVisible = (
+  const handleUpgradeModalVisible = useCallback((
     visible: boolean,
     modalType: UpgradeModalType | InsufficientNoticeModalType,
   ) => {
@@ -112,7 +112,7 @@ export const UpgradeCloudProvider: FC<ProviderProps> = (props) => {
         return prevState
       })
     }
-  }
+  }, [canPay])
 
   const handleCloseDrawer = () => {
     setDrawerVisible(false)
