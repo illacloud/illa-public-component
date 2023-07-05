@@ -37,6 +37,10 @@ export enum SUBSCRIPTION_CYCLE {
 export enum CUSTOM_CYCLE {
   LIFETIME = 3,
 }
+export enum REDIRECT_PAGE_TYPE {
+  EDIT = "edit",
+  RELEASE = "release",
+}
 
 export interface SubscribeInfo {
   volume: number
@@ -97,11 +101,18 @@ export interface MemberListProps {
   configInviteLink: (inviteLinkEnabled: boolean) => Promise<boolean>
   removeTeam: () => Promise<boolean>
   removeTeamMembers: (teamMemberID: string) => Promise<boolean>
-  fetchInviteLink: (userRole: USER_ROLE) => Promise<fetchInviteLinkResponse>
-  renewInviteLink: (userRole: USER_ROLE) => Promise<fetchInviteLinkResponse>
+  fetchInviteLink: (
+    userRole: USER_ROLE,
+    redirectPage?: REDIRECT_PAGE_TYPE,
+  ) => Promise<fetchInviteLinkResponse>
+  renewInviteLink: (
+    userRole: USER_ROLE,
+    redirectPage?: REDIRECT_PAGE_TYPE,
+  ) => Promise<fetchInviteLinkResponse>
   inviteByEmail: (
     email: string,
     userRole: USER_ROLE,
+    redirectPage?: REDIRECT_PAGE_TYPE,
   ) => Promise<inviteByEmailResponse>
   updateTeamPermissionConfig: (
     allowEditorManageTeamMember: boolean,
