@@ -25,6 +25,15 @@ export const userRoleMapI18nString = {
   [USER_ROLE.GUEST]: "Guest",
 }
 
+export const userRoleTipI18nString = {
+  [USER_ROLE.CUSTOM]: "",
+  [USER_ROLE.OWNER]: "",
+  [USER_ROLE.ADMIN]: "new_share.tips.admin",
+  [USER_ROLE.EDITOR]: "new_share.tips.editor",
+  [USER_ROLE.VIEWER]: "new_share.tips.viewer",
+  [USER_ROLE.GUEST]: "",
+}
+
 export const filterUserRole = (
   roles: USER_ROLE[],
   filterRole: USER_ROLE[] = [],
