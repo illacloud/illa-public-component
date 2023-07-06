@@ -209,30 +209,40 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     }
   }, [activeTab])
 
-  const tabs = [
-    {
-      id: 0,
-      label: t("new_share.title.invite_to_edit"),
-      hidden: !canSetPublic,
-    },
-    {
-      id: 1,
-      label: t("new_share.title.invite_to_use"),
-      hidden: !canSetPublic || inviteToUseAppStatus === "hidden",
-    },
-    {
-      id: 2,
-      label: (
-        <div css={upgradeTabLabelStyle}>
-          {t("user_management.modal.tab.public")}
-          {isCloudVersion && !canUseBillingFeature && (
-            <UpgradeIcon color={getColor("techPurple", "01")} />
-          )}
-        </div>
-      ),
-      hidden: !canEditApp,
-    },
-  ]
+  const tabs = useMemo(
+    () => [
+      {
+        id: 0,
+        label: t("new_share.title.invite_to_edit"),
+        hidden: !canSetPublic,
+      },
+      {
+        id: 1,
+        label: t("new_share.title.invite_to_use"),
+        hidden: !canSetPublic || inviteToUseAppStatus === "hidden",
+      },
+      {
+        id: 2,
+        label: (
+          <div css={upgradeTabLabelStyle}>
+            {t("user_management.modal.tab.public")}
+            {isCloudVersion && !canUseBillingFeature && (
+              <UpgradeIcon color={getColor("techPurple", "01")} />
+            )}
+          </div>
+        ),
+        hidden: !canEditApp,
+      },
+    ],
+    [
+      t,
+      canSetPublic,
+      inviteToUseAppStatus,
+      isCloudVersion,
+      canUseBillingFeature,
+      canEditApp,
+    ],
+  )
 
   const handleClickMask = useCallback(
     (e: MouseEvent<HTMLDivElement>) => {
@@ -337,6 +347,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
               <div css={unDeployedStyle}>{t("new_share.desc.undeploy")}</div>
             ) : (
               <InviteMemberModalContent
+                key={activeTab}
                 isCloudVersion={isCloudVersion}
                 userListData={userListData}
                 currentUserRole={currentUserRole}
@@ -349,6 +360,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
                 from={from}
                 configInviteLink={configInviteLink}
                 changeTeamMembersRole={changeTeamMembersRole}
+                inviteToEditApp={activeTab === 0}
                 appID={appID}
               />
             )
@@ -549,21 +561,31 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
+    inviteToEditApp,
     from,
   } = props
 
   const { track } = useContext(MixpanelTrackContext)
   const { t } = useTranslation()
   const message = useMessage()
-
-  const [inviteLink, setInviteLink] = useState("")
-  const [inviteLinkRole, setInviteLinkRole] = useState<USER_ROLE>(
-    USER_ROLE.VIEWER,
+  const defaultRole = useMemo(
+    () => (inviteToEditApp ? USER_ROLE.EDITOR : USER_ROLE.VIEWER),
+    [inviteToEditApp],
   )
+  const [inviteLink, setInviteLink] = useState("")
+  const [inviteLinkRole, setInviteLinkRole] = useState<USER_ROLE>(defaultRole)
   const [loading, setLoading] = useState(false)
   const [fetchInviteLinkError, setFetchInviteLinkError] = useState(false)
   const [turnOnLoading, setTurnOnLoading] = useState(false)
   const cacheInviteLink = useRef(inviteLink)
+
+  const userSelectFilterRole = useMemo(
+    () =>
+      inviteToEditApp
+        ? [USER_ROLE.OWNER, USER_ROLE.VIEWER, USER_ROLE.CUSTOM]
+        : [USER_ROLE.OWNER, USER_ROLE.CUSTOM],
+    [inviteToEditApp],
+  )
 
   // replace url href to location.href
 
@@ -603,9 +625,9 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
 
   useEffect(() => {
     if (allowInviteByLink) {
-      fetchInviteLinkHandler(USER_ROLE.VIEWER)
+      fetchInviteLinkHandler(defaultRole)
     }
-  }, [allowInviteByLink, fetchInviteLinkHandler])
+  }, [defaultRole, allowInviteByLink, fetchInviteLinkHandler])
 
   const handleChangeInviteLinkRole = useCallback(
     async (value: any) => {
@@ -828,6 +850,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
             <RoleSelect
               value={inviteLinkRole}
               userRole={currentUserRole}
+              filterRole={userSelectFilterRole}
               onChange={handleChangeInviteLinkRole}
             />
           </div>
@@ -869,6 +892,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
     appID,
     inviteByEmail,
     changeTeamMembersRole,
+    inviteToEditApp,
   } = props
   const { track } = useContext(MixpanelTrackContext)
 
@@ -879,12 +903,14 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
 
   const [loading, setLoading] = useState(false)
-  const [inviteRole, setInviteRole] = useState<USER_ROLE>(USER_ROLE.VIEWER)
   const [inviteEmails, setInviteEmails] = useState<string[]>([])
   const [inputEmailValue, setInputEmailValue] = useState("")
   const [inviteMemberList, setInviteMemberList] = useState<
     inviteByEmailResponse[]
   >([])
+  const [inviteRole, setInviteRole] = useState<USER_ROLE>(
+    inviteToEditApp ? USER_ROLE.EDITOR : USER_ROLE.VIEWER,
+  )
 
   const remainInviteCount = useMemo(() => {
     if (!isCloudVersion) return 0
@@ -893,6 +919,14 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
     })
     return totalTeamLicense.balance - needLicenseList.length
   }, [totalTeamLicense?.balance, inviteMemberList, isCloudVersion])
+
+  const userSelectFilterRole = useMemo(
+    () =>
+      inviteToEditApp
+        ? [USER_ROLE.OWNER, USER_ROLE.VIEWER, USER_ROLE.CUSTOM]
+        : [USER_ROLE.OWNER, USER_ROLE.CUSTOM],
+    [inviteToEditApp],
+  )
 
   const checkEmail = useCallback(
     (email: string) => {
@@ -1088,6 +1122,7 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
             <RoleSelect
               value={inviteRole}
               userRole={currentUserRole}
+              filterRole={userSelectFilterRole}
               onChange={handleChangeInviteRoleByEmail}
             />
           }
@@ -1161,6 +1196,7 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
     userNickname,
     teamName,
     from,
+    inviteToEditApp,
   } = props
 
   return (
@@ -1176,6 +1212,7 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
         configInviteLink={configInviteLink}
         fetchInviteLink={fetchInviteLink}
         renewInviteLink={renewInviteLink}
+        inviteToEditApp={inviteToEditApp}
       />
       <InviteMemberByEmail
         userListData={userListData}
@@ -1183,6 +1220,7 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
         appID={appID}
         inviteByEmail={inviteByEmail}
         changeTeamMembersRole={changeTeamMembersRole}
+        inviteToEditApp={inviteToEditApp}
       />
     </div>
   )
