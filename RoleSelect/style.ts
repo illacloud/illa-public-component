@@ -46,6 +46,19 @@ export const optionItemStyle = css`
   }
 `
 
+export const optionLabelStyle = css`
+  display: flex;
+  gap: 4px;
+  align-items: center;
+`
+
+export const doubtIconStyle = css`
+  height: 16px;
+  width: 16px;
+  flex-shrink: 0;
+  color: ${globalColor(`--${illaPrefix}-grayBlue-06`)};
+`
+
 export const pointerStyle = css`
   cursor: pointer;
 `

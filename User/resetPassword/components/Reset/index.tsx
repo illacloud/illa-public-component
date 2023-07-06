@@ -1,7 +1,3 @@
-import { FC, useEffect, useState } from "react"
-import { Controller, useFormContext } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
 import {
   Button,
   Input,
@@ -9,6 +5,10 @@ import {
   PreviousIcon,
   WarningCircleIcon,
 } from "@illa-design/react"
+import { FC, useEffect, useState } from "react"
+import { Controller, useFormContext } from "react-hook-form"
+import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
@@ -23,6 +23,7 @@ import {
   gridFormStyle,
   gridItemStyle,
   gridValidStyle,
+  inputDisabledStyle,
 } from "@/illa-public-component/User/login/components/Login/style"
 import { EmailCode } from "@/illa-public-component/User/register/components/EmailCode"
 import { ResetProps } from "@/illa-public-component/User/resetPassword/components/Reset/interface"
@@ -42,6 +43,9 @@ const Reset: FC<ResetProps> = (props) => {
     onSubmit,
     errorMsg,
     loading,
+    hideNav,
+    lockedEmail,
+    resetLabel,
     showCountDown,
     onCountDownChange,
     sendEmail,
@@ -94,13 +98,17 @@ const Reset: FC<ResetProps> = (props) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <header css={formTitleStyle}>
-        {t("page.user.forgot_password.title")}
-        <div css={resetPasswordSubtitleWrapperStyle} onClick={backToLogin}>
-          <span css={hotspotWrapperStyle}>
-            <PreviousIcon css={prevIconStyle} />
-            {t("page.user.forgot_password.subtitle")}
-          </span>
-        </div>
+        {hideNav
+          ? t("page.user.sign_in.title")
+          : t("page.user.forgot_password.title")}
+        {hideNav ? null : (
+          <div css={resetPasswordSubtitleWrapperStyle} onClick={backToLogin}>
+            <span css={hotspotWrapperStyle}>
+              <PreviousIcon css={prevIconStyle} />
+              {t("page.user.forgot_password.subtitle")}
+            </span>
+          </div>
+        )}
       </header>
       <section css={gridFormFieldStyle}>
         <section css={gridItemStyle}>
@@ -114,11 +122,13 @@ const Reset: FC<ResetProps> = (props) => {
               render={({ field }) => (
                 <Input
                   {...field}
+                  css={inputDisabledStyle}
                   colorScheme="techPurple"
                   size="large"
                   error={!!formState?.errors.email || !!errorMsg.email}
                   variant="fill"
                   placeholder={t("page.user.forgot_password.placeholder.email")}
+                  {...(lockedEmail && { value: lockedEmail, disabled: true })}
                   onFocus={() => {
                     track(
                       ILLA_MIXPANEL_EVENT_TYPE.FOCUS,
@@ -297,7 +307,7 @@ const Reset: FC<ResetProps> = (props) => {
         fullWidth
         onClick={validReport}
       >
-        {t("page.user.forgot_password.actions.reset")}
+        {resetLabel ? resetLabel : t("page.user.forgot_password.actions.reset")}
       </Button>
     </form>
   )

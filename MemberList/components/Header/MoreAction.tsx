@@ -8,7 +8,6 @@ import {
 } from "@illa-design/react"
 import { FC, MouseEvent, useCallback, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { ERROR_FLAG } from "@/api/errorFlag"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import DeleteTeamModal from "@/illa-public-component/MemberList/components/DeleteTeamModal"
@@ -17,7 +16,6 @@ import { allowEditorOrViewerInviteWrapperStyle } from "@/illa-public-component/M
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
 import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
-import { isILLAAPiError } from "@/utils/typeHelper"
 
 const stopPropagation = (e: MouseEvent) => {
   e.stopPropagation()
@@ -90,37 +88,21 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
             },
             "both",
           )
-          removeTeamMembers(currentTeamMemberID)
-            .then((res) => {
-              if (res) {
-                message.success({
-                  content: t("team_setting.mes.leave_suc"),
-                })
-                track?.(
-                  ILLA_MIXPANEL_EVENT_TYPE.REQUEST,
-                  {
-                    element: "delete",
-                    parameter1: "delete_select",
-                  },
-                  "team_id",
-                )
-              }
-            })
-            .catch((error) => {
-              if (
-                isILLAAPiError(error) &&
-                error.data.errorFlag ===
-                  ERROR_FLAG.ERROR_FLAG_CAN_NOT_REMOVE_TEAM_MEMBER_BECAUSE_APPSUMO_BUYER
-              ) {
-                message.error({
-                  content: t("billing.message.appsumo.leave"),
-                })
-                return
-              }
-              message.error({
-                content: t("team_setting.mes.leave_fail"),
+          removeTeamMembers(currentTeamMemberID).then((res) => {
+            if (res) {
+              message.success({
+                content: t("team_setting.mes.leave_suc"),
               })
-            })
+              track?.(
+                ILLA_MIXPANEL_EVENT_TYPE.REQUEST,
+                {
+                  element: "delete",
+                  parameter1: "delete_select",
+                },
+                "team_id",
+              )
+            }
+          })
         },
         onCancel: () => {
           track?.(

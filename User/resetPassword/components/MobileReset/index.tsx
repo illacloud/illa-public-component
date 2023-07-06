@@ -1,7 +1,3 @@
-import { FC, useEffect, useState } from "react"
-import { Controller, useFormContext } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
 import {
   Button,
   Input,
@@ -9,12 +5,19 @@ import {
   PreviousIcon,
   WarningCircleIcon,
 } from "@illa-design/react"
+import { FC, useEffect, useState } from "react"
+import { Controller, useFormContext } from "react-hook-form"
+import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
   ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
 } from "@/illa-public-component/MixpanelUtils/interface"
-import { errorIconStyle } from "@/illa-public-component/User/login/components/Login/style"
+import {
+  errorIconStyle,
+  inputDisabledStyle,
+} from "@/illa-public-component/User/login/components/Login/style"
 import {
   errorMsgStyle,
   formItemStyle,
@@ -40,6 +43,9 @@ const MobileReset: FC<MobileResetProps> = (props) => {
     onSubmit,
     errorMsg,
     loading,
+    hideNav,
+    lockedEmail,
+    resetLabel,
     showCountDown,
     onCountDownChange,
     sendEmail,
@@ -90,13 +96,19 @@ const MobileReset: FC<MobileResetProps> = (props) => {
   return (
     <form css={formStyle} onSubmit={handleSubmit(onSubmit)}>
       <header css={headerStyle}>
-        <span css={formTitleStyle}>{t("page.user.forgot_password.title")}</span>
-        <div css={resetPasswordSubtitleWrapperStyle} onClick={backToLogin}>
-          <span css={hotspotWrapperStyle}>
-            <PreviousIcon css={prevIconStyle} />
-            {t("page.user.forgot_password.subtitle")}
-          </span>
-        </div>
+        <span css={formTitleStyle}>
+          {hideNav
+            ? t("page.user.sign_in.title")
+            : t("page.user.forgot_password.title")}
+        </span>
+        {hideNav ? null : (
+          <div css={resetPasswordSubtitleWrapperStyle} onClick={backToLogin}>
+            <span css={hotspotWrapperStyle}>
+              <PreviousIcon css={prevIconStyle} />
+              {t("page.user.forgot_password.subtitle")}
+            </span>
+          </div>
+        )}
       </header>
 
       <div css={formItemStyle}>
@@ -106,12 +118,14 @@ const MobileReset: FC<MobileResetProps> = (props) => {
           render={({ field }) => (
             <Input
               {...field}
+              css={inputDisabledStyle}
               _css={mobileInputStyle}
               colorScheme="techPurple"
               size="large"
               error={!!formState?.errors.email || !!errorMsg.email}
               variant="fill"
               placeholder={t("page.user.forgot_password.fields.email")}
+              {...(lockedEmail && { value: lockedEmail, disabled: true })}
               onFocus={() => {
                 track(
                   ILLA_MIXPANEL_EVENT_TYPE.FOCUS,
@@ -276,7 +290,7 @@ const MobileReset: FC<MobileResetProps> = (props) => {
         fullWidth
         onClick={validReport}
       >
-        {t("page.user.forgot_password.actions.reset")}
+        {resetLabel ? resetLabel : t("page.user.forgot_password.actions.reset")}
       </Button>
     </form>
   )

@@ -135,8 +135,23 @@ export const priceTotalLabelStyle = css`
   `)}
 `
 
+export const textCenterStyle = css`
+  text-align: center;
+`
+
+export const appSumoLinkStyle = css`
+  font-size: 14px;
+  line-height: 22px;
+
+  ${applyMobileStyle(css`
+    font-size: pxToRem(28);
+    line-height: pxToRem(44);
+  `)}
+`
+
 export const descriptionStyle = css`
-  margin-top: 8px;
+  text-align: start;
+  margin-top: 16px;
   margin-bottom: 24px;
   font-weight: 400;
   font-size: 12px;
@@ -144,7 +159,7 @@ export const descriptionStyle = css`
   color: ${getColor("grayBlue", "03")};
 
   ${applyMobileStyle(css`
-    margin-top: 16rem;
+    margin-top: 32rem;
     margin-bottom: 48rem;
     font-size: 24rem;
     line-height: 40rem;

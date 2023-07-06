@@ -297,3 +297,15 @@ export const inviteAvatarStyle = css`
 export const applyHiddenStyle = (isHidden: boolean) => css`
   display: ${isHidden ? "none" : "inherit"};
 `
+
+export const unDeployedStyle = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 83px;
+  color: ${getColor("grayBlue", "04")};
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+`

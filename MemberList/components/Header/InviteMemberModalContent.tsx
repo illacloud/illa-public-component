@@ -69,11 +69,15 @@ import {
   subBodyTitleWrapperStyle,
   subBodyWrapperStyle,
   subtitleStyle,
+  unDeployedStyle,
   upgradeTabLabelStyle,
   urlAreaStyle,
 } from "@/illa-public-component/MemberList/components/Header/style"
 import { MemberListContext } from "@/illa-public-component/MemberList/context/MemberListContext"
-import { inviteByEmailResponse } from "@/illa-public-component/MemberList/interface"
+import {
+  REDIRECT_PAGE_TYPE,
+  inviteByEmailResponse,
+} from "@/illa-public-component/MemberList/interface"
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
 import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import RoleSelect from "@/illa-public-component/RoleSelect"
@@ -171,6 +175,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     teamName,
     userNickname,
     from,
+    inviteToUseAppStatus,
   } = props
   const { t } = useTranslation()
   const { track } = useContext(MixpanelTrackContext)
@@ -193,16 +198,30 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     totalTeamLicense?.teamLicenseAllPaid,
   )
 
-  const [activeTab, setActiveTab] = useState(canSetPublic ? 0 : 1)
+  const [activeTab, setActiveTab] = useState(canSetPublic ? 0 : 2)
+
+  const redirectPage = useMemo(() => {
+    switch (activeTab) {
+      case 0:
+        return REDIRECT_PAGE_TYPE.EDIT
+      case 1:
+        return REDIRECT_PAGE_TYPE.RELEASE
+    }
+  }, [activeTab])
 
   const tabs = [
     {
       id: 0,
-      label: t("user_management.modal.tab.invite"),
+      label: t("new_share.title.invite_to_edit"),
       hidden: !canSetPublic,
     },
     {
       id: 1,
+      label: t("new_share.title.invite_to_use"),
+      hidden: !canSetPublic || inviteToUseAppStatus === "hidden",
+    },
+    {
+      id: 2,
       label: (
         <div css={upgradeTabLabelStyle}>
           {t("user_management.modal.tab.public")}
@@ -226,6 +245,27 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
   const handleTabClick = useCallback((id: number) => {
     setActiveTab(id)
   }, [])
+
+  const handleInviteByEmail = useCallback(
+    (email: string, userRole: USER_ROLE) => {
+      return inviteByEmail(email, userRole, redirectPage)
+    },
+    [inviteByEmail, redirectPage],
+  )
+
+  const handleRenewInviteLink = useCallback(
+    (userRole: USER_ROLE) => {
+      return renewInviteLink(userRole, redirectPage)
+    },
+    [renewInviteLink, redirectPage],
+  )
+
+  const fetchShareAppLink = useCallback(
+    (userRole: USER_ROLE) => {
+      return fetchInviteLink(userRole, redirectPage)
+    },
+    [fetchInviteLink, redirectPage],
+  )
 
   useEffect(() => {
     if (hasApp && appID) {
@@ -256,7 +296,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
                     key={`tab-${id}`}
                     css={applyTabLabelStyle(isActive)}
                     onClick={() => {
-                      if (id === 1) {
+                      if (id === 2) {
                         track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
                           element: "invite_modal_public_tab",
                           parameter5: appID,
@@ -292,24 +332,28 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
             </span>
           </header>
           <Divider />
-          {activeTab === 0 && (
-            <InviteMemberModalContent
-              isCloudVersion={isCloudVersion}
-              userListData={userListData}
-              currentUserRole={currentUserRole}
-              allowInviteByLink={allowInviteByLink}
-              inviteByEmail={inviteByEmail}
-              renewInviteLink={renewInviteLink}
-              fetchInviteLink={fetchInviteLink}
-              teamName={teamName}
-              userNickname={userNickname}
-              from={from}
-              configInviteLink={configInviteLink}
-              changeTeamMembersRole={changeTeamMembersRole}
-              appID={appID}
-            />
-          )}
-          {activeTab === 1 && (
+          {activeTab === 0 || activeTab === 1 ? (
+            activeTab === 1 && inviteToUseAppStatus === "unDeployed" ? (
+              <div css={unDeployedStyle}>{t("new_share.desc.undeploy")}</div>
+            ) : (
+              <InviteMemberModalContent
+                isCloudVersion={isCloudVersion}
+                userListData={userListData}
+                currentUserRole={currentUserRole}
+                allowInviteByLink={allowInviteByLink}
+                inviteByEmail={handleInviteByEmail}
+                renewInviteLink={handleRenewInviteLink}
+                fetchInviteLink={fetchShareAppLink}
+                teamName={teamName}
+                userNickname={userNickname}
+                from={from}
+                configInviteLink={configInviteLink}
+                changeTeamMembersRole={changeTeamMembersRole}
+                appID={appID}
+              />
+            )
+          ) : null}
+          {activeTab === 2 && (
             <AppPublicContent
               appLink={appLink}
               teamName={teamName}

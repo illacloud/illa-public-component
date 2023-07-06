@@ -5,13 +5,17 @@ import {
   getSmallThanTargetRole,
   isSmallThanTargetRole,
   userRoleMapI18nString,
+  userRoleTipI18nString,
 } from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
+import { ReactComponent as DoubtIcon } from "./assets/doubt.svg"
 import { ReactComponent as CheckmarkIcon } from "./assets/success.svg"
 import {
   applyFontWeightStyle,
+  doubtIconStyle,
   optionContentStyle,
   optionItemStyle,
+  optionLabelStyle,
   pointerStyle,
   valueLabelStyle,
 } from "./style"
@@ -39,18 +43,21 @@ const RoleSelect: FC<RoleSelectProps> = (props) => {
     )
   }, [value, userRole, disabled])
 
-  const options: { label: string; value: USER_ROLE }[] = useMemo(() => {
-    return getSmallThanTargetRole(userRole, false, [
-      USER_ROLE.OWNER,
-      USER_ROLE.CUSTOM,
-    ]).map((role) => {
-      const labelI18nKey = userRoleMapI18nString[role]
-      return {
-        label: t(labelI18nKey),
-        value: role,
-      }
-    })
-  }, [userRole, t])
+  const options: { label: string; tip: string; value: USER_ROLE }[] =
+    useMemo(() => {
+      return getSmallThanTargetRole(userRole, false, [
+        USER_ROLE.OWNER,
+        USER_ROLE.CUSTOM,
+      ]).map((role) => {
+        const labelI18nKey = userRoleMapI18nString[role]
+        const tipI18nKey = userRoleTipI18nString[role]
+        return {
+          label: t(labelI18nKey),
+          tip: t(tipI18nKey),
+          value: role,
+        }
+      })
+    }, [userRole, t])
 
   const onVisibleChange = (visible: boolean) => {
     if (popupVisible !== visible) {
@@ -91,7 +98,21 @@ const RoleSelect: FC<RoleSelectProps> = (props) => {
                   onChange?.(option.value)
                 }}
               >
-                {option.label}
+                <span css={optionLabelStyle}>
+                  {option.label}
+                  {option.tip ? (
+                    <Trigger
+                      trigger="hover"
+                      colorScheme="grayBlue"
+                      zIndex={zIndex.drawer + 1}
+                      content={option.tip}
+                    >
+                      <span css={doubtIconStyle}>
+                        <DoubtIcon />
+                      </span>
+                    </Trigger>
+                  ) : null}
+                </span>
                 {option.value === value && <CheckmarkIcon />}
               </div>
             )

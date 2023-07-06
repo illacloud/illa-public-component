@@ -8,6 +8,9 @@ export interface MobileResetProps {
   loading: boolean
   errorMsg: ResetPwdErrorMsg
   onSubmit: SubmitHandler<ResetPwdFields>
+  lockedEmail?: string | null
+  resetLabel?: string
+  hideNav?: boolean
   showCountDown: boolean
   onCountDownChange: (showCountDown: boolean) => void
   sendEmail: (email: string, usage: "signup" | "forgetpwd") => Promise<string>

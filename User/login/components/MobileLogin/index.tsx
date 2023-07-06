@@ -1,8 +1,8 @@
+import { Button, Input, Password } from "@illa-design/react"
 import { FC, useEffect, useState } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { Button, Input, Password } from "@illa-design/react"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
@@ -12,6 +12,7 @@ import { TextLink } from "@/illa-public-component/TextLink"
 import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
 import { ReactComponent as GoogleIcon } from "@/illa-public-component/User/assets/google.svg"
 import { openOAuthUrl } from "@/illa-public-component/User/constants/users"
+import { inputDisabledStyle } from "@/illa-public-component/User/login/components/Login/style"
 import { MobileLoginProps } from "@/illa-public-component/User/login/components/MobileLogin/interface"
 import {
   descriptionStyle,
@@ -34,7 +35,15 @@ import { track } from "@/utils/mixpanelHelper"
 import { isCloudVersion } from "@/utils/typeHelper"
 
 const MobileLogin: FC<MobileLoginProps> = (props) => {
-  const { onSubmit, errorMsg, loading, oAuthURI } = props
+  const {
+    onSubmit,
+    errorMsg,
+    loading,
+    oAuthURI,
+    lockedEmail,
+    hideOAuth,
+    hideRegister,
+  } = props
   const navigate = useNavigate()
   const { t } = useTranslation()
   const { handleSubmit, control, formState, getValues, trigger } =
@@ -74,25 +83,27 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
     <form css={formStyle} onSubmit={handleSubmit(onSubmit)}>
       <header css={headerStyle}>
         <div css={formTitleStyle}>{t("page.user.sign_in.title")}</div>
-        <div css={descriptionStyle}>
-          <Trans
-            i18nKey="page.user.sign_in.description.register"
-            t={t}
-            components={[
-              <TextLink
-                key="text-link"
-                onClick={() => {
-                  track(
-                    ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-                    ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
-                    { element: "create_account" },
-                  )
-                  navigate({ pathname: "/register", search: location.search })
-                }}
-              />,
-            ]}
-          />
-        </div>
+        {!hideRegister && (
+          <div css={descriptionStyle}>
+            <Trans
+              i18nKey="page.user.sign_in.description.register"
+              t={t}
+              components={[
+                <TextLink
+                  key="text-link"
+                  onClick={() => {
+                    track(
+                      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                      ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+                      { element: "create_account" },
+                    )
+                    navigate({ pathname: "/register", search: location.search })
+                  }}
+                />,
+              ]}
+            />
+          </div>
+        )}
       </header>
       <div css={formItemStyle}>
         <Controller
@@ -101,12 +112,14 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
           render={({ field }) => (
             <Input
               {...field}
+              css={inputDisabledStyle}
               _css={mobileInputStyle}
               size="large"
               error={!!formState?.errors.email || !!errorMsg.email}
               variant="fill"
               placeholder={t("page.user.sign_in.placeholder.email")}
               colorScheme="techPurple"
+              {...(lockedEmail && { value: lockedEmail, disabled: true })}
               onFocus={() => {
                 track(
                   ILLA_MIXPANEL_EVENT_TYPE.FOCUS,
@@ -227,7 +240,7 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
       >
         {t("page.user.sign_in.actions.login")}
       </Button>
-      {isCloudVersion && (
+      {isCloudVersion && !hideOAuth && (
         <div css={oAuthButtonGroupStyle}>
           <Button
             style={{ display: "none" }}

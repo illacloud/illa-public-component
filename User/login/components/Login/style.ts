@@ -1,5 +1,5 @@
 import { SerializedStyles, css } from "@emotion/react"
-import { globalColor, illaPrefix } from "@illa-design/react"
+import { getColor, globalColor, illaPrefix } from "@illa-design/react"
 
 export const gridFormStyle: SerializedStyles = css`
   display: grid;
@@ -19,6 +19,11 @@ export const gridItemStyle: SerializedStyles = css`
 
 export const gridValidStyle: SerializedStyles = css``
 
+export const inputDisabledStyle = css`
+  &:disabled {
+    -webkit-text-fill-color: ${getColor("grayBlue", "05")};
+  }
+`
 export const formTitleStyle: SerializedStyles = css`
   font-size: 24px;
   line-height: 32px;

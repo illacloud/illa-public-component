@@ -1,7 +1,3 @@
-import { FC, useEffect, useState } from "react"
-import { Controller, useFormContext } from "react-hook-form"
-import { Trans, useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
 import {
   Button,
   Divider,
@@ -9,6 +5,10 @@ import {
   Password,
   WarningCircleIcon,
 } from "@illa-design/react"
+import { FC, useEffect, useState } from "react"
+import { Controller, useFormContext } from "react-hook-form"
+import { Trans, useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
@@ -31,6 +31,7 @@ import {
   gridFormStyle,
   gridItemStyle,
   gridValidStyle,
+  inputDisabledStyle,
   oAuthButtonGroupStyle,
   oAuthIconStyle,
 } from "@/illa-public-component/User/login/components/Login/style"
@@ -42,7 +43,15 @@ import { isCloudVersion } from "@/utils/typeHelper"
 const Login: FC<LoginProps> = (props) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { onSubmit, errorMsg, loading, oAuthURI } = props
+  const {
+    onSubmit,
+    errorMsg,
+    loading,
+    oAuthURI,
+    lockedEmail,
+    hideOAuth,
+    hideRegister,
+  } = props
   const { handleSubmit, control, formState, getValues, trigger } =
     useFormContext<LoginFields>()
   const { errors } = formState
@@ -81,25 +90,30 @@ const Login: FC<LoginProps> = (props) => {
       <form css={gridFormStyle} onSubmit={handleSubmit(onSubmit)}>
         <header css={gridItemStyle}>
           <div css={formTitleStyle}>{t("page.user.sign_in.title")}</div>
-          <div css={descriptionStyle}>
-            <Trans
-              i18nKey="page.user.sign_in.description.register"
-              t={t}
-              components={[
-                <TextLink
-                  key="text-link"
-                  onClick={() => {
-                    track(
-                      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-                      ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
-                      { element: "create_account" },
-                    )
-                    navigate({ pathname: "/register", search: location.search })
-                  }}
-                />,
-              ]}
-            />
-          </div>
+          {!hideRegister && (
+            <div css={descriptionStyle}>
+              <Trans
+                i18nKey="page.user.sign_in.description.register"
+                t={t}
+                components={[
+                  <TextLink
+                    key="text-link"
+                    onClick={() => {
+                      track(
+                        ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                        ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+                        { element: "create_account" },
+                      )
+                      navigate({
+                        pathname: "/register",
+                        search: location.search,
+                      })
+                    }}
+                  />,
+                ]}
+              />
+            </div>
+          )}
         </header>
         <section css={gridFormFieldStyle}>
           <section css={gridItemStyle}>
@@ -113,11 +127,13 @@ const Login: FC<LoginProps> = (props) => {
                 render={({ field }) => (
                   <Input
                     {...field}
+                    css={inputDisabledStyle}
                     size="large"
                     error={!!formState?.errors.email || !!errorMsg.email}
                     variant="fill"
                     placeholder={t("page.user.sign_in.placeholder.email")}
                     colorScheme="techPurple"
+                    {...(lockedEmail && { value: lockedEmail, disabled: true })}
                     onFocus={() => {
                       track(
                         ILLA_MIXPANEL_EVENT_TYPE.FOCUS,
@@ -253,7 +269,7 @@ const Login: FC<LoginProps> = (props) => {
           {t("page.user.sign_in.actions.login")}
         </Button>
       </form>
-      {isCloudVersion && (
+      {isCloudVersion && !hideOAuth && (
         <div>
           <Divider
             mg="24px 0"
