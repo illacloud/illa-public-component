@@ -1,13 +1,21 @@
-import { DropList, Dropdown, Switch, useModal } from "@illa-design/react"
-import { FC, MouseEvent, useCallback, useMemo } from "react"
+import {
+  DropList,
+  DropListItem,
+  Dropdown,
+  Switch,
+  useMessage,
+  useModal,
+} from "@illa-design/react"
+import { FC, MouseEvent, useCallback, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
+import DeleteTeamModal from "@/illa-public-component/MemberList/components/DeleteTeamModal"
 import { MoreActionProps } from "@/illa-public-component/MemberList/components/Header/interface"
 import { allowEditorOrViewerInviteWrapperStyle } from "@/illa-public-component/MemberList/components/Header/style"
+import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
+import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
-
-const DropListItem = DropList.Item
 
 const stopPropagation = (e: MouseEvent) => {
   e.stopPropagation()
@@ -15,27 +23,26 @@ const stopPropagation = (e: MouseEvent) => {
 export const MoreAction: FC<MoreActionProps> = (props) => {
   const {
     children,
-    currentUserID,
     currentUserRole,
-    hasApp,
+    currentTeamMemberID,
+    allowEditorManageTeamMember,
+    allowViewerManageTeamMember,
     updateTeamPermissionConfig,
     removeTeamMembers,
+    isCloudVersion,
+    userNumber,
   } = props
   const modal = useModal()
-
+  const message = useMessage()
   const { t } = useTranslation()
+  const { track } = useContext(MixpanelTrackContext)
 
-  const canShowLeaveTeam = useMemo(() => {
-    if (currentUserRole === USER_ROLE.OWNER) {
-      return !hasApp
-    }
-    return true
-  }, [currentUserRole, hasApp])
+  const [deleteTeamModalVisible, setDeleteTeamModalVisible] = useState(false)
 
   const handleSwitchChange = useCallback(
     async (value: boolean) => {
       try {
-        await updateTeamPermissionConfig(value)
+        await updateTeamPermissionConfig(value, value)
       } catch (e) {
         console.error(e)
       }
@@ -43,37 +50,89 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     [updateTeamPermissionConfig],
   )
 
+  const openDeleteTeamModal = useCallback(() => {
+    setDeleteTeamModalVisible(true)
+  }, [])
+
+  const closeDeleteTeamModal = useCallback(() => {
+    setDeleteTeamModalVisible(false)
+  }, [])
+
   const handleClickItem = useCallback(() => {
     if (currentUserRole === USER_ROLE.OWNER) {
-      modal.show({
-        title: "Are you sure you want to delete this team?",
-        children:
-          "The team domain will be unavailable after deletion, and all members will be removed from this team.",
-        okText: "Confirm",
-        cancelText: "Cancel",
-        okButtonProps: {
-          colorScheme: "red",
+      openDeleteTeamModal()
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        {
+          element: "delete_modal",
+          parameter1: "delete_select",
+          parameter4: userNumber,
         },
-        onOk: () => {
-          removeTeamMembers(currentUserID)
-        },
-      })
+        "team_id",
+      )
     } else {
       modal.show({
-        title: "Are you sure you want to leave this team?",
-        children:
-          "You will not be able to access any team resources after leaving.",
-        okText: "Leave",
-        cancelText: "Cancel",
+        id: "leaveTeam",
+        title: t("team_setting.leave_modal.title"),
+        children: t("team_setting.leave_modal.description"),
+        okText: t("team_setting.leave_modal.leave"),
+        cancelText: t("team_setting.leave_modal.cancel"),
         okButtonProps: {
           colorScheme: "red",
         },
         onOk: () => {
-          removeTeamMembers(currentUserID)
+          track?.(
+            ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+            {
+              element: "leave_modal_leave",
+            },
+            "both",
+          )
+          removeTeamMembers(currentTeamMemberID).then((res) => {
+            if (res) {
+              message.success({
+                content: t("team_setting.mes.leave_suc"),
+              })
+              track?.(
+                ILLA_MIXPANEL_EVENT_TYPE.REQUEST,
+                {
+                  element: "delete",
+                  parameter1: "delete_select",
+                },
+                "team_id",
+              )
+            }
+          })
+        },
+        onCancel: () => {
+          track?.(
+            ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+            {
+              element: "leave_modal_cancel",
+            },
+            "both",
+          )
         },
       })
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        {
+          element: "leave_modal",
+        },
+        "both",
+      )
     }
-  }, [currentUserID, currentUserRole, modal, removeTeamMembers])
+  }, [
+    currentUserRole,
+    track,
+    userNumber,
+    modal,
+    t,
+    message,
+    removeTeamMembers,
+    currentTeamMemberID,
+    openDeleteTeamModal,
+  ])
 
   const handleClickDropList = useCallback(
     (key: string) => {
@@ -84,43 +143,126 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     [handleClickItem],
   )
 
-  return (
-    <Dropdown
-      trigger="click"
-      position="bottom"
-      dropList={
-        <DropList onClickItem={handleClickDropList}>
-          <AuthShown
-            currentUserRole={currentUserRole}
-            allowRoles={[USER_ROLE.OWNER, USER_ROLE.ADMIN]}
-            rules={SHOW_RULES.EQUAL}
-          >
-            <DropListItem key="1">
-              <div
-                css={allowEditorOrViewerInviteWrapperStyle}
-                onClick={stopPropagation}
-              >
-                <span>
-                  {t("user_management.settings.allow_editors_invite")}
-                </span>
-                <Switch
-                  onClick={stopPropagation}
-                  onChange={handleSwitchChange}
-                />
-              </div>
-            </DropListItem>
-          </AuthShown>
-          {canShowLeaveTeam && (
-            <DropListItem key="leaveTeam">
-              {currentUserRole === USER_ROLE.OWNER
-                ? t("team_setting.left_panel.delete")
-                : t("team_setting.left_panel.leave")}
-            </DropListItem>
-          )}
-        </DropList>
+  const handleClickDeleteOrLeaveTeam = useCallback(() => {
+    switch (currentUserRole) {
+      case USER_ROLE.OWNER: {
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          {
+            element: "delete",
+            parameter1: "delete_select",
+            parameter2: userNumber,
+          },
+          "team_id",
+        )
+        break
       }
-    >
-      {children}
-    </Dropdown>
+      default: {
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          {
+            element: "leave",
+          },
+          "both",
+        )
+      }
+    }
+  }, [currentUserRole, track, userNumber])
+
+  return (
+    <>
+      <Dropdown
+        trigger="click"
+        position="bottom-end"
+        triggerProps={{
+          zIndex: 2,
+        }}
+        onVisibleChange={(show: boolean) => {
+          if (show) {
+            track?.(
+              ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+              {
+                element: "more",
+              },
+              "both",
+            )
+            track?.(
+              ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+              {
+                element: "allow_manage",
+                parameter2:
+                  allowEditorManageTeamMember && allowViewerManageTeamMember
+                    ? "on"
+                    : "off",
+              },
+              "both",
+            )
+          }
+        }}
+        dropList={
+          <DropList
+            onClickItem={(key: any) => {
+              handleClickDropList(key as string)
+            }}
+          >
+            <AuthShown
+              currentUserRole={currentUserRole}
+              allowRoles={[USER_ROLE.OWNER, USER_ROLE.ADMIN]}
+              rules={SHOW_RULES.EQUAL}
+            >
+              <DropListItem key="1" value="1">
+                <div
+                  css={allowEditorOrViewerInviteWrapperStyle}
+                  onClick={stopPropagation}
+                >
+                  <span>
+                    {t("user_management.settings.allow_editors_invite")}
+                  </span>
+                  <Switch
+                    colorScheme="techPurple"
+                    onClick={stopPropagation}
+                    onChange={(value: boolean) => {
+                      handleSwitchChange(value)
+                      track?.(
+                        ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                        {
+                          element: "allow_manage",
+                          parameter2: value ? "on" : "off",
+                        },
+                        "both",
+                      )
+                    }}
+                    checked={
+                      allowEditorManageTeamMember && allowViewerManageTeamMember
+                    }
+                  />
+                </div>
+              </DropListItem>
+            </AuthShown>
+            {isCloudVersion ? (
+              <DropListItem
+                key="leaveTeam"
+                value="leaveTeam"
+                onClick={handleClickDeleteOrLeaveTeam}
+              >
+                {currentUserRole === USER_ROLE.OWNER
+                  ? t("team_setting.left_panel.delete")
+                  : t("team_setting.left_panel.leave")}
+              </DropListItem>
+            ) : currentUserRole !== USER_ROLE.OWNER ? (
+              <DropListItem key="leaveTeam" value="leaveTeam">
+                {t("team_setting.left_panel.leave")}
+              </DropListItem>
+            ) : null}
+          </DropList>
+        }
+      >
+        {children}
+      </Dropdown>
+      <DeleteTeamModal
+        visible={deleteTeamModalVisible}
+        onCancel={closeDeleteTeamModal}
+      />
+    </>
   )
 }

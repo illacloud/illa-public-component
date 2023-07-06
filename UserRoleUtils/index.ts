@@ -1,3 +1,4 @@
+import { SUBSCRIBE_PLAN } from "@/illa-public-component/MemberList/interface"
 import {
   ACTION_ACCESS,
   ACTION_DELETE,
@@ -22,6 +23,15 @@ export const userRoleMapI18nString = {
   [USER_ROLE.EDITOR]: "user_management.role.editor",
   [USER_ROLE.VIEWER]: "user_management.role.viewer",
   [USER_ROLE.GUEST]: "Guest",
+}
+
+export const userRoleTipI18nString = {
+  [USER_ROLE.CUSTOM]: "",
+  [USER_ROLE.OWNER]: "",
+  [USER_ROLE.ADMIN]: "new_share.tips.admin",
+  [USER_ROLE.EDITOR]: "new_share.tips.editor",
+  [USER_ROLE.VIEWER]: "new_share.tips.viewer",
+  [USER_ROLE.GUEST]: "",
 }
 
 export const filterUserRole = (
@@ -172,7 +182,6 @@ export const attributeConfigList: AttributeConfigList = {
       [ATTRIBUTE_GROUP.HUB]: { [ACTION_DELETE.DELETE]: true },
     },
     [USER_ROLE.ADMIN]: {
-      [ATTRIBUTE_GROUP.TEAM]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.USER]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.INVITE]: { [ACTION_DELETE.DELETE]: true },
@@ -226,10 +235,14 @@ export const attributeConfigList: AttributeConfigList = {
         [ACTION_MANAGE.TEAM_DOMAIN]: true,
         [ACTION_MANAGE.APP_DOMAIN]: true,
       },
-      [ATTRIBUTE_GROUP.BILLING]: { [ACTION_MANAGE.PAYMENT_INFO]: true },
+      [ATTRIBUTE_GROUP.BILLING]: {
+        [ACTION_MANAGE.SUBSCRIBE]: true,
+        [ACTION_MANAGE.PAYMENT_INFO]: true,
+      },
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
         [ACTION_MANAGE.EDIT_APP]: true,
+        [ACTION_MANAGE.APP_WATER_MARK_CONFIG]: true,
       },
       [ATTRIBUTE_GROUP.RESOURCE]: {
         [ACTION_MANAGE.CREATE_RESOURCE]: true,
@@ -266,9 +279,11 @@ export const attributeConfigList: AttributeConfigList = {
         [ACTION_MANAGE.TEAM_DOMAIN]: true,
         [ACTION_MANAGE.APP_DOMAIN]: true,
       },
+      [ATTRIBUTE_GROUP.BILLING]: { [ACTION_MANAGE.PAYMENT_INFO]: true },
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
         [ACTION_MANAGE.EDIT_APP]: true,
+        [ACTION_MANAGE.APP_WATER_MARK_CONFIG]: true,
       },
       [ATTRIBUTE_GROUP.RESOURCE]: {
         [ACTION_MANAGE.CREATE_RESOURCE]: true,
@@ -284,6 +299,7 @@ export const attributeConfigList: AttributeConfigList = {
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
         [ACTION_MANAGE.EDIT_APP]: true,
+        [ACTION_MANAGE.APP_WATER_MARK_CONFIG]: true,
       },
       [ATTRIBUTE_GROUP.RESOURCE]: {
         [ACTION_MANAGE.CREATE_RESOURCE]: true,
@@ -334,15 +350,18 @@ export const inviteRoleAttributeMap: InviteRoleAttributeMap = {
 interface ModifyRoleFromAttributeMap {
   [key: string]: number
 }
+
 const modifyRoleFromAttributeMap: ModifyRoleFromAttributeMap = {
   [USER_ROLE.OWNER]: ACTION_MANAGE.ROLE_FROM_OWNER,
   [USER_ROLE.ADMIN]: ACTION_MANAGE.ROLE_FROM_ADMIN,
   [USER_ROLE.EDITOR]: ACTION_MANAGE.ROLE_FROM_EDITOR,
   [USER_ROLE.VIEWER]: ACTION_MANAGE.ROLE_FROM_VIEWER,
 }
+
 interface ModifyRoleToAttributeMap {
   [key: string]: number
 }
+
 const modifyRoleToAttributeMap: ModifyRoleToAttributeMap = {
   [USER_ROLE.OWNER]: ACTION_MANAGE.ROLE_TO_OWNER,
   [USER_ROLE.ADMIN]: ACTION_MANAGE.ROLE_TO_ADMIN,
@@ -365,7 +384,7 @@ export const canAccess = (
 export const canDelete = (
   userRole: USER_ROLE,
   attributeGroup: ATTRIBUTE_GROUP,
-  attribute: ACTION_ACCESS,
+  attribute: ACTION_DELETE,
 ) => {
   return !!deleteAttribute[userRole]?.[attributeGroup]?.[attribute]
 }
@@ -373,15 +392,55 @@ export const canDelete = (
 export const canManage = (
   userRole: USER_ROLE,
   attributeGroup: ATTRIBUTE_GROUP,
-  attribute: ACTION_ACCESS,
+  attribute: ACTION_MANAGE,
 ) => {
   return !!manageAttribute[userRole]?.[attributeGroup]?.[attribute]
+}
+
+export const isSubscribeLicense = (subscribePlan?: SUBSCRIBE_PLAN) => {
+  return (
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS ||
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE
+  )
+}
+
+export const canAccessManage = (
+  userRole: USER_ROLE = USER_ROLE.VIEWER,
+  isSubscribeAndSufficient?: boolean,
+) => {
+  if (isSubscribeAndSufficient) return true
+
+  return !!accessAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[
+    ACTION_ACCESS.VIEW
+  ]
+}
+export const canUseUpgradeFeature = (
+  userRole: USER_ROLE = USER_ROLE.VIEWER,
+  isSubscribe?: boolean,
+  isSubscribeAndSufficient?: boolean,
+) => {
+  if (!isSubscribe) return false
+
+  return (
+    isSubscribeAndSufficient ||
+    !!accessAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[ACTION_ACCESS.VIEW]
+  )
+}
+
+export const canManagePayment = (
+  userRole: USER_ROLE = USER_ROLE.VIEWER,
+  isSubscribe?: boolean,
+) => {
+  const attribute = isSubscribe
+    ? ACTION_MANAGE.PAYMENT_INFO
+    : ACTION_MANAGE.SUBSCRIBE
+  return !!manageAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[attribute]
 }
 
 export const canManageSpecial = (
   userRole: USER_ROLE,
   attributeGroup: ATTRIBUTE_GROUP,
-  attribute: ACTION_ACCESS,
+  attribute: ACTION_SPECIAL,
 ) => {
   return !!specialAttribute[userRole]?.[attributeGroup]?.[attribute]
 }
@@ -417,4 +476,16 @@ export const canModifyRoleFromTo = (
 
 export const doesNowUserAreEditorOrViewer = (userRole: USER_ROLE) => {
   return userRole === USER_ROLE.EDITOR || userRole === USER_ROLE.VIEWER
+}
+
+export const canManageApp = (
+  currentUserRole: USER_ROLE,
+  allowEditorManageTeamMember?: boolean,
+  allowViewerManageTeamMember?: boolean,
+) => {
+  if (allowViewerManageTeamMember && allowEditorManageTeamMember) {
+    return isBiggerThanTargetRole(USER_ROLE.VIEWER, currentUserRole)
+  } else {
+    return [USER_ROLE.OWNER, USER_ROLE.ADMIN].includes(currentUserRole)
+  }
 }

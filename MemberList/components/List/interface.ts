@@ -9,6 +9,9 @@ export interface NameSpaceProps {
   avatar: string
   email: string
   status: USER_STATUS
+
+  userID: string
+  currentUserID: string
 }
 
 export interface ListProps
@@ -16,9 +19,13 @@ export interface ListProps
     MemberListProps,
     | "userListData"
     | "removeTeamMembers"
-    | "currentUserRole"
     | "currentUserID"
+    | "currentUserRole"
     | "changeTeamMembersRole"
+    | "currentTeamLicense"
+    | "totalTeamLicense"
+    | "isCloudVersion"
+    | "onSubscribe"
   > {}
 
 export interface MoreActionProps
@@ -31,7 +38,8 @@ export interface MoreActionProps
   > {
   email: string
   name: string
-
+  teamMemberID: string
   userID: string
   userRole: USER_ROLE
+  userStatus: USER_STATUS
 }

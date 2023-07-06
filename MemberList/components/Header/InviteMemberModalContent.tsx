@@ -1,20 +1,37 @@
+import copy from "copy-to-clipboard"
+import {
+  FC,
+  MouseEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
+import { useTranslation } from "react-i18next"
 import {
   Avatar,
   Button,
   CloseIcon,
   Divider,
   DropList,
+  DropListItem,
   Dropdown,
+  Input,
   InputTag,
-  Select,
+  Loading,
+  Skeleton,
+  Switch,
+  getColor,
   useMessage,
 } from "@illa-design/react"
-import { FC, MouseEvent, useCallback, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { AuthShown } from "@/illa-public-component/AuthShown"
+import { AuthShown, canAuthShow } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
+import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
 import { ReactComponent as SettingIcon } from "@/illa-public-component/MemberList/assets/icon/setting.svg"
 import {
+  AppPublicContentProps,
   InviteListItemProps,
   InviteListProps,
   InviteMemberByEmailProps,
@@ -23,10 +40,14 @@ import {
   InviteMemberModalProps,
 } from "@/illa-public-component/MemberList/components/Header/interface"
 import {
+  appPublicWrapperStyle,
+  applyHiddenStyle,
+  applyInviteCountStyle,
+  applyTabLabelStyle,
   avatarAndNameWrapperStyle,
   closeIconHotSpotStyle,
+  emailInputStyle,
   fakerInputStyle,
-  fakerInputWithEmail,
   inviteAvatarStyle,
   inviteEmailWrapperStyle,
   inviteLinkWhenClosedStyle,
@@ -36,25 +57,41 @@ import {
   maskStyle,
   modalBodyWrapperStyle,
   modalHeaderWrapperStyle,
+  modalTabWrapperStyle,
   modalTitleStyle,
   modalWithMaskWrapperStyle,
   modalWrapperStyle,
   nicknameStyle,
+  publicLabelStyle,
+  publicLinkStyle,
+  remainInviteCountStyle,
   settingIconStyle,
   subBodyTitleWrapperStyle,
   subBodyWrapperStyle,
   subtitleStyle,
-  turnOnInviteLinkButtonStyle,
+  unDeployedStyle,
+  upgradeTabLabelStyle,
   urlAreaStyle,
 } from "@/illa-public-component/MemberList/components/Header/style"
-import { inviteByEmailResponse } from "@/illa-public-component/MemberList/interface"
+import { MemberListContext } from "@/illa-public-component/MemberList/context/MemberListContext"
 import {
-  getSmallThenTargetRole,
-  userRoleMapI18nString,
+  REDIRECT_PAGE_TYPE,
+  inviteByEmailResponse,
+} from "@/illa-public-component/MemberList/interface"
+import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
+import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
+import RoleSelect from "@/illa-public-component/RoleSelect"
+import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
+import {
+  canManage,
+  canManageApp,
+  canUseUpgradeFeature,
 } from "@/illa-public-component/UserRoleUtils"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
-
-const DropListItem = DropList.Item
+import {
+  ACTION_MANAGE,
+  ATTRIBUTE_GROUP,
+  USER_ROLE,
+} from "@/illa-public-component/UserRoleUtils/interface"
 
 const EMAIL_REGX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -64,35 +101,16 @@ export const InviteListItem: FC<InviteListItemProps> = (props) => {
     email,
     userRole,
     userAvatar,
-    userID,
+    teamMemberID,
     currentUserRole,
-    changeTeamMembersRole,
+    changeMembersRole,
   } = props
-  const { t } = useTranslation()
   const handleChangeRole = useCallback(
-    async (value: USER_ROLE) => {
-      try {
-        const res = await changeTeamMembersRole(userID, value)
-        if (!res) {
-        }
-      } catch (e) {
-        console.error(e)
-      }
+    (value: USER_ROLE) => {
+      changeMembersRole(teamMemberID, value)
     },
-    [changeTeamMembersRole, userID],
+    [teamMemberID, changeMembersRole],
   )
-
-  const canSelectUserRoleOptions = getSmallThenTargetRole(
-    currentUserRole,
-    false,
-    [USER_ROLE.OWNER, USER_ROLE.CUSTOM],
-  ).map((role) => {
-    const labelI18nKey = userRoleMapI18nString[role]
-    return {
-      label: t(labelI18nKey),
-      value: role,
-    }
-  })
 
   return (
     <div css={inviteListTitleWrapperStyle}>
@@ -104,10 +122,9 @@ export const InviteListItem: FC<InviteListItemProps> = (props) => {
         )}
         <span css={nicknameStyle}>{email}</span>
       </div>
-      <Select
-        w="auto"
-        value={t(userRoleMapI18nString[userRole])}
-        options={canSelectUserRoleOptions}
+      <RoleSelect
+        value={userRole}
+        userRole={currentUserRole}
         onChange={handleChangeRole}
       />
     </div>
@@ -115,19 +132,20 @@ export const InviteListItem: FC<InviteListItemProps> = (props) => {
 }
 
 export const InviteList: FC<InviteListProps> = (props) => {
-  const { inviteList, currentUserRole, changeTeamMembersRole } = props
+  const { inviteList, currentUserRole, changeMembersRole } = props
   return (
     <div css={inviteListWrapperStyle}>
       {inviteList?.map((item) => (
         <InviteListItem
           key={item.email}
-          userID={item.userID}
           email={item.email}
           emailStatus={item.emailStatus}
           userAvatar={item.userAvatar}
           userRole={item.userRole}
+          userID={item.userID}
+          teamMemberID={item.teamMemberID}
           currentUserRole={currentUserRole}
-          changeTeamMembersRole={changeTeamMembersRole}
+          changeMembersRole={changeMembersRole}
         />
       ))}
     </div>
@@ -136,23 +154,221 @@ export const InviteList: FC<InviteListProps> = (props) => {
 
 export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
   const {
+    hasApp,
+    userListData,
     currentUserRole,
     allowInviteByLink,
+    allowEditorManageTeamMember,
+    allowViewerManageTeamMember,
     handleCloseModal,
     changeTeamMembersRole,
     inviteByEmail,
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
+    maskClosable,
+    appLink,
+    isAppPublic,
+    isCloudVersion,
+    updateAppPublicConfig,
+    appID,
+    teamName,
+    userNickname,
+    from,
+    inviteToUseAppStatus,
   } = props
   const { t } = useTranslation()
+  const { track } = useContext(MixpanelTrackContext)
+  const { totalTeamLicense } = useContext(MemberListContext)
+  const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
+
+  const canSetPublic = canManageApp(
+    currentUserRole,
+    allowEditorManageTeamMember,
+    allowViewerManageTeamMember,
+  )
+
+  const canEditApp =
+    isCloudVersion &&
+    canManage(currentUserRole, ATTRIBUTE_GROUP.APP, ACTION_MANAGE.EDIT_APP)
+
+  const canUseBillingFeature = canUseUpgradeFeature(
+    currentUserRole,
+    totalTeamLicense?.teamLicensePurchased,
+    totalTeamLicense?.teamLicenseAllPaid,
+  )
+
+  const [activeTab, setActiveTab] = useState(canSetPublic ? 0 : 2)
+
+  const redirectPage = useMemo(() => {
+    switch (activeTab) {
+      case 0:
+        return REDIRECT_PAGE_TYPE.EDIT
+      case 1:
+        return REDIRECT_PAGE_TYPE.RELEASE
+    }
+  }, [activeTab])
+
+  const tabs = [
+    {
+      id: 0,
+      label: t("new_share.title.invite_to_edit"),
+      hidden: !canSetPublic,
+    },
+    {
+      id: 1,
+      label: t("new_share.title.invite_to_use"),
+      hidden: !canSetPublic || inviteToUseAppStatus === "hidden",
+    },
+    {
+      id: 2,
+      label: (
+        <div css={upgradeTabLabelStyle}>
+          {t("user_management.modal.tab.public")}
+          {isCloudVersion && !canUseBillingFeature && (
+            <UpgradeIcon color={getColor("techPurple", "01")} />
+          )}
+        </div>
+      ),
+      hidden: !canEditApp,
+    },
+  ]
+
   const handleClickMask = useCallback(
     (e: MouseEvent<HTMLDivElement>) => {
       e.stopPropagation()
-      handleCloseModal()
+      maskClosable && handleCloseModal()
     },
-    [handleCloseModal],
+    [maskClosable, handleCloseModal],
   )
+
+  const handleTabClick = useCallback((id: number) => {
+    setActiveTab(id)
+  }, [])
+
+  const handleInviteByEmail = useCallback(
+    (email: string, userRole: USER_ROLE) => {
+      return inviteByEmail(email, userRole, redirectPage)
+    },
+    [inviteByEmail, redirectPage],
+  )
+
+  const handleRenewInviteLink = useCallback(
+    (userRole: USER_ROLE) => {
+      return renewInviteLink(userRole, redirectPage)
+    },
+    [renewInviteLink, redirectPage],
+  )
+
+  const fetchShareAppLink = useCallback(
+    (userRole: USER_ROLE) => {
+      return fetchInviteLink(userRole, redirectPage)
+    },
+    [fetchInviteLink, redirectPage],
+  )
+
+  useEffect(() => {
+    if (hasApp && appID) {
+      track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
+        element: "invite_modal_public_tab",
+        parameter5: appID,
+      })
+      track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
+        element: "invite_modal_invite_tab",
+        parameter5: appID,
+      })
+    }
+  }, [appID, hasApp, track])
+
+  if (hasApp) {
+    return (
+      <div css={modalWithMaskWrapperStyle}>
+        <div css={modalWrapperStyle}>
+          <header css={modalHeaderWrapperStyle}>
+            <div css={modalTabWrapperStyle}>
+              {tabs.map((tab) => {
+                const { id, label, hidden } = tab
+                const isActive = id === activeTab
+                if (hidden) return null
+
+                return (
+                  <span
+                    key={`tab-${id}`}
+                    css={applyTabLabelStyle(isActive)}
+                    onClick={() => {
+                      if (id === 2) {
+                        track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                          element: "invite_modal_public_tab",
+                          parameter5: appID,
+                        })
+                        if (isCloudVersion && !canUseBillingFeature) {
+                          handleUpgradeModalVisible(true, "upgrade")
+                          return
+                        }
+                      }
+                      handleTabClick(id)
+                    }}
+                  >
+                    {label}
+                  </span>
+                )
+              })}
+            </div>
+            <span
+              css={closeIconHotSpotStyle}
+              onClick={() => {
+                track?.(
+                  ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                  {
+                    element: "invite_modal_close",
+                    parameter5: appID,
+                  },
+                  "both",
+                )
+                handleCloseModal()
+              }}
+            >
+              <CloseIcon />
+            </span>
+          </header>
+          <Divider />
+          {activeTab === 0 || activeTab === 1 ? (
+            activeTab === 1 && inviteToUseAppStatus === "unDeployed" ? (
+              <div css={unDeployedStyle}>{t("new_share.desc.undeploy")}</div>
+            ) : (
+              <InviteMemberModalContent
+                isCloudVersion={isCloudVersion}
+                userListData={userListData}
+                currentUserRole={currentUserRole}
+                allowInviteByLink={allowInviteByLink}
+                inviteByEmail={handleInviteByEmail}
+                renewInviteLink={handleRenewInviteLink}
+                fetchInviteLink={fetchShareAppLink}
+                teamName={teamName}
+                userNickname={userNickname}
+                from={from}
+                configInviteLink={configInviteLink}
+                changeTeamMembersRole={changeTeamMembersRole}
+                appID={appID}
+              />
+            )
+          ) : null}
+          {activeTab === 2 && (
+            <AppPublicContent
+              appLink={appLink}
+              teamName={teamName}
+              userNickname={userNickname}
+              isAppPublic={isAppPublic}
+              updateAppPublicConfig={updateAppPublicConfig}
+              appID={appID}
+            />
+          )}
+        </div>
+        <div css={maskStyle} onClick={handleClickMask} />
+      </div>
+    )
+  }
+
   return (
     <div css={modalWithMaskWrapperStyle}>
       <div css={modalWrapperStyle}>
@@ -160,19 +376,35 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
           <h3 css={modalTitleStyle}>
             {t("user_management.modal.title.invite_members")}
           </h3>
-          <span css={closeIconHotSpotStyle} onClick={handleCloseModal}>
+          <span
+            css={closeIconHotSpotStyle}
+            onClick={() => {
+              track?.(
+                ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                {
+                  element: "invite_modal_close",
+                },
+                "both",
+              )
+              handleCloseModal()
+            }}
+          >
             <CloseIcon />
           </span>
         </header>
         <Divider />
         <InviteMemberModalContent
+          userListData={userListData}
           currentUserRole={currentUserRole}
           allowInviteByLink={allowInviteByLink}
-          changeTeamMembersRole={changeTeamMembersRole}
           inviteByEmail={inviteByEmail}
+          teamName={teamName}
+          from={from}
+          userNickname={userNickname}
           renewInviteLink={renewInviteLink}
           fetchInviteLink={fetchInviteLink}
           configInviteLink={configInviteLink}
+          changeTeamMembersRole={changeTeamMembersRole}
         />
       </div>
       <div css={maskStyle} onClick={handleClickMask} />
@@ -180,25 +412,169 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
   )
 }
 
+export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
+  const {
+    appLink,
+    isAppPublic,
+    appID,
+    updateAppPublicConfig,
+    teamName,
+    userNickname,
+  } = props
+  const { t } = useTranslation()
+  const { track } = useContext(MixpanelTrackContext)
+
+  const message = useMessage()
+  const [loading, setLoading] = useState(false)
+
+  const handleClickCopy = useCallback(() => {
+    if (!appLink) return
+    const copyReturned = copy(
+      t("user_management.modal.custom_copy_text_public", {
+        teamName,
+        userName: userNickname,
+        inviteLink: appLink,
+      }),
+    )
+    if (copyReturned) {
+      message.success({
+        content: t("user_management.modal.link.copied_suc"),
+      })
+    } else {
+      message.error({
+        content: t("user_management.modal.link.failed_to_copy"),
+      })
+    }
+  }, [appLink, message, t, teamName, userNickname])
+
+  const switchAppPublic = async (value: boolean) => {
+    if (loading) return
+    setLoading(true)
+    try {
+      const success = await updateAppPublicConfig?.(value)
+      if (success) {
+        message.success({
+          content: t("user_management.modal.message.make_public_suc"),
+        })
+        setLoading(false)
+        return
+      }
+      message.error({
+        content: t("user_management.modal.message.make_public_failed"),
+      })
+    } catch (e) {
+      message.error({
+        content: t("user_management.modal.message.make_public_failed"),
+      })
+    }
+    setLoading(false)
+  }
+  useEffect(() => {
+    track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
+      element: "invite_modal_public_switch",
+      parameter4: isAppPublic ? "on" : "off",
+      parameter5: appID,
+    })
+  }, [appID, isAppPublic, track])
+
+  useEffect(() => {
+    if (isAppPublic) {
+      track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
+        element: "invite_modal_public_copy",
+        parameter5: appID,
+      })
+      // showPublicCopyReport && showPublicCopyReport()
+    }
+  }, [appID, isAppPublic, track])
+
+  return (
+    <div css={appPublicWrapperStyle}>
+      <div css={publicLabelStyle}>
+        <span>{t("user_management.modal.link.make_public_title")}</span>
+        {loading ? (
+          <Loading colorScheme="techPurple" />
+        ) : (
+          <Switch
+            checked={isAppPublic ?? false}
+            colorScheme="black"
+            onChange={switchAppPublic}
+            onClick={() => {
+              track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                element: "invite_modal_public_switch",
+                parameter4: isAppPublic ? "on" : "off",
+                parameter5: appID,
+              })
+            }}
+          />
+        )}
+      </div>
+      {isAppPublic && (
+        <div css={publicLinkStyle}>
+          <Input
+            _css={emailInputStyle}
+            value={appLink}
+            colorScheme="techPurple"
+            readOnly
+          />
+          <Button
+            w="100%"
+            h="32px"
+            ov="hidden"
+            colorScheme="black"
+            disabled={!appLink}
+            onClick={() => {
+              handleClickCopy()
+              track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                element: "invite_modal_public_copy",
+                parameter5: appID,
+              })
+            }}
+          >
+            {t("user_management.modal.link.copy")}
+          </Button>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
   const {
+    isCloudVersion,
     currentUserRole,
     allowInviteByLink,
+    appID,
+    userNickname,
+    teamName,
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
+    from,
   } = props
+
+  const { track } = useContext(MixpanelTrackContext)
   const { t } = useTranslation()
+  const message = useMessage()
 
   const [inviteLink, setInviteLink] = useState("")
   const [inviteLinkRole, setInviteLinkRole] = useState<USER_ROLE>(
     USER_ROLE.VIEWER,
   )
-
+  const [loading, setLoading] = useState(false)
   const [fetchInviteLinkError, setFetchInviteLinkError] = useState(false)
+  const [turnOnLoading, setTurnOnLoading] = useState(false)
+  const cacheInviteLink = useRef(inviteLink)
+
+  // replace url href to location.href
+
+  const replaceHref = (link: string) => {
+    const url = new URL(link)
+    return `${location.origin}${url.search}`
+  }
 
   const fetchInviteLinkHandler = useCallback(
     async (userRole: USER_ROLE, isRenew: boolean = false) => {
+      setLoading(true)
       try {
         const linkConfig = isRenew
           ? await renewInviteLink(userRole)
@@ -208,7 +584,10 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
           linkConfig.inviteLink &&
           linkConfig.userRole != undefined
         ) {
-          setInviteLink(linkConfig.inviteLink)
+          const link = isCloudVersion
+            ? linkConfig.inviteLink
+            : replaceHref(linkConfig.inviteLink)
+          setInviteLink(link)
           setInviteLinkRole(linkConfig.userRole)
           setFetchInviteLinkError(false)
         } else {
@@ -217,9 +596,16 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
       } catch (e) {
         setFetchInviteLinkError(true)
       }
+      setLoading(false)
     },
-    [fetchInviteLink, renewInviteLink],
+    [fetchInviteLink, renewInviteLink, isCloudVersion],
   )
+
+  useEffect(() => {
+    if (allowInviteByLink) {
+      fetchInviteLinkHandler(USER_ROLE.VIEWER)
+    }
+  }, [allowInviteByLink, fetchInviteLinkHandler])
 
   const handleChangeInviteLinkRole = useCallback(
     async (value: any) => {
@@ -230,8 +616,8 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
   )
 
   const handleClickRenewInviteLink = useCallback(async () => {
-    await fetchInviteLinkHandler(USER_ROLE.VIEWER)
-  }, [fetchInviteLinkHandler])
+    await fetchInviteLinkHandler(inviteLinkRole, true)
+  }, [inviteLinkRole, fetchInviteLinkHandler])
 
   const handleClickConfigInviteLink = useCallback(async () => {
     try {
@@ -241,26 +627,118 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
       }
     } catch (e) {
       console.error(e)
+      const errorMessage = allowInviteByLink
+        ? t("user_management.modal.link.turn_off_fail")
+        : t("user_management.modal.link.turn_on_fail")
+      message.error({
+        content: errorMessage,
+      })
     }
   }, [
     allowInviteByLink,
     configInviteLink,
     fetchInviteLinkHandler,
     inviteLinkRole,
+    message,
+    t,
   ])
 
-  const canSelectUserRoleOptions = getSmallThenTargetRole(
-    currentUserRole,
-    false,
-    [USER_ROLE.OWNER, USER_ROLE.CUSTOM],
-  ).map((role) => {
-    const labelI18nKey = userRoleMapI18nString[role]
+  const handleClickTurnOnInviteLink = useCallback(() => {
+    setTurnOnLoading(true)
+    canAuthShow(
+      currentUserRole,
+      [USER_ROLE.ADMIN, USER_ROLE.OWNER],
+      SHOW_RULES.EQUAL,
+    ) &&
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+        {
+          element: "invite_link_on",
+          parameter5: appID,
+        },
+        "both",
+      )
+    handleClickConfigInviteLink().finally(() => {
+      setTurnOnLoading(false)
+    })
+  }, [appID, currentUserRole, handleClickConfigInviteLink, track])
 
-    return {
-      label: t(labelI18nKey),
-      value: role,
+  const handleClickCopyInviteLink = useCallback(() => {
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      {
+        element: "invite_link_copy",
+        parameter1: inviteLinkRole,
+        parameter5: appID,
+      },
+      "both",
+    )
+    const copyReturned = copy(
+      from === "cloud_dashboard"
+        ? t("user_management.modal.custom_copy_text", {
+            userName: userNickname,
+            teamName: teamName,
+            inviteLink: inviteLink,
+          })
+        : t("user_management.modal.custom_copy_text_app_invite", {
+            userName: userNickname,
+            teamName: teamName,
+            inviteLink: inviteLink,
+          }),
+    )
+    if (copyReturned) {
+      message.success({
+        content: t("user_management.modal.link.copied_suc"),
+      })
+    } else {
+      message.error({
+        content: t("user_management.modal.link.failed_to_copy"),
+      })
     }
-  })
+  }, [
+    appID,
+    from,
+    inviteLink,
+    inviteLinkRole,
+    message,
+    t,
+    teamName,
+    track,
+    userNickname,
+  ])
+
+  useEffect(() => {
+    !allowInviteByLink &&
+      canAuthShow(
+        currentUserRole,
+        [USER_ROLE.ADMIN, USER_ROLE.OWNER],
+        SHOW_RULES.EQUAL,
+      )
+  }, [allowInviteByLink, appID, currentUserRole, track])
+
+  useEffect(() => {
+    !allowInviteByLink &&
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        { element: "invite_link_on", parameter5: appID },
+        "both",
+      )
+  }, [allowInviteByLink, appID, track])
+
+  useEffect(() => {
+    if (inviteLink && inviteLink !== cacheInviteLink.current) {
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        {
+          element: "invite_link",
+          parameter1: inviteLinkRole,
+          parameter5: appID,
+        },
+        "both",
+      )
+      cacheInviteLink.current = inviteLink
+    }
+  }, [inviteLinkRole, inviteLink, track, appID])
 
   return (
     <div css={subBodyWrapperStyle}>
@@ -271,15 +749,52 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
         {allowInviteByLink && (
           <Dropdown
             trigger="click"
-            position="bottom"
+            position="bottom-end"
+            triggerProps={{ zIndex: 2 }}
             dropList={
               <DropList>
-                <DropListItem key="reset" onClick={handleClickRenewInviteLink}>
+                <DropListItem
+                  key="reset"
+                  value="reset"
+                  onClick={() => {
+                    canAuthShow(
+                      currentUserRole,
+                      [USER_ROLE.ADMIN, USER_ROLE.OWNER],
+                      SHOW_RULES.EQUAL,
+                    ) &&
+                      track?.(
+                        ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                        {
+                          element: "invite_link_update",
+                          parameter1: inviteLinkRole,
+                          parameter5: appID,
+                        },
+                        "both",
+                      )
+                    handleClickRenewInviteLink()
+                  }}
+                >
                   {t("user_management.modal.link.update")}
                 </DropListItem>
                 <DropListItem
                   key="turnOff"
-                  onClick={handleClickConfigInviteLink}
+                  value="turnOff"
+                  onClick={() => {
+                    canAuthShow(
+                      currentUserRole,
+                      [USER_ROLE.ADMIN, USER_ROLE.OWNER],
+                      SHOW_RULES.EQUAL,
+                    ) &&
+                      track?.(
+                        ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                        {
+                          element: "invite_link_close",
+                          parameter5: appID,
+                        },
+                        "both",
+                      )
+                    handleClickConfigInviteLink()
+                  }}
                 >
                   {t("user_management.modal.link.turn_off")}
                 </DropListItem>
@@ -302,30 +817,45 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
         <div css={inviteLinkWrapperStyle}>
           <div css={fakerInputStyle}>
             <span css={urlAreaStyle(fetchInviteLinkError)}>
-              {fetchInviteLinkError
-                ? t("user_management.modal.link.fail")
-                : inviteLink}
+              {loading ? (
+                <Skeleton text={{ rows: 1, width: 280 }} opac={0.5} animation />
+              ) : fetchInviteLinkError ? (
+                t("user_management.modal.link.fail")
+              ) : (
+                inviteLink
+              )}
             </span>
-            <Select
-              w="auto"
-              value={t(userRoleMapI18nString[inviteLinkRole])}
-              options={canSelectUserRoleOptions}
+            <RoleSelect
+              value={inviteLinkRole}
+              userRole={currentUserRole}
               onChange={handleChangeInviteLinkRole}
             />
           </div>
-          <Button size="large" h="40px" colorScheme="black">
-            {t("user_management.modal.link.copy")}
+          <Button
+            w="100%"
+            h="32px"
+            ov="hidden"
+            colorScheme="black"
+            loading={loading}
+            onClick={handleClickCopyInviteLink}
+          >
+            <span css={applyHiddenStyle(loading)}>
+              {t("user_management.modal.link.copy")}
+            </span>
           </Button>
         </div>
       ) : (
         <p css={inviteLinkWhenClosedStyle}>
           {t("user_management.modal.link.description")}
-          <span
-            css={turnOnInviteLinkButtonStyle}
-            onClick={handleClickConfigInviteLink}
+          <Button
+            variant="text"
+            colorScheme="techPurple"
+            size="small"
+            loading={turnOnLoading}
+            onClick={handleClickTurnOnInviteLink}
           >
             {t("user_management.modal.link.turn_on")}
-          </span>
+          </Button>
         </p>
       )}
     </div>
@@ -333,11 +863,22 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
 }
 
 export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
-  const { currentUserRole, inviteByEmail, changeTeamMembersRole } = props
+  const {
+    currentUserRole,
+    userListData,
+    appID,
+    inviteByEmail,
+    changeTeamMembersRole,
+  } = props
+  const { track } = useContext(MixpanelTrackContext)
 
   const { t } = useTranslation()
   const message = useMessage()
 
+  const { totalTeamLicense, isCloudVersion } = useContext(MemberListContext)
+  const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
+
+  const [loading, setLoading] = useState(false)
   const [inviteRole, setInviteRole] = useState<USER_ROLE>(USER_ROLE.VIEWER)
   const [inviteEmails, setInviteEmails] = useState<string[]>([])
   const [inputEmailValue, setInputEmailValue] = useState("")
@@ -345,77 +886,160 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
     inviteByEmailResponse[]
   >([])
 
-  const canSelectUserRoleOptions = getSmallThenTargetRole(
-    currentUserRole,
-    false,
-    [USER_ROLE.OWNER, USER_ROLE.CUSTOM],
-  ).map((role) => {
-    const labelI18nKey = userRoleMapI18nString[role]
+  const remainInviteCount = useMemo(() => {
+    if (!isCloudVersion) return 0
+    const needLicenseList = inviteMemberList.filter((item) => {
+      return item.userRole !== USER_ROLE.VIEWER
+    })
+    return totalTeamLicense.balance - needLicenseList.length
+  }, [totalTeamLicense?.balance, inviteMemberList, isCloudVersion])
 
-    return {
-      label: t(labelI18nKey),
-      value: role,
+  const checkEmail = useCallback(
+    (email: string) => {
+      if (
+        isCloudVersion &&
+        (inviteRole === USER_ROLE.VIEWER
+          ? remainInviteCount < 0
+          : remainInviteCount < inviteEmails.length + 1)
+      ) {
+        handleUpgradeModalVisible(true, "add-license")
+        return false
+      }
+      if (
+        [...userListData, ...inviteMemberList].find(
+          (item) => item.email === email,
+        )
+      ) {
+        message.error({
+          content: t("user_management.modal.email.in_list"),
+        })
+      } else if (!EMAIL_REGX.test(email)) {
+        message.error({
+          content: t("user_management.modal.email.notmail", {
+            email: email,
+          }),
+        })
+      } else {
+        return true
+      }
+    },
+    [
+      isCloudVersion,
+      userListData,
+      inviteEmails,
+      inviteMemberList,
+      inviteRole,
+      remainInviteCount,
+      handleUpgradeModalVisible,
+      message,
+      t,
+    ],
+  )
+
+  const checkRemainCount = useCallback(() => {
+    if (!isCloudVersion) return true
+    if (
+      inviteRole === USER_ROLE.VIEWER
+        ? remainInviteCount < 0
+        : remainInviteCount < inviteEmails.length + 1
+    ) {
+      handleUpgradeModalVisible(true, "add-license")
+      return false
     }
-  })
+    return true
+  }, [
+    isCloudVersion,
+    inviteRole,
+    remainInviteCount,
+    inviteEmails,
+    handleUpgradeModalVisible,
+  ])
 
-  const handleChangeInviteRoleByEmail = useCallback((value: any) => {
-    setInviteRole(value)
-  }, [])
+  const handleChangeInviteRoleByEmail = useCallback(
+    (value: USER_ROLE) => {
+      setInviteRole(value)
+      if (isCloudVersion && inviteEmails.length) {
+        if (
+          value === USER_ROLE.VIEWER
+            ? remainInviteCount < 0
+            : remainInviteCount < inviteEmails.length
+        ) {
+          handleUpgradeModalVisible(true, "add-license")
+          setInviteEmails((prev) => {
+            return prev.slice(0, remainInviteCount)
+          })
+        }
+      }
+    },
+    [
+      isCloudVersion,
+      inviteEmails.length,
+      remainInviteCount,
+      handleUpgradeModalVisible,
+    ],
+  )
 
   const handleValidateInputValue = useCallback(
     (inputValue: string, values: any[]) => {
       if (!inputValue) return false
-      if (!EMAIL_REGX.test(inputValue)) {
+      if (!checkEmail(inputValue)) {
+        return false
+      }
+      if (!checkRemainCount()) {
         return false
       }
       return values?.every((item) => item?.value !== inputValue)
     },
-    [],
+    [checkEmail, checkRemainCount],
   )
 
   const handlePressEnter = useCallback(() => {
     setInputEmailValue("")
-    if (!EMAIL_REGX.test(inputEmailValue)) {
-      message.error({
-        content: `${inputEmailValue} is not email`,
-      })
-    }
-  }, [inputEmailValue, message])
+  }, [])
 
   const handleInputValueChange = useCallback(
     (value: string) => {
+      value = value.trim()
       setInputEmailValue(value)
-      if (value[value.length - 1] === ",") {
-        const finalValue = value.slice(0, -1)
-        if (EMAIL_REGX.test(finalValue)) {
-          setInviteEmails([...inviteEmails, value.slice(0, -1)])
-        } else {
-          message.error({
-            content: `${inputEmailValue} is not email`,
-          })
+      if (value.includes(",")) {
+        const values = value.split(",")
+        for (let index = 0; index < values.length; index++) {
+          let item = values[index].trim()
+
+          if (!item.length) continue
+
+          if (inviteEmails.find((email) => email == item)) {
+            message.error({
+              content: t("user_management.modal.email.duplicate", {
+                email: item,
+              }),
+            })
+            continue
+          }
+
+          if (checkEmail(item) && checkRemainCount()) {
+            setInviteEmails((prev) => [...prev, item])
+          }
         }
         setInputEmailValue("")
       }
     },
-    [inputEmailValue, inviteEmails, message],
+    [inviteEmails, message, t, checkEmail, checkRemainCount],
   )
 
   const handleBlurInputValue = useCallback(() => {
     if (!inputEmailValue) return
-    if (EMAIL_REGX.test(inputEmailValue)) {
+    if (checkEmail(inputEmailValue) && checkRemainCount()) {
       setInviteEmails([...inviteEmails, inputEmailValue])
-    } else {
-      message.error({
-        content: `${inputEmailValue} is not email`,
-      })
+      setInputEmailValue("")
     }
-    setInputEmailValue("")
-  }, [inputEmailValue, inviteEmails, message])
+  }, [inputEmailValue, inviteEmails, checkEmail, checkRemainCount])
 
   const handleClickInviteButton = useCallback(() => {
     const requests = inviteEmails.map((email) => {
       return inviteByEmail(email, inviteRole)
     })
+    setLoading(true)
     Promise.all(requests)
       .then((results) => {
         message.success({
@@ -424,33 +1048,28 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         setInviteMemberList((prev) => [...prev, ...results])
         setInviteEmails([])
       })
-      .catch(() => {
-        message.error({
-          content: t("user_management.mes.invite_fail"),
-        })
+      .finally(() => {
+        setLoading(false)
       })
   }, [inviteByEmail, inviteEmails, inviteRole, message, t])
 
-  const changeTeamMembersRoleInList = useCallback(
-    (userID: string, userRole: USER_ROLE) => {
-      const findIndex = inviteMemberList.findIndex(
-        (item) => item.userID === userID,
-      )
-      if (findIndex === -1) return Promise.reject(false)
-      setInviteMemberList((prev) => {
-        return prev.map((item) => {
-          if (item.userID === userID) {
-            return {
-              ...item,
-              role: userRole,
+  const handleChangeInviteMemberRole = useCallback(
+    (teamMemberID: string, userRole: USER_ROLE) => {
+      return changeTeamMembersRole(teamMemberID, userRole).then((res) => {
+        if (res) {
+          setInviteMemberList((prev) => {
+            const index = prev.findIndex(
+              (item) => item.teamMemberID === teamMemberID,
+            )
+            if (index !== -1) {
+              prev[index].userRole = userRole
             }
-          }
-          return item
-        })
+            return [...prev]
+          })
+        }
       })
-      return changeTeamMembersRole(userID, userRole)
     },
-    [changeTeamMembersRole, inviteMemberList],
+    [changeTeamMembersRole],
   )
 
   return (
@@ -461,39 +1080,63 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
         </h4>
       </div>
       <div css={inviteEmailWrapperStyle}>
-        <div css={fakerInputWithEmail}>
-          <InputTag
-            w="180px"
-            flex="none"
-            maxH="198px"
-            ovY="auto"
-            value={inviteEmails}
-            inputValue={inputEmailValue}
-            validate={handleValidateInputValue}
-            onChange={setInviteEmails}
-            onPressEnter={handlePressEnter}
-            onInputChange={handleInputValueChange}
-            onBlur={handleBlurInputValue}
-          />
-          <Select
-            w="auto"
-            value={t(userRoleMapI18nString[inviteRole])}
-            options={canSelectUserRoleOptions}
-            onChange={handleChangeInviteRoleByEmail}
-          />
-        </div>
+        <InputTag
+          _css={emailInputStyle}
+          alignItems="start"
+          colorScheme={"techPurple"}
+          suffix={
+            <RoleSelect
+              value={inviteRole}
+              userRole={currentUserRole}
+              onChange={handleChangeInviteRoleByEmail}
+            />
+          }
+          value={inviteEmails}
+          inputValue={inputEmailValue}
+          validate={handleValidateInputValue}
+          onChange={(value: any) => {
+            setInviteEmails(value as string[])
+          }}
+          onPressEnter={handlePressEnter}
+          onInputChange={handleInputValueChange}
+          onBlur={handleBlurInputValue}
+        />
         <Button
-          size="large"
-          h="40px"
+          w="100%"
+          h="32px"
+          ov="hidden"
           colorScheme="black"
+          loading={loading}
           disabled={!(Array.isArray(inviteEmails) && inviteEmails.length > 0)}
-          onClick={handleClickInviteButton}
+          onClick={() => {
+            track?.(
+              ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+              {
+                element: "invite_email_button",
+                parameter1: inviteRole,
+                parameter2: inviteEmails.length,
+                parameter5: appID,
+              },
+              "both",
+            )
+            handleClickInviteButton()
+          }}
         >
-          {t("user_management.modal.email.invite")}
+          <span css={applyHiddenStyle(loading)}>
+            {t("user_management.modal.email.invite")}
+          </span>
         </Button>
       </div>
+      {isCloudVersion && (
+        <div css={remainInviteCountStyle}>
+          {t("user_management.modal.tips.license_insufficient") + " "}
+          <span css={applyInviteCountStyle(remainInviteCount)}>
+            {remainInviteCount}
+          </span>
+        </div>
+      )}
       <InviteList
-        changeTeamMembersRole={changeTeamMembersRoleInList}
+        changeMembersRole={handleChangeInviteMemberRole}
         inviteList={inviteMemberList}
         currentUserRole={currentUserRole}
       />
@@ -505,28 +1148,41 @@ export const InviteMemberModalContent: FC<InviteMemberModalContentProps> = (
   props,
 ) => {
   const {
+    isCloudVersion,
+    changeTeamMembersRole,
     currentUserRole,
     allowInviteByLink,
     renewInviteLink,
     fetchInviteLink,
     configInviteLink,
-    changeTeamMembersRole,
     inviteByEmail,
+    userListData,
+    appID,
+    userNickname,
+    teamName,
+    from,
   } = props
 
   return (
     <div css={modalBodyWrapperStyle}>
       <InviteMemberByLink
+        from={from}
+        isCloudVersion={isCloudVersion}
         currentUserRole={currentUserRole}
         allowInviteByLink={allowInviteByLink}
+        appID={appID}
+        userNickname={userNickname}
+        teamName={teamName}
         configInviteLink={configInviteLink}
         fetchInviteLink={fetchInviteLink}
         renewInviteLink={renewInviteLink}
       />
       <InviteMemberByEmail
+        userListData={userListData}
         currentUserRole={currentUserRole}
-        changeTeamMembersRole={changeTeamMembersRole}
+        appID={appID}
         inviteByEmail={inviteByEmail}
+        changeTeamMembersRole={changeTeamMembersRole}
       />
     </div>
   )

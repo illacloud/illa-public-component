@@ -1,33 +1,51 @@
-import { Select, Table } from "@illa-design/react"
-import { FC, useCallback, useMemo } from "react"
+import { Table } from "@illa-design/react"
+import { FC, useContext, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { MoreAction } from "@/illa-public-component/MemberList/components/List/MoreAction"
 import { NameSpace } from "@/illa-public-component/MemberList/components/List/NameSpace"
 import { ListProps } from "@/illa-public-component/MemberList/components/List/interface"
 import {
+  cardStyle,
   listBodyStyle,
   listWrapperStyle,
 } from "@/illa-public-component/MemberList/components/List/style"
 import {
-  getSmallThenTargetRole,
-  userRoleMapI18nString,
-} from "@/illa-public-component/UserRoleUtils"
+  SUBSCRIBE_PLAN,
+  SUBSCRIPTION_CYCLE,
+} from "@/illa-public-component/MemberList/interface"
+import RoleSelect from "@/illa-public-component/RoleSelect"
+import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
+import { UsageCard } from "@/illa-public-component/UsageCard"
+import { canManagePayment } from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 export const List: FC<ListProps> = (props) => {
   const {
+    isCloudVersion,
     userListData,
-    currentUserRole,
     currentUserID,
+    currentUserRole,
+    currentTeamLicense,
+    totalTeamLicense,
     removeTeamMembers,
     changeTeamMembersRole,
+    onSubscribe,
   } = props
 
   const { t } = useTranslation()
 
+  const { handleLicenseDrawerVisible } = useContext(UpgradeCloudContext)
+
+  const hasPaymentManagementPermission = useMemo(() => {
+    return canManagePayment(
+      currentUserRole,
+      totalTeamLicense?.teamLicenseAllPaid,
+    )
+  }, [currentUserRole, totalTeamLicense?.teamLicenseAllPaid])
+
   const data = useMemo(() => {
     if (!Array.isArray(userListData) || userListData.length === 0) {
-      return []
+      return undefined
     }
     return userListData.map((item) => {
       return {
@@ -36,14 +54,19 @@ export const List: FC<ListProps> = (props) => {
           avatar: item.avatar,
           email: item.email,
           status: item.userStatus,
+          userID: item.userID,
         },
         permissions: {
+          teamMemberID: item.teamMemberID,
+          userID: item.userID,
           userRole: item.userRole,
           email: item.email,
         },
         actions: {
           userID: item.userID,
           userRole: item.userRole,
+          userStatus: item.userStatus,
+          teamMemberID: item.teamMemberID,
           email: item.email,
           nickname: item.nickname,
         },
@@ -51,25 +74,13 @@ export const List: FC<ListProps> = (props) => {
     })
   }, [userListData])
 
-  const handleChangeRole = useCallback(
-    async (userID: string, value: USER_ROLE) => {
-      try {
-        const res = await changeTeamMembersRole(userID, value)
-        if (!res) {
-        }
-      } catch (e) {
-        console.error(e)
-      }
-    },
-    [changeTeamMembersRole],
-  )
-
   const columns = useMemo(
     () => [
       {
         id: "userInfo",
         header: t("user_management.page.member"),
         accessorKey: "userInfo",
+        size: 400,
         cell: (props: Record<string, any>) => {
           const value = props.getValue()
           return (
@@ -78,6 +89,8 @@ export const List: FC<ListProps> = (props) => {
               avatar={value?.avatar}
               email={value?.email}
               status={value?.status}
+              userID={value?.userID}
+              currentUserID={currentUserID}
             />
           )
         },
@@ -88,26 +101,16 @@ export const List: FC<ListProps> = (props) => {
         accessorKey: "permissions",
         cell: (props: Record<string, any>) => {
           const value = props.getValue()
-          const options = getSmallThenTargetRole(currentUserRole, false, [
-            USER_ROLE.OWNER,
-            USER_ROLE.CUSTOM,
-          ]).map((role) => {
-            const labelI18nKey = userRoleMapI18nString[role]
-
-            return {
-              label: t(labelI18nKey),
-              value: role,
-            }
-          })
 
           return (
-            <Select
-              value={t(userRoleMapI18nString[value.userRole as USER_ROLE])}
-              options={options}
-              onChange={(userRole: USER_ROLE) => {
-                handleChangeRole(value?.userID, userRole)
+            <RoleSelect
+              fontWeight={500}
+              value={value.userRole}
+              userRole={currentUserRole}
+              disabled={value.userID === currentUserID}
+              onChange={async (userRole: USER_ROLE) => {
+                await changeTeamMembersRole(value.teamMemberID, userRole)
               }}
-              w="auto"
             />
           )
         },
@@ -115,6 +118,7 @@ export const List: FC<ListProps> = (props) => {
       {
         id: "action",
         header: " ",
+        size: 100,
         accessorKey: "actions",
         enableSorting: false,
         cell: (props: Record<string, any>) => {
@@ -124,8 +128,10 @@ export const List: FC<ListProps> = (props) => {
             <MoreAction
               email={value.email}
               userRole={value.userRole}
+              userStatus={value.userStatus}
               currentUserRole={currentUserRole}
               currentUserID={currentUserID}
+              teamMemberID={value.teamMemberID}
               userID={value.userID}
               name={value.nickname}
               removeTeamMembers={removeTeamMembers}
@@ -139,22 +145,57 @@ export const List: FC<ListProps> = (props) => {
       changeTeamMembersRole,
       currentUserID,
       currentUserRole,
-      handleChangeRole,
       removeTeamMembers,
       t,
     ],
   )
 
+  const openDrawer = () => {
+    handleLicenseDrawerVisible(true, {
+      type: "license",
+      subscribeInfo: {
+        quantity: currentTeamLicense.cancelAtPeriodEnd
+          ? 1
+          : currentTeamLicense.volume,
+        cycle: currentTeamLicense.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
+        plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
+        currentPlan: currentTeamLicense.plan,
+        cancelAtPeriodEnd: currentTeamLicense?.cancelAtPeriodEnd,
+      },
+      onSubscribeCallback: onSubscribe,
+    })
+  }
+
   return (
     <div css={listWrapperStyle}>
-      <Table
-        data={data}
-        columns={columns}
-        css={listBodyStyle}
-        pinedHeader
-        tableLayout="auto"
-        h="100%"
-      />
+      {isCloudVersion && hasPaymentManagementPermission ? (
+        <UsageCard
+          css={cardStyle}
+          type="License"
+          current={totalTeamLicense.volume - totalTeamLicense.balance}
+          total={totalTeamLicense.volume}
+          buttonColorScheme="grayBlue"
+          buttonVariant="outline"
+          actionDes={
+            currentTeamLicense?.cycle === SUBSCRIPTION_CYCLE.YEARLY
+              ? t(`billing.license_price_new.yearly`)
+              : t(`billing.license_price_new.monthly`)
+          }
+          onClick={openDrawer}
+        />
+      ) : null}
+      {data?.length ? (
+        <Table
+          data={data}
+          columns={columns}
+          css={listBodyStyle}
+          pinedHeader
+          tableLayout="auto"
+          h="100%"
+          customCellPadding="14px 16px"
+          clickOutsideToResetRowSelect
+        />
+      ) : null}
     </div>
   )
 }

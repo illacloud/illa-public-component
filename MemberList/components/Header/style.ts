@@ -46,7 +46,7 @@ export const modalWithMaskWrapperStyle = css`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,6 +68,7 @@ export const modalWrapperStyle = css`
   border: 1px solid ${getColor("grayBlue", "08")};
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  width: 486px;
 `
 
 export const modalHeaderWrapperStyle = css`
@@ -86,6 +87,27 @@ export const modalTitleStyle = css`
   margin: 0;
 `
 
+export const modalTabWrapperStyle = css`
+  display: flex;
+  gap: 16px;
+`
+
+export const applyTabLabelStyle = (active: boolean) => css`
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: ${active ? 500 : 400};
+  color: ${active ? getColor("grayBlue", "02") : getColor("grayBlue", "03")};
+  text-transform: capitalize;
+  cursor: pointer;
+`
+
+export const upgradeTabLabelStyle = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+`
+
 export const closeIconHotSpotStyle = css`
   width: 24px;
   height: 24px;
@@ -102,6 +124,29 @@ export const modalBodyWrapperStyle = css`
   display: flex;
   flex-direction: column;
   gap: 16px;
+`
+
+export const appPublicWrapperStyle = css`
+  //height: 196px;
+  padding: 16px;
+`
+
+export const publicLabelStyle = css`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 27px;
+  font-weight: 500;
+  font-size: 14px;
+  color: ${getColor("grayBlue", "02")};
+`
+
+export const publicLinkStyle = css`
+  margin-top: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 `
 
 export const subBodyWrapperStyle = css`
@@ -140,40 +185,74 @@ export const inviteLinkWhenClosedStyle = css`
 `
 
 export const turnOnInviteLinkButtonStyle = css`
+  margin-left: 4px;
   cursor: pointer;
   color: ${getColor("techPurple", "01")};
 `
 
 export const fakerInputStyle = css`
+  width: 378px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0;
   border-radius: 8px;
   border: 1px solid ${getColor("grayBlue", "08")};
   gap: 8px;
-  padding: 8px 16px;
-  width: 378px;
+  padding: 4px 16px;
+  overflow: hidden;
 `
 export const fakerInputWithEmail = css`
   ${fakerInputStyle};
   align-items: flex-start;
 `
 
+export const initInputTagStyle = css`
+  border: unset;
+  padding: unset;
+  box-shadow: unset;
+`
+
+export const emailInputStyle = css`
+  width: 378px;
+  flex-shrink: 0;
+
+  & > span:first-of-type {
+    overflow: hidden;
+  }
+`
+
 export const urlAreaStyle = (isError: boolean) => css`
   max-width: 280px;
   font-size: 14px;
-  overflow-x: auto;
   color: ${isError ? getColor("red", "03") : getColor("grayBlue", "02")};
   flex: 1;
   width: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 export const inviteEmailWrapperStyle = css`
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  align-items: center;
+  align-items: flex-start;
 `
+
+export const remainInviteCountStyle = css`
+  margin-top: 8px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  color: ${getColor("grayBlue", "03")};
+`
+
+export const applyInviteCountStyle = (count: number) => {
+  return css`
+    color: ${count > 0 ? getColor("grayBlue", "03") : getColor("red", "03")};
+  `
+}
 
 export const inviteListWrapperStyle = css`
   display: flex;
@@ -213,4 +292,20 @@ export const inviteAvatarStyle = css`
   border: 1px dashed ${getColor("grayBlue", "07")};
   flex: none;
   border-radius: 16px;
+`
+
+export const applyHiddenStyle = (isHidden: boolean) => css`
+  display: ${isHidden ? "none" : "inherit"};
+`
+
+export const unDeployedStyle = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 83px;
+  color: ${getColor("grayBlue", "04")};
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
 `

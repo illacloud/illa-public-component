@@ -1,38 +1,59 @@
 import {
   Button,
   DropList,
+  DropListItem,
   Dropdown,
   MoreIcon,
   useMessage,
   useModal,
 } from "@illa-design/react"
-import { FC, useCallback } from "react"
+import { FC, useCallback, useContext, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { MoreActionProps } from "@/illa-public-component/MemberList/components/List/interface"
 import { moreActionWrapper } from "@/illa-public-component/MemberList/components/List/style"
-import { isSmallThenTargetRole } from "@/illa-public-component/UserRoleUtils"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
+import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
+import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
+import { isSmallThanTargetRole } from "@/illa-public-component/UserRoleUtils"
+import {
+  USER_ROLE,
+  USER_STATUS,
+} from "@/illa-public-component/UserRoleUtils/interface"
 
 export const MoreAction: FC<MoreActionProps> = (props) => {
   const {
     currentUserRole,
     userRole,
+    userStatus,
     userID,
+    teamMemberID,
     currentUserID,
     removeTeamMembers,
     changeTeamMembersRole,
     name,
+    email,
   } = props
+
+  const { track } = useContext(MixpanelTrackContext)
 
   const modal = useModal()
   const message = useMessage()
   const { t } = useTranslation()
 
+  const disabled = useMemo(() => {
+    return (
+      userID === currentUserID ||
+      isSmallThanTargetRole(userRole, currentUserRole, false)
+    )
+  }, [userID, currentUserID, userRole, currentUserRole])
+
   const handleClickRemoveMember = useCallback(() => {
     modal.show({
-      title: t("user_management.remove_modal.title", { username: name }),
+      id: "removeMember",
+      title: t("user_management.remove_modal.title", {
+        username: name ? name : email,
+      }),
       children: t("user_management.remove_modal.description"),
       okText: t("user_management.remove_modal.remove"),
       cancelText: t("user_management.remove_modal.cancel"),
@@ -40,8 +61,15 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         colorScheme: "red",
       },
       onOk: async () => {
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          {
+            element: "remove_modal_remove",
+          },
+          "both",
+        )
         try {
-          const result = await removeTeamMembers(userID)
+          const result = await removeTeamMembers(teamMemberID)
           if (result) {
             message.success({
               content: t("user_management.mes.remove_suc"),
@@ -58,11 +86,28 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
           console.error(e)
         }
       },
+      onCancel: () => {
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          {
+            element: "remove_modal_cancel",
+          },
+          "both",
+        )
+      },
     })
-  }, [message, modal, name, removeTeamMembers, t, userID])
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+      {
+        element: "remove_modal",
+      },
+      "both",
+    )
+  }, [modal, t, name, email, track, removeTeamMembers, teamMemberID, message])
 
   const handleClickTransOwner = useCallback(() => {
     modal.show({
+      id: "transOwner",
       title: t("user_management.transfer_modal.title"),
       children: t("user_management.transfer_modal.description"),
       okText: t("user_management.transfer_modal.transfer"),
@@ -71,62 +116,131 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         colorScheme: "red",
       },
       onOk: async () => {
-        try {
-          const result = await changeTeamMembersRole(
-            currentUserID,
-            USER_ROLE.ADMIN,
-          )
-          if (result) {
-            message.success({
-              content: t("user_management.mes.transfer_suc"),
-            })
-          } else {
-            message.error({
-              content: t("user_management.mes.transfer_fail"),
-            })
-          }
-        } catch (e) {
-          message.error({
-            content: t("user_management.mes.transfer_fail"),
-          })
-          console.error(e)
-        }
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          {
+            element: "transfer_modal_transfer",
+          },
+          "both",
+        )
+        await changeTeamMembersRole(teamMemberID, USER_ROLE.OWNER)
+      },
+      onCancel: () => {
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          {
+            element: "transfer_modal_cancel",
+          },
+          "both",
+        )
       },
     })
-  }, [changeTeamMembersRole, currentUserID, message, modal, t])
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+      {
+        element: "transfer_modal",
+      },
+      "both",
+    )
+  }, [modal, t, track, changeTeamMembersRole, teamMemberID])
 
-  return (
+  useEffect(() => {
+    if (!disabled) {
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        {
+          element: "more_by_member",
+        },
+        "both",
+      )
+    }
+  }, [disabled, track])
+
+  return disabled ? null : (
     <div css={moreActionWrapper}>
       <Dropdown
-        position="bottom"
+        position="bottom-end"
         trigger="click"
+        onVisibleChange={(visible) => {
+          if (visible) {
+            if (
+              currentUserRole === USER_ROLE.OWNER &&
+              userStatus !== USER_STATUS.PENDING
+            ) {
+              track?.(
+                ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+                {
+                  element: "transfer",
+                },
+                "both",
+              )
+            }
+            track?.(
+              ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+              {
+                element: "remove",
+              },
+              "both",
+            )
+          }
+        }}
         dropList={
           <DropList>
-            <AuthShown
-              currentUserRole={currentUserRole}
-              allowRoles={[USER_ROLE.OWNER]}
-              rules={SHOW_RULES.EQUAL}
-            >
-              <DropList.Item key="trans" onClick={handleClickTransOwner}>
-                {t("user_management.page.transfer")}
-              </DropList.Item>
-            </AuthShown>
+            {userRole !== USER_ROLE.OWNER &&
+              userStatus !== USER_STATUS.PENDING && (
+                <AuthShown
+                  currentUserRole={currentUserRole}
+                  allowRoles={[USER_ROLE.OWNER]}
+                  rules={SHOW_RULES.EQUAL}
+                >
+                  <DropListItem
+                    key="trans"
+                    value="trans"
+                    onClick={() => {
+                      track?.(
+                        ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                        {
+                          element: "transfer",
+                        },
+                        "both",
+                      )
+                      handleClickTransOwner()
+                    }}
+                  >
+                    {t("user_management.page.transfer")}
+                  </DropListItem>
+                </AuthShown>
+              )}
             <AuthShown
               currentUserRole={currentUserRole}
               allowRoles={[userRole]}
               rules={SHOW_RULES.BIGGER}
             >
-              <DropList.Item key="remove" onClick={handleClickRemoveMember}>
+              <DropListItem
+                key="remove"
+                value="remove"
+                onClick={() => {
+                  track?.(
+                    ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                    {
+                      element: "remove",
+                    },
+                    "both",
+                  )
+                  handleClickRemoveMember()
+                }}
+              >
                 {t("user_management.page.remove")}
-              </DropList.Item>
+              </DropListItem>
             </AuthShown>
           </DropList>
         }
       >
         <Button
+          variant="text"
           colorScheme="grayBlue"
           w="32px"
-          disabled={isSmallThenTargetRole(userRole, currentUserRole, false)}
+          disabled={disabled}
         >
           <MoreIcon />
         </Button>

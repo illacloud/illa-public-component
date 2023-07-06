@@ -1,17 +1,22 @@
 import { ReactNode } from "react"
+import { InviteModalProps } from "@/illa-public-component/MemberList/components/Header/InviteModal"
 import {
   MemberListProps,
   inviteByEmailResponse,
 } from "@/illa-public-component/MemberList/interface"
+import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 export interface HeaderProps
   extends Pick<
     MemberListProps,
     | "currentUserRole"
-    | "allowEditorOrViewerInvite"
+    | "allowEditorManageTeamMember"
+    | "allowViewerManageTeamMember"
     | "updateTeamPermissionConfig"
     | "removeTeamMembers"
+    | "removeTeam"
     | "currentUserID"
+    | "currentTeamMemberID"
     | "hasApp"
     | "changeTeamMembersRole"
     | "inviteByEmail"
@@ -19,31 +24,44 @@ export interface HeaderProps
     | "fetchInviteLink"
     | "configInviteLink"
     | "allowInviteByLink"
+    | "userListData"
+    | "appLink"
+    | "isAppPublic"
+    | "isCloudVersion"
+    | "updateAppPublicConfig"
+    | "teamName"
+    | "userNickname"
+    | "currentTeamLicense"
   > {}
 
 export interface MoreActionProps
   extends Pick<
     HeaderProps,
-    | "currentUserRole"
     | "currentUserID"
+    | "currentUserRole"
+    | "currentTeamMemberID"
     | "hasApp"
     | "updateTeamPermissionConfig"
+    | "removeTeam"
     | "removeTeamMembers"
+    | "allowEditorManageTeamMember"
+    | "allowViewerManageTeamMember"
+    | "isCloudVersion"
   > {
   children: ReactNode
+  userNumber: number
 }
 
 export interface InviteListItemProps
   extends inviteByEmailResponse,
-    Pick<InviteListProps, "changeTeamMembersRole" | "currentUserRole"> {}
+    Pick<InviteListProps, "currentUserRole" | "changeMembersRole"> {}
 
 export interface InviteListProps
-  extends Pick<
-    InviteMemberByEmailProps,
-    "changeTeamMembersRole" | "currentUserRole"
-  > {
+  extends Pick<InviteMemberByEmailProps, "currentUserRole"> {
   inviteList?: inviteByEmailResponse[]
+  changeMembersRole: (userID: string, userRole: USER_ROLE) => void
 }
+
 // changeTeamMembersRole, currentUserRole, inviteByEmail, renewInviteLink
 export interface InviteMemberModalProps
   extends Pick<
@@ -55,34 +73,75 @@ export interface InviteMemberModalProps
     | "fetchInviteLink"
     | "configInviteLink"
     | "allowInviteByLink"
+    | "allowEditorManageTeamMember"
+    | "allowViewerManageTeamMember"
+    | "userListData"
+    | "hasApp"
+    | "appLink"
+    | "isAppPublic"
+    | "isCloudVersion"
+    | "updateAppPublicConfig"
   > {
+  maskClosable?: boolean
   handleCloseModal: () => void
+  appID?: string
+  teamName?: string
+  userNickname?: string
+  from?: "cloud_dashboard" | "builder_dashboard" | "builder_app"
+  inviteToUseAppStatus?: "unDeployed" | "deployed" | "hidden"
 }
+
+export interface AppPublicContentProps
+  extends Pick<
+    InviteMemberModalProps,
+    | "appLink"
+    | "isAppPublic"
+    | "updateAppPublicConfig"
+    | "appID"
+    | "teamName"
+    | "userNickname"
+  > {}
 
 export interface InviteMemberByLinkProps
   extends Pick<
     InviteMemberModalContentProps,
+    | "isCloudVersion"
     | "currentUserRole"
     | "renewInviteLink"
     | "fetchInviteLink"
     | "configInviteLink"
     | "allowInviteByLink"
+    | "appID"
+    | "teamName"
+    | "userNickname"
+    | "from"
   > {}
 
 export interface InviteMemberByEmailProps
   extends Pick<
     InviteMemberModalContentProps,
-    "currentUserRole" | "inviteByEmail" | "changeTeamMembersRole"
+    | "currentUserRole"
+    | "userListData"
+    | "inviteByEmail"
+    | "changeTeamMembersRole"
+    | "appID"
   > {}
 
 export interface InviteMemberModalContentProps
   extends Pick<
-    MemberListProps,
-    | "currentUserRole"
-    | "renewInviteLink"
-    | "fetchInviteLink"
-    | "configInviteLink"
-    | "allowInviteByLink"
-    | "inviteByEmail"
-    | "changeTeamMembersRole"
-  > {}
+      MemberListProps,
+      | "isCloudVersion"
+      | "changeTeamMembersRole"
+      | "currentUserRole"
+      | "renewInviteLink"
+      | "fetchInviteLink"
+      | "configInviteLink"
+      | "allowInviteByLink"
+      | "inviteByEmail"
+      | "userListData"
+    >,
+    Pick<InviteModalProps, "from"> {
+  appID?: string
+  teamName?: string
+  userNickname?: string
+}
