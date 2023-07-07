@@ -401,6 +401,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
         </header>
         <Divider />
         <InviteMemberModalContent
+          isCloudVersion={isCloudVersion}
           userListData={userListData}
           currentUserRole={currentUserRole}
           allowInviteByLink={allowInviteByLink}
