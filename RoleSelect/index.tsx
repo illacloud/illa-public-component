@@ -28,10 +28,19 @@ interface RoleSelectProps
   disabled?: boolean
   onChange?: (value: USER_ROLE) => void
   fontWeight?: number
+  filterRole?: USER_ROLE[]
 }
 
 const RoleSelect: FC<RoleSelectProps> = (props) => {
-  const { className, value, userRole, disabled, fontWeight, onChange } = props
+  const {
+    className,
+    value,
+    userRole,
+    disabled,
+    fontWeight,
+    filterRole = [USER_ROLE.OWNER, USER_ROLE.CUSTOM],
+    onChange,
+  } = props
   const { t } = useTranslation()
   const [popupVisible, setPopupVisible] = useState<boolean>()
 
@@ -45,10 +54,7 @@ const RoleSelect: FC<RoleSelectProps> = (props) => {
 
   const options: { label: string; tip: string; value: USER_ROLE }[] =
     useMemo(() => {
-      return getSmallThanTargetRole(userRole, false, [
-        USER_ROLE.OWNER,
-        USER_ROLE.CUSTOM,
-      ]).map((role) => {
+      return getSmallThanTargetRole(userRole, false, filterRole).map((role) => {
         const labelI18nKey = userRoleMapI18nString[role]
         const tipI18nKey = userRoleTipI18nString[role]
         return {
@@ -57,7 +63,7 @@ const RoleSelect: FC<RoleSelectProps> = (props) => {
           value: role,
         }
       })
-    }, [userRole, t])
+    }, [userRole, filterRole, t])
 
   const onVisibleChange = (visible: boolean) => {
     if (popupVisible !== visible) {
