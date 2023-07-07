@@ -198,7 +198,9 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     totalTeamLicense?.teamLicenseAllPaid,
   )
 
-  const [activeTab, setActiveTab] = useState(canSetPublic ? 0 : 2)
+  const [activeTab, setActiveTab] = useState(
+    canSetPublic ? (canEditApp ? 0 : 1) : 2,
+  )
 
   const redirectPage = useMemo(() => {
     switch (activeTab) {
@@ -214,12 +216,12 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
       {
         id: 0,
         label: t("new_share.title.invite_to_edit"),
-        hidden: !canSetPublic,
+        hidden: !canEditApp,
       },
       {
         id: 1,
         label: t("new_share.title.invite_to_use"),
-        hidden: !canSetPublic || inviteToUseAppStatus === "hidden",
+        hidden: inviteToUseAppStatus === "hidden",
       },
       {
         id: 2,
@@ -234,14 +236,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
         hidden: !canEditApp,
       },
     ],
-    [
-      t,
-      canSetPublic,
-      inviteToUseAppStatus,
-      isCloudVersion,
-      canUseBillingFeature,
-      canEditApp,
-    ],
+    [t, inviteToUseAppStatus, isCloudVersion, canUseBillingFeature, canEditApp],
   )
 
   const handleClickMask = useCallback(
