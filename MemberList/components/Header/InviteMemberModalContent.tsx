@@ -182,15 +182,19 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
   const { totalTeamLicense } = useContext(MemberListContext)
   const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
 
-  const canSetPublic = canManageApp(
-    currentUserRole,
-    allowEditorManageTeamMember,
-    allowViewerManageTeamMember,
-  )
-
-  const canEditApp =
+  const canSetPublic =
     isCloudVersion &&
-    canManage(currentUserRole, ATTRIBUTE_GROUP.APP, ACTION_MANAGE.EDIT_APP)
+    canManageApp(
+      currentUserRole,
+      allowEditorManageTeamMember,
+      allowViewerManageTeamMember,
+    )
+
+  const canEditApp = canManage(
+    currentUserRole,
+    ATTRIBUTE_GROUP.APP,
+    ACTION_MANAGE.EDIT_APP,
+  )
 
   const canUseBillingFeature = canUseUpgradeFeature(
     currentUserRole,
@@ -198,9 +202,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     totalTeamLicense?.teamLicenseAllPaid,
   )
 
-  const [activeTab, setActiveTab] = useState(
-    canSetPublic ? (canEditApp ? 0 : 1) : 2,
-  )
+  const [activeTab, setActiveTab] = useState(canEditApp ? 0 : 1)
 
   const redirectPage = useMemo(() => {
     switch (activeTab) {
@@ -228,15 +230,15 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
         label: (
           <div css={upgradeTabLabelStyle}>
             {t("user_management.modal.tab.public")}
-            {isCloudVersion && !canUseBillingFeature && (
+            {!canUseBillingFeature && (
               <UpgradeIcon color={getColor("techPurple", "01")} />
             )}
           </div>
         ),
-        hidden: !canEditApp,
+        hidden: !canSetPublic,
       },
     ],
-    [t, inviteToUseAppStatus, isCloudVersion, canUseBillingFeature, canEditApp],
+    [t, inviteToUseAppStatus, canUseBillingFeature, canEditApp, canSetPublic],
   )
 
   const handleClickMask = useCallback(
