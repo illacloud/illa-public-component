@@ -182,13 +182,23 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
   const { totalTeamLicense } = useContext(MemberListContext)
   const { handleUpgradeModalVisible } = useContext(UpgradeCloudContext)
 
-  const canSetPublic =
-    isCloudVersion &&
-    canManageApp(
-      currentUserRole,
-      allowEditorManageTeamMember,
-      allowViewerManageTeamMember,
+  const canSetPublic = useMemo(() => {
+    return (
+      isCloudVersion &&
+      inviteToUseAppStatus !== "unDeployed" &&
+      canManageApp(
+        currentUserRole,
+        allowEditorManageTeamMember,
+        allowViewerManageTeamMember,
+      )
     )
+  }, [
+    isCloudVersion,
+    inviteToUseAppStatus,
+    currentUserRole,
+    allowEditorManageTeamMember,
+    allowViewerManageTeamMember,
+  ])
 
   const canEditApp = canManage(
     currentUserRole,
