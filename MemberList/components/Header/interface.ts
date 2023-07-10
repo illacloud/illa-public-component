@@ -115,6 +115,7 @@ export interface InviteMemberByLinkProps
     | "teamName"
     | "userNickname"
     | "from"
+    | "inviteToEditApp"
   > {}
 
 export interface InviteMemberByEmailProps
@@ -125,6 +126,7 @@ export interface InviteMemberByEmailProps
     | "inviteByEmail"
     | "changeTeamMembersRole"
     | "appID"
+    | "inviteToEditApp"
   > {}
 
 export interface InviteMemberModalContentProps
@@ -144,4 +146,5 @@ export interface InviteMemberModalContentProps
   appID?: string
   teamName?: string
   userNickname?: string
+  inviteToEditApp?: boolean
 }
