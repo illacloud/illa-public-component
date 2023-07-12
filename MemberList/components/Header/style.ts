@@ -46,7 +46,7 @@ export const modalWithMaskWrapperStyle = css`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: ${zIndex.modal};
+  z-index: ${zIndex.modal - 1};
   display: flex;
   align-items: center;
   justify-content: center;
