@@ -1,5 +1,5 @@
 import { css } from "@emotion/react"
-import { getColor } from "@illa-design/react"
+import { getColor, zIndex } from "@illa-design/react"
 
 export const headerWrapperStyle = css`
   width: 100%;
@@ -46,7 +46,7 @@ export const modalWithMaskWrapperStyle = css`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: ${zIndex.modal};
   display: flex;
   align-items: center;
   justify-content: center;
