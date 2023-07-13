@@ -25,6 +25,7 @@ import {
   Switch,
   getColor,
   useMessage,
+  zIndex,
 } from "@illa-design/react"
 import { AuthShown, canAuthShow } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
@@ -782,7 +783,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
           <Dropdown
             trigger="click"
             position="bottom-end"
-            triggerProps={{ zIndex: 2 }}
+            triggerProps={{ zIndex: zIndex.modal - 1 }}
             dropList={
               <DropList>
                 <DropListItem
