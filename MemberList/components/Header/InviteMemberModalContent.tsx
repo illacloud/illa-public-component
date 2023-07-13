@@ -93,6 +93,7 @@ import {
   ATTRIBUTE_GROUP,
   USER_ROLE,
 } from "@/illa-public-component/UserRoleUtils/interface"
+import { isILLAAPiError } from "@/utils/typeHelper"
 
 const EMAIL_REGX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -290,11 +291,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
   useEffect(() => {
     if (hasApp && appID) {
       track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
-        element: "invite_modal_public_tab",
-        parameter5: appID,
-      })
-      track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
-        element: "invite_modal_invite_tab",
+        element: "app_share",
         parameter5: appID,
       })
     }
@@ -316,7 +313,17 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
                     key={`tab-${id}`}
                     css={applyTabLabelStyle(isActive)}
                     onClick={() => {
-                      if (id === 2) {
+                      if (id === 0) {
+                        track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                          element: "invite_modal_edit_tab",
+                          parameter5: appID,
+                        })
+                      } else if (id === 1) {
+                        track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                          element: "invite_modal_use_tab",
+                          parameter5: appID,
+                        })
+                      } else if (id === 2) {
                         track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
                           element: "invite_modal_public_tab",
                           parameter5: appID,
@@ -474,8 +481,22 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
     if (loading) return
     setLoading(true)
     try {
+      track?.(ILLA_MIXPANEL_EVENT_TYPE.REQUEST, {
+        element: "invite_modal_public_switch",
+        parameter1: "share",
+        parameter2: "trigger",
+        parameter4: isAppPublic ? "on" : "off",
+        parameter5: appID,
+      })
       const success = await updateAppPublicConfig?.(value)
       if (success) {
+        track?.(ILLA_MIXPANEL_EVENT_TYPE.REQUEST, {
+          element: "invite_modal_public_switch",
+          parameter1: "share",
+          parameter2: "suc",
+          parameter4: isAppPublic ? "on" : "off",
+          parameter5: appID,
+        })
         message.success({
           content: t("user_management.modal.message.make_public_suc"),
         })
@@ -486,12 +507,21 @@ export const AppPublicContent: FC<AppPublicContentProps> = (props) => {
         content: t("user_management.modal.message.make_public_failed"),
       })
     } catch (e) {
+      track?.(ILLA_MIXPANEL_EVENT_TYPE.REQUEST, {
+        element: "invite_modal_public_switch",
+        parameter1: "share",
+        parameter2: "failed",
+        parameter3: isILLAAPiError(e) ? e?.data?.errorFlag : "unknown",
+        parameter4: isAppPublic ? "on" : "off",
+        parameter5: appID,
+      })
       message.error({
         content: t("user_management.modal.message.make_public_failed"),
       })
     }
     setLoading(false)
   }
+
   useEffect(() => {
     track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
       element: "invite_modal_public_switch",
