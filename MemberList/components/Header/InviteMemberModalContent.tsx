@@ -25,6 +25,7 @@ import {
   Switch,
   getColor,
   useMessage,
+  zIndex,
 } from "@illa-design/react"
 import { AuthShown, canAuthShow } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
@@ -187,11 +188,11 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     ATTRIBUTE_GROUP.APP,
     ACTION_MANAGE.EDIT_APP,
   )
-  
+
   const canSetPublic = useMemo(() => {
     return (
       isCloudVersion &&
-      canEditApp && 
+      canEditApp &&
       inviteToUseAppStatus !== "unDeployed" &&
       canManageApp(
         currentUserRole,
@@ -207,8 +208,6 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
     allowEditorManageTeamMember,
     allowViewerManageTeamMember,
   ])
-
-  
 
   const canUseBillingFeature = canUseUpgradeFeature(
     currentUserRole,
@@ -784,7 +783,7 @@ export const InviteMemberByLink: FC<InviteMemberByLinkProps> = (props) => {
           <Dropdown
             trigger="click"
             position="bottom-end"
-            triggerProps={{ zIndex: 2 }}
+            triggerProps={{ zIndex: zIndex.modal - 1 }}
             dropList={
               <DropList>
                 <DropListItem
