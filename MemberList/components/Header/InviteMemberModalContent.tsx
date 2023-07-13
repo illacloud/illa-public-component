@@ -290,11 +290,7 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
   useEffect(() => {
     if (hasApp && appID) {
       track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
-        element: "invite_modal_public_tab",
-        parameter5: appID,
-      })
-      track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
-        element: "invite_modal_invite_tab",
+        element: "app_share",
         parameter5: appID,
       })
     }
@@ -316,7 +312,17 @@ export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
                     key={`tab-${id}`}
                     css={applyTabLabelStyle(isActive)}
                     onClick={() => {
-                      if (id === 2) {
+                      if (id === 0) {
+                        track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                          element: "invite_modal_edit_tab",
+                          parameter5: appID,
+                        })
+                      } else if (id === 1) {
+                        track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                          element: "invite_modal_use_tab",
+                          parameter5: appID,
+                        })
+                      } else if (id === 2) {
                         track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
                           element: "invite_modal_public_tab",
                           parameter5: appID,
