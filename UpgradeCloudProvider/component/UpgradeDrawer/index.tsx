@@ -241,8 +241,8 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     const translateKey = {
       unitPrice: "$" + unitPrice,
       licenseNum: quantity,
-      storageNum: quantity,
-      trafficNum: quantity,
+      storageNum: quantity * 5,
+      trafficNum: quantity * 5,
     }
     switch (defaultConfig.type) {
       case "license":
