@@ -158,7 +158,7 @@ export const List: FC<ListProps> = (props) => {
           ? 1
           : currentTeamLicense.volume,
         cycle: currentTeamLicense.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
-        plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
+        plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
         currentPlan: currentTeamLicense.plan,
         cancelAtPeriodEnd: currentTeamLicense?.cancelAtPeriodEnd,
       },
@@ -178,8 +178,8 @@ export const List: FC<ListProps> = (props) => {
           buttonVariant="outline"
           actionDes={
             currentTeamLicense?.cycle === SUBSCRIPTION_CYCLE.YEARLY
-              ? t(`billing.license_price_new.yearly`)
-              : t(`billing.license_price_new.monthly`)
+              ? t(`billing.license_price_new.yearly`, { price: "$200" })
+              : t(`billing.license_price_new.monthly`, { price: "$20" })
           }
           onClick={openDrawer}
         />

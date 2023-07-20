@@ -90,22 +90,22 @@ const ConfigKey = {
 export const subscribeUnitPrice = {
   license: {
     [SUBSCRIPTION_CYCLE.FREE]: 0,
-    [SUBSCRIPTION_CYCLE.MONTHLY]: 10,
-    [SUBSCRIPTION_CYCLE.YEARLY]: 100,
+    [SUBSCRIPTION_CYCLE.MONTHLY]: 20,
+    [SUBSCRIPTION_CYCLE.YEARLY]: 200,
   },
   storage: {
     [SUBSCRIPTION_CYCLE.FREE]: 0,
-    [SUBSCRIPTION_CYCLE.MONTHLY]: 0.99,
-    [SUBSCRIPTION_CYCLE.YEARLY]: 9.99,
+    [SUBSCRIPTION_CYCLE.MONTHLY]: 10,
+    [SUBSCRIPTION_CYCLE.YEARLY]: 100,
   },
   traffic: {
-    [PurchaseItem.DRIVE_TRAFFIC_1GB]: 0.99,
+    [PurchaseItem.DRIVE_TRAFFIC_1GB]: 10,
   },
 }
 
 const isSubscribe = (subscribePlan?: SUBSCRIBE_PLAN) => {
   return (
-    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS ||
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM ||
     subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE ||
     subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_PAID ||
     subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_INSUFFICIENT ||
@@ -241,8 +241,8 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     const translateKey = {
       unitPrice: "$" + unitPrice,
       licenseNum: quantity,
-      storageNum: quantity,
-      trafficNum: quantity,
+      storageNum: quantity * 5,
+      trafficNum: quantity * 5,
     }
     switch (defaultConfig.type) {
       case "license":
@@ -314,8 +314,8 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     }
     const status = getSubscriptionStatus(defaultConfig, quantity, cycle)
     const changeNum =
-      type === "traffic"
-        ? quantity
+      type === "traffic" || type === "storage"
+        ? quantity * 5
         : Math.abs(quantity - (subscribeInfo?.quantity ?? 0))
     return t(statusLabelKeys[status], { changeNum }) ?? ""
   }, [defaultConfig, quantity, cycle, t])
@@ -339,33 +339,11 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     }
     const status = getSubscriptionStatus(defaultConfig, quantity, cycle)
     const changeNum =
-      type === "traffic"
-        ? quantity
+      type === "traffic" || type === "storage"
+        ? quantity * 5
         : Math.abs(quantity - (subscribeInfo?.quantity ?? 0))
     return t(statusLabelKeys[status], { changeNum }) ?? ""
   }, [defaultConfig, quantity, cycle, t])
-
-  // const quantityFormatter = useCallback(
-  //   (value: number | string) => {
-  //     switch (defaultConfig?.type) {
-  //       case "license":
-  //         return `${value} ${t(
-  //           "billing.payment_sidebar.plan_number_input_label.License",
-  //         )}`
-  //       case "storage":
-  //         return `${value} ${t(
-  //           "billing.payment_sidebar.plan_number_input_label.Storage_traffic",
-  //         )}`
-  //       case "traffic":
-  //         return `${value} ${t(
-  //           "billing.payment_sidebar.plan_number_input_label.Storage_traffic",
-  //         )}`
-  //       default:
-  //         return `${value}`
-  //     }
-  //   },
-  //   [defaultConfig?.type, t],
-  // )
 
   const handleSubscribe = async () => {
     const { type, subscribeInfo, purchaseInfo } = defaultConfig
@@ -403,7 +381,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
             defaultConfig?.onSubscribeCallback?.()
           } else {
             await modifySubscribe({
-              plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
+              plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
               quantity,
               cycle,
             })
@@ -414,7 +392,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
           }
         } else {
           const res = await subscribe({
-            plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
+            plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
             quantity,
             cycle,
             successRedirect,
