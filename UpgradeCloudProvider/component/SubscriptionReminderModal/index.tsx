@@ -109,7 +109,7 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
           ? 1
           : currentTeamLicense?.volume ?? 1,
         cycle: currentTeamLicense?.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
-        plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
+        plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
         currentPlan: currentTeamLicense?.plan,
         cancelAtPeriodEnd: currentTeamLicense?.cancelAtPeriodEnd,
       },
@@ -161,7 +161,7 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
         </div>
         <div css={footerStyle}>
           <div>
-            <div css={priceStyle}>$8.3</div>
+            <div css={priceStyle}>$16.7</div>
             <div css={priceContentStyle}>
               {t("billing.modal.upgrade_now_admin.pricing")}
             </div>
