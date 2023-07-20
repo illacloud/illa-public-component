@@ -17,6 +17,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
     currentTeamMemberID,
     allowEditorManageTeamMember,
     allowViewerManageTeamMember,
+    blockRegister,
     hasApp,
     allowInviteByLink,
     userListData = [],
@@ -42,6 +43,7 @@ export const MemberList: FC<MemberListProps> = (props) => {
     >
       <div css={MemberListWrapperStyle}>
         <Header
+          blockRegister={blockRegister}
           hasApp={hasApp}
           currentUserID={currentUserID}
           currentUserRole={currentUserRole}

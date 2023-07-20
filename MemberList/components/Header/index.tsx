@@ -50,6 +50,7 @@ export const Header: FC<HeaderProps> = (props) => {
     currentTeamMemberID,
     allowEditorManageTeamMember,
     allowViewerManageTeamMember,
+    blockRegister,
     hasApp,
     allowInviteByLink,
     updateTeamPermissionConfig,
@@ -159,6 +160,7 @@ export const Header: FC<HeaderProps> = (props) => {
           updateTeamPermissionConfig={updateTeamPermissionConfig}
           allowEditorManageTeamMember={allowEditorManageTeamMember}
           allowViewerManageTeamMember={allowViewerManageTeamMember}
+          blockRegister={blockRegister}
           userNumber={userListData.length}
         >
           <Button w="32px" colorScheme="grayBlue" onClick={handleClickMoreIcon}>
