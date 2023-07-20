@@ -91,6 +91,7 @@ export interface MemberListProps {
   userListData: UserData[]
   allowEditorManageTeamMember: boolean
   allowViewerManageTeamMember: boolean
+  blockRegister: boolean
   userNickname: string
   teamName: string
   allowInviteByLink: boolean
@@ -117,6 +118,7 @@ export interface MemberListProps {
   updateTeamPermissionConfig: (
     allowEditorManageTeamMember: boolean,
     allowViewerManageTeamMember: boolean,
+    blockRegister: boolean,
   ) => Promise<boolean>
   updateAppPublicConfig?: (isPublic: boolean) => Promise<boolean>
   onSubscribe?: () => void

@@ -12,7 +12,10 @@ import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import DeleteTeamModal from "@/illa-public-component/MemberList/components/DeleteTeamModal"
 import { MoreActionProps } from "@/illa-public-component/MemberList/components/Header/interface"
-import { allowEditorOrViewerInviteWrapperStyle } from "@/illa-public-component/MemberList/components/Header/style"
+import {
+  allowEditorOrViewerInviteWrapperStyle,
+  moreActionTextStyle
+} from "@/illa-public-component/MemberList/components/Header/style"
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
 import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
@@ -22,6 +25,7 @@ const stopPropagation = (e: MouseEvent) => {
 }
 export const MoreAction: FC<MoreActionProps> = (props) => {
   const {
+    blockRegister,
     children,
     currentUserRole,
     currentTeamMemberID,
@@ -38,17 +42,6 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
   const { track } = useContext(MixpanelTrackContext)
 
   const [deleteTeamModalVisible, setDeleteTeamModalVisible] = useState(false)
-
-  const handleSwitchChange = useCallback(
-    async (value: boolean) => {
-      try {
-        await updateTeamPermissionConfig(value, value)
-      } catch (e) {
-        console.error(e)
-      }
-    },
-    [updateTeamPermissionConfig],
-  )
 
   const openDeleteTeamModal = useCallback(() => {
     setDeleteTeamModalVisible(true)
@@ -215,14 +208,14 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
                   css={allowEditorOrViewerInviteWrapperStyle}
                   onClick={stopPropagation}
                 >
-                  <span>
+                  <span css={moreActionTextStyle}>
                     {t("user_management.settings.allow_editors_invite")}
                   </span>
                   <Switch
                     colorScheme="techPurple"
                     onClick={stopPropagation}
-                    onChange={(value: boolean) => {
-                      handleSwitchChange(value)
+                    onChange={async (value: boolean) => {
+                      await updateTeamPermissionConfig(value, value, blockRegister)
                       track?.(
                         ILLA_MIXPANEL_EVENT_TYPE.CLICK,
                         {
@@ -239,6 +232,40 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
                 </div>
               </DropListItem>
             </AuthShown>
+            {!isCloudVersion && <AuthShown
+              currentUserRole={currentUserRole}
+              allowRoles={[USER_ROLE.OWNER, USER_ROLE.ADMIN]}
+              rules={SHOW_RULES.EQUAL}
+            >
+              <DropListItem key="2" value="2">
+                <div
+                  css={allowEditorOrViewerInviteWrapperStyle}
+                  onClick={stopPropagation}
+                >
+                  <span css={moreActionTextStyle}>
+                    {t("user_management.settings.allow_register")}
+                  </span>
+                  <Switch
+                    colorScheme="techPurple"
+                    onClick={stopPropagation}
+                    onChange={async (value: boolean) => {
+                      await updateTeamPermissionConfig(allowEditorManageTeamMember, allowViewerManageTeamMember, !value)
+                      track?.(
+                        ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                        {
+                          element: "allow_register",
+                          parameter2: value ? "on" : "off",
+                        },
+                        "both",
+                      )
+                    }}
+                    checked={
+                      !blockRegister
+                    }
+                  />
+                </div>
+              </DropListItem>
+            </AuthShown>}
             {isCloudVersion ? (
               <DropListItem
                 key="leaveTeam"
