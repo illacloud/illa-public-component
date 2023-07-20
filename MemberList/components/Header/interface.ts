@@ -30,6 +30,7 @@ export interface HeaderProps
     | "isCloudVersion"
     | "updateAppPublicConfig"
     | "teamName"
+    | "blockRegister"
     | "userNickname"
     | "currentTeamLicense"
   > {}
@@ -46,6 +47,7 @@ export interface MoreActionProps
     | "removeTeamMembers"
     | "allowEditorManageTeamMember"
     | "allowViewerManageTeamMember"
+    | "blockRegister"
     | "isCloudVersion"
   > {
   children: ReactNode

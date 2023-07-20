@@ -32,6 +32,7 @@ export const buttonGroup = css`
 
 export const allowEditorOrViewerInviteWrapperStyle = css`
   display: flex;
+  width: 100%;
   align-items: center;
   gap: 32px;
 `
@@ -308,4 +309,8 @@ export const unDeployedStyle = css`
   text-align: center;
   font-size: 14px;
   font-weight: 400;
+`
+
+export const moreActionTextStyle = css`
+  flex-grow: 1;
 `
