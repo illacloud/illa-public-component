@@ -313,10 +313,14 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       traffic_added: "billing.payment_sidebar.description_title.add_traffic",
     }
     const status = getSubscriptionStatus(defaultConfig, quantity, cycle)
+    const changeQuantity =
+      type === "traffic"
+        ? quantity
+        : Math.abs(quantity - (subscribeInfo?.quantity ?? 0))
     const changeNum =
       type === "traffic" || type === "storage"
-        ? quantity * 5
-        : Math.abs(quantity * 5 - (subscribeInfo?.quantity ?? 0))
+        ? changeQuantity * 5
+        : changeQuantity
     return t(statusLabelKeys[status], { changeNum }) ?? ""
   }, [defaultConfig, quantity, cycle, t])
 
@@ -338,10 +342,14 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       traffic_added: "billing.payment_sidebar.button.storage_traffic_increase",
     }
     const status = getSubscriptionStatus(defaultConfig, quantity, cycle)
+    const changeQuantity =
+      type === "traffic"
+        ? quantity
+        : Math.abs(quantity - (subscribeInfo?.quantity ?? 0))
     const changeNum =
       type === "traffic" || type === "storage"
-        ? quantity * 5
-        : Math.abs(quantity * 5 - (subscribeInfo?.quantity ?? 0))
+        ? changeQuantity * 5
+        : changeQuantity
     return t(statusLabelKeys[status], { changeNum }) ?? ""
   }, [defaultConfig, quantity, cycle, t])
 
