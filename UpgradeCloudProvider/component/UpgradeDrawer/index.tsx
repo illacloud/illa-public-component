@@ -316,7 +316,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     const changeNum =
       type === "traffic" || type === "storage"
         ? quantity * 5
-        : Math.abs(quantity - (subscribeInfo?.quantity ?? 0))
+        : Math.abs(quantity * 5 - (subscribeInfo?.quantity ?? 0))
     return t(statusLabelKeys[status], { changeNum }) ?? ""
   }, [defaultConfig, quantity, cycle, t])
 
@@ -341,7 +341,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     const changeNum =
       type === "traffic" || type === "storage"
         ? quantity * 5
-        : Math.abs(quantity - (subscribeInfo?.quantity ?? 0))
+        : Math.abs(quantity * 5 - (subscribeInfo?.quantity ?? 0))
     return t(statusLabelKeys[status], { changeNum }) ?? ""
   }, [defaultConfig, quantity, cycle, t])
 
