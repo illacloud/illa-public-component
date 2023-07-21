@@ -399,7 +399,7 @@ export const canManage = (
 
 export const isSubscribeLicense = (subscribePlan?: SUBSCRIBE_PLAN) => {
   return (
-    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS ||
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM ||
     subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE
   )
 }
