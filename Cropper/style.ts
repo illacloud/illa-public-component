@@ -3,7 +3,7 @@ import { getColor } from "@illa-design/react"
 import { pxToRem } from "@/style"
 
 export const cropperWrapperStyle = css`
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
