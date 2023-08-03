@@ -285,6 +285,7 @@ export const nicknameStyle = css`
 
 export const settingIconStyle = css`
   cursor: pointer;
+  color: ${getColor("grayBlue", "01")};
 `
 
 export const inviteAvatarStyle = css`
