@@ -27,6 +27,7 @@ export enum ATTRIBUTE_GROUP {
   APP, // builder app
   RESOURCE, // builder resource
   HUB, // builder hub
+  AGENT, // builder agent
 }
 
 export enum ATTRIBUTE_CATEGORY {
@@ -85,6 +86,8 @@ export enum ACTION_MANAGE {
   EDIT_RESOURCE, // 编辑 Resource
   // App config
   APP_WATER_MARK_CONFIG, // 移除 App 水印
+  // Agent Config
+  FORK_AGENT, // fork agent
 }
 
 export enum ACTION_DELETE {
