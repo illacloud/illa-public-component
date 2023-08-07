@@ -3,7 +3,7 @@ import {
   USER_STATUS,
 } from "@/illa-public-component/UserRoleUtils/interface"
 
-interface UserData {
+export interface UserData {
   teamMemberID: string
   userID: string
   nickname: string
