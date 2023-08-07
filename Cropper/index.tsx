@@ -1,3 +1,4 @@
+import { Button, CloseIcon, Modal, Spin, useMessage } from "@illa-design/react"
 import {
   ChangeEvent,
   FC,
@@ -8,9 +9,8 @@ import {
   useRef,
   useState,
 } from "react"
-import EasyCropper, { Area, MediaSize } from "react-easy-crop"
+import EasyCropper, { Area } from "react-easy-crop"
 import { useTranslation } from "react-i18next"
-import { Button, CloseIcon, Modal, Spin, useMessage } from "@illa-design/react"
 import { ReactComponent as RotateRightIcon } from "@/illa-public-component/Cropper/assets/rotate-right.svg"
 import {
   applyZoomStyle,
@@ -225,18 +225,10 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
     setZoom(zoom)
   }
 
-  const onMediaLoaded = (mediaSize: MediaSize) => {
-    const { height } = mediaSize
-    const _ratioWidth = height * FILE_INIT_ASPECT
-
+  const onMediaLoaded = () => {
     setTimeout(() => {
       setRotation(360)
     }, 200)
-    // if (width > ratioWidth) {
-    //   setCropSize({ width: ratioWidth, height })
-    // } else {
-    //   setCropSize({ width, height: width / FILE_INIT_ASPECT })
-    // }
   }
 
   const handleCrop = async () => {
