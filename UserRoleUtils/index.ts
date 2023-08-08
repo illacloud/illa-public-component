@@ -302,6 +302,9 @@ export const attributeConfigList: AttributeConfigList = {
         [ACTION_MANAGE.RENAME_USER]: true,
         [ACTION_MANAGE.UPDATE_USER_AVATAR]: true,
       },
+      [ATTRIBUTE_GROUP.INVITE]: {
+        [ACTION_MANAGE.INVITE_LINK]: true,
+      },
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
         [ACTION_MANAGE.EDIT_APP]: true,
