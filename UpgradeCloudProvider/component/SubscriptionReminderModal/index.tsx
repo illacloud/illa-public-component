@@ -1,3 +1,6 @@
+import { FC, ReactNode, useCallback, useContext, useMemo } from "react"
+import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
 import {
   Button,
   CloseIcon,
@@ -6,9 +9,6 @@ import {
   ModalProps,
   Trigger,
 } from "@illa-design/react"
-import { FC, ReactNode, useCallback, useContext, useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
 import {
   SUBSCRIBE_PLAN,
@@ -23,6 +23,7 @@ import {
   doubtStyle,
   footerStyle,
   headerStyle,
+  highlightStyle,
   iconStyle,
   modalCloseIconStyle,
   modalMaskStyle,
@@ -53,11 +54,19 @@ const modalConfigKey = {
     description: "billing.modal.expired.all_members_except_f",
     buttonText: "billing.modal.expired.upgrade",
   },
+  gpt4: {
+    title: "billing.modal.upgrade_now_admin.upgrade_to_plus",
+    description: "billing.modal.ai-agent.string2",
+    buttonText: "billing.modal.upgrade_now_admin.upgrade",
+  },
 }
-
 export const upgradeModalConfigKeys = Object.keys(modalConfigKey)
 
 export type UpgradeModalType = keyof typeof modalConfigKey
+
+const highlightMap: Partial<Record<UpgradeModalType, string>> = {
+  gpt4: "billing.modal.ai-agent.string1",
+}
 
 interface UpgradeModalProps extends ModalProps {
   title?: ReactNode
@@ -90,6 +99,10 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
 
   const { title, description, buttonText } = useMemo(() => {
     return modalConfigKey[configType]
+  }, [configType])
+
+  const highlight = useMemo(() => {
+    return highlightMap?.[configType]
   }, [configType])
 
   const billingUrl = useMemo(() => {
@@ -132,7 +145,10 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
       <ModalDecorate css={decorateStyle} />
       <div css={headerStyle}>
         <div css={titleStyle}>{t(title)}</div>
-        <div css={descriptionStyle}>{t(description)}</div>
+        <div css={descriptionStyle}>
+          {highlight ? <span css={highlightStyle}>{t(highlight)}</span> : null}
+          <span>{t(description)}</span>
+        </div>
       </div>
       <div>
         {featureConfig.map(({ label, tip }, i) => {
