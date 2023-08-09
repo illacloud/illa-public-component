@@ -76,6 +76,10 @@ export const descriptionStyle = css`
   `)};
 `
 
+export const highlightStyle = css`
+  color: ${getColor("purple", "01")};
+`
+
 export const footerStyle = css`
   display: flex;
   flex-direction: row;
