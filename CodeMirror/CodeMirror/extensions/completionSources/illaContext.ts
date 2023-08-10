@@ -3,7 +3,7 @@ import {
   CompletionContext,
   CompletionResult,
 } from "@codemirror/autocomplete"
-import { getStringSnippets } from "@/utils/evaluateDynamicString/dynamicConverter"
+import { getStringSnippets } from "@/illa-public-component/CodeMirror/utils"
 import { isObject } from "@/utils/typeHelper"
 
 export function checkCursorInDynamicFlag(context: CompletionContext): boolean {
