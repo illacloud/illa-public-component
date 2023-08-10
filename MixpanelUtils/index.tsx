@@ -13,14 +13,13 @@ class ILLAMixpanelTools {
 
   constructor() {
     this.enable =
-      import.meta.env.VITE_INSTANCE_ID === "CLOUD" &&
-      import.meta.env.ILLA_MIXPANEL_API_KEY
+      process.env.VITE_INSTANCE_ID === "CLOUD" &&
+      !!process.env.ILLA_MIXPANEL_API_KEY
     if (this.enable) {
-      mixpanel.init(import.meta.env.ILLA_MIXPANEL_API_KEY, {
-        debug: import.meta.env.DEV,
-        test:
-          import.meta.env.DEV || import.meta.env.ILLA_APP_ENV !== "production",
-        ignore_dnt: import.meta.env.DEV,
+      mixpanel.init(process.env.ILLA_MIXPANEL_API_KEY as string, {
+        debug: process.env.ILLA_APP_ENV === "development",
+        test: process.env.ILLA_APP_ENV !== "production",
+        ignore_dnt: process.env.ILLA_APP_ENV === "development",
         loaded(mixpanelProto) {
           getDeviceUUID().then((deviceID) => {
             mixpanelProto.identify(deviceID)
@@ -29,13 +28,14 @@ class ILLAMixpanelTools {
               originalTrack.call(mixpanelProto, event, {
                 ...properties,
                 $device_id: deviceID,
-                environment: import.meta.env.DEV
-                  ? "development"
-                  : import.meta.env.ILLA_APP_ENV,
+                environment:
+                  process.env.ILLA_APP_ENV === "development"
+                    ? "development"
+                    : process.env.ILLA_APP_ENV,
                 browser_language: getBrowserLanguage(),
                 illa_language: getIllaLanguage(),
                 $user_id: properties?.user_id,
-                fe_version_code: import.meta.env.ILLA_APP_VERSION,
+                fe_version_code: process.env.ILLA_APP_VERSION,
               })
             }
           })

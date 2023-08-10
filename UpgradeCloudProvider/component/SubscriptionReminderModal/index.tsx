@@ -107,9 +107,7 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
 
   const billingUrl = useMemo(() => {
     if (!teamInfo?.identifier) return ""
-    return `${location.protocol}//${import.meta.env.VITE_CLOUD_URL}/team/${
-      teamInfo?.identifier
-    }/billing`
+    return `${location.protocol}//${process.env.VITE_CLOUD_URL}/team/${teamInfo?.identifier}/billing`
   }, [teamInfo?.identifier])
 
   const openDrawer = useCallback(() => {
