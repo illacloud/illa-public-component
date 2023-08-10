@@ -2,11 +2,11 @@ import { HTMLAttributes } from "react"
 import {
   SubscribeInfo,
   TotalTeamLicense,
+  UserData,
   fetchInviteLinkResponse,
   inviteByEmailResponse,
 } from "@/illa-public-component/MemberList/interface"
-import { MemberInfo } from "@/page/member/interface"
-import { USER_ROLE } from "@/redux/userInfo/userInfoState"
+import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 export interface MemberListCommonProps {
   currentTeamLicense: SubscribeInfo
@@ -14,7 +14,7 @@ export interface MemberListCommonProps {
   teamName?: string
   userNickname?: string
   loading?: boolean
-  userListData: MemberInfo[]
+  userListData: UserData[]
   currentUserID: string
   currentUserRole: USER_ROLE
   changeTeamMembersRole: (

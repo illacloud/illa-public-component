@@ -1,6 +1,6 @@
-import { CloseIcon, Drawer, DrawerProps } from "@illa-design/react"
 import { FC, useContext, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
+import { CloseIcon, Drawer, DrawerProps } from "@illa-design/react"
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
 import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import InviteByEmail from "@/illa-public-component/MobileMember/InviteModalMobile/InviteByEmail"
@@ -15,7 +15,7 @@ import {
 } from "@/illa-public-component/MobileMember/InviteModalMobile/style"
 import { MemberListCommonProps } from "@/illa-public-component/MobileMember/MemberListMobile/interface"
 import { isSmallThanTargetRole } from "@/illa-public-component/UserRoleUtils"
-import { USER_ROLE } from "@/redux/userInfo/userInfoState"
+import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 import { pxToRem } from "@/style"
 
 interface InviteModalMobileProps

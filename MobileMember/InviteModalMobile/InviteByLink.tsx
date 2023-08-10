@@ -1,7 +1,7 @@
-import { Button, Loading, useMessage } from "@illa-design/react"
 import copy from "copy-to-clipboard"
 import { FC, useCallback, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { Button, Loading, useMessage } from "@illa-design/react"
 import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
@@ -19,7 +19,7 @@ import {
   turnOnLinkButtonStyle,
 } from "@/illa-public-component/MobileMember/InviteModalMobile/style"
 import UserRoleSelect from "@/illa-public-component/MobileMember/UserRoleSelect"
-import { USER_ROLE } from "@/redux/userInfo/userInfoState"
+import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 import { ReactComponent as LinkOffIcon } from "./assets/link-off.svg"
 import { ReactComponent as LinkIcon } from "./assets/link.svg"
 
