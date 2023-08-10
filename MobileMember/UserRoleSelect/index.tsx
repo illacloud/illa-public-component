@@ -1,13 +1,13 @@
 import { FC, HTMLAttributes, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { DownIcon, Trigger, UpIcon, zIndex } from "@illa-design/react"
-import { ReactComponent as CheckmarkIcon } from "@/assets/icon/success.svg"
 import {
   hiddenStyle,
   optionContentStyle,
   optionItemStyle,
   valueLabelStyle,
 } from "@/illa-public-component/MobileMember/UserRoleSelect/style"
+import { ReactComponent as CheckmarkIcon } from "@/illa-public-component/RoleSelect/assets/success.svg"
 import {
   getSmallThanTargetRole,
   isSmallThanTargetRole,
