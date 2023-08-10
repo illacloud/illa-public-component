@@ -89,7 +89,7 @@ export interface InviteMemberModalProps
   appID?: string
   teamName?: string
   userNickname?: string
-  from?: "cloud_dashboard" | "builder_editor" | "builder_app"
+  from?: "cloud_dashboard" | "builder_editor" | "builder_app" | "builder_agent"
   inviteToUseAppStatus?: "unDeployed" | "deployed" | "hidden"
 }
 
