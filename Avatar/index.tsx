@@ -5,7 +5,7 @@ import {
 } from "@/illa-public-component/Avatar/style"
 import { getColorByString } from "@/utils/colorHelper"
 
-interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
+export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   avatarUrl?: string
   id?: string
   name?: string
