@@ -1,4 +1,3 @@
-import { Button, Loading } from "@illa-design/react"
 import {
   FC,
   HTMLAttributes,
@@ -9,6 +8,7 @@ import {
   useState,
 } from "react"
 import { useTranslation } from "react-i18next"
+import { Button, Loading } from "@illa-design/react"
 import { Avatar } from "@/illa-public-component/Avatar"
 import {
   SUBSCRIBE_PLAN,
@@ -26,6 +26,7 @@ import {
   emailStyle,
   firstLineStyle,
   headerStyle,
+  inviteBtnStyle,
   listItemStyle,
   listWrapperStyle,
   loadingStyle,
@@ -43,7 +44,6 @@ import {
   USER_ROLE,
   USER_STATUS,
 } from "@/illa-public-component/UserRoleUtils/interface"
-import { inviteBtnStyle } from "@/page/member/style"
 
 export interface MemberListItemProps
   extends HTMLAttributes<HTMLDivElement>,

@@ -1,6 +1,6 @@
-import { DownIcon, Trigger, UpIcon, zIndex } from "@illa-design/react"
 import { FC, HTMLAttributes, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { DownIcon, Trigger, UpIcon, zIndex } from "@illa-design/react"
 import { ReactComponent as CheckmarkIcon } from "@/assets/icon/success.svg"
 import {
   hiddenStyle,
@@ -13,7 +13,7 @@ import {
   isSmallThanTargetRole,
   userRoleMapI18nString,
 } from "@/illa-public-component/UserRoleUtils"
-import { USER_ROLE } from "@/redux/userInfo/userInfoState"
+import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 interface UserRoleSelectProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {

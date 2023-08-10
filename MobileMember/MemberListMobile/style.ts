@@ -1,5 +1,6 @@
 import { css } from "@emotion/react"
 import { globalColor, illaPrefix } from "@illa-design/react"
+import { pxToRem } from "@/style"
 
 export const wrapperStyle = css`
   position: relative;
@@ -76,4 +77,18 @@ export const emailStyle = css`
   font-size: 24rem;
   line-height: 32rem;
   color: ${globalColor(`--${illaPrefix}-grayBlue-03`)};
+`
+
+export const inviteBtnStyle = css`
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  bottom: ${pxToRem(48)};
+  width: ${pxToRem(400)};
+  height: ${pxToRem(88)};
+  border-radius: ${pxToRem(16)};
+
+  & > span {
+    font-size: ${pxToRem(32)};
+  }
 `
