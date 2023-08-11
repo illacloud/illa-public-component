@@ -1,0 +1,24 @@
+{
+  "name": "@illa-public/team-agent-share-modal",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.tsx",
+  "dependencies": {
+    "@illa-public/utils": "workspace:*",
+    "@illa-public/layout-auto-change": "workspace:*",
+    "copy-to-clipboard": "^3.3.2"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*",
+    "vite-plugin-svgr": "^2.1.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@illa-design/react": "*",
+    "@emotion/react": "*",
+    "react-i18next": "*"
+  }
+}

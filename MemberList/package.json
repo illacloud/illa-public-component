@@ -1,0 +1,21 @@
+{
+  "name": "@illa-public/member-list",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.tsx",
+  "dependencies": {
+    "@illa-public/utils": "workspace:*",
+    "@illa-public/user-role-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@illa-design/react": "*",
+    "@emotion/react": "*"
+  }
+}

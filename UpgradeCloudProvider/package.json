@@ -1,0 +1,27 @@
+{
+  "name": "@illa-public/upgrade-cloud-provider",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.tsx",
+  "dependencies": {
+    "@illa-public/utils": "workspace:*",
+    "@illa-public/user-role-utils": "workspace:*",
+    "@illa-public/icon": "workspace:*",
+    "@illa-public/text-link": "workspace:*",
+    "react-use": "^17.4.0"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*",
+    "vite-plugin-svgr": "^2.1.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@illa-design/react": "*",
+    "@emotion/react": "*",
+    "react-i18next": "*",
+    "react-router-dom": "^6.14.0"
+  }
+}

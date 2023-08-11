@@ -1,0 +1,11 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="hackernews" clip-path="url(#clip0_8295_3189)">
+<path id="Vector" d="M48 43.6364C48 46.0463 46.0463 48 43.6364 48H4.36364C1.95367 48 0 46.0463 0 43.6364V4.36364C0 1.95367 1.95367 0 4.36364 0H43.6364C46.0463 0 48 1.95367 48 4.36364V43.6364Z" fill="#FF6B00"/>
+<path id="Vector_2" d="M22.6912 34.4728H25.3094V26.6183L32.5094 13.5273H29.7603L24.0003 24.131L18.2403 13.5273H15.4912L22.6912 26.6183V34.4728Z" fill="white" stroke="white" stroke-width="1.09091"/>
+</g>
+<defs>
+<clipPath id="clip0_8295_3189">
+<rect width="48" height="48" fill="white"/>
+</clipPath>
+</defs>
+</svg>
