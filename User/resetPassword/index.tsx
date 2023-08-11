@@ -1,17 +1,11 @@
+import { LayoutAutoChange } from "@illa-public/layout-auto-change"
 import { FC, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
-import { LayoutAutoChange } from "@/illa-public-component/LayoutAutoChange"
-import { ILLA_MIXPANEL_PUBLIC_PAGE_NAME } from "@/illa-public-component/MixpanelUtils/interface"
-import { MixpanelTrackProvider } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
-import { UserLayout } from "@/illa-public-component/User/layout"
-import { MobileUserLayout } from "@/illa-public-component/User/layout/mobileLayout"
-import MobileReset from "@/illa-public-component/User/resetPassword/components/MobileReset"
-import Reset from "@/illa-public-component/User/resetPassword/components/Reset"
-import {
-  ResetPasswordPageProps,
-  ResetPwdFields,
-} from "@/illa-public-component/User/resetPassword/interface"
-import { track } from "@/utils/mixpanelHelper"
+import { UserLayout } from "../layout"
+import { MobileUserLayout } from "../layout/mobileLayout"
+import MobileReset from "./components/MobileReset"
+import Reset from "./components/Reset"
+import { ResetPasswordPageProps, ResetPwdFields } from "./interface"
 
 const ResetPasswordPage: FC<ResetPasswordPageProps> = (props) => {
   const { loading, errorMsg, onSubmit, sendEmail } = props
@@ -27,38 +21,28 @@ const ResetPasswordPage: FC<ResetPasswordPageProps> = (props) => {
     <FormProvider {...formProps}>
       <LayoutAutoChange
         desktopPage={
-          <MixpanelTrackProvider
-            basicTrack={track}
-            pageName={ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD}
-          >
-            <UserLayout>
-              <Reset
-                onSubmit={onSubmit}
-                loading={loading}
-                errorMsg={errorMsg}
-                showCountDown={showCountDown}
-                onCountDownChange={setShowCountDown}
-                sendEmail={sendEmail}
-              />
-            </UserLayout>
-          </MixpanelTrackProvider>
+          <UserLayout>
+            <Reset
+              onSubmit={onSubmit}
+              loading={loading}
+              errorMsg={errorMsg}
+              showCountDown={showCountDown}
+              onCountDownChange={setShowCountDown}
+              sendEmail={sendEmail}
+            />
+          </UserLayout>
         }
         mobilePage={
-          <MixpanelTrackProvider
-            basicTrack={track}
-            pageName={ILLA_MIXPANEL_PUBLIC_PAGE_NAME.FORGET_PASSWORD}
-          >
-            <MobileUserLayout>
-              <MobileReset
-                onSubmit={onSubmit}
-                loading={loading}
-                errorMsg={errorMsg}
-                showCountDown={showCountDown}
-                onCountDownChange={setShowCountDown}
-                sendEmail={sendEmail}
-              />
-            </MobileUserLayout>
-          </MixpanelTrackProvider>
+          <MobileUserLayout>
+            <MobileReset
+              onSubmit={onSubmit}
+              loading={loading}
+              errorMsg={errorMsg}
+              showCountDown={showCountDown}
+              onCountDownChange={setShowCountDown}
+              sendEmail={sendEmail}
+            />
+          </MobileUserLayout>
         }
       />
     </FormProvider>

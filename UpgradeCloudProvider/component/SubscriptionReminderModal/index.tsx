@@ -1,3 +1,4 @@
+import { UpgradeIcon } from "@illa-public/icon"
 import { FC, ReactNode, useCallback, useContext, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -9,13 +10,15 @@ import {
   ModalProps,
   Trigger,
 } from "@illa-design/react"
-import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
 import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
 } from "@/illa-public-component/MemberList/interface"
-import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
-import { ReactComponent as ModalDecorate } from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/assets/upgrad-modal-bg.svg"
+import { getCurrentTeamInfo } from "@/redux/team/teamSelector"
+import { UpgradeCloudContext } from "../../index"
+import { ReactComponent as DoubtIcon } from "./assets/doubt.svg"
+import { ReactComponent as TipIcon } from "./assets/pricing-tip.svg"
+import { ReactComponent as ModalDecorate } from "./assets/upgrad-modal-bg.svg"
 import {
   applyCardListStyle,
   decorateStyle,
@@ -32,10 +35,7 @@ import {
   priceStyle,
   titleStyle,
   upgradeButtonStyle,
-} from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/style"
-import { getCurrentTeamInfo } from "@/redux/team/teamSelector"
-import { ReactComponent as DoubtIcon } from "./assets/doubt.svg"
-import { ReactComponent as TipIcon } from "./assets/pricing-tip.svg"
+} from "./style"
 
 const modalConfigKey = {
   "add-license": {

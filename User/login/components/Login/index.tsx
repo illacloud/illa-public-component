@@ -1,20 +1,20 @@
 import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
+} from "@illa-public/mixpanel-utils"
+import { TextLink } from "@illa-public/text-link"
+import { FC, useEffect, useState } from "react"
+import { Controller, useFormContext } from "react-hook-form"
+import { Trans, useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
+import {
   Button,
   Divider,
   Input,
   Password,
   WarningCircleIcon,
 } from "@illa-design/react"
-import { FC, useEffect, useState } from "react"
-import { Controller, useFormContext } from "react-hook-form"
-import { Trans, useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
 import { EMAIL_FORMAT } from "@/constants/regExp"
-import {
-  ILLA_MIXPANEL_EVENT_TYPE,
-  ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
-} from "@/illa-public-component/MixpanelUtils/interface"
-import { TextLink } from "@/illa-public-component/TextLink"
 import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
 import { ReactComponent as GoogleIcon } from "@/illa-public-component/User/assets/google.svg"
 import { openOAuthUrl } from "@/illa-public-component/User/constants/users"

@@ -1,9 +1,6 @@
+import { getColorByString } from "@illa-public/utils"
 import { FC, HTMLAttributes, useEffect, useMemo } from "react"
-import {
-  applyAvatarStyle,
-  avatarImgStyle,
-} from "@/illa-public-component/Avatar/style"
-import { getColorByString } from "@/utils/colorHelper"
+import { applyAvatarStyle, avatarImgStyle } from "./style"
 
 export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   avatarUrl?: string

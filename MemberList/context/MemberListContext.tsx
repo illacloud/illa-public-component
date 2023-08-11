@@ -1,8 +1,5 @@
 import { createContext } from "react"
-import {
-  SubscribeInfo,
-  TotalTeamLicense,
-} from "@/illa-public-component/MemberList/interface"
+import { SubscribeInfo, TotalTeamLicense } from "../interface"
 
 interface MemberListContextTypeProps {
   currentTeamLicense: SubscribeInfo

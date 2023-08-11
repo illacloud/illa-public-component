@@ -7,6 +7,8 @@ import {
 } from "./interface"
 import { getBrowserLanguage, getDeviceUUID, getIllaLanguage } from "./utils"
 
+export * from "./interface"
+export * from "./mixpanelContext"
 class ILLAMixpanelTools {
   private static instance: ILLAMixpanelTools | null = null
   private enable: boolean = false

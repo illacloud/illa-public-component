@@ -1,11 +1,11 @@
 import { useMemo } from "react"
 import { Helmet } from "react-helmet-async"
 import { useTranslation } from "react-i18next"
-import PrivacyPolicyUS from "@/illa-public-component/User/policy/en-US/privacy-policy.mdx"
-import PrivacyPolicyJP from "@/illa-public-component/User/policy/ja-JP/privacy-policy.mdx"
-import PrivacyPolicyKR from "@/illa-public-component/User/policy/ko-KR/privacy-policy.mdx"
-import { policyContainer } from "@/illa-public-component/User/policy/style"
-import PrivacyPolicyCN from "@/illa-public-component/User/policy/zh-CN/privacy-policy.mdx"
+import PrivacyPolicyUS from "./en-US/privacy-policy.mdx"
+import PrivacyPolicyJP from "./ja-JP/privacy-policy.mdx"
+import PrivacyPolicyKR from "./ko-KR/privacy-policy.mdx"
+import { policyContainer } from "./style"
+import PrivacyPolicyCN from "./zh-CN/privacy-policy.mdx"
 
 const PrivacyPolicy = () => {
   const { i18n, t } = useTranslation()

@@ -1,7 +1,8 @@
 import {
+  SUBSCRIBE_PLAN,
   USER_ROLE,
   USER_STATUS,
-} from "@/illa-public-component/UserRoleUtils/interface"
+} from "@illa-public/user-role-utils"
 
 export interface UserData {
   teamMemberID: string
@@ -14,18 +15,6 @@ export interface UserData {
   permission: Record<string, any> // Reserved Field
   createdAt: string
   updatedAt: string
-}
-
-export enum SUBSCRIBE_PLAN {
-  TEAM_LICENSE_FREE = 1,
-  TEAM_LICENSE_PREMIUM,
-  TEAM_LICENSE_ENTERPRISE,
-  DRIVE_VOLUME_FREE,
-  DRIVE_VOLUME_PAID,
-  TEAM_LICENSE_EXPIRED,
-  DRIVE_VOLUME_EXPIRED,
-  TEAM_LICENSE_INSUFFICIENT,
-  DRIVE_VOLUME_INSUFFICIENT,
 }
 
 export enum SUBSCRIPTION_CYCLE {

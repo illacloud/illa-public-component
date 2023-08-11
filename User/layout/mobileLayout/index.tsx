@@ -1,10 +1,12 @@
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
+import { TextLink } from "@illa-public/text-link"
 import { FC, useContext } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
-import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
-import { TextLink } from "@/illa-public-component/TextLink"
-import { LayoutProps } from "@/illa-public-component/User/layout/interface"
 import { handleLinkOpen } from "@/utils/navigate"
+import { LayoutProps } from "../interface"
 import { contentStyle, layoutStyle, policyStyle } from "./style"
 
 export const MobileUserLayout: FC<LayoutProps> = ({ children }) => {

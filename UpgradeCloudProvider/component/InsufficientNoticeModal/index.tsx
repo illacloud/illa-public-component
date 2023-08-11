@@ -4,7 +4,7 @@ import { Button, CloseIcon, Modal, ModalProps } from "@illa-design/react"
 import {
   modalCloseIconStyle,
   modalMaskStyle,
-} from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/style"
+} from "../SubscriptionReminderModal/style"
 import {
   actionAreaStyle,
   descriptionStyle,

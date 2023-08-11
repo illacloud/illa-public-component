@@ -1,3 +1,4 @@
+import { isSmallThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, useContext, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { CloseIcon, Drawer, DrawerProps } from "@illa-design/react"
@@ -14,7 +15,6 @@ import {
   tabTitleStyle,
 } from "@/illa-public-component/MobileMember/InviteModalMobile/style"
 import { MemberListCommonProps } from "@/illa-public-component/MobileMember/MemberListMobile/interface"
-import { isSmallThanTargetRole } from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 import { pxToRem } from "@/style"
 

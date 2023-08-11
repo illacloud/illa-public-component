@@ -1,13 +1,13 @@
-import { FC, HTMLAttributes, useMemo, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { DownIcon, Trigger, UpIcon, zIndex } from "@illa-design/react"
 import {
+  USER_ROLE,
   getSmallThanTargetRole,
   isSmallThanTargetRole,
   userRoleMapI18nString,
   userRoleTipI18nString,
-} from "@/illa-public-component/UserRoleUtils"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
+} from "@illa-public/user-role-utils"
+import { FC, HTMLAttributes, useMemo, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { DownIcon, Trigger, UpIcon, zIndex } from "@illa-design/react"
 import { ReactComponent as DoubtIcon } from "./assets/doubt.svg"
 import { ReactComponent as CheckmarkIcon } from "./assets/success.svg"
 import {

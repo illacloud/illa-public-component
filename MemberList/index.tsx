@@ -1,14 +1,12 @@
-import { Loading } from "@illa-design/react"
 import { FC } from "react"
-import { Header } from "@/illa-public-component/MemberList/components/Header"
-import { List } from "@/illa-public-component/MemberList/components/List"
-import { MemberListContext } from "@/illa-public-component/MemberList/context/MemberListContext"
-import { MemberListProps } from "@/illa-public-component/MemberList/interface"
-import {
-  MemberListWrapperStyle,
-  fullContentStyle,
-} from "@/illa-public-component/MemberList/style"
+import { Loading } from "@illa-design/react"
+import { Header } from "./components/Header"
+import { List } from "./components/List"
+import { MemberListContext } from "./context/MemberListContext"
+import { MemberListProps } from "./interface"
+import { MemberListWrapperStyle, fullContentStyle } from "./style"
 
+export * from "./interface"
 export const MemberList: FC<MemberListProps> = (props) => {
   const {
     isCloudVersion = true,

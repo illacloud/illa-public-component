@@ -1,3 +1,8 @@
+import {
+  getSmallThanTargetRole,
+  isSmallThanTargetRole,
+  userRoleMapI18nString,
+} from "@illa-public/user-role-utils"
 import { FC, HTMLAttributes, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { DownIcon, Trigger, UpIcon, zIndex } from "@illa-design/react"
@@ -8,11 +13,6 @@ import {
   valueLabelStyle,
 } from "@/illa-public-component/MobileMember/UserRoleSelect/style"
 import { ReactComponent as CheckmarkIcon } from "@/illa-public-component/RoleSelect/assets/success.svg"
-import {
-  getSmallThanTargetRole,
-  isSmallThanTargetRole,
-  userRoleMapI18nString,
-} from "@/illa-public-component/UserRoleUtils"
 import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 interface UserRoleSelectProps

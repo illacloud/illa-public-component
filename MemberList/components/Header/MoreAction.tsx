@@ -1,3 +1,4 @@
+import { AuthShown } from "@illa-public/auth-shown"
 import { FC, MouseEvent, useCallback, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -8,13 +9,12 @@ import {
   useMessage,
   useModal,
 } from "@illa-design/react"
-import { AuthShown } from "@/illa-public-component/AuthShown"
 import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
 import DeleteTeamModal from "@/illa-public-component/MemberList/components/DeleteTeamModal"
 import { MoreActionProps } from "@/illa-public-component/MemberList/components/Header/interface"
 import {
   allowEditorOrViewerInviteWrapperStyle,
-  moreActionTextStyle
+  moreActionTextStyle,
 } from "@/illa-public-component/MemberList/components/Header/style"
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
 import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
@@ -215,7 +215,11 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
                     colorScheme="techPurple"
                     onClick={stopPropagation}
                     onChange={async (value: boolean) => {
-                      await updateTeamPermissionConfig(value, value, blockRegister)
+                      await updateTeamPermissionConfig(
+                        value,
+                        value,
+                        blockRegister,
+                      )
                       track?.(
                         ILLA_MIXPANEL_EVENT_TYPE.CLICK,
                         {
@@ -232,40 +236,44 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
                 </div>
               </DropListItem>
             </AuthShown>
-            {!isCloudVersion && <AuthShown
-              currentUserRole={currentUserRole}
-              allowRoles={[USER_ROLE.OWNER, USER_ROLE.ADMIN]}
-              rules={SHOW_RULES.EQUAL}
-            >
-              <DropListItem key="2" value="2">
-                <div
-                  css={allowEditorOrViewerInviteWrapperStyle}
-                  onClick={stopPropagation}
-                >
-                  <span css={moreActionTextStyle}>
-                    {t("user_management.settings.allow_register")}
-                  </span>
-                  <Switch
-                    colorScheme="techPurple"
+            {!isCloudVersion && (
+              <AuthShown
+                currentUserRole={currentUserRole}
+                allowRoles={[USER_ROLE.OWNER, USER_ROLE.ADMIN]}
+                rules={SHOW_RULES.EQUAL}
+              >
+                <DropListItem key="2" value="2">
+                  <div
+                    css={allowEditorOrViewerInviteWrapperStyle}
                     onClick={stopPropagation}
-                    onChange={async (value: boolean) => {
-                      await updateTeamPermissionConfig(allowEditorManageTeamMember, allowViewerManageTeamMember, !value)
-                      track?.(
-                        ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-                        {
-                          element: "allow_register",
-                          parameter2: value ? "on" : "off",
-                        },
-                        "both",
-                      )
-                    }}
-                    checked={
-                      !blockRegister
-                    }
-                  />
-                </div>
-              </DropListItem>
-            </AuthShown>}
+                  >
+                    <span css={moreActionTextStyle}>
+                      {t("user_management.settings.allow_register")}
+                    </span>
+                    <Switch
+                      colorScheme="techPurple"
+                      onClick={stopPropagation}
+                      onChange={async (value: boolean) => {
+                        await updateTeamPermissionConfig(
+                          allowEditorManageTeamMember,
+                          allowViewerManageTeamMember,
+                          !value,
+                        )
+                        track?.(
+                          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                          {
+                            element: "allow_register",
+                            parameter2: value ? "on" : "off",
+                          },
+                          "both",
+                        )
+                      }}
+                      checked={!blockRegister}
+                    />
+                  </div>
+                </DropListItem>
+              </AuthShown>
+            )}
             {isCloudVersion ? (
               <DropListItem
                 key="leaveTeam"

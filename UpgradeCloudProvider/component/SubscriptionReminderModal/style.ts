@@ -1,6 +1,6 @@
 import { css } from "@emotion/react"
+import { applyMobileStyle, pxToRem } from "@illa-public/utils"
 import { getColor } from "@illa-design/react"
-import { applyMobileStyle, pxToRem } from "@/style"
 
 export const modalMaskStyle = css`
   background-color: ${getColor("white", "05")};

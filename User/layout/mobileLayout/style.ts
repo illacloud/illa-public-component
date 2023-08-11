@@ -1,6 +1,6 @@
 import { css } from "@emotion/react"
 import { globalColor, illaPrefix } from "@illa-design/react"
-import mobileUserBg from "@/illa-public-component/User/assets/mobile-user-bg.svg"
+import mobileUserBg from "../../assets/mobile-user-bg.svg"
 
 export const layoutStyle = css`
   background: url(${mobileUserBg}) ${globalColor(`--${illaPrefix}-white-01`)}

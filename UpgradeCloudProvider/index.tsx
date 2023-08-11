@@ -1,4 +1,12 @@
-import { FC, ReactNode, createContext, useCallback, useMemo, useState } from "react"
+import { canManagePayment } from "@illa-public/user-role-utils"
+import {
+  FC,
+  ReactNode,
+  createContext,
+  useCallback,
+  useMemo,
+  useState,
+} from "react"
 import { useSelector } from "react-redux"
 import {
   InsufficientNoticeModal,
@@ -18,7 +26,6 @@ import {
   UpgradeSuccessModal,
   UpgradeSuccessModalType,
 } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal"
-import { canManagePayment } from "@/illa-public-component/UserRoleUtils"
 import { getCurrentTeamInfo } from "@/redux/team/teamSelector"
 
 interface ProviderProps {
@@ -95,24 +102,27 @@ export const UpgradeCloudProvider: FC<ProviderProps> = (props) => {
     })
   }
 
-  const handleUpgradeModalVisible = useCallback((
-    visible: boolean,
-    modalType: UpgradeModalType | InsufficientNoticeModalType,
-  ) => {
-    if (
-      canPay
-        ? upgradeModalConfigKeys.includes(modalType)
-        : insufficientModalConfigKeys.includes(modalType)
-    ) {
-      setUpgradeModalType(modalType)
-      setUpgradeModalVisible((prevState) => {
-        if (prevState !== visible) {
-          return visible
-        }
-        return prevState
-      })
-    }
-  }, [canPay])
+  const handleUpgradeModalVisible = useCallback(
+    (
+      visible: boolean,
+      modalType: UpgradeModalType | InsufficientNoticeModalType,
+    ) => {
+      if (
+        canPay
+          ? upgradeModalConfigKeys.includes(modalType)
+          : insufficientModalConfigKeys.includes(modalType)
+      ) {
+        setUpgradeModalType(modalType)
+        setUpgradeModalVisible((prevState) => {
+          if (prevState !== visible) {
+            return visible
+          }
+          return prevState
+        })
+      }
+    },
+    [canPay],
+  )
 
   const handleCloseDrawer = () => {
     setDrawerVisible(false)

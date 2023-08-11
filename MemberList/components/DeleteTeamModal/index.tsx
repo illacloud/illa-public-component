@@ -1,9 +1,9 @@
+import { LayoutAutoChange } from "@illa-public/layout-auto-change"
 import { FC, useContext, useMemo } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { Input, Modal, ModalProps, useMessage } from "@illa-design/react"
-import { LayoutAutoChange } from "@/illa-public-component/LayoutAutoChange"
 import {
   descStyle,
   mobileModalButtonStyle,
