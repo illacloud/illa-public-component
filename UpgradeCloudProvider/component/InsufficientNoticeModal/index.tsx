@@ -34,7 +34,7 @@ const modalConfigKey = {
     description: "billing.modal.traffic_insufficient.not_owner_description",
     buttonText: "billing.modal.traffic_insufficient.not_owner_button",
   },
-  gpt4: {
+  agent: {
     title: "billing.modal.upgrade_now_not_admin.upgrade_title",
     description: "billing.modal.upgrade_now_not_admin.upgrade_desc",
     buttonText: "billing.modal.upgrade_now_not_admin.upgrade_button",

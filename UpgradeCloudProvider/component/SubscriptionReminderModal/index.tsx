@@ -54,7 +54,7 @@ const modalConfigKey = {
     description: "billing.modal.expired.all_members_except_f",
     buttonText: "billing.modal.expired.upgrade",
   },
-  gpt4: {
+  agent: {
     title: "billing.modal.upgrade_now_admin.upgrade_to_plus",
     description: "billing.modal.ai-agent.string2",
     buttonText: "billing.modal.upgrade_now_admin.upgrade",
@@ -65,7 +65,7 @@ export const upgradeModalConfigKeys = Object.keys(modalConfigKey)
 export type UpgradeModalType = keyof typeof modalConfigKey
 
 const highlightMap: Partial<Record<UpgradeModalType, string>> = {
-  gpt4: "billing.modal.ai-agent.string1",
+  agent: "billing.modal.ai-agent.string1",
 }
 
 interface UpgradeModalProps extends ModalProps {
