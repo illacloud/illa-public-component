@@ -5,10 +5,22 @@
   "main": "index.tsx",
   "dependencies": {
     "@illa-public/utils": "workspace:*",
-    "@illa-public/user-role-utils": "workspace:*"
+    "@illa-public/user-role-utils": "workspace:*",
+    "@illa-public/layout-auto-change": "workspace:*",
+    "@illa-public/mixpanel-utils": "workspace:*",
+    "@illa-public/auth-shown": "workspace:*",
+    "@illa-public/icon": "workspace:*",
+    "@illa-public/role-select": "workspace:*",
+    "@illa-public/upgrade-cloud-provider": "workspace:*",
+    "@illa-public/usage-card": "workspace:*",
+    "@illa-public/avatar": "workspace:*",
+    "@illa-public/user-data": "workspace:*",
+    "react-hook-form": "^7.30.0",
+    "copy-to-clipboard": "^3.3.2"
   },
   "devDependencies": {
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "vite-plugin-svgr": "^2.1.0"
   },
   "peerDependencies": {
     "react": "^18.2.0",
@@ -16,6 +28,7 @@
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@illa-design/react": "*",
-    "@emotion/react": "*"
+    "@emotion/react": "*",
+    "react-i18next": "*"
   }
 }

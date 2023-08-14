@@ -1,7 +1,7 @@
 import { LayoutAutoChange } from "@illa-public/layout-auto-change"
 import { FC, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
-import { UserLayout } from "../layout"
+import { UserLayout } from "../layout/desktopLayout"
 import { MobileUserLayout } from "../layout/mobileLayout"
 import MobileReset from "./components/MobileReset"
 import Reset from "./components/Reset"

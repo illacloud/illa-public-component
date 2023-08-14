@@ -8,6 +8,7 @@
     "@illa-public/user-role-utils": "workspace:*",
     "@illa-public/icon": "workspace:*",
     "@illa-public/text-link": "workspace:*",
+    "@illa-public/user-data": "workspace:*",
     "react-use": "^17.4.0"
   },
   "devDependencies": {

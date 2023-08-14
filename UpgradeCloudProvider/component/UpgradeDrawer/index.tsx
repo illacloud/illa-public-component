@@ -1,4 +1,5 @@
 import { TextLink } from "@illa-public/text-link"
+import { SUBSCRIBE_PLAN, SUBSCRIPTION_CYCLE } from "@illa-public/user-data"
 import { isMobileByWindowSize, pxToRem } from "@illa-public/utils"
 import { FC, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -16,10 +17,6 @@ import {
   useMessage,
   zIndex,
 } from "@illa-design/react"
-import {
-  SUBSCRIBE_PLAN,
-  SUBSCRIPTION_CYCLE,
-} from "@/illa-public-component/MemberList/interface"
 import { cloudUrl } from "@/router/constant"
 import {
   PurchaseItem,

@@ -2,17 +2,11 @@ import { LayoutAutoChange } from "@illa-public/layout-auto-change"
 import { FC, useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { useSearchParams } from "react-router-dom"
-import { ILLA_MIXPANEL_PUBLIC_PAGE_NAME } from "@/illa-public-component/MixpanelUtils/interface"
-import { MixpanelTrackProvider } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
-import { UserLayout } from "@/illa-public-component/User/layout"
-import { MobileUserLayout } from "@/illa-public-component/User/layout/mobileLayout"
-import MobileRegister from "@/illa-public-component/User/register/components/MobileRegister"
-import Register from "@/illa-public-component/User/register/components/Register"
-import {
-  RegisterFields,
-  RegisterPageProps,
-} from "@/illa-public-component/User/register/interface"
-import { track } from "@/utils/mixpanelHelper"
+import { UserLayout } from "../layout/desktopLayout"
+import { MobileUserLayout } from "../layout/mobileLayout"
+import MobileRegister from "../register/components/MobileRegister"
+import Register from "../register/components/Register"
+import { RegisterFields, RegisterPageProps } from "../register/interface"
 
 const RegisterPage: FC<RegisterPageProps> = (props) => {
   const { loading, errorMsg, onSubmit, sendEmail, oAuthURI } = props

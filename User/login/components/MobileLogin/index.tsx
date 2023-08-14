@@ -1,19 +1,23 @@
-import { Button, Input, Password } from "@illa-design/react"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
+} from "@illa-public/mixpanel-utils"
+import { ILLAMixpanel } from "@illa-public/mixpanel-utils"
+import { TextLink } from "@illa-public/text-link"
 import { FC, useEffect, useState } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
+import { Button, Input, Password } from "@illa-design/react"
 import { EMAIL_FORMAT } from "@/constants/regExp"
-import {
-  ILLA_MIXPANEL_EVENT_TYPE,
-  ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
-} from "@/illa-public-component/MixpanelUtils/interface"
-import { TextLink } from "@/illa-public-component/TextLink"
-import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
-import { ReactComponent as GoogleIcon } from "@/illa-public-component/User/assets/google.svg"
-import { openOAuthUrl } from "@/illa-public-component/User/constants/users"
-import { inputDisabledStyle } from "@/illa-public-component/User/login/components/Login/style"
-import { MobileLoginProps } from "@/illa-public-component/User/login/components/MobileLogin/interface"
+import { isCloudVersion } from "@/utils/typeHelper"
+import { ReactComponent as GithubIcon } from "../../../assets/github.svg"
+import { ReactComponent as GoogleIcon } from "../../../assets/google.svg"
+import { openOAuthUrl } from "../../../constants/users"
+import { validateReport } from "../../../utils/reportUtils"
+import { LoginFields } from "../../interface"
+import { inputDisabledStyle } from "../Login/style"
+import { MobileLoginProps } from "./interface"
 import {
   descriptionStyle,
   errorMsgStyle,
@@ -28,11 +32,7 @@ import {
   oAuthIconStyle,
   singleSubmitButtonStyle,
   submitButtonStyle,
-} from "@/illa-public-component/User/login/components/MobileLogin/style"
-import { LoginFields } from "@/illa-public-component/User/login/interface"
-import { validateReport } from "@/illa-public-component/User/utils/reportUtils"
-import { track } from "@/utils/mixpanelHelper"
-import { isCloudVersion } from "@/utils/typeHelper"
+} from "./style"
 
 const MobileLogin: FC<MobileLoginProps> = (props) => {
   const {
@@ -54,13 +54,10 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
   >()
 
   const validReport = async () => {
-    track(
-      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-      ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
-      {
-        element: "sign_in",
-      },
-    )
+    ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+      page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+      element: "sign_in",
+    })
     let isValid = await trigger()
     if (isValid) {
       validateReport(ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN, "sign_in", true, {})
@@ -92,11 +89,10 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
                 <TextLink
                   key="text-link"
                   onClick={() => {
-                    track(
-                      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-                      ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
-                      { element: "create_account" },
-                    )
+                    ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                      page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+                      element: "create_account",
+                    })
                     navigate({ pathname: "/register", search: location.search })
                   }}
                 />,
@@ -121,24 +117,18 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
               colorScheme="techPurple"
               {...(lockedEmail && { value: lockedEmail, disabled: true })}
               onFocus={() => {
-                track(
-                  ILLA_MIXPANEL_EVENT_TYPE.FOCUS,
-                  ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
-                  {
-                    element: "email_input",
-                    parameter3: getValues().email?.length ?? 0,
-                  },
-                )
+                ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, {
+                  page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+                  element: "email_input",
+                  parameter3: getValues().email?.length ?? 0,
+                })
               }}
               onBlur={() => {
-                track(
-                  ILLA_MIXPANEL_EVENT_TYPE.BLUR,
-                  ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
-                  {
-                    element: "email_input",
-                    parameter3: getValues().email?.length ?? 0,
-                  },
-                )
+                ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, {
+                  page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+                  element: "email_input",
+                  parameter3: getValues().email?.length ?? 0,
+                })
               }}
             />
           )}
@@ -178,24 +168,18 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
               placeholder={t("page.user.password.placeholder")}
               colorScheme="techPurple"
               onFocus={() => {
-                track(
-                  ILLA_MIXPANEL_EVENT_TYPE.FOCUS,
-                  ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
-                  {
-                    element: "password_input",
-                    parameter3: getValues().password?.length ?? 0,
-                  },
-                )
+                ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.FOCUS, {
+                  page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+                  element: "password_input",
+                  parameter3: getValues().password?.length ?? 0,
+                })
               }}
               onBlur={() => {
-                track(
-                  ILLA_MIXPANEL_EVENT_TYPE.BLUR,
-                  ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
-                  {
-                    element: "password_input",
-                    parameter3: getValues().password?.length ?? 0,
-                  },
-                )
+                ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.BLUR, {
+                  page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+                  element: "password_input",
+                  parameter3: getValues().password?.length ?? 0,
+                })
               }}
             />
           )}
@@ -216,11 +200,11 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
       <div css={forgotPwdStyle}>
         <TextLink
           onClick={() => {
-            track(
-              ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-              ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
-              { element: "forget_password" },
-            )
+            ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+              page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+              element: "forget_password",
+            })
+
             navigate({
               pathname: "/forgotPassword",
               search: location.search,
@@ -262,11 +246,11 @@ const MobileLogin: FC<MobileLoginProps> = (props) => {
             shape="round"
             type="button"
             onClick={() => {
-              track(
-                ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-                ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
-                { element: "github_sign_in" },
-              )
+              ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+                element: "github_sign_in",
+              })
+
               oAuthURI?.github && openOAuthUrl(oAuthURI.github)
             }}
           ></Button>

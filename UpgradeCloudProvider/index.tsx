@@ -1,3 +1,4 @@
+import { getCurrentTeamInfo } from "@illa-public/user-data"
 import { canManagePayment } from "@illa-public/user-role-utils"
 import {
   FC,
@@ -12,21 +13,17 @@ import {
   InsufficientNoticeModal,
   InsufficientNoticeModalType,
   insufficientModalConfigKeys,
-} from "@/illa-public-component/UpgradeCloudProvider/component/InsufficientNoticeModal"
+} from "./component/InsufficientNoticeModal"
 import {
   SubscriptionReminderModal,
   UpgradeModalType,
   upgradeModalConfigKeys,
-} from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal"
-import {
-  DrawerDefaultConfig,
-  UpgradeDrawer,
-} from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeDrawer"
+} from "./component/SubscriptionReminderModal"
+import { DrawerDefaultConfig, UpgradeDrawer } from "./component/UpgradeDrawer"
 import {
   UpgradeSuccessModal,
   UpgradeSuccessModalType,
-} from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal"
-import { getCurrentTeamInfo } from "@/redux/team/teamSelector"
+} from "./component/UpgradeSuccessModal"
 
 interface ProviderProps {
   children: ReactNode

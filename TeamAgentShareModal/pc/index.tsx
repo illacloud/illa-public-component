@@ -5,15 +5,15 @@ import {
   InviteMemberByEmail,
   InviteMemberByLink,
 } from "@/illa-public-component/MemberList/components/Header/InviteMemberModalContent"
-import ShareToMediaContent from "@/illa-public-market-component/ShareToSocialMedia/pc/ShareToMediaContent"
+import ShareToMediaContent from "@/illa-public-component/ShareToSocialMedia/pc/ShareToMediaContent"
 import {
   descriptionStyle,
   switchLabelStyle,
   switchWrapperStyle,
   wrapperStyle,
-} from "@/illa-public-market-component/ShareToSocialMedia/pc/style"
-import { TeamAgentShareModalProps } from "@/illa-public-market-component/TeamAgentShareModal"
-import { AgentShareModalContext } from "@/illa-public-market-component/TeamAgentShareModal/context/MemberListContext"
+} from "@/illa-public-component/ShareToSocialMedia/pc/style"
+import { TeamAgentShareModalProps } from "@/illa-public-component/TeamAgentShareModal"
+import { AgentShareModalContext } from "@/illa-public-component/TeamAgentShareModal/context/MemberListContext"
 import {
   applyTabLabelStyle,
   closeIconStyle,
@@ -21,7 +21,7 @@ import {
   modalMaskStyle,
   modalStyle,
   modalTabWrapperStyle,
-} from "@/illa-public-market-component/TeamAgentShareModal/pc/style"
+} from "@/illa-public-component/TeamAgentShareModal/pc/style"
 import { isCloudVersion } from "@/utils/typeHelper"
 
 export type TabType = "share" | "contribute"

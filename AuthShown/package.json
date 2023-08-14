@@ -5,7 +5,8 @@
   "main": "index.tsx",
   "dependencies": {
     "@illa-public/utils": "workspace:*",
-    "@illa-public/user-role-utils": "workspace:*"
+    "@illa-public/user-role-utils": "workspace:*",
+    "@illa-public/user-data": "workspace:*"
   },
   "devDependencies": {
     "tsconfig": "workspace:*"

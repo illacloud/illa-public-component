@@ -1,9 +1,5 @@
 import { SubmitHandler } from "react-hook-form"
-import {
-  LoginErrorMsg,
-  LoginFields,
-  OAuthURI,
-} from "@/illa-public-component/User/login/interface"
+import { LoginErrorMsg, LoginFields, OAuthURI } from "../../interface"
 
 export interface LoginProps {
   loading: boolean

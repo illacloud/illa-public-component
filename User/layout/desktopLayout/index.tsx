@@ -5,9 +5,8 @@ import {
 import { TextLink } from "@illa-public/text-link"
 import { FC, useContext } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { handleLinkOpen } from "@/utils/navigate"
 import { ReactComponent as ILLALogoWhite } from "../assets/illa-logo-white.svg"
-import { LayoutProps } from "../layout/interface"
+import { LayoutProps } from "../interface"
 import {
   illaLogoStyle,
   layoutWrapperStyle,
@@ -16,7 +15,7 @@ import {
   rightAsideWrapperStyle,
   sectionBackgroundStyle,
   sloganStyle,
-} from "../layout/style"
+} from "./style"
 
 export const UserLayout: FC<LayoutProps> = ({ children }) => {
   const { t } = useTranslation()
@@ -26,7 +25,7 @@ export const UserLayout: FC<LayoutProps> = ({ children }) => {
     track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
       element: /privacy/.test(link) ? "privacy" : "terms",
     })
-    handleLinkOpen(link)
+    window.open(link, "_blank")
   }
 
   return (

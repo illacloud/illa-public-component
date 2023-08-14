@@ -6,6 +6,10 @@
   "dependencies": {
     "@illa-public/utils": "workspace:*",
     "@illa-public/layout-auto-change": "workspace:*",
+    "@illa-public/user-role-utils": "workspace:*",
+    "@illa-public/role-select": "workspace:*",
+    "@illa-public/auth-shown": "workspace:*",
+    "@illa-public/user-data": "workspace:*",
     "copy-to-clipboard": "^3.3.2"
   },
   "devDependencies": {

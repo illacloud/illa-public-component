@@ -1,9 +1,12 @@
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
 import { isSmallThanTargetRole } from "@illa-public/user-role-utils"
+import { USER_ROLE } from "@illa-public/user-role-utils/interface"
 import { FC, useContext, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { CloseIcon, Drawer, DrawerProps } from "@illa-design/react"
-import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
-import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import InviteByEmail from "@/illa-public-component/MobileMember/InviteModalMobile/InviteByEmail"
 import InviteByLink from "@/illa-public-component/MobileMember/InviteModalMobile/InviteByLink"
 import {
@@ -15,7 +18,6 @@ import {
   tabTitleStyle,
 } from "@/illa-public-component/MobileMember/InviteModalMobile/style"
 import { MemberListCommonProps } from "@/illa-public-component/MobileMember/MemberListMobile/interface"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 import { pxToRem } from "@/style"
 
 interface InviteModalMobileProps

@@ -1,3 +1,4 @@
+import { SUBSCRIBE_PLAN, USER_ROLE } from "@illa-public/user-data"
 import {
   ACTION_ACCESS,
   ACTION_DELETE,
@@ -5,8 +6,6 @@ import {
   ACTION_SPECIAL,
   ATTRIBUTE_CATEGORY,
   ATTRIBUTE_GROUP,
-  SUBSCRIBE_PLAN,
-  USER_ROLE,
 } from "./interface"
 
 export * from "./interface"

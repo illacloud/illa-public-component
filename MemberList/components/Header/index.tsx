@@ -1,4 +1,9 @@
-import { Button, MoreIcon } from "@illa-design/react"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
+import { UpgradeCloudContext } from "@illa-public/upgrade-cloud-provider"
+import { USER_ROLE } from "@illa-public/user-data"
 import {
   FC,
   useCallback,
@@ -9,19 +14,12 @@ import {
 } from "react"
 import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
-import { InviteMemberModal } from "@/illa-public-component/MemberList/components/Header/InviteMemberModalContent"
-import { MoreAction } from "@/illa-public-component/MemberList/components/Header/MoreAction"
-import {
-  buttonGroup,
-  headerWrapperStyle,
-  titleStyle,
-} from "@/illa-public-component/MemberList/components/Header/style"
-import { MemberListContext } from "@/illa-public-component/MemberList/context/MemberListContext"
-import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
-import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
-import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
+import { Button, MoreIcon } from "@illa-design/react"
+import { MemberListContext } from "../../context/MemberListContext"
+import { InviteMemberModal } from "./InviteMemberModalContent"
+import { MoreAction } from "./MoreAction"
 import { HeaderProps } from "./interface"
+import { buttonGroup, headerWrapperStyle, titleStyle } from "./style"
 
 const getInviteButtonStatus = (
   allowEditorManageTeamMember: boolean,

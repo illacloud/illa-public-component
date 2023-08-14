@@ -1,6 +1,7 @@
+import { Avatar } from "@illa-public/avatar"
+import { USER_STATUS } from "@illa-public/user-data"
 import { FC } from "react"
-import { Avatar } from "@/illa-public-component/Avatar"
-import { NameSpaceProps } from "@/illa-public-component/MemberList/components/List/interface"
+import { NameSpaceProps } from "./interface"
 import {
   emailStyle,
   memberStatusWhenPending,
@@ -9,8 +10,7 @@ import {
   nameSpaceWrapperStyle,
   nameStyle,
   textOverflowStyle,
-} from "@/illa-public-component/MemberList/components/List/style"
-import { USER_STATUS } from "@/illa-public-component/UserRoleUtils/interface"
+} from "./style"
 
 export const NameSpace: FC<NameSpaceProps> = (props) => {
   const { name, email, avatar, status, userID, currentUserID } = props

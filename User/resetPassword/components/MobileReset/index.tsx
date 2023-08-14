@@ -1,19 +1,19 @@
 import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
+} from "@illa-public/mixpanel-utils"
+import { FC, useEffect, useState } from "react"
+import { Controller, useFormContext } from "react-hook-form"
+import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
+import {
   Button,
   Input,
   Password,
   PreviousIcon,
   WarningCircleIcon,
 } from "@illa-design/react"
-import { FC, useEffect, useState } from "react"
-import { Controller, useFormContext } from "react-hook-form"
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
 import { EMAIL_FORMAT } from "@/constants/regExp"
-import {
-  ILLA_MIXPANEL_EVENT_TYPE,
-  ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
-} from "@/illa-public-component/MixpanelUtils/interface"
 import {
   errorIconStyle,
   inputDisabledStyle,

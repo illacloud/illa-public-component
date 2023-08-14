@@ -1,4 +1,9 @@
-import { AuthShown } from "@illa-public/auth-shown"
+import { AuthShown, SHOW_RULES } from "@illa-public/auth-shown"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
+import { USER_ROLE, USER_STATUS } from "@illa-public/user-data"
 import { isSmallThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, useCallback, useContext, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -11,15 +16,8 @@ import {
   useMessage,
   useModal,
 } from "@illa-design/react"
-import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
-import { MoreActionProps } from "@/illa-public-component/MemberList/components/List/interface"
-import { moreActionWrapper } from "@/illa-public-component/MemberList/components/List/style"
-import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
-import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
-import {
-  USER_ROLE,
-  USER_STATUS,
-} from "@/illa-public-component/UserRoleUtils/interface"
+import { MoreActionProps } from "./interface"
+import { moreActionWrapper } from "./style"
 
 export const MoreAction: FC<MoreActionProps> = (props) => {
   const {

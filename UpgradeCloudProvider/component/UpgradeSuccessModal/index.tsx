@@ -9,9 +9,9 @@ import {
   modalMaskStyle,
   modalStyle,
   titleStyle,
-} from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/style"
-import { ReactComponent as ModalDecorate } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal/assets/success-bg.svg"
-import { actionAreaStyle } from "@/illa-public-component/UpgradeCloudProvider/component/UpgradeSuccessModal/style"
+} from "../SubscriptionReminderModal/style"
+import { ReactComponent as ModalDecorate } from "../UpgradeSuccessModal/assets/success-bg.svg"
+import { actionAreaStyle } from "../UpgradeSuccessModal/style"
 
 const modalConfigKey = {
   "subscribe-license": {

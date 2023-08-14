@@ -1,4 +1,5 @@
 import RoleSelect from "@illa-public/role-select"
+import { USER_ROLE } from "@illa-public/user-data"
 import copy from "copy-to-clipboard"
 import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -12,12 +13,11 @@ import {
   REDIRECT_PAGE_TYPE,
   fetchInviteLinkResponse,
 } from "@/illa-public-component/MemberList/interface"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 import {
   labelStyle,
   linkWrapperStyle,
   mediaGroupStyle,
-} from "@/illa-public-market-component/ShareToSocialMedia/pc/style"
+} from "@/illa-public-component/ShareToSocialMedia/pc/style"
 
 export interface InviteByLinkProps {
   currentUserRole: USER_ROLE

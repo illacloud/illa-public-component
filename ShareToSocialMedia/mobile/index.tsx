@@ -9,7 +9,7 @@ import {
   Drawer,
   useMessage,
 } from "@illa-design/react"
-import { ReactComponent as LinkIcon } from "@/illa-public-market-component/ShareToSocialMedia/assets/link.svg"
+import { ReactComponent as LinkIcon } from "../assets/link.svg"
 import ShareToMediaContent from "./ShareToMediaContent"
 import {
   closeIconContainerStyle,

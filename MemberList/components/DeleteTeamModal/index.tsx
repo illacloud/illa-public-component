@@ -1,24 +1,26 @@
 import { LayoutAutoChange } from "@illa-public/layout-auto-change"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
+import {
+  getCurrentMemberList,
+  getCurrentTeamInfo,
+} from "@illa-public/user-data"
+import { pxToRem } from "@illa-public/utils"
 import { FC, useContext, useMemo } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { Input, Modal, ModalProps, useMessage } from "@illa-design/react"
+import { removeTeam } from "@/services/team"
 import {
   descStyle,
   mobileModalButtonStyle,
   mobileModalContentStyle,
   mobileModalStyle,
   mobileModalTitleStyle,
-} from "@/illa-public-component/MemberList/components/DeleteTeamModal/style"
-import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
-import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
-import {
-  getCurrentMemberList,
-  getCurrentTeamInfo,
-} from "@/redux/team/teamSelector"
-import { removeTeam } from "@/services/team"
-import { pxToRem } from "@/style"
+} from "./style"
 
 const DeleteTeamModal: FC<ModalProps> = (props) => {
   const {

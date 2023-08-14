@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { createPortal } from "react-dom"
-import { InviteMemberModal } from "@/illa-public-component/MemberList/components/Header/InviteMemberModalContent"
-import { InviteMemberModalProps } from "@/illa-public-component/MemberList/components/Header/interface"
+import { InviteMemberModal } from "./InviteMemberModalContent"
+import { InviteMemberModalProps } from "./interface"
 
 export interface InviteModalProps extends InviteMemberModalProps {
   visible: boolean

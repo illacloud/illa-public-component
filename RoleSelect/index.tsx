@@ -1,5 +1,5 @@
+import { USER_ROLE } from "@illa-public/user-data"
 import {
-  USER_ROLE,
   getSmallThanTargetRole,
   isSmallThanTargetRole,
   userRoleMapI18nString,

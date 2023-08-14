@@ -1,9 +1,9 @@
-import { FieldErrors } from "react-hook-form"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
   ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
   ILLA_PAGE_NAME,
-} from "@/illa-public-component/MixpanelUtils/interface"
+} from "@illa-public/mixpanel-utils"
+import { FieldErrors } from "react-hook-form"
 import { LoginFields } from "@/illa-public-component/User/login/interface"
 import { RegisterFields } from "@/illa-public-component/User/register/interface"
 import { track } from "@/utils/mixpanelHelper"

@@ -5,7 +5,6 @@ import {
 import { TextLink } from "@illa-public/text-link"
 import { FC, useContext } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { handleLinkOpen } from "@/utils/navigate"
 import { LayoutProps } from "../interface"
 import { contentStyle, layoutStyle, policyStyle } from "./style"
 
@@ -17,7 +16,7 @@ export const MobileUserLayout: FC<LayoutProps> = ({ children }) => {
     track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
       element: /privacy/.test(link) ? "privacy" : "terms",
     })
-    handleLinkOpen(link)
+    window.open(link, "_blank")
   }
 
   return (

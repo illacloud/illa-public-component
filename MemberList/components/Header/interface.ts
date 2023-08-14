@@ -1,10 +1,7 @@
+import { USER_ROLE } from "@illa-public/user-data"
 import { ReactNode } from "react"
-import { InviteModalProps } from "@/illa-public-component/MemberList/components/Header/InviteModal"
-import {
-  MemberListProps,
-  inviteByEmailResponse,
-} from "@/illa-public-component/MemberList/interface"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
+import { MemberListProps, inviteByEmailResponse } from "../../interface"
+import { InviteModalProps } from "./InviteModal"
 
 export interface HeaderProps
   extends Pick<

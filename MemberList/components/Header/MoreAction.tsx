@@ -1,4 +1,9 @@
-import { AuthShown } from "@illa-public/auth-shown"
+import { AuthShown, SHOW_RULES } from "@illa-public/auth-shown"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
+import { USER_ROLE } from "@illa-public/user-data"
 import { FC, MouseEvent, useCallback, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -9,16 +14,12 @@ import {
   useMessage,
   useModal,
 } from "@illa-design/react"
-import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
-import DeleteTeamModal from "@/illa-public-component/MemberList/components/DeleteTeamModal"
-import { MoreActionProps } from "@/illa-public-component/MemberList/components/Header/interface"
+import DeleteTeamModal from "../DeleteTeamModal"
+import { MoreActionProps } from "./interface"
 import {
   allowEditorOrViewerInviteWrapperStyle,
   moreActionTextStyle,
-} from "@/illa-public-component/MemberList/components/Header/style"
-import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
-import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
+} from "./style"
 
 const stopPropagation = (e: MouseEvent) => {
   e.stopPropagation()

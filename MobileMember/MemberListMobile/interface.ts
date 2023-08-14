@@ -1,3 +1,4 @@
+import { USER_ROLE } from "@illa-public/user-role-utils/interface"
 import { HTMLAttributes } from "react"
 import {
   SubscribeInfo,
@@ -6,7 +7,6 @@ import {
   fetchInviteLinkResponse,
   inviteByEmailResponse,
 } from "@/illa-public-component/MemberList/interface"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 export interface MemberListCommonProps {
   currentTeamLicense: SubscribeInfo

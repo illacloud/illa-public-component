@@ -1,6 +1,15 @@
-import { AuthShown, canAuthShow } from "@illa-public/auth-shown"
-import RoleSelect from "@illa-public/role-select"
+import { AuthShown, SHOW_RULES, canAuthShow } from "@illa-public/auth-shown"
+import { UpgradeIcon } from "@illa-public/icon"
 import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
+import RoleSelect from "@illa-public/role-select"
+import { UpgradeCloudContext } from "@illa-public/upgrade-cloud-provider"
+import { USER_ROLE } from "@illa-public/user-data"
+import {
+  ACTION_MANAGE,
+  ATTRIBUTE_GROUP,
   canManage,
   canManageApp,
   canUseUpgradeFeature,
@@ -34,9 +43,10 @@ import {
   useMessage,
   zIndex,
 } from "@illa-design/react"
-import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
-import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
-import { ReactComponent as SettingIcon } from "@/illa-public-component/MemberList/assets/icon/setting.svg"
+import { isILLAAPiError } from "@/utils/typeHelper"
+import { ReactComponent as SettingIcon } from "../../assets/icon/setting.svg"
+import { MemberListContext } from "../../context/MemberListContext"
+import { REDIRECT_PAGE_TYPE, inviteByEmailResponse } from "../../interface"
 import {
   AppPublicContentProps,
   InviteListItemProps,
@@ -45,7 +55,7 @@ import {
   InviteMemberByLinkProps,
   InviteMemberModalContentProps,
   InviteMemberModalProps,
-} from "@/illa-public-component/MemberList/components/Header/interface"
+} from "./interface"
 import {
   appPublicWrapperStyle,
   applyHiddenStyle,
@@ -79,21 +89,7 @@ import {
   unDeployedStyle,
   upgradeTabLabelStyle,
   urlAreaStyle,
-} from "@/illa-public-component/MemberList/components/Header/style"
-import { MemberListContext } from "@/illa-public-component/MemberList/context/MemberListContext"
-import {
-  REDIRECT_PAGE_TYPE,
-  inviteByEmailResponse,
-} from "@/illa-public-component/MemberList/interface"
-import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
-import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
-import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
-import {
-  ACTION_MANAGE,
-  ATTRIBUTE_GROUP,
-  USER_ROLE,
-} from "@/illa-public-component/UserRoleUtils/interface"
-import { isILLAAPiError } from "@/utils/typeHelper"
+} from "./style"
 
 const EMAIL_REGX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/

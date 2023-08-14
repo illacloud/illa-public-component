@@ -1,5 +1,5 @@
 import { css } from "@emotion/react"
-import { pxToRem } from "@/style"
+import { pxToRem } from "@illa-public/utils"
 
 export const mobileModalStyle = css`
   width: ${pxToRem(653)};

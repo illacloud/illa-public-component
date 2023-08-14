@@ -1,11 +1,14 @@
 import { AuthShown } from "@illa-public/auth-shown"
+import { SHOW_RULES } from "@illa-public/auth-shown"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
+import { USER_ROLE } from "@illa-public/user-role-utils/interface"
 import copy from "copy-to-clipboard"
 import { FC, useCallback, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Loading, useMessage } from "@illa-design/react"
-import { SHOW_RULES } from "@/illa-public-component/AuthShown/interface"
-import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
-import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
 import { InviteByLinkProps } from "@/illa-public-component/MobileMember/InviteModalMobile/interface"
 import {
   applyLinkStyle,
@@ -19,7 +22,6 @@ import {
   turnOnLinkButtonStyle,
 } from "@/illa-public-component/MobileMember/InviteModalMobile/style"
 import UserRoleSelect from "@/illa-public-component/MobileMember/UserRoleSelect"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 import { ReactComponent as LinkOffIcon } from "./assets/link-off.svg"
 import { ReactComponent as LinkIcon } from "./assets/link.svg"
 

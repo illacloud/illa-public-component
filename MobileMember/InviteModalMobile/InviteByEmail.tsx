@@ -1,8 +1,10 @@
-import { Input, Spin, useMessage } from "@illa-design/react"
+import { getCurrentTeamTotalLicense } from "@illa-public/user-data"
+import { USER_ROLE } from "@illa-public/user-role-utils/interface"
 import { FC, useCallback, useContext, useMemo, useRef, useState } from "react"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
+import { Input, Spin, useMessage } from "@illa-design/react"
 import { EMAIL_FORMAT } from "@/constants/regExp"
 import { inviteByEmailResponse } from "@/illa-public-component/MemberList/interface"
 import { InviteByEmailProps } from "@/illa-public-component/MobileMember/InviteModalMobile/interface"
@@ -19,8 +21,6 @@ import { MemberListCommonProps } from "@/illa-public-component/MobileMember/Memb
 import UserRoleSelect from "@/illa-public-component/MobileMember/UserRoleSelect"
 import { UpgradeCloudContext } from "@/illa-public-component/UpgradeCloudProvider"
 import { errorMsgStyle } from "@/illa-public-component/User/login/components/MobileLogin/style"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
-import { getCurrentTeamTotalLicense } from "@/redux/team/teamSelector"
 
 export interface InviteListProps
   extends Pick<MemberListCommonProps, "currentUserRole"> {

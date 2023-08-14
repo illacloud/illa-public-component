@@ -1,4 +1,6 @@
 import { AuthShown, SHOW_RULES } from "@illa-public/auth-shown"
+import { USER_ROLE } from "@illa-public/user-data"
+import { pxToRem } from "@illa-public/utils"
 import { FC, useContext } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, CloseIcon, Divider, Drawer } from "@illa-design/react"
@@ -13,18 +15,16 @@ import {
   turnOffLinkStyle,
   turnOnLinkButtonStyle,
 } from "@/illa-public-component/MobileMember/InviteModalMobile/style"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
-import ShareToMediaContent from "@/illa-public-market-component/ShareToSocialMedia/mobile/ShareToMediaContent"
+import ShareToMediaContent from "@/illa-public-component/ShareToSocialMedia/mobile/ShareToMediaContent"
 import {
   closeIconContainerStyle,
   shareModalStyle,
-} from "@/illa-public-market-component/ShareToSocialMedia/mobile/style"
-import { AgentShareModalContext } from "@/illa-public-market-component/TeamAgentShareModal/context/MemberListContext"
+} from "@/illa-public-component/ShareToSocialMedia/mobile/style"
+import { AgentShareModalContext } from "@/illa-public-component/TeamAgentShareModal/context/MemberListContext"
 import {
   TabType,
   TeamAgentSharePCModalProps,
-} from "@/illa-public-market-component/TeamAgentShareModal/pc"
-import { pxToRem } from "@/style"
+} from "@/illa-public-component/TeamAgentShareModal/pc"
 import {
   applyTabTitleItemStyle,
   closeIconStyle,

@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next"
 import TermsOfServiceUS from "@/illa-public-component/User/policy/en-US/terms-of-serivce.mdx"
 import TermsOfServiceJP from "@/illa-public-component/User/policy/ja-JP/terms-of-serivce.mdx"
 import TermsOfServiceKR from "@/illa-public-component/User/policy/ko-KR/terms-of-serivce.mdx"
-import { policyContainer } from "@/illa-public-component/User/policy/style"
 import TermsOfServiceCN from "@/illa-public-component/User/policy/zh-CN/terms-of-serivce.mdx"
+import { policyContainer } from "./style"
 
 const TermsOfService = () => {
   const { i18n, t } = useTranslation()
