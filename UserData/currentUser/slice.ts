@@ -17,4 +17,4 @@ const currentUserSlice = createSlice({
 })
 
 export const currentUserActions = currentUserSlice.actions
-export default currentUserSlice.reducer
+export const currentUserReducer = currentUserSlice.reducer

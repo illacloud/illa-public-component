@@ -21,4 +21,4 @@ const teamSlice = createSlice({
 })
 
 export const teamActions = teamSlice.actions
-export default teamSlice.reducer
+export const teamReducer = teamSlice.reducer

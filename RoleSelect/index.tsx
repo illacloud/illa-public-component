@@ -8,8 +8,7 @@ import {
 import { FC, HTMLAttributes, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { DownIcon, Trigger, UpIcon, zIndex } from "@illa-design/react"
-import { ReactComponent as DoubtIcon } from "./assets/doubt.svg"
-import { ReactComponent as CheckmarkIcon } from "./assets/success.svg"
+import { DoubtIcon, SuccessIcon } from "@illa-design/react"
 import {
   applyFontWeightStyle,
   doubtIconStyle,
@@ -119,7 +118,7 @@ const RoleSelect: FC<RoleSelectProps> = (props) => {
                     </Trigger>
                   ) : null}
                 </span>
-                {option.value === value && <CheckmarkIcon />}
+                {option.value === value && <SuccessIcon />}
               </div>
             )
           })}
