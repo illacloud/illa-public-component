@@ -6,7 +6,7 @@ import { TextLink } from "@illa-public/text-link"
 import { isCloudVersion } from "@illa-public/utils"
 import { FC, useContext } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { ReactComponent as ILLALogoWhite } from "../assets/illa-logo-white.svg"
+import { ReactComponent as ILLALogoWhite } from "../../assets/illa-logo-white.svg"
 import { LayoutProps } from "../interface"
 import {
   illaLogoStyle,

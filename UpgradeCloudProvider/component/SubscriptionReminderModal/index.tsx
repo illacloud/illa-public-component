@@ -1,6 +1,7 @@
 import { UpgradeIcon } from "@illa-public/icon"
 import { SUBSCRIBE_PLAN, SUBSCRIPTION_CYCLE } from "@illa-public/user-data"
 import { getCurrentTeamInfo } from "@illa-public/user-data"
+import { getEnvVar } from "@illa-public/utils"
 import { FC, ReactNode, useCallback, useContext, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -12,7 +13,6 @@ import {
   ModalProps,
   Trigger,
 } from "@illa-design/react"
-import { getEnvVar } from "../../../needReplaceUtils"
 import { UpgradeCloudContext } from "../../index"
 import { ReactComponent as DoubtIcon } from "./assets/doubt.svg"
 import { ReactComponent as TipIcon } from "./assets/pricing-tip.svg"

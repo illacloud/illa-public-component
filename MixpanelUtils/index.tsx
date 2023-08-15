@@ -1,6 +1,6 @@
 /* eslint-disable import/no-named-as-default-member */
+import { getEnvVar } from "@illa-public/utils"
 import mixpanel from "mixpanel-browser"
-import { getEnvVar } from "../needReplaceUtils"
 import {
   ILLAProperties,
   ILLA_MIXPANEL_EVENT_TYPE,

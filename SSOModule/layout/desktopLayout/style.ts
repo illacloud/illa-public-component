@@ -1,6 +1,6 @@
 import { css } from "@emotion/react"
 import { globalColor, illaPrefix } from "@illa-design/react"
-import sectionBg from "../assets/left-cover.svg"
+import sectionBg from "../../assets/left-cover.svg"
 
 export const layoutWrapperStyle = css`
   width: 100vw;

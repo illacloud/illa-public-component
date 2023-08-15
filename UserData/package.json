@@ -12,8 +12,8 @@
     "react-dom": "^18.2.0",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
-    "@reduxjs/toolkit": "*",
-    "react-redux": "*",
+    "@reduxjs/toolkit": "^1.9.5",
+    "react-redux": "^8.1.1",
     "@illa-design/react": "*"
   }
 }
