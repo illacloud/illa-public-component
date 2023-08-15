@@ -7,3 +7,5 @@ export const MemberListPC: FC<MemberListProps> = () => {
 }
 
 MemberListPC.displayName = "MemberListPC"
+
+export default MemberListPC

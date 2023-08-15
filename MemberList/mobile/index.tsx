@@ -1,5 +1,6 @@
-import { FC } from "react"
-import { MemberListProps } from "../interface"
+import { FC } from "react";
+import { MemberListProps } from "../interface";
+
 
 export const MemberListMobile: FC<MemberListProps> = () => {
   return <div></div>

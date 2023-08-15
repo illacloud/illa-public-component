@@ -1,13 +1,8 @@
 import { getColorByString } from "@illa-public/utils"
-import { FC, HTMLAttributes, useEffect, useMemo } from "react"
+import { FC, useMemo } from "react"
+import { AvatarProps } from "./interface"
 import { applyAvatarStyle, avatarImgStyle } from "./style"
 
-export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
-  avatarUrl?: string
-  id?: string
-  name?: string
-  onMount?: () => void
-}
 
 const getFirstChar = (str: string | undefined) => {
   if (!str) return "U"
@@ -18,7 +13,7 @@ const getFirstChar = (str: string | undefined) => {
 }
 
 export const Avatar: FC<AvatarProps> = (props) => {
-  const { avatarUrl, id, name, className, onMount, ...otherProps } = props
+  const { avatarUrl, id, name, className, ...otherProps } = props
 
   const { avatarBgColor, avatarText, emptyStatus } = useMemo(() => {
     return {
@@ -27,10 +22,6 @@ export const Avatar: FC<AvatarProps> = (props) => {
       emptyStatus: !avatarUrl && !name,
     }
   }, [id, name, avatarUrl])
-
-  useEffect(() => {
-    onMount?.()
-  }, [onMount])
 
   return (
     <div
