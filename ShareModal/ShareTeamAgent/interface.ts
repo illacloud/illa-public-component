@@ -1,3 +1,5 @@
+import { MemberListProps } from "@illa-public/member-list"
+
 export type DefaultTabType = "share" | "contribute"
 export interface TeamAgentShareModalProps
   extends Pick<
@@ -21,4 +23,21 @@ export interface TeamAgentShareModalProps
   onCancel: () => void
 
   contributeToMarketplace: (value: boolean) => Promise<unknown>
+}
+
+export type TabsConfig = { hidden: boolean; id: string; label: string }[]
+export interface TeamAgentSharePCModalProps
+  extends Pick<
+    TeamAgentShareModalProps,
+    | "visible"
+    | "inviteByEmail"
+    | "onCancel"
+    | "changeTeamMembersRole"
+    | "publishedToMarketplace"
+  > {
+  activeTab: DefaultTabType
+  onChangeTab: (currentTabId: DefaultTabType) => void
+  loading: boolean
+  tabsConfig: TabsConfig
+  onContributed?: (value: boolean) => void
 }

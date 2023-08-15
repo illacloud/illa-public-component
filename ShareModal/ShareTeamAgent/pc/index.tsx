@@ -8,7 +8,7 @@ import {
 } from "@/illa-public-component/MemberList/components/Header/InviteMemberModalContent"
 import ShareToMediaContentPC from "../../components/ShareToMediaContent/pc"
 import { AgentShareModalContext } from "../context/AgentShareModalContext"
-import { TeamAgentShareModalProps } from "../interface"
+import { DefaultTabType, TeamAgentSharePCModalProps } from "../interface"
 import {
   applyTabLabelStyle,
   closeIconStyle,
@@ -23,23 +23,6 @@ import {
 } from "./style"
 
 export type TabType = "share" | "contribute"
-export type TabsConfig = { hidden: boolean; id: string; label: string }[]
-
-export interface TeamAgentSharePCModalProps
-  extends Pick<
-    TeamAgentShareModalProps,
-    | "visible"
-    | "inviteByEmail"
-    | "onCancel"
-    | "changeTeamMembersRole"
-    | "publishedToMarketplace"
-  > {
-  activeTab: TabType
-  onChangeTab: (currentTabId: TabType) => void
-  loading: boolean
-  tabsConfig: TabsConfig
-  onContributed?: (value: boolean) => void
-}
 const TeamAgentSharePCModal: FC<TeamAgentSharePCModalProps> = (props) => {
   const { t } = useTranslation()
   const {
@@ -91,7 +74,7 @@ const TeamAgentSharePCModal: FC<TeamAgentSharePCModalProps> = (props) => {
                 key={`tab-${id}`}
                 css={applyTabLabelStyle(isActive)}
                 onClick={() => {
-                  onChangeTab(id as TabType)
+                  onChangeTab(id as DefaultTabType)
                 }}
               >
                 {label}

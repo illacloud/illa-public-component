@@ -6,12 +6,11 @@ import { useTranslation } from "react-i18next"
 import { Button, CloseIcon, Divider, Drawer } from "@illa-design/react"
 import InviteByEmail from "@/illa-public-component/MobileMember/InviteModalMobile/InviteByEmail"
 import InviteByLink from "@/illa-public-component/MobileMember/InviteModalMobile/InviteByLink"
-import ShareToMediaContent from "@/illa-public-component/ShareToSocialMedia/mobile/ShareToMediaContent"
-import { TeamAgentSharePCModalProps } from "@/illa-public-component/TeamAgentShareModal/pc"
 import { ReactComponent as LinkOffIcon } from "../../assets/link-off.svg"
 import { ReactComponent as LinkIcon } from "../../assets/link.svg"
+import ShareToMediaContentMobile from "../../components/ShareToMediaContent/mobile"
 import { AgentShareModalContext } from "../context/AgentShareModalContext"
-import { DefaultTabType } from "../interface"
+import { DefaultTabType, TeamAgentSharePCModalProps } from "../interface"
 import {
   applyTabTitleItemStyle,
   closeIconContainerStyle,
@@ -146,7 +145,7 @@ const TeamAgentShareMobileModal: FC<TeamAgentSharePCModalProps> = (props) => {
                   </div>
                 </AuthShown>
                 <Divider mg={`${pxToRem(40)} 0`} />
-                <ShareToMediaContent
+                <ShareToMediaContentMobile
                   agentLink={agentLink}
                   agentName={agentName}
                 />
