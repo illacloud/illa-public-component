@@ -7,6 +7,8 @@ import { MemberListProps } from "./interface"
 import { MemberListWrapperStyle, fullContentStyle } from "./style"
 
 export * from "./interface"
+export * from "./context/MemberListContext"
+
 export const MemberList: FC<MemberListProps> = (props) => {
   const {
     isCloudVersion = true,
