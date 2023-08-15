@@ -17,6 +17,7 @@
     "@illa-design/react": "*",
     "@emotion/react": "*",
     "react-i18next": "*",
-    "vite-plugin-svgr": "*"
+    "vite-plugin-svgr": "*",
+    "i18next": "*"
   }
 }

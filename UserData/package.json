@@ -3,9 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "main": "index.ts",
-  "dependencies": {
-    "@illa-public/user-role-utils": "workspace:*"
-  },
   "devDependencies": {
     "@types/node": "^18.14.4",
     "tsconfig": "workspace:*"
@@ -15,7 +12,6 @@
     "react-dom": "^18.2.0",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
-    "@emotion/react": "*",
     "@reduxjs/toolkit": "*",
     "react-redux": "*",
     "@illa-design/react": "*"

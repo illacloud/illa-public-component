@@ -1,5 +1,5 @@
 import { SubmitHandler } from "react-hook-form"
-import { OAuthURI } from "@/illa-public-component/User/login/interface"
+import { OAuthURI } from "../login/interface"
 
 export interface RegisterFields {
   nickname: string

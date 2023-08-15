@@ -23,6 +23,9 @@
     "@illa-design/react": "*",
     "@emotion/react": "*",
     "react-i18next": "*",
-    "react-router-dom": "^6.14.0"
+    "react-router-dom": "^6.14.0",
+    "i18next": "*",
+    "@reduxjs/toolkit": "*",
+    "react-redux": "*"
   }
 }

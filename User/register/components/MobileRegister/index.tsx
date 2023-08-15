@@ -9,7 +9,6 @@ import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Button, Input, Password } from "@illa-design/react"
-import { EMAIL_FORMAT } from "@/constants/regExp"
 import { ReactComponent as GithubIcon } from "@/illa-public-component/User/assets/github.svg"
 import { ReactComponent as GoogleIcon } from "@/illa-public-component/User/assets/google.svg"
 import { openOAuthUrl } from "@/illa-public-component/User/constants/users"
@@ -33,6 +32,7 @@ import { MobileRegisterProps } from "@/illa-public-component/User/register/compo
 import { RegisterFields } from "@/illa-public-component/User/register/interface"
 import { validateReport } from "@/illa-public-component/User/utils/reportUtils"
 import { isCloudVersion } from "@/utils/typeHelper"
+import { EMAIL_FORMAT } from "../../../constants/regExp"
 
 const MobileRegister: FC<MobileRegisterProps> = (props) => {
   const {

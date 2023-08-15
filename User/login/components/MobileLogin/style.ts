@@ -1,7 +1,6 @@
 import { SerializedStyles, css } from "@emotion/react"
+import { isCloudVersion, pxToRem } from "@illa-public/utils"
 import { globalColor, illaPrefix } from "@illa-design/react"
-import { pxToRem } from "@/style"
-import { isCloudVersion } from "@/utils/typeHelper"
 
 export const formStyle: SerializedStyles = css`
   position: relative;
