@@ -1,5 +1,5 @@
 {
-  "name": "@illa-public/member-list",
+  "name": "@illa-public/invite-modal",
   "version": "0.0.0",
   "private": true,
   "main": "index.tsx",
@@ -19,7 +19,8 @@
     "copy-to-clipboard": "^3.3.2"
   },
   "devDependencies": {
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "vite-plugin-svgr": "^2.1.0"
   },
   "peerDependencies": {
     "react": "^18.2.0",
