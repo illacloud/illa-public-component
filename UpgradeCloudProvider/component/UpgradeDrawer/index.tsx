@@ -17,14 +17,13 @@ import {
   useMessage,
   zIndex,
 } from "@illa-design/react"
-import { cloudUrl } from "@/router/constant"
 import {
   PurchaseItem,
   cancelSubscribe,
   modifySubscribe,
   purchase,
   subscribe,
-} from "@/services/billing"
+} from "./interface"
 import {
   appSumoLinkStyle,
   closeIconStyle,
@@ -173,7 +172,7 @@ function updateHash(newHash: string) {
 }
 
 function getSuccessRedirectWithParams(params: Record<string, string>): string {
-  const baseUrl = cloudUrl
+  const baseUrl = `${location.protocol}//${import.meta.env.ILLA_CLOUD_URL}`
   const redirectPath = "/landing/subscribed"
   const paramString = Object.entries(params)
     .map(

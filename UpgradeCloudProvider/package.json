@@ -9,6 +9,7 @@
     "@illa-public/icon": "workspace:*",
     "@illa-public/text-link": "workspace:*",
     "@illa-public/user-data": "workspace:*",
+    "@illa-public/illa-net": "workspace:*",
     "react-use": "^17.4.0"
   },
   "devDependencies": {

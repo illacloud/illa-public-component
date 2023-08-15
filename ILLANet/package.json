@@ -1,0 +1,13 @@
+{
+  "name": "@illa-public/illa-net",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "dependencies": {
+    "@illa-public/utils": "workspace:*",
+    "axios": "^0.26.1"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*"
+  }
+}
