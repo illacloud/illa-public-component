@@ -1,6 +1,6 @@
 import { css } from "@emotion/react"
+import { pxToRem } from "@illa-public/utils"
 import { getColor } from "@illa-design/react"
-import { pxToRem } from "@/style"
 
 export const wrapperStyle = css`
   height: 100%;
@@ -9,6 +9,12 @@ export const wrapperStyle = css`
   padding: 72rem 0 0;
   overflow: hidden;
 `
+
+export const shareModalStyle = css`
+  height: calc(var(--dvh, 1vh) * 60);
+  z-index: 1000;
+`
+
 export const closeIconStyle = css`
   font-size: 18rem;
 `
@@ -79,4 +85,47 @@ export const linkLinkButtonStyle = css`
     font-size: ${pxToRem(32)};
     line-height: ${pxToRem(40)};
   }
+`
+
+export const turnOffLinkStyle = css`
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 28rem;
+  line-height: 44rem;
+  color: ${getColor("grayBlue", "02")};
+  @media screen and (orientation: landscape) {
+    padding-bottom: 48rem;
+  }
+`
+
+export const inviteOffWrapperStyle = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 134rem 32rem 0;
+`
+
+export const inviteWrapperStyle = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48rem 32rem 0;
+  overflow: auto;
+`
+
+export const linkIconStyle = css`
+  width: 96rem;
+  height: 96rem;
+`
+
+export const turnOnLinkButtonStyle = css`
+  margin: ${pxToRem(68)} 0 ${pxToRem(42)};
+  height: ${pxToRem(88)};
+  font-weight: 500;
+
+  & > span {
+    font-size: ${pxToRem(32)};
+    line-height: ${pxToRem(40)};
+  }
+  margin: ${pxToRem(154)} 0 ${pxToRem(176)};
 `

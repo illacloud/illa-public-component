@@ -316,3 +316,5 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
     </div>
   )
 }
+
+InviteMemberByEmail.displayName = "InviteMemberByEmail"

@@ -6,31 +6,25 @@ import { useTranslation } from "react-i18next"
 import { Button, CloseIcon, Divider, Drawer } from "@illa-design/react"
 import InviteByEmail from "@/illa-public-component/MobileMember/InviteModalMobile/InviteByEmail"
 import InviteByLink from "@/illa-public-component/MobileMember/InviteModalMobile/InviteByLink"
-import { ReactComponent as LinkOffIcon } from "@/illa-public-component/MobileMember/InviteModalMobile/assets/link-off.svg"
-import { ReactComponent as LinkIcon } from "@/illa-public-component/MobileMember/InviteModalMobile/assets/link.svg"
+import ShareToMediaContent from "@/illa-public-component/ShareToSocialMedia/mobile/ShareToMediaContent"
+import { TeamAgentSharePCModalProps } from "@/illa-public-component/TeamAgentShareModal/pc"
+import { ReactComponent as LinkOffIcon } from "../../assets/link-off.svg"
+import { ReactComponent as LinkIcon } from "../../assets/link.svg"
+import { AgentShareModalContext } from "../context/AgentShareModalContext"
+import { DefaultTabType } from "../interface"
 import {
+  applyTabTitleItemStyle,
+  closeIconContainerStyle,
+  closeIconStyle,
+  headerWrapperStyle,
   inviteOffWrapperStyle,
   inviteWrapperStyle,
   linkIconStyle,
+  linkLinkButtonStyle,
+  shareModalStyle,
+  tabContentWrapperStyle,
   turnOffLinkStyle,
   turnOnLinkButtonStyle,
-} from "@/illa-public-component/MobileMember/InviteModalMobile/style"
-import ShareToMediaContent from "@/illa-public-component/ShareToSocialMedia/mobile/ShareToMediaContent"
-import {
-  closeIconContainerStyle,
-  shareModalStyle,
-} from "@/illa-public-component/ShareToSocialMedia/mobile/style"
-import { AgentShareModalContext } from "@/illa-public-component/TeamAgentShareModal/context/MemberListContext"
-import {
-  TabType,
-  TeamAgentSharePCModalProps,
-} from "@/illa-public-component/TeamAgentShareModal/pc"
-import {
-  applyTabTitleItemStyle,
-  closeIconStyle,
-  headerWrapperStyle,
-  linkLinkButtonStyle,
-  tabContentWrapperStyle,
   wrapperStyle,
 } from "./style"
 
@@ -100,7 +94,7 @@ const TeamAgentShareMobileModal: FC<TeamAgentSharePCModalProps> = (props) => {
                 key={`tab-${id}`}
                 css={applyTabTitleItemStyle(isActive, hidden)}
                 onClick={() => {
-                  onChangeTab(id as TabType)
+                  onChangeTab(id as DefaultTabType)
                 }}
               >
                 {label}
