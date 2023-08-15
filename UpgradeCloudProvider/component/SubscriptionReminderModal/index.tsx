@@ -34,6 +34,7 @@ import {
   upgradeButtonStyle,
 } from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/style"
 import { getCurrentTeamInfo } from "@/redux/team/teamSelector"
+import { getEnvVar } from "../../../needReplaceUtils"
 import { ReactComponent as DoubtIcon } from "./assets/doubt.svg"
 import { ReactComponent as TipIcon } from "./assets/pricing-tip.svg"
 
@@ -107,7 +108,9 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
 
   const billingUrl = useMemo(() => {
     if (!teamInfo?.identifier) return ""
-    return `${location.protocol}//${process.env.ILLA_CLOUD_URL}/team/${teamInfo?.identifier}/billing`
+    return `${location.protocol}//${getEnvVar("ILLA_CLOUD_URL")}/team/${
+      teamInfo?.identifier
+    }/billing`
   }, [teamInfo?.identifier])
 
   const openDrawer = useCallback(() => {

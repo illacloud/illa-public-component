@@ -1,5 +1,6 @@
 /* eslint-disable import/no-named-as-default-member */
 import mixpanel from "mixpanel-browser"
+import { getEnvVar } from "../needReplaceUtils"
 import {
   ILLAProperties,
   ILLA_MIXPANEL_EVENT_TYPE,
@@ -13,13 +14,13 @@ class ILLAMixpanelTools {
 
   constructor() {
     this.enable =
-      process.env.ILLA_INSTANCE_ID === "CLOUD" &&
-      !!process.env.ILLA_MIXPANEL_API_KEY
+      getEnvVar("ILLA_INSTANCE_ID") === "CLOUD" &&
+      !!getEnvVar("ILLA_MIXPANEL_API_KEY")
     if (this.enable) {
-      mixpanel.init(process.env.ILLA_MIXPANEL_API_KEY as string, {
-        debug: process.env.ILLA_APP_ENV === "development",
-        test: process.env.ILLA_APP_ENV !== "production",
-        ignore_dnt: process.env.ILLA_APP_ENV === "development",
+      mixpanel.init(getEnvVar("ILLA_MIXPANEL_API_KEY") as string, {
+        debug: getEnvVar("ILLA_APP_ENV") === "development",
+        test: getEnvVar("ILLA_APP_ENV") !== "production",
+        ignore_dnt: getEnvVar("ILLA_APP_ENV") === "development",
         loaded(mixpanelProto) {
           getDeviceUUID().then((deviceID) => {
             mixpanelProto.identify(deviceID)
@@ -29,13 +30,13 @@ class ILLAMixpanelTools {
                 ...properties,
                 $device_id: deviceID,
                 environment:
-                  process.env.ILLA_APP_ENV === "development"
+                  getEnvVar("ILLA_APP_ENV") === "development"
                     ? "development"
-                    : process.env.ILLA_APP_ENV,
+                    : getEnvVar("ILLA_APP_ENV"),
                 browser_language: getBrowserLanguage(),
                 illa_language: getIllaLanguage(),
                 $user_id: properties?.user_id,
-                fe_version_code: process.env.ILLA_APP_VERSION,
+                fe_version_code: getEnvVar("ILLA_APP_VERSION"),
               })
             }
           })
