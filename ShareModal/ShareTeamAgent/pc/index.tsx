@@ -2,10 +2,8 @@ import { isCloudVersion } from "@illa-public/utils"
 import { FC, useContext } from "react"
 import { useTranslation } from "react-i18next"
 import { CloseIcon, Divider, Loading, Modal, Switch } from "@illa-design/react"
-import {
-  InviteMemberByEmail,
-  InviteMemberByLink,
-} from "@/illa-public-component/MemberList/components/Header/InviteMemberModalContent"
+import { InviteMemberByLink } from "@/illa-public-component/MemberList/components/Header/InviteMemberModalContent"
+import { InviteMemberByEmailPC } from "../../components/InviteMemberByEmail/pc"
 import ShareToMediaContentPC from "../../components/ShareToMediaContent/pc"
 import { AgentShareModalContext } from "../context/AgentShareModalContext"
 import { DefaultTabType, TeamAgentSharePCModalProps } from "../interface"
@@ -99,7 +97,7 @@ const TeamAgentSharePCModal: FC<TeamAgentSharePCModalProps> = (props) => {
             fetchInviteLink={fetchInviteLink}
             renewInviteLink={renewInviteLink}
           />
-          <InviteMemberByEmail
+          <InviteMemberByEmailPC
             currentUserRole={currentUserRole}
             userListData={userListData}
             inviteByEmail={inviteByEmail}

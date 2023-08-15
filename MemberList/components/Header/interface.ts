@@ -51,16 +51,6 @@ export interface MoreActionProps
   userNumber: number
 }
 
-export interface InviteListItemProps
-  extends inviteByEmailResponse,
-    Pick<InviteListProps, "currentUserRole" | "changeMembersRole"> {}
-
-export interface InviteListProps
-  extends Pick<InviteMemberByEmailProps, "currentUserRole"> {
-  inviteList?: inviteByEmailResponse[]
-  changeMembersRole: (userID: string, userRole: USER_ROLE) => void
-}
-
 // changeTeamMembersRole, currentUserRole, inviteByEmail, renewInviteLink
 export interface InviteMemberModalProps
   extends Pick<

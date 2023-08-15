@@ -1,4 +1,4 @@
-import { MemberListContext } from "@illa-public/member-list"
+import { InviteList, MemberListContext } from "@illa-public/member-list"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
@@ -9,6 +9,7 @@ import { USER_ROLE } from "@illa-public/user-data"
 import { FC, useCallback, useContext, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, InputTag, useMessage } from "@illa-design/react"
+import { InviteMemberByEmailProps, inviteByEmailResponse } from "../interface"
 import {
   applyHiddenStyle,
   applyInviteCountStyle,
@@ -23,7 +24,7 @@ import {
 const EMAIL_REGX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
+export const InviteMemberByEmailPC: FC<InviteMemberByEmailProps> = (props) => {
   const {
     currentUserRole,
     userListData,
@@ -317,4 +318,4 @@ export const InviteMemberByEmail: FC<InviteMemberByEmailProps> = (props) => {
   )
 }
 
-InviteMemberByEmail.displayName = "InviteMemberByEmail"
+InviteMemberByEmailPC.displayName = "InviteMemberByEmailPC"

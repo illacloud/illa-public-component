@@ -8,6 +8,7 @@ import { MemberListWrapperStyle, fullContentStyle } from "./style"
 
 export * from "./interface"
 export * from "./context/MemberListContext"
+export * from "./components/InviteList"
 
 export const MemberList: FC<MemberListProps> = (props) => {
   const {

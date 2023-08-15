@@ -47,10 +47,9 @@ import { isILLAAPiError } from "@/utils/typeHelper"
 import { ReactComponent as SettingIcon } from "../../assets/icon/setting.svg"
 import { MemberListContext } from "../../context/MemberListContext"
 import { REDIRECT_PAGE_TYPE, inviteByEmailResponse } from "../../interface"
+import { InviteList } from "../InviteList"
 import {
   AppPublicContentProps,
-  InviteListItemProps,
-  InviteListProps,
   InviteMemberByEmailProps,
   InviteMemberByLinkProps,
   InviteMemberModalContentProps,
@@ -61,16 +60,12 @@ import {
   applyHiddenStyle,
   applyInviteCountStyle,
   applyTabLabelStyle,
-  avatarAndNameWrapperStyle,
   closeIconHotSpotStyle,
   emailInputStyle,
   fakerInputStyle,
-  inviteAvatarStyle,
   inviteEmailWrapperStyle,
   inviteLinkWhenClosedStyle,
   inviteLinkWrapperStyle,
-  inviteListTitleWrapperStyle,
-  inviteListWrapperStyle,
   maskStyle,
   modalBodyWrapperStyle,
   modalHeaderWrapperStyle,
@@ -78,7 +73,6 @@ import {
   modalTitleStyle,
   modalWithMaskWrapperStyle,
   modalWrapperStyle,
-  nicknameStyle,
   publicLabelStyle,
   publicLinkStyle,
   remainInviteCountStyle,
@@ -93,62 +87,6 @@ import {
 
 const EMAIL_REGX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-
-export const InviteListItem: FC<InviteListItemProps> = (props) => {
-  const {
-    email,
-    userRole,
-    userAvatar,
-    teamMemberID,
-    currentUserRole,
-    changeMembersRole,
-  } = props
-  const handleChangeRole = useCallback(
-    (value: USER_ROLE) => {
-      changeMembersRole(teamMemberID, value)
-    },
-    [teamMemberID, changeMembersRole],
-  )
-
-  return (
-    <div css={inviteListTitleWrapperStyle}>
-      <div css={avatarAndNameWrapperStyle}>
-        {userAvatar ? (
-          <Avatar src={userAvatar} />
-        ) : (
-          <div css={inviteAvatarStyle} />
-        )}
-        <span css={nicknameStyle}>{email}</span>
-      </div>
-      <RoleSelect
-        value={userRole}
-        userRole={currentUserRole}
-        onChange={handleChangeRole}
-      />
-    </div>
-  )
-}
-
-export const InviteList: FC<InviteListProps> = (props) => {
-  const { inviteList, currentUserRole, changeMembersRole } = props
-  return (
-    <div css={inviteListWrapperStyle}>
-      {inviteList?.map((item) => (
-        <InviteListItem
-          key={item.email}
-          email={item.email}
-          emailStatus={item.emailStatus}
-          userAvatar={item.userAvatar}
-          userRole={item.userRole}
-          userID={item.userID}
-          teamMemberID={item.teamMemberID}
-          currentUserRole={currentUserRole}
-          changeMembersRole={changeMembersRole}
-        />
-      ))}
-    </div>
-  )
-}
 
 export const InviteMemberModal: FC<InviteMemberModalProps> = (props) => {
   const {
