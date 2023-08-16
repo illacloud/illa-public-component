@@ -4,6 +4,7 @@ import {
 } from "@illa-public/mixpanel-utils"
 import { ILLAMixpanel } from "@illa-public/mixpanel-utils"
 import { TextLink } from "@illa-public/text-link"
+import { isCloudVersion } from "@illa-public/utils"
 import { FC, useEffect, useState } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
@@ -33,7 +34,6 @@ import {
   oAuthIconStyle,
 } from "@/illa-public-component/User/login/components/Login/style"
 import { validateReport } from "@/illa-public-component/User/utils/reportUtils"
-import { isCloudVersion } from "@/utils/typeHelper"
 import { openOAuthUrl } from "../../../constants/users"
 import { RegisterFields } from "../../interface"
 import { EmailCode } from "../EmailCode"

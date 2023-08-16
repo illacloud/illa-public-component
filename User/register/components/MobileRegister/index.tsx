@@ -4,6 +4,7 @@ import {
 } from "@illa-public/mixpanel-utils"
 import { ILLAMixpanel } from "@illa-public/mixpanel-utils"
 import { TextLink } from "@illa-public/text-link"
+import { isCloudVersion } from "@illa-public/utils"
 import { FC, useEffect, useState } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
@@ -31,7 +32,6 @@ import { EmailCode } from "@/illa-public-component/User/register/components/Emai
 import { MobileRegisterProps } from "@/illa-public-component/User/register/components/MobileRegister/interface"
 import { RegisterFields } from "@/illa-public-component/User/register/interface"
 import { validateReport } from "@/illa-public-component/User/utils/reportUtils"
-import { isCloudVersion } from "@/utils/typeHelper"
 import { EMAIL_FORMAT } from "../../../constants/regExp"
 
 const MobileRegister: FC<MobileRegisterProps> = (props) => {
