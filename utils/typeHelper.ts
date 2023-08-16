@@ -1,1 +1,3 @@
-export const isCloudVersion = process.env.ILLA_INSTANCE_ID === "CLOUD"
+import { getEnvVar } from "./envVarHelper"
+
+export const isCloudVersion = getEnvVar("ILLA_INSTANCE_ID") === "CLOUD"

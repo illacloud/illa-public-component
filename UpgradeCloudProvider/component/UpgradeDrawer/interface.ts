@@ -6,7 +6,6 @@ import {
   SubscribeInfo,
 } from "@illa-public/user-data"
 
-
 export enum PurchaseItem {
   DRIVE_TRAFFIC_1GB = 1,
 }
@@ -42,84 +41,93 @@ interface SubscribeResponse {
   url: string
 }
 
-export const getPortalURL = async (returningURL: string) => {
+export const getPortalURL = async (returningURL: string, teamID?: string) => {
   const { data } = await authCloudRequest<PortalURLResponse>(
     {
       url: `/billing/getPortalURL`,
       method: "POST",
       data: { returningURL },
     },
-    { needTeamID: true },
+    { teamID },
   )
   return data
 }
 
-export const getTeamSubscription = async () => {
+export const getTeamSubscription = async (teamID?: string) => {
   const { data } = await authCloudRequest<TeamSubscription>(
     {
       url: `/billing`,
       method: "GET",
     },
-    { needTeamID: true },
+    { teamID },
   )
   return data
 }
 
-export const purchase = async (requestData: {
-  item: PurchaseItem
-  quantity: number // 需要购买的物品数量, 比如 ITEM_DRIVE_TRAFFIC_1GB 购买4GB, 就填写4
-  successRedirect: string // Success redirect URL
-  cancelRedirect: string // Cancel redirect URL
-}) => {
+export const purchase = async (
+  requestData: {
+    item: PurchaseItem
+    quantity: number // 需要购买的物品数量, 比如 ITEM_DRIVE_TRAFFIC_1GB 购买4GB, 就填写4
+    successRedirect: string // Success redirect URL
+    cancelRedirect: string // Cancel redirect URL
+  },
+  teamID: string,
+) => {
   return await authCloudRequest<SubscribeResponse>(
     {
       url: `/billing/purchase`,
       method: "POST",
       data: requestData,
     },
-    { needTeamID: true },
+    { teamID },
   )
 }
 
-export const subscribe = async (requestData: {
-  plan: SUBSCRIBE_PLAN
-  quantity: number // License quantity
-  cycle: SUBSCRIPTION_CYCLE
-  successRedirect: string // Success redirect URL
-  cancelRedirect: string // Cancel redirect URL
-}) => {
+export const subscribe = async (
+  requestData: {
+    plan: SUBSCRIBE_PLAN
+    quantity: number // License quantity
+    cycle: SUBSCRIPTION_CYCLE
+    successRedirect: string // Success redirect URL
+    cancelRedirect: string // Cancel redirect URL
+  },
+  teamID: string,
+) => {
   return await authCloudRequest<SubscribeResponse>(
     {
       url: `/billing/subscribe`,
       method: "POST",
       data: requestData,
     },
-    { needTeamID: true },
+    { teamID },
   )
 }
 
-export const modifySubscribe = async (requestData: {
-  plan: SUBSCRIBE_PLAN
-  quantity: number // License quantity
-  cycle: SUBSCRIPTION_CYCLE
-}) => {
+export const modifySubscribe = async (
+  requestData: {
+    plan: SUBSCRIBE_PLAN
+    quantity: number // License quantity
+    cycle: SUBSCRIPTION_CYCLE
+  },
+  teamID: string,
+) => {
   return await authCloudRequest(
     {
       url: `/billing/subscribe`,
       method: "PATCH",
       data: requestData,
     },
-    { needTeamID: true },
+    { teamID },
   )
 }
 
-export const cancelSubscribe = async (plan: SUBSCRIBE_PLAN) => {
+export const cancelSubscribe = async (plan: SUBSCRIBE_PLAN, teamID: string) => {
   return await authCloudRequest(
     {
       url: `/billing/subscribe`,
       method: "DELETE",
       data: { plan },
     },
-    { needTeamID: true },
+    { teamID },
   )
 }

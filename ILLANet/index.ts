@@ -15,8 +15,6 @@ import {
 import { ERROR_FLAG } from "./errorFlag"
 
 interface RequestHandlerOptions {
-  needTeamID?: boolean
-  needTeamIdentifier?: boolean
   teamIdentifier?: string
   teamID?: string
 }
@@ -27,10 +25,10 @@ const getURLWithPrefix = (
   options?: RequestHandlerOptions,
 ) => {
   let finalURL = prefix + url
-  if (options?.needTeamIdentifier) {
+  if (options?.teamIdentifier) {
     const teamIdentifier = options.teamIdentifier
     finalURL = `${prefix}/teams/byIdentifier/${teamIdentifier}` + url
-  } else if (options?.needTeamID) {
+  } else if (options?.teamID) {
     const teamId = options.teamID
     finalURL = `${prefix}/teams/${teamId}` + url
   }
@@ -201,13 +199,12 @@ export const marketplaceTeamRequest = async <
   RequestData = unknown,
 >(
   requestConfig: AxiosRequestConfig<RequestData>,
+  options?: RequestHandlerOptions,
 ) => {
   const finalURL = getURLWithPrefix(
     requestConfig.url,
     MARKETPLACE_AUTH_REQUEST_PREFIX,
-    {
-      needTeamID: true,
-    },
+    options,
   )
 
   return await needAuthRequest<ResponseData, RequestData>({

@@ -2,7 +2,6 @@ import { createSelector } from "@reduxjs/toolkit"
 import { RootState } from "../store"
 
 export const getCurrentId = (state: RootState) => {
-  console.trace("state", state)
   return state.team.currentId
 }
 export const getTeamItems = (state: RootState) => state.team.items
