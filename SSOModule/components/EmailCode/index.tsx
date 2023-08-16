@@ -7,25 +7,18 @@ import { FC } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { Countdown, Link, getColor, useMessage } from "@illa-design/react"
-import { LoginFields } from "@/illa-public-component/User/login/interface"
-
-interface EmailCodeProps {
-  showCountDown: boolean
-  usage: "signup" | "forgetpwd"
-  onCountDownChange: (showCountDown: boolean) => void
-  sendEmail: (email: string, usage: "signup" | "forgetpwd") => Promise<string>
-}
+import { EmailCodeProps } from "./interface"
 
 export const EmailCode: FC<EmailCodeProps> = (props) => {
   const { usage, showCountDown, onCountDownChange, sendEmail } = props
-  const { getValues, trigger } = useFormContext<LoginFields>()
+  const { getValues, trigger } = useFormContext()
   const { t } = useTranslation()
   const message = useMessage()
 
   const sendEmailCode = async () => {
     onCountDownChange(true)
     try {
-      await sendEmail(getValues("email"), usage)
+      await sendEmail(getValues("email"))
       message.success({
         content: t("page.user.sign_up.tips.verification_code"),
       })

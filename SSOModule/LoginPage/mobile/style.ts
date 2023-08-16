@@ -1,5 +1,5 @@
 import { SerializedStyles, css } from "@emotion/react"
-import { isCloudVersion, pxToRem } from "@illa-public/utils"
+import { pxToRem } from "@illa-public/utils"
 import { globalColor, illaPrefix } from "@illa-design/react"
 
 export const formStyle: SerializedStyles = css`
@@ -13,13 +13,9 @@ export const headerStyle: SerializedStyles = css`
   gap: 16rem;
 `
 
-export const formItemStyle = isCloudVersion
-  ? css`
-      margin-top: 54rem;
-    `
-  : css`
-      margin-top: 64rem;
-    `
+export const formItemStyle = css`
+  margin-top: 64rem;
+`
 
 export const formTitleStyle: SerializedStyles = css`
   font-size: 48rem;

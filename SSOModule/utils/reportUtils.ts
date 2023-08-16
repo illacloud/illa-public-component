@@ -1,13 +1,13 @@
 import {
+  ILLAMixpanel,
   ILLA_MIXPANEL_EVENT_TYPE,
   ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
   ILLA_PAGE_NAME,
 } from "@illa-public/mixpanel-utils"
 import { FieldErrors } from "react-hook-form"
-import { LoginFields } from "@/illa-public-component/User/login/interface"
-import { RegisterFields } from "@/illa-public-component/User/register/interface"
-import { track } from "@/utils/mixpanelHelper"
-import { ResetPwdFields } from "../resetPassword/interface"
+import { LoginFields } from "../LoginPage/interface"
+import { RegisterFields } from "../RegisterPage/interface"
+import { ResetPwdFields } from "../ResetPasswordPage/interface"
 
 export const validateReport = (
   page: ILLA_PAGE_NAME,
@@ -16,7 +16,8 @@ export const validateReport = (
   errors: FieldErrors<RegisterFields & LoginFields & ResetPwdFields>,
 ) => {
   if (isValid) {
-    track(ILLA_MIXPANEL_EVENT_TYPE.VALIDATE, page, {
+    ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.VALIDATE, {
+      page,
       element,
       parameter2: "suc",
     })
@@ -63,7 +64,8 @@ export const validateReport = (
   }
 
   if (!isValid) {
-    track(ILLA_MIXPANEL_EVENT_TYPE.VALIDATE, page, {
+    ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.VALIDATE, {
+      page,
       element,
       parameter2: "failed",
       parameter3: errorList,

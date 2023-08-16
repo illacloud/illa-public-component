@@ -1,7 +1,14 @@
 import { SubmitHandler } from "react-hook-form"
-import { LoginErrorMsg, LoginFields, OAuthURI } from "../../interface"
+import { OAuthURI } from "../interface"
 
-export interface MobileLoginProps {
+export interface LoginFields {
+  email: string
+  password: string
+}
+
+export type LoginErrorMsg = Record<keyof LoginFields, string>
+
+export interface LoginPageProps {
   loading: boolean
   errorMsg: LoginErrorMsg
   oAuthURI?: OAuthURI
@@ -9,5 +16,4 @@ export interface MobileLoginProps {
   hideRegister?: boolean
   lockedEmail?: string | null
   onSubmit: SubmitHandler<LoginFields>
-  validEventReport?: () => void
 }

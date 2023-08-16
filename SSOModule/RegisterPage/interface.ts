@@ -1,5 +1,5 @@
 import { SubmitHandler } from "react-hook-form"
-import { OAuthURI } from "../login/interface"
+import { OAuthURI } from "../interface"
 
 export interface RegisterFields {
   nickname: string
@@ -16,5 +16,11 @@ export interface RegisterPageProps {
   oAuthURI?: OAuthURI
   errorMsg: RegisterErrorMsg
   onSubmit: SubmitHandler<RegisterFields>
-  sendEmail: (email: string, usage: "signup" | "forgetpwd") => Promise<string>
+  sendEmail: (email: string) => Promise<string>
+  lockedEmail?: string | null
+}
+
+export interface RegisterProps extends RegisterPageProps {
+  showCountDown: boolean
+  onCountDownChange: (showCountDown: boolean) => void
 }
