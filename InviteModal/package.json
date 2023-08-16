@@ -15,6 +15,7 @@
     "@illa-public/usage-card": "workspace:*",
     "@illa-public/avatar": "workspace:*",
     "@illa-public/user-data": "workspace:*",
+    "@illa-public/illa-net": "workspace:*",
     "react-hook-form": "^7.30.0",
     "copy-to-clipboard": "^3.3.2"
   },
@@ -29,6 +30,7 @@
     "@types/react-dom": "^18.0.10",
     "@illa-design/react": "*",
     "@emotion/react": "*",
-    "react-i18next": "*"
+    "react-i18next": "*",
+    "i18next": "*"
   }
 }

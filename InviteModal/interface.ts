@@ -1,3 +1,4 @@
+import { USER_ROLE } from "@illa-public/user-data"
 import { ReactNode } from "react"
 import { ReactComponent as FacebookIcon } from "./asset/Facebook.svg"
 import { ReactComponent as HackerNewsIcon } from "./asset/HackerNews.svg"
@@ -18,6 +19,20 @@ export enum INVITE_FROM {
   AGENT_RUN = "agent_run",
 }
 
+export interface InviteModalProps {
+  from: INVITE_FROM
+  teamID: string
+  currentUserRole: USER_ROLE
+  allowInviteLink?: boolean
+  isAppPublic?: boolean
+  isAgentContribute?: boolean
+  onAppPublic?: (isPublic: boolean) => void
+  onAgentContribute?: (isContributed: boolean) => void
+  onAppContribute?: (isContributed: boolean) => void
+  onInviteLinkStateChange?: (isInviteLink: boolean) => void
+  onClose?: () => void
+}
+
 export enum PlatformType {
   TWITTER = "twitter",
   REDDIT = "reddit",
@@ -25,14 +40,6 @@ export enum PlatformType {
   HACKER_NEWS = "hacker_news",
   FACEBOOK = "facebook",
   WHATSAPP = "whatsapp",
-}
-
-export interface InviteModalProps {
-  from: INVITE_FROM
-  onAppPublic?: (isPublic: boolean) => void
-  onAgentContribute?: (isContributed: boolean) => void
-  onAppContribute?: (isContributed: boolean) => void
-  onClose?: () => void
 }
 
 export interface SocialMediaPlatform {
