@@ -328,8 +328,8 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
   }, [isMobile])
 
   return (
-    <div {...otherProps}>
-      <div css={cropperWrapperStyle} onClick={handleClick}>
+    <>
+      <div css={cropperWrapperStyle} onClick={handleClick} {...otherProps}>
         {children}
         <input
           style={{ display: "none" }}
@@ -408,6 +408,6 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
           </Spin>
         </Modal>
       )}
-    </div>
+    </>
   )
 }

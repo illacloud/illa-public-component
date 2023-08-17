@@ -1,3 +1,6 @@
+import { FC, ReactNode, useCallback, useContext, useMemo } from "react"
+import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
 import {
   Button,
   CloseIcon,
@@ -6,9 +9,6 @@ import {
   ModalProps,
   Trigger,
 } from "@illa-design/react"
-import { FC, ReactNode, useCallback, useContext, useMemo } from "react"
-import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { UpgradeIcon } from "@/illa-public-component/Icon/upgrade"
 import {
   SUBSCRIBE_PLAN,
@@ -23,6 +23,7 @@ import {
   doubtStyle,
   footerStyle,
   headerStyle,
+  highlightStyle,
   iconStyle,
   modalCloseIconStyle,
   modalMaskStyle,
@@ -33,6 +34,7 @@ import {
   upgradeButtonStyle,
 } from "@/illa-public-component/UpgradeCloudProvider/component/SubscriptionReminderModal/style"
 import { getCurrentTeamInfo } from "@/redux/team/teamSelector"
+import { getEnvVar } from "../../../needReplaceUtils"
 import { ReactComponent as DoubtIcon } from "./assets/doubt.svg"
 import { ReactComponent as TipIcon } from "./assets/pricing-tip.svg"
 
@@ -53,11 +55,19 @@ const modalConfigKey = {
     description: "billing.modal.expired.all_members_except_f",
     buttonText: "billing.modal.expired.upgrade",
   },
+  agent: {
+    title: "billing.modal.upgrade_now_admin.upgrade_to_plus",
+    description: "billing.modal.ai-agent.string2",
+    buttonText: "billing.modal.upgrade_now_admin.upgrade",
+  },
 }
-
 export const upgradeModalConfigKeys = Object.keys(modalConfigKey)
 
 export type UpgradeModalType = keyof typeof modalConfigKey
+
+const highlightMap: Partial<Record<UpgradeModalType, string>> = {
+  agent: "billing.modal.ai-agent.string1",
+}
 
 interface UpgradeModalProps extends ModalProps {
   title?: ReactNode
@@ -92,9 +102,13 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
     return modalConfigKey[configType]
   }, [configType])
 
+  const highlight = useMemo(() => {
+    return highlightMap?.[configType]
+  }, [configType])
+
   const billingUrl = useMemo(() => {
     if (!teamInfo?.identifier) return ""
-    return `${location.protocol}//${import.meta.env.VITE_CLOUD_URL}/team/${
+    return `${location.protocol}//${getEnvVar("ILLA_CLOUD_URL")}/team/${
       teamInfo?.identifier
     }/billing`
   }, [teamInfo?.identifier])
@@ -132,7 +146,10 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
       <ModalDecorate css={decorateStyle} />
       <div css={headerStyle}>
         <div css={titleStyle}>{t(title)}</div>
-        <div css={descriptionStyle}>{t(description)}</div>
+        <div css={descriptionStyle}>
+          {highlight ? <span css={highlightStyle}>{t(highlight)}</span> : null}
+          <span>{t(description)}</span>
+        </div>
       </div>
       <div>
         {featureConfig.map(({ label, tip }, i) => {

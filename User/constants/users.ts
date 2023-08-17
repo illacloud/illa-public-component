@@ -3,7 +3,7 @@ export const GITHUB_CLIENT_ID = "171a5a900ac20f970f56"
 export const GITHUB_AUTHORIZE_URL = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}`
 
 export const OAUTH_REDIRECT_URL = `${location.protocol}//${
-  import.meta.env.VITE_CLOUD_URL
+  import.meta.env.ILLA_CLOUD_URL
 }/oauth`
 
 export const openOAuthUrl = (url?: string) => {
@@ -17,6 +17,6 @@ export const openGithubOAuthUrl = (redirectUrl?: string) => {
 
 export const openGithubOAuthFormLogin = () => {
   openGithubOAuthUrl(
-    `${location.protocol}//${import.meta.env.VITE_CLOUD_URL}/login`,
+    `${location.protocol}//${import.meta.env.ILLA_CLOUD_URL}/login`,
   )
 }

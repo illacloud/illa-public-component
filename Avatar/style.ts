@@ -13,6 +13,7 @@ export function applyAvatarStyle(
     : ""
   return css`
     display: flex;
+    flex-shrink: 0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
