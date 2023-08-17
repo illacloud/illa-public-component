@@ -4,7 +4,6 @@ import { MemberListProps } from "./interface"
 import MemberListMobile from "./mobile"
 import MemberListPC from "./pc"
 
-
 export const MemberList: FC<MemberListProps> = () => {
   return (
     <LayoutAutoChange
@@ -17,3 +16,5 @@ export const MemberList: FC<MemberListProps> = () => {
 MemberList.displayName = "MemberList"
 
 export default MemberList
+export { PCMemberList } from "./pc/components/List"
+export { MobileMemberListItem } from "./mobile/ListItem"

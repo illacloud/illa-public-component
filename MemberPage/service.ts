@@ -34,3 +34,25 @@ export const fetchChangeTeamMemberRole = (
     },
   )
 }
+
+interface IUpdateTeamPermissionConfigRequest {
+  allowEditorManageTeamMember?: boolean
+  allowViewerManageTeamMember?: boolean
+  blockRegister?: boolean
+}
+
+export const fetchUpdateTeamPermissionConfig = (
+  currentTeamId: string,
+  data: IUpdateTeamPermissionConfigRequest,
+) => {
+  return authCloudRequest(
+    {
+      method: "PATCH",
+      url: "/permission",
+      data,
+    },
+    {
+      teamID: currentTeamId,
+    },
+  )
+}

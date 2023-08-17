@@ -1,5 +1,5 @@
 import { ERROR_FLAG, isILLAAPiError } from "@illa-public/illa-net"
-import RoleSelect from "@illa-public/role-select"
+import { RoleSelector } from "@illa-public/role-selector"
 import {
   USER_ROLE,
   getCurrentMemberList,
@@ -14,7 +14,7 @@ import { fetchChangeTeamMemberRole } from "../../../service"
 import { MoreAction } from "../MoreAction"
 import { NameSpace } from "../NameSpace"
 
-export const MemberList: FC = () => {
+export const PCMemberList: FC = () => {
   const message = useMessage()
   const userListData = useSelector(getCurrentMemberList)
   const currentTeamInfo = useSelector(getCurrentTeamInfo)!
@@ -133,12 +133,10 @@ export const MemberList: FC = () => {
         cell: (props: Record<string, any>) => {
           const value = props.getValue()
           return (
-            <RoleSelect
-              fontWeight={500}
+            <RoleSelector
               value={value.userRole}
-              userRole={myRole}
-              disabled={value.userID === teamMemberID}
-              onChange={(userRole: USER_ROLE) => {
+              currentUserRole={myRole}
+              onClickItem={(userRole: USER_ROLE) => {
                 handleChangeTeamMembersRole(value.userID, userRole)
               }}
             />

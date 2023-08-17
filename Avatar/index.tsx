@@ -12,7 +12,7 @@ const getFirstChar = (str: string | undefined) => {
 }
 
 export const Avatar: FC<AvatarProps> = (props) => {
-  const { avatarUrl, id, name, className, ...otherProps } = props
+  const { avatarUrl, id, name, className, size = 40, ...otherProps } = props
 
   const { avatarBgColor, avatarText, emptyStatus } = useMemo(() => {
     return {
@@ -25,7 +25,7 @@ export const Avatar: FC<AvatarProps> = (props) => {
   return (
     <div
       className={className}
-      css={applyAvatarStyle(avatarBgColor, emptyStatus)}
+      css={applyAvatarStyle(avatarBgColor, emptyStatus, size)}
       {...otherProps}
     >
       {avatarUrl ? (
