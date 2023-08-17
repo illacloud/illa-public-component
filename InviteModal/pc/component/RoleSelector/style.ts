@@ -16,7 +16,7 @@ export const doubtStyle = css`
   font-size: 16px;
   width: 16px;
   height: 16px;
-  color: ${getColor("grayBlue", "01")};
+  color: ${getColor("grayBlue", "04")};
 `
 
 export const successStyle = css`
@@ -32,6 +32,9 @@ export const successStyle = css`
 `
 
 export const roleSelectorRoleContainer = css`
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
   color: ${getColor("grayBlue", "02")};
   font-size: 14px;
   font-style: normal;

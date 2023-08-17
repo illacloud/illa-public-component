@@ -6,6 +6,7 @@ import { ReactComponent as LinkedInIcon } from "./asset/LinkedIn.svg"
 import { ReactComponent as RedditIcon } from "./asset/Reddit.svg"
 import { ReactComponent as TwitterIcon } from "./asset/Twitter.svg"
 import { ReactComponent as WhatsAppIcon } from "./asset/WhatsApp.svg"
+import { InviteLinkProps } from "./pc/component/InviteLink/interface"
 
 
 export enum INVITE_FROM {
@@ -19,17 +20,20 @@ export enum INVITE_FROM {
   AGENT_RUN = "agent_run",
 }
 
-export interface InviteModalProps {
+export interface InviteModalContextProps {
   from: INVITE_FROM
   teamID: string
   currentUserRole: USER_ROLE
-  allowInviteLink?: boolean
+}
+
+export interface InviteModalProps
+  extends Omit<InviteLinkProps, "defaultInviteUserRole">,
+    InviteModalContextProps {
   isAppPublic?: boolean
-  isAgentContribute?: boolean
   onAppPublic?: (isPublic: boolean) => void
+  isAgentContribute?: boolean
   onAgentContribute?: (isContributed: boolean) => void
   onAppContribute?: (isContributed: boolean) => void
-  onInviteLinkStateChange?: (isInviteLink: boolean) => void
   onClose?: () => void
 }
 

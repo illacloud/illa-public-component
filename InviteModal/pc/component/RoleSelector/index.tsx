@@ -51,7 +51,6 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
       .map((item) => (
         <DropListItem
           value={item.role}
-          selected={value === item.role}
           title={
             <div css={itemContainer}>
               <div>{item.name}</div>

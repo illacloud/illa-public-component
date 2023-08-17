@@ -33,8 +33,33 @@ export const inviteLinkCopyContainer = css`
 
 export const inviteLinkMenuButtonStyle = css`
   font-size: 16px;
+  cursor: pointer;
   width: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 16px;
   flex-shrink: 0;
   color: ${getColor("grayBlue", "01")};
+`
+
+export const closeInviteLinkContainerStyle = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+`
+
+export const secretLinkStyle = css`
+  color: ${getColor("grayBlue", "02")};
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`
+
+export const inviteLinkStyle = css`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
