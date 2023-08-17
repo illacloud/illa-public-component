@@ -10,4 +10,5 @@ export interface RoleSelectorProps {
   currentUserRole: USER_ROLE
   value: USER_ROLE
   onClickItem?: (value: USER_ROLE) => void
+  isSelf?: boolean
 }

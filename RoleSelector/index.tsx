@@ -1,4 +1,5 @@
 import { USER_ROLE } from "@illa-public/user-data"
+import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, useState } from "react"
 import {
   DoubtIcon,
@@ -21,9 +22,11 @@ import {
 } from "./style"
 
 export const RoleSelector: FC<RoleSelectorProps> = (props) => {
-  const { onClickItem, value, currentUserRole } = props
+  const { onClickItem, value, currentUserRole, isSelf } = props
 
   const [menuVisible, setMenuVisible] = useState(false)
+
+  const canEdit = isSelf || isBiggerThanTargetRole(currentUserRole, value)
 
   const userRoleItems: UserRoleItem[] = [
     {
@@ -45,6 +48,7 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
 
   return (
     <Dropdown
+      disabled={!canEdit}
       onVisibleChange={(visible) => {
         setMenuVisible(visible)
       }}
@@ -55,7 +59,7 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
           }}
         >
           {userRoleItems
-            .filter((i) => i.role >= currentUserRole)
+            .filter((i) => isBiggerThanTargetRole(currentUserRole, i.role))
             .map((item) => (
               <DropListItem
                 value={item.role}
@@ -86,9 +90,11 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
         <div css={roleOuterLabelStyle}>
           {userRoleItems.find((item) => item.role === value)?.name}
         </div>
-        <div css={roleOuterIconStyle}>
-          {menuVisible ? <UpIcon /> : <DownIcon />}
-        </div>
+        {canEdit && (
+          <div css={roleOuterIconStyle}>
+            {menuVisible ? <UpIcon /> : <DownIcon />}
+          </div>
+        )}
       </div>
     </Dropdown>
   )

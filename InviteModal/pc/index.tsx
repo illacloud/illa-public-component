@@ -2,8 +2,8 @@ import { USER_ROLE } from "@illa-public/user-data"
 import { FC } from "react"
 import { Modal } from "@illa-design/react"
 import { InviteModalProps } from "../interface"
+import { InviteByEmail } from "./component/InviteByEmail"
 import { InviteLink } from "./component/InviteLink"
-
 
 export const InviteModalPC: FC<InviteModalProps> = (props) => {
   return (
@@ -23,6 +23,12 @@ export const InviteModalPC: FC<InviteModalProps> = (props) => {
         onInviteLinkStateChange={props.onInviteLinkStateChange}
         redirectPage={props.redirectPage}
       />
+      <div
+        style={{
+          height: "16px",
+        }}
+      />
+      <InviteByEmail defaultInviteUserRole={USER_ROLE.EDITOR} />
     </Modal>
   )
 }

@@ -181,6 +181,9 @@ export const InviteLink: FC<InviteLinkProps> = (props) => {
       {allowInviteLink ? (
         <div css={inviteLinkCopyContainer}>
           <Input
+            flexShrink="1"
+            flexGrow="1"
+            w="unset"
             readOnly
             colorScheme="techPurple"
             value={
