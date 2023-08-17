@@ -1,3 +1,4 @@
+import { RoleSelector } from "@illa-public/roleselector"
 import { USER_ROLE } from "@illa-public/user-data"
 import copy from "copy-to-clipboard"
 import { FC, useCallback, useContext, useEffect, useState } from "react"
@@ -21,7 +22,6 @@ import {
   getInviteLink,
   renewInviteLink,
 } from "../../service"
-import { RoleSelector } from "../RoleSelector"
 import { InviteLinkProps } from "./interface"
 import {
   closeInviteLinkContainerStyle,
@@ -212,7 +212,7 @@ export const InviteLink: FC<InviteLinkProps> = (props) => {
               })
             }}
           >
-            {!getLinkLoading && "Copy"}
+            {!getLinkLoading ? "Copy" : undefined}
           </Button>
         </div>
       ) : (

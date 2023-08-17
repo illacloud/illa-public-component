@@ -8,7 +8,6 @@ import { InviteLink } from "./component/InviteLink"
 export const InviteModalPC: FC<InviteModalProps> = (props) => {
   return (
     <Modal
-      closable
       withoutLine={false}
       w="498px"
       onCancel={() => {
@@ -17,7 +16,6 @@ export const InviteModalPC: FC<InviteModalProps> = (props) => {
       footer={false}
       maskClosable={false}
       visible={true}
-      title={<div>123123123</div>}
     >
       <InviteLink
         defaultInviteUserRole={USER_ROLE.EDITOR}

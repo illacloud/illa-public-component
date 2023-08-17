@@ -66,8 +66,6 @@ export const InsufficientNoticeModal: FC<InsufficientNoticeModalProps> = (
       maskClosable={false}
       footer={false}
       autoFocus={false}
-      // onCancel={onCancel}
-      maskStyle={modalMaskStyle}
       onOk={() => {}}
       {...otherProps}
     >

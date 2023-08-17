@@ -134,7 +134,6 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
       maskClosable={false}
       footer={false}
       onCancel={onCancel}
-      maskStyle={modalMaskStyle}
       {...otherProps}
     >
       <div css={modalCloseIconStyle} onClick={onCancel}>

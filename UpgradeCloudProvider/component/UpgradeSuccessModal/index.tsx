@@ -57,7 +57,6 @@ export const UpgradeSuccessModal: FC<UpgradeSuccessModalProps> = (props) => {
       maskClosable={false}
       footer={false}
       onCancel={onCancel}
-      maskStyle={modalMaskStyle}
       {...otherProps}
     >
       <div css={modalCloseIconStyle} onClick={onCancel}>
