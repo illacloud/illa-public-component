@@ -99,3 +99,12 @@ export interface Team {
   currentId?: string
   currentMemberList?: MemberInfo[]
 }
+
+export interface UpdateTransUserRolePayload {
+  teamMemberID: string
+}
+
+export interface UpdateTeamMemberUserRolePayload {
+  teamMemberID: string
+  userRole: USER_ROLE
+}

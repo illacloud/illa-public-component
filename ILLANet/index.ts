@@ -12,12 +12,7 @@ import {
   MARKETPLACE_PUBLIC_REQUEST_PREFIX,
   PUBLIC_DRIVE_REQUEST_PREFIX,
 } from "./constant"
-import { ERROR_FLAG } from "./errorFlag"
-
-interface RequestHandlerOptions {
-  teamIdentifier?: string
-  teamID?: string
-}
+import { RequestHandlerOptions } from "./interface"
 
 const getURLWithPrefix = (
   url: AxiosRequestConfig["url"],
@@ -33,12 +28,6 @@ const getURLWithPrefix = (
     finalURL = `${prefix}/teams/${teamId}` + url
   }
   return finalURL
-}
-
-export interface ILLAApiError {
-  errorCode: string | number
-  errorFlag: ERROR_FLAG
-  errorMessage: string
 }
 
 export const needAuthRequest = async <
@@ -322,3 +311,7 @@ export const publicDriveRequest = async <
     url: finalURL,
   })
 }
+
+export * from "./interface"
+export * from "./errorFlag"
+export * from "./utils"
