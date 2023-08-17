@@ -1,4 +1,4 @@
-import { RoleSelector } from "@illa-public/roleselector"
+import { RoleSelector } from "@illa-public/role-selector"
 import { USER_ROLE } from "@illa-public/user-data"
 import copy from "copy-to-clipboard"
 import { FC, useCallback, useContext, useEffect, useState } from "react"
