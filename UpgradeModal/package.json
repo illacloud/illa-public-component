@@ -1,0 +1,33 @@
+{
+  "name": "@illa-public/upgrade-modal",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "dependencies": {
+    "@illa-public/icon": "workspace:*",
+    "@illa-public/illa-net": "workspace:*",
+    "@illa-public/text-link": "workspace:*",
+    "@illa-public/user-data": "workspace:*",
+    "@illa-public/user-role-utils": "workspace:*",
+    "@illa-public/utils": "workspace:*",
+    "react-router-dom": "^6.14.0",
+    "react-use": "^17.4.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.14.4",
+    "@types/uuid": "^8.3.4",
+    "tsconfig": "workspace:*",
+    "vite-plugin-svgr": "^2.1.0"
+  },
+  "peerDependencies": {
+    "@emotion/react": "*",
+    "@illa-design/react": "*",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "*",
+    "react-redux": "^8.1.1"
+  }
+}
