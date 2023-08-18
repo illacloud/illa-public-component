@@ -26,7 +26,8 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
 
   const [menuVisible, setMenuVisible] = useState(false)
 
-  const canEdit = !isSelf && isBiggerThanTargetRole(value, currentUserRole, false)
+  const canEdit =
+    !isSelf && isBiggerThanTargetRole(value, currentUserRole, true)
 
   const userRoleItems: UserRoleItem[] = [
     {
@@ -45,6 +46,8 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
       name: "Viewer",
     },
   ]
+
+  console.log("userRoleItems", currentUserRole)
 
   return (
     <Dropdown
