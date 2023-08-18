@@ -27,7 +27,7 @@ export const EMAIL_FORMAT =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
-  const { defaultInviteUserRole, license, teamID, currentUserRole } = props
+  const { defaultInviteUserRole, balance, teamID, currentUserRole } = props
 
   const message = useMessage()
 
@@ -139,7 +139,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
       </div>
       <div css={licenseContainerStyle}>
         <div css={licenseLabelStyle}>Remaining license</div>
-        <div css={applyLicenseNumberStyle(license > 0)}>{license}</div>
+        <div css={applyLicenseNumberStyle(balance > 0)}>{balance}</div>
       </div>
       <div css={inviteListContainerStyle}>
         {alreadyInvited.map((user) => {
