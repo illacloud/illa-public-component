@@ -13,20 +13,20 @@ import {
 } from "@illa-design/react"
 import { RoleSelectorProps, UserRoleItem } from "./interface"
 import {
+  applyRoleOuterLabelStyle,
   doubtStyle,
   itemContainer,
   roleOuterIconStyle,
-  roleOuterLabelStyle,
   roleSelectorRoleContainer,
   successStyle,
 } from "./style"
 
 export const RoleSelector: FC<RoleSelectorProps> = (props) => {
-  const { onClickItem, value, currentUserRole, isSelf } = props
+  const { onClickItem, value, currentUserRole, isSelf, inline } = props
 
   const [menuVisible, setMenuVisible] = useState(false)
 
-  const canEdit = isSelf || isBiggerThanTargetRole(currentUserRole, value)
+  const canEdit = !isSelf && isBiggerThanTargetRole(value, currentUserRole, false)
 
   const userRoleItems: UserRoleItem[] = [
     {
@@ -59,7 +59,7 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
           }}
         >
           {userRoleItems
-            .filter((i) => isBiggerThanTargetRole(currentUserRole, i.role))
+            .filter((i) => isBiggerThanTargetRole(i.role, currentUserRole))
             .map((item) => (
               <DropListItem
                 value={item.role}
@@ -87,7 +87,7 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
       trigger="click"
     >
       <div css={roleSelectorRoleContainer}>
-        <div css={roleOuterLabelStyle}>
+        <div css={applyRoleOuterLabelStyle(inline)}>
           {userRoleItems.find((item) => item.role === value)?.name}
         </div>
         {canEdit && (

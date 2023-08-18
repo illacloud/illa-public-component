@@ -491,7 +491,7 @@ export const doesNowUserAreEditorOrViewer = (userRole: USER_ROLE) => {
   return userRole === USER_ROLE.EDITOR || userRole === USER_ROLE.VIEWER
 }
 
-export const canManageApp = (
+export const canManageInvite = (
   currentUserRole: USER_ROLE,
   allowEditorManageTeamMember?: boolean,
   allowViewerManageTeamMember?: boolean,

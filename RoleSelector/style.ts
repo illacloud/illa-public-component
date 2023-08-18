@@ -1,4 +1,4 @@
-import { css } from "@emotion/react"
+import { SerializedStyles, css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
 
 
@@ -32,6 +32,8 @@ export const successStyle = css`
 `
 
 export const roleSelectorRoleContainer = css`
+  cursor: pointer;
+  box-sizing: border-box;
   display: inline-flex;
   flex-direction: row;
   align-items: center;
@@ -42,12 +44,14 @@ export const roleSelectorRoleContainer = css`
   line-height: 22px;
 `
 
-export const roleOuterLabelStyle = css`
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 22px;
-`
+export function applyRoleOuterLabelStyle(inline?: boolean): SerializedStyles {
+  return css`
+    font-size: 14px;
+    font-style: normal;
+    font-weight: ${inline ? 400 : 500};
+    line-height: 22px;
+  `
+}
 
 export const roleOuterIconStyle = css`
   margin-left: 4px;

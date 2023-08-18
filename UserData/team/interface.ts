@@ -108,3 +108,8 @@ export interface UpdateTeamMemberUserRolePayload {
   teamMemberID: string
   userRole: USER_ROLE
 }
+
+export interface UpdateTeamMemberPermissionPayload {
+  teamID: string
+  newPermission: TeamMemberPermission
+}

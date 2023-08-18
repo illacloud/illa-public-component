@@ -11,4 +11,5 @@ export interface RoleSelectorProps {
   value: USER_ROLE
   onClickItem?: (value: USER_ROLE) => void
   isSelf?: boolean
+  inline?: boolean
 }

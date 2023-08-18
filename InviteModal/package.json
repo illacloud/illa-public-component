@@ -2,7 +2,7 @@
   "name": "@illa-public/invite-modal",
   "version": "0.0.0",
   "private": true,
-  "main": "index.tsx",
+  "main": "index.ts",
   "dependencies": {
     "@illa-public/utils": "workspace:*",
     "@illa-public/user-role-utils": "workspace:*",

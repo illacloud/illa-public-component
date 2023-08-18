@@ -5,6 +5,7 @@ import {
   Team,
   TeamInfo,
   USER_ROLE,
+  UpdateTeamMemberPermissionPayload,
   UpdateTeamMemberUserRolePayload,
   UpdateTransUserRolePayload,
 } from "./interface"
@@ -105,4 +106,15 @@ export const updateTeamMemberUserRoleReducer: CaseReducer<
   )
   if (!targetMember) return
   targetMember.userRole = action.payload.userRole
+}
+
+export const updateTeamMemberPermissionReducer: CaseReducer<
+  Team,
+  PayloadAction<UpdateTeamMemberPermissionPayload>
+> = (state, action) => {
+  const index =
+    state.items?.findIndex((item) => item.id === action.payload.teamID) ?? -1
+  if (state.items && index != -1) {
+    state.items[index].permission = action.payload.newPermission
+  }
 }
