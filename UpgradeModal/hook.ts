@@ -4,6 +4,11 @@ import {  drawerStore, modalStore } from "./store"
 
 // drawer
 const showDrawerImpl = (drawer: DrawerShowProps) => {
+  if (
+    drawerStore.getDrawers().length > 5
+  ) {
+    drawerStore.getDrawers().shift()
+  }
   if (!drawer.id) {
     drawer.id = v4()
   }
@@ -26,6 +31,11 @@ export const createUpgradeDrawer = useUpgradeDrawer
 
 // modal
 const showModalImpl = (modal: ModalShowProps) => {
+  if (
+    modalStore.getModals().length > 5
+  ) {
+    modalStore.getModals().shift()
+  }
   if (!modal.id) {
     modal.id = v4()
   }

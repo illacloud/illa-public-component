@@ -1,20 +1,4 @@
-export enum SUBSCRIBE_PLAN {
-  TEAM_LICENSE_FREE = 1,
-  TEAM_LICENSE_PREMIUM,
-  TEAM_LICENSE_ENTERPRISE,
-  DRIVE_VOLUME_FREE,
-  DRIVE_VOLUME_PAID,
-  TEAM_LICENSE_EXPIRED,
-  DRIVE_VOLUME_EXPIRED,
-  TEAM_LICENSE_INSUFFICIENT,
-  DRIVE_VOLUME_INSUFFICIENT,
-}
-
-export enum SUBSCRIPTION_CYCLE {
-  FREE = 0,
-  MONTHLY = 1,
-  YEARLY,
-}
+import { SubscribeInfo, TotalTeamLicense } from "@illa-public/user-data"
 
 export enum CUSTOM_CYCLE {
   LIFETIME = 3,
@@ -22,25 +6,6 @@ export enum CUSTOM_CYCLE {
 export enum REDIRECT_PAGE_TYPE {
   EDIT = "edit",
   RELEASE = "release",
-}
-
-export interface SubscribeInfo {
-  volume: number
-  balance: number
-  quantity: number
-  plan: SUBSCRIBE_PLAN
-  invoiceIssueDate: string
-  cycle: SUBSCRIPTION_CYCLE
-  totalAmount: number
-  cancelAtPeriodEnd: boolean
-  invoiceURL: string
-}
-
-export interface TotalTeamLicense {
-  volume: number
-  balance: number
-  teamLicensePurchased: boolean // 用于区分免费团队和付费团队
-  teamLicenseAllPaid: boolean // 用于区分团队是否已付费并且license充足
 }
 
 export enum CAPACITY_TYPE {

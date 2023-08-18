@@ -1,7 +1,8 @@
-import { InsufficientNoticeModalType } from "./component/InsufficientNoticeModal";
-import { UpgradeModalType } from "./component/SubscriptionReminderModal";
-import { DrawerDefaultConfig } from "./component/UpgradeDrawer/interface";
-import { UpgradeSuccessModalType } from "./component/UpgradeSuccessModal";
+import { InsufficientNoticeModalType } from "./component/InsufficientNoticeModal/interface";
+import { UpgradeModalType } from "./component/SubscriptionReminderModal/interface";
+import { DrawerSubscribeInfo, DrawerType } from "./component/UpgradeDrawer/interface";
+import { UpgradeSuccessModalType } from "./component/UpgradeSuccessModal/interface";
+import { PurchaseItem } from "./service/interface";
 
 export interface DrawerShowProps {
   visible?: boolean;
@@ -56,4 +57,15 @@ export interface DrawerStore {
 export interface ModalStore {
   listener: SubListener[]
   modals: ModalShowProps[]
+}
+
+export interface DrawerDefaultConfig {
+  type: DrawerType
+  subscribeInfo?: DrawerSubscribeInfo
+  purchaseInfo?: {
+    item: PurchaseItem
+    quantity: number
+  }
+  appSumoInvoiceURL?: string
+  onSubscribeCallback?: () => void
 }

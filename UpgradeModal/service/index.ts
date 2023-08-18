@@ -1,19 +1,15 @@
 import { authCloudRequest } from "@illa-public/illa-net"
-import {
-  PurchaseItem,
-  SUBSCRIBE_PLAN,
-  SUBSCRIPTION_CYCLE,
-  SubscribeResponse,
-} from "./interface"
+import { SUBSCRIBE_PLAN, SUBSCRIPTION_CYCLE } from "@illa-public/user-data"
+import { PurchaseItem, SubscribeResponse } from "./interface"
 
 export const purchase = async (
+  teamID: string,
   requestData: {
     item: PurchaseItem
     quantity: number // 需要购买的物品数量, 比如 ITEM_DRIVE_TRAFFIC_1GB 购买4GB, 就填写4
     successRedirect: string // Success redirect URL
     cancelRedirect: string // Cancel redirect URL
   },
-  teamID?: string,
 ) => {
   return await authCloudRequest<SubscribeResponse>(
     {
@@ -28,6 +24,7 @@ export const purchase = async (
 }
 
 export const subscribe = async (
+  teamID: string,
   requestData: {
     plan: SUBSCRIBE_PLAN
     quantity: number // License quantity
@@ -35,7 +32,6 @@ export const subscribe = async (
     successRedirect: string // Success redirect URL
     cancelRedirect: string // Cancel redirect URL
   },
-  teamID?: string,
 ) => {
   return await authCloudRequest<SubscribeResponse>(
     {
@@ -50,12 +46,12 @@ export const subscribe = async (
 }
 
 export const modifySubscribe = async (
+  teamID: string,
   requestData: {
     plan: SUBSCRIBE_PLAN
     quantity: number // License quantity
     cycle: SUBSCRIPTION_CYCLE
   },
-  teamID?: string,
 ) => {
   return await authCloudRequest(
     {
@@ -70,8 +66,8 @@ export const modifySubscribe = async (
 }
 
 export const cancelSubscribe = async (
+  teamID: string,
   plan: SUBSCRIBE_PLAN,
-  teamID?: string,
 ) => {
   return await authCloudRequest(
     {

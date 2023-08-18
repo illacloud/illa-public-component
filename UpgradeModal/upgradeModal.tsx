@@ -1,23 +1,23 @@
 import { getCurrentTeamInfo } from "@illa-public/user-data"
 import { canManagePayment } from "@illa-public/user-role-utils"
-import { forwardRef, useCallback, useImperativeHandle, useMemo, useState } from "react"
+import {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from "react"
 import { useSelector } from "react-redux"
-import {
-  InsufficientNoticeModal,
-  InsufficientNoticeModalType,
-  insufficientModalConfigKeys,
-} from "./component/InsufficientNoticeModal"
-import {
-  SubscriptionReminderModal,
-  UpgradeModalType,
-  upgradeModalConfigKeys,
-} from "./component/SubscriptionReminderModal"
+import { InsufficientNoticeModal } from "./component/InsufficientNoticeModal"
+import { INSUFFICIENT_MODAL_CONFIG_KEYS } from "./component/InsufficientNoticeModal/constants"
+import { InsufficientNoticeModalType } from "./component/InsufficientNoticeModal/interface"
+import { SubscriptionReminderModal } from "./component/SubscriptionReminderModal"
+import { UPGRADE_MODAL_CONFIG_KEYS } from "./component/SubscriptionReminderModal/constants"
+import { UpgradeModalType } from "./component/SubscriptionReminderModal/interface"
 import { UpgradeDrawer } from "./component/UpgradeDrawer"
-import { DrawerDefaultConfig } from "./component/UpgradeDrawer/interface"
-import {
-  UpgradeSuccessModal,
-  UpgradeSuccessModalType,
-} from "./component/UpgradeSuccessModal"
+import { UpgradeSuccessModal } from "./component/UpgradeSuccessModal"
+import { UpgradeSuccessModalType } from "./component/UpgradeSuccessModal/interface"
+import { DrawerDefaultConfig } from "./interface"
 
 export interface UpgradeModalRef {
   handleLicenseDrawerVisible: (
@@ -93,8 +93,8 @@ export const UpgradeModal = forwardRef<UpgradeModalRef>((_, ref) => {
     ) => {
       if (
         canPay
-          ? upgradeModalConfigKeys.includes(modalType)
-          : insufficientModalConfigKeys.includes(modalType)
+          ? UPGRADE_MODAL_CONFIG_KEYS.includes(modalType)
+          : INSUFFICIENT_MODAL_CONFIG_KEYS.includes(modalType)
       ) {
         setUpgradeModalType(modalType)
         setUpgradeModalVisible((prevState) => {
@@ -122,7 +122,7 @@ export const UpgradeModal = forwardRef<UpgradeModalRef>((_, ref) => {
   useImperativeHandle(ref, () => ({
     handleLicenseDrawerVisible,
     handleSuccessModalVisible,
-    handleUpgradeModalVisible
+    handleUpgradeModalVisible,
   }))
 
   return (

@@ -1,6 +1,6 @@
 import { css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
-import { applyMobileStyle, pxToRem } from "@illa-public/utils"
+import { applyMobileStyle } from "@illa-public/utils"
 
 export const drawerMaskStyle = css`
   background-color: ${getColor("white", "05")};
@@ -16,7 +16,7 @@ export const drawerPaddingStyle = css`
   padding: 0 24px;
 
   ${applyMobileStyle(css`
-    padding: 0 48rem;
+    padding: 0 24px;
   `)}
 `
 
@@ -28,9 +28,9 @@ export const closeIconStyle = css`
   font-size: 12px;
 
   ${applyMobileStyle(css`
-    top: ${pxToRem(12)};
-    right: ${pxToRem(48)};
-    font-size: ${pxToRem(24)};
+    top: 6px;
+    right: 24px;
+    font-size: 12px;
   `)}
 `
 
@@ -39,16 +39,14 @@ export const drawerContentStyle = css`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  //padding: 24px;
   color: ${getColor("grayBlue", "02")};
   font-weight: 500;
   font-size: 14px;
   line-height: 22px;
 
   ${applyMobileStyle(css`
-    //padding: 48rem;
-    font-size: 28rem;
-    line-height: 44rem;
+    font-size: 14px;
+    line-height: 22px;
   `)}
 `
 
@@ -59,9 +57,9 @@ export const titleStyle = css`
   margin: 24px 0 16px;
 
   ${applyMobileStyle(css`
-    font-size: 36rem;
-    line-height: 48rem;
-    margin: 48rem 0 32rem;
+    font-size: 18px;
+    line-height: 24px;
+    margin: 24px 0 16px 0;
   `)}
 `
 
@@ -69,7 +67,7 @@ export const manageContentStyle = css`
   padding: 8px 0 24px;
 
   ${applyMobileStyle(css`
-    padding: 16rem 0 48rem;
+    padding: 8px 0 24px 0;
   `)}
 `
 
@@ -79,8 +77,8 @@ export const labelStyle = css`
   line-height: 22px;
 
   ${applyMobileStyle(css`
-    font-size: 28rem;
-    line-height: 44rem;
+    font-size: 14px;
+    line-height: 22px;
   `)}
 `
 
@@ -90,8 +88,8 @@ export const manageItemStyle = css`
   padding-top: 8px;
 
   ${applyMobileStyle(css`
-    gap: 32rem;
-    padding-top: 16rem;
+    gap: 16px;
+    padding-top: 8px;
   `)}
 `
 
@@ -101,7 +99,7 @@ export const subTotalStyle = css`
   padding: 24px 0;
 
   ${applyMobileStyle(css`
-    padding: 48rem 0;
+    padding: 24px 0;
   `)}
 `
 
@@ -117,9 +115,9 @@ export const priceTotalStyle = css`
   margin-bottom: 4px;
 
   ${applyMobileStyle(css`
-    font-size: 32rem;
-    line-height: 48rem;
-    margin-bottom: 8rem;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 4px;
   `)}
 `
 
@@ -130,8 +128,8 @@ export const priceTotalLabelStyle = css`
   color: ${getColor("grayBlue", "03")};
 
   ${applyMobileStyle(css`
-    font-size: 24rem;
-    line-height: 40rem;
+    font-size: 12px;
+    line-height: 20px;
   `)}
 `
 
@@ -144,8 +142,8 @@ export const appSumoLinkStyle = css`
   line-height: 22px;
 
   ${applyMobileStyle(css`
-    font-size: pxToRem(28);
-    line-height: pxToRem(44);
+    font-size: 14px;
+    line-height: 22px;
   `)}
 `
 
@@ -159,9 +157,9 @@ export const descriptionStyle = css`
   color: ${getColor("grayBlue", "03")};
 
   ${applyMobileStyle(css`
-    margin-top: 32rem;
-    margin-bottom: 48rem;
-    font-size: 24rem;
-    line-height: 40rem;
+    margin-top: 16px;
+    margin-bottom: 24px;
+    font-size: 12px;
+    line-height: 20px;
   `)}
 `

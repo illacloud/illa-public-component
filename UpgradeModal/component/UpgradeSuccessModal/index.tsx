@@ -1,7 +1,11 @@
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, CloseIcon, Modal, ModalProps } from "@illa-design/react"
+import { Button, CloseIcon, Modal } from "@illa-design/react"
+import { ReactComponent as ModalDecorate } from "../UpgradeSuccessModal/assets/success-bg.svg"
+import { SUCCESS_MODAL_CONFIG_KEY } from "./constants"
+import { UpgradeSuccessModalProps } from "./interface"
 import {
+  actionAreaStyle,
   decorateStyle,
   descriptionStyle,
   headerStyle,
@@ -9,56 +13,25 @@ import {
   modalMaskStyle,
   modalStyle,
   titleStyle,
-} from "../SubscriptionReminderModal/style"
-import { ReactComponent as ModalDecorate } from "../UpgradeSuccessModal/assets/success-bg.svg"
-import { actionAreaStyle } from "./style"
-
-export const modalConfigKey = {
-  "subscribe-license": {
-    title: "billing.modal.sub_suc.subscription_success",
-    description: "billing.modal.sub_suc.you_can_now_invite_m",
-  },
-  "upgrade-license": {
-    title: "billing.modal.sub_suc.payment_successful",
-    description: "billing.modal.sub_suc.we_have_added_the_li",
-  },
-  "upgrade-storage": {
-    title: "billing.modal.sub_suc.payment_successful",
-    description: "billing.modal.sub_suc.we_have_added_the_st",
-  },
-  "upgrade-traffic": {
-    title: "billing.modal.sub_suc.payment_successful",
-    description: "billing.modal.sub_suc.we_have_added_the_tr",
-  },
-  renew: {
-    title: "billing.modal.sub_suc.successfully_updated",
-    description: "billing.modal.sub_suc.the_change_to_the_su",
-  },
-}
-
-export type UpgradeSuccessModalType = keyof typeof modalConfigKey
-
-interface UpgradeSuccessModalProps extends ModalProps {
-  configType?: UpgradeSuccessModalType
-}
+} from "./style"
 
 export const UpgradeSuccessModal: FC<UpgradeSuccessModalProps> = (props) => {
-  const { configType = "renew", onCancel, ...otherProps } = props
+  const { visible, configType = "renew", onCancel } = props
   const { t } = useTranslation()
 
   const { title, description } = useMemo(() => {
-    return modalConfigKey[configType]
+    return SUCCESS_MODAL_CONFIG_KEY[configType]
   }, [configType])
 
   return (
     <Modal
+      visible={visible}
       _css={modalStyle}
       withoutPadding
       maskClosable={false}
       footer={false}
       onCancel={onCancel}
       maskStyle={modalMaskStyle}
-      {...otherProps}
     >
       <div css={modalCloseIconStyle} onClick={onCancel}>
         <CloseIcon size="12px" />

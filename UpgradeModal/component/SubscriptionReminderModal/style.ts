@@ -1,6 +1,6 @@
 import { css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
-import { applyMobileStyle, pxToRem } from "@illa-public/utils"
+import { applyMobileStyle } from "@illa-public/utils"
 
 export const modalMaskStyle = css`
   background-color: ${getColor("white", "05")};
@@ -18,9 +18,9 @@ export const modalStyle = css`
   overflow: hidden;
 
   ${applyMobileStyle(css`
-    width: ${pxToRem(716)};
-    min-width: ${pxToRem(716)};
-    border-radius: ${pxToRem(16)};
+    width: 358px;
+    min-width: 358px;
+    border-radius: 8px;
   `)}
 `
 
@@ -43,7 +43,7 @@ export const decorateStyle = css`
   width: 100%;
 
   ${applyMobileStyle(css`
-    height: 405rem;
+    height: 202px;
   `)};
 `
 
@@ -58,9 +58,9 @@ export const titleStyle = css`
   margin-bottom: 8px;
 
   ${applyMobileStyle(css`
-    font-size: 36rem;
-    line-height: 44rem;
-    margin-bottom: 16rem;
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 8px;
   `)};
 `
 
@@ -71,8 +71,8 @@ export const descriptionStyle = css`
   color: ${getColor("grayBlue", "03")};
 
   ${applyMobileStyle(css`
-    font-size: 28rem;
-    line-height: 34rem;
+    font-size: 14px;
+    line-height: 17px;
   `)};
 `
 
@@ -97,8 +97,8 @@ export const priceContentStyle = css`
   color: ${getColor("grayBlue", "03")};
 
   ${applyMobileStyle(css`
-    font-size: 24rem;
-    line-height: 40rem;
+    font-size: 12px;
+    line-height: 20px;
   `)};
 `
 
@@ -134,9 +134,9 @@ export const applyCardListStyle = (text?: string) => css`
   text-align: start;
 
   ${applyMobileStyle(css`
-    gap: 16rem;
-    font-size: 28rem;
-    line-height: 48rem;
+    gap: 8px;
+    font-size: 14px;
+    line-height: 24px;
   `)};
 `
 
@@ -152,8 +152,8 @@ export const doubtStyle = css`
   }
 
   ${applyMobileStyle(css`
-    width: 32rem;
-    height: 32rem;
+    width: 16px;
+    height: 16px;
   `)};
 `
 
@@ -163,7 +163,7 @@ export const iconStyle = css`
   flex-shrink: 0;
 
   ${applyMobileStyle(css`
-    width: 32rem;
-    height: 32rem;
+    width: 16px;
+    height: 16px;
   `)};
 `

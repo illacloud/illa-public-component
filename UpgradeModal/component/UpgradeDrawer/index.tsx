@@ -1,6 +1,7 @@
 import { TextLink } from "@illa-public/text-link"
 import { getCurrentId } from "@illa-public/user-data"
-import { getEnvVar, isMobileByWindowSize, pxToRem } from "@illa-public/utils"
+import { SUBSCRIBE_PLAN, SUBSCRIPTION_CYCLE } from "@illa-public/user-data"
+import { isMobileByWindowSize } from "@illa-public/utils"
 import { FC, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -23,16 +24,9 @@ import {
   purchase,
   subscribe,
 } from "../../service"
-import {
-  PurchaseItem,
-  SUBSCRIBE_PLAN,
-  SUBSCRIPTION_CYCLE,
-} from "../../service/interface"
-import {
-  DrawerDefaultConfig,
-  DrawerSubscribeInfo,
-  UpgradeDrawerProps,
-} from "./interface"
+import { PurchaseItem } from "../../service/interface"
+import { CONFIG_KEY, LEARN_MORE_LINK, SUBSCRIBE_UNIT_PRICE } from "./constants"
+import { UpgradeDrawerProps } from "./interface"
 import {
   appSumoLinkStyle,
   closeIconStyle,
@@ -50,125 +44,12 @@ import {
   textCenterStyle,
   titleStyle,
 } from "./style"
-
-const ConfigKey = {
-  license: {
-    title: "billing.payment_sidebar.title.manage_licenses",
-    manageLabel: "billing.payment_sidebar.plan_label.License",
-  },
-  storage: {
-    title: "billing.payment_sidebar.title.manage_storage",
-    manageLabel: "billing.payment_sidebar.plan_label.Storage",
-  },
-  traffic: {
-    title: "billing.payment_sidebar.title.expand_traffic_capac",
-    manageLabel: "billing.payment_sidebar.plan_label.Traffic",
-  },
-}
-
-export const subscribeUnitPrice = {
-  license: {
-    [SUBSCRIPTION_CYCLE.FREE]: 0,
-    [SUBSCRIPTION_CYCLE.MONTHLY]: 20,
-    [SUBSCRIPTION_CYCLE.YEARLY]: 200,
-  },
-  storage: {
-    [SUBSCRIPTION_CYCLE.FREE]: 0,
-    [SUBSCRIPTION_CYCLE.MONTHLY]: 10,
-    [SUBSCRIPTION_CYCLE.YEARLY]: 100,
-  },
-  traffic: {
-    [PurchaseItem.DRIVE_TRAFFIC_1GB]: 10,
-  },
-}
-
-const isSubscribe = (subscribePlan?: SUBSCRIBE_PLAN) => {
-  return (
-    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM ||
-    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE ||
-    subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_PAID ||
-    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_INSUFFICIENT ||
-    subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_INSUFFICIENT
-  )
-}
-
-const isCancelSubscribe = (quantity: number) => quantity === 0
-
-const isQuantityDecreased = (
-  quantity: number,
-  subscribeInfo: DrawerSubscribeInfo,
-) => quantity < subscribeInfo.quantity
-
-const getSubscriptionStatus = (
-  defaultConfig: DrawerDefaultConfig,
-  quantity: number,
-  cycle: SUBSCRIPTION_CYCLE,
-) => {
-  const { type, subscribeInfo } = defaultConfig
-
-  switch (type) {
-    case "license":
-    case "storage":
-      if (!subscribeInfo) return "unknown"
-      if (
-        isSubscribe(subscribeInfo?.currentPlan) &&
-        !subscribeInfo.cancelAtPeriodEnd
-      ) {
-        if (
-          subscribeInfo.quantity === quantity &&
-          subscribeInfo.cycle === cycle
-        ) {
-          return "un_changed"
-        } else if (isCancelSubscribe(quantity)) {
-          return "subscribed_cancelled"
-        } else if (cycle !== subscribeInfo.cycle) {
-          if (isQuantityDecreased(quantity, subscribeInfo)) {
-            return "subscribed_plan_decreased_with_update"
-          } else {
-            return "subscribed_plan_increased_with_update"
-          }
-        } else {
-          if (isQuantityDecreased(quantity, subscribeInfo)) {
-            return "subscribed_quantity_decreased"
-          } else {
-            return "subscribed_quantity_increased"
-          }
-        }
-      } else {
-        if (cycle === SUBSCRIPTION_CYCLE.YEARLY) {
-          return "subscribed_yearly"
-        } else {
-          return "subscribed_monthly"
-        }
-      }
-    case "traffic":
-      return "traffic_added"
-    default:
-      return "unknown"
-  }
-}
-
-function updateHash(newHash: string) {
-  const currentURL = window.location.href
-  const parsedUrl = new URL(currentURL)
-  parsedUrl.hash = newHash
-  return parsedUrl.toString()
-}
-
-function getSuccessRedirectWithParams(params: Record<string, string>): string {
-  const redirectPath = "/landing/subscribed"
-  const paramString = Object.entries(params)
-    .map(
-      ([key, value]) =>
-        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
-    )
-    .join("&")
-
-  return `${getEnvVar("ILLA_CLOUD_URL")}${redirectPath}?${paramString}`
-}
-
-export const LEARN_MORE_LINK =
-  "https://builder.illacloud.com/illa_policy/deploy/app/ILAex4p1C7sk"
+import {
+  getSubscriptionStatus,
+  getSuccessRedirectWithParams,
+  isSubscribe,
+  updateHash,
+} from "./utils"
 
 export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
   const {
@@ -176,7 +57,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       type: "license",
     },
     onCancel,
-    ...otherProps
+    visible,
   } = props
   const { t } = useTranslation()
 
@@ -192,15 +73,15 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const { title, manageLabel } = useMemo(() => {
-    return ConfigKey[defaultConfig?.type ?? "license"]
+    return CONFIG_KEY[defaultConfig?.type ?? "license"]
   }, [defaultConfig?.type])
 
   const unitPrice = useMemo(() => {
     if (defaultConfig?.type === "traffic")
-      return subscribeUnitPrice[defaultConfig?.type][
+      return SUBSCRIBE_UNIT_PRICE[defaultConfig?.type][
         defaultConfig?.purchaseInfo?.item ?? PurchaseItem.DRIVE_TRAFFIC_1GB
       ]
-    return subscribeUnitPrice[defaultConfig?.type][
+    return SUBSCRIBE_UNIT_PRICE[defaultConfig?.type][
       cycle ?? SUBSCRIPTION_CYCLE.MONTHLY
     ]
   }, [defaultConfig.type, defaultConfig.purchaseInfo?.item, cycle])
@@ -334,7 +215,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
 
   const handleSubscribe = async () => {
     const { type, subscribeInfo, purchaseInfo } = defaultConfig
-    if (loading) return
+    if (loading || !teamID) return
     setLoading(true)
     const match = matchPath("/team/:teamIdentifier/billing", location.pathname)
     const successRedirect = getSuccessRedirectWithParams({
@@ -346,15 +227,12 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     const cancelRedirect = window.location.href
     try {
       if (type === "traffic") {
-        const res = await purchase(
-          {
-            item: purchaseInfo?.item ?? PurchaseItem.DRIVE_TRAFFIC_1GB,
-            quantity,
-            successRedirect,
-            cancelRedirect,
-          },
-          teamID,
-        )
+        const res = await purchase(teamID, {
+          item: purchaseInfo?.item ?? PurchaseItem.DRIVE_TRAFFIC_1GB,
+          quantity,
+          successRedirect,
+          cancelRedirect,
+        })
         if (res.data.url) {
           window.open(res.data.url, "_self")
         }
@@ -364,37 +242,30 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
           isSubscribe(subscribeInfo?.currentPlan)
         ) {
           if (quantity === 0) {
-            await cancelSubscribe(subscribeInfo?.currentPlan, teamID)
+            await cancelSubscribe(teamID, subscribeInfo?.currentPlan)
             message.success({
               content: t("billing.message.unsubscription_suc"),
             })
             defaultConfig?.onSubscribeCallback?.()
           } else {
-            await modifySubscribe(
-              {
-                plan:
-                  subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
-                quantity,
-                cycle,
-              },
-              teamID,
-            )
+            await modifySubscribe(teamID, {
+              plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
+              quantity,
+              cycle,
+            })
             message.success({
               content: t("billing.message.successfully_changed"),
             })
             defaultConfig?.onSubscribeCallback?.()
           }
         } else {
-          const res = await subscribe(
-            {
-              plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
-              quantity,
-              cycle,
-              successRedirect,
-              cancelRedirect,
-            },
-            teamID,
-          )
+          const res = await subscribe(teamID, {
+            plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
+            quantity,
+            cycle,
+            successRedirect,
+            cancelRedirect,
+          })
           if (res.data.url) {
             window.open(res.data.url, "_self")
           }
@@ -452,6 +323,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
 
   return (
     <Drawer
+      visible={visible}
       css={drawerStyle}
       w={isMobile ? "100%" : "520px"}
       placement={isMobile ? "bottom" : "right"}
@@ -460,7 +332,6 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       footer={false}
       autoFocus={false}
       onCancel={onCancel}
-      {...otherProps}
     >
       <div css={drawerContentStyle}>
         <div>
@@ -512,7 +383,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
               colorScheme="blackAlpha"
               disabled={actionDisabled}
               loading={loading}
-              mt={isMobile ? pxToRem(32) : "16px"}
+              mt={"16px"}
               onClick={handleSubscribe}
             >
               {actionButtonText}

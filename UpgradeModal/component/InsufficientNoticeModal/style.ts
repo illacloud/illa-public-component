@@ -1,6 +1,6 @@
 import { css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
-import { applyMobileStyle, pxToRem } from "@illa-public/utils"
+import { applyMobileStyle } from "@illa-public/utils"
 
 export const modalStyle = css`
   width: 320px;
@@ -11,9 +11,9 @@ export const modalStyle = css`
   border-radius: 4px;
 
   ${applyMobileStyle(css`
-    width: ${pxToRem(716)};
-    min-width: ${pxToRem(716)};
-    border-radius: ${pxToRem(16)};
+    width: 358px;
+    min-width: 358px;
+    border-radius: 8px;
   `)}
 `
 export const titleStyle = css`
@@ -25,10 +25,10 @@ export const titleStyle = css`
   margin-bottom: 8px;
 
   ${applyMobileStyle(css`
-    font-size: 32rem;
-    line-height: 48rem;
-    margin-top: 48rem;
-    margin-bottom: 16rem;
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 24px;
+    margin-bottom: 8px;
   `)}
 `
 
@@ -39,9 +39,9 @@ export const descriptionStyle = css`
   margin: 8px 24px;
 
   ${applyMobileStyle(css`
-    font-size: 28rem;
-    line-height: 44rem;
-    margin: 16rem 48rem;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 8px 24px;
   `)}
 `
 
@@ -51,6 +51,26 @@ export const actionAreaStyle = css`
   text-align: center;
 
   ${applyMobileStyle(css`
-    padding: 32rem;
+    padding: 16px;
   `)}
+`
+
+export const modalMaskStyle = css`
+  background-color: ${getColor("white", "05")};
+  backdrop-filter: blur(5px);
+`
+
+export const modalCloseIconStyle = css`
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  line-height: 10px;
+  text-align: center;
+  top: 18px;
+  right: 17px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${getColor("grayBlue", "02")};
 `
