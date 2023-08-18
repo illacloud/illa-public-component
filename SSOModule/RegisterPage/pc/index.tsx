@@ -1,3 +1,4 @@
+import { GithubIcon, GoogleIcon } from "@illa-public/icon"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
   ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
@@ -16,8 +17,6 @@ import {
   Password,
   WarningCircleIcon,
 } from "@illa-design/react"
-import { ReactComponent as GithubIcon } from "../../assets/github.svg"
-import { ReactComponent as GoogleIcon } from "../../assets/google.svg"
 import { EmailCode } from "../../components/EmailCode"
 import { EMAIL_FORMAT } from "../../constants/regExp"
 import { openOAuthUrl } from "../../constants/users"

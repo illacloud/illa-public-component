@@ -1,3 +1,4 @@
+import { GithubIcon, GoogleIcon } from "@illa-public/icon"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
   ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
@@ -10,8 +11,6 @@ import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Button, Input, Password } from "@illa-design/react"
-import { ReactComponent as GithubIcon } from "../../assets/github.svg"
-import { ReactComponent as GoogleIcon } from "../../assets/google.svg"
 import { EMAIL_FORMAT } from "../../constants/regExp"
 import { openOAuthUrl } from "../../constants/users"
 import { validateReport } from "../../utils/reportUtils"
