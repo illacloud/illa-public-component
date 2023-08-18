@@ -1,5 +1,5 @@
 import { USER_ROLE } from "@illa-public/user-data"
-import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
+import { isSmallThanTargetRole } from "@illa-public/user-role-utils"
 import { FC } from "react"
 import {
   CloseIcon,
@@ -55,7 +55,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
               key={ShareAgentTab.SHARE_WITH_TEAM}
             />
           )}
-          {(isBiggerThanTargetRole(USER_ROLE.EDITOR, props.currentUserRole) ||
+          {(isSmallThanTargetRole(USER_ROLE.EDITOR, props.currentUserRole) ||
             props.defaultAgentContributed) && (
             <TabPane
               title="To Marketplace"
@@ -77,11 +77,16 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
           <ToMarketplacePC
             defaultAgentContributed={props.defaultAgentContributed}
             onAgentContributed={props.onAgentContributed}
+            currentUserRole={props.currentUserRole}
+            agentID={props.agentID}
+            onCopyAgentMarketLink={props.onCopyAgentMarketLink}
+            teamIdentify={props.teamIdentify}
           />
         )}
         {activeTab === ShareAgentTab.SHARE_WITH_TEAM && (
           <>
             <InviteLinkPC
+              balance={props.balance}
               defaultInviteUserRole={props.defaultInviteUserRole}
               defaultAllowInviteLink={props.defaultAllowInviteLink}
               teamID={props.teamID}
@@ -93,7 +98,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
               defaultInviteUserRole={props.defaultInviteUserRole}
               teamID={props.teamID}
               currentUserRole={props.currentUserRole}
-              license={props.license}
+              balance={props.balance}
             />
           </>
         )}

@@ -4,7 +4,7 @@ export interface InviteByEmailProps {
   defaultInviteUserRole: USER_ROLE
   teamID: string
   currentUserRole: USER_ROLE
-  license: number
+  balance: number
 }
 
 export interface InvitedUser {

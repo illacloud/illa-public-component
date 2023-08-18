@@ -39,6 +39,7 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
     teamID,
     currentUserRole,
     onCopyInviteLink,
+    balance,
   } = props
 
   const [inviteUserRole, setInviteUserRole] = useMergeValue(
