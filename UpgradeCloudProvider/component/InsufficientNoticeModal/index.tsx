@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next"
 import { Button, CloseIcon, Modal, ModalProps } from "@illa-design/react"
 import {
   modalCloseIconStyle,
-  modalMaskStyle,
 } from "../SubscriptionReminderModal/style"
 import {
   actionAreaStyle,

@@ -27,7 +27,6 @@ import {
   highlightStyle,
   iconStyle,
   modalCloseIconStyle,
-  modalMaskStyle,
   modalStyle,
   priceContentStyle,
   priceStyle,

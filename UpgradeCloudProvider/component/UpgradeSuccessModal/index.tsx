@@ -6,7 +6,6 @@ import {
   descriptionStyle,
   headerStyle,
   modalCloseIconStyle,
-  modalMaskStyle,
   modalStyle,
   titleStyle,
 } from "../SubscriptionReminderModal/style"
