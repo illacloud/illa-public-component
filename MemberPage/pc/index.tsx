@@ -1,11 +1,16 @@
 import { FC } from "react"
-import { MemberListProps } from "../interface"
+import { Header } from "./components/Header"
+import { PCMemberList } from "./components/List"
 
-
-export const MemberListPC: FC<MemberListProps> = () => {
-  return <div>MemberListPC</div>
+export const PCMemberPage: FC = () => {
+  return (
+    <div>
+      <Header />
+      <PCMemberList />
+    </div>
+  )
 }
 
-MemberListPC.displayName = "MemberListPC"
+PCMemberPage.displayName = "MemberListPC"
 
-export default MemberListPC
+export default PCMemberPage

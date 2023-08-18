@@ -5,7 +5,6 @@ import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { Button } from "@illa-design/react"
-import { MemberListProps } from "../interface"
 import { MobileMemberList } from "./List"
 import {
   inviteBtnStyle,
@@ -14,7 +13,7 @@ import {
   usageCardContainerStyle,
 } from "./style"
 
-export const MemberListMobile: FC<MemberListProps> = () => {
+export const MobileMemberPage: FC = () => {
   const { t } = useTranslation()
   const currentTeamInfo = useSelector(getCurrentTeamInfo)!
 
@@ -56,6 +55,6 @@ export const MemberListMobile: FC<MemberListProps> = () => {
   )
 }
 
-MemberListMobile.displayName = "MemberListMobile"
+MobileMemberPage.displayName = "MemberListMobile"
 
-export default MemberListMobile
+export default MobileMemberPage
