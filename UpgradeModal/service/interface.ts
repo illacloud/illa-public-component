@@ -1,4 +1,8 @@
-import { SubscribeInfo, TotalTeamLicense } from "@illa-public/user-data"
+import {
+  SUBSCRIPTION_CYCLE,
+  SubscribeInfo,
+  TotalTeamLicense,
+} from "@illa-public/user-data"
 
 export enum CUSTOM_CYCLE {
   LIFETIME = 3,
@@ -54,4 +58,20 @@ export interface PortalURLResponse {
 
 export interface SubscribeResponse {
   url: string
+}
+
+export const SUBSCRIBE_UNIT_PRICE = {
+  license: {
+    [SUBSCRIPTION_CYCLE.FREE]: 0,
+    [SUBSCRIPTION_CYCLE.MONTHLY]: 20,
+    [SUBSCRIPTION_CYCLE.YEARLY]: 200,
+  },
+  storage: {
+    [SUBSCRIPTION_CYCLE.FREE]: 0,
+    [SUBSCRIPTION_CYCLE.MONTHLY]: 10,
+    [SUBSCRIPTION_CYCLE.YEARLY]: 100,
+  },
+  traffic: {
+    [PurchaseItem.DRIVE_TRAFFIC_1GB]: 10,
+  },
 }

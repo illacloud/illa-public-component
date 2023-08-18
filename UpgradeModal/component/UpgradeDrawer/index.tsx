@@ -24,8 +24,8 @@ import {
   purchase,
   subscribe,
 } from "../../service"
-import { PurchaseItem } from "../../service/interface"
-import { CONFIG_KEY, LEARN_MORE_LINK, SUBSCRIBE_UNIT_PRICE } from "./constants"
+import { PurchaseItem, SUBSCRIBE_UNIT_PRICE } from "../../service/interface"
+import { CONFIG_KEY, LEARN_MORE_LINK } from "./constants"
 import { UpgradeDrawerProps } from "./interface"
 import {
   appSumoLinkStyle,

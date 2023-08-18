@@ -7,6 +7,7 @@ import {
   Link,
   Modal,
   Trigger,
+  DoubtIcon,
 } from "@illa-design/react"
 import { UpgradeIcon } from "@illa-public/icon"
 import {
@@ -32,7 +33,6 @@ import {
   upgradeButtonStyle,
 } from "./style"
 import { getCurrentTeamInfo } from "@illa-public/user-data"
-import { ReactComponent as DoubtIcon } from "./assets/doubt.svg"
 import { ReactComponent as TipIcon } from "./assets/pricing-tip.svg"
 import { getEnvVar } from "@illa-public/utils"
 import { UpgradeModalProps } from "./interface"
