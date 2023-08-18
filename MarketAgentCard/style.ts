@@ -1,13 +1,6 @@
-import { SerializedStyles, css } from "@emotion/react"
-import { MOBILE_MAX_WIDTH } from "@illa-public/utils"
+import { css } from "@emotion/react"
+import { applyMobileStyle } from "@illa-public/utils"
 import { getColor } from "@illa-design/react"
-
-
-export const applyMobileStyle = (style: SerializedStyles) => css`
-  @media screen and (max-width: ${MOBILE_MAX_WIDTH}px) {
-    ${style};
-  }
-`
 
 export const agent_card_width = 384
 export const market_agent_card_height = 188

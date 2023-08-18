@@ -1,4 +1,4 @@
-import { USER_ROLE } from "@illa-public/user-role-utils"
+import { USER_ROLE } from "@illa-public/user-data"
 import { ReactNode } from "react"
 
 export enum SHOW_RULES {

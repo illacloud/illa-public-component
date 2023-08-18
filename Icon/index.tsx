@@ -42,3 +42,6 @@ export const UpgradeIcon = createIcon({
 })
 
 UpgradeIcon.displayName = "UpgradeIcon"
+
+export { ReactComponent as GithubIcon } from "./assets/github.svg"
+export { ReactComponent as GoogleIcon } from "./assets/google.svg"

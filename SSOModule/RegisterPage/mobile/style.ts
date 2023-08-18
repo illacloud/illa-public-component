@@ -32,19 +32,19 @@ export const descriptionStyle: SerializedStyles = css`
   color: ${globalColor(`--${illaPrefix}-grayBlue-04`)};
 `
 
-export const errorMsgStyle: SerializedStyles = css`
-  position: absolute;
-  font-size: 24rem;
-  padding-top: 8rem;
-  color: ${globalColor(`--${illaPrefix}-orange-03`)};
-`
-
 export const forgotPwdStyle: SerializedStyles = css`
   text-align: end;
   font-size: 24rem;
   line-height: 40rem;
   padding-right: 16rem;
   margin-top: 36rem;
+`
+
+export const errorMsgStyle: SerializedStyles = css`
+  position: absolute;
+  font-size: 24rem;
+  padding-top: 8rem;
+  color: ${globalColor(`--${illaPrefix}-orange-03`)};
 `
 
 export const mobileInputStyle = css`
