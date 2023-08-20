@@ -19,8 +19,7 @@ import {
   publicContainerStyle,
 } from "./style"
 
-
-function getAgentPublickLink(teamIdentify: string, agentID: string): string {
+function getAgentPublicLink(teamIdentify: string, agentID: string): string {
   return `${
     import.meta.env.ILLA_CLOUD_URL
   }/${teamIdentify}/deploy/agent/${agentID}`
@@ -30,8 +29,8 @@ export const ToMarketplacePC: FC<ToMarketplaceProps> = (props) => {
   const {
     defaultAgentContributed,
     onAgentContributed,
-    currentUserRole,
-    teamIdentify,
+    userRoleForThisAgent,
+    ownerTeamIdentify,
     agentID,
     onCopyAgentMarketLink,
   } = props
@@ -49,7 +48,7 @@ export const ToMarketplacePC: FC<ToMarketplaceProps> = (props) => {
 
   return (
     <div css={publicContainerStyle}>
-      {isSmallThanTargetRole(USER_ROLE.VIEWER, currentUserRole, false) && (
+      {isSmallThanTargetRole(USER_ROLE.VIEWER, userRoleForThisAgent, false) && (
         <div css={blockContainerStyle}>
           <div css={blockLabelStyle}>Contribute to marketplace</div>
           <div
@@ -88,9 +87,7 @@ export const ToMarketplacePC: FC<ToMarketplaceProps> = (props) => {
             colorScheme={getColor("grayBlue", "02")}
             loading={agentContributedLoading}
             onClick={() => {
-              onCopyAgentMarketLink?.(
-                getAgentPublickLink(teamIdentify, agentID),
-              )
+              onCopyAgentMarketLink?.(getAgentPublicLink(ownerTeamIdentify, agentID))
             }}
           >
             {!agentContributedLoading ? "Copy" : undefined}
