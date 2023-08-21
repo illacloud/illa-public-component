@@ -47,8 +47,6 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
     },
   ]
 
-  console.log("userRoleItems", currentUserRole)
-
   return (
     <Dropdown
       disabled={!canEdit}

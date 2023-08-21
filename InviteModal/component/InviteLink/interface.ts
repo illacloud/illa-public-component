@@ -6,6 +6,6 @@ export interface InviteLinkProps {
   teamID: string
   currentUserRole: USER_ROLE
   balance: number
-  onInviteLinkStateChange: (isInviteLink: boolean) => void
+  onInviteLinkStateChange: (allowInviteLink: boolean) => void
   onCopyInviteLink: (inviteLink: string) => void
 }

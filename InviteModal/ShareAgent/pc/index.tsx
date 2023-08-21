@@ -1,6 +1,9 @@
-import {USER_ROLE} from "@illa-public/user-data"
-import {isSmallThanTargetRole} from "@illa-public/user-role-utils"
-import {FC} from "react"
+import {
+  ACTION_MANAGE,
+  ATTRIBUTE_GROUP,
+  canManage,
+} from "@illa-public/user-role-utils"
+import { FC } from "react"
 import {
   CloseIcon,
   Modal,
@@ -8,10 +11,10 @@ import {
   Tabs,
   useMergeValue,
 } from "@illa-design/react"
-import {InviteByEmailPC} from "../../component/InviteByEmail/pc"
-import {InviteLinkPC} from "../../component/InviteLink/pc"
-import {ToMarketplacePC} from "../../component/ToMarketplace/pc"
-import {ShareAgentProps, ShareAgentTab} from "../interface"
+import { InviteByEmailPC } from "../../component/InviteByEmail/pc"
+import { InviteLinkPC } from "../../component/InviteLink/pc"
+import { AgentToMarketplacePC } from "../../component/AgentToMarketplace/pc"
+import { ShareAgentProps, ShareAgentTab } from "../interface"
 import {
   closeIconStyle,
   contentContainerStyle,
@@ -55,7 +58,11 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
               key={ShareAgentTab.SHARE_WITH_TEAM}
             />
           )}
-          {(isSmallThanTargetRole(USER_ROLE.EDITOR, props.currentUserRole) ||
+          {(canManage(
+            props.currentUserRole,
+            ATTRIBUTE_GROUP.AGENT,
+            ACTION_MANAGE.FORK_AGENT,
+          ) ||
             props.defaultAgentContributed) && (
             <TabPane
               title="To Marketplace"
@@ -69,19 +76,21 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
             props.onClose?.()
           }}
         >
-          <CloseIcon/>
+          <CloseIcon />
         </div>
       </div>
       <div css={contentContainerStyle}>
-        {activeTab === ShareAgentTab.TO_MARKETPLACE && (
-          <ToMarketplacePC
-            defaultAgentContributed={props.defaultAgentContributed}
-            onAgentContributed={props.onAgentContributed}
-            ownerTeamIdentify={props.ownerTeamIdentify}
-            agentID={props.agentID}
-            onCopyAgentMarketLink={props.onCopyAgentMarketLink}
-            userRoleForThisAgent={props.userRoleForThisAgent}/>
-        )}
+        {activeTab === ShareAgentTab.TO_MARKETPLACE &&
+          props.agentID !== "" &&
+          props.agentID !== undefined && (
+            <AgentToMarketplacePC
+              defaultAgentContributed={props.defaultAgentContributed}
+              onAgentContributed={props.onAgentContributed}
+              agentID={props.agentID}
+              onCopyAgentMarketLink={props.onCopyAgentMarketLink}
+              userRoleForThisAgent={props.userRoleForThisAgent}
+            />
+          )}
         {activeTab === ShareAgentTab.SHARE_WITH_TEAM && (
           <>
             <InviteLinkPC

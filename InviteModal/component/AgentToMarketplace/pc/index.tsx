@@ -1,5 +1,5 @@
 import { USER_ROLE } from "@illa-public/user-data"
-import { isSmallThanTargetRole } from "@illa-public/user-role-utils"
+import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -10,7 +10,8 @@ import {
   getColor,
   useMergeValue,
 } from "@illa-design/react"
-import { ToMarketplaceProps } from "../interface"
+import { AgentToMarketplaceProps } from "../interface"
+import { makeAgentContribute } from "../service"
 import {
   blockContainerStyle,
   blockLabelStyle,
@@ -19,20 +20,19 @@ import {
   publicContainerStyle,
 } from "./style"
 
-function getAgentPublicLink(teamIdentify: string, agentID: string): string {
-  return `${
-    import.meta.env.ILLA_CLOUD_URL
-  }/${teamIdentify}/deploy/agent/${agentID}`
+
+function getAgentPublicLink(agentID: string): string {
+  return `${import.meta.env.ILLA_MARKET_URL}/ai-agent/${agentID}/detail`
 }
 
-export const ToMarketplacePC: FC<ToMarketplaceProps> = (props) => {
+export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
   const {
     defaultAgentContributed,
     onAgentContributed,
     userRoleForThisAgent,
-    ownerTeamIdentify,
     agentID,
     onCopyAgentMarketLink,
+    ownerTeamID,
   } = props
 
   const [agentContributed, setAgentContributed] = useMergeValue(
@@ -48,7 +48,11 @@ export const ToMarketplacePC: FC<ToMarketplaceProps> = (props) => {
 
   return (
     <div css={publicContainerStyle}>
-      {isSmallThanTargetRole(USER_ROLE.VIEWER, userRoleForThisAgent, false) && (
+      {isBiggerThanTargetRole(
+        USER_ROLE.VIEWER,
+        userRoleForThisAgent,
+        false,
+      ) && (
         <div css={blockContainerStyle}>
           <div css={blockLabelStyle}>Contribute to marketplace</div>
           <div
@@ -59,7 +63,14 @@ export const ToMarketplacePC: FC<ToMarketplaceProps> = (props) => {
           <Switch
             checked={agentContributed}
             colorScheme={getColor("grayBlue", "02")}
-            onChange={(value) => {
+            onChange={async (value) => {
+              setAgentContributedLoading(true)
+              try {
+                await makeAgentContribute(ownerTeamID, agentID)
+              } finally {
+                setAgentContributedLoading(false)
+              }
+              setAgentContributed(value)
               onAgentContributed?.(value)
             }}
           />
@@ -87,7 +98,7 @@ export const ToMarketplacePC: FC<ToMarketplaceProps> = (props) => {
             colorScheme={getColor("grayBlue", "02")}
             loading={agentContributedLoading}
             onClick={() => {
-              onCopyAgentMarketLink?.(getAgentPublicLink(ownerTeamIdentify, agentID))
+              onCopyAgentMarketLink?.(getAgentPublicLink(agentID))
             }}
           >
             {!agentContributedLoading ? "Copy" : undefined}
@@ -95,12 +106,12 @@ export const ToMarketplacePC: FC<ToMarketplaceProps> = (props) => {
         </div>
       ) : (
         <div css={contributingDocStyle}>
-          Current app hasnt been deployed. Public access and viewer access may
-          cause errors
+          Current agent has not been deployed. Public access and viewer access
+          may cause errors
         </div>
       )}
     </div>
   )
 }
 
-ToMarketplacePC.displayName = "ToMarketplacePC"
+AgentToMarketplacePC.displayName = "ToMarketplacePC"
