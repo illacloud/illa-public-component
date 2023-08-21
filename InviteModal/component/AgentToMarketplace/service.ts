@@ -1,10 +1,10 @@
-import {marketplaceRequest} from "@illa-public/illa-net";
+import { marketplaceTeamRequest } from "@illa-public/illa-net"
 
 export const makeAgentContribute = (teamID: string, agentID: string) => {
-  return marketplaceRequest<{}>(
+  return marketplaceTeamRequest<{}>(
     {
       method: "POST",
-      url: `/aiagents/${agentID}`,
+      url: `/products/aiAgents/${agentID}`,
     },
     {
       teamID: teamID,

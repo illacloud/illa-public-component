@@ -15,6 +15,7 @@
     "@illa-public/avatar": "workspace:*",
     "@illa-public/user-data": "workspace:*",
     "@illa-public/illa-net": "workspace:*",
+    "@illa-public/upgrade-modal": "workspace:*",
     "react-hook-form": "^7.30.0",
     "copy-to-clipboard": "^3.3.2"
   },

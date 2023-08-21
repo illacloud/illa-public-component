@@ -1,5 +1,7 @@
 import { RoleSelector } from "@illa-public/role-selector"
+import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import { USER_ROLE } from "@illa-public/user-data"
+import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -57,6 +59,8 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
   )
 
   const message = useMessage()
+
+  const upgradeModal = useUpgradeModal()
 
   const { t } = useTranslation()
   const [currentInviteLink, setCurrentInviteLink] = useState("")
@@ -152,10 +156,7 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
                   value="Reset invite links"
                   title="Reset invite links"
                   onClick={async () => {
-                    await renewInviteLinkRequest(
-                      teamID,
-                      inviteUserRole,
-                    )
+                    await renewInviteLinkRequest(teamID, inviteUserRole)
                   }}
                 />
                 <DropListItem
@@ -196,7 +197,16 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
                 currentUserRole={currentUserRole}
                 value={inviteUserRole}
                 onClickItem={async (role) => {
-                  await renewInviteLinkRequest(teamID, role)
+                  if (
+                    isBiggerThanTargetRole(role, USER_ROLE.VIEWER, false) &&
+                    balance === 0
+                  ) {
+                    upgradeModal({
+                      modalType: "upgrade",
+                    })
+                  } else {
+                    await renewInviteLinkRequest(teamID, role)
+                  }
                 }}
               />
             }

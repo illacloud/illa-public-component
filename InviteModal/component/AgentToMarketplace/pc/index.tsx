@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next"
 import {
   Button,
   Input,
-  Loading,
   Skeleton,
   Switch,
   getColor,
@@ -21,7 +20,6 @@ import {
   linkCopyContainer,
   publicContainerStyle,
 } from "./style"
-
 
 function getAgentPublicLink(agentID: string): string {
   return `${process.env.ILLA_MARKET_URL}/ai-agent/${agentID}/detail`
@@ -64,28 +62,25 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
               flexGrow: 1,
             }}
           />
-          {!agentContributedLoading ? (
-            <Switch
-              checked={agentContributed}
-              colorScheme={getColor("grayBlue", "02")}
-              onChange={async (value) => {
-                setAgentContributedLoading(true)
-                try {
-                  await makeAgentContribute(ownerTeamID, agentID)
-                } catch (e) {
-                  message.error({
-                    content: "contribute error",
-                  })
-                } finally {
-                  setAgentContributedLoading(false)
-                }
-                setAgentContributed(value)
+          <Switch
+            checked={agentContributed}
+            colorScheme={getColor("grayBlue", "02")}
+            onChange={async (value) => {
+              setAgentContributedLoading(true)
+              setAgentContributed(value)
+              try {
+                await makeAgentContribute(ownerTeamID, agentID)
                 onAgentContributed?.(value)
-              }}
-            />
-          ) : (
-            <Loading colorScheme="grayBlue" />
-          )}
+              } catch (e) {
+                message.error({
+                  content: "contribute error",
+                })
+                setAgentContributed(!value)
+              } finally {
+                setAgentContributedLoading(false)
+              }
+            }}
+          />
         </div>
       )}
       {agentContributed ? (
@@ -100,7 +95,7 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
               agentContributedLoading ? (
                 <Skeleton text={{ rows: 1, width: 280 }} opac={0.5} animation />
               ) : (
-                ""
+                getAgentPublicLink(agentID)
               )
             }
           />

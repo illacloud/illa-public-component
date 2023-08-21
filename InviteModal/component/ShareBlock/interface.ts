@@ -1,10 +1,11 @@
-import {ReactNode} from "react";
+import { ReactNode } from "react"
 import { ReactComponent as FacebookIcon } from "./asset/Facebook.svg"
 import { ReactComponent as HackerNewsIcon } from "./asset/HackerNews.svg"
 import { ReactComponent as LinkedInIcon } from "./asset/LinkedIn.svg"
 import { ReactComponent as RedditIcon } from "./asset/Reddit.svg"
-import { ReactComponent as TwitterIcon } from "./asset/Twitter.svg"
 import { ReactComponent as WhatsAppIcon } from "./asset/WhatsApp.svg"
+import { ReactComponent as XIcon } from "./asset/X.svg"
+
 
 export interface ShareBlockProps {
   shareText: string
@@ -29,7 +30,7 @@ export const SocialMediaList = [
   {
     platform: PlatformType.TWITTER,
     platformName: "x",
-    icon: TwitterIcon,
+    icon: XIcon,
   },
   {
     platform: PlatformType.REDDIT,
