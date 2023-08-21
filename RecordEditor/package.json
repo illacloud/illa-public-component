@@ -14,9 +14,9 @@
     "react-dom": "^18.2.0",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
-    "@illa-design/react": "*",
+    "@illa-design/react": "workspace:*",
     "@emotion/react": "*",
-    "react-i18next": "*",
-    "i18next": "*"
+    "react-i18next": "^12.1.4",
+    "i18next": "^22.4.9"
   }
 }

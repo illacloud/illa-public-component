@@ -1,7 +1,8 @@
 import { Avatar } from "@illa-public/avatar"
-import { FC } from "react"
+import { CSSProperties, FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { ForkIcon, PlayOutlineIcon, StarOutlineIcon } from "@illa-design/react"
+import { MarketAgentCardProps } from "./interface"
 import {
   actionContainerStyle,
   actionCountStyle,
@@ -17,45 +18,39 @@ import {
   titleInfoStyle,
 } from "./style"
 
-interface MarketAgentCardProps {
-  onClick: () => void
-  icon: string
-  name: string
-  description: string
-  contributorTeamName: string
-  contributorTeamIcon: string
-  contributorTeamID: string
-  numForks: number
-  numStars: number
-  numRuns: number
+export const CARD_GUTTER_SIZE = 24
+
+export const calculateStyle = (style?: CSSProperties) => {
+  const { left, top, width, height, ...otherStyles } = style || {}
+
+  return {
+    ...otherStyles,
+    left: typeof left === "number" ? left + CARD_GUTTER_SIZE : undefined,
+    top: typeof top === "number" ? top + CARD_GUTTER_SIZE : undefined,
+    width: typeof width === "number" ? width - CARD_GUTTER_SIZE : undefined,
+    height: typeof height === "number" ? height - CARD_GUTTER_SIZE : undefined,
+  }
 }
 
 export const MarketAgentCard: FC<MarketAgentCardProps> = (props) => {
-  const {
-    onClick,
-    icon,
-    name,
-    description,
-    contributorTeamName,
-    contributorTeamIcon,
-    contributorTeamID,
-    numForks,
-    numStars,
-    numRuns,
-  } = props
   const { t } = useTranslation()
+  const { style, aiAgent, marketplace, onClick } = props
+
+  const onCardClick = useCallback(() => {
+    onClick?.(aiAgent.aiAgentID)
+  }, [onClick, aiAgent.aiAgentID])
 
   return (
-    <div css={cardStyle} onClick={onClick}>
+    <div css={cardStyle} style={calculateStyle(style)} onClick={onCardClick}>
       <div css={headerStyle}>
         <div css={titleInfoStyle}>
-          <img css={agentIconStyle} src={icon} alt="" />
-          <span css={nameStyle}>{name}</span>
+          <img css={agentIconStyle} src={aiAgent.icon} alt="" />
+          <span css={nameStyle}>{aiAgent.name}</span>
         </div>
       </div>
       <div>
         <div css={descriptionStyle}>
-          {description || t("new_dashboard.desc.no_description")}
+          {aiAgent.description || t("new_dashboard.desc.no_description")}
         </div>
       </div>
 
@@ -63,24 +58,24 @@ export const MarketAgentCard: FC<MarketAgentCardProps> = (props) => {
         <div css={teamInfoStyle}>
           <Avatar
             css={teamAvatarStyle}
-            avatarUrl={contributorTeamIcon}
-            name={contributorTeamName}
-            id={contributorTeamID}
+            avatarUrl={marketplace.contributorTeam.icon}
+            name={marketplace.contributorTeam.name}
+            id={marketplace.contributorTeam.teamID}
           />
-          <span css={teamNameStyle}>{contributorTeamName}</span>
+          <span css={teamNameStyle}>{marketplace.contributorTeam.name}</span>
         </div>
         <div css={actionContainerStyle}>
           <div css={actionCountStyle}>
             <ForkIcon />
-            <span>{numForks}</span>
+            <span>{marketplace.numForks}</span>
           </div>
           <div css={actionCountStyle}>
             <StarOutlineIcon size="16px" />
-            {numStars}
+            {marketplace.numStars}
           </div>
           <div css={actionCountStyle}>
             <PlayOutlineIcon size="16px" />
-            {numRuns}
+            {marketplace.numRuns}
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import { FC, useMemo } from "react"
 import { AvatarProps } from "./interface"
 import { applyAvatarStyle, avatarImgStyle } from "./style"
 
+export * from "./interface"
 const getFirstChar = (str: string | undefined) => {
   if (!str) return "U"
   const trimStr = str.trim()

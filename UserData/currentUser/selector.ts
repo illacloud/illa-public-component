@@ -9,7 +9,7 @@ export const getCurrentUser = (state: RootState) => {
 export const getCurrentUserId = createSelector(
   [getCurrentUser],
   (currentUser) => {
-    return currentUser.userId
+    return currentUser.userID
   },
 )
 
@@ -18,7 +18,7 @@ export const getIsTutorialViewed = (state: RootState) => {
 }
 
 export const getCurrentUserIsLogin = (state: RootState) => {
-  return state.currentUser.userId !== ""
+  return state.currentUser.userID !== ""
 }
 
 export const getCurrentConfigLanguage = (state: RootState) => {

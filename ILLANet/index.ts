@@ -15,7 +15,7 @@ import {
 import { RequestHandlerOptions } from "./interface"
 
 const getURLWithPrefix = (
-  url: AxiosRequestConfig["url"],
+  url: string | undefined,
   prefix: string,
   options?: RequestHandlerOptions,
 ) => {

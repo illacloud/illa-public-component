@@ -1,7 +1,7 @@
 import { isCloudVersion } from "@illa-public/utils"
 
 export const HTTP_REQUEST_PUBLIC_BASE_URL = isCloudVersion
-  ? `//${process.env.ILLA_API_BASE_URL}`
+  ? `https://${process.env.ILLA_API_BASE_URL}`
   : // if use self-host,must has protocol,like this:http://localhost:8080
   process.env.ILLA_API_BASE_URL
   ? `${location.protocol}//${process.env.ILLA_API_BASE_URL}`

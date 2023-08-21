@@ -95,6 +95,7 @@ export const agentIconStyle = css`
   width: 48px;
   height: 48px;
   border-radius: 8px;
+  background: ${getColor("grayBlue", "09")};
 
   ${applyMobileStyle(css`
     width: 40px;

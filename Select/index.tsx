@@ -7,6 +7,7 @@ import {
   zIndex,
 } from "@illa-design/react"
 import { ReactComponent as CheckmarkIcon } from "./assets/success.svg"
+import { SelectProps } from "./interface"
 import {
   applyFontWeightStyle,
   optionContentStyle,
@@ -15,17 +16,6 @@ import {
   pointerStyle,
   valueLabelStyle,
 } from "./style"
-
-interface SelectProps<Value = unknown>
-  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
-  disabled?: boolean
-  readOnly?: boolean
-  fontWeight?: number
-  value: Value
-  options: { label: string; value: Value; hidden?: boolean }[]
-  onChange?: (value: Value) => void
-  triggerPosition?: TriggerProps["position"]
-}
 
 const Select: FC<SelectProps> = (props) => {
   const {

@@ -1,10 +1,20 @@
 export interface CurrentUser {
-  userId: string
+  userID: string
+  uid: string
   nickname: string
-  language: string
   email: string
   avatar?: string
+  language: string
   isTutorialViewed?: boolean
+  isPasswordSet: boolean
+  ssoVerified: {
+    github: boolean
+    google: boolean
+  }
+  haveAppSumoSubscription: boolean
+  doesAppSumoSubscriptionAppliedToTeam: boolean
+  createdAt: string
+  updatedAt: string
 }
 
 export interface UserInfoResponse {
