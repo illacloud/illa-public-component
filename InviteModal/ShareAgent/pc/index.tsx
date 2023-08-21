@@ -1,6 +1,6 @@
-import { USER_ROLE } from "@illa-public/user-data"
-import { isSmallThanTargetRole } from "@illa-public/user-role-utils"
-import { FC } from "react"
+import {USER_ROLE} from "@illa-public/user-data"
+import {isSmallThanTargetRole} from "@illa-public/user-role-utils"
+import {FC} from "react"
 import {
   CloseIcon,
   Modal,
@@ -8,10 +8,10 @@ import {
   Tabs,
   useMergeValue,
 } from "@illa-design/react"
-import { InviteByEmailPC } from "../../component/InviteByEmail/pc"
-import { InviteLinkPC } from "../../component/InviteLink/pc"
-import { ToMarketplacePC } from "../../component/ToMarketplace/pc"
-import { ShareAgentProps, ShareAgentTab } from "../interface"
+import {InviteByEmailPC} from "../../component/InviteByEmail/pc"
+import {InviteLinkPC} from "../../component/InviteLink/pc"
+import {ToMarketplacePC} from "../../component/ToMarketplace/pc"
+import {ShareAgentProps, ShareAgentTab} from "../interface"
 import {
   closeIconStyle,
   contentContainerStyle,
@@ -69,7 +69,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
             props.onClose?.()
           }}
         >
-          <CloseIcon />
+          <CloseIcon/>
         </div>
       </div>
       <div css={contentContainerStyle}>
@@ -77,11 +77,10 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
           <ToMarketplacePC
             defaultAgentContributed={props.defaultAgentContributed}
             onAgentContributed={props.onAgentContributed}
-            currentUserRole={props.currentUserRole}
+            ownerTeamIdentify={props.ownerTeamIdentify}
             agentID={props.agentID}
             onCopyAgentMarketLink={props.onCopyAgentMarketLink}
-            teamIdentify={props.teamIdentify}
-          />
+            userRoleForThisAgent={props.userRoleForThisAgent}/>
         )}
         {activeTab === ShareAgentTab.SHARE_WITH_TEAM && (
           <>
