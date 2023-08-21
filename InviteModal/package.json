@@ -20,7 +20,8 @@
   },
   "devDependencies": {
     "tsconfig": "workspace:*",
-    "vite-plugin-svgr": "^2.1.0"
+    "vite-plugin-svgr": "^2.1.0",
+    "@types/node": "^18.14.4"
   },
   "peerDependencies": {
     "react": "^18.2.0",

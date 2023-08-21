@@ -5,10 +5,12 @@ import { useTranslation } from "react-i18next"
 import {
   Button,
   Input,
+  Loading,
   Skeleton,
   Switch,
   getColor,
   useMergeValue,
+  useMessage,
 } from "@illa-design/react"
 import { AgentToMarketplaceProps } from "../interface"
 import { makeAgentContribute } from "../service"
@@ -22,7 +24,7 @@ import {
 
 
 function getAgentPublicLink(agentID: string): string {
-  return `${import.meta.env.ILLA_MARKET_URL}/ai-agent/${agentID}/detail`
+  return `${process.env.ILLA_MARKET_URL}/ai-agent/${agentID}/detail`
 }
 
 export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
@@ -46,6 +48,8 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
 
   const { t } = useTranslation()
 
+  const message = useMessage()
+
   return (
     <div css={publicContainerStyle}>
       {isBiggerThanTargetRole(
@@ -60,20 +64,28 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
               flexGrow: 1,
             }}
           />
-          <Switch
-            checked={agentContributed}
-            colorScheme={getColor("grayBlue", "02")}
-            onChange={async (value) => {
-              setAgentContributedLoading(true)
-              try {
-                await makeAgentContribute(ownerTeamID, agentID)
-              } finally {
-                setAgentContributedLoading(false)
-              }
-              setAgentContributed(value)
-              onAgentContributed?.(value)
-            }}
-          />
+          {!agentContributedLoading ? (
+            <Switch
+              checked={agentContributed}
+              colorScheme={getColor("grayBlue", "02")}
+              onChange={async (value) => {
+                setAgentContributedLoading(true)
+                try {
+                  await makeAgentContribute(ownerTeamID, agentID)
+                } catch (e) {
+                  message.error({
+                    content: "contribute error",
+                  })
+                } finally {
+                  setAgentContributedLoading(false)
+                }
+                setAgentContributed(value)
+                onAgentContributed?.(value)
+              }}
+            />
+          ) : (
+            <Loading colorScheme="grayBlue" />
+          )}
         </div>
       )}
       {agentContributed ? (
