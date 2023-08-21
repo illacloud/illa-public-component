@@ -1,9 +1,27 @@
-import { marketplaceRequest } from "@illa-public/illa-net"
+import { builderRequest, marketplaceTeamRequest } from "@illa-public/illa-net"
 
-export const makeAppPublic = (teamID: string, appID: string) => {}
+export const updateAppPublicConfig = async (
+  isPublic: boolean,
+  teamID: string,
+  appID: string,
+) => {
+  await builderRequest<{}>(
+    {
+      method: "PATCH",
+      url: `/apps/${appID}/config`,
+      data: {
+        public: isPublic,
+      },
+    },
+    {
+      teamID: teamID,
+    },
+  )
+  return true
+}
 
 export const makeAppContribute = (teamID: string, appID: string) => {
-  return marketplaceRequest<{}>(
+  return marketplaceTeamRequest<{}>(
     {
       method: "POST",
       url: `/apps/${appID}`,

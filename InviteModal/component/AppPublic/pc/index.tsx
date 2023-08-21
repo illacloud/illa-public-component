@@ -1,3 +1,5 @@
+import { USER_ROLE } from "@illa-public/user-data"
+import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -11,6 +13,7 @@ import {
 } from "@illa-design/react"
 import { ShareBlockPC } from "../../ShareBlock/pc"
 import { AppPublicProps } from "../interface"
+import { makeAppContribute, updateAppPublicConfig } from "../service"
 import {
   blockContainerStyle,
   blockLabelStyle,
@@ -20,17 +23,19 @@ import {
 
 
 function getPublicLinkTemplate(teamIdentify: string, appID: string): string {
-  return `${import.meta.env.ILLA_CLOUD_URL}/${teamIdentify}/deploy/app/${appID}`
+  return `${process.env.ILLA_BUILDER_URL}/${teamIdentify}/deploy/app/${appID}`
 }
 
 function getMarketLinkTemplate(appID: string): string {
-  return `${import.meta.env.ILLA_CLOUD_URL}/app/${appID}/deploy`
+  return `${process.env.ILLA_MARKET_URL}/apps/${appID}/deploy`
 }
 
 export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const {
     appID,
-    teamIdentify,
+    ownerTeamID,
+    ownerTeamIdentify,
+    userRoleForThisApp,
     defaultAppPublic,
     defaultAppContribute,
     onAppPublic,
@@ -55,27 +60,44 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
     defaultValue: defaultAppContribute,
   })
 
-  const [shareText, setShareText] = useState("")
+  const canManageApp = isBiggerThanTargetRole(
+    USER_ROLE.VIEWER,
+    userRoleForThisApp,
+    false,
+  )
 
   return (
     <div css={publicContainerStyle}>
-      <div css={blockContainerStyle}>
-        <div css={blockLabelStyle}>Make the app public</div>
-        <div
-          style={{
-            flexGrow: 1,
-          }}
-        />
-        <Switch
-          disabled={appContribute}
-          checked={appPublic}
-          colorScheme={getColor("grayBlue", "02")}
-          onChange={(value) => {
-            onAppPublic?.(value)
-            setAppPublic(value)
-          }}
-        />
-      </div>
+      {canManageApp && (
+        <div css={blockContainerStyle}>
+          <div css={blockLabelStyle}>Make the app public</div>
+          <div
+            style={{
+              flexGrow: 1,
+            }}
+          />
+          <Switch
+            disabled={appContribute}
+            checked={appPublic}
+            colorScheme={getColor("grayBlue", "02")}
+            onChange={async (value) => {
+              setAppPublic(value)
+              try {
+                setAppLinkLoading(true)
+                await updateAppPublicConfig(value, ownerTeamID, appID)
+                onAppPublic?.(value)
+              } catch (e) {
+                message.error({
+                  content: t("public gg"),
+                })
+                setAppPublic(!value)
+              } finally {
+                setAppLinkLoading(false)
+              }
+            }}
+          />
+        </div>
+      )}
       {appPublic && (
         <div css={linkCopyContainer}>
           <Input
@@ -88,7 +110,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
               appLinkLoading ? (
                 <Skeleton text={{ rows: 1, width: 280 }} opac={0.5} animation />
               ) : (
-                getPublicLinkTemplate(teamIdentify, appID)
+                getPublicLinkTemplate(ownerTeamIdentify, appID)
               )
             }
           />
@@ -98,10 +120,9 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             colorScheme={getColor("grayBlue", "02")}
             loading={appLinkLoading}
             onClick={() => {
-              message.success({
-                content: t("copied"),
-              })
-              onCopyPublicLink?.(getPublicLinkTemplate(teamIdentify, appID))
+              onCopyPublicLink?.(
+                getPublicLinkTemplate(ownerTeamIdentify, appID),
+              )
             }}
           >
             {!appLinkLoading ? "Copy" : undefined}
@@ -113,22 +134,35 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
           height: 16,
         }}
       />
-      <div css={blockContainerStyle}>
-        <div css={blockLabelStyle}>Contribute to marketplace</div>
-        <div
-          style={{
-            flexGrow: 1,
-          }}
-        />
-        <Switch
-          checked={appContribute}
-          colorScheme={getColor("grayBlue", "02")}
-          onChange={(value) => {
-            onAppContribute?.(value)
-            setAppContribute(value)
-          }}
-        />
-      </div>
+      {canManageApp && (
+        <div css={blockContainerStyle}>
+          <div css={blockLabelStyle}>Contribute to marketplace</div>
+          <div
+            style={{
+              flexGrow: 1,
+            }}
+          />
+          <Switch
+            checked={appContribute}
+            colorScheme={getColor("grayBlue", "02")}
+            onChange={async (value) => {
+              setAppContribute(value)
+              try {
+                setMarketLinkLoading(true)
+                await makeAppContribute(ownerTeamID, appID)
+                onAppContribute?.(value)
+              } catch (e) {
+                message.error({
+                  content: t("contribute gg"),
+                })
+                setAppContribute(!value)
+              } finally {
+                setMarketLinkLoading(false)
+              }
+            }}
+          />
+        </div>
+      )}
       {appContribute && (
         <div css={linkCopyContainer}>
           <Input
@@ -151,9 +185,6 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             colorScheme={getColor("grayBlue", "02")}
             loading={marketLinkLoading}
             onClick={() => {
-              message.success({
-                content: t("copied"),
-              })
               onCopyContributeLink?.(getMarketLinkTemplate(appID))
             }}
           >
@@ -162,10 +193,21 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
         </div>
       )}
       {(appContribute || appPublic) && (
-        <ShareBlockPC
-          title=""
-          shareUrl={getPublicLinkTemplate(teamIdentify, appID)}
-        />
+        <>
+          <div
+            style={{
+              height: 16,
+            }}
+          />
+          <ShareBlockPC
+            title=""
+            shareUrl={
+              appContribute
+                ? getMarketLinkTemplate(appID)
+                : getPublicLinkTemplate(ownerTeamIdentify, appID)
+            }
+          />
+        </>
       )}
     </div>
   )

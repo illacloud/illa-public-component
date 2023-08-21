@@ -133,4 +133,4 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
   )
 }
 
-AgentToMarketplacePC.displayName = "ToMarketplacePC"
+AgentToMarketplacePC.displayName = "AgentToMarketplacePC"

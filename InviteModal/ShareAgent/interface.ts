@@ -7,7 +7,7 @@ export interface ShareAgentProps
   extends InviteByEmailProps,
     InviteLinkProps,
     AgentToMarketplaceProps {
-  onClose?: () => void
+  onClose: () => void
   canInvite: boolean
   defaultTab: ShareAgentTab
 }

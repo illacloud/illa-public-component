@@ -116,3 +116,5 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
     </Modal>
   )
 }
+
+ShareAgentPC.displayName = "ShareAgentPC"
