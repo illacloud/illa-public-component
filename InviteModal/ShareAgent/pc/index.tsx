@@ -11,16 +11,15 @@ import {
   Tabs,
   useMergeValue,
 } from "@illa-design/react"
+import { AgentToMarketplacePC } from "../../component/AgentToMarketplace/pc"
 import { InviteByEmailPC } from "../../component/InviteByEmail/pc"
 import { InviteLinkPC } from "../../component/InviteLink/pc"
-import { AgentToMarketplacePC } from "../../component/AgentToMarketplace/pc"
 import { ShareAgentProps, ShareAgentTab } from "../interface"
 import {
   closeIconStyle,
   contentContainerStyle,
   headerContainerStyle,
 } from "./style"
-
 
 export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
   const [activeTab, setActiveTab] = useMergeValue<string>(
@@ -89,6 +88,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
               agentID={props.agentID}
               onCopyAgentMarketLink={props.onCopyAgentMarketLink}
               userRoleForThisAgent={props.userRoleForThisAgent}
+              ownerTeamID={props.ownerTeamID}
             />
           )}
         {activeTab === ShareAgentTab.SHARE_WITH_TEAM && (
