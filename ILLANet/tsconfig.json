@@ -2,6 +2,6 @@
   "extends": "tsconfig/react.json",
   "include": ["."],
   "compilerOptions": {
-    "types": ["vite/client"]
+    "types": ["node"]
   }
 }

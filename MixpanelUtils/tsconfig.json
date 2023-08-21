@@ -2,11 +2,6 @@
   "extends": "tsconfig/react.json",
   "include": ["."],
   "compilerOptions": {
-    "baseUrl": "./src",
-    "paths": {
-      "@/*": ["./*"],
-      "@assets/*": ["./src/assets/*"]
-    },
     "types": ["node"]
   }
 }

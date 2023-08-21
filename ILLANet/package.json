@@ -8,6 +8,7 @@
     "axios": "^0.26.1"
   },
   "devDependencies": {
+    "@types/node": "^18.14.4",
     "tsconfig": "workspace:*"
   }
 }

@@ -1,20 +1,25 @@
+import { UpgradeIcon } from "@illa-public/icon"
+import { SUBSCRIBE_PLAN, SUBSCRIPTION_CYCLE } from "@illa-public/user-data"
+import { getCurrentTeamInfo } from "@illa-public/user-data"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import {
   Button,
   CloseIcon,
+  DoubtIcon,
   Link,
   Modal,
   Trigger,
-  DoubtIcon,
 } from "@illa-design/react"
-import { UpgradeIcon } from "@illa-public/icon"
-import {
-  SUBSCRIBE_PLAN,
-  SUBSCRIPTION_CYCLE,
-} from "@illa-public/user-data"
+import { ReactComponent as TipIcon } from "./assets/pricing-tip.svg"
 import { ReactComponent as ModalDecorate } from "./assets/upgrad-modal-bg.svg"
+import {
+  FEATURE_CONFIG,
+  HIGHLIGHT_MAP,
+  UPGRADE_MODAL_CONFIG_KEY,
+} from "./constants"
+import { UpgradeModalProps } from "./interface"
 import {
   applyCardListStyle,
   decorateStyle,
@@ -32,15 +37,14 @@ import {
   titleStyle,
   upgradeButtonStyle,
 } from "./style"
-import { getCurrentTeamInfo } from "@illa-public/user-data"
-import { ReactComponent as TipIcon } from "./assets/pricing-tip.svg"
-import { getEnvVar } from "@illa-public/utils"
-import { UpgradeModalProps } from "./interface"
-import { FEATURE_CONFIG, HIGHLIGHT_MAP, UPGRADE_MODAL_CONFIG_KEY } from "./constants"
-
 
 export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
-  const { visible, configType = "upgrade", onCancel, handleLicenseDrawerVisible } = props
+  const {
+    visible,
+    configType = "upgrade",
+    onCancel,
+    handleLicenseDrawerVisible,
+  } = props
   const { t } = useTranslation()
 
   const teamInfo = useSelector(getCurrentTeamInfo)
@@ -55,7 +59,7 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
 
   const billingUrl = useMemo(() => {
     if (!teamInfo?.identifier) return ""
-    return `${location.protocol}//${getEnvVar('ILLA_CLOUD_URL')}/team/${teamInfo?.identifier}/billing`
+    return `${location.protocol}//${process.env.ILLA_CLOUD_URL}/team/${teamInfo?.identifier}/billing`
   }, [teamInfo?.identifier])
 
   const openDrawer = useCallback(() => {

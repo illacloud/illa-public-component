@@ -1,7 +1,6 @@
 import { SUBSCRIBE_PLAN, SUBSCRIPTION_CYCLE } from "@illa-public/user-data"
-import { DrawerSubscribeInfo } from "./interface"
-import { getEnvVar } from "@illa-public/utils"
 import { DrawerDefaultConfig } from "../../interface"
+import { DrawerSubscribeInfo } from "./interface"
 
 export const isSubscribe = (subscribePlan?: SUBSCRIBE_PLAN) => {
   return (
@@ -76,7 +75,9 @@ export function updateHash(newHash: string) {
   return parsedUrl.toString()
 }
 
-export function getSuccessRedirectWithParams(params: Record<string, string>): string {
+export function getSuccessRedirectWithParams(
+  params: Record<string, string>,
+): string {
   const redirectPath = "/landing/subscribed"
   const paramString = Object.entries(params)
     .map(
@@ -85,5 +86,5 @@ export function getSuccessRedirectWithParams(params: Record<string, string>): st
     )
     .join("&")
 
-  return `${getEnvVar("ILLA_CLOUD_URL")}${redirectPath}?${paramString}`
+  return `${process.env.ILLA_CLOUD_URL}${redirectPath}?${paramString}`
 }
