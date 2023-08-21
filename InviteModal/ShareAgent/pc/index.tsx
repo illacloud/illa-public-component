@@ -21,6 +21,7 @@ import {
   headerContainerStyle,
 } from "./style"
 
+
 export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
   const [activeTab, setActiveTab] = useMergeValue<string>(
     ShareAgentTab.SHARE_WITH_TEAM,
@@ -94,7 +95,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
         {activeTab === ShareAgentTab.SHARE_WITH_TEAM && (
           <>
             <InviteLinkPC
-              balance={props.balance}
+              defaultBalance={props.defaultBalance}
               defaultInviteUserRole={props.defaultInviteUserRole}
               defaultAllowInviteLink={props.defaultAllowInviteLink}
               teamID={props.teamID}
@@ -103,10 +104,11 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
               onCopyInviteLink={props.onCopyInviteLink}
             />
             <InviteByEmailPC
+              onBalanceChange={props.onBalanceChange}
               defaultInviteUserRole={props.defaultInviteUserRole}
               teamID={props.teamID}
               currentUserRole={props.currentUserRole}
-              balance={props.balance}
+              defaultBalance={props.defaultBalance}
             />
           </>
         )}

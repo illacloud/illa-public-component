@@ -1,8 +1,8 @@
-import {FC} from "react"
-import {CloseIcon, Modal, TabPane, Tabs} from "@illa-design/react"
-import {InviteByEmailPC} from "../../component/InviteByEmail/pc"
-import {InviteLinkPC} from "../../component/InviteLink/pc"
-import {InviteMemberProps} from "../interface"
+import { FC } from "react"
+import { CloseIcon, Modal, TabPane, Tabs } from "@illa-design/react"
+import { InviteByEmailPC } from "../../component/InviteByEmail/pc"
+import { InviteLinkPC } from "../../component/InviteLink/pc"
+import { InviteMemberProps } from "../interface"
 import {
   closeIconStyle,
   contentContainerStyle,
@@ -25,7 +25,7 @@ export const InviteMemberPC: FC<InviteMemberProps> = (props) => {
     >
       <div css={headerContainerStyle}>
         <Tabs variant="text" colorScheme="grayBlue" withoutBorderLine>
-          <TabPane title="Invite Members" key="Invite Members"/>
+          <TabPane title="Invite Members" key="Invite Members" />
         </Tabs>
         <div
           css={closeIconStyle}
@@ -33,7 +33,7 @@ export const InviteMemberPC: FC<InviteMemberProps> = (props) => {
             props.onClose?.()
           }}
         >
-          <CloseIcon/>
+          <CloseIcon />
         </div>
       </div>
       <div css={contentContainerStyle}>
@@ -44,12 +44,14 @@ export const InviteMemberPC: FC<InviteMemberProps> = (props) => {
           currentUserRole={props.currentUserRole}
           onInviteLinkStateChange={props.onInviteLinkStateChange}
           onCopyInviteLink={props.onCopyInviteLink}
-          balance={props.balance}/>
+          defaultBalance={props.defaultBalance}
+        />
         <InviteByEmailPC
           defaultInviteUserRole={props.defaultInviteUserRole}
           teamID={props.teamID}
           currentUserRole={props.currentUserRole}
-          balance={props.balance}
+          defaultBalance={props.defaultBalance}
+          onBalanceChange={props.onBalanceChange}
         />
       </div>
     </Modal>

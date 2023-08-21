@@ -1,11 +1,11 @@
-<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="hackernews" clip-path="url(#clip0_9725_3731)">
-<path id="Vector" d="M48 43.6364C48 46.0463 46.0463 48 43.6364 48H4.36364C1.95367 48 0 46.0463 0 43.6364V4.36364C0 1.95367 1.95367 0 4.36364 0H43.6364C46.0463 0 48 1.95367 48 4.36364V43.6364Z" fill="#FF6B00"/>
-<path id="Vector_2" d="M22.6912 34.4728H25.3094V26.6183L32.5094 13.5273H29.7603L24.0003 24.131L18.2403 13.5273H15.4912L22.6912 26.6183V34.4728Z" fill="white" stroke="white" stroke-width="1.09091"/>
-</g>
-<defs>
-<clipPath id="clip0_9725_3731">
-<rect width="48" height="48" fill="white"/>
-</clipPath>
-</defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <g clip-path="url(#clip0_10104_3855)">
+        <path d="M24.0002 21.8182C24.0002 23.0232 23.0234 24 21.8184 24H2.18206C0.977077 24 0.000244141 23.0232 0.000244141 21.8182V2.18182C0.000244141 0.976833 0.977078 0 2.18206 0H21.8184C23.0234 0 24.0002 0.976833 24.0002 2.18182V21.8182Z" fill="#FF6B00"/>
+        <path d="M11.3455 17.2364H12.6546V13.3091L16.2546 6.76367H14.88L12 12.0655L9.12003 6.76367H7.74548L11.3455 13.3091V17.2364Z" fill="white" stroke="white" stroke-width="0.545455"/>
+    </g>
+    <defs>
+        <clipPath id="clip0_10104_3855">
+            <rect width="24" height="24" fill="white"/>
+        </clipPath>
+    </defs>
 </svg>

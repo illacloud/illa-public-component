@@ -1,6 +1,9 @@
 import { Avatar } from "@illa-public/avatar"
 import { ERROR_FLAG, isILLAAPiError } from "@illa-public/illa-net"
 import { RoleSelector } from "@illa-public/role-selector"
+import { useUpgradeModal } from "@illa-public/upgrade-modal"
+import { USER_ROLE } from "@illa-public/user-data"
+import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, useState } from "react"
 import {
   Button,
@@ -27,9 +30,17 @@ export const EMAIL_FORMAT =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
-  const { defaultInviteUserRole, balance, teamID, currentUserRole } = props
+  const {
+    defaultInviteUserRole,
+    defaultBalance,
+    teamID,
+    onBalanceChange,
+    currentUserRole,
+  } = props
 
   const message = useMessage()
+
+  const upgradeModal = useUpgradeModal()
 
   const [inviteUserRole, setInviteUserRole] = useMergeValue(
     defaultInviteUserRole,
@@ -37,6 +48,10 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
       defaultValue: defaultInviteUserRole,
     },
   )
+
+  const [currentBalance, setCurrentBalance] = useMergeValue(defaultBalance, {
+    defaultValue: defaultBalance,
+  })
 
   const [alreadyInvited, setAlreadyInvited] = useState<InvitedUser[]>([])
 
@@ -90,6 +105,15 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
           colorScheme={getColor("grayBlue", "02")}
           loading={inviting}
           onClick={async () => {
+            if (
+              isBiggerThanTargetRole(USER_ROLE.EDITOR, inviteUserRole) &&
+              currentBalance < currentValue.length
+            ) {
+              upgradeModal({
+                modalType: "upgrade",
+              })
+              return
+            }
             setInviting(true)
             const finalInviteUserList: InvitedUser[] = [...alreadyInvited]
             for (let i = 0; i < currentValue.length; i++) {
@@ -130,6 +154,10 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
                 }
               }
             }
+            if (isBiggerThanTargetRole(USER_ROLE.EDITOR, inviteUserRole)) {
+              setCurrentBalance(currentBalance - currentValue.length)
+              onBalanceChange(currentBalance - currentValue.length)
+            }
             setAlreadyInvited(finalInviteUserList)
             setInviting(false)
           }}
@@ -139,7 +167,9 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
       </div>
       <div css={licenseContainerStyle}>
         <div css={licenseLabelStyle}>Remaining license</div>
-        <div css={applyLicenseNumberStyle(balance > 0)}>{balance}</div>
+        <div css={applyLicenseNumberStyle(currentBalance > 0)}>
+          {currentBalance}
+        </div>
       </div>
       <div css={inviteListContainerStyle}>
         {alreadyInvited.map((user) => {

@@ -2,9 +2,10 @@ import { USER_ROLE } from "@illa-public/user-data"
 
 export interface InviteByEmailProps {
   defaultInviteUserRole: USER_ROLE
+  defaultBalance: number
   teamID: string
   currentUserRole: USER_ROLE
-  balance: number
+  onBalanceChange: (balance: number) => void
 }
 
 export interface InvitedUser {

@@ -113,3 +113,8 @@ export interface UpdateTeamMemberPermissionPayload {
   teamID: string
   newPermission: TeamMemberPermission
 }
+
+export interface UpdateTeamSubscribePayload {
+  teamID: string
+  subscribeInfo: SubscribeInfo
+}

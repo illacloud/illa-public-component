@@ -7,7 +7,7 @@ import {
   USER_ROLE,
   UpdateTeamMemberPermissionPayload,
   UpdateTeamMemberUserRolePayload,
-  UpdateTransUserRolePayload,
+  UpdateTransUserRolePayload, UpdateTeamSubscribePayload,
 } from "./interface"
 
 export const updateTeamReducer: CaseReducer<Team, PayloadAction<Team>> = (
@@ -116,5 +116,16 @@ export const updateTeamMemberPermissionReducer: CaseReducer<
     state.items?.findIndex((item) => item.id === action.payload.teamID) ?? -1
   if (state.items && index != -1) {
     state.items[index].permission = action.payload.newPermission
+  }
+}
+
+export const updateTeamMemberSubscribeReducer: CaseReducer<
+  Team,
+  PayloadAction<UpdateTeamSubscribePayload>
+> = (state, action) => {
+  const index =
+    state.items?.findIndex((item) => item.id === action.payload.teamID) ?? -1
+  if (state.items && index != -1) {
+    state.items[index].currentTeamLicense = action.payload.subscribeInfo
   }
 }

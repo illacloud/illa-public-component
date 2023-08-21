@@ -16,6 +16,7 @@
     "@illa-public/user-data": "workspace:*",
     "@illa-public/illa-net": "workspace:*",
     "@illa-public/upgrade-modal": "workspace:*",
+    "react-share": "^4.4.1",
     "react-hook-form": "^7.30.0",
     "copy-to-clipboard": "^3.3.2"
   },

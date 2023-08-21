@@ -161,7 +161,12 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
           </Button>
         </div>
       )}
-      {(appContribute || appPublic) && <ShareBlockPC shareText={shareText} />}
+      {(appContribute || appPublic) && (
+        <ShareBlockPC
+          title=""
+          shareUrl={getPublicLinkTemplate(teamIdentify, appID)}
+        />
+      )}
     </div>
   )
 }

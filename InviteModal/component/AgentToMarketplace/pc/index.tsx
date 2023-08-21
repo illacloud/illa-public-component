@@ -11,6 +11,7 @@ import {
   useMergeValue,
   useMessage,
 } from "@illa-design/react"
+import { ShareBlockPC } from "../../ShareBlock/pc"
 import { AgentToMarketplaceProps } from "../interface"
 import { makeAgentContribute } from "../service"
 import {
@@ -20,6 +21,7 @@ import {
   linkCopyContainer,
   publicContainerStyle,
 } from "./style"
+
 
 function getAgentPublicLink(agentID: string): string {
   return `${process.env.ILLA_MARKET_URL}/ai-agent/${agentID}/detail`
@@ -116,6 +118,16 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
           Current agent has not been deployed. Public access and viewer access
           may cause errors
         </div>
+      )}
+      {agentContributed && (
+        <>
+          <div
+            style={{
+              height: 16,
+            }}
+          />
+          <ShareBlockPC title="" shareUrl={getAgentPublicLink(agentID)} />
+        </>
       )}
     </div>
   )

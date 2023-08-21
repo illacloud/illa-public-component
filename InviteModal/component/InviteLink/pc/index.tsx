@@ -41,7 +41,7 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
     teamID,
     currentUserRole,
     onCopyInviteLink,
-    balance,
+    defaultBalance,
   } = props
 
   const [inviteUserRole, setInviteUserRole] = useMergeValue(
@@ -199,7 +199,7 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
                 onClickItem={async (role) => {
                   if (
                     isBiggerThanTargetRole(role, USER_ROLE.VIEWER, false) &&
-                    balance === 0
+                    defaultBalance === 0
                   ) {
                     upgradeModal({
                       modalType: "upgrade",

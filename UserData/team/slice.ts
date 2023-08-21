@@ -5,6 +5,7 @@ import {
   updateMemberListReducer,
   updateTeamItemsReducer,
   updateTeamMemberPermissionReducer,
+  updateTeamMemberSubscribeReducer,
   updateTeamMemberUserRoleReducer,
   updateTeamReducer,
   updateTransUserRoleReducer,
@@ -23,6 +24,7 @@ const teamSlice = createSlice({
     updateTransUserRoleReducer,
     updateTeamMemberUserRoleReducer,
     updateTeamMemberPermissionReducer,
+    updateTeamMemberSubscribeReducer,
   },
 })
 
