@@ -22,8 +22,10 @@ import {
   successStyle,
 } from "./style"
 
+
 export const RoleSelector: FC<RoleSelectorProps> = (props) => {
-  const { onClickItem, value, currentUserRole, isSelf, inline } = props
+  const { onClickItem, value, showOwner, currentUserRole, isSelf, inline } =
+    props
 
   const [menuVisible, setMenuVisible] = useState(false)
 
@@ -32,7 +34,18 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
 
   const { t } = useTranslation()
 
-  const userRoleItems: UserRoleItem[] = [
+  let userRoleItems: UserRoleItem[] = showOwner
+    ? [
+        {
+          role: USER_ROLE.OWNER,
+          tips: t("user_management.role.tips.owner"),
+          name: t("user_management.role.owner"),
+        },
+      ]
+    : []
+
+  userRoleItems = [
+    ...userRoleItems,
     {
       role: USER_ROLE.ADMIN,
       tips: t("user_management.role.tips.admin"),
