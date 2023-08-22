@@ -103,6 +103,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
           {activeTab === ShareAgentTab.SHARE_WITH_TEAM && (
             <div>
               <InviteLinkMobile
+                redirectUrl={props.redirectUrl}
                 defaultBalance={props.defaultBalance}
                 defaultInviteUserRole={props.defaultInviteUserRole}
                 defaultAllowInviteLink={props.defaultAllowInviteLink}

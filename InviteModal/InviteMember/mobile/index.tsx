@@ -37,6 +37,7 @@ export const ShareAgentMobile: FC<InviteMemberProps> = (props) => {
         </div>
         <div>
           <InviteLinkMobile
+            redirectUrl={props.redirectUrl}
             defaultInviteUserRole={props.defaultInviteUserRole}
             defaultAllowInviteLink={props.defaultAllowInviteLink}
             teamID={props.teamID}

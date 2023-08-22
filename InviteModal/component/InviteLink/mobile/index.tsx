@@ -32,6 +32,7 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
     currentUserRole,
     onCopyInviteLink,
     defaultBalance,
+    redirectUrl,
   } = props
 
   const [inviteUserRole, setInviteUserRole] = useMergeValue(
@@ -169,6 +170,8 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
               loading={getLinkLoading}
               disabled={enableInviteLoading}
               onClick={() => {
+                const newUrl = new URL(currentInviteLink)
+                newUrl.searchParams.set("redirectUrl", redirectUrl)
                 onCopyInviteLink?.(currentInviteLink)
               }}
             >
