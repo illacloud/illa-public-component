@@ -3,7 +3,7 @@ import { getColor } from "@illa-design/react"
 
 export const headerWrapperStyle = css`
   width: 100%;
-  padding: 40px 32px;
+  padding: 40px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;

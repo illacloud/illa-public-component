@@ -137,8 +137,9 @@ export const PCMemberList: FC = () => {
               value={value.userRole}
               currentUserRole={myRole}
               onClickItem={(userRole: USER_ROLE) => {
-                handleChangeTeamMembersRole(value.userID, userRole)
+                handleChangeTeamMembersRole(value.teamMemberID, userRole)
               }}
+              isSelf={value.teamMemberID === teamMemberID}
             />
           )
         },
@@ -160,7 +161,6 @@ export const PCMemberList: FC = () => {
               currentUserRole={myRole}
               currentUserID={teamMemberID}
               teamMemberID={value.teamMemberID}
-              userID={value.userID}
               name={value.nickname}
               changeTeamMembersRole={handleChangeTeamMembersRole}
               teamID={currentTeamID}

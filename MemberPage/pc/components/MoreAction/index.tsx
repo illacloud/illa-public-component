@@ -25,7 +25,6 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     currentUserRole,
     userRole,
     userStatus,
-    userID,
     teamMemberID,
     currentUserID,
     changeTeamMembersRole,
@@ -42,10 +41,10 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
 
   const disabled = useMemo(() => {
     return (
-      userID === currentUserID ||
+      teamMemberID === currentUserID ||
       isSmallThanTargetRole(userRole, currentUserRole, false)
     )
-  }, [userID, currentUserID, userRole, currentUserRole])
+  }, [teamMemberID, currentUserID, userRole, currentUserRole])
 
   const handleClickRemoveMember = useCallback(() => {
     modal.show({
