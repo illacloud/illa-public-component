@@ -1,31 +1,23 @@
-export interface CurrentUser {
+export interface BaseUserInfo {
   userID: string
   uid: string
   nickname: string
   email: string
-  avatar?: string
+  avatar: string
   language: string
-  isTutorialViewed?: boolean
-  isPasswordSet: boolean
-  ssoVerified: {
-    github: boolean
-    google: boolean
-  }
-  haveAppSumoSubscription: boolean
-  doesAppSumoSubscriptionAppliedToTeam: boolean
+  isSubscribed?: boolean
+  isPasswordSetted: boolean
+  isNewUser: boolean
   createdAt: string
   updatedAt: string
 }
 
-export interface UserInfoResponse {
-  id: string
-  uid: string
-  nickname: string
-  email: string
-  avatar?: string
-  language: string
-  createdAt: string
-  updatedAt: string
-  userID: string
-  isTutorialViewed: boolean
+export interface CurrentUser extends BaseUserInfo {
+  isTutorialViewed?: boolean
+  ssoVerified?: {
+    github: boolean
+    google: boolean
+  }
+  haveAppSumoSubscription?: boolean
+  doesAppSumoSubscriptionAppliedToTeam?: boolean
 }

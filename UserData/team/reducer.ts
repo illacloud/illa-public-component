@@ -2,12 +2,15 @@ import { CaseReducer, PayloadAction } from "@reduxjs/toolkit"
 import { isNumber } from "@illa-design/react"
 import {
   MemberInfo,
+  SubscribeInfo,
   Team,
   TeamInfo,
+  TeamPersonalConfig,
   USER_ROLE,
   UpdateTeamMemberPermissionPayload,
   UpdateTeamMemberUserRolePayload,
-  UpdateTransUserRolePayload, UpdateTeamSubscribePayload,
+  UpdateTeamSubscribePayload,
+  UpdateTransUserRolePayload,
 } from "./interface"
 
 export const updateTeamReducer: CaseReducer<Team, PayloadAction<Team>> = (
@@ -127,5 +130,69 @@ export const updateTeamMemberSubscribeReducer: CaseReducer<
     state.items?.findIndex((item) => item.id === action.payload.teamID) ?? -1
   if (state.items && index != -1) {
     state.items[index].currentTeamLicense = action.payload.subscribeInfo
+  }
+}
+
+export const updateCurrentTeamLicenseReducer: CaseReducer<
+  Team,
+  PayloadAction<{
+    teamIdentifier?: string
+    currentTeamLicense: SubscribeInfo
+  }>
+> = (state, action) => {
+  if (!state) return
+  const { payload } = action
+  let { items } = state
+  const { teamIdentifier, currentTeamLicense } = payload
+  const currentIndex = items?.findIndex(
+    (item) => item.identifier === teamIdentifier,
+  )
+  if (currentIndex !== undefined && items?.[currentIndex]) {
+    items[currentIndex].currentTeamLicense = currentTeamLicense
+  }
+}
+
+export const updateCurrentTeamPersonalConfigReducer: CaseReducer<
+  Team,
+  PayloadAction<{
+    teamIdentifier?: string
+    personalConfig: TeamPersonalConfig
+  }>
+> = (state, action) => {
+  if (!state) return
+  const { payload } = action
+  let { items } = state
+  const { teamIdentifier, personalConfig } = payload
+  const currentIndex = items?.findIndex(
+    (item) => item.identifier === teamIdentifier,
+  )
+  if (currentIndex !== undefined && items?.[currentIndex]) {
+    items[currentIndex].personalConfig = personalConfig
+  }
+}
+
+export const addTeamItemReducer: CaseReducer<Team, PayloadAction<TeamInfo>> = (
+  state,
+  action,
+) => {
+  if (!state) return
+  const { payload } = action
+  state = {
+    ...state,
+    items: state.items?.length ? [payload].concat(state.items) : [payload],
+  }
+  return state
+}
+
+export const updateCurrentMemberListReducer: CaseReducer<
+  Team,
+  PayloadAction<MemberInfo[]>
+> = (state, action) => {
+  const { payload } = action
+  if (!payload) return
+
+  return {
+    ...state,
+    currentMemberList: payload,
   }
 }

@@ -87,6 +87,7 @@ export interface TeamInfo {
   identifier: string
   teamMemberID: string
   currentTeamLicense: SubscribeInfo
+  appSumoTeamLicense: SubscribeInfo
   totalTeamLicense: TotalTeamLicense
   personalConfig: TeamPersonalConfig
   myRole: USER_ROLE
