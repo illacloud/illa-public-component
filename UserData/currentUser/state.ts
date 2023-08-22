@@ -8,7 +8,7 @@ export const CurrentUserInitialState: CurrentUser = {
   email: "",
   avatar: "",
   isTutorialViewed: false,
-  isPasswordSetted: false,
+  isPasswordSet: false,
   ssoVerified: {
     github: false,
     google: false,

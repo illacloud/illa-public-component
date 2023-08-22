@@ -6,7 +6,7 @@ export interface BaseUserInfo {
   avatar: string
   language: string
   isSubscribed?: boolean
-  isPasswordSetted: boolean
+  isPasswordSet: boolean
   isNewUser: boolean
   createdAt: string
   updatedAt: string
