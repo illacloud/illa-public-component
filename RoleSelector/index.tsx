@@ -10,7 +10,8 @@ import {
   Dropdown,
   SuccessIcon,
   Trigger,
-  UpIcon, TriggerProvider,
+  TriggerProvider,
+  UpIcon,
 } from "@illa-design/react"
 import { RoleSelectorProps, UserRoleItem } from "./interface"
 import {
@@ -22,10 +23,16 @@ import {
   successStyle,
 } from "./style"
 
-
 export const RoleSelector: FC<RoleSelectorProps> = (props) => {
-  const { onClickItem, value, showOwner, currentUserRole, isSelf, inline } =
-    props
+  const {
+    onClickItem,
+    withoutTips,
+    value,
+    showOwner,
+    currentUserRole,
+    isSelf,
+    inline,
+  } = props
 
   const [menuVisible, setMenuVisible] = useState(false)
 
@@ -83,13 +90,19 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
                 title={
                   <div css={itemContainer}>
                     <div>{item.name}</div>
-                    <TriggerProvider zIndex={1000}>
-                      <Trigger trigger="hover" position="top" content={item.tips}>
-                        <div css={doubtStyle}>
-                          <DoubtIcon />
-                        </div>
-                      </Trigger>
-                    </TriggerProvider>
+                    {!withoutTips && (
+                      <TriggerProvider zIndex={1000}>
+                        <Trigger
+                          trigger="hover"
+                          position="top"
+                          content={item.tips}
+                        >
+                          <div css={doubtStyle}>
+                            <DoubtIcon />
+                          </div>
+                        </Trigger>
+                      </TriggerProvider>
+                    )}
                     {value === item.role && (
                       <div css={successStyle}>
                         <SuccessIcon />

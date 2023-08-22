@@ -13,4 +13,5 @@ export interface RoleSelectorProps {
   isSelf?: boolean
   inline?: boolean
   showOwner?: boolean
+  withoutTips?: boolean
 }
