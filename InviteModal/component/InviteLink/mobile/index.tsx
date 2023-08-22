@@ -145,6 +145,7 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
             <InviteIcon />
             <div css={roleSelectorStyle}>
               <RoleSelector
+                withoutTips
                 currentUserRole={currentUserRole}
                 value={inviteUserRole}
                 onClickItem={async (role) => {

@@ -167,6 +167,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
           suffix={
             <RoleSelector
               inline
+              withoutTips
               currentUserRole={currentUserRole}
               value={inviteUserRole}
               onClickItem={async (role) => {
@@ -198,6 +199,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
                 <Avatar name={user.email} />
                 <div css={nicknameStyle}>{user.email}</div>
                 <RoleSelector
+                  withoutTips
                   currentUserRole={currentUserRole}
                   value={user.userRole}
                   onClickItem={async (item) => {
