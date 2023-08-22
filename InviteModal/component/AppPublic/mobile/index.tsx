@@ -1,7 +1,8 @@
 import { FC } from "react"
-import {
-  Button,
-} from "@illa-design/react"
+import { useTranslation } from "react-i18next"
+import { Button } from "@illa-design/react"
+import { ReactComponent as InviteIcon } from "../../../asset/InviteLink.svg"
+import { ShareBlockMobile } from "../../ShareBlock/mobile"
 import { AppPublicProps } from "../interface"
 import {
   inviteButtonStyle,
@@ -10,8 +11,6 @@ import {
   inviteOptionsStyle,
   shareBlockContainerStyle,
 } from "./style"
-import { ReactComponent as InviteIcon } from "../../../asset/InviteLink.svg"
-import { ShareBlockMobile } from "../../ShareBlock/mobile"
 
 function getMarketLinkTemplate(appID: string): string {
   return `${process.env.ILLA_MARKET_URL}/apps/${appID}/deploy`
@@ -19,11 +18,9 @@ function getMarketLinkTemplate(appID: string): string {
 
 // only for marketplace share app
 export const AppPublicMobile: FC<Partial<AppPublicProps>> = (props) => {
-  const {
-    appID = '',
-    onCopyContributeLink,
-  } = props
+  const { appID = "", onCopyContributeLink } = props
 
+  const { t } = useTranslation()
 
   return (
     <div css={inviteLinkContainer}>
@@ -39,10 +36,13 @@ export const AppPublicMobile: FC<Partial<AppPublicProps>> = (props) => {
             onCopyContributeLink?.(getMarketLinkTemplate(appID))
           }}
         >
-          Copy & invite
+          {t('user_management.modal.link.copy')}
         </Button>
         <div css={shareBlockContainerStyle}>
-          <ShareBlockMobile title="" shareUrl={getMarketLinkTemplate(appID) } />
+          <ShareBlockMobile
+            title={t("user_management.modal.social_media.default_text.app")}
+            shareUrl={getMarketLinkTemplate(appID)}
+          />
         </div>
       </div>
     </div>

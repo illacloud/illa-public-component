@@ -72,6 +72,8 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
           controller.signal,
         )
         setCurrentInviteLink(data.data.inviteLink)
+      } catch (e) {
+        message.error({ content: t("user_management.modal.link.fail") })
       } finally {
         setGetLinkLoading(false)
       }
@@ -80,7 +82,7 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
     return () => {
       controller.abort()
     }
-  }, [currentUserRole, teamID, allowInviteLink, inviteUserRole])
+  }, [currentUserRole, teamID, allowInviteLink, inviteUserRole, message, t])
 
   const renewInviteLinkRequest = useCallback(
     async (teamID: string, userRole: USER_ROLE) => {
@@ -168,7 +170,7 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
                 onCopyInviteLink?.(currentInviteLink)
               }}
             >
-              Copy & invite
+              {t('user_management.modal.link.copy')}
             </Button>
             <Button
               _css={inviteButtonStyle}
@@ -181,7 +183,7 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
                 disableInviteLinkRequest(teamID)
               }}
             >
-              Turn off invite links
+              {t('user_management.modal.link.turn_off')}
             </Button>
           </div>
         </div>
@@ -198,7 +200,7 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
               enableInviteLinkRequest(teamID)
             }}
           >
-            Turn on invite links
+            {t('user_management.modal.link.turn_on')}
           </Button>
         </div>
       )}

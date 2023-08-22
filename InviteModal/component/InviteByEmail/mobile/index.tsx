@@ -78,11 +78,11 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
       }
       if (!handleValidateEmail(currentValue)) {
         return message.error({
-          content: t("user_management.modal.invalid_email"),
+          content: t("user_management.modal.email.not_mail"),
         })
       } else if (alreadyInvited.find((item) => item.email === currentValue)) {
         return message.error({
-          content: t("user_management.modal.email.in_list"),
+          content: t("user_management.modal.email.invited"),
         })
       }
       setInviting(true)
@@ -107,16 +107,17 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
           finalInviteUserList.push(user)
         }
         setCurrentValue("")
+        message.success({ content: t("user_management.mes.invite_suc")})
       } catch (e) {
         if (isILLAAPiError(e)) {
           if (e.data.errorFlag === ERROR_FLAG.ERROR_FLAG_EMAIL_ALREADY_USED) {
             message.error({
-              content: "already invite",
+              content: t('user_management.modal.email.invited'),
             })
           }
         } else {
           message.error({
-            content: "net error",
+            content: t('user_management.mes.invite_fail'),
           })
         }
       }
@@ -144,7 +145,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
 
   return (
     <div css={inviteByEmailContainerStyle}>
-      <span css={inviteByEmailTitleStyle}>{t('Invite by email')}</span>
+      <span css={inviteByEmailTitleStyle}>{t('user_management.modal.email.invite_title')}</span>
       <div css={inviteByEmailInputContainerStyle}>
         <Input
           flexShrink="1"
@@ -174,7 +175,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
         />
       </div>
       <div css={licenseContainerStyle}>
-        <div css={licenseLabelStyle}>Remaining license</div>
+        <div css={licenseLabelStyle}>{t('user_management.modal.tips.license_insufficient')}</div>
         <div
           css={applyLicenseNumberStyle(!!currentBalance && currentBalance > 0)}
         >
@@ -208,7 +209,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
                     }
                   } catch (e) {
                     message.error({
-                      content: "net error",
+                      content: 'error'
                     })
                   } finally {
                     setInviting(false)

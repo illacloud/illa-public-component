@@ -25,6 +25,7 @@ import {
   tabTitleStyle,
   tabsContainerStyle,
 } from "./style"
+import { useTranslation } from "react-i18next"
 
 export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
   const { onClose } = props
@@ -34,6 +35,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
       defaultValue: ShareAgentTab.SHARE_WITH_TEAM,
     },
   )
+  const { t } = useTranslation()
 
   return (
     <TriggerProvider renderInBody zIndex={1005}>
@@ -62,7 +64,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                 css={tabTitleStyle(activeTab === ShareAgentTab.SHARE_WITH_TEAM)}
                 onClick={() => setActiveTab(ShareAgentTab.SHARE_WITH_TEAM)}
               >
-                {"Share with Team"}
+                {t('user_management.modal.tab.with_team')}
               </div>
             )}
             {(canManage(
@@ -79,7 +81,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                   )}
                   onClick={() => setActiveTab(ShareAgentTab.TO_MARKETPLACE)}
                 >
-                  {"To Marketplace"}
+                  {t('user_management.modal.title.contribute')}
                 </div>
               </>
             )}

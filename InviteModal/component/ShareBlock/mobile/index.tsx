@@ -14,12 +14,14 @@ import {
   shareIconContainerStyle,
   shareLabelStyle,
 } from "./style"
+import { useTranslation } from "react-i18next"
 
 export const ShareBlockMobile: FC<ShareBlockProps> = (props) => {
   const { title, shareUrl } = props
+  const { t } = useTranslation()
   return (
     <div css={shareContainerStyle}>
-      <div css={shareLabelStyle}>Share Via</div>
+      <div css={shareLabelStyle}>{t('user_management.modal.social_media.label')}</div>
       <div css={shareIconContainerStyle}>
         {SocialMediaList.map((platform) => {
           const child = (

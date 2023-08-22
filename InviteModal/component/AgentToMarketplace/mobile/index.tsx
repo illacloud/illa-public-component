@@ -11,10 +11,10 @@ import { makeAgentContribute } from "../service"
 import {
   inviteButtonStyle,
   inviteLinkContainer,
+  inviteLinkDisableHeaderStyle,
   inviteLinkHeaderStyle,
   inviteOptionsStyle,
   shareBlockContainerStyle,
-  inviteLinkDisableHeaderStyle
 } from "./style"
 
 function getAgentPublicLink(agentID: string): string {
@@ -54,7 +54,7 @@ export const AgentToMarketplaceMobile: FC<AgentToMarketplaceProps> = (
         onAgentContributed?.(value)
       } catch (e) {
         message.error({
-          content: t('"contribute error"'),
+          content: t('user_management.modal.message.make_public_failed'),
         })
         setAgentContributed(!value)
       } finally {
@@ -81,7 +81,7 @@ export const AgentToMarketplaceMobile: FC<AgentToMarketplaceProps> = (
                 onCopyAgentMarketLink?.(getAgentPublicLink(agentID))
               }}
             >
-              Copy & invite
+              {t("user_management.modal.link.copy")}
             </Button>
             {isBiggerThanTargetRole(
               USER_ROLE.VIEWER,
@@ -98,12 +98,15 @@ export const AgentToMarketplaceMobile: FC<AgentToMarketplaceProps> = (
                   handleAgentContribute(false)
                 }}
               >
-                Turn off contribution
+                {t('user_management.modal.contribute.turn_off')}
               </Button>
             )}
           </div>
           <div css={shareBlockContainerStyle}>
-            <ShareBlockMobile title="" shareUrl={getAgentPublicLink(agentID)} />
+            <ShareBlockMobile
+              title={t("user_management.modal.social_media.default_text.agent")}
+              shareUrl={getAgentPublicLink(agentID)}
+            />
           </div>
         </>
       ) : (
@@ -125,7 +128,7 @@ export const AgentToMarketplaceMobile: FC<AgentToMarketplaceProps> = (
                 handleAgentContribute(true)
               }}
             >
-              Turn onContribute contribution
+              {t('user_management.modal.contribute.label')}
             </Button>
           )}
         </>
