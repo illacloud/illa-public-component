@@ -17,6 +17,8 @@ import {
 } from "./style"
 
 export const ShareBlockPC: FC<ShareBlockProps> = (props) => {
+  const { title, shareUrl } = props
+
   return (
     <div css={shareContainerStyle}>
       <div css={shareLabelStyle}>Share Via</div>
@@ -37,7 +39,8 @@ export const ShareBlockPC: FC<ShareBlockProps> = (props) => {
               return (
                 <TwitterShareButton
                   key={platform.platform}
-                  url={props.shareUrl}
+                  url={shareUrl}
+                  title={title}
                 >
                   {child}
                 </TwitterShareButton>
@@ -46,7 +49,8 @@ export const ShareBlockPC: FC<ShareBlockProps> = (props) => {
               return (
                 <RedditShareButton
                   key={platform.platform}
-                  url={props.shareUrl}
+                  url={shareUrl}
+                  title={title}
                 >
                   {child}
                 </RedditShareButton>
@@ -55,7 +59,8 @@ export const ShareBlockPC: FC<ShareBlockProps> = (props) => {
               return (
                 <LinkedinShareButton
                   key={platform.platform}
-                  url={props.shareUrl}
+                  url={shareUrl}
+                  title={title}
                 >
                   {child}
                 </LinkedinShareButton>
@@ -66,7 +71,7 @@ export const ShareBlockPC: FC<ShareBlockProps> = (props) => {
                   key={platform.platform}
                   onClick={() => {
                     window.open(
-                      `https://news.ycombinator.com/submitlink?u=${props.shareUrl}&t=${props.shareUrl}`,
+                      `https://news.ycombinator.com/submitlink?u=${shareUrl}&t=${title}`,
                       "_blank",
                     )
                   }}
@@ -78,7 +83,8 @@ export const ShareBlockPC: FC<ShareBlockProps> = (props) => {
               return (
                 <FacebookShareButton
                   key={platform.platform}
-                  url={props.shareUrl}
+                  url={shareUrl}
+                  title={title}
                 >
                   {child}
                 </FacebookShareButton>
@@ -87,7 +93,8 @@ export const ShareBlockPC: FC<ShareBlockProps> = (props) => {
               return (
                 <WhatsappShareButton
                   key={platform.platform}
-                  url={props.shareUrl}
+                  url={shareUrl}
+                  title={title}
                 >
                   {child}
                 </WhatsappShareButton>
