@@ -1,0 +1,137 @@
+import { USER_ROLE } from "@illa-public/user-data"
+import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
+import { FC, useCallback, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { Button, useMergeValue, useMessage } from "@illa-design/react"
+import { ReactComponent as DisableInviteIcon } from "../../../asset/DisableInviteLink.svg"
+import { ReactComponent as InviteIcon } from "../../../asset/InviteLink.svg"
+import { ShareBlockMobile } from "../../ShareBlock/mobile"
+import { AgentToMarketplaceProps } from "../interface"
+import { makeAgentContribute } from "../service"
+import {
+  inviteButtonStyle,
+  inviteLinkContainer,
+  inviteLinkHeaderStyle,
+  inviteOptionsStyle,
+  shareBlockContainerStyle,
+  inviteLinkDisableHeaderStyle
+} from "./style"
+
+function getAgentPublicLink(agentID: string): string {
+  return `${process.env.ILLA_MARKET_URL}/ai-agent/${agentID}/detail`
+}
+
+export const AgentToMarketplaceMobile: FC<AgentToMarketplaceProps> = (
+  props,
+) => {
+  const {
+    defaultAgentContributed,
+    onAgentContributed,
+    userRoleForThisAgent,
+    agentID,
+    onCopyAgentMarketLink,
+    ownerTeamID,
+  } = props
+
+  const [agentContributed, setAgentContributed] = useMergeValue(
+    defaultAgentContributed,
+    {
+      defaultValue: defaultAgentContributed,
+    },
+  )
+
+  const [agentContributedLoading, setAgentContributedLoading] = useState(false)
+  const message = useMessage()
+
+  const { t } = useTranslation()
+
+  const handleAgentContribute = useCallback(
+    async (value: boolean) => {
+      setAgentContributedLoading(true)
+      setAgentContributed(value)
+      try {
+        await makeAgentContribute(ownerTeamID, agentID)
+        onAgentContributed?.(value)
+      } catch (e) {
+        message.error({
+          content: t('"contribute error"'),
+        })
+        setAgentContributed(!value)
+      } finally {
+        setAgentContributedLoading(false)
+      }
+    },
+    [agentID, message, onAgentContributed, ownerTeamID, setAgentContributed, t],
+  )
+
+  return (
+    <div css={inviteLinkContainer}>
+      {agentContributed ? (
+        <>
+          <div css={inviteLinkHeaderStyle}>
+            <InviteIcon />
+          </div>
+          <div css={inviteOptionsStyle}>
+            <Button
+              _css={inviteButtonStyle}
+              colorScheme="techPurple"
+              fullWidth
+              loading={agentContributedLoading}
+              onClick={() => {
+                onCopyAgentMarketLink?.(getAgentPublicLink(agentID))
+              }}
+            >
+              Copy & invite
+            </Button>
+            {isBiggerThanTargetRole(
+              USER_ROLE.VIEWER,
+              userRoleForThisAgent,
+              false,
+            ) && (
+              <Button
+                _css={inviteButtonStyle}
+                colorScheme="grayBlue"
+                variant="text"
+                fullWidth
+                loading={agentContributedLoading}
+                onClick={() => {
+                  handleAgentContribute(false)
+                }}
+              >
+                Turn off contribution
+              </Button>
+            )}
+          </div>
+          <div css={shareBlockContainerStyle}>
+            <ShareBlockMobile title="" shareUrl={getAgentPublicLink(agentID)} />
+          </div>
+        </>
+      ) : (
+        <>
+          <div css={inviteLinkDisableHeaderStyle}>
+            <DisableInviteIcon />
+          </div>
+          {isBiggerThanTargetRole(
+            USER_ROLE.VIEWER,
+            userRoleForThisAgent,
+            false,
+          ) && (
+            <Button
+              _css={inviteButtonStyle}
+              colorScheme="techPurple"
+              fullWidth
+              loading={agentContributedLoading}
+              onClick={() => {
+                handleAgentContribute(true)
+              }}
+            >
+              Turn onContribute contribution
+            </Button>
+          )}
+        </>
+      )}
+    </div>
+  )
+}
+
+AgentToMarketplaceMobile.displayName = "AgentToMarketplaceMobile"

@@ -1,0 +1,224 @@
+import { Avatar } from "@illa-public/avatar"
+import { ERROR_FLAG, isILLAAPiError } from "@illa-public/illa-net"
+import { RoleSelector } from "@illa-public/role-selector"
+import { useUpgradeModal } from "@illa-public/upgrade-modal"
+import { USER_ROLE } from "@illa-public/user-data"
+import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
+import { FC, KeyboardEvent, useCallback, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { Input, useMergeValue, useMessage } from "@illa-design/react"
+import { InviteByEmailProps, InvitedUser } from "../interface"
+import { changeUserRoleByTeamMemberID, inviteByEmail } from "../service"
+import {
+  applyLicenseNumberStyle,
+  avatarContainerStyle,
+  emailInputStyle,
+  inviteByEmailContainerStyle,
+  inviteByEmailInputContainerStyle,
+  inviteListContainerStyle,
+  licenseContainerStyle,
+  licenseLabelStyle,
+  nicknameStyle,
+} from "./style"
+
+export const EMAIL_FORMAT =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
+  const {
+    defaultInviteUserRole,
+    defaultBalance,
+    teamID,
+    currentUserRole,
+    onBalanceChange,
+  } = props
+
+  const message = useMessage()
+  const upgradeModal = useUpgradeModal()
+  const { t } = useTranslation()
+
+  const [inviteUserRole, setInviteUserRole] = useMergeValue(
+    defaultInviteUserRole,
+    {
+      defaultValue: defaultInviteUserRole,
+    },
+  )
+
+  const [currentBalance, setCurrentBalance] = useMergeValue(defaultBalance, {
+    defaultValue: defaultBalance,
+  })
+
+  const [alreadyInvited, setAlreadyInvited] = useState<InvitedUser[]>([])
+
+  const [inviting, setInviting] = useState(false)
+
+  const [currentValue, setCurrentValue] = useState<string>()
+
+  const handleValidateEmail = useCallback((value: string) => {
+    if (value.length > 0 && EMAIL_FORMAT.test(value)) {
+      return true
+    } else {
+      return false
+    }
+  }, [])
+
+  const handleInvite = useCallback(
+    async (e: KeyboardEvent<HTMLInputElement>) => {
+      if (!currentValue) return
+      e.currentTarget.blur()
+      if (
+        isBiggerThanTargetRole(USER_ROLE.EDITOR, inviteUserRole) &&
+        currentBalance < currentValue.length
+      ) {
+        upgradeModal({
+          modalType: "upgrade",
+        })
+        return
+      }
+      if (!handleValidateEmail(currentValue)) {
+        return message.error({
+          content: t("user_management.modal.invalid_email"),
+        })
+      } else if (alreadyInvited.find((item) => item.email === currentValue)) {
+        return message.error({
+          content: t("user_management.modal.email.in_list"),
+        })
+      }
+      setInviting(true)
+      const finalInviteUserList: InvitedUser[] = [...alreadyInvited]
+      try {
+        const invitedUserResp = await inviteByEmail(
+          teamID,
+          currentValue,
+          inviteUserRole,
+        )
+        const currentIndex = finalInviteUserList.findIndex(
+          (item) => item.email === currentValue,
+        )
+        const user = {
+          email: currentValue,
+          userRole: inviteUserRole,
+          teamMemberID: invitedUserResp.data.teamMemberID,
+        }
+        if (currentIndex !== -1) {
+          finalInviteUserList[currentIndex] = user
+        } else {
+          finalInviteUserList.push(user)
+        }
+        setCurrentValue("")
+      } catch (e) {
+        if (isILLAAPiError(e)) {
+          if (e.data.errorFlag === ERROR_FLAG.ERROR_FLAG_EMAIL_ALREADY_USED) {
+            message.error({
+              content: "already invite",
+            })
+          }
+        } else {
+          message.error({
+            content: "net error",
+          })
+        }
+      }
+      if (isBiggerThanTargetRole(USER_ROLE.EDITOR, inviteUserRole)) {
+        setCurrentBalance(currentBalance - currentValue.length)
+        onBalanceChange(currentBalance - currentValue.length)
+      }
+      setAlreadyInvited(finalInviteUserList)
+      setInviting(false)
+    },
+    [
+      alreadyInvited,
+      currentBalance,
+      currentValue,
+      handleValidateEmail,
+      inviteUserRole,
+      message,
+      onBalanceChange,
+      setCurrentBalance,
+      t,
+      teamID,
+      upgradeModal,
+    ],
+  )
+
+  return (
+    <div css={inviteByEmailContainerStyle}>
+      <div css={inviteByEmailInputContainerStyle}>
+        <Input
+          flexShrink="1"
+          _css={emailInputStyle}
+          readOnly={inviting}
+          flexGrow="1"
+          size="large"
+          variant="fill"
+          value={currentValue}
+          onChange={(value) => {
+            setCurrentValue(value)
+          }}
+          onPressEnter={handleInvite}
+          w="unset"
+          colorScheme="techPurple"
+          placeholder={t("user_management.modal.email.placeholder")}
+          suffix={
+            <RoleSelector
+              inline
+              currentUserRole={currentUserRole}
+              value={inviteUserRole}
+              onClickItem={async (role) => {
+                setInviteUserRole(role)
+              }}
+            />
+          }
+        />
+      </div>
+      <div css={licenseContainerStyle}>
+        <div css={licenseLabelStyle}>Remaining license</div>
+        <div
+          css={applyLicenseNumberStyle(!!currentBalance && currentBalance > 0)}
+        >
+          {currentBalance ?? 0}
+        </div>
+      </div>
+      <div css={inviteListContainerStyle}>
+        {alreadyInvited.map((user) => {
+          return (
+            <div key={user.email} css={avatarContainerStyle}>
+              <Avatar name={user.email} />
+              <div css={nicknameStyle}>{user.email}</div>
+              <RoleSelector
+                currentUserRole={currentUserRole}
+                value={user.userRole}
+                onClickItem={async (item) => {
+                  setInviting(true)
+                  try {
+                    await changeUserRoleByTeamMemberID(
+                      teamID,
+                      user.teamMemberID,
+                      item,
+                    )
+                    const index = alreadyInvited.findIndex(
+                      (u) => u.email === user.email,
+                    )
+                    if (index != -1) {
+                      const newAlreadyInvited = [...alreadyInvited]
+                      newAlreadyInvited[index].userRole = item
+                      setAlreadyInvited(newAlreadyInvited)
+                    }
+                  } catch (e) {
+                    message.error({
+                      content: "net error",
+                    })
+                  } finally {
+                    setInviting(false)
+                  }
+                }}
+              />
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+InviteByEmailMobile.displayName = "InviteByEmailMobile"
