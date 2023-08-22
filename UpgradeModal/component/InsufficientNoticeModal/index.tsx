@@ -1,22 +1,21 @@
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, CloseIcon, Modal } from "@illa-design/react"
+import { INSUFFICIENT_MODAL_CONFIG_KEY } from "./constants"
+import { InsufficientNoticeModalProps } from "./interface"
 import {
   actionAreaStyle,
   descriptionStyle,
-  modalStyle,
-  titleStyle,
   modalCloseIconStyle,
   modalMaskStyle,
+  modalStyle,
+  titleStyle,
 } from "./style"
-import { InsufficientNoticeModalProps } from "./interface"
-import { INSUFFICIENT_MODAL_CONFIG_KEY } from "./constants"
-
 
 export const InsufficientNoticeModal: FC<InsufficientNoticeModalProps> = (
   props,
 ) => {
-  const { visible, configType = "add-license", onCancel} = props
+  const { visible, configType = "add-license", onCancel } = props
   const { t } = useTranslation()
 
   const { title, description, buttonText } = useMemo(() => {
@@ -25,6 +24,7 @@ export const InsufficientNoticeModal: FC<InsufficientNoticeModalProps> = (
 
   return (
     <Modal
+      z={2000}
       _css={modalStyle}
       withoutPadding
       maskClosable={false}

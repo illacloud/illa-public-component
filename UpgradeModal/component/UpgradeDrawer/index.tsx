@@ -323,6 +323,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
 
   return (
     <Drawer
+      z={2100}
       visible={visible}
       css={drawerStyle}
       w={isMobile ? "100%" : "520px"}

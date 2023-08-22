@@ -6,7 +6,8 @@ import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, KeyboardEvent, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Input, useMergeValue, useMessage } from "@illa-design/react"
+import { Input, Loading, useMergeValue, useMessage } from "@illa-design/react"
+import { EMAIL_FORMAT } from "../../../utils"
 import { InviteByEmailProps, InvitedUser } from "../interface"
 import { changeUserRoleByTeamMemberID, inviteByEmail } from "../service"
 import {
@@ -19,10 +20,9 @@ import {
   inviteListContainerStyle,
   licenseContainerStyle,
   licenseLabelStyle,
+  loadingStyle,
   nicknameStyle,
 } from "./style"
-import { EMAIL_FORMAT } from "../../../utils"
-
 
 export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
   const {
@@ -123,7 +123,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
       }
       if (isBiggerThanTargetRole(USER_ROLE.EDITOR, inviteUserRole)) {
         setCurrentBalance(currentBalance - 1)
-        onBalanceChange(currentBalance -1)
+        onBalanceChange(currentBalance - 1)
       }
       setAlreadyInvited(finalInviteUserList)
       setInviting(false)
@@ -186,44 +186,50 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
           {currentBalance ?? 0}
         </div>
       </div>
-      <div css={inviteListContainerStyle}>
-        {alreadyInvited.map((user) => {
-          return (
-            <div key={user.email} css={avatarContainerStyle}>
-              <Avatar name={user.email} />
-              <div css={nicknameStyle}>{user.email}</div>
-              <RoleSelector
-                currentUserRole={currentUserRole}
-                value={user.userRole}
-                onClickItem={async (item) => {
-                  setInviting(true)
-                  try {
-                    await changeUserRoleByTeamMemberID(
-                      teamID,
-                      user.teamMemberID,
-                      item,
-                    )
-                    const index = alreadyInvited.findIndex(
-                      (u) => u.email === user.email,
-                    )
-                    if (index != -1) {
-                      const newAlreadyInvited = [...alreadyInvited]
-                      newAlreadyInvited[index].userRole = item
-                      setAlreadyInvited(newAlreadyInvited)
+      {inviting ? (
+        <div css={loadingStyle}>
+          <Loading colorScheme="techPurple" />
+        </div>
+      ) : (
+        <div css={inviteListContainerStyle}>
+          {alreadyInvited.map((user) => {
+            return (
+              <div key={user.email} css={avatarContainerStyle}>
+                <Avatar name={user.email} />
+                <div css={nicknameStyle}>{user.email}</div>
+                <RoleSelector
+                  currentUserRole={currentUserRole}
+                  value={user.userRole}
+                  onClickItem={async (item) => {
+                    setInviting(true)
+                    try {
+                      await changeUserRoleByTeamMemberID(
+                        teamID,
+                        user.teamMemberID,
+                        item,
+                      )
+                      const index = alreadyInvited.findIndex(
+                        (u) => u.email === user.email,
+                      )
+                      if (index != -1) {
+                        const newAlreadyInvited = [...alreadyInvited]
+                        newAlreadyInvited[index].userRole = item
+                        setAlreadyInvited(newAlreadyInvited)
+                      }
+                    } catch (e) {
+                      message.error({
+                        content: "error",
+                      })
+                    } finally {
+                      setInviting(false)
                     }
-                  } catch (e) {
-                    message.error({
-                      content: "error",
-                    })
-                  } finally {
-                    setInviting(false)
-                  }
-                }}
-              />
-            </div>
-          )
-        })}
-      </div>
+                  }}
+                />
+              </div>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }

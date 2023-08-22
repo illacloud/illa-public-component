@@ -25,6 +25,7 @@ export const UpgradeSuccessModal: FC<UpgradeSuccessModalProps> = (props) => {
 
   return (
     <Modal
+      z={2000}
       visible={visible}
       _css={modalStyle}
       withoutPadding

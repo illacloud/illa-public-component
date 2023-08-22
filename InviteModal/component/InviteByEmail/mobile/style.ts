@@ -71,7 +71,15 @@ export const nicknameStyle = css`
 `
 
 export const emailInputStyle = css`
-height: 44px;
-font-size: 14px;
-line-height: 17px;
+  height: 44px;
+  font-size: 14px;
+  line-height: 17px;
+`
+
+export const loadingStyle = css`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `

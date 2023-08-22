@@ -81,6 +81,7 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
 
   return (
     <Modal
+      z={2000}
       visible={visible}
       _css={modalStyle}
       withoutPadding
