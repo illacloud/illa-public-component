@@ -20,14 +20,7 @@ import {
   linkCopyContainer,
   publicContainerStyle,
 } from "./style"
-
-function getPublicLinkTemplate(teamIdentify: string, appID: string): string {
-  return `${process.env.ILLA_BUILDER_URL}/${teamIdentify}/deploy/app/${appID}`
-}
-
-function getMarketLinkTemplate(appID: string): string {
-  return `${process.env.ILLA_MARKET_URL}/apps/${appID}/deploy`
-}
+import { getMarketLinkTemplate, getPublicLinkTemplate } from "../../../utils"
 
 export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const {

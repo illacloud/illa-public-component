@@ -16,10 +16,7 @@ import {
   inviteOptionsStyle,
   shareBlockContainerStyle,
 } from "./style"
-
-function getAgentPublicLink(agentID: string): string {
-  return `${process.env.ILLA_MARKET_URL}/ai-agent/${agentID}/detail`
-}
+import { getAgentPublicLink } from "../../../utils"
 
 export const AgentToMarketplaceMobile: FC<AgentToMarketplaceProps> = (
   props,

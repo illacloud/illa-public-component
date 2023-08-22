@@ -21,11 +21,8 @@ import {
   linkCopyContainer,
   publicContainerStyle,
 } from "./style"
+import { getAgentPublicLink } from "../../../utils"
 
-
-function getAgentPublicLink(agentID: string): string {
-  return `${process.env.ILLA_MARKET_URL}/ai-agent/${agentID}/detail`
-}
 
 export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
   const {

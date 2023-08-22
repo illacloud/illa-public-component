@@ -11,10 +11,7 @@ import {
   inviteOptionsStyle,
   shareBlockContainerStyle,
 } from "./style"
-
-function getMarketLinkTemplate(appID: string): string {
-  return `${process.env.ILLA_MARKET_URL}/apps/${appID}/deploy`
-}
+import { getMarketLinkTemplate } from "../../../utils"
 
 // only for marketplace share app
 export const AppPublicMobile: FC<Partial<AppPublicProps>> = (props) => {
