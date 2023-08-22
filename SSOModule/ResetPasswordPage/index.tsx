@@ -39,3 +39,5 @@ export const ResetPasswordPage: FC<ResetPasswordPageProps> = (props) => {
     </FormProvider>
   )
 }
+
+export default ResetPasswordPage

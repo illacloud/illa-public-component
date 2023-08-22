@@ -1,5 +1,4 @@
 import { createSelector } from "@reduxjs/toolkit"
-import { Locale, enUS, jaJP, koKR, zhCN } from "@illa-design/react"
 import { RootState } from "../store"
 
 export const getCurrentUser = (state: RootState) => {
@@ -27,28 +26,6 @@ export const getIsTutorialViewed = (state: RootState) => {
 
 export const getCurrentUserIsLogin = (state: RootState) => {
   return state.currentUser.userID !== ""
-}
-
-export const getCurrentConfigLanguage = (state: RootState) => {
-  let selectedLocale: Locale
-  const currentUser = state.currentUser
-  switch (currentUser?.language) {
-    case "en-US":
-      selectedLocale = enUS
-      break
-    case "zh-CN":
-      selectedLocale = zhCN
-      break
-    case "ja-JP":
-      selectedLocale = jaJP
-      break
-    case "ko-KR":
-      selectedLocale = koKR
-      break
-    default:
-      selectedLocale = enUS
-  }
-  return selectedLocale
 }
 
 export const getCurrentTranslateLanguage = (state: RootState) => {

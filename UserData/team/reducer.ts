@@ -1,5 +1,4 @@
 import { CaseReducer, PayloadAction } from "@reduxjs/toolkit"
-import { isNumber } from "@illa-design/react"
 import {
   MemberInfo,
   SubscribeInfo,
@@ -53,7 +52,7 @@ export const updateCurrentRoleReducer: CaseReducer<
   PayloadAction<USER_ROLE>
 > = (state, action) => {
   const { payload } = action
-  if (!isNumber(payload) || !state) return
+  if (typeof payload !== "number" || !state) return
   let { currentId, items } = state
   const currentIndex = items?.findIndex((item) => item.id === currentId)
   if (currentIndex !== undefined && items?.[currentIndex]) {

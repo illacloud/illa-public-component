@@ -41,3 +41,5 @@ export const RegisterPage: FC<RegisterPageProps> = (props) => {
     </FormProvider>
   )
 }
+
+export default RegisterPage
