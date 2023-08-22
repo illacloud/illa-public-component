@@ -71,6 +71,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
         {activeTab === "edit" && props.canInvite && (
           <>
             <InviteLinkPC
+              redirectUrl={props.redirectUrl}
               defaultBalance={props.defaultBalance}
               defaultInviteUserRole={USER_ROLE.EDITOR}
               defaultAllowInviteLink={props.defaultAllowInviteLink}
@@ -91,6 +92,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
         {activeTab === "use" && (
           <>
             <InviteLinkPC
+              redirectUrl={props.redirectUrl}
               defaultBalance={props.defaultBalance}
               defaultInviteUserRole={USER_ROLE.VIEWER}
               defaultAllowInviteLink={props.defaultAllowInviteLink}

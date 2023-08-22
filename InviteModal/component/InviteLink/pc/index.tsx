@@ -41,6 +41,7 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
     teamID,
     currentUserRole,
     onCopyInviteLink,
+    redirectUrl,
     defaultBalance,
   } = props
 
@@ -227,6 +228,8 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
             colorScheme={getColor("grayBlue", "02")}
             loading={getLinkLoading}
             onClick={() => {
+              const newUrl = new URL(currentInviteLink)
+              newUrl.searchParams.set("redirectUrl", redirectUrl)
               onCopyInviteLink?.(currentInviteLink)
             }}
           >

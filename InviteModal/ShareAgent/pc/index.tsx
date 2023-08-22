@@ -97,6 +97,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
         {activeTab === ShareAgentTab.SHARE_WITH_TEAM && (
           <>
             <InviteLinkPC
+              redirectUrl={props.redirectUrl}
               defaultBalance={props.defaultBalance}
               defaultInviteUserRole={props.defaultInviteUserRole}
               defaultAllowInviteLink={props.defaultAllowInviteLink}

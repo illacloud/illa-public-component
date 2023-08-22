@@ -43,6 +43,7 @@ export const InviteMemberPC: FC<InviteMemberProps> = (props) => {
       </div>
       <div css={contentContainerStyle}>
         <InviteLinkPC
+          redirectUrl={props.redirectUrl}
           defaultInviteUserRole={props.defaultInviteUserRole}
           defaultAllowInviteLink={props.defaultAllowInviteLink}
           teamID={props.teamID}
