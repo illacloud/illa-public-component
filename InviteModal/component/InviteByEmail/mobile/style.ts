@@ -6,6 +6,14 @@ export const inviteByEmailContainerStyle = css`
   flex-direction: column;
 `
 
+export const inviteByEmailTitleStyle = css`
+  color: ${getColor("grayBlue", "02")};
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 17px;
+  margin-bottom: 16px;
+`
 export const inviteByEmailInputContainerStyle = css`
   display: flex;
   flex-direction: row;

@@ -16,6 +16,7 @@ import {
 } from "./style"
 
 export const ShareBlockMobile: FC<ShareBlockProps> = (props) => {
+  const { title, shareUrl } = props
   return (
     <div css={shareContainerStyle}>
       <div css={shareLabelStyle}>Share Via</div>
@@ -36,6 +37,7 @@ export const ShareBlockMobile: FC<ShareBlockProps> = (props) => {
                 <TwitterShareButton
                   key={platform.platform}
                   url={props.shareUrl}
+                  title={title}
                 >
                   {child}
                 </TwitterShareButton>
@@ -45,6 +47,7 @@ export const ShareBlockMobile: FC<ShareBlockProps> = (props) => {
                 <RedditShareButton
                   key={platform.platform}
                   url={props.shareUrl}
+                  title={title}
                 >
                   {child}
                 </RedditShareButton>
@@ -54,6 +57,7 @@ export const ShareBlockMobile: FC<ShareBlockProps> = (props) => {
                 <LinkedinShareButton
                   key={platform.platform}
                   url={props.shareUrl}
+                  title={title}
                 >
                   {child}
                 </LinkedinShareButton>
@@ -64,7 +68,7 @@ export const ShareBlockMobile: FC<ShareBlockProps> = (props) => {
                   key={platform.platform}
                   onClick={() => {
                     window.open(
-                      `https://news.ycombinator.com/submitlink?u=${props.shareUrl}&t=${props.shareUrl}`,
+                      `https://news.ycombinator.com/submitlink?u=${shareUrl}&t=${title}`,
                       "_blank",
                     )
                   }}
@@ -77,6 +81,7 @@ export const ShareBlockMobile: FC<ShareBlockProps> = (props) => {
                 <FacebookShareButton
                   key={platform.platform}
                   url={props.shareUrl}
+                  title={title}
                 >
                   {child}
                 </FacebookShareButton>
@@ -86,6 +91,7 @@ export const ShareBlockMobile: FC<ShareBlockProps> = (props) => {
                 <WhatsappShareButton
                   key={platform.platform}
                   url={props.shareUrl}
+                  title={title}
                 >
                   {child}
                 </WhatsappShareButton>

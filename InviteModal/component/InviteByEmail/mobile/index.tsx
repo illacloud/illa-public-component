@@ -15,6 +15,7 @@ import {
   emailInputStyle,
   inviteByEmailContainerStyle,
   inviteByEmailInputContainerStyle,
+  inviteByEmailTitleStyle,
   inviteListContainerStyle,
   licenseContainerStyle,
   licenseLabelStyle,
@@ -143,6 +144,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
 
   return (
     <div css={inviteByEmailContainerStyle}>
+      <span css={inviteByEmailTitleStyle}>{t('Invite by email')}</span>
       <div css={inviteByEmailInputContainerStyle}>
         <Input
           flexShrink="1"
