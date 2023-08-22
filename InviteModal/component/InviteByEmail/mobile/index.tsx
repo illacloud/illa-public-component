@@ -68,8 +68,9 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
       if (!currentValue) return
       e.currentTarget.blur()
       if (
-        isBiggerThanTargetRole(USER_ROLE.EDITOR, inviteUserRole) &&
-        currentBalance < currentValue.length
+        (isBiggerThanTargetRole(USER_ROLE.EDITOR, inviteUserRole) &&
+          currentBalance === 0) ||
+        currentBalance < 0
       ) {
         upgradeModal({
           modalType: "upgrade",
@@ -107,23 +108,23 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
           finalInviteUserList.push(user)
         }
         setCurrentValue("")
-        message.success({ content: t("user_management.mes.invite_suc")})
+        message.success({ content: t("user_management.mes.invite_suc") })
       } catch (e) {
         if (isILLAAPiError(e)) {
           if (e.data.errorFlag === ERROR_FLAG.ERROR_FLAG_EMAIL_ALREADY_USED) {
             message.error({
-              content: t('user_management.modal.email.invited'),
+              content: t("user_management.modal.email.invited"),
             })
           }
         } else {
           message.error({
-            content: t('user_management.mes.invite_fail'),
+            content: t("user_management.mes.invite_fail"),
           })
         }
       }
       if (isBiggerThanTargetRole(USER_ROLE.EDITOR, inviteUserRole)) {
-        setCurrentBalance(currentBalance - currentValue.length)
-        onBalanceChange(currentBalance - currentValue.length)
+        setCurrentBalance(currentBalance - 1)
+        onBalanceChange(currentBalance -1)
       }
       setAlreadyInvited(finalInviteUserList)
       setInviting(false)
@@ -145,7 +146,9 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
 
   return (
     <div css={inviteByEmailContainerStyle}>
-      <span css={inviteByEmailTitleStyle}>{t('user_management.modal.email.invite_title')}</span>
+      <span css={inviteByEmailTitleStyle}>
+        {t("user_management.modal.email.invite_title")}
+      </span>
       <div css={inviteByEmailInputContainerStyle}>
         <Input
           flexShrink="1"
@@ -175,7 +178,9 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
         />
       </div>
       <div css={licenseContainerStyle}>
-        <div css={licenseLabelStyle}>{t('user_management.modal.tips.license_insufficient')}</div>
+        <div css={licenseLabelStyle}>
+          {t("user_management.modal.tips.license_insufficient")}
+        </div>
         <div
           css={applyLicenseNumberStyle(!!currentBalance && currentBalance > 0)}
         >
@@ -209,7 +214,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
                     }
                   } catch (e) {
                     message.error({
-                      content: 'error'
+                      content: "error",
                     })
                   } finally {
                     setInviting(false)

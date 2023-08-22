@@ -5,6 +5,8 @@ export const inviteHeaderContainerStyle = css`
   position: sticky;
   top: 0;
   padding-top: 12px;
+  width: 100%;
+  overflow-x: hidden;
   background-color: ${getColor("white", "01")};
 `
 
