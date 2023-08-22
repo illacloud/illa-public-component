@@ -9,7 +9,7 @@ import {
   inviteModalStyle,
 } from "./style"
 
-export const ShareAgentMobile: FC<MarketShareAppProps> = (props) => {
+export const MarketShareAppMobile: FC<MarketShareAppProps> = (props) => {
   const { onClose } = props
 
   return (
@@ -45,3 +45,4 @@ export const ShareAgentMobile: FC<MarketShareAppProps> = (props) => {
     </TriggerProvider>
   )
 }
+MarketShareAppMobile.displayName = "MarketShareAppMobile"
