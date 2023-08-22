@@ -34,7 +34,7 @@ export const ShareBlockMobile: FC<ShareBlockProps> = (props) => {
             </div>
           )
           switch (platform.platform) {
-            case PlatformType.TWITTER:
+            case PlatformType.X:
               return (
                 <TwitterShareButton
                   key={platform.platform}
