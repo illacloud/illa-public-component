@@ -5,6 +5,7 @@ import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, useState } from "react"
+import { useTranslation } from "react-i18next"
 import {
   Button,
   InputTag,
@@ -26,6 +27,7 @@ import {
   nicknameStyle,
 } from "./style"
 
+
 export const EMAIL_FORMAT =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -39,6 +41,8 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
   } = props
 
   const message = useMessage()
+
+  const { t } = useTranslation()
 
   const upgradeModal = useUpgradeModal()
 
@@ -61,7 +65,9 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
 
   return (
     <div css={inviteByEmailContainerStyle}>
-      <div css={inviteByEmailLabelStyle}>Invite By Email</div>
+      <div css={inviteByEmailLabelStyle}>
+        {t("user_management.modal.email.invite_title")}
+      </div>
       <div css={inviteByEmailInputContainerStyle}>
         <InputTag
           flexShrink="1"
@@ -144,12 +150,12 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
                     ERROR_FLAG.ERROR_FLAG_EMAIL_ALREADY_USED
                   ) {
                     message.error({
-                      content: "already invite",
+                      content: t("user_management.modal.email.invited"),
                     })
                   }
                 } else {
                   message.error({
-                    content: "net error",
+                    content: t("user_management.mes.invite_fail"),
                   })
                 }
               }
@@ -162,11 +168,13 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
             setInviting(false)
           }}
         >
-          {!inviting ? "Invite" : undefined}
+          {!inviting ? t("user_management.modal.email.invite") : undefined}
         </Button>
       </div>
       <div css={licenseContainerStyle}>
-        <div css={licenseLabelStyle}>Remaining license</div>
+        <div css={licenseLabelStyle}>
+          {t("user_management.modal.tips.license_insufficient")}
+        </div>
         <div css={applyLicenseNumberStyle(currentBalance > 0)}>
           {currentBalance}
         </div>
