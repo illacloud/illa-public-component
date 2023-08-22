@@ -10,7 +10,7 @@ import {
   Dropdown,
   SuccessIcon,
   Trigger,
-  UpIcon,
+  UpIcon, TriggerProvider,
 } from "@illa-design/react"
 import { RoleSelectorProps, UserRoleItem } from "./interface"
 import {
@@ -83,11 +83,13 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
                 title={
                   <div css={itemContainer}>
                     <div>{item.name}</div>
-                    <Trigger trigger="hover" position="top" content={item.tips}>
-                      <div css={doubtStyle}>
-                        <DoubtIcon />
-                      </div>
-                    </Trigger>
+                    <TriggerProvider zIndex={1000}>
+                      <Trigger trigger="hover" position="top" content={item.tips}>
+                        <div css={doubtStyle}>
+                          <DoubtIcon />
+                        </div>
+                      </Trigger>
+                    </TriggerProvider>
                     {value === item.role && (
                       <div css={successStyle}>
                         <SuccessIcon />
