@@ -81,6 +81,10 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
           controller.signal,
         )
         setCurrentInviteLink(data.data.inviteLink)
+      } catch (e) {
+        message.error({
+          content: t("user_management.modal.link.fail"),
+        })
       } finally {
         setGetLinkLoading(false)
       }
@@ -89,7 +93,7 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
     return () => {
       controller.abort()
     }
-  }, [currentUserRole, teamID, allowInviteLink, inviteUserRole])
+  }, [currentUserRole, teamID, allowInviteLink, inviteUserRole, message, t])
 
   const renewInviteLinkRequest = useCallback(
     async (teamID: string, userRole: USER_ROLE) => {
@@ -97,12 +101,16 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
       try {
         const data = await renewInviteLink(teamID, userRole)
         setCurrentInviteLink(data.data.inviteLink)
+      } catch (e) {
+        message.error({
+          content: t("user_management.modal.link.fail"),
+        })
       } finally {
         setGetLinkLoading(false)
       }
       setInviteUserRole(userRole)
     },
-    [setInviteUserRole],
+    [message, setInviteUserRole, t],
   )
 
   const enableInviteLinkRequest = useCallback(
@@ -144,7 +152,9 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
   return (
     <div css={inviteLinkContainer}>
       <div css={inviteLinkMenuContainer}>
-        <div css={inviteLinkLabelStyle}>InviteLink</div>
+        <div css={inviteLinkLabelStyle}>
+          {t("user_management.modal.link.invite_title")}
+        </div>
         {allowInviteLink && (
           <Dropdown
             trigger="click"
@@ -152,17 +162,17 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
             dropList={
               <DropList>
                 <DropListItem
-                  key="Reset invite links"
-                  value="Reset invite links"
-                  title="Reset invite links"
+                  key={t("user_management.modal.link.update")}
+                  value={t("user_management.modal.link.update")}
+                  title={t("user_management.modal.link.update")}
                   onClick={async () => {
                     await renewInviteLinkRequest(teamID, inviteUserRole)
                   }}
                 />
                 <DropListItem
-                  key="Turn off invite links"
-                  value="Turn off invite links"
-                  title="Turn off invite links"
+                  key={t("user_management.modal.link.turn_off")}
+                  value={t("user_management.modal.link.turn_off")}
+                  title={t("user_management.modal.link.turn_off")}
                   onClick={async () => {
                     await disableInviteLinkRequest(teamID)
                   }}
@@ -220,13 +230,13 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
               onCopyInviteLink?.(currentInviteLink)
             }}
           >
-            {!getLinkLoading ? "Copy" : undefined}
+            {!getLinkLoading ? t("user_management.modal.link.copy") : undefined}
           </Button>
         </div>
       ) : (
         <div css={closeInviteLinkContainerStyle}>
           <div css={secretLinkStyle}>
-            Share a secret link people can use to join your team.
+            {t("user_management.modal.link.description")}
           </div>
           <Button
             variant="text"
@@ -237,7 +247,7 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
               await enableInviteLinkRequest(teamID)
             }}
           >
-            Turn on invite links.
+            {t("user_management.modal.link.turn_on")}
           </Button>
         </div>
       )}

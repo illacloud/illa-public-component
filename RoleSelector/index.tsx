@@ -1,6 +1,7 @@
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, useState } from "react"
+import { useTranslation } from "react-i18next"
 import {
   DoubtIcon,
   DownIcon,
@@ -29,21 +30,23 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
   const canEdit =
     !isSelf && isBiggerThanTargetRole(value, currentUserRole, true)
 
+  const { t } = useTranslation()
+
   const userRoleItems: UserRoleItem[] = [
     {
       role: USER_ROLE.ADMIN,
-      tips: "Admin",
-      name: "Admin",
+      tips: t("user_management.role.tips.admin"),
+      name: t("user_management.role.admin"),
     },
     {
       role: USER_ROLE.EDITOR,
-      tips: "Editor",
-      name: "Editor",
+      tips: t("user_management.role.tips.editor"),
+      name: t("user_management.role.editor"),
     },
     {
       role: USER_ROLE.VIEWER,
-      tips: "Viewer",
-      name: "Viewer",
+      tips: t("user_management.role.tips.viewer"),
+      name: t("user_management.role.viewer"),
     },
   ]
 
