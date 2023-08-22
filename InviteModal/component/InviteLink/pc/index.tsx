@@ -64,17 +64,17 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
   const upgradeModal = useUpgradeModal()
 
   const { t } = useTranslation()
-  const [currentInviteLink, setCurrentInviteLink] = useState("")
-  const [getLinkLoading, setGetLinkLoading] = useState(true)
+  const [currentInviteLink, setCurrentInviteLink] = useState<string>("")
+  const [getLinkLoading, setGetLinkLoading] = useState(false)
 
   // initial invite link
   useEffect(() => {
     if (!allowInviteLink) {
       return
     }
-    setGetLinkLoading(true)
     let controller = new AbortController()
     const getInviteLinkRequest = async () => {
+      setGetLinkLoading(true)
       try {
         const data = await getInviteLink(
           teamID,
