@@ -204,9 +204,12 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
                       newAlreadyInvited[index].userRole = item
                       setAlreadyInvited(newAlreadyInvited)
                     }
+                    message.success({
+                      content: t("user_management.mes.invite_suc"),
+                    })
                   } catch (e) {
                     message.error({
-                      content: "net error",
+                      content: t("user_management.mes.change_role_fail"),
                     })
                   } finally {
                     setInviting(false)
