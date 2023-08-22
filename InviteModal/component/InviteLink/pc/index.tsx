@@ -65,7 +65,7 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
 
   const { t } = useTranslation()
   const [currentInviteLink, setCurrentInviteLink] = useState("")
-  const [getLinkLoading, setGetLinkLoading] = useState(false)
+  const [getLinkLoading, setGetLinkLoading] = useState(true)
 
   // initial invite link
   useEffect(() => {
