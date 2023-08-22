@@ -6,9 +6,11 @@ export type ShareAppPage = "public" | "use" | "edit"
 
 export interface ShareAppProps
   extends Omit<InviteByEmailProps, "defaultInviteUserRole">,
-    Omit<InviteLinkProps, "defaultInviteUserRole">,
+    Omit<InviteLinkProps, "defaultInviteUserRole" | "onCopyInviteLink">,
     AppPublicProps {
   onClose: () => void
   canInvite: boolean
   isDeployed: boolean
+  onCopyEditInviteLink: (inviteLink: string) => void
+  onCopyUseInviteLink: (inviteLink: string) => void
 }

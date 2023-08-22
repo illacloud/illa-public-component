@@ -58,7 +58,7 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
         false,
       ) && (
         <div css={blockContainerStyle}>
-          <div css={blockLabelStyle}>Contribute to marketplace</div>
+          <div css={blockLabelStyle}>{t("user_management.modal.contribute.label")}</div>
           <div
             style={{
               flexGrow: 1,
@@ -75,7 +75,7 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
                 onAgentContributed?.(value)
               } catch (e) {
                 message.error({
-                  content: "contribute error",
+                  content: t("user_management.modal.message.make_public_failed"),
                 })
                 setAgentContributed(!value)
               } finally {
@@ -110,13 +110,12 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
               onCopyAgentMarketLink?.(getAgentPublicLink(agentID))
             }}
           >
-            {!agentContributedLoading ? "Copy" : undefined}
+            {!agentContributedLoading ? t("user_management.modal.link.copy") : undefined}
           </Button>
         </div>
       ) : (
         <div css={contributingDocStyle}>
-          Current agent has not been deployed. Public access and viewer access
-          may cause errors
+          {t("user_management.modal.contribute.desc")}
         </div>
       )}
       {agentContributed && (
@@ -126,7 +125,10 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
               height: 16,
             }}
           />
-          <ShareBlockPC title="" shareUrl={getAgentPublicLink(agentID)} />
+          <ShareBlockPC
+            title={t("user_management.modal.social_media.default_text.agent")}
+            shareUrl={getAgentPublicLink(agentID)}
+          />
         </>
       )}
     </div>

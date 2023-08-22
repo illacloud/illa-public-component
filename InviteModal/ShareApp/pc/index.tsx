@@ -1,13 +1,17 @@
-import {USER_ROLE} from "@illa-public/user-data"
-import {isBiggerThanTargetRole} from "@illa-public/user-role-utils"
-import {FC, useState} from "react"
-import {CloseIcon, Modal, TabPane, Tabs} from "@illa-design/react"
-import {AppPublicPC} from "../../component/AppPublic/pc"
-import {InviteByEmailPC} from "../../component/InviteByEmail/pc"
-import {InviteLinkPC} from "../../component/InviteLink/pc"
-import {ShareAppPage, ShareAppProps} from "../interface"
-import {closeIconStyle, contentContainerStyle, headerContainerStyle,} from "./style"
-
+import { USER_ROLE } from "@illa-public/user-data"
+import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
+import { FC, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { CloseIcon, Modal, TabPane, Tabs } from "@illa-design/react"
+import { AppPublicPC } from "../../component/AppPublic/pc"
+import { InviteByEmailPC } from "../../component/InviteByEmail/pc"
+import { InviteLinkPC } from "../../component/InviteLink/pc"
+import { ShareAppPage, ShareAppProps } from "../interface"
+import {
+  closeIconStyle,
+  contentContainerStyle,
+  headerContainerStyle,
+} from "./style"
 
 export const ShareAppPC: FC<ShareAppProps> = (props) => {
   const [activeTab, setActiveTab] = useState<ShareAppPage>(
@@ -15,6 +19,8 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
       ? "edit"
       : "use",
   )
+
+  const { t } = useTranslation()
 
   return (
     <Modal
@@ -38,14 +44,19 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
             setActiveTab(activeKey as ShareAppPage)
           }}
         >
-          {props.canInvite && <TabPane title="Invite to Edit" key="edit"/>}
-          <TabPane title="Invite to Use" key="use"/>
-          {(isBiggerThanTargetRole(
-              USER_ROLE.VIEWER,
-              props.userRoleForThisApp,
-              false,
-            ) &&
-            props.isDeployed) && <TabPane title="Public" key="public"/>}
+          {props.canInvite && (
+            <TabPane title={t("new_share.title.invite_to_edit")} key="edit" />
+          )}
+          <TabPane
+            title={t("user_management.modal.title.invite_to_use")}
+            key="use"
+          />
+          {isBiggerThanTargetRole(
+            USER_ROLE.VIEWER,
+            props.userRoleForThisApp,
+            false,
+          ) &&
+            props.isDeployed && <TabPane title={t("user_management.modal.tab.public")} key="public" />}
         </Tabs>
         <div
           css={closeIconStyle}
@@ -53,7 +64,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
             props.onClose?.()
           }}
         >
-          <CloseIcon/>
+          <CloseIcon />
         </div>
       </div>
       <div css={contentContainerStyle}>
@@ -66,7 +77,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
               teamID={props.teamID}
               currentUserRole={props.currentUserRole}
               onInviteLinkStateChange={props.onInviteLinkStateChange}
-              onCopyInviteLink={props.onCopyInviteLink}
+              onCopyInviteLink={props.onCopyEditInviteLink}
             />
             <InviteByEmailPC
               onBalanceChange={props.onBalanceChange}
@@ -86,7 +97,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
               teamID={props.teamID}
               currentUserRole={props.currentUserRole}
               onInviteLinkStateChange={props.onInviteLinkStateChange}
-              onCopyInviteLink={props.onCopyInviteLink}
+              onCopyInviteLink={props.onCopyUseInviteLink}
             />
             <InviteByEmailPC
               onBalanceChange={props.onBalanceChange}
@@ -108,7 +119,8 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
             onAppContribute={props.onAppContribute}
             onCopyPublicLink={props.onCopyPublicLink}
             onCopyContributeLink={props.onCopyContributeLink}
-            ownerTeamID={props.ownerTeamID}/>
+            ownerTeamID={props.ownerTeamID}
+          />
         )}
       </div>
     </Modal>

@@ -4,6 +4,7 @@ import {
   canManage,
 } from "@illa-public/user-role-utils"
 import { FC } from "react"
+import { useTranslation } from "react-i18next"
 import {
   CloseIcon,
   Modal,
@@ -21,7 +22,6 @@ import {
   headerContainerStyle,
 } from "./style"
 
-
 export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
   const [activeTab, setActiveTab] = useMergeValue<string>(
     ShareAgentTab.SHARE_WITH_TEAM,
@@ -29,6 +29,8 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
       defaultValue: ShareAgentTab.SHARE_WITH_TEAM,
     },
   )
+
+  const { t } = useTranslation()
 
   return (
     <Modal
@@ -54,7 +56,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
         >
           {props.canInvite && (
             <TabPane
-              title="Share with Team"
+              title={t("user_management.modal.tab.with_team")}
               key={ShareAgentTab.SHARE_WITH_TEAM}
             />
           )}
@@ -65,7 +67,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
           ) ||
             props.defaultAgentContributed) && (
             <TabPane
-              title="To Marketplace"
+              title={t("user_management.modal.title.contribute")}
               key={ShareAgentTab.TO_MARKETPLACE}
             />
           )}

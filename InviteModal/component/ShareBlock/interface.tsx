@@ -13,7 +13,7 @@ export interface ShareBlockProps {
 }
 
 export enum PlatformType {
-  TWITTER = "twitter",
+  X = "x",
   REDDIT = "reddit",
   LINKEDIN = "linkedin",
   HACKER_NEWS = "hacker_news",
@@ -29,8 +29,8 @@ export interface SocialMediaPlatform {
 
 export const SocialMediaList: SocialMediaPlatform[] = [
   {
-    platform: PlatformType.TWITTER,
-    platformName: "x",
+    platform: PlatformType.X,
+    platformName: "X",
     icon: <XIcon />,
   },
   {

@@ -8,9 +8,13 @@ import {
   contentContainerStyle,
   headerContainerStyle,
 } from "./style"
+import {useTranslation} from "react-i18next";
 
 
 export const MarketShareAgentPC: FC<MarketShareAgentProps> = (props) => {
+
+  const {t} = useTranslation()
+
   return (
     <Modal
       withoutLine={false}
@@ -25,7 +29,7 @@ export const MarketShareAgentPC: FC<MarketShareAgentProps> = (props) => {
     >
       <div css={headerContainerStyle}>
         <Tabs variant="text" colorScheme="grayBlue" withoutBorderLine>
-          <TabPane title="To Marketplace" key={ShareAgentTab.TO_MARKETPLACE} />
+          <TabPane title={t("user_management.modal.link.marketplace.label")} key={ShareAgentTab.TO_MARKETPLACE} />
         </Tabs>
         <div
           css={closeIconStyle}

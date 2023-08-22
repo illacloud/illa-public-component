@@ -1,4 +1,5 @@
 import React, { FC } from "react"
+import { useTranslation } from "react-i18next"
 import {
   FacebookShareButton,
   LinkedinShareButton,
@@ -19,9 +20,13 @@ import {
 export const ShareBlockPC: FC<ShareBlockProps> = (props) => {
   const { title, shareUrl } = props
 
+  const { t } = useTranslation()
+
   return (
     <div css={shareContainerStyle}>
-      <div css={shareLabelStyle}>Share Via</div>
+      <div css={shareLabelStyle}>
+        {t("user_management.modal.social_media.label")}
+      </div>
       <div css={shareGridLayoutStyle}>
         {SocialMediaList.map((platform) => {
           const child = (
@@ -35,7 +40,7 @@ export const ShareBlockPC: FC<ShareBlockProps> = (props) => {
             </div>
           )
           switch (platform.platform) {
-            case PlatformType.TWITTER:
+            case PlatformType.X:
               return (
                 <TwitterShareButton
                   key={platform.platform}

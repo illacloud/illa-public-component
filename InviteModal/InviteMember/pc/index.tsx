@@ -1,4 +1,5 @@
 import { FC } from "react"
+import { useTranslation } from "react-i18next"
 import { CloseIcon, Modal, TabPane, Tabs } from "@illa-design/react"
 import { InviteByEmailPC } from "../../component/InviteByEmail/pc"
 import { InviteLinkPC } from "../../component/InviteLink/pc"
@@ -9,8 +10,9 @@ import {
   headerContainerStyle,
 } from "./style"
 
-
 export const InviteMemberPC: FC<InviteMemberProps> = (props) => {
+  const { t } = useTranslation()
+
   return (
     <Modal
       withoutLine={false}
@@ -25,7 +27,10 @@ export const InviteMemberPC: FC<InviteMemberProps> = (props) => {
     >
       <div css={headerContainerStyle}>
         <Tabs variant="text" colorScheme="grayBlue" withoutBorderLine>
-          <TabPane title="Invite Members" key="Invite Members" />
+          <TabPane
+            title={t("user_management.modal.title.invite_members")}
+            key={t("user_management.modal.title.invite_members")}
+          />
         </Tabs>
         <div
           css={closeIconStyle}

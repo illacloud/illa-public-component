@@ -1,4 +1,5 @@
 import { FC } from "react"
+import { useTranslation } from "react-i18next"
 import { CloseIcon, Modal, TabPane, Tabs } from "@illa-design/react"
 import { AppPublicPC } from "../../component/AppPublic/pc"
 import { MarketShareAppProps } from "../interface"
@@ -10,6 +11,8 @@ import {
 
 
 export const MarketShareAppPC: FC<MarketShareAppProps> = (props) => {
+  const { t } = useTranslation()
+
   return (
     <Modal
       withoutLine={false}
@@ -24,7 +27,10 @@ export const MarketShareAppPC: FC<MarketShareAppProps> = (props) => {
     >
       <div css={headerContainerStyle}>
         <Tabs variant="text" colorScheme="grayBlue" withoutBorderLine>
-          <TabPane title="Public" key="public" />
+          <TabPane
+            title={t("user_management.modal.link.marketplace.label")}
+            key="public"
+          />
         </Tabs>
         <div
           css={closeIconStyle}

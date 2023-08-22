@@ -21,7 +21,6 @@ import {
   publicContainerStyle,
 } from "./style"
 
-
 function getPublicLinkTemplate(teamIdentify: string, appID: string): string {
   return `${process.env.ILLA_BUILDER_URL}/${teamIdentify}/deploy/app/${appID}`
 }
@@ -70,7 +69,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
     <div css={publicContainerStyle}>
       {canManageApp && (
         <div css={blockContainerStyle}>
-          <div css={blockLabelStyle}>Make the app public</div>
+          <div css={blockLabelStyle}>{t("user_management.modal.link.make_public_title")}</div>
           <div
             style={{
               flexGrow: 1,
@@ -88,7 +87,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
                 onAppPublic?.(value)
               } catch (e) {
                 message.error({
-                  content: t("public gg"),
+                  content: t("user_management.modal.message.make_public_failed"),
                 })
                 setAppPublic(!value)
               } finally {
@@ -125,7 +124,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
               )
             }}
           >
-            {!appLinkLoading ? "Copy" : undefined}
+            {!appLinkLoading ? t("user_management.modal.link.copy") : undefined}
           </Button>
         </div>
       )}
@@ -153,7 +152,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
                 onAppContribute?.(value)
               } catch (e) {
                 message.error({
-                  content: t("contribute gg"),
+                  content: t("user_management.modal.message.make_public_failed"),
                 })
                 setAppContribute(!value)
               } finally {
@@ -188,7 +187,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
               onCopyContributeLink?.(getMarketLinkTemplate(appID))
             }}
           >
-            {!marketLinkLoading ? "Copy" : undefined}
+            {!marketLinkLoading ? t("user_management.modal.link.copy") : undefined}
           </Button>
         </div>
       )}
@@ -200,7 +199,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             }}
           />
           <ShareBlockPC
-            title=""
+            title={t("user_management.modal.social_media.default_text.app")}
             shareUrl={
               appContribute
                 ? getMarketLinkTemplate(appID)
