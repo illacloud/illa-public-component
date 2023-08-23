@@ -246,7 +246,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
             message.success({
               content: t("billing.message.unsubscription_suc"),
             })
-            defaultConfig?.onSubscribeCallback?.()
+            defaultConfig?.onSubscribeCallback?.(teamID)
           } else {
             await modifySubscribe(teamID, {
               plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
@@ -256,7 +256,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
             message.success({
               content: t("billing.message.successfully_changed"),
             })
-            defaultConfig?.onSubscribeCallback?.()
+            defaultConfig?.onSubscribeCallback?.(teamID)
           }
         } else {
           const res = await subscribe(teamID, {

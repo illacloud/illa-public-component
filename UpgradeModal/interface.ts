@@ -67,5 +67,5 @@ export interface DrawerDefaultConfig {
     quantity: number
   }
   appSumoInvoiceURL?: string
-  onSubscribeCallback?: () => void
+  onSubscribeCallback?: (teamID: string) => void
 }
