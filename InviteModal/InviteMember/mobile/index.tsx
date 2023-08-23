@@ -10,7 +10,7 @@ import {
   inviteModalStyle,
 } from "./style"
 
-export const ShareAgentMobile: FC<InviteMemberProps> = (props) => {
+export const InviteMemberMobile: FC<InviteMemberProps> = (props) => {
   const { onClose } = props
 
   return (
@@ -59,3 +59,4 @@ export const ShareAgentMobile: FC<InviteMemberProps> = (props) => {
     </TriggerProvider>
   )
 }
+InviteMemberMobile.displayName = "InviteMemberMobile"
