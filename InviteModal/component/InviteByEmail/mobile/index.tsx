@@ -143,8 +143,33 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
     ],
   )
 
+  const handleUserRoleChange = useCallback(
+    async (user: InvitedUser, item: USER_ROLE) => {
+      setInviting(true)
+      try {
+        await changeUserRoleByTeamMemberID(teamID, user.teamMemberID, item)
+        const index = alreadyInvited.findIndex((u) => u.email === user.email)
+        if (index != -1) {
+          const newAlreadyInvited = [...alreadyInvited]
+          newAlreadyInvited[index].userRole = item
+          setAlreadyInvited(newAlreadyInvited)
+        }
+        message.success({
+          content: t("user_management.mes.invite_suc"),
+        })
+      } catch (e) {
+        message.error({
+          content: t("user_management.mes.change_role_fail"),
+        })
+      } finally {
+        setInviting(false)
+      }
+    },
+    [alreadyInvited, message, t, teamID],
+  )
+
   return (
-    <div css={inviteByEmailContainerStyle}>
+    <div css={inviteByEmailContainerStyle(inviting)}>
       <span css={inviteByEmailTitleStyle}>
         {t("user_management.modal.email.invite_title")}
       </span>
@@ -187,49 +212,25 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
           {currentBalance ?? 0}
         </div>
       </div>
-      {inviting ? (
+      <div css={inviteListContainerStyle}>
+        {alreadyInvited.map((user) => {
+          return (
+            <div key={user.email} css={avatarContainerStyle}>
+              <Avatar name={user.email} />
+              <div css={nicknameStyle}>{user.email}</div>
+              <RoleSelector
+                withoutTips
+                currentUserRole={currentUserRole}
+                value={user.userRole}
+                onClickItem={(item) => handleUserRoleChange(user, item)}
+              />
+            </div>
+          )
+        })}
+      </div>
+      {inviting && (
         <div css={loadingStyle}>
           <Loading colorScheme="techPurple" />
-        </div>
-      ) : (
-        <div css={inviteListContainerStyle}>
-          {alreadyInvited.map((user) => {
-            return (
-              <div key={user.email} css={avatarContainerStyle}>
-                <Avatar name={user.email} />
-                <div css={nicknameStyle}>{user.email}</div>
-                <RoleSelector
-                  withoutTips
-                  currentUserRole={currentUserRole}
-                  value={user.userRole}
-                  onClickItem={async (item) => {
-                    setInviting(true)
-                    try {
-                      await changeUserRoleByTeamMemberID(
-                        teamID,
-                        user.teamMemberID,
-                        item,
-                      )
-                      const index = alreadyInvited.findIndex(
-                        (u) => u.email === user.email,
-                      )
-                      if (index != -1) {
-                        const newAlreadyInvited = [...alreadyInvited]
-                        newAlreadyInvited[index].userRole = item
-                        setAlreadyInvited(newAlreadyInvited)
-                      }
-                    } catch (e) {
-                      message.error({
-                        content: "error",
-                      })
-                    } finally {
-                      setInviting(false)
-                    }
-                  }}
-                />
-              </div>
-            )
-          })}
         </div>
       )}
     </div>

@@ -127,3 +127,4 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
     </TriggerProvider>
   )
 }
+ShareAgentMobile.displayName = "ShareAgentMobile"

@@ -1,9 +1,11 @@
 import { SerializedStyles, css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
 
-export const inviteByEmailContainerStyle = css`
+export const inviteByEmailContainerStyle = (loading: boolean) => css`
   display: flex;
+  position: relative;
   flex-direction: column;
+  opacity: ${loading ? 0.5 : 1};
 `
 
 export const inviteByEmailTitleStyle = css`
@@ -77,9 +79,12 @@ export const emailInputStyle = css`
 `
 
 export const loadingStyle = css`
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 `
