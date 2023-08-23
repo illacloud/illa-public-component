@@ -11,6 +11,7 @@ import {
   useMergeValue,
   useMessage,
 } from "@illa-design/react"
+import { getMarketLinkTemplate, getPublicLinkTemplate } from "../../../utils"
 import { ShareBlockPC } from "../../ShareBlock/pc"
 import { AppPublicProps } from "../interface"
 import { makeAppContribute, updateAppPublicConfig } from "../service"
@@ -20,7 +21,6 @@ import {
   linkCopyContainer,
   publicContainerStyle,
 } from "./style"
-import { getMarketLinkTemplate, getPublicLinkTemplate } from "../../../utils"
 
 export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const {
@@ -62,7 +62,9 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
     <div css={publicContainerStyle}>
       {canManageApp && (
         <div css={blockContainerStyle}>
-          <div css={blockLabelStyle}>{t("user_management.modal.link.make_public_title")}</div>
+          <div css={blockLabelStyle}>
+            {t("user_management.modal.link.make_public_title")}
+          </div>
           <div
             style={{
               flexGrow: 1,
@@ -80,7 +82,9 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
                 onAppPublic?.(value)
               } catch (e) {
                 message.error({
-                  content: t("user_management.modal.message.make_public_failed"),
+                  content: t(
+                    "user_management.modal.message.make_public_failed",
+                  ),
                 })
                 setAppPublic(!value)
               } finally {
@@ -128,7 +132,9 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
       />
       {canManageApp && (
         <div css={blockContainerStyle}>
-          <div css={blockLabelStyle}>Contribute to marketplace</div>
+          <div css={blockLabelStyle}>
+            {t("user_management.modal.contribute.label")}
+          </div>
           <div
             style={{
               flexGrow: 1,
@@ -145,7 +151,9 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
                 onAppContribute?.(value)
               } catch (e) {
                 message.error({
-                  content: t("user_management.modal.message.make_public_failed"),
+                  content: t(
+                    "user_management.modal.message.make_public_failed",
+                  ),
                 })
                 setAppContribute(!value)
               } finally {
@@ -180,7 +188,9 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
               onCopyContributeLink?.(getMarketLinkTemplate(appID))
             }}
           >
-            {!marketLinkLoading ? t("user_management.modal.link.copy") : undefined}
+            {!marketLinkLoading
+              ? t("user_management.modal.link.copy")
+              : undefined}
           </Button>
         </div>
       )}
