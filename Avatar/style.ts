@@ -28,6 +28,7 @@ export function applyAvatarStyle(
     text-align: center;
     border-radius: 50%;
     overflow: hidden;
+    font-size: ${size / 2.5}px;
     ${statusStyle};
   `
 }
