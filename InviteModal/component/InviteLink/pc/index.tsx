@@ -230,7 +230,7 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
             onClick={() => {
               const newUrl = new URL(currentInviteLink)
               newUrl.searchParams.set("redirectUrl", redirectUrl)
-              onCopyInviteLink?.(currentInviteLink)
+              onCopyInviteLink?.(newUrl.href)
             }}
           >
             {!getLinkLoading ? t("user_management.modal.link.copy") : undefined}
