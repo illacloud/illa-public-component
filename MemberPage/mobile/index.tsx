@@ -1,4 +1,4 @@
-import { InviteMemberMobile } from "@illa-public/invite-modal/InviteMember/mobile"
+import { InviteMemberMobile } from "@illa-public/invite-modal"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import { UsageCard } from "@illa-public/usage-card"
 import {
@@ -21,6 +21,7 @@ import {
   mobileTitleStyle,
   usageCardContainerStyle,
 } from "./style"
+
 
 export const MobileMemberPage: FC = () => {
   const { t } = useTranslation()
@@ -99,9 +100,9 @@ export const MobileMemberPage: FC = () => {
       </Button>
       {inviteModalVisible && (
         <InviteMemberMobile
-          redirectUrl={`${
-            import.meta.env.ILLA_CLOUD_URL
-          }/workspace/${teamInfo?.identifier}`}
+          redirectUrl={`${import.meta.env.ILLA_CLOUD_URL}/workspace/${
+            teamInfo?.identifier
+          }`}
           onClose={() => setInviteModalVisible(false)}
           canInvite={enableInvite}
           currentUserRole={currentUserRole}

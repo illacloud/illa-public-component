@@ -1,4 +1,4 @@
-import { InviteMemberPC } from "@illa-public/invite-modal/InviteMember/pc"
+import { InviteMemberPC } from "@illa-public/invite-modal"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import {
   USER_ROLE,
@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Button } from "@illa-design/react"
 import { MoreAction } from "./moreAction"
 import { buttonGroup, headerWrapperStyle, titleStyle } from "./style"
+
 
 export const Header: FC = () => {
   const { t } = useTranslation()
@@ -67,9 +68,9 @@ export const Header: FC = () => {
       </div>
       {inviteModalVisible && (
         <InviteMemberPC
-          redirectUrl={`${
-            import.meta.env.ILLA_CLOUD_URL
-          }/workspace/${teamInfo?.identifier}`}
+          redirectUrl={`${import.meta.env.ILLA_CLOUD_URL}/workspace/${
+            teamInfo?.identifier
+          }`}
           onClose={() => setInviteModalVisible(false)}
           canInvite={enableInvite}
           currentUserRole={currentUserRole}
