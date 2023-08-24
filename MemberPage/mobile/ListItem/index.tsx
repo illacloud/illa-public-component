@@ -47,7 +47,12 @@ export const MobileMemberListItem: FC<ListItemProps> = (props) => {
           <span css={emailStyle}>{email}</span>
         </div>
       </div>
-      <RoleSelector value={userRole} currentUserRole={currentUserRole} />
+      <RoleSelector
+        value={userRole}
+        currentUserRole={currentUserRole}
+        showOwner
+        isSelf={currentUserID === userID}
+      />
     </div>
   )
 }

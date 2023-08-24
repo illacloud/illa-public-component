@@ -1,7 +1,8 @@
 import { InviteMemberMobile } from "@illa-public/invite-modal"
-import { useUpgradeModal } from "@illa-public/upgrade-modal"
+import { useUpgradeDrawer, useUpgradeModal } from "@illa-public/upgrade-modal"
 import { UsageCard } from "@illa-public/usage-card"
 import {
+  SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
   USER_ROLE,
   getCurrentTeamInfo,
@@ -22,7 +23,6 @@ import {
   usageCardContainerStyle,
 } from "./style"
 
-
 export const MobileMemberPage: FC = () => {
   const { t } = useTranslation()
   const currentTeamInfo = useSelector(getCurrentTeamInfo)!
@@ -33,6 +33,7 @@ export const MobileMemberPage: FC = () => {
   const currentUserRole = teamInfo?.myRole ?? USER_ROLE.VIEWER
   const copyToClipboard = useCopyToClipboard()
   const upgradeModal = useUpgradeModal()
+  const upgradeDrawer = useUpgradeDrawer()
 
   const enableInvite = canManageInvite(
     currentUserRole,
@@ -62,6 +63,24 @@ export const MobileMemberPage: FC = () => {
     teamInfo?.totalTeamLicense?.teamLicenseAllPaid,
     upgradeModal,
   ])
+  const currentTeamLicense = currentTeamInfo.currentTeamLicense
+  const openDrawer = () => {
+    upgradeDrawer({
+      defaultConfig: {
+        type: "license",
+        subscribeInfo: {
+          quantity: currentTeamLicense.cancelAtPeriodEnd
+            ? 1
+            : currentTeamLicense.volume,
+          cycle: currentTeamLicense.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
+          plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
+          currentPlan: currentTeamLicense.plan,
+          cancelAtPeriodEnd: currentTeamLicense?.cancelAtPeriodEnd,
+        },
+        // onSubscribeCallback: onSubscribe,
+      },
+    })
+  }
 
   return (
     <div css={mobileMemberContainerStyle}>
@@ -84,7 +103,7 @@ export const MobileMemberPage: FC = () => {
                 : t(`billing.license_price_new.monthly`, { price: "$20" })
             }
             isMobile
-            onClick={() => {}}
+            onClick={openDrawer}
           />
         </div>
       ) : null}
@@ -100,9 +119,9 @@ export const MobileMemberPage: FC = () => {
       </Button>
       {inviteModalVisible && (
         <InviteMemberMobile
-          redirectUrl={`${import.meta.env.ILLA_CLOUD_URL}/workspace/${
-            teamInfo?.identifier
-          }`}
+          redirectUrl={`${
+            import.meta.env.ILLA_CLOUD_URL
+          }/workspace/${teamInfo?.identifier}`}
           onClose={() => setInviteModalVisible(false)}
           canInvite={enableInvite}
           currentUserRole={currentUserRole}

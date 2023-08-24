@@ -140,6 +140,7 @@ export const PCMemberList: FC = () => {
                 handleChangeTeamMembersRole(value.teamMemberID, userRole)
               }}
               isSelf={value.teamMemberID === teamMemberID}
+              showOwner
             />
           )
         },

@@ -3,11 +3,15 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
-import { USER_ROLE, getCurrentTeamInfo } from "@illa-public/user-data"
+import {
+  USER_ROLE,
+  getCurrentTeamInfo,
+  teamActions,
+} from "@illa-public/user-data"
 import { isCloudVersion } from "@illa-public/utils"
-import { FC, MouseEvent, useCallback, useContext } from "react"
+import { FC, MouseEvent, useCallback, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import {
   Button,
   DropList,
@@ -46,6 +50,9 @@ export const MoreAction: FC = () => {
     allowEditorManageTeamMember,
     allowViewerManageTeamMember,
   } = currentTeamInfo.permission
+  const [allowInviteLoading, setAllowInviteLoading] = useState(false)
+  const [blockRegisterLoading, setBlockRegisterLoading] = useState(false)
+  const dispatch = useDispatch()
 
   const handleClickDeleteOrLeaveTeam = useCallback(() => {
     track?.(
@@ -119,19 +126,44 @@ export const MoreAction: FC = () => {
       "both",
     )
     try {
+      setAllowInviteLoading(true)
       await fetchUpdateTeamPermissionConfig(currentTeamID, {
         allowEditorManageTeamMember: value,
         allowViewerManageTeamMember: value,
       })
-    } catch (e) {}
+      dispatch(
+        teamActions.updateTeamMemberPermissionReducer({
+          teamID: currentTeamID,
+          newPermission: {
+            allowEditorManageTeamMember: value,
+            allowViewerManageTeamMember: value,
+          },
+        }),
+      )
+    } catch (e) {
+    } finally {
+      setAllowInviteLoading(false)
+    }
   }
 
   const handleChangeRegister = async (value: boolean) => {
+    setBlockRegisterLoading(true)
     try {
       await fetchUpdateTeamPermissionConfig(currentTeamID, {
         blockRegister: !value,
       })
-    } catch (e) {}
+      dispatch(
+        teamActions.updateTeamMemberPermissionReducer({
+          teamID: currentTeamID,
+          newPermission: {
+            blockRegister: !value,
+          },
+        }),
+      )
+    } catch (e) {
+    } finally {
+      setBlockRegisterLoading(false)
+    }
   }
 
   return (
@@ -183,6 +215,7 @@ export const MoreAction: FC = () => {
                     colorScheme="techPurple"
                     onClick={stopPropagation}
                     onChange={handleChangeInviteByEditor}
+                    disabled={allowInviteLoading}
                     checked={
                       allowEditorManageTeamMember && allowViewerManageTeamMember
                     }
@@ -209,6 +242,7 @@ export const MoreAction: FC = () => {
                       onClick={stopPropagation}
                       onChange={handleChangeRegister}
                       checked={!blockRegister}
+                      disabled={blockRegisterLoading}
                     />
                   </div>
                 </DropListItem>

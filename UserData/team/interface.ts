@@ -112,7 +112,7 @@ export interface UpdateTeamMemberUserRolePayload {
 
 export interface UpdateTeamMemberPermissionPayload {
   teamID: string
-  newPermission: TeamMemberPermission
+  newPermission: Partial<TeamMemberPermission>
 }
 
 export interface UpdateTeamSubscribePayload {

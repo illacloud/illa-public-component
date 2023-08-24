@@ -117,7 +117,10 @@ export const updateTeamMemberPermissionReducer: CaseReducer<
   const index =
     state.items?.findIndex((item) => item.id === action.payload.teamID) ?? -1
   if (state.items && index != -1) {
-    state.items[index].permission = action.payload.newPermission
+    state.items[index].permission = {
+      ...state.items[index].permission,
+      ...action.payload.newPermission,
+    }
   }
 }
 

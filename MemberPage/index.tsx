@@ -16,4 +16,3 @@ MemberListPage.displayName = "MemberList"
 
 export default MemberListPage
 export { PCMemberList } from "./pc/components/List"
-export { MobileMemberListItem } from "./mobile/ListItem"
