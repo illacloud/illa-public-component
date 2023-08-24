@@ -6,6 +6,7 @@ export interface InviteByEmailProps {
   teamID: string
   currentUserRole: USER_ROLE
   onBalanceChange: (balance: number) => void
+  redirectUrl: string
 }
 
 export interface InvitedUser {

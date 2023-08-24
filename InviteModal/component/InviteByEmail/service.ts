@@ -6,6 +6,7 @@ export const inviteByEmail = (
   teamID: string,
   email: string,
   userRole: USER_ROLE,
+  redirectUrl: string,
 ) => {
   return authCloudRequest<InvitedUser>(
     {
@@ -14,6 +15,7 @@ export const inviteByEmail = (
       data: {
         email: email,
         userRole: userRole,
+        redirectUrl: encodeURIComponent(redirectUrl),
       },
     },
     {

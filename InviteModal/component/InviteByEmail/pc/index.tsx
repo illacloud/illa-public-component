@@ -13,6 +13,7 @@ import {
   useMergeValue,
   useMessage,
 } from "@illa-design/react"
+import { EMAIL_FORMAT } from "../../../utils"
 import { InviteByEmailProps, InvitedUser } from "../interface"
 import { changeUserRoleByTeamMemberID, inviteByEmail } from "../service"
 import {
@@ -26,8 +27,6 @@ import {
   licenseLabelStyle,
   nicknameStyle,
 } from "./style"
-import { EMAIL_FORMAT } from "../../../utils"
-
 
 export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
   const {
@@ -35,6 +34,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
     defaultBalance,
     teamID,
     onBalanceChange,
+    redirectUrl,
     currentUserRole,
   } = props
 
@@ -126,6 +126,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
                   teamID,
                   currentValue[i],
                   inviteUserRole,
+                  redirectUrl,
                 )
                 const currentIndex = finalInviteUserList.findIndex(
                   (item) => item.email === currentValue[i],

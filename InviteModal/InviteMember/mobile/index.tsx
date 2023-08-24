@@ -48,6 +48,7 @@ export const InviteMemberMobile: FC<InviteMemberProps> = (props) => {
           />
           <Divider _css={dividerStyle} />
           <InviteByEmailMobile
+            redirectUrl={props.redirectUrl}
             defaultInviteUserRole={props.defaultInviteUserRole}
             teamID={props.teamID}
             currentUserRole={props.currentUserRole}

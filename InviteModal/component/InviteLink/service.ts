@@ -9,11 +9,14 @@ export interface InviteLinkResp {
 export const getInviteLink = (
   teamID: string,
   userRole: USER_ROLE,
+  redirectUrl: string,
   signal?: AbortSignal,
 ) => {
   return authCloudRequest<InviteLinkResp>(
     {
-      url: `/inviteLink/userRole/${userRole}`,
+      url: `/inviteLink/userRole/${userRole}?redirectUrl=${encodeURIComponent(
+        redirectUrl,
+      )}`,
       method: "GET",
       signal: signal,
     },
@@ -23,10 +26,16 @@ export const getInviteLink = (
   )
 }
 
-export const renewInviteLink = (teamID: string, userRole: USER_ROLE) => {
+export const renewInviteLink = (
+  teamID: string,
+  redirectUrl: string,
+  userRole: USER_ROLE,
+) => {
   return authCloudRequest<InviteLinkResp>(
     {
-      url: `/newInviteLink/userRole/${userRole}`,
+      url: `/newInviteLink/userRole/${userRole}?redirectUrl=${encodeURIComponent(
+        redirectUrl,
+      )}`,
       method: "GET",
     },
     {

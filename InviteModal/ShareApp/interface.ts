@@ -10,7 +10,6 @@ export interface ShareAppProps
     AppPublicProps {
   onClose: () => void
   canInvite: boolean
-  isDeployed: boolean
   onCopyEditInviteLink: (inviteLink: string) => void
   onCopyUseInviteLink: (inviteLink: string) => void
 }

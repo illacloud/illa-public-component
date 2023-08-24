@@ -53,6 +53,7 @@ export const InviteMemberPC: FC<InviteMemberProps> = (props) => {
           defaultBalance={props.defaultBalance}
         />
         <InviteByEmailPC
+          redirectUrl={props.redirectUrl}
           defaultInviteUserRole={props.defaultInviteUserRole}
           teamID={props.teamID}
           currentUserRole={props.currentUserRole}

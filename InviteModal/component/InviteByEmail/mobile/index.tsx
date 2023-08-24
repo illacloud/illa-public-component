@@ -30,6 +30,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
     defaultBalance,
     teamID,
     currentUserRole,
+    redirectUrl,
     onBalanceChange,
   } = props
 
@@ -92,6 +93,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
           teamID,
           currentValue,
           inviteUserRole,
+          redirectUrl,
         )
         const currentIndex = finalInviteUserList.findIndex(
           (item) => item.email === currentValue,
@@ -136,6 +138,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
       inviteUserRole,
       message,
       onBalanceChange,
+      redirectUrl,
       setCurrentBalance,
       t,
       teamID,

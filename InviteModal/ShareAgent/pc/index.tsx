@@ -107,6 +107,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
               onCopyInviteLink={props.onCopyInviteLink}
             />
             <InviteByEmailPC
+              redirectUrl={props.redirectUrl}
               onBalanceChange={props.onBalanceChange}
               defaultInviteUserRole={props.defaultInviteUserRole}
               teamID={props.teamID}

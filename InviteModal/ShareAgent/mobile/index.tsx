@@ -4,6 +4,7 @@ import {
   canManage,
 } from "@illa-public/user-role-utils"
 import { FC } from "react"
+import { useTranslation } from "react-i18next"
 import {
   CloseIcon,
   Divider,
@@ -25,7 +26,6 @@ import {
   tabTitleStyle,
   tabsContainerStyle,
 } from "./style"
-import { useTranslation } from "react-i18next"
 
 export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
   const { onClose } = props
@@ -64,7 +64,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                 css={tabTitleStyle(activeTab === ShareAgentTab.SHARE_WITH_TEAM)}
                 onClick={() => setActiveTab(ShareAgentTab.SHARE_WITH_TEAM)}
               >
-                {t('user_management.modal.tab.with_team')}
+                {t("user_management.modal.tab.with_team")}
               </div>
             )}
             {(canManage(
@@ -81,7 +81,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                   )}
                   onClick={() => setActiveTab(ShareAgentTab.TO_MARKETPLACE)}
                 >
-                  {t('user_management.modal.title.contribute')}
+                  {t("user_management.modal.title.contribute")}
                 </div>
               </>
             )}
@@ -119,6 +119,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                 teamID={props.teamID}
                 currentUserRole={props.currentUserRole}
                 defaultBalance={props.defaultBalance}
+                redirectUrl={props.redirectUrl}
               />
             </div>
           )}

@@ -47,16 +47,24 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
           {props.canInvite && (
             <TabPane title={t("new_share.title.invite_to_edit")} key="edit" />
           )}
-          <TabPane
-            title={t("user_management.modal.title.invite_to_use")}
-            key="use"
-          />
-          {isBiggerThanTargetRole(
+          {props.canInvite && (
+            <TabPane
+              title={t("user_management.modal.title.invite_to_use")}
+              key="use"
+            />
+          )}
+          {(isBiggerThanTargetRole(
             USER_ROLE.VIEWER,
             props.userRoleForThisApp,
             false,
-          ) &&
-            props.isDeployed && <TabPane title={t("user_management.modal.tab.public")} key="public" />}
+          ) ||
+            props.defaultAppContribute ||
+            props.defaultAppPublic) && (
+            <TabPane
+              title={t("user_management.modal.tab.public")}
+              key="public"
+            />
+          )}
         </Tabs>
         <div
           css={closeIconStyle}
@@ -81,6 +89,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
               onCopyInviteLink={props.onCopyEditInviteLink}
             />
             <InviteByEmailPC
+              redirectUrl={props.redirectUrl}
               onBalanceChange={props.onBalanceChange}
               defaultInviteUserRole={USER_ROLE.EDITOR}
               teamID={props.teamID}
@@ -102,6 +111,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
               onCopyInviteLink={props.onCopyUseInviteLink}
             />
             <InviteByEmailPC
+              redirectUrl={props.redirectUrl}
               onBalanceChange={props.onBalanceChange}
               defaultInviteUserRole={USER_ROLE.VIEWER}
               teamID={props.teamID}
