@@ -28,3 +28,19 @@ export const linkCopyContainer = css`
   overflow: hidden;
   align-items: center;
 `
+
+export const premiumContainerStyle = css`
+  align-items: center;
+  display: inline-flex;
+  margin-left: 8px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 1px 7px;
+  color: ${getColor("techPurple", "01")};
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
+  text-transform: capitalize;
+  background: ${getColor("techPurple", "07")};
+`

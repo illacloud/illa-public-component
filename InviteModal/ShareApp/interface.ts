@@ -10,6 +10,7 @@ export interface ShareAppProps
     AppPublicProps {
   onClose: () => void
   canInvite: boolean
+  defaultTab?: ShareAppPage
   onCopyEditInviteLink: (inviteLink: string) => void
   onCopyUseInviteLink: (inviteLink: string) => void
 }

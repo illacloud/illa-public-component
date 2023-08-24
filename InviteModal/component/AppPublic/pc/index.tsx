@@ -1,5 +1,8 @@
+import { UpgradeIcon } from "@illa-public/icon"
+import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
+import { isCloudVersion } from "@illa-public/utils"
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -19,8 +22,10 @@ import {
   blockContainerStyle,
   blockLabelStyle,
   linkCopyContainer,
+  premiumContainerStyle,
   publicContainerStyle,
 } from "./style"
+
 
 export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const {
@@ -30,6 +35,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
     userRoleForThisApp,
     defaultAppPublic,
     defaultAppContribute,
+    canUseBillingFeature,
     onAppPublic,
     onAppContribute,
     onCopyContributeLink,
@@ -58,6 +64,8 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
     false,
   )
 
+  const upgradeModal = useUpgradeModal()
+
   return (
     <div css={publicContainerStyle}>
       {canManageApp && (
@@ -65,6 +73,12 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
           <div css={blockLabelStyle}>
             {t("user_management.modal.link.make_public_title")}
           </div>
+          {!canUseBillingFeature && (
+            <div css={premiumContainerStyle}>
+              <UpgradeIcon />
+              <div style={{ marginLeft: 4 }}>Premium</div>
+            </div>
+          )}
           <div
             style={{
               flexGrow: 1,
@@ -75,6 +89,10 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             checked={appPublic}
             colorScheme={getColor("grayBlue", "02")}
             onChange={async (value) => {
+              if (isCloudVersion && !canUseBillingFeature) {
+                upgradeModal({ modalType: "upgrade" })
+                return
+              }
               setAppPublic(value)
               try {
                 setAppLinkLoading(true)

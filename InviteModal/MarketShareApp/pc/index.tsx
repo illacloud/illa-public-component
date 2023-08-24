@@ -9,7 +9,6 @@ import {
   headerContainerStyle,
 } from "./style"
 
-
 export const MarketShareAppPC: FC<MarketShareAppProps> = (props) => {
   const { t } = useTranslation()
 
@@ -43,6 +42,7 @@ export const MarketShareAppPC: FC<MarketShareAppProps> = (props) => {
       </div>
       <div css={contentContainerStyle}>
         <AppPublicPC
+          canUseBillingFeature={props.canUseBillingFeature}
           defaultAppPublic={props.defaultAppPublic}
           defaultAppContribute={props.defaultAppContribute}
           appID={props.appID}

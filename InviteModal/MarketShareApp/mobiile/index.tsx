@@ -9,6 +9,7 @@ import {
   inviteModalStyle,
 } from "./style"
 
+
 export const MarketShareAppMobile: FC<MarketShareAppProps> = (props) => {
   const { onClose } = props
 

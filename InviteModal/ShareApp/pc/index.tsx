@@ -1,6 +1,7 @@
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
-import { FC, useState } from "react"
+import { isCloudVersion } from "@illa-public/utils"
+import { FC, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { CloseIcon, Modal, TabPane, Tabs } from "@illa-design/react"
 import { AppPublicPC } from "../../component/AppPublic/pc"
@@ -14,11 +15,32 @@ import {
 } from "./style"
 
 export const ShareAppPC: FC<ShareAppProps> = (props) => {
-  const [activeTab, setActiveTab] = useState<ShareAppPage>(
+  let defTab = "use"
+
+  if (
+    props.canInvite &&
     isBiggerThanTargetRole(USER_ROLE.VIEWER, props.currentUserRole, false)
-      ? "edit"
-      : "use",
-  )
+  ) {
+    defTab = "edit"
+  } else if (props.canInvite && USER_ROLE.VIEWER === props.currentUserRole) {
+    defTab = "use"
+  } else if (
+    isBiggerThanTargetRole(USER_ROLE.VIEWER, props.currentUserRole) ||
+    props.defaultAppContribute ||
+    props.defaultAppPublic
+  ) {
+    defTab = "public"
+  }
+
+  const [activeTab, setActiveTab] = useState(props.defaultTab ?? defTab)
+
+  useEffect(() => {
+    if (props.defaultTab === undefined) {
+      return
+    } else {
+      setActiveTab(props.defaultTab)
+    }
+  }, [props.defaultTab])
 
   const { t } = useTranslation()
 
@@ -44,10 +66,16 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
             setActiveTab(activeKey as ShareAppPage)
           }}
         >
-          {props.canInvite && (
-            <TabPane title={t("new_share.title.invite_to_edit")} key="edit" />
-          )}
-          {props.canInvite && (
+          {props.canInvite &&
+            props.canUseBillingFeature &&
+            isBiggerThanTargetRole(
+              USER_ROLE.VIEWER,
+              props.currentUserRole,
+              false,
+            ) && (
+              <TabPane title={t("new_share.title.invite_to_edit")} key="edit" />
+            )}
+          {props.canInvite && props.canUseBillingFeature && (
             <TabPane
               title={t("user_management.modal.title.invite_to_use")}
               key="use"
@@ -76,7 +104,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
         </div>
       </div>
       <div css={contentContainerStyle}>
-        {activeTab === "edit" && props.canInvite && (
+        {activeTab === "edit" && props.canInvite && props.canUseBillingFeature && (
           <>
             <InviteLinkPC
               redirectUrl={props.redirectUrl}
@@ -98,7 +126,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
             />
           </>
         )}
-        {activeTab === "use" && (
+        {activeTab === "use" && props.canInvite && props.canUseBillingFeature && (
           <>
             <InviteLinkPC
               redirectUrl={props.redirectUrl}
@@ -120,8 +148,9 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
             />
           </>
         )}
-        {activeTab === "public" && (
+        {activeTab === "public" && isCloudVersion && (
           <AppPublicPC
+            canUseBillingFeature={props.canUseBillingFeature}
             defaultAppPublic={props.defaultAppPublic}
             defaultAppContribute={props.defaultAppContribute}
             appID={props.appID}
