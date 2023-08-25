@@ -37,7 +37,8 @@ export const InviteMemberMobile: FC<InviteMemberProps> = (props) => {
         </div>
         <div>
           <InviteLinkMobile
-            redirectUrl={props.redirectUrl}
+            excludeUserRole={[]}
+            redirectURL={props.redirectURL}
             defaultInviteUserRole={props.defaultInviteUserRole}
             defaultAllowInviteLink={props.defaultAllowInviteLink}
             teamID={props.teamID}
@@ -48,7 +49,8 @@ export const InviteMemberMobile: FC<InviteMemberProps> = (props) => {
           />
           <Divider _css={dividerStyle} />
           <InviteByEmailMobile
-            redirectUrl={props.redirectUrl}
+            excludeUserRole={[]}
+            redirectURL={props.redirectURL}
             defaultInviteUserRole={props.defaultInviteUserRole}
             teamID={props.teamID}
             currentUserRole={props.currentUserRole}

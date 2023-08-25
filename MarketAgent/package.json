@@ -1,11 +1,13 @@
 {
-  "name": "@illa-public/market-agent-card",
+  "name": "@illa-public/market-agent",
   "version": "0.0.0",
   "private": true,
   "main": "index.tsx",
   "dependencies": {
     "@illa-public/avatar": "workspace:*",
-    "@illa-public/utils": "workspace:*"
+    "@illa-public/utils": "workspace:*",
+    "@illa-public/illa-net": "workspace:*",
+    "@illa-public/record-editor": "workspace:*"
   },
   "devDependencies": {
     "tsconfig": "workspace:*"

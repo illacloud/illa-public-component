@@ -1,5 +1,5 @@
 import { publicMarketplaceRequest } from "@illa-public/illa-net"
-import { AppProductList, PRODUCT_SORT_BY, ProductListParams } from "./interface"
+import { AppProductResponse, PRODUCT_SORT_BY, ProductListParams } from "./interface"
 
 export const fetchAppList = (params: ProductListParams) => {
   const {
@@ -8,7 +8,7 @@ export const fetchAppList = (params: ProductListParams) => {
     sortedBy = PRODUCT_SORT_BY.POPULAR,
     search,
   } = params
-  return publicMarketplaceRequest<AppProductList>({
+  return publicMarketplaceRequest<AppProductResponse>({
     url: "/apps",
     method: "GET",
     params: {

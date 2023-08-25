@@ -250,7 +250,7 @@ export const attributeConfigList: AttributeConfigList = {
         [ACTION_MANAGE.EDIT_RESOURCE]: true,
       },
       [ATTRIBUTE_GROUP.AGENT]: {
-        [ACTION_MANAGE.FORK_AGENT]: true,
+        [ACTION_MANAGE.CREATE_AGENT]: true,
       },
       [ATTRIBUTE_GROUP.HUB]: {},
     },
@@ -294,7 +294,7 @@ export const attributeConfigList: AttributeConfigList = {
         [ACTION_MANAGE.EDIT_RESOURCE]: true,
       },
       [ATTRIBUTE_GROUP.AGENT]: {
-        [ACTION_MANAGE.FORK_AGENT]: true,
+        [ACTION_MANAGE.CREATE_AGENT]: true,
       },
       [ATTRIBUTE_GROUP.HUB]: {},
     },
@@ -316,7 +316,7 @@ export const attributeConfigList: AttributeConfigList = {
         [ACTION_MANAGE.EDIT_RESOURCE]: true,
       },
       [ATTRIBUTE_GROUP.AGENT]: {
-        [ACTION_MANAGE.FORK_AGENT]: true,
+        [ACTION_MANAGE.CREATE_AGENT]: true,
       },
       [ATTRIBUTE_GROUP.HUB]: {},
     },

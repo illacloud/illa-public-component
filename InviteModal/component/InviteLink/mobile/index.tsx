@@ -25,6 +25,7 @@ import {
 
 export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
   const {
+    excludeUserRole,
     defaultAllowInviteLink,
     defaultInviteUserRole,
     onInviteLinkStateChange,
@@ -32,7 +33,7 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
     currentUserRole,
     onCopyInviteLink,
     defaultBalance,
-    redirectUrl,
+    redirectURL,
   } = props
 
   const [inviteUserRole, setInviteUserRole] = useMergeValue(
@@ -70,7 +71,7 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
         const data = await getInviteLink(
           teamID,
           inviteUserRole,
-          redirectUrl,
+          redirectURL,
           controller.signal,
         )
         setCurrentInviteLink(data.data.inviteLink)
@@ -91,14 +92,14 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
     inviteUserRole,
     message,
     t,
-    redirectUrl,
+    redirectURL,
   ])
 
   const renewInviteLinkRequest = useCallback(
     async (teamID: string, userRole: USER_ROLE) => {
       setGetLinkLoading(true)
       try {
-        const data = await renewInviteLink(teamID, redirectUrl, userRole)
+        const data = await renewInviteLink(teamID, redirectURL, userRole)
         setCurrentInviteLink(data.data.inviteLink)
       } catch (e) {
         message.error({ content: t("user_management.modal.link.fail") })
@@ -107,7 +108,7 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
       }
       setInviteUserRole(userRole)
     },
-    [message, redirectUrl, setInviteUserRole, t],
+    [message, redirectURL, setInviteUserRole, t],
   )
 
   const enableInviteLinkRequest = useCallback(
@@ -155,6 +156,7 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
             <div css={roleSelectorStyle}>
               <RoleSelector
                 withoutTips
+                excludeUserRole={excludeUserRole}
                 currentUserRole={currentUserRole}
                 value={inviteUserRole}
                 onClickItem={async (role) => {
@@ -181,7 +183,7 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
               disabled={enableInviteLoading}
               onClick={() => {
                 const newUrl = new URL(currentInviteLink)
-                newUrl.searchParams.set("redirectUrl", redirectUrl)
+                newUrl.searchParams.set("redirectURL", redirectURL)
                 onCopyInviteLink?.(newUrl.href)
               }}
             >

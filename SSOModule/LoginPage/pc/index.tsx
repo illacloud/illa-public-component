@@ -20,8 +20,7 @@ import {
 import { EMAIL_FORMAT } from "../../constants/regExp"
 import { openOAuthUrl } from "../../constants/users"
 import { validateReport } from "../../utils/reportUtils"
-import { LoginFields } from "../interface"
-import { LoginPageProps } from "../interface"
+import { LoginFields, loginProps } from "../interface"
 import {
   descriptionStyle,
   errorIconStyle,
@@ -39,7 +38,7 @@ import {
   oAuthIconStyle,
 } from "./style"
 
-export const PCLogin: FC<LoginPageProps> = (props) => {
+export const PCLogin: FC<loginProps> = (props) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const {
@@ -51,6 +50,7 @@ export const PCLogin: FC<LoginPageProps> = (props) => {
     hideOAuth,
     hideRegister,
   } = props
+
   const { handleSubmit, control, formState, getValues, trigger } =
     useFormContext<LoginFields>()
   const { errors } = formState

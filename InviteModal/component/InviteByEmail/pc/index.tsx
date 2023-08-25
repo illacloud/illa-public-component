@@ -28,13 +28,15 @@ import {
   nicknameStyle,
 } from "./style"
 
+
 export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
   const {
+    excludeUserRole,
     defaultInviteUserRole,
     defaultBalance,
     teamID,
     onBalanceChange,
-    redirectUrl,
+    redirectURL,
     currentUserRole,
   } = props
 
@@ -93,6 +95,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
             <RoleSelector
               inline
               currentUserRole={currentUserRole}
+              excludeUserRole={excludeUserRole}
               value={inviteUserRole}
               onClickItem={async (role) => {
                 setInviteUserRole(role)
@@ -126,7 +129,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
                   teamID,
                   currentValue[i],
                   inviteUserRole,
-                  redirectUrl,
+                  redirectURL,
                 )
                 const currentIndex = finalInviteUserList.findIndex(
                   (item) => item.email === currentValue[i],

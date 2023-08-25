@@ -2,11 +2,12 @@ import { authCloudRequest } from "@illa-public/illa-net"
 import { USER_ROLE } from "@illa-public/user-data"
 import { InvitedUser } from "./interface"
 
+
 export const inviteByEmail = (
   teamID: string,
   email: string,
   userRole: USER_ROLE,
-  redirectUrl: string,
+  redirectURL: string,
 ) => {
   return authCloudRequest<InvitedUser>(
     {
@@ -15,7 +16,7 @@ export const inviteByEmail = (
       data: {
         email: email,
         userRole: userRole,
-        redirectUrl: encodeURIComponent(redirectUrl),
+        redirectURL: encodeURIComponent(redirectURL),
       },
     },
     {

@@ -23,6 +23,7 @@ import {
   usageCardContainerStyle,
 } from "./style"
 
+
 export const MobileMemberPage: FC = () => {
   const { t } = useTranslation()
   const currentTeamInfo = useSelector(getCurrentTeamInfo)!
@@ -119,9 +120,9 @@ export const MobileMemberPage: FC = () => {
       </Button>
       {inviteModalVisible && (
         <InviteMemberMobile
-          redirectUrl={`${
-            import.meta.env.ILLA_CLOUD_URL
-          }/workspace/${teamInfo?.identifier}`}
+          redirectURL={`${import.meta.env.ILLA_CLOUD_URL}/workspace/${
+            teamInfo?.identifier
+          }`}
           onClose={() => setInviteModalVisible(false)}
           canInvite={enableInvite}
           currentUserRole={currentUserRole}

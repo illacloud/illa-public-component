@@ -68,7 +68,7 @@ export const Header: FC = () => {
       </div>
       {inviteModalVisible && (
         <InviteMemberPC
-          redirectUrl={`${import.meta.env.ILLA_CLOUD_URL}/workspace/${
+          redirectURL={`${import.meta.env.ILLA_CLOUD_URL}/workspace/${
             teamInfo?.identifier
           }`}
           onClose={() => setInviteModalVisible(false)}

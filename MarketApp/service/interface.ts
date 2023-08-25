@@ -8,28 +8,24 @@ export interface Editor {
 export interface ProductAppDetail {
   appID: string
   name: string
-  publishedToMarketplace: boolean
+  publishedToMarketplace?: boolean
   description: string
   editedBy: Editor[]
 }
 
 export interface ContributorTeam {
   teamID: string
+  teamIdentifier: string
   icon: string
   name: string
 }
 
 export interface MarketplaceInfo {
-  marketplaceID: string
+  marketplaceID?: string
   numStars: number
   numForks: number
-  numRuns: number
   isStarredByCurrentUser?: boolean
   contributorTeam: ContributorTeam
-  createdBy: string
-  createdAt: string
-  updatedBy: string
-  updatedAt: string
 }
 
 export interface ProductMarketApp {
@@ -43,7 +39,7 @@ export enum PRODUCT_SORT_BY {
   STARRED = "starred",
 }
 
-export interface AppProductList {
+export interface AppProductResponse {
   products: ProductMarketApp[]
   total: number
   pageSize: number

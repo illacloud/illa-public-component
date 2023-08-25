@@ -1,6 +1,6 @@
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
-import { FC, useState } from "react"
+import { FC, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   DoubtIcon,
@@ -32,6 +32,7 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
     currentUserRole,
     isSelf,
     inline,
+    excludeUserRole,
   } = props
 
   const [menuVisible, setMenuVisible] = useState(false)
@@ -41,34 +42,42 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
 
   const { t } = useTranslation()
 
-  let userRoleItems: UserRoleItem[] = showOwner
-    ? [
-        {
-          role: USER_ROLE.OWNER,
-          tips: t("user_management.role.tips.owner"),
-          name: t("user_management.role.owner"),
-        },
-      ]
-    : []
+  const finalUserRole = useMemo(() => {
+    let userRoleItems: UserRoleItem[] = showOwner
+      ? [
+          {
+            role: USER_ROLE.OWNER,
+            tips: t("user_management.role.tips.owner"),
+            name: t("user_management.role.owner"),
+          },
+        ]
+      : []
 
-  userRoleItems = [
-    ...userRoleItems,
-    {
-      role: USER_ROLE.ADMIN,
-      tips: t("user_management.role.tips.admin"),
-      name: t("user_management.role.admin"),
-    },
-    {
-      role: USER_ROLE.EDITOR,
-      tips: t("user_management.role.tips.editor"),
-      name: t("user_management.role.editor"),
-    },
-    {
-      role: USER_ROLE.VIEWER,
-      tips: t("user_management.role.tips.viewer"),
-      name: t("user_management.role.viewer"),
-    },
-  ]
+    userRoleItems = [
+      ...userRoleItems,
+      {
+        role: USER_ROLE.ADMIN,
+        tips: t("user_management.role.tips.admin"),
+        name: t("user_management.role.admin"),
+      },
+      {
+        role: USER_ROLE.EDITOR,
+        tips: t("user_management.role.tips.editor"),
+        name: t("user_management.role.editor"),
+      },
+      {
+        role: USER_ROLE.VIEWER,
+        tips: t("user_management.role.tips.viewer"),
+        name: t("user_management.role.viewer"),
+      },
+    ]
+
+    return userRoleItems.filter(
+      (i) =>
+        !excludeUserRole?.includes(i.role) &&
+        isBiggerThanTargetRole(i.role, currentUserRole),
+    )
+  }, [currentUserRole, excludeUserRole, showOwner, t])
 
   return (
     <Dropdown
@@ -82,37 +91,35 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
             onClickItem?.(value as USER_ROLE)
           }}
         >
-          {userRoleItems
-            .filter((i) => isBiggerThanTargetRole(i.role, currentUserRole))
-            .map((item) => (
-              <DropListItem
-                value={item.role}
-                title={
-                  <div css={itemContainer}>
-                    <div>{item.name}</div>
-                    {!withoutTips && (
-                      <TriggerProvider zIndex={1000}>
-                        <Trigger
-                          trigger="hover"
-                          position="top"
-                          content={item.tips}
-                        >
-                          <div css={doubtStyle}>
-                            <DoubtIcon />
-                          </div>
-                        </Trigger>
-                      </TriggerProvider>
-                    )}
-                    {value === item.role && (
-                      <div css={successStyle}>
-                        <SuccessIcon />
-                      </div>
-                    )}
-                  </div>
-                }
-                key={item.role}
-              />
-            ))}
+          {finalUserRole.map((item) => (
+            <DropListItem
+              value={item.role}
+              title={
+                <div css={itemContainer}>
+                  <div>{item.name}</div>
+                  {!withoutTips && (
+                    <TriggerProvider zIndex={1000}>
+                      <Trigger
+                        trigger="hover"
+                        position="top"
+                        content={item.tips}
+                      >
+                        <div css={doubtStyle}>
+                          <DoubtIcon />
+                        </div>
+                      </Trigger>
+                    </TriggerProvider>
+                  )}
+                  {value === item.role && (
+                    <div css={successStyle}>
+                      <SuccessIcon />
+                    </div>
+                  )}
+                </div>
+              }
+              key={item.role}
+            />
+          ))}
         </DropList>
       }
       position="bottom-end"
@@ -120,7 +127,7 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
     >
       <div css={roleSelectorRoleContainer}>
         <div css={applyRoleOuterLabelStyle(inline)}>
-          {userRoleItems.find((item) => item.role === value)?.name}
+          {finalUserRole.find((item) => item.role === value)?.name}
         </div>
         {canEdit && (
           <div css={roleOuterIconStyle}>

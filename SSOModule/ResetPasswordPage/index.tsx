@@ -1,6 +1,7 @@
 import { LayoutAutoChange } from "@illa-public/layout-auto-change"
 import { FC, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
+import { useParams, useSearchParams } from "react-router-dom"
 import { UserLayout } from "../layout/desktopLayout"
 import { MobileUserLayout } from "../layout/mobileLayout"
 import { ResetPasswordPageProps, ResetPwdFields } from "./interface"
@@ -9,10 +10,15 @@ import { PCReset } from "./pc"
 
 export const ResetPasswordPage: FC<ResetPasswordPageProps> = (props) => {
   const [showCountDown, setShowCountDown] = useState(false)
+  const { email } = useParams()
+  let [searchParams] = useSearchParams()
 
   const formProps = useForm<ResetPwdFields>({
     mode: "onSubmit",
     criteriaMode: "firstError",
+    defaultValues: {
+      email: email ?? searchParams.get("email") ?? "",
+    },
   })
   return (
     <FormProvider {...formProps}>
@@ -21,6 +27,7 @@ export const ResetPasswordPage: FC<ResetPasswordPageProps> = (props) => {
           <UserLayout>
             <PCReset
               {...props}
+              lockedEmail={email ?? searchParams.get("email") ?? ""}
               showCountDown={showCountDown}
               onCountDownChange={setShowCountDown}
             />
@@ -30,6 +37,7 @@ export const ResetPasswordPage: FC<ResetPasswordPageProps> = (props) => {
           <MobileUserLayout>
             <MobileReset
               {...props}
+              lockedEmail={email ?? searchParams.get("email") ?? ""}
               showCountDown={showCountDown}
               onCountDownChange={setShowCountDown}
             />

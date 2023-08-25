@@ -14,4 +14,5 @@ export interface RoleSelectorProps {
   inline?: boolean
   showOwner?: boolean
   withoutTips?: boolean
+  excludeUserRole?: USER_ROLE[]
 }

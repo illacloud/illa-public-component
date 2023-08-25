@@ -16,11 +16,11 @@ export interface RegisterPageProps {
   oAuthURI?: OAuthURI
   errorMsg: RegisterErrorMsg
   onSubmit: SubmitHandler<RegisterFields>
-  sendEmail: (email: string) => Promise<string>
-  lockedEmail?: string | null
+  sendEmail: (email: string) => void
 }
 
 export interface RegisterProps extends RegisterPageProps {
   showCountDown: boolean
+  lockedEmail?: string | null
   onCountDownChange: (showCountDown: boolean) => void
 }
