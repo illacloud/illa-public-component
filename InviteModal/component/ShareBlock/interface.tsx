@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 import { ReactComponent as FacebookIcon } from "../../asset/Facebook.svg"
-import { ReactComponent as LinkedInIcon } from "../../asset/LinkedIn.svg"
+import { ReactComponent as LinkedInIcon } from "../../asset/Linkedin.svg"
 import { ReactComponent as RedditIcon } from "../../asset/Reddit.svg"
 import { ReactComponent as WhatsAppIcon } from "../../asset/Whatsapp.svg"
 import { ReactComponent as XIcon } from "../../asset/X.svg"
