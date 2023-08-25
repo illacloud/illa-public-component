@@ -1,21 +1,9 @@
-export enum USER_ROLE {
-  "GUEST" = -1,
-  "OWNER" = 1,
-  "ADMIN",
-  "EDITOR",
-  "VIEWER",
-  "CUSTOM",
-}
+import { USER_ROLE } from "@illa-public/user-data"
 
 export type ValidUserRole = Extract<
   USER_ROLE,
   USER_ROLE.OWNER | USER_ROLE.ADMIN | USER_ROLE.EDITOR | USER_ROLE.VIEWER
 >
-
-export enum USER_STATUS {
-  "OK" = 1,
-  "PENDING" = 2,
-}
 
 export enum ATTRIBUTE_GROUP {
   TEAM = 1, // cloud team

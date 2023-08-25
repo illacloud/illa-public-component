@@ -1,0 +1,12 @@
+{
+  "name": "@illa-public/user-role-utils",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "dependencies": {
+    "@illa-public/user-data": "workspace:*"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*"
+  }
+}

@@ -1,6 +1,6 @@
 import { css } from "@emotion/react"
+import { pxToRem } from "@illa-public/utils"
 import { getColor } from "@illa-design/react"
-import { pxToRem } from "@/style"
 
 export const usageCardStyle = css`
   width: 100%;

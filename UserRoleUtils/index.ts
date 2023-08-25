@@ -1,4 +1,4 @@
-import { SUBSCRIBE_PLAN } from "@/illa-public-component/MemberList/interface"
+import { SUBSCRIBE_PLAN, USER_ROLE } from "@illa-public/user-data"
 import {
   ACTION_ACCESS,
   ACTION_DELETE,
@@ -6,8 +6,9 @@ import {
   ACTION_SPECIAL,
   ATTRIBUTE_CATEGORY,
   ATTRIBUTE_GROUP,
-  USER_ROLE,
 } from "./interface"
+
+export * from "./interface"
 
 export const USER_ROLE_ARRAY = [
   USER_ROLE.OWNER,
@@ -490,7 +491,7 @@ export const doesNowUserAreEditorOrViewer = (userRole: USER_ROLE) => {
   return userRole === USER_ROLE.EDITOR || userRole === USER_ROLE.VIEWER
 }
 
-export const canManageApp = (
+export const canManageInvite = (
   currentUserRole: USER_ROLE,
   allowEditorManageTeamMember?: boolean,
   allowViewerManageTeamMember?: boolean,
