@@ -19,6 +19,7 @@ import {
 
 export const RecordEditor: FC<RecordEditorProps> = (props) => {
   const {
+    readOnly,
     fillOnly,
     name,
     records,
@@ -53,7 +54,7 @@ export const RecordEditor: FC<RecordEditorProps> = (props) => {
                 colorScheme={"techPurple"}
                 height="32px"
                 value={record.key}
-                readOnly={fillOnly}
+                readOnly={fillOnly || readOnly}
                 minW="160px"
                 width="0"
                 flexGrow="1"
@@ -66,8 +67,9 @@ export const RecordEditor: FC<RecordEditorProps> = (props) => {
               <Input
                 colorScheme={"techPurple"}
                 height="32px"
-                bdRadius={fillOnly ? "0 8px 8px 0" : "0"}
+                bdRadius={(fillOnly || readOnly) ? "0 8px 8px 0" : "0"}
                 ml="-1px"
+                readOnly={readOnly}
                 placeholder="value"
                 minW="160px"
                 width="0"
@@ -77,7 +79,7 @@ export const RecordEditor: FC<RecordEditorProps> = (props) => {
                   onChangeValue?.(index, record.key, value.trim(), name)
                 }}
               />
-              {!fillOnly && (
+              {!(fillOnly || readOnly) && (
                 <Button
                   type="button"
                   ml="-1px"
@@ -94,7 +96,7 @@ export const RecordEditor: FC<RecordEditorProps> = (props) => {
             </div>
           )
         })}
-        {!fillOnly && (
+        {!(fillOnly || readOnly) && (
           <span>
             <Button
               type="button"

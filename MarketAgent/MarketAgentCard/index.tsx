@@ -19,8 +19,6 @@ import {
   titleInfoStyle,
 } from "./style"
 
-export const CARD_GUTTER_SIZE = 24
-
 export const MarketAgentCard: FC<MarketAgentCardProps> = (props) => {
   const { t } = useTranslation()
   const { marketAIAgent, ...rest } = props
