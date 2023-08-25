@@ -1,6 +1,9 @@
 import { TextLink } from "@illa-public/text-link"
-import { getCurrentId } from "@illa-public/user-data"
-import { SUBSCRIBE_PLAN, SUBSCRIPTION_CYCLE } from "@illa-public/user-data"
+import {
+  SUBSCRIBE_PLAN,
+  SUBSCRIPTION_CYCLE,
+  getCurrentId,
+} from "@illa-public/user-data"
 import { isMobileByWindowSize } from "@illa-public/utils"
 import { FC, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
