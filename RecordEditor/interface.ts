@@ -4,7 +4,7 @@ export interface Params {
   [key: string]: string
 }
 export interface RecordEditorProps {
-  readOnly: boolean
+  readOnly?: boolean
   label: string
   subLabel?: string
   onSubLabelClick?: () => void
