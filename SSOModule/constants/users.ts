@@ -10,8 +10,8 @@ export const openOAuthUrl = (url?: string) => {
   window.open(url, "_self")
 }
 
-export const openGithubOAuthUrl = (redirectUrl?: string) => {
-  const url = `${GITHUB_AUTHORIZE_URL}&redirect_uri=${redirectUrl}`
+export const openGithubOAuthUrl = (redirectURL?: string) => {
+  const url = `${GITHUB_AUTHORIZE_URL}&redirect_uri=${redirectURL}`
   window.open(url, "_self")
 }
 

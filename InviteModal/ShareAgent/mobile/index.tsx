@@ -70,7 +70,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
             {(canManage(
               props.currentUserRole,
               ATTRIBUTE_GROUP.AGENT,
-              ACTION_MANAGE.FORK_AGENT,
+              ACTION_MANAGE.CREATE_AGENT,
             ) ||
               props.defaultAgentContributed) && (
               <>
@@ -103,7 +103,8 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
           {activeTab === ShareAgentTab.SHARE_WITH_TEAM && (
             <div>
               <InviteLinkMobile
-                redirectUrl={props.redirectUrl}
+                excludeUserRole={[]}
+                redirectURL={props.redirectURL}
                 defaultBalance={props.defaultBalance}
                 defaultInviteUserRole={props.defaultInviteUserRole}
                 defaultAllowInviteLink={props.defaultAllowInviteLink}
@@ -114,12 +115,13 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
               />
               <Divider _css={dividerStyle} />
               <InviteByEmailMobile
+                excludeUserRole={[]}
                 onBalanceChange={props.onBalanceChange}
                 defaultInviteUserRole={props.defaultInviteUserRole}
                 teamID={props.teamID}
                 currentUserRole={props.currentUserRole}
                 defaultBalance={props.defaultBalance}
-                redirectUrl={props.redirectUrl}
+                redirectURL={props.redirectURL}
               />
             </div>
           )}

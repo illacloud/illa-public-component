@@ -63,7 +63,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
           {(canManage(
             props.currentUserRole,
             ATTRIBUTE_GROUP.AGENT,
-            ACTION_MANAGE.FORK_AGENT,
+            ACTION_MANAGE.CREATE_AGENT,
           ) ||
             props.defaultAgentContributed) && (
             <TabPane
@@ -97,7 +97,8 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
         {activeTab === ShareAgentTab.SHARE_WITH_TEAM && (
           <>
             <InviteLinkPC
-              redirectUrl={props.redirectUrl}
+              excludeUserRole={[]}
+              redirectURL={props.redirectURL}
               defaultBalance={props.defaultBalance}
               defaultInviteUserRole={props.defaultInviteUserRole}
               defaultAllowInviteLink={props.defaultAllowInviteLink}
@@ -107,7 +108,8 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
               onCopyInviteLink={props.onCopyInviteLink}
             />
             <InviteByEmailPC
-              redirectUrl={props.redirectUrl}
+              excludeUserRole={[]}
+              redirectURL={props.redirectURL}
               onBalanceChange={props.onBalanceChange}
               defaultInviteUserRole={props.defaultInviteUserRole}
               teamID={props.teamID}

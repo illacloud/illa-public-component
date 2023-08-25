@@ -4,8 +4,8 @@ import { InviteLinkProps } from "../component/InviteLink/interface"
 
 
 export interface ShareAgentProps
-  extends InviteByEmailProps,
-    InviteLinkProps,
+  extends Omit<InviteByEmailProps, "excludeUserRole">,
+    Omit<InviteLinkProps, "excludeUserRole">,
     AgentToMarketplaceProps {
   onClose: () => void
   canInvite: boolean

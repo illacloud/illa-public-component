@@ -75,7 +75,7 @@ export enum ACTION_MANAGE {
   // App config
   APP_WATER_MARK_CONFIG, // 移除 App 水印
   // Agent Config
-  FORK_AGENT, // fork agent
+  CREATE_AGENT, // fork agent
 }
 
 export enum ACTION_DELETE {

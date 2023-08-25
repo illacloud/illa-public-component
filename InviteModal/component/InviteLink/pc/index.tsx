@@ -35,13 +35,14 @@ import {
 
 export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
   const {
+    excludeUserRole,
     defaultAllowInviteLink,
     defaultInviteUserRole,
     onInviteLinkStateChange,
     teamID,
     currentUserRole,
     onCopyInviteLink,
-    redirectUrl,
+    redirectURL,
     defaultBalance,
   } = props
 
@@ -79,7 +80,7 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
         const data = await getInviteLink(
           teamID,
           inviteUserRole,
-          redirectUrl,
+          redirectURL,
           controller.signal,
         )
         setCurrentInviteLink(data.data.inviteLink)
@@ -102,14 +103,14 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
     inviteUserRole,
     message,
     t,
-    redirectUrl,
+    redirectURL,
   ])
 
   const renewInviteLinkRequest = useCallback(
     async (teamID: string, userRole: USER_ROLE) => {
       setGetLinkLoading(true)
       try {
-        const data = await renewInviteLink(teamID, redirectUrl, userRole)
+        const data = await renewInviteLink(teamID, redirectURL, userRole)
         setCurrentInviteLink(data.data.inviteLink)
       } catch (e) {
         message.error({
@@ -120,7 +121,7 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
       }
       setInviteUserRole(userRole)
     },
-    [message, redirectUrl, setInviteUserRole, t],
+    [message, redirectURL, setInviteUserRole, t],
   )
 
   const enableInviteLinkRequest = useCallback(
@@ -215,6 +216,7 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
               <RoleSelector
                 inline
                 currentUserRole={currentUserRole}
+                excludeUserRole={excludeUserRole}
                 value={inviteUserRole}
                 onClickItem={async (role) => {
                   if (
@@ -238,7 +240,7 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
             loading={getLinkLoading}
             onClick={() => {
               const newUrl = new URL(currentInviteLink)
-              newUrl.searchParams.set("redirectUrl", redirectUrl)
+              newUrl.searchParams.set("redirectURL", redirectURL)
               onCopyInviteLink?.(newUrl.href)
             }}
           >

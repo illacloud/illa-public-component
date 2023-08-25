@@ -2,7 +2,6 @@ import { css } from "@emotion/react"
 import { applyMobileStyle } from "@illa-public/utils"
 import { getColor } from "@illa-design/react"
 
-export const agent_card_width = 384
 export const market_agent_card_height = 188
 
 export const cardStyle = css`
