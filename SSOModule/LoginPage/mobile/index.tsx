@@ -14,7 +14,7 @@ import { Button, Input, Password } from "@illa-design/react"
 import { EMAIL_FORMAT } from "../../constants/regExp"
 import { openOAuthUrl } from "../../constants/users"
 import { validateReport } from "../../utils/reportUtils"
-import { LoginFields, LoginPageProps } from "../interface"
+import { LoginFields, loginProps } from "../interface"
 import {
   descriptionStyle,
   errorMsgStyle,
@@ -31,7 +31,7 @@ import {
   submitButtonStyle,
 } from "./style"
 
-export const MobileLogin: FC<LoginPageProps> = (props) => {
+export const MobileLogin: FC<loginProps> = (props) => {
   const {
     onSubmit,
     errorMsg,

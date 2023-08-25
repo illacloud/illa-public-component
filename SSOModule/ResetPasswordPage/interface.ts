@@ -9,6 +9,8 @@ export interface ResetPwdFields {
 export type ResetPwdErrorMsg = Partial<Record<keyof ResetPwdFields, string>>
 
 export interface ResetPasswordPageProps {
+  resetLabel?: string
+  hideNav?: boolean
   loading: boolean
   errorMsg: ResetPwdErrorMsg
   onSubmit: SubmitHandler<ResetPwdFields>
@@ -16,10 +18,8 @@ export interface ResetPasswordPageProps {
 }
 
 export interface ResetProps extends ResetPasswordPageProps {
-  resetLabel?: string
-  lockedEmail?: string | null
-  hideNav?: boolean
   showCountDown: boolean
   onCountDownChange: (showCountDown: boolean) => void
   validEventReport?: () => void
+  lockedEmail?: string | null
 }

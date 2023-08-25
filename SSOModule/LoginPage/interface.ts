@@ -14,6 +14,16 @@ export interface LoginPageProps {
   oAuthURI?: OAuthURI
   hideOAuth?: boolean
   hideRegister?: boolean
-  lockedEmail?: string | null
   onSubmit: SubmitHandler<LoginFields>
+}
+
+// onSubmit,
+//   errorMsg,
+//   loading,
+//   oAuthURI,
+//   lockedEmail,
+//   hideOAuth,
+//   hideRegister,
+export interface loginProps extends LoginPageProps {
+  lockedEmail?: string | null
 }
