@@ -1,4 +1,5 @@
 import { AuthShown, SHOW_RULES } from "@illa-public/auth-shown"
+import { ERROR_FLAG, isILLAAPiError } from "@illa-public/illa-net"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
@@ -102,7 +103,25 @@ export const MoreAction: FC = () => {
             "team_id",
           )
           location.href = "/"
-        } catch (e) {}
+        } catch (e) {
+          if (isILLAAPiError(e)) {
+            switch (e.data.errorFlag) {
+              case ERROR_FLAG.ERROR_FLAG_CAN_NOT_REMOVE_TEAM_MEMBER_BECAUSE_APPSUMO_BUYER:
+                message.error({
+                  content: t("billing.message.appsumo.leave"),
+                })
+                break
+              case ERROR_FLAG.ERROR_FLAG_CAN_NOT_REMOVE_OWNER_FROM_TEAM:
+                location.reload()
+                break
+              default:
+                message.error({
+                  content: t("team_setting.mes.leave_fail"),
+                })
+                break
+            }
+          }
+        }
       },
       onCancel: () => {
         track?.(
