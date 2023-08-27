@@ -23,6 +23,7 @@ import {
   usageCardContainerStyle,
 } from "./style"
 
+
 export const MobileMemberPage: FC = () => {
   const { t } = useTranslation()
   const currentTeamInfo = useSelector(getCurrentTeamInfo)!
@@ -52,16 +53,13 @@ export const MobileMemberPage: FC = () => {
     } else if (teamInfo?.totalTeamLicense.balance < 0) {
       upgradeModal({
         modalType: "add-license",
-        canPay: hasPaymentManagementPermission,
       })
     } else {
       upgradeModal({
         modalType: "upgrade",
-        canPay: hasPaymentManagementPermission,
       })
     }
   }, [
-    hasPaymentManagementPermission,
     teamInfo?.totalTeamLicense.balance,
     teamInfo?.totalTeamLicense?.teamLicenseAllPaid,
     upgradeModal,
@@ -122,16 +120,15 @@ export const MobileMemberPage: FC = () => {
       </Button>
       {inviteModalVisible && (
         <InviteMemberMobile
-          redirectURL={`${
-            import.meta.env.ILLA_CLOUD_URL
-          }/workspace/${teamInfo?.identifier}`}
+          redirectURL={`${import.meta.env.ILLA_CLOUD_URL}/workspace/${
+            teamInfo?.identifier
+          }`}
           onClose={() => setInviteModalVisible(false)}
           canInvite={enableInvite}
           currentUserRole={currentUserRole}
           defaultAllowInviteLink={teamInfo.permission.inviteLinkEnabled}
           defaultInviteUserRole={USER_ROLE.VIEWER}
           defaultBalance={teamInfo.currentTeamLicense.balance}
-          hasPaymentManagementPermission={hasPaymentManagementPermission}
           onCopyInviteLink={(inviteLink) => {
             copyToClipboard(
               t("user_management.modal.custom_copy_text", {

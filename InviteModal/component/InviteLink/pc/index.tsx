@@ -38,7 +38,6 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
     excludeUserRole,
     defaultAllowInviteLink,
     defaultInviteUserRole,
-    hasPaymentManagementPermission,
     onInviteLinkStateChange,
     teamID,
     currentUserRole,
@@ -226,7 +225,6 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
                   ) {
                     upgradeModal({
                       modalType: "upgrade",
-                      canPay: hasPaymentManagementPermission,
                     })
                   } else {
                     await renewInviteLinkRequest(teamID, role)

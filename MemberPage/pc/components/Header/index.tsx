@@ -6,7 +6,7 @@ import {
   getCurrentUser,
   teamActions,
 } from "@illa-public/user-data"
-import { canManageInvite, canManagePayment } from "@illa-public/user-role-utils"
+import { canManageInvite } from "@illa-public/user-role-utils"
 import { isCloudVersion, useCopyToClipboard } from "@illa-public/utils"
 import { FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Button } from "@illa-design/react"
 import { MoreAction } from "./moreAction"
 import { buttonGroup, headerWrapperStyle, titleStyle } from "./style"
+
 
 export const Header: FC = () => {
   const { t } = useTranslation()
@@ -31,27 +32,19 @@ export const Header: FC = () => {
     teamInfo?.permission?.allowViewerManageTeamMember,
   )
 
-  const hasPaymentManagementPermission = canManagePayment(
-    teamInfo.myRole,
-    teamInfo.totalTeamLicense.teamLicenseAllPaid,
-  )
-
   const handleClickInviteButton = useCallback(() => {
     if (!isCloudVersion || teamInfo?.totalTeamLicense?.teamLicenseAllPaid) {
       setInviteModalVisible(true)
     } else if (teamInfo?.totalTeamLicense.balance < 0) {
       upgradeModal({
         modalType: "add-license",
-        canPay: hasPaymentManagementPermission,
       })
     } else {
       upgradeModal({
         modalType: "upgrade",
-        canPay: hasPaymentManagementPermission,
       })
     }
   }, [
-    hasPaymentManagementPermission,
     teamInfo?.totalTeamLicense.balance,
     teamInfo?.totalTeamLicense?.teamLicenseAllPaid,
     upgradeModal,
@@ -75,16 +68,15 @@ export const Header: FC = () => {
       </div>
       {inviteModalVisible && (
         <InviteMemberPC
-          redirectURL={`${
-            import.meta.env.ILLA_CLOUD_URL
-          }/workspace/${teamInfo?.identifier}`}
+          redirectURL={`${import.meta.env.ILLA_CLOUD_URL}/workspace/${
+            teamInfo?.identifier
+          }`}
           onClose={() => setInviteModalVisible(false)}
           canInvite={enableInvite}
           currentUserRole={currentUserRole}
           defaultAllowInviteLink={teamInfo.permission.inviteLinkEnabled}
           defaultInviteUserRole={USER_ROLE.VIEWER}
           defaultBalance={teamInfo.currentTeamLicense.balance}
-          hasPaymentManagementPermission={hasPaymentManagementPermission}
           onCopyInviteLink={(inviteLink) => {
             copyToClipboard(
               t("user_management.modal.custom_copy_text", {

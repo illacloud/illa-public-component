@@ -112,9 +112,6 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                 currentUserRole={props.currentUserRole}
                 onInviteLinkStateChange={props.onInviteLinkStateChange}
                 onCopyInviteLink={props.onCopyInviteLink}
-                hasPaymentManagementPermission={
-                  props.hasPaymentManagementPermission
-                }
               />
               <Divider _css={dividerStyle} />
               <InviteByEmailMobile
@@ -125,9 +122,6 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                 currentUserRole={props.currentUserRole}
                 defaultBalance={props.defaultBalance}
                 redirectURL={props.redirectURL}
-                hasPaymentManagementPermission={
-                  props.hasPaymentManagementPermission
-                }
               />
             </div>
           )}

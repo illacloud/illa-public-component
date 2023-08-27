@@ -1,4 +1,7 @@
+import { getCurrentTeamInfo } from "@illa-public/user-data"
+import { canManagePayment } from "@illa-public/user-role-utils"
 import { FC, Fragment, useCallback, useEffect, useMemo, useState } from "react"
+import { useSelector } from "react-redux"
 import { InsufficientNoticeModal } from "./component/InsufficientNoticeModal"
 import { INSUFFICIENT_MODAL_CONFIG_KEYS } from "./component/InsufficientNoticeModal/constants"
 import { InsufficientNoticeModalType } from "./component/InsufficientNoticeModal/interface"
@@ -14,6 +17,7 @@ import { modalStore } from "./store"
 
 export const UpgradeModalGroup: FC = () => {
   const [modalList, setModalList] = useState<ModalShowProps[]>([])
+  const currentTeamInfo = useSelector(getCurrentTeamInfo)
   const drawer = useUpgradeDrawer()
 
   const handleLicenseDrawerVisible = useCallback(
@@ -34,7 +38,10 @@ export const UpgradeModalGroup: FC = () => {
 
   const modals = useMemo(() => {
     return modalList.map((modal) => {
-      const canPay = modal.canPay
+      const canPay = canManagePayment(
+        currentTeamInfo?.myRole,
+        currentTeamInfo?.totalTeamLicense?.teamLicenseAllPaid,
+      )
       let show = canPay
         ? UPGRADE_MODAL_CONFIG_KEYS.includes(modal.modalType)
         : INSUFFICIENT_MODAL_CONFIG_KEYS.includes(modal.modalType)
@@ -88,7 +95,12 @@ export const UpgradeModalGroup: FC = () => {
         }
       }
     })
-  }, [handleLicenseDrawerVisible, modalList])
+  }, [
+    currentTeamInfo?.myRole,
+    currentTeamInfo?.totalTeamLicense?.teamLicenseAllPaid,
+    handleLicenseDrawerVisible,
+    modalList,
+  ])
 
   return <>{modals}</>
 }
