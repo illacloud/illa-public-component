@@ -8,6 +8,7 @@ export interface InviteByEmailProps {
   onBalanceChange: (balance: number) => void
   redirectURL: string
   excludeUserRole: USER_ROLE[]
+  hasPaymentManagementPermission: boolean
 }
 
 export interface InvitedUser {

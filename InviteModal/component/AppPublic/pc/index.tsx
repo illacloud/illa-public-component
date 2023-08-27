@@ -26,7 +26,6 @@ import {
   publicContainerStyle,
 } from "./style"
 
-
 export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const {
     appID,
@@ -36,6 +35,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
     defaultAppPublic,
     defaultAppContribute,
     canUseBillingFeature,
+    hasPaymentManagementPermission,
     onAppPublic,
     onAppContribute,
     onCopyContributeLink,
@@ -90,7 +90,10 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             colorScheme={getColor("grayBlue", "02")}
             onChange={async (value) => {
               if (isCloudVersion && !canUseBillingFeature) {
-                upgradeModal({ modalType: "upgrade" })
+                upgradeModal({
+                  modalType: "upgrade",
+                  canPay: hasPaymentManagementPermission,
+                })
                 return
               }
               setAppPublic(value)

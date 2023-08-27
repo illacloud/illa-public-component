@@ -24,7 +24,6 @@ import {
   nicknameStyle,
 } from "./style"
 
-
 export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
   const {
     excludeUserRole,
@@ -33,6 +32,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
     teamID,
     currentUserRole,
     redirectURL,
+    hasPaymentManagementPermission,
     onBalanceChange,
   } = props
 
@@ -76,6 +76,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
       ) {
         upgradeModal({
           modalType: "upgrade",
+          canPay: hasPaymentManagementPermission,
         })
         return
       }
@@ -137,6 +138,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
       currentBalance,
       currentValue,
       handleValidateEmail,
+      hasPaymentManagementPermission,
       inviteUserRole,
       message,
       onBalanceChange,

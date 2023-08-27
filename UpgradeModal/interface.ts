@@ -1,19 +1,26 @@
-import { InsufficientNoticeModalType } from "./component/InsufficientNoticeModal/interface";
-import { UpgradeModalType } from "./component/SubscriptionReminderModal/interface";
-import { DrawerSubscribeInfo, DrawerType } from "./component/UpgradeDrawer/interface";
-import { UpgradeSuccessModalType } from "./component/UpgradeSuccessModal/interface";
-import { PurchaseItem } from "./service/interface";
+import { InsufficientNoticeModalType } from "./component/InsufficientNoticeModal/interface"
+import { UpgradeModalType } from "./component/SubscriptionReminderModal/interface"
+import {
+  DrawerSubscribeInfo,
+  DrawerType,
+} from "./component/UpgradeDrawer/interface"
+import { UpgradeSuccessModalType } from "./component/UpgradeSuccessModal/interface"
+import { PurchaseItem } from "./service/interface"
 
 export interface DrawerShowProps {
-  visible?: boolean;
+  visible?: boolean
   id?: string
   defaultConfig?: DrawerDefaultConfig
 }
 
 export interface ModalShowProps {
-  visible?: boolean;
+  visible?: boolean
   id?: string
-  modalType: UpgradeSuccessModalType | UpgradeModalType | InsufficientNoticeModalType
+  modalType:
+    | UpgradeSuccessModalType
+    | UpgradeModalType
+    | InsufficientNoticeModalType
+  canPay: boolean
 }
 
 export interface DrawerHandler {
