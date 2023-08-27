@@ -46,9 +46,6 @@ export const InviteMemberMobile: FC<InviteMemberProps> = (props) => {
             onInviteLinkStateChange={props.onInviteLinkStateChange}
             onCopyInviteLink={props.onCopyInviteLink}
             defaultBalance={props.defaultBalance}
-            hasPaymentManagementPermission={
-              props.hasPaymentManagementPermission
-            }
           />
           <Divider _css={dividerStyle} />
           <InviteByEmailMobile
@@ -59,9 +56,6 @@ export const InviteMemberMobile: FC<InviteMemberProps> = (props) => {
             currentUserRole={props.currentUserRole}
             defaultBalance={props.defaultBalance}
             onBalanceChange={props.onBalanceChange}
-            hasPaymentManagementPermission={
-              props.hasPaymentManagementPermission
-            }
           />
         </div>
       </Drawer>

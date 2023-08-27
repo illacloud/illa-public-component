@@ -4,7 +4,6 @@ export interface AppPublicProps {
   defaultAppPublic: boolean
   defaultAppContribute: boolean
   canUseBillingFeature: boolean
-  hasPaymentManagementPermission: boolean
   appID: string
   userRoleForThisApp: USER_ROLE
   ownerTeamID: string

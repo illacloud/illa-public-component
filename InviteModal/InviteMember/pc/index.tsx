@@ -10,6 +10,7 @@ import {
   headerContainerStyle,
 } from "./style"
 
+
 export const InviteMemberPC: FC<InviteMemberProps> = (props) => {
   const { t } = useTranslation()
 
@@ -52,7 +53,6 @@ export const InviteMemberPC: FC<InviteMemberProps> = (props) => {
           onInviteLinkStateChange={props.onInviteLinkStateChange}
           onCopyInviteLink={props.onCopyInviteLink}
           defaultBalance={props.defaultBalance}
-          hasPaymentManagementPermission={props.hasPaymentManagementPermission}
         />
         <InviteByEmailPC
           excludeUserRole={[]}
@@ -62,7 +62,6 @@ export const InviteMemberPC: FC<InviteMemberProps> = (props) => {
           currentUserRole={props.currentUserRole}
           defaultBalance={props.defaultBalance}
           onBalanceChange={props.onBalanceChange}
-          hasPaymentManagementPermission={props.hasPaymentManagementPermission}
         />
       </div>
     </Modal>

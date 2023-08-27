@@ -10,5 +10,4 @@ export interface InviteLinkProps {
   onInviteLinkStateChange: (allowInviteLink: boolean) => void
   onCopyInviteLink: (inviteLink: string) => void
   excludeUserRole: USER_ROLE[]
-  hasPaymentManagementPermission: boolean
 }

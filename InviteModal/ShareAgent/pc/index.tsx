@@ -106,9 +106,6 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
               currentUserRole={props.currentUserRole}
               onInviteLinkStateChange={props.onInviteLinkStateChange}
               onCopyInviteLink={props.onCopyInviteLink}
-              hasPaymentManagementPermission={
-                props.hasPaymentManagementPermission
-              }
             />
             <InviteByEmailPC
               excludeUserRole={[]}
@@ -118,9 +115,6 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
               teamID={props.teamID}
               currentUserRole={props.currentUserRole}
               defaultBalance={props.defaultBalance}
-              hasPaymentManagementPermission={
-                props.hasPaymentManagementPermission
-              }
             />
           </>
         )}
