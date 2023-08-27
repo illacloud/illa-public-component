@@ -14,7 +14,6 @@ import {
   headerContainerStyle,
 } from "./style"
 
-
 export const ShareAppPC: FC<ShareAppProps> = (props) => {
   let defTab = "use"
 
@@ -119,6 +118,9 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
                 currentUserRole={props.currentUserRole}
                 onInviteLinkStateChange={props.onInviteLinkStateChange}
                 onCopyInviteLink={props.onCopyEditInviteLink}
+                hasPaymentManagementPermission={
+                  props.hasPaymentManagementPermission
+                }
               />
               <InviteByEmailPC
                 excludeUserRole={[USER_ROLE.VIEWER]}
@@ -128,6 +130,9 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
                 teamID={props.teamID}
                 currentUserRole={props.currentUserRole}
                 defaultBalance={props.defaultBalance}
+                hasPaymentManagementPermission={
+                  props.hasPaymentManagementPermission
+                }
               />
             </>
           )}
@@ -145,6 +150,9 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
                 currentUserRole={props.currentUserRole}
                 onInviteLinkStateChange={props.onInviteLinkStateChange}
                 onCopyInviteLink={props.onCopyUseInviteLink}
+                hasPaymentManagementPermission={
+                  props.hasPaymentManagementPermission
+                }
               />
               <InviteByEmailPC
                 excludeUserRole={[]}
@@ -154,6 +162,9 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
                 teamID={props.teamID}
                 currentUserRole={props.currentUserRole}
                 defaultBalance={props.defaultBalance}
+                hasPaymentManagementPermission={
+                  props.hasPaymentManagementPermission
+                }
               />
             </>
           )}
@@ -170,6 +181,9 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
             onCopyPublicLink={props.onCopyPublicLink}
             onCopyContributeLink={props.onCopyContributeLink}
             ownerTeamID={props.ownerTeamID}
+            hasPaymentManagementPermission={
+              props.hasPaymentManagementPermission
+            }
           />
         )}
       </div>
