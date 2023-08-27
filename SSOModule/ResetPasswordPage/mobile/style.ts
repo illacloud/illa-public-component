@@ -1,5 +1,4 @@
 import { SerializedStyles, css } from "@emotion/react"
-import { pxToRem } from "@illa-public/utils"
 import { globalColor, illaPrefix } from "@illa-design/react"
 
 export const formStyle: SerializedStyles = css`
@@ -44,24 +43,24 @@ export const forgotPwdStyle: SerializedStyles = css`
 `
 
 export const mobileInputStyle = css`
-  font-size: ${pxToRem(28)};
-  height: ${pxToRem(96)};
+  font-size: 28rem;
+  height: 96rem;
 
   & > span {
-    padding: 0 ${pxToRem(32)};
+    padding: 0 32rem;
 
     & svg {
-      font-size: ${pxToRem(40)};
+      font-size: 40rem;
     }
   }
 `
 export const submitButtonStyle: SerializedStyles = css`
-  margin-top: ${pxToRem(54)};
-  height: ${pxToRem(88)};
-  border-radius: ${pxToRem(16)};
+  margin-top: 54rem;
+  height: 88rem;
+  border-radius: 16rem;
 
   & > span {
-    font-size: ${pxToRem(32)};
+    font-size: 32rem;
   }
 `
 
@@ -80,8 +79,8 @@ export const oAuthButtonGroupStyle = css`
 `
 
 export const oAuthButtonStyle = css`
-  width: ${pxToRem(88)};
-  height: ${pxToRem(88)};
+  width: 88rem;
+  height: 88rem;
 `
 
 export const oAuthIconStyle = css`

@@ -2,7 +2,6 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
-import { pxToRem } from "@illa-public/utils"
 import {
   ChangeEvent,
   FC,
@@ -319,10 +318,10 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
       return {
         containerStyle: {
           width: "100%",
-          height: pxToRem(653),
+          height: "653rem",
         },
         mediaStyle: {
-          height: pxToRem(653),
+          height: "653rem",
         },
       }
     }

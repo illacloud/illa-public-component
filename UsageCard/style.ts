@@ -1,5 +1,4 @@
 import { css } from "@emotion/react"
-import { pxToRem } from "@illa-public/utils"
 import { getColor } from "@illa-design/react"
 
 export const usageCardStyle = css`
@@ -80,14 +79,14 @@ export const mobileIconStyle = css`
 `
 
 export const mobileUsageProgressStyle = css`
-  margin: ${pxToRem(40)} 0 ${pxToRem(16)};
+  margin: 40 0 16rem;
 
   & > div {
-    height: ${pxToRem(8)};
+    height: 8rem;
 
     & > div {
-      border-radius: ${pxToRem(4)};
-      height: ${pxToRem(8)};
+      border-radius: 4rem;
+      height: 8rem;
     }
   }
 `
@@ -100,11 +99,11 @@ export const mobileCurrentTextStyle = css`
 `
 
 export const mobileActionButtonStyle = css`
-  width: ${pxToRem(320)};
-  height: ${pxToRem(64)};
+  width: 320rem;
+  height: 64rem;
 
   & > span {
-    font-size: ${pxToRem(28)};
+    font-size: 28rem;
   }
 `
 
