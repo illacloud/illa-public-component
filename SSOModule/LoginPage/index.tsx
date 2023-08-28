@@ -10,7 +10,7 @@ import { PCLogin } from "./pc"
 
 export const LoginPage: FC<LoginPageProps> = (props) => {
   const { email } = useParams()
-  let [searchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   const formProps = useForm<LoginFields>({
     mode: "onSubmit",

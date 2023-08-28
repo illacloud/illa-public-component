@@ -10,9 +10,7 @@ export enum MARKET_AGENT_SORTED_OPTIONS {
 
 export interface MarketAgentListData {
   products: MarketAiAgent[]
-  total: number
-  pageSize: number
-  pageIndex: 1
+  hasMore: boolean
 }
 
 export const fetchMarketAgentList = (

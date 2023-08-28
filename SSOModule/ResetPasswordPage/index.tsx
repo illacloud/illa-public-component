@@ -11,7 +11,7 @@ import { PCReset } from "./pc"
 export const ResetPasswordPage: FC<ResetPasswordPageProps> = (props) => {
   const [showCountDown, setShowCountDown] = useState(false)
   const { email } = useParams()
-  let [searchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   const formProps = useForm<ResetPwdFields>({
     mode: "onSubmit",
