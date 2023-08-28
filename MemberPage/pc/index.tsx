@@ -11,7 +11,10 @@ import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { Header } from "./components/Header"
 import { PCMemberList } from "./components/List"
-import { memberListWrapperStyle } from "./style"
+import {
+  cardAndMemberListContainerStyle,
+  memberListWrapperStyle,
+} from "./style"
 
 export const PCMemberPage: FC = () => {
   const currentTeamInfo = useSelector(getCurrentTeamInfo)!
@@ -43,26 +46,28 @@ export const PCMemberPage: FC = () => {
   return (
     <div css={memberListWrapperStyle}>
       <Header />
-      {hasPaymentManagementPermission && (
-        <UsageCard
-          type="License"
-          current={
-            currentTeamInfo.totalTeamLicense.volume -
-            currentTeamInfo.totalTeamLicense.balance
-          }
-          total={currentTeamInfo.totalTeamLicense.volume}
-          buttonColorScheme="grayBlue"
-          buttonVariant="outline"
-          actionDes={
-            currentTeamInfo.currentTeamLicense?.cycle ===
-            SUBSCRIPTION_CYCLE.YEARLY
-              ? t(`billing.license_price_new.yearly`, { price: "$200" })
-              : t(`billing.license_price_new.monthly`, { price: "$20" })
-          }
-          onClick={openDrawer}
-        />
-      )}
-      <PCMemberList />
+      <div css={cardAndMemberListContainerStyle}>
+        {hasPaymentManagementPermission && (
+          <UsageCard
+            type="License"
+            current={
+              currentTeamInfo.totalTeamLicense.volume -
+              currentTeamInfo.totalTeamLicense.balance
+            }
+            total={currentTeamInfo.totalTeamLicense.volume}
+            buttonColorScheme="grayBlue"
+            buttonVariant="outline"
+            actionDes={
+              currentTeamInfo.currentTeamLicense?.cycle ===
+              SUBSCRIPTION_CYCLE.YEARLY
+                ? t(`billing.license_price_new.yearly`, { price: "$200" })
+                : t(`billing.license_price_new.monthly`, { price: "$20" })
+            }
+            onClick={openDrawer}
+          />
+        )}
+        <PCMemberList />
+      </div>
     </div>
   )
 }

@@ -28,7 +28,6 @@ import {
   nicknameStyle,
 } from "./style"
 
-
 export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
   const {
     excludeUserRole,
@@ -86,7 +85,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
             const suc = value.length > 0 && EMAIL_FORMAT.test(value)
             if (!suc) {
               message.error({
-                content: "g",
+                content: t("user_management.modal.email.not_mail"),
               })
             }
             return suc

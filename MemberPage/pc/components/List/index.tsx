@@ -13,6 +13,7 @@ import { Table, useMessage } from "@illa-design/react"
 import { fetchChangeTeamMemberRole } from "../../../service"
 import { MoreAction } from "../MoreAction"
 import { NameSpace } from "../NameSpace"
+import { tableListContainerStyle } from "./style"
 
 export const PCMemberList: FC = () => {
   const message = useMessage()
@@ -23,27 +24,18 @@ export const PCMemberList: FC = () => {
   const { t } = useTranslation()
 
   const handleChangeTeamMembersRole = useCallback(
-    async (userID: string, userRole: USER_ROLE) => {
+    async (teamMemberID: string, userRole: USER_ROLE) => {
       try {
-        await fetchChangeTeamMemberRole(currentTeamID, userID, userRole)
-        if (userRole === USER_ROLE.OWNER) {
-          dispatch(
-            teamActions.updateTransUserRoleReducer({ teamMemberID: userID }),
-          )
-          message.success({
-            content: t("user_management.mes.transfer_suc"),
-          })
-        } else {
-          dispatch(
-            teamActions.updateTeamMemberUserRoleReducer({
-              teamMemberID: userID,
-              userRole: userRole,
-            }),
-          )
-          message.success({
-            content: t("user_management.mes.change_role_suc"),
-          })
-        }
+        await fetchChangeTeamMemberRole(currentTeamID, teamMemberID, userRole)
+        dispatch(
+          teamActions.updateTeamMemberUserRoleReducer({
+            teamMemberID: teamMemberID,
+            userRole: userRole,
+          }),
+        )
+        message.success({
+          content: t("user_management.mes.change_role_suc"),
+        })
       } catch (error) {
         if (isILLAAPiError(error)) {
           switch (error.data.errorFlag) {
@@ -132,6 +124,8 @@ export const PCMemberList: FC = () => {
         accessorKey: "permissions",
         cell: (props: Record<string, any>) => {
           const value = props.getValue()
+          const executedUserRole =
+            value.userRole !== USER_ROLE.OWNER ? [USER_ROLE.OWNER] : []
           return (
             <RoleSelector
               value={value.userRole}
@@ -141,6 +135,7 @@ export const PCMemberList: FC = () => {
               }}
               isSelf={value.teamMemberID === teamMemberID}
               showOwner
+              excludeUserRole={executedUserRole}
             />
           )
         },
@@ -163,7 +158,6 @@ export const PCMemberList: FC = () => {
               currentUserID={teamMemberID}
               teamMemberID={value.teamMemberID}
               name={value.nickname}
-              changeTeamMembersRole={handleChangeTeamMembersRole}
               teamID={currentTeamID}
             />
           )
@@ -174,13 +168,16 @@ export const PCMemberList: FC = () => {
   )
 
   return (
-    <Table
-      data={formatToTableData}
-      columns={tableColumns}
-      pinedHeader
-      tableLayout="auto"
-      customCellPadding="14px 16px"
-      clickOutsideToResetRowSelect
-    />
+    <div css={tableListContainerStyle}>
+      <Table
+        data={formatToTableData}
+        columns={tableColumns}
+        pinedHeader
+        tableLayout="auto"
+        customCellPadding="14px 16px"
+        clickOutsideToResetRowSelect
+        h="100%"
+      />
+    </div>
   )
 }

@@ -84,13 +84,13 @@ export const updateTransUserRoleReducer: CaseReducer<
   const currentTeamID = state.currentId
   const currentTeam = state.items?.find((item) => item.id === currentTeamID)
   if (!currentTeam) return
-  const ownerID = currentTeam.uid
+  const ownerID = currentTeam.teamMemberID
   const teamOwner = state.currentMemberList?.find(
-    (item) => item.userID === ownerID,
+    (item) => item.teamMemberID === ownerID,
   )
   if (!teamOwner) return
   const targetMember = state.currentMemberList?.find(
-    (item) => item.userID === action.payload.teamMemberID,
+    (item) => item.teamMemberID === action.payload.teamMemberID,
   )
   if (!targetMember) return
 
@@ -104,7 +104,7 @@ export const updateTeamMemberUserRoleReducer: CaseReducer<
   PayloadAction<UpdateTeamMemberUserRolePayload>
 > = (state, action) => {
   const targetMember = state.currentMemberList?.find(
-    (item) => item.userID === action.payload.teamMemberID,
+    (item) => item.teamMemberID === action.payload.teamMemberID,
   )
   if (!targetMember) return
   targetMember.userRole = action.payload.userRole
@@ -197,4 +197,13 @@ export const updateCurrentMemberListReducer: CaseReducer<
     ...state,
     currentMemberList: payload,
   }
+}
+
+export const deleteMemberListReducer: CaseReducer<
+  Team,
+  PayloadAction<string>
+> = (state, action) => {
+  state.currentMemberList = state.currentMemberList?.filter(
+    (item) => item.teamMemberID !== action.payload,
+  )
 }

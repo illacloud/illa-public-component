@@ -5,4 +5,5 @@ export const listContainerStyle = css`
   height: 100%;
   padding: 0 16px;
   overflow-y: auto;
+  padding-bottom: 88px;
 `

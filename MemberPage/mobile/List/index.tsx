@@ -20,12 +20,14 @@ export const MobileMemberList: FC = () => {
             key={item.userID}
             nickName={item.nickname}
             userID={item.userID}
+            teamMemberID={item.teamMemberID}
             email={item.email}
             status={item.userStatus}
             userRole={item.userRole}
             avatarURL={item.avatar}
             currentUserID={currentUserID}
             currentUserRole={currentTeamInfo.myRole}
+            currentTeamID={currentTeamInfo.id}
           />
         )
       })}

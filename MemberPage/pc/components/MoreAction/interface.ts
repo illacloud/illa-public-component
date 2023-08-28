@@ -6,7 +6,6 @@ export interface MoreActionProps {
   userStatus: USER_STATUS
   teamMemberID: string
   currentUserID: string
-  changeTeamMembersRole: (userID: string, userRole: USER_ROLE) => Promise<void>
   name: string
   email: string
   teamID: string

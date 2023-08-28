@@ -1,9 +1,7 @@
 import { css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
-import { LIST_ITEM_HEIGHT } from "./constans"
 
 export const listItemContainerStyle = css`
-  height: ${LIST_ITEM_HEIGHT}px;
   padding: 10px 0;
   display: flex;
   justify-content: space-between;
