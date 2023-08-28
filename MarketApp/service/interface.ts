@@ -44,6 +44,7 @@ export interface AppProductResponse {
   total: number
   pageSize: number
   pageIndex: number
+  hasMoreData: boolean
 }
 
 export interface ProductListParams {
