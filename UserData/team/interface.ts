@@ -19,7 +19,7 @@ export interface MemberInfo {
   avatar: string
   userRole: USER_ROLE
   userStatus: USER_STATUS
-  permission: Record<string, any> // Reserved Field
+  permission: Record<string, any>
   createdAt: string
   updatedAt: string
 }

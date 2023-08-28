@@ -1,7 +1,9 @@
 import { InviteMemberPC } from "@illa-public/invite-modal"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import {
+  MemberInfo,
   USER_ROLE,
+  USER_STATUS,
   getCurrentTeamInfo,
   getCurrentUser,
   teamActions,
@@ -14,7 +16,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { Button } from "@illa-design/react"
 import { MoreAction } from "./moreAction"
 import { buttonGroup, headerWrapperStyle, titleStyle } from "./style"
-
 
 export const Header: FC = () => {
   const { t } = useTranslation()
@@ -68,9 +69,9 @@ export const Header: FC = () => {
       </div>
       {inviteModalVisible && (
         <InviteMemberPC
-          redirectURL={`${import.meta.env.ILLA_CLOUD_URL}/workspace/${
-            teamInfo?.identifier
-          }`}
+          redirectURL={`${
+            import.meta.env.ILLA_CLOUD_URL
+          }/workspace/${teamInfo?.identifier}`}
           onClose={() => setInviteModalVisible(false)}
           canInvite={enableInvite}
           currentUserRole={currentUserRole}
@@ -108,6 +109,21 @@ export const Header: FC = () => {
                 },
               }),
             )
+          }}
+          onInvitedChange={(userList) => {
+            const memberListInfo: MemberInfo[] = userList.map((user) => {
+              return {
+                ...user,
+                userID: "",
+                nickname: "",
+                avatar: "",
+                userStatus: USER_STATUS.PENDING,
+                permission: {},
+                createdAt: "",
+                updatedAt: "",
+              }
+            })
+            dispatch(teamActions.updateInvitedUserReducer(memberListInfo))
           }}
         />
       )}

@@ -207,3 +207,23 @@ export const deleteMemberListReducer: CaseReducer<
     (item) => item.teamMemberID !== action.payload,
   )
 }
+
+export const updateInvitedUserReducer: CaseReducer<
+  Team,
+  PayloadAction<MemberInfo[]>
+> = (state, action) => {
+  const { payload } = action
+  if (!payload) return
+  const currentMemberList = state.currentMemberList ?? []
+  for (let i = 0; i < action.payload.length; i++) {
+    const index = currentMemberList.findIndex(
+      (item) => item.teamMemberID === action.payload[i].teamMemberID,
+    )
+    if (index === -1) {
+      currentMemberList.unshift(action.payload[i])
+    } else {
+      currentMemberList[index] = action.payload[i]
+    }
+  }
+  state.currentMemberList = currentMemberList
+}

@@ -14,7 +14,6 @@ import {
   headerContainerStyle,
 } from "./style"
 
-
 export const ShareAppPC: FC<ShareAppProps> = (props) => {
   let defTab = "use"
 
@@ -154,6 +153,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
                 teamID={props.teamID}
                 currentUserRole={props.currentUserRole}
                 defaultBalance={props.defaultBalance}
+                onInvitedChange={props.onInvitedChange}
               />
             </>
           )}

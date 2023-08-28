@@ -37,6 +37,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
     onBalanceChange,
     redirectURL,
     currentUserRole,
+    onInvitedChange,
   } = props
 
   const message = useMessage()
@@ -165,6 +166,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
               setCurrentBalance(currentBalance - currentValue.length)
               onBalanceChange(currentBalance - currentValue.length)
             }
+            onInvitedChange?.(finalInviteUserList)
             setAlreadyInvited(finalInviteUserList)
             setInviting(false)
           }}
@@ -204,6 +206,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
                       const newAlreadyInvited = [...alreadyInvited]
                       newAlreadyInvited[index].userRole = item
                       setAlreadyInvited(newAlreadyInvited)
+                      onInvitedChange?.(newAlreadyInvited)
                     }
                     message.success({
                       content: t("user_management.mes.invite_suc"),

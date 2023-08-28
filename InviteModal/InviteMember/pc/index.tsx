@@ -10,7 +10,6 @@ import {
   headerContainerStyle,
 } from "./style"
 
-
 export const InviteMemberPC: FC<InviteMemberProps> = (props) => {
   const { t } = useTranslation()
 
@@ -62,6 +61,7 @@ export const InviteMemberPC: FC<InviteMemberProps> = (props) => {
           currentUserRole={props.currentUserRole}
           defaultBalance={props.defaultBalance}
           onBalanceChange={props.onBalanceChange}
+          onInvitedChange={props.onInvitedChange}
         />
       </div>
     </Modal>
