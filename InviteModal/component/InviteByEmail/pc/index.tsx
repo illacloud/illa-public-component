@@ -26,6 +26,7 @@ import {
   licenseContainerStyle,
   licenseLabelStyle,
   nicknameStyle,
+  roleSelectContainerStyle,
 } from "./style"
 
 export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
@@ -92,15 +93,17 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
             return suc
           }}
           suffix={
-            <RoleSelector
-              inline
-              currentUserRole={currentUserRole}
-              excludeUserRole={excludeUserRole}
-              value={inviteUserRole}
-              onClickItem={async (role) => {
-                setInviteUserRole(role)
-              }}
-            />
+            <div css={roleSelectContainerStyle}>
+              <RoleSelector
+                inline
+                currentUserRole={currentUserRole}
+                excludeUserRole={excludeUserRole}
+                value={inviteUserRole}
+                onClickItem={async (role) => {
+                  setInviteUserRole(role)
+                }}
+              />
+            </div>
           }
         />
         <Button
