@@ -7,7 +7,6 @@ import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, KeyboardEvent, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Input, Loading, useMergeValue, useMessage } from "@illa-design/react"
-import { EMAIL_FORMAT } from "../../../utils"
 import { InviteByEmailProps, InvitedUser } from "../interface"
 import { changeUserRoleByTeamMemberID, inviteByEmail } from "../service"
 import {
@@ -23,6 +22,7 @@ import {
   loadingStyle,
   nicknameStyle,
 } from "./style"
+import { EMAIL_FORMAT } from "@illa-public/utils"
 
 
 export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {

@@ -11,7 +11,7 @@ import {
   inviteOptionsStyle,
   shareBlockContainerStyle,
 } from "./style"
-import { getMarketLinkTemplate } from "../../../utils"
+import { getMarketLinkTemplate } from "@illa-public/utils"
 
 // only for marketplace share app
 export const AppPublicMobile: FC<Partial<AppPublicProps>> = (props) => {
