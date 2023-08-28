@@ -69,3 +69,7 @@ export const nicknameStyle = css`
   font-weight: 500;
   line-height: 22px;
 `
+
+export const roleSelectContainerStyle = css`
+  height: 100%;
+`

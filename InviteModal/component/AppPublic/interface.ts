@@ -12,4 +12,5 @@ export interface AppPublicProps {
   onAppContribute: (isContributed: boolean) => void
   onCopyPublicLink: (inviteLink: string) => void
   onCopyContributeLink: (inviteLink: string) => void
+  hidePublic: boolean
 }

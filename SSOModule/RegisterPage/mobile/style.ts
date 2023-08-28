@@ -17,7 +17,7 @@ export const headerStyle: SerializedStyles = css`
 `
 
 export const formItemStyle = css`
-  margin-top: 64rem;
+  margin-top: 54rem;
 `
 
 export const formTitleStyle: SerializedStyles = css`

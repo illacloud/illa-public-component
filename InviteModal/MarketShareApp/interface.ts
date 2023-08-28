@@ -1,5 +1,6 @@
 import { AppPublicProps } from "../component/AppPublic/interface"
 
-export interface MarketShareAppProps extends AppPublicProps {
+export interface MarketShareAppProps
+  extends Omit<AppPublicProps, "hidePublic"> {
   onClose: () => void
 }
