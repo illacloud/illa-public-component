@@ -1,4 +1,4 @@
-import { GithubIcon, GoogleIcon } from "@illa-public/icon"
+import { GithubIcon } from "@illa-public/icon"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
   ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
@@ -11,8 +11,8 @@ import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Button, Input, Password } from "@illa-design/react"
+import { OAuthButton } from "../../components/OAuthButton"
 import { EMAIL_FORMAT } from "../../constants/regExp"
-import { openOAuthUrl } from "../../constants/users"
 import { validateReport } from "../../utils/reportUtils"
 import { LoginFields, loginProps } from "../interface"
 import {
@@ -25,22 +25,14 @@ import {
   headerStyle,
   mobileInputStyle,
   oAuthButtonGroupStyle,
-  oAuthButtonStyle,
   oAuthIconStyle,
   singleSubmitButtonStyle,
   submitButtonStyle,
 } from "./style"
 
 export const MobileLogin: FC<loginProps> = (props) => {
-  const {
-    onSubmit,
-    errorMsg,
-    loading,
-    oAuthURI,
-    lockedEmail,
-    hideOAuth,
-    hideRegister,
-  } = props
+  const { onSubmit, errorMsg, loading, lockedEmail, hideOAuth, hideRegister } =
+    props
   const navigate = useNavigate()
   const { t } = useTranslation()
   const { handleSubmit, control, formState, getValues, trigger } =
@@ -222,34 +214,12 @@ export const MobileLogin: FC<loginProps> = (props) => {
       </Button>
       {isCloudVersion && !hideOAuth && (
         <div css={oAuthButtonGroupStyle}>
-          <Button
-            style={{ display: "none" }}
-            _css={oAuthButtonStyle}
-            leftIcon={<GoogleIcon css={oAuthIconStyle} />}
-            colorScheme="grayBlue"
-            variant="outline"
-            shape="round"
-            type="button"
-            onClick={() => {
-              oAuthURI?.google && openOAuthUrl(oAuthURI.google)
-            }}
-          ></Button>
-          <Button
-            _css={oAuthButtonStyle}
-            leftIcon={<GithubIcon css={oAuthIconStyle} />}
-            colorScheme="grayBlue"
-            variant="outline"
-            shape="round"
-            type="button"
-            onClick={() => {
-              ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
-                page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
-                element: "github_sign_in",
-              })
-
-              oAuthURI?.github && openOAuthUrl(oAuthURI.github)
-            }}
-          ></Button>
+          <OAuthButton
+            icon={<GithubIcon css={oAuthIconStyle} />}
+            type="github"
+            isMobile
+            landing="signin"
+          />
         </div>
       )}
     </form>

@@ -1,4 +1,4 @@
-import { GithubIcon, GoogleIcon } from "@illa-public/icon"
+import { GithubIcon } from "@illa-public/icon"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
   ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
@@ -18,8 +18,8 @@ import {
   WarningCircleIcon,
 } from "@illa-design/react"
 import { EmailCode } from "../../components/EmailCode"
+import { OAuthButton } from "../../components/OAuthButton"
 import { EMAIL_FORMAT } from "../../constants/regExp"
-import { openOAuthUrl } from "../../constants/users"
 import { validateReport } from "../../utils/reportUtils"
 import { RegisterFields, RegisterProps } from "../interface"
 import {
@@ -40,7 +40,6 @@ import {
 export const PCRegister: FC<RegisterProps> = (props) => {
   const { t } = useTranslation()
   const {
-    oAuthURI,
     lockedEmail,
     onSubmit,
     errorMsg,
@@ -370,36 +369,14 @@ export const PCRegister: FC<RegisterProps> = (props) => {
             text={t("page.user.sign_in.option.or")}
           />
           <div css={oAuthButtonGroupStyle}>
-            <Button
-              style={{ display: "none" }}
-              leftIcon={<GoogleIcon css={oAuthIconStyle} />}
-              colorScheme="grayBlue"
-              variant="outline"
-              size="large"
-              fullWidth
-              onClick={() => {
-                oAuthURI?.google && openOAuthUrl(oAuthURI.google)
-              }}
+            <OAuthButton
+              icon={<GithubIcon css={oAuthIconStyle} />}
+              type="github"
+              isMobile={false}
+              landing="signup"
             >
-              {t("page.user.sign_up.option.google")}
-            </Button>
-            <Button
-              leftIcon={<GithubIcon css={oAuthIconStyle} />}
-              colorScheme="grayBlue"
-              variant="outline"
-              size="large"
-              fullWidth
-              onClick={() => {
-                ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
-                  page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
-                  element: "github_sign_up",
-                })
-
-                oAuthURI?.github && openOAuthUrl(oAuthURI.github)
-              }}
-            >
-              {t("page.user.sign_up.option.github")}
-            </Button>
+              {t("page.user.sign_in.option.github")}
+            </OAuthButton>
           </div>
         </div>
       )}
