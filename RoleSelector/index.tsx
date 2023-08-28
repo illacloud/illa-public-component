@@ -13,7 +13,7 @@ import {
   TriggerProvider,
   UpIcon,
 } from "@illa-design/react"
-import { RoleSelectorProps, UserRoleItem } from "./interface"
+import { RoleSelectorProps } from "./interface"
 import {
   applyRoleOuterLabelStyle,
   doubtStyle,
@@ -42,19 +42,13 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
 
   const { t } = useTranslation()
 
-  const finalUserRole = useMemo(() => {
-    let userRoleItems: UserRoleItem[] = showOwner
-      ? [
-          {
-            role: USER_ROLE.OWNER,
-            tips: t("user_management.role.tips.owner"),
-            name: t("user_management.role.owner"),
-          },
-        ]
-      : []
-
-    userRoleItems = [
-      ...userRoleItems,
+  const userRoleItems = useMemo(() => {
+    return [
+      {
+        role: USER_ROLE.OWNER,
+        tips: t("user_management.role.tips.owner"),
+        name: t("user_management.role.owner"),
+      },
       {
         role: USER_ROLE.ADMIN,
         tips: t("user_management.role.tips.admin"),
@@ -71,13 +65,19 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
         name: t("user_management.role.viewer"),
       },
     ]
+  }, [t])
 
-    return userRoleItems.filter(
+  const dropUserRole = useMemo(() => {
+    let roles = showOwner
+      ? userRoleItems
+      : userRoleItems.filter((i) => i.role !== USER_ROLE.OWNER)
+
+    return roles.filter(
       (i) =>
         !excludeUserRole?.includes(i.role) &&
         isBiggerThanTargetRole(i.role, currentUserRole),
     )
-  }, [currentUserRole, excludeUserRole, showOwner, t])
+  }, [currentUserRole, excludeUserRole, showOwner, userRoleItems])
 
   return (
     <Dropdown
@@ -91,7 +91,7 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
             onClickItem?.(value as USER_ROLE)
           }}
         >
-          {finalUserRole.map((item) => (
+          {dropUserRole.map((item) => (
             <DropListItem
               value={item.role}
               title={
@@ -127,7 +127,7 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
     >
       <div css={roleSelectorRoleContainer}>
         <div css={applyRoleOuterLabelStyle(inline)}>
-          {finalUserRole.find((item) => item.role === value)?.name}
+          {userRoleItems.find((item) => item.role === value)?.name}
         </div>
         {canEdit && (
           <div css={roleOuterIconStyle}>
