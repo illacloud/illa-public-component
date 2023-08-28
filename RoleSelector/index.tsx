@@ -81,7 +81,7 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
 
   return (
     <Dropdown
-      disabled={!canEdit}
+      disabled={!canEdit || dropUserRole.length <= 1}
       onVisibleChange={(visible) => {
         setMenuVisible(visible)
       }}
