@@ -42,6 +42,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
     onAppContribute,
     onCopyContributeLink,
     onCopyPublicLink,
+    hidePublic,
   } = props
 
   const message = useMessage()
@@ -68,24 +69,24 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
 
   const upgradeModal = useUpgradeModal()
 
-  return (
-    <div css={publicContainerStyle}>
-      {canManageApp && (
-        <div css={blockContainerStyle}>
-          <div css={blockLabelStyle}>
-            {t("user_management.modal.link.make_public_title")}
+  const publickBlock = (
+    <>
+      <div css={blockContainerStyle}>
+        <div css={blockLabelStyle}>
+          {t("user_management.modal.link.make_public_title")}
+        </div>
+        {!canUseBillingFeature && (
+          <div css={premiumContainerStyle}>
+            <UpgradeIcon />
+            <div style={{ marginLeft: 4 }}>Premium</div>
           </div>
-          {!canUseBillingFeature && (
-            <div css={premiumContainerStyle}>
-              <UpgradeIcon />
-              <div style={{ marginLeft: 4 }}>Premium</div>
-            </div>
-          )}
-          <div
-            style={{
-              flexGrow: 1,
-            }}
-          />
+        )}
+        <div
+          style={{
+            flexGrow: 1,
+          }}
+        />
+        {canManageApp && (
           <Switch
             disabled={appContribute}
             checked={appPublic}
@@ -112,8 +113,8 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
               }
             }}
           />
-        </div>
-      )}
+        )}
+      </div>
       {appPublic && (
         <div css={linkCopyContainer}>
           <Input
@@ -145,21 +146,22 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
           </Button>
         </div>
       )}
-      <div
-        css={{
-          height: 16,
-        }}
-      />
-      {canManageApp && (
-        <div css={blockContainerStyle}>
-          <div css={blockLabelStyle}>
-            {t("user_management.modal.contribute.label")}
-          </div>
-          <div
-            style={{
-              flexGrow: 1,
-            }}
-          />
+    </>
+  )
+
+  const contributeBlock = (
+    <>
+      (
+      <div css={blockContainerStyle}>
+        <div css={blockLabelStyle}>
+          {t("user_management.modal.contribute.label")}
+        </div>
+        <div
+          style={{
+            flexGrow: 1,
+          }}
+        />
+        {canManageApp && (
           <Switch
             checked={appContribute}
             colorScheme={getColor("grayBlue", "02")}
@@ -181,8 +183,9 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
               }
             }}
           />
-        </div>
-      )}
+        )}
+      </div>
+      )
       {appContribute && (
         <div css={linkCopyContainer}>
           <Input
@@ -214,6 +217,11 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
           </Button>
         </div>
       )}
+    </>
+  )
+
+  const shareBlock = (
+    <>
       {(appContribute || appPublic) && (
         <>
           <div
@@ -231,6 +239,19 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
           />
         </>
       )}
+    </>
+  )
+
+  return (
+    <div css={publicContainerStyle}>
+      {!hidePublic && publickBlock}
+      {contributeBlock}
+      <div
+        css={{
+          height: 16,
+        }}
+      />
+      {shareBlock}
     </div>
   )
 }

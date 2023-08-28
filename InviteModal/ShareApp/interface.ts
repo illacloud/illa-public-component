@@ -2,7 +2,6 @@ import { AppPublicProps } from "../component/AppPublic/interface"
 import { InviteByEmailProps } from "../component/InviteByEmail/interface"
 import { InviteLinkProps } from "../component/InviteLink/interface"
 
-
 export type ShareAppPage = "public" | "use" | "edit"
 
 export interface ShareAppProps
@@ -17,7 +16,7 @@ export interface ShareAppProps
       | "redirectURL"
       | "excludeUserRole"
     >,
-    AppPublicProps {
+    Omit<AppPublicProps, "hidePublic"> {
   onClose: () => void
   canInvite: boolean
   defaultTab?: ShareAppPage

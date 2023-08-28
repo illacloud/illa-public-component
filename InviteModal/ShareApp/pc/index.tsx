@@ -159,6 +159,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
           )}
         {activeTab === "public" && isCloudVersion && (
           <AppPublicPC
+            hidePublic={false}
             canUseBillingFeature={props.canUseBillingFeature}
             defaultAppPublic={props.defaultAppPublic}
             defaultAppContribute={props.defaultAppContribute}
