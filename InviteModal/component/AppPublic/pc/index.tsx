@@ -2,7 +2,11 @@ import { UpgradeIcon } from "@illa-public/icon"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
-import { isCloudVersion } from "@illa-public/utils"
+import {
+  getMarketLinkTemplate,
+  getPublicLinkTemplate,
+  isCloudVersion,
+} from "@illa-public/utils"
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -14,7 +18,6 @@ import {
   useMergeValue,
   useMessage,
 } from "@illa-design/react"
-import { getMarketLinkTemplate, getPublicLinkTemplate } from "../../../utils"
 import { ShareBlockPC } from "../../ShareBlock/pc"
 import { AppPublicProps } from "../interface"
 import { makeAppContribute, updateAppPublicConfig } from "../service"
@@ -25,7 +28,6 @@ import {
   premiumContainerStyle,
   publicContainerStyle,
 } from "./style"
-
 
 export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const {

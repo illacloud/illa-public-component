@@ -84,13 +84,13 @@ export const updateTransUserRoleReducer: CaseReducer<
   const currentTeamID = state.currentId
   const currentTeam = state.items?.find((item) => item.id === currentTeamID)
   if (!currentTeam) return
-  const ownerID = currentTeam.uid
+  const ownerID = currentTeam.teamMemberID
   const teamOwner = state.currentMemberList?.find(
-    (item) => item.userID === ownerID,
+    (item) => item.teamMemberID === ownerID,
   )
   if (!teamOwner) return
   const targetMember = state.currentMemberList?.find(
-    (item) => item.userID === action.payload.teamMemberID,
+    (item) => item.teamMemberID === action.payload.teamMemberID,
   )
   if (!targetMember) return
 
@@ -104,7 +104,7 @@ export const updateTeamMemberUserRoleReducer: CaseReducer<
   PayloadAction<UpdateTeamMemberUserRolePayload>
 > = (state, action) => {
   const targetMember = state.currentMemberList?.find(
-    (item) => item.userID === action.payload.teamMemberID,
+    (item) => item.teamMemberID === action.payload.teamMemberID,
   )
   if (!targetMember) return
   targetMember.userRole = action.payload.userRole
@@ -197,4 +197,51 @@ export const updateCurrentMemberListReducer: CaseReducer<
     ...state,
     currentMemberList: payload,
   }
+}
+
+export const deleteMemberListReducer: CaseReducer<
+  Team,
+  PayloadAction<string>
+> = (state, action) => {
+  state.currentMemberList = state.currentMemberList?.filter(
+    (item) => item.teamMemberID !== action.payload,
+  )
+}
+
+export const updateInvitedUserReducer: CaseReducer<
+  Team,
+  PayloadAction<MemberInfo[]>
+> = (state, action) => {
+  const { payload } = action
+  if (!payload) return
+  const currentMemberList = state.currentMemberList ?? []
+  for (let i = 0; i < action.payload.length; i++) {
+    const index = currentMemberList.findIndex(
+      (item) => item.teamMemberID === action.payload[i].teamMemberID,
+    )
+    if (index === -1) {
+      currentMemberList.unshift(action.payload[i])
+    } else {
+      currentMemberList[index] = action.payload[i]
+    }
+  }
+  state.currentMemberList = currentMemberList
+}
+
+export const deleteTeamInfoReducer: CaseReducer<Team, PayloadAction<void>> = (
+  state,
+) => {
+  const currentId = state.currentId
+  const teamList = state.items ?? []
+  const index = teamList.findIndex((item) => item.id === currentId)
+  if (index !== -1) {
+    teamList.splice(index, 1)
+    if (teamList.length > 0) {
+      state.currentId = teamList[0].id
+    } else {
+      state.currentId = undefined
+    }
+  }
+  state.items = teamList
+  state.currentMemberList = []
 }

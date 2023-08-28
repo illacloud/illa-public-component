@@ -18,7 +18,12 @@ export const NameSpace: FC<NameSpaceProps> = (props) => {
   const { name, email, avatar, status, userID, currentUserID } = props
   return (
     <div css={nameSpaceWrapperStyle}>
-      <Avatar css={nameSpaceStyle} avatarUrl={avatar} name={name} id={userID} />
+      <Avatar
+        css={nameSpaceStyle}
+        avatarUrl={avatar}
+        name={name || email}
+        id={userID}
+      />
       {name ? (
         <div css={nameAndEmailWrapperStyle}>
           <p css={nameStyle}>

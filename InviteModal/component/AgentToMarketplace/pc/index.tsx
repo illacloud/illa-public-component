@@ -1,5 +1,6 @@
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
+import { getAgentPublicLink } from "@illa-public/utils"
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -21,8 +22,6 @@ import {
   linkCopyContainer,
   publicContainerStyle,
 } from "./style"
-import { getAgentPublicLink } from "../../../utils"
-
 
 export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
   const {
@@ -55,7 +54,9 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
         false,
       ) && (
         <div css={blockContainerStyle}>
-          <div css={blockLabelStyle}>{t("user_management.modal.contribute.label")}</div>
+          <div css={blockLabelStyle}>
+            {t("user_management.modal.contribute.label")}
+          </div>
           <div
             style={{
               flexGrow: 1,
@@ -72,7 +73,9 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
                 onAgentContributed?.(value)
               } catch (e) {
                 message.error({
-                  content: t("user_management.modal.message.make_public_failed"),
+                  content: t(
+                    "user_management.modal.message.make_public_failed",
+                  ),
                 })
                 setAgentContributed(!value)
               } finally {
@@ -107,7 +110,9 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
               onCopyAgentMarketLink?.(getAgentPublicLink(agentID))
             }}
           >
-            {!agentContributedLoading ? t("user_management.modal.link.copy") : undefined}
+            {!agentContributedLoading
+              ? t("user_management.modal.link.copy")
+              : undefined}
           </Button>
         </div>
       ) : (

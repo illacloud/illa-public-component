@@ -6,3 +6,12 @@ export const memberListWrapperStyle = css`
   display: flex;
   flex-direction: column;
 `
+
+export const cardAndMemberListContainerStyle = css`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  gap: 24px;
+  overflow: hidden;
+`

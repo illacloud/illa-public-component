@@ -3,10 +3,11 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
-import { USER_ROLE, USER_STATUS } from "@illa-public/user-data"
+import { USER_ROLE, USER_STATUS, teamActions } from "@illa-public/user-data"
 import { isSmallThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, useCallback, useContext, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
+import { useDispatch } from "react-redux"
 import {
   Button,
   DropList,
@@ -16,7 +17,10 @@ import {
   useMessage,
   useModal,
 } from "@illa-design/react"
-import { fetchRemoveTeamMember } from "../../../service"
+import {
+  fetchChangeTeamMemberRole,
+  fetchRemoveTeamMember,
+} from "../../../service"
 import { MoreActionProps } from "./interface"
 import { moreActionWrapper } from "./style"
 
@@ -27,13 +31,13 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
     userStatus,
     teamMemberID,
     currentUserID,
-    changeTeamMembersRole,
     name,
     email,
     teamID,
   } = props
 
   const { track } = useContext(MixpanelTrackContext)
+  const dispatch = useDispatch()
 
   const modal = useModal()
   const message = useMessage()
@@ -68,6 +72,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
         )
         try {
           await fetchRemoveTeamMember(teamID, teamMemberID)
+          dispatch(teamActions.deleteMemberListReducer(teamMemberID))
           message.success({
             content: t("user_management.mes.remove_suc"),
           })
@@ -95,7 +100,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
       },
       "both",
     )
-  }, [email, message, modal, name, t, teamID, teamMemberID, track])
+  }, [dispatch, email, message, modal, name, t, teamID, teamMemberID, track])
 
   const handleClickTransOwner = useCallback(() => {
     modal.show({
@@ -115,7 +120,22 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
           },
           "both",
         )
-        changeTeamMembersRole(teamMemberID, USER_ROLE.OWNER)
+        try {
+          await fetchChangeTeamMemberRole(teamID, teamMemberID, USER_ROLE.OWNER)
+
+          dispatch(
+            teamActions.updateTransUserRoleReducer({
+              teamMemberID: teamMemberID,
+            }),
+          )
+          message.success({
+            content: t("user_management.mes.transfer_suc"),
+          })
+        } catch (e) {
+          message.error({
+            content: t("user_management.mes.transfer_fail"),
+          })
+        }
       },
       onCancel: () => {
         track?.(
@@ -134,7 +154,7 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
       },
       "both",
     )
-  }, [modal, t, track, changeTeamMembersRole, teamMemberID])
+  }, [modal, t, track, teamID, teamMemberID, dispatch, message])
 
   useEffect(() => {
     if (!disabled) {

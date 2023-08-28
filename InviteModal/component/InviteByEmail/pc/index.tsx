@@ -4,6 +4,7 @@ import { RoleSelector } from "@illa-public/role-selector"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
+import { EMAIL_FORMAT } from "@illa-public/utils"
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -13,7 +14,6 @@ import {
   useMergeValue,
   useMessage,
 } from "@illa-design/react"
-import { EMAIL_FORMAT } from "../../../utils"
 import { InviteByEmailProps, InvitedUser } from "../interface"
 import { changeUserRoleByTeamMemberID, inviteByEmail } from "../service"
 import {
@@ -28,7 +28,6 @@ import {
   nicknameStyle,
 } from "./style"
 
-
 export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
   const {
     excludeUserRole,
@@ -38,6 +37,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
     onBalanceChange,
     redirectURL,
     currentUserRole,
+    onInvitedChange,
   } = props
 
   const message = useMessage()
@@ -86,7 +86,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
             const suc = value.length > 0 && EMAIL_FORMAT.test(value)
             if (!suc) {
               message.error({
-                content: "g",
+                content: t("user_management.modal.email.not_mail"),
               })
             }
             return suc
@@ -166,6 +166,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
               setCurrentBalance(currentBalance - currentValue.length)
               onBalanceChange(currentBalance - currentValue.length)
             }
+            onInvitedChange?.(finalInviteUserList)
             setAlreadyInvited(finalInviteUserList)
             setInviting(false)
           }}
@@ -205,6 +206,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
                       const newAlreadyInvited = [...alreadyInvited]
                       newAlreadyInvited[index].userRole = item
                       setAlreadyInvited(newAlreadyInvited)
+                      onInvitedChange?.(newAlreadyInvited)
                     }
                     message.success({
                       content: t("user_management.mes.invite_suc"),
