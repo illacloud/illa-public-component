@@ -27,6 +27,7 @@ import {
   fetchRemoveTeamMember,
   fetchUpdateTeamPermissionConfig,
 } from "../../../service"
+import { IPcMoreActionProps } from "./interface"
 import {
   allowEditorOrViewerInviteWrapperStyle,
   moreActionTextStyle,
@@ -35,7 +36,8 @@ import {
 const stopPropagation = (e: MouseEvent) => {
   e.stopPropagation()
 }
-export const MoreAction: FC = () => {
+export const MoreAction: FC<IPcMoreActionProps> = (props) => {
+  const { afterLeaveTeam } = props
   const modal = useModal()
   const message = useMessage()
   const { t } = useTranslation()
@@ -102,7 +104,7 @@ export const MoreAction: FC = () => {
             },
             "team_id",
           )
-          location.href = "/"
+          afterLeaveTeam?.()
         } catch (e) {
           if (isILLAAPiError(e)) {
             switch (e.data.errorFlag) {
@@ -133,7 +135,15 @@ export const MoreAction: FC = () => {
         )
       },
     })
-  }, [currentTeamID, currentTeamMemberID, message, modal, t, track])
+  }, [
+    afterLeaveTeam,
+    currentTeamID,
+    currentTeamMemberID,
+    message,
+    modal,
+    t,
+    track,
+  ])
 
   const handleChangeInviteByEditor = async (value: boolean) => {
     track?.(

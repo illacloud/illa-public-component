@@ -11,12 +11,14 @@ import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { Header } from "./components/Header"
 import { PCMemberList } from "./components/List"
+import { IPcMemberListProps } from "./components/interface"
 import {
   cardAndMemberListContainerStyle,
   memberListWrapperStyle,
 } from "./style"
 
-export const PCMemberPage: FC = () => {
+export const PCMemberPage: FC<IPcMemberListProps> = (props) => {
+  const { afterLeaveTeam } = props
   const currentTeamInfo = useSelector(getCurrentTeamInfo)!
   const { t } = useTranslation()
   const hasPaymentManagementPermission = canManagePayment(
@@ -45,7 +47,7 @@ export const PCMemberPage: FC = () => {
 
   return (
     <div css={memberListWrapperStyle}>
-      <Header />
+      <Header afterLeaveTeam={afterLeaveTeam} />
       <div css={cardAndMemberListContainerStyle}>
         {hasPaymentManagementPermission && (
           <UsageCard

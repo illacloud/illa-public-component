@@ -14,11 +14,13 @@ import { FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { Button } from "@illa-design/react"
+import { IPcHeaderProps } from "./interface"
 import { MoreAction } from "./moreAction"
 import { buttonGroup, headerWrapperStyle, titleStyle } from "./style"
 
-export const Header: FC = () => {
+export const Header: FC<IPcHeaderProps> = (props) => {
   const { t } = useTranslation()
+  const { afterLeaveTeam } = props
   const [inviteModalVisible, setInviteModalVisible] = useState(false)
   const dispatch = useDispatch()
   const teamInfo = useSelector(getCurrentTeamInfo)!!
@@ -56,7 +58,7 @@ export const Header: FC = () => {
       <div css={headerWrapperStyle}>
         <h1 css={titleStyle}>{t("user_management.page.member")}</h1>
         <div css={buttonGroup}>
-          <MoreAction />
+          <MoreAction afterLeaveTeam={afterLeaveTeam} />
           <Button
             w="200px"
             colorScheme="techPurple"

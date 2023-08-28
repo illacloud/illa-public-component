@@ -227,3 +227,21 @@ export const updateInvitedUserReducer: CaseReducer<
   }
   state.currentMemberList = currentMemberList
 }
+
+export const deleteTeamInfoReducer: CaseReducer<Team, PayloadAction<void>> = (
+  state,
+) => {
+  const currentId = state.currentId
+  const teamList = state.items ?? []
+  const index = teamList.findIndex((item) => item.id === currentId)
+  if (index !== -1) {
+    teamList.splice(index, 1)
+    if (teamList.length > 0) {
+      state.currentId = teamList[0].id
+    } else {
+      state.currentId = undefined
+    }
+  }
+  state.items = teamList
+  state.currentMemberList = []
+}
