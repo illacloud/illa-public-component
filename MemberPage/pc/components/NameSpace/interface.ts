@@ -6,5 +6,6 @@ export interface NameSpaceProps {
   email: string
   status: USER_STATUS
   userID: string
+  teamMemberID: string
   currentUserID: string
 }

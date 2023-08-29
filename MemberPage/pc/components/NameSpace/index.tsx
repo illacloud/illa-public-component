@@ -15,7 +15,8 @@ import {
 
 export const NameSpace: FC<NameSpaceProps> = (props) => {
   const { t } = useTranslation()
-  const { name, email, avatar, status, userID, currentUserID } = props
+  const { name, email, avatar, status, userID, teamMemberID, currentUserID } =
+    props
   return (
     <div css={nameSpaceWrapperStyle}>
       <Avatar
@@ -28,7 +29,7 @@ export const NameSpace: FC<NameSpaceProps> = (props) => {
         <div css={nameAndEmailWrapperStyle}>
           <p css={nameStyle}>
             <span css={textOverflowStyle}>{name}</span>
-            {userID === currentUserID && (
+            {teamMemberID === currentUserID && (
               <span>({t("user_management.status.current-user")})</span>
             )}{" "}
             {status === USER_STATUS.PENDING && (
