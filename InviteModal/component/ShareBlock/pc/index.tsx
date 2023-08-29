@@ -34,7 +34,7 @@ export const ShareBlockPC: FC<ShareBlockProps> = (props) => {
               key={platform.platform}
               css={cardContainerStyle}
               onClick={() => {
-                onShare(platform.platform)
+                onShare?.(platform.platform)
               }}
             >
               <div css={cardIconStyle}>{platform.icon}</div>
