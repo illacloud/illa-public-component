@@ -11,7 +11,7 @@ import { PCRegister } from "./pc"
 export const RegisterPage: FC<RegisterPageProps> = (props) => {
   const [showCountDown, setShowCountDown] = useState(false)
   const { email } = useParams()
-  let [searchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   const formProps = useForm<RegisterFields>({
     mode: "onSubmit",

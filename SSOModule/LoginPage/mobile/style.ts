@@ -78,11 +78,6 @@ export const oAuthButtonGroupStyle = css`
   margin: auto 0 0;
 `
 
-export const oAuthButtonStyle = css`
-  width: 88rem;
-  height: 88rem;
-`
-
 export const oAuthIconStyle = css`
   width: 32rem;
   height: 32rem;

@@ -1,4 +1,4 @@
-import { GithubIcon, GoogleIcon } from "@illa-public/icon"
+import { GithubIcon } from "@illa-public/icon"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
   ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
@@ -17,8 +17,8 @@ import {
   Password,
   WarningCircleIcon,
 } from "@illa-design/react"
+import { OAuthButton } from "../../components/OAuthButton"
 import { EMAIL_FORMAT } from "../../constants/regExp"
-import { openOAuthUrl } from "../../constants/users"
 import { validateReport } from "../../utils/reportUtils"
 import { LoginFields, loginProps } from "../interface"
 import {
@@ -41,15 +41,8 @@ import {
 export const PCLogin: FC<loginProps> = (props) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const {
-    onSubmit,
-    errorMsg,
-    loading,
-    oAuthURI,
-    lockedEmail,
-    hideOAuth,
-    hideRegister,
-  } = props
+  const { onSubmit, errorMsg, loading, lockedEmail, hideOAuth, hideRegister } =
+    props
 
   const { handleSubmit, control, formState, getValues, trigger } =
     useFormContext<LoginFields>()
@@ -260,36 +253,14 @@ export const PCLogin: FC<loginProps> = (props) => {
             text={t("page.user.sign_in.option.or")}
           />
           <div css={oAuthButtonGroupStyle}>
-            <Button
-              style={{ display: "none" }}
-              leftIcon={<GoogleIcon css={oAuthIconStyle} />}
-              colorScheme="grayBlue"
-              variant="outline"
-              size="large"
-              fullWidth
-              onClick={() => {
-                oAuthURI?.google && openOAuthUrl(oAuthURI.google)
-              }}
-            >
-              {t("page.user.sign_in.option.google")}
-            </Button>
-            <Button
-              leftIcon={<GithubIcon css={oAuthIconStyle} />}
-              colorScheme="grayBlue"
-              variant="outline"
-              size="large"
-              fullWidth
-              onClick={() => {
-                ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
-                  page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
-                  element: "github_sign_in",
-                })
-
-                oAuthURI?.github && openOAuthUrl(oAuthURI.github)
-              }}
+            <OAuthButton
+              icon={<GithubIcon css={oAuthIconStyle} />}
+              type="github"
+              isMobile={false}
+              landing="signin"
             >
               {t("page.user.sign_in.option.github")}
-            </Button>
+            </OAuthButton>
           </div>
         </div>
       )}

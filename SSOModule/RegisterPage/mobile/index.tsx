@@ -1,4 +1,4 @@
-import { GithubIcon, GoogleIcon } from "@illa-public/icon"
+import { GithubIcon } from "@illa-public/icon"
 import {
   ILLAMixpanel,
   ILLA_MIXPANEL_EVENT_TYPE,
@@ -12,8 +12,8 @@ import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Button, Input, Password } from "@illa-design/react"
 import { EmailCode } from "../../components/EmailCode"
+import { OAuthButton } from "../../components/OAuthButton"
 import { EMAIL_FORMAT } from "../../constants/regExp"
-import { openOAuthUrl } from "../../constants/users"
 import { validateReport } from "../../utils/reportUtils"
 import { RegisterFields, RegisterProps } from "../interface"
 import {
@@ -25,7 +25,6 @@ import {
   headerStyle,
   mobileInputStyle,
   oAuthButtonGroupStyle,
-  oAuthButtonStyle,
   oAuthIconStyle,
   singleSubmitButtonStyle,
   submitButtonStyle,
@@ -33,7 +32,6 @@ import {
 
 export const MobileRegister: FC<RegisterProps> = (props) => {
   const {
-    oAuthURI,
     lockedEmail,
     onSubmit,
     errorMsg,
@@ -312,33 +310,12 @@ export const MobileRegister: FC<RegisterProps> = (props) => {
       </Button>
       {isCloudVersion && (
         <div css={[oAuthButtonGroupStyle]}>
-          <Button
-            style={{ display: "none" }}
-            _css={oAuthButtonStyle}
-            leftIcon={<GoogleIcon css={oAuthIconStyle} />}
-            colorScheme="grayBlue"
-            variant="outline"
-            shape="round"
-            type="button"
-            onClick={() => {
-              oAuthURI?.google && openOAuthUrl(oAuthURI.google)
-            }}
-          ></Button>
-          <Button
-            _css={oAuthButtonStyle}
-            leftIcon={<GithubIcon css={oAuthIconStyle} />}
-            colorScheme="grayBlue"
-            variant="outline"
-            shape="round"
-            type="button"
-            onClick={() => {
-              ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
-                page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.SIGNUP,
-                element: "github_sign_up",
-              })
-              oAuthURI?.github && openOAuthUrl(oAuthURI.github)
-            }}
-          ></Button>
+          <OAuthButton
+            icon={<GithubIcon css={oAuthIconStyle} />}
+            type="github"
+            isMobile
+            landing="signup"
+          />
         </div>
       )}
     </form>
