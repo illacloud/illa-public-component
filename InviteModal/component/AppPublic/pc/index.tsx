@@ -151,7 +151,6 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
 
   const contributeBlock = (
     <>
-      (
       <div css={blockContainerStyle}>
         <div css={blockLabelStyle}>
           {t("user_management.modal.contribute.label")}
@@ -185,7 +184,6 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
           />
         )}
       </div>
-      )
       {appContribute && (
         <div css={linkCopyContainer}>
           <Input
