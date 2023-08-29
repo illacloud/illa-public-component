@@ -5,6 +5,7 @@ export interface Editor {
   email: string
 }
 
+
 export interface ProductAppDetail {
   appID: string
   name: string
