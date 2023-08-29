@@ -244,11 +244,6 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
     <div css={publicContainerStyle}>
       {!hidePublic && publickBlock}
       {contributeBlock}
-      <div
-        css={{
-          height: 16,
-        }}
-      />
       {shareBlock}
     </div>
   )

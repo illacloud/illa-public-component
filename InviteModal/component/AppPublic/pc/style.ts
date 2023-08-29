@@ -9,6 +9,7 @@ export const publicContainerStyle = css`
 
 export const blockContainerStyle = css`
   display: flex;
+  margin-top: 16px;
   padding: 8px 0;
   align-items: center;
   flex-direction: row;
@@ -27,6 +28,7 @@ export const linkCopyContainer = css`
   flex-direction: row;
   overflow: hidden;
   align-items: center;
+  margin-top: 8px;
 `
 
 export const premiumContainerStyle = css`
