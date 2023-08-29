@@ -20,7 +20,7 @@ export interface MarketplaceInfo {
   isStarredByCurrentUser: boolean
 }
 
-export interface MarketAiAgent {
+export interface MarketAIAgent {
   aiAgent: Agent
   marketplace: MarketplaceInfo
 }
@@ -75,5 +75,5 @@ export interface Agent extends AgentRaw {
 }
 
 export interface MarketAgentCardProps extends HTMLAttributes<HTMLDivElement> {
-  marketAIAgent: MarketAiAgent
+  marketAIAgent: MarketAIAgent
 }

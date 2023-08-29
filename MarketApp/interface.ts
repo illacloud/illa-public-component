@@ -7,8 +7,8 @@ export interface Editor {
 
 
 export interface ProductAppDetail {
-  appID: string
-  name: string
+  appId: string
+  appName: string
   publishedToMarketplace?: boolean
   description: string
   editedBy: Editor[]

@@ -40,6 +40,7 @@ export const MarketShareAgentMobile: FC<MarketShareAgentProps> = (props) => {
         </div>
         <div css={contentContainerStyle}>
           <AgentToMarketplaceMobile
+            onShare={props.onShare}
             defaultAgentContributed={props.defaultAgentContributed}
             onAgentContributed={props.onAgentContributed}
             agentID={props.agentID}
