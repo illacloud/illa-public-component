@@ -5,6 +5,7 @@ export interface ContributorTeam {
   teamID: string
   icon: string
   name: string
+  teamIdentify: string
 }
 
 export interface MarketplaceInfo {
