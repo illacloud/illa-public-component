@@ -29,3 +29,15 @@ export const updateUserIsTutorialViewedReducer: CaseReducer<
   const { payload } = action
   state["isTutorialViewed"] = payload
 }
+
+export const updateUserInfoReducer: CaseReducer<
+  CurrentUser,
+  PayloadAction<Partial<CurrentUser>>
+> = (state, action) => {
+  if (!state) return
+  const { payload } = action
+  return {
+    ...state,
+    ...payload,
+  }
+}
