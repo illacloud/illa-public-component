@@ -196,7 +196,7 @@ export const ILLACodeMirrorCore: FC<ILLACodeMirrorProps> = (props) => {
     <div
       ref={editorWrapperRef}
       className={className}
-      css={applyEditorWrapperStyle}
+      css={applyEditorWrapperStyle(editable)}
     />
   )
 }
