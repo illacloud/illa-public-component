@@ -26,7 +26,7 @@ export const AppPublicMobile: FC<Partial<AppPublicProps>> = (props) => {
       </div>
       <div css={inviteOptionsStyle}>
         <Button
-          _css={inviteButtonStyle}
+          css={inviteButtonStyle}
           colorScheme="techPurple"
           fullWidth
           onClick={() => {

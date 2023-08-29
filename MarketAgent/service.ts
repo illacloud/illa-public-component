@@ -1,5 +1,5 @@
 import { marketplaceRequest } from "@illa-public/illa-net"
-import { MarketAiAgent } from "./MarketAgentCard/interface"
+import { MarketAIAgent } from "./MarketAgentCard/interface"
 
 
 export enum MARKET_AGENT_SORTED_OPTIONS {
@@ -9,7 +9,7 @@ export enum MARKET_AGENT_SORTED_OPTIONS {
 }
 
 export interface MarketAgentListData {
-  products: MarketAiAgent[]
+  products: MarketAIAgent[]
   hasMore: boolean
 }
 
@@ -28,7 +28,7 @@ export const fetchMarketAgentList = (
 }
 
 export const getAIAgentMarketplaceInfo = (aiAgentID: string) => {
-  return marketplaceRequest<MarketAiAgent>({
+  return marketplaceRequest<MarketAIAgent>({
     url: `/aiAgents/${aiAgentID}`,
     method: "GET",
   })
