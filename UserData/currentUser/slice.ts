@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import {
   updateCurrentUserReducer,
   updateUserAvatarReducer,
+  updateUserInfoReducer,
   updateUserIsTutorialViewedReducer,
 } from "./reducer"
 import { CurrentUserInitialState } from "./state"
@@ -13,6 +14,7 @@ const currentUserSlice = createSlice({
     updateCurrentUserReducer,
     updateUserAvatarReducer,
     updateUserIsTutorialViewedReducer,
+    updateUserInfoReducer,
   },
 })
 
