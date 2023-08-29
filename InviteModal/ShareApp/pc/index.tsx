@@ -73,7 +73,10 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
               props.currentUserRole,
               false,
             ) && (
-              <TabPane title={t("new_share.title.invite_to_edit")} key="edit" />
+              <TabPane
+                title={t("user_management.modal.title.invite_to_edit")}
+                key="edit"
+              />
             )}
           {props.canInvite && props.canUseBillingFeature && (
             <TabPane
