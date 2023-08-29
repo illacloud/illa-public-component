@@ -78,6 +78,7 @@ export const PCMemberList: FC = () => {
           email: item.email,
           status: item.userStatus,
           userID: item.userID,
+          teamMemberID: item.teamMemberID,
         },
         permissions: {
           teamMemberID: item.teamMemberID,
@@ -113,6 +114,7 @@ export const PCMemberList: FC = () => {
               email={value?.email}
               status={value?.status}
               userID={value?.userID}
+              teamMemberID={value?.teamMemberID}
               currentUserID={teamMemberID}
             />
           )
