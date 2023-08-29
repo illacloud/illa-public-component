@@ -24,8 +24,8 @@ const getURLWithPrefix = (
     const teamIdentifier = options.teamIdentifier
     finalURL = `${prefix}/teams/byIdentifier/${teamIdentifier}` + url
   } else if (options?.teamID) {
-    const teamId = options.teamID
-    finalURL = `${prefix}/teams/${teamId}` + url
+    const teamID = options.teamID
+    finalURL = `${prefix}/teams/${teamID}` + url
   }
   return finalURL
 }
