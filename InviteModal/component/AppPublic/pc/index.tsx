@@ -31,6 +31,7 @@ import {
 
 export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const {
+    onShare,
     appID,
     ownerTeamID,
     ownerTeamIdentify,
@@ -228,6 +229,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             }}
           />
           <ShareBlockPC
+            onShare={onShare}
             title={t("user_management.modal.social_media.default_text.app")}
             shareUrl={
               appContribute

@@ -22,6 +22,7 @@ export const AgentToMarketplaceMobile: FC<AgentToMarketplaceProps> = (
   props,
 ) => {
   const {
+    onShare,
     defaultAgentContributed,
     onAgentContributed,
     userRoleForThisAgent,
@@ -101,6 +102,7 @@ export const AgentToMarketplaceMobile: FC<AgentToMarketplaceProps> = (
           </div>
           <div css={shareBlockContainerStyle}>
             <ShareBlockMobile
+              onShare={onShare}
               title={t("user_management.modal.social_media.default_text.agent")}
               shareUrl={getAgentPublicLink(agentID)}
             />

@@ -11,8 +11,6 @@ import {
 
 
 export const MarketShareAppMobile: FC<MarketShareAppProps> = (props) => {
-  const { onClose } = props
-
   return (
     <TriggerProvider renderInBody zIndex={1005}>
       <Drawer
@@ -22,7 +20,7 @@ export const MarketShareAppMobile: FC<MarketShareAppProps> = (props) => {
         maskClosable={false}
         closable={false}
         footer={false}
-        onCancel={onClose}
+        onCancel={props.onClose}
         visible={true}
       >
         <div css={inviteHeaderContainerStyle}>
@@ -37,6 +35,7 @@ export const MarketShareAppMobile: FC<MarketShareAppProps> = (props) => {
         </div>
         <div css={contentContainerStyle}>
           <AppPublicMobile
+            onShare={props.onShare}
             appID={props.appID}
             onCopyContributeLink={props.onCopyContributeLink}
             ownerTeamID={props.ownerTeamID}

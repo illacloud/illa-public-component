@@ -1,6 +1,8 @@
 import { USER_ROLE } from "@illa-public/user-data"
+import { ShareBlockProps } from "../ShareBlock/interface"
 
-export interface AgentToMarketplaceProps {
+export interface AgentToMarketplaceProps
+  extends Pick<ShareBlockProps, "onShare"> {
   agentID: string
   defaultAgentContributed: boolean
   onAgentContributed: (isAgentContributed: boolean) => void
