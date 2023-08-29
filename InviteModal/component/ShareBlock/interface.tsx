@@ -10,6 +10,7 @@ import { ReactComponent as XIcon } from "../../asset/X.svg"
 export interface ShareBlockProps {
   shareUrl: string
   title: string
+  onShare: (platform: PlatformType) => void
 }
 
 export enum PlatformType {

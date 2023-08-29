@@ -18,7 +18,7 @@ import {
 } from "./style"
 
 export const ShareBlockPC: FC<ShareBlockProps> = (props) => {
-  const { title, shareUrl } = props
+  const { title, shareUrl, onShare } = props
 
   const { t } = useTranslation()
 
@@ -33,7 +33,9 @@ export const ShareBlockPC: FC<ShareBlockProps> = (props) => {
             <div
               key={platform.platform}
               css={cardContainerStyle}
-              onClick={() => {}}
+              onClick={() => {
+                onShare(platform.platform)
+              }}
             >
               <div css={cardIconStyle}>{platform.icon}</div>
               <div css={cardNameStyle}>{platform.platformName}</div>
