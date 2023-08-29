@@ -13,9 +13,6 @@ export enum PRODUCT_SORT_BY {
 
 export interface AppProductResponse {
   products: ProductMarketApp[]
-  total: number
-  pageSize: number
-  pageIndex: number
   hasMore: boolean
 }
 
