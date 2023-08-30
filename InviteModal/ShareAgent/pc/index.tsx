@@ -86,6 +86,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
           props.agentID !== "" &&
           props.agentID !== undefined && (
             <AgentToMarketplacePC
+              title={props.title}
               defaultAgentContributed={props.defaultAgentContributed}
               onAgentContributed={props.onAgentContributed}
               agentID={props.agentID}

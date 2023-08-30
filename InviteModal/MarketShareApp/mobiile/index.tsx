@@ -35,6 +35,7 @@ export const MarketShareAppMobile: FC<MarketShareAppProps> = (props) => {
         </div>
         <div css={contentContainerStyle}>
           <AppPublicMobile
+            title={props.title}
             onShare={props.onShare}
             appID={props.appID}
             onCopyContributeLink={props.onCopyContributeLink}

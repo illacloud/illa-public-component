@@ -15,7 +15,7 @@ import {
 
 // only for marketplace share app
 export const AppPublicMobile: FC<Partial<AppPublicProps>> = (props) => {
-  const { appID = "", onCopyContributeLink, onShare } = props
+  const { appID = "", onCopyContributeLink, onShare, title = "" } = props
 
   const { t } = useTranslation()
 
@@ -38,7 +38,7 @@ export const AppPublicMobile: FC<Partial<AppPublicProps>> = (props) => {
         <div css={shareBlockContainerStyle}>
           <ShareBlockMobile
             onShare={onShare}
-            title={t("user_management.modal.social_media.default_text.app")}
+            title={title}
             shareUrl={getMarketLinkTemplate(appID)}
           />
         </div>

@@ -23,9 +23,9 @@ import {
   publicContainerStyle,
 } from "./style"
 
-
 export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
   const {
+    title,
     defaultAgentContributed,
     onAgentContributed,
     userRoleForThisAgent,
@@ -131,7 +131,7 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
           />
           <ShareBlockPC
             onShare={onShare}
-            title={t("user_management.modal.social_media.default_text.agent")}
+            title={title}
             shareUrl={getAgentPublicLink(agentID)}
           />
         </>
