@@ -220,7 +220,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     const { type, subscribeInfo, purchaseInfo } = defaultConfig
     if (loading || !teamID) return
     setLoading(true)
-    const match = matchPath("/team/:teamIdentifier/billing", location.pathname)
+    const match = matchPath("/setting/:teamIdentifier/billing", location.pathname)
     const successRedirect = getSuccessRedirectWithParams({
       returnTo: match
         ? updateHash(type === "license" ? "#license" : "#drive")
