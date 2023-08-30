@@ -11,9 +11,12 @@ import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Button,
+  DoubtIcon,
   Input,
   Skeleton,
   Switch,
+  Trigger,
+  TriggerProvider,
   getColor,
   useMergeValue,
   useMessage,
@@ -24,6 +27,7 @@ import { makeAppContribute, updateAppPublicConfig } from "../service"
 import {
   blockContainerStyle,
   blockLabelStyle,
+  doubtStyle,
   linkCopyContainer,
   premiumContainerStyle,
   publicContainerStyle,
@@ -127,7 +131,12 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             colorScheme="techPurple"
             value={
               appLinkLoading ? (
-                <Skeleton text={{ rows: 1 }} opac={0.5} animation flexGrow="1" />
+                <Skeleton
+                  text={{ rows: 1 }}
+                  opac={0.5}
+                  animation
+                  flexGrow="1"
+                />
               ) : (
                 getPublicLinkTemplate(ownerTeamIdentify, appID)
               )
@@ -157,6 +166,17 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
         <div css={blockLabelStyle}>
           {t("user_management.modal.contribute.label")}
         </div>
+        <TriggerProvider zIndex={1000}>
+          <Trigger
+            trigger="hover"
+            position="top"
+            content={t("user_management.modal.contribute.app.desc")}
+          >
+            <div css={doubtStyle}>
+              <DoubtIcon />
+            </div>
+          </Trigger>
+        </TriggerProvider>
         <div
           style={{
             flexGrow: 1,
@@ -172,6 +192,10 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
                 setMarketLinkLoading(true)
                 await makeAppContribute(ownerTeamID, appID)
                 onAppContribute?.(value)
+                if (value) {
+                  setAppPublic(true)
+                  onAppPublic?.(true)
+                }
               } catch (e) {
                 message.error({
                   content: t(
@@ -196,7 +220,12 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             colorScheme="techPurple"
             value={
               marketLinkLoading ? (
-                <Skeleton text={{ rows: 1 }} opac={0.5} animation flexGrow="1" />
+                <Skeleton
+                  text={{ rows: 1 }}
+                  opac={0.5}
+                  animation
+                  flexGrow="1"
+                />
               ) : (
                 getMarketLinkTemplate(appID)
               )
