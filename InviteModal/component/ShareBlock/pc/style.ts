@@ -29,6 +29,7 @@ export const cardContainerStyle = css`
   border-radius: 8px;
   padding: 16px;
   border: 1px solid ${getColor("grayBlue", "08")};
+  transition: all 0.2s ease-in-out;
   justify-content: center;
   flex-shrink: 0;
   cursor: pointer;
@@ -36,7 +37,7 @@ export const cardContainerStyle = css`
   &:hover {
     border: 1px solid ${getColor("techPurple", "01")};
     background: ${getColor("techPurple", "07")};
-    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.08);
   }
 `
 
