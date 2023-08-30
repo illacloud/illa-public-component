@@ -61,13 +61,18 @@ export const RecordEditor: FC<RecordEditorProps> = (props) => {
                 bdRadius="8px 0 0 8px"
                 placeholder="key"
                 onChange={(value) => {
-                  onChangeKey?.(index, value.replace(/[ {}\s]/g, "").trim(), record.value, name)
+                  onChangeKey?.(
+                    index,
+                    value.replace(/[ {}\s]/g, "").trim(),
+                    record.value,
+                    name,
+                  )
                 }}
               />
               <Input
                 colorScheme={"techPurple"}
                 height="32px"
-                bdRadius={(fillOnly || readOnly) ? "0 8px 8px 0" : "0"}
+                bdRadius={fillOnly || readOnly ? "0 8px 8px 0" : "0"}
                 ml="-1px"
                 readOnly={readOnly}
                 placeholder="value"
@@ -76,7 +81,12 @@ export const RecordEditor: FC<RecordEditorProps> = (props) => {
                 flexGrow="1"
                 value={record.value}
                 onChange={(value) => {
-                  onChangeValue?.(index, record.key, value, name)
+                  onChangeValue?.(
+                    index,
+                    record.key,
+                    value.replace(/{{|}}/g, ""),
+                    name,
+                  )
                 }}
               />
               {!(fillOnly || readOnly) && (
