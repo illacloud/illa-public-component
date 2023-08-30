@@ -129,7 +129,7 @@ export const RoleSelector: FC<RoleSelectorProps> = (props) => {
         <div css={applyRoleOuterLabelStyle(inline)}>
           {userRoleItems.find((item) => item.role === value)?.name}
         </div>
-        {canEdit && (
+        {canEdit && dropUserRole.length > 1 && (
           <div css={roleOuterIconStyle}>
             {menuVisible ? <UpIcon /> : <DownIcon />}
           </div>
