@@ -2,7 +2,6 @@ import { css } from "@emotion/react"
 import { applyMobileStyle } from "@illa-public/utils"
 import { getColor } from "@illa-design/react"
 
-export const card_height = 156
 
 export const cardStyle = css`
   display: flex;
@@ -10,7 +9,6 @@ export const cardStyle = css`
   gap: 16px;
   padding: 24px;
   width: 100%;
-  height: ${card_height}px;
   border-radius: 8px;
   border: 1px solid ${getColor("grayBlue", "08")};
   background: ${getColor("white", "01")};
@@ -29,7 +27,6 @@ export const cardStyle = css`
   ${applyMobileStyle(css`
     gap: 12px;
     padding: 16px;
-    height: 156px;
     &:hover {
       border-color: ${getColor("grayBlue", "08")};
       box-shadow: none;
