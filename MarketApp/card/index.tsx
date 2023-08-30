@@ -33,7 +33,7 @@ export const MarketAppCard: FC<MarketAppCardProps> = (props) => {
       </div>
       <div>
         <div css={descriptionStyle}>
-          {app.description}
+          {app.config.description}
         </div>
       </div>
       <div css={footerStyle}>

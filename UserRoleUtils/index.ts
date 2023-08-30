@@ -484,3 +484,7 @@ export const canManageInvite = (
     return [USER_ROLE.OWNER, USER_ROLE.ADMIN].includes(currentUserRole)
   }
 }
+
+export const canMarketPlaceManage = (currentUserRole: USER_ROLE) => {
+  return [USER_ROLE.OWNER, USER_ROLE.ADMIN, USER_ROLE.EDITOR].includes(currentUserRole)
+}

@@ -9,7 +9,6 @@ export const inviteHeaderContainerStyle = css`
 `
 
 export const inviteModalStyle = css`
-  height: 70%;
   width: 100%;
   flex: none;
   border-radius: 12px 12px 0 0;
