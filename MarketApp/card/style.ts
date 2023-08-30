@@ -121,12 +121,13 @@ export const descriptionStyle = css`
   font-size: 12px;
   font-weight: 400;
   line-height: 20px;
-  text-overflow: ellipsis;
-  overflow: hidden;
   display: -webkit-box;
-  -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-wrap: break-word;
   ${applyMobileStyle(css`
     height: 36px;
     line-height: 18px;

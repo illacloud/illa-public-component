@@ -1,3 +1,17 @@
+export interface ActionsDetail {
+  actionID: string
+  resourceID: string
+  name: string
+  type: string
+  icon: string
+}
+
+export interface Config {
+  description: string
+  components: string[]
+  actions: ActionsDetail[]
+}
+
 export interface Editor {
   userID: string
   nickname: string
@@ -5,13 +19,13 @@ export interface Editor {
   email: string
 }
 
-
 export interface ProductAppDetail {
   appId: string
   appName: string
   publishedToMarketplace?: boolean
   description: string
   editedBy: Editor[]
+  config: Config
 }
 
 export interface ContributorTeam {

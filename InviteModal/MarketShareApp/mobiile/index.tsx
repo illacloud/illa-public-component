@@ -16,6 +16,7 @@ export const MarketShareAppMobile: FC<MarketShareAppProps> = (props) => {
       <Drawer
         _css={inviteModalStyle}
         w="100%"
+        h="70%"
         placement="bottom"
         maskClosable={false}
         closable={false}
