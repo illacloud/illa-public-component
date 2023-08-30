@@ -42,7 +42,7 @@ export const Header: FC<IPcHeaderProps> = (props) => {
   const handleClickInviteButton = useCallback(() => {
     if (!isCloudVersion || teamInfo?.totalTeamLicense?.teamLicenseAllPaid) {
       setInviteModalVisible(true)
-    } else if (teamInfo?.totalTeamLicense.balance < 0) {
+    } else if (teamInfo?.totalTeamLicense?.balance < 0) {
       upgradeModal({
         modalType: "add-license",
       })
@@ -52,7 +52,7 @@ export const Header: FC<IPcHeaderProps> = (props) => {
       })
     }
   }, [
-    teamInfo?.totalTeamLicense.balance,
+    teamInfo?.totalTeamLicense?.balance,
     teamInfo?.totalTeamLicense?.teamLicenseAllPaid,
     upgradeModal,
   ])
@@ -103,7 +103,9 @@ export const Header: FC<IPcHeaderProps> = (props) => {
           currentUserRole={currentUserRole}
           defaultAllowInviteLink={teamInfo.permission.inviteLinkEnabled}
           defaultInviteUserRole={USER_ROLE.VIEWER}
-          defaultBalance={teamInfo.currentTeamLicense.balance}
+          defaultBalance={
+            isCloudVersion ? teamInfo?.currentTeamLicense?.balance : Infinity
+          }
           onCopyInviteLink={handleCopy}
           onInviteLinkStateChange={(isInviteLink) => {
             dispatch(
