@@ -32,9 +32,7 @@ export const MarketAppCard: FC<MarketAppCardProps> = (props) => {
         </div>
       </div>
       <div>
-        <div css={descriptionStyle}>
-          {app.config.description}
-        </div>
+        <div css={descriptionStyle}>{app.config.description}</div>
       </div>
       <div css={footerStyle}>
         <div css={teamInfoStyle}>
@@ -47,18 +45,14 @@ export const MarketAppCard: FC<MarketAppCardProps> = (props) => {
           <span css={teamNameStyle}>{marketplace.contributorTeam.name}</span>
         </div>
         <div css={actionContainerStyle}>
-          {marketplace.numForks !== 0 && (
-            <div css={actionCountStyle}>
-              <ForkIcon />
-              {formatNumForAgent(marketplace.numForks)}
-            </div>
-          )}
-          {marketplace.numStars !== 0 && (
-            <div css={actionCountStyle}>
-              <StarOutlineIcon size="16px" />
-              {formatNumForAgent(marketplace.numStars)}
-            </div>
-          )}
+          <div css={actionCountStyle}>
+            <ForkIcon />
+            {formatNumForAgent(marketplace.numForks)}
+          </div>
+          <div css={actionCountStyle}>
+            <StarOutlineIcon size="16px" />
+            {formatNumForAgent(marketplace.numStars)}
+          </div>
         </div>
       </div>
     </div>
