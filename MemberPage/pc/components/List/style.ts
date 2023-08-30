@@ -5,3 +5,14 @@ export const tableListContainerStyle = css`
   height: 100%;
   overflow: auto;
 `
+
+export const listBodyStyle = css`
+  overflow: auto;
+  thead {
+    tr {
+      th {
+        background-color: white;
+      }
+    }
+  }
+`
