@@ -3,8 +3,11 @@ import {
   CompletionContext,
   CompletionResult,
 } from "@codemirror/autocomplete"
-import { isObject } from "@/utils/typeHelper"
 import { getStringSnippets } from "../../utils"
+
+const isObject = (value: unknown): value is Record<string, unknown> => {
+  return typeof value === "object" && value !== null && !Array.isArray(value)
+}
 
 export function checkCursorInDynamicFlag(context: CompletionContext): boolean {
   const { state, pos } = context
