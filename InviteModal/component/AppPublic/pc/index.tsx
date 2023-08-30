@@ -71,7 +71,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
 
   const upgradeModal = useUpgradeModal()
 
-  const publickBlock = (
+  const publicBlock = (
     <>
       <div css={blockContainerStyle}>
         <div css={blockLabelStyle}>
@@ -245,7 +245,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
 
   return (
     <div css={publicContainerStyle}>
-      {!hidePublic && publickBlock}
+      {!hidePublic && publicBlock}
       {contributeBlock}
       {shareBlock}
     </div>
