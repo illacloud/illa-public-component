@@ -13,7 +13,7 @@ import { Table, useMessage } from "@illa-design/react"
 import { fetchChangeTeamMemberRole } from "../../../service"
 import { MoreAction } from "../MoreAction"
 import { NameSpace } from "../NameSpace"
-import { tableListContainerStyle } from "./style"
+import { listBodyStyle, tableListContainerStyle } from "./style"
 
 export const PCMemberList: FC = () => {
   const message = useMessage()
@@ -104,7 +104,7 @@ export const PCMemberList: FC = () => {
         id: "userInfo",
         header: t("user_management.page.member"),
         accessorKey: "userInfo",
-        size: 400,
+        size: 520,
         cell: (props: Record<string, any>) => {
           const value = props.getValue()
           return (
@@ -145,7 +145,7 @@ export const PCMemberList: FC = () => {
       {
         id: "action",
         header: " ",
-        size: 100,
+        size: 32,
         accessorKey: "actions",
         enableSorting: false,
         cell: (props: Record<string, any>) => {
@@ -173,6 +173,7 @@ export const PCMemberList: FC = () => {
     <div css={tableListContainerStyle}>
       <Table
         data={formatToTableData}
+        css={listBodyStyle}
         columns={tableColumns}
         pinedHeader
         tableLayout="auto"
