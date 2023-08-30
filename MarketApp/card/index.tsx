@@ -18,7 +18,7 @@ import {
 } from "./style"
 
 export const MarketAppCard: FC<MarketAppCardProps> = (props) => {
-  const { app, marketplace, onClick } = props
+  const { app, marketplace, fallbackDescription, onClick } = props
 
   const onCardClick = useCallback(() => {
     onClick?.(app.appId)
@@ -32,7 +32,7 @@ export const MarketAppCard: FC<MarketAppCardProps> = (props) => {
         </div>
       </div>
       <div>
-        <div css={descriptionStyle}>{app.config.description}</div>
+        <div css={descriptionStyle}>{app.config.description || fallbackDescription}</div>
       </div>
       <div css={footerStyle}>
         <div css={teamInfoStyle}>

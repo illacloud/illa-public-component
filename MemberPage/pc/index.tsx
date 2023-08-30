@@ -6,6 +6,7 @@ import {
   getCurrentTeamInfo,
 } from "@illa-public/user-data"
 import { canManagePayment } from "@illa-public/user-role-utils"
+import { isCloudVersion } from "@illa-public/utils"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -23,7 +24,7 @@ export const PCMemberPage: FC<IPcMemberListProps> = (props) => {
   const { t } = useTranslation()
   const hasPaymentManagementPermission = canManagePayment(
     currentTeamInfo.myRole,
-    currentTeamInfo.totalTeamLicense.teamLicenseAllPaid,
+    currentTeamInfo?.totalTeamLicense?.teamLicenseAllPaid,
   )
   const currentTeamLicense = currentTeamInfo.currentTeamLicense
   const upgradeDrawer = useUpgradeDrawer()
@@ -49,7 +50,7 @@ export const PCMemberPage: FC<IPcMemberListProps> = (props) => {
     <div css={memberListWrapperStyle}>
       <Header afterLeaveTeam={afterLeaveTeam} />
       <div css={cardAndMemberListContainerStyle}>
-        {hasPaymentManagementPermission && (
+        {isCloudVersion && hasPaymentManagementPermission && (
           <UsageCard
             type="License"
             current={
