@@ -20,6 +20,7 @@ import {
   closeIconContainerStyle,
   contentContainerStyle,
   dividerStyle,
+  inviteContainerStyle,
   inviteHeaderContainerStyle,
   inviteModalStyle,
   spaceLineStyle,
@@ -49,83 +50,87 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
         onCancel={onClose}
         visible={true}
       >
-        <div css={inviteHeaderContainerStyle}>
-          <div
-            css={closeIconContainerStyle}
-            onClick={() => {
-              props.onClose?.()
-            }}
-          >
-            <CloseIcon size="12" />
-          </div>
-          <div css={tabsContainerStyle}>
-            {props.canInvite && (
-              <div
-                css={tabTitleStyle(activeTab === ShareAgentTab.SHARE_WITH_TEAM)}
-                onClick={() => setActiveTab(ShareAgentTab.SHARE_WITH_TEAM)}
-              >
-                {t("user_management.modal.tab.with_team")}
-              </div>
-            )}
-            {(canManage(
-              props.currentUserRole,
-              ATTRIBUTE_GROUP.AGENT,
-              ACTION_MANAGE.CREATE_AGENT,
-            ) ||
-              props.defaultAgentContributed) && (
-              <>
-                <div css={spaceLineStyle} />
+        <div css={inviteContainerStyle}>
+          <div css={inviteHeaderContainerStyle}>
+            <div
+              css={closeIconContainerStyle}
+              onClick={() => {
+                props.onClose?.()
+              }}
+            >
+              <CloseIcon size="12" />
+            </div>
+            <div css={tabsContainerStyle}>
+              {props.canInvite && (
                 <div
                   css={tabTitleStyle(
-                    activeTab === ShareAgentTab.TO_MARKETPLACE,
+                    activeTab === ShareAgentTab.SHARE_WITH_TEAM,
                   )}
-                  onClick={() => setActiveTab(ShareAgentTab.TO_MARKETPLACE)}
+                  onClick={() => setActiveTab(ShareAgentTab.SHARE_WITH_TEAM)}
                 >
-                  {t("user_management.modal.title.contribute")}
+                  {t("user_management.modal.tab.with_team")}
                 </div>
-              </>
+              )}
+              {(canManage(
+                props.currentUserRole,
+                ATTRIBUTE_GROUP.AGENT,
+                ACTION_MANAGE.CREATE_AGENT,
+              ) ||
+                props.defaultAgentContributed) && (
+                <>
+                  <div css={spaceLineStyle} />
+                  <div
+                    css={tabTitleStyle(
+                      activeTab === ShareAgentTab.TO_MARKETPLACE,
+                    )}
+                    onClick={() => setActiveTab(ShareAgentTab.TO_MARKETPLACE)}
+                  >
+                    {t("user_management.modal.title.contribute")}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+          <div css={contentContainerStyle}>
+            {activeTab === ShareAgentTab.TO_MARKETPLACE &&
+              props.agentID !== "" &&
+              props.agentID !== undefined && (
+                <AgentToMarketplaceMobile
+                  title={props.title}
+                  defaultAgentContributed={props.defaultAgentContributed}
+                  onAgentContributed={props.onAgentContributed}
+                  agentID={props.agentID}
+                  onCopyAgentMarketLink={props.onCopyAgentMarketLink}
+                  userRoleForThisAgent={props.userRoleForThisAgent}
+                  ownerTeamID={props.ownerTeamID}
+                />
+              )}
+            {activeTab === ShareAgentTab.SHARE_WITH_TEAM && (
+              <div>
+                <InviteLinkMobile
+                  excludeUserRole={[]}
+                  redirectURL={props.redirectURL}
+                  defaultBalance={props.defaultBalance}
+                  defaultInviteUserRole={props.defaultInviteUserRole}
+                  defaultAllowInviteLink={props.defaultAllowInviteLink}
+                  teamID={props.teamID}
+                  currentUserRole={props.currentUserRole}
+                  onInviteLinkStateChange={props.onInviteLinkStateChange}
+                  onCopyInviteLink={props.onCopyInviteLink}
+                />
+                <Divider _css={dividerStyle} />
+                <InviteByEmailMobile
+                  excludeUserRole={[]}
+                  onBalanceChange={props.onBalanceChange}
+                  defaultInviteUserRole={props.defaultInviteUserRole}
+                  teamID={props.teamID}
+                  currentUserRole={props.currentUserRole}
+                  defaultBalance={props.defaultBalance}
+                  redirectURL={props.redirectURL}
+                />
+              </div>
             )}
           </div>
-        </div>
-        <div css={contentContainerStyle}>
-          {activeTab === ShareAgentTab.TO_MARKETPLACE &&
-            props.agentID !== "" &&
-            props.agentID !== undefined && (
-              <AgentToMarketplaceMobile
-                title={props.title}
-                defaultAgentContributed={props.defaultAgentContributed}
-                onAgentContributed={props.onAgentContributed}
-                agentID={props.agentID}
-                onCopyAgentMarketLink={props.onCopyAgentMarketLink}
-                userRoleForThisAgent={props.userRoleForThisAgent}
-                ownerTeamID={props.ownerTeamID}
-              />
-            )}
-          {activeTab === ShareAgentTab.SHARE_WITH_TEAM && (
-            <div>
-              <InviteLinkMobile
-                excludeUserRole={[]}
-                redirectURL={props.redirectURL}
-                defaultBalance={props.defaultBalance}
-                defaultInviteUserRole={props.defaultInviteUserRole}
-                defaultAllowInviteLink={props.defaultAllowInviteLink}
-                teamID={props.teamID}
-                currentUserRole={props.currentUserRole}
-                onInviteLinkStateChange={props.onInviteLinkStateChange}
-                onCopyInviteLink={props.onCopyInviteLink}
-              />
-              <Divider _css={dividerStyle} />
-              <InviteByEmailMobile
-                excludeUserRole={[]}
-                onBalanceChange={props.onBalanceChange}
-                defaultInviteUserRole={props.defaultInviteUserRole}
-                teamID={props.teamID}
-                currentUserRole={props.currentUserRole}
-                defaultBalance={props.defaultBalance}
-                redirectURL={props.redirectURL}
-              />
-            </div>
-          )}
         </div>
       </Drawer>
     </TriggerProvider>

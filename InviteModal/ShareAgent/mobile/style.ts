@@ -2,10 +2,9 @@ import { css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
 
 export const inviteHeaderContainerStyle = css`
-  position: sticky;
-  top: 0;
   padding-top: 12px;
   width: 100%;
+  flex: none;
   overflow-x: hidden;
   background-color: ${getColor("white", "01")};
 `
@@ -16,6 +15,13 @@ export const inviteModalStyle = css`
   flex: none;
   border-radius: 12px 12px 0 0;
   padding: 0 12px 0 12px;
+`
+
+export const inviteContainerStyle = css`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: hidden;
 `
 
 export const closeIconContainerStyle = css`
@@ -33,7 +39,6 @@ export const closeIconContainerStyle = css`
     height: 24px;
   }
 `
-
 
 export const tabsContainerStyle = css`
   display: flex;
@@ -76,11 +81,9 @@ export const spaceLineStyle = css`
 
 export const contentContainerStyle = css`
   margin-top: 20px;
-`
-
-export const inviteTeamStyle = css`
   overflow-y: auto;
 `
+
 
 export const dividerStyle = css`
   margin-bottom: 24px;
