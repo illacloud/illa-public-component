@@ -1,4 +1,3 @@
-import { Button, CloseIcon, Modal, Spin, useMessage } from "@illa-design/react"
 import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
