@@ -22,7 +22,11 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
     isBiggerThanTargetRole(USER_ROLE.VIEWER, props.currentUserRole, false)
   ) {
     defTab = "edit"
-  } else if (props.canInvite && USER_ROLE.VIEWER === props.currentUserRole) {
+  } else if (
+    props.canInvite &&
+    USER_ROLE.VIEWER === props.currentUserRole &&
+    props.isDeployed
+  ) {
     defTab = "use"
   } else if (
     isBiggerThanTargetRole(USER_ROLE.VIEWER, props.currentUserRole) ||
@@ -78,12 +82,14 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
                 key="edit"
               />
             )}
-          {props.canInvite && props.canUseBillingFeature && (
-            <TabPane
-              title={t("user_management.modal.title.invite_to_use")}
-              key="use"
-            />
-          )}
+          {props.canInvite &&
+            props.isDeployed &&
+            props.canUseBillingFeature && (
+              <TabPane
+                title={t("user_management.modal.title.invite_to_use")}
+                key="use"
+              />
+            )}
           {(isBiggerThanTargetRole(
             USER_ROLE.VIEWER,
             props.userRoleForThisApp,
