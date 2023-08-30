@@ -15,26 +15,8 @@ export const USER_ROLE_ARRAY = [
   USER_ROLE.ADMIN,
   USER_ROLE.EDITOR,
   USER_ROLE.VIEWER,
-  USER_ROLE.CUSTOM,
+  USER_ROLE.GUEST,
 ]
-export const userRoleMapI18nString = {
-  [USER_ROLE.CUSTOM]: "Custom",
-  [USER_ROLE.OWNER]: "user_management.role.owner",
-  [USER_ROLE.ADMIN]: "user_management.role.admin",
-  [USER_ROLE.EDITOR]: "user_management.role.editor",
-  [USER_ROLE.VIEWER]: "user_management.role.viewer",
-  [USER_ROLE.GUEST]: "Guest",
-}
-
-export const userRoleTipI18nString = {
-  [USER_ROLE.CUSTOM]: "",
-  [USER_ROLE.OWNER]: "",
-  [USER_ROLE.ADMIN]: "new_share.tips.admin",
-  [USER_ROLE.EDITOR]: "new_share.tips.editor",
-  [USER_ROLE.VIEWER]: "new_share.tips.viewer",
-  [USER_ROLE.GUEST]: "",
-}
-
 export const filterUserRole = (
   roles: USER_ROLE[],
   filterRole: USER_ROLE[] = [],
