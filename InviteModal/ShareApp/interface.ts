@@ -19,9 +19,10 @@ export interface ShareAppProps
     Omit<AppPublicProps, "hidePublic"> {
   onClose: () => void
   canInvite: boolean
-  defaultTab?: ShareAppPage
+  isDeployed: boolean
   useRedirectURL: string
   editRedirectURL: string
   onCopyEditInviteLink: (inviteLink: string) => void
   onCopyUseInviteLink: (inviteLink: string) => void
+  defaultTab?: ShareAppPage
 }
