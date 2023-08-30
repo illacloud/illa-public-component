@@ -32,7 +32,7 @@ export const cardStyle = css`
     padding: 16px;
     height: 156px;
     &:hover {
-      border-color: border: 1px solid ${getColor("grayBlue", "08")};;
+      border-color: 1px solid ${getColor("grayBlue", "08")};;
       box-shadow: none;
       .dashboardAgentEditButton,
       .dashboardAgentRunButton {
