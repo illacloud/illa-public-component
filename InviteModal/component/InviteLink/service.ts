@@ -1,6 +1,7 @@
 import { authCloudRequest } from "@illa-public/illa-net"
 import { USER_ROLE } from "@illa-public/user-data"
 
+
 export interface InviteLinkResp {
   inviteLink: string
 }
@@ -13,9 +14,12 @@ export const getInviteLink = (
 ) => {
   return authCloudRequest<InviteLinkResp>(
     {
-      url: `/inviteLink/userRole/${userRole}?redirectURL=${encodeURIComponent(
-        redirectURL,
-      )}`,
+      url:
+        redirectURL !== ""
+          ? `/inviteLink/userRole/${userRole}?redirectURL=${encodeURIComponent(
+              redirectURL,
+            )}`
+          : `/inviteLink/userRole/${userRole}`,
       method: "GET",
       signal: signal,
     },
@@ -32,9 +36,12 @@ export const renewInviteLink = (
 ) => {
   return authCloudRequest<InviteLinkResp>(
     {
-      url: `/newInviteLink/userRole/${userRole}?redirectURL=${encodeURIComponent(
-        redirectURL,
-      )}`,
+      url:
+        redirectURL !== ""
+          ? `/newInviteLink/userRole/${userRole}?redirectURL=${encodeURIComponent(
+              redirectURL,
+            )}`
+          : `/newInviteLink/userRole/${userRole}`,
       method: "GET",
     },
     {
