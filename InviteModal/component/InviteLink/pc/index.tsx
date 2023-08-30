@@ -162,41 +162,42 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
 
   return (
     <div css={inviteLinkContainer}>
-      <div css={inviteLinkMenuContainer}>
+      {(allowInviteLink || (!allowInviteLink && isBiggerThanTargetRole(USER_ROLE.ADMIN, currentUserRole))) && <div css={inviteLinkMenuContainer}>
         <div css={inviteLinkLabelStyle}>
           {t("user_management.modal.link.invite_title")}
         </div>
-        {allowInviteLink && (
-          <Dropdown
-            trigger="click"
-            position="bottom-end"
-            dropList={
-              <DropList>
-                <DropListItem
-                  key={t("user_management.modal.link.update")}
-                  value={t("user_management.modal.link.update")}
-                  title={t("user_management.modal.link.update")}
-                  onClick={async () => {
-                    await renewInviteLinkRequest(teamID, inviteUserRole)
-                  }}
-                />
-                <DropListItem
-                  key={t("user_management.modal.link.turn_off")}
-                  value={t("user_management.modal.link.turn_off")}
-                  title={t("user_management.modal.link.turn_off")}
-                  onClick={async () => {
-                    await disableInviteLinkRequest(teamID)
-                  }}
-                />
-              </DropList>
-            }
-          >
-            <div css={inviteLinkMenuButtonStyle}>
-              <SortIcon />
-            </div>
-          </Dropdown>
-        )}
-      </div>
+        {allowInviteLink &&
+          isBiggerThanTargetRole(USER_ROLE.ADMIN, currentUserRole) && (
+            <Dropdown
+              trigger="click"
+              position="bottom-end"
+              dropList={
+                <DropList>
+                  <DropListItem
+                    key={t("user_management.modal.link.update")}
+                    value={t("user_management.modal.link.update")}
+                    title={t("user_management.modal.link.update")}
+                    onClick={async () => {
+                      await renewInviteLinkRequest(teamID, inviteUserRole)
+                    }}
+                  />
+                  <DropListItem
+                    key={t("user_management.modal.link.turn_off")}
+                    value={t("user_management.modal.link.turn_off")}
+                    title={t("user_management.modal.link.turn_off")}
+                    onClick={async () => {
+                      await disableInviteLinkRequest(teamID)
+                    }}
+                  />
+                </DropList>
+              }
+            >
+              <div css={inviteLinkMenuButtonStyle}>
+                <SortIcon />
+              </div>
+            </Dropdown>
+          )}
+      </div>}
       {allowInviteLink ? (
         <div css={inviteLinkCopyContainer}>
           <Input
@@ -207,7 +208,12 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
             colorScheme="techPurple"
             value={
               getLinkLoading ? (
-                <Skeleton text={{ rows: 1 }} opac={0.5} animation flexGrow="1" />
+                <Skeleton
+                  text={{ rows: 1 }}
+                  opac={0.5}
+                  animation
+                  flexGrow="1"
+                />
               ) : (
                 currentInviteLink
               )
@@ -250,22 +256,24 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
           </Button>
         </div>
       ) : (
-        <div css={closeInviteLinkContainerStyle}>
-          <div css={secretLinkStyle}>
-            {t("user_management.modal.link.description")}
+        isBiggerThanTargetRole(USER_ROLE.ADMIN, currentUserRole) && (
+          <div css={closeInviteLinkContainerStyle}>
+            <div css={secretLinkStyle}>
+              {t("user_management.modal.link.description")}
+            </div>
+            <Button
+              variant="text"
+              size="small"
+              loading={getLinkLoading}
+              colorScheme="techPurple"
+              onClick={async () => {
+                await enableInviteLinkRequest(teamID)
+              }}
+            >
+              {t("user_management.modal.link.turn_on")}
+            </Button>
           </div>
-          <Button
-            variant="text"
-            size="small"
-            loading={getLinkLoading}
-            colorScheme="techPurple"
-            onClick={async () => {
-              await enableInviteLinkRequest(teamID)
-            }}
-          >
-            {t("user_management.modal.link.turn_on")}
-          </Button>
-        </div>
+        )
       )}
     </div>
   )
