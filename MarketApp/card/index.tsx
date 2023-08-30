@@ -1,7 +1,6 @@
 import { Avatar } from "@illa-public/avatar"
 import { formatNumForAgent } from "@illa-public/utils"
 import { FC, useCallback } from "react"
-import { useTranslation } from "react-i18next"
 import { ForkIcon, StarOutlineIcon } from "@illa-design/react"
 import { MarketAppCardProps } from "./interface"
 import {
@@ -19,7 +18,6 @@ import {
 } from "./style"
 
 export const MarketAppCard: FC<MarketAppCardProps> = (props) => {
-  const { t } = useTranslation()
   const { app, marketplace, onClick } = props
 
   const onCardClick = useCallback(() => {
@@ -35,7 +33,7 @@ export const MarketAppCard: FC<MarketAppCardProps> = (props) => {
       </div>
       <div>
         <div css={descriptionStyle}>
-          {app.description || t("new_dashboard.desc.no_description")}
+          {app.description}
         </div>
       </div>
       <div css={footerStyle}>
@@ -49,13 +47,13 @@ export const MarketAppCard: FC<MarketAppCardProps> = (props) => {
           <span css={teamNameStyle}>{marketplace.contributorTeam.name}</span>
         </div>
         <div css={actionContainerStyle}>
-          {marketplace.numForks && (
+          {marketplace.numForks !== 0 && (
             <div css={actionCountStyle}>
               <ForkIcon />
               {formatNumForAgent(marketplace.numForks)}
             </div>
           )}
-          {marketplace.numStars && (
+          {marketplace.numStars !== 0 && (
             <div css={actionCountStyle}>
               <StarOutlineIcon size="16px" />
               {formatNumForAgent(marketplace.numStars)}
