@@ -10,7 +10,11 @@ import {
   teamActions,
 } from "@illa-public/user-data"
 import { canManageInvite, canManagePayment } from "@illa-public/user-role-utils"
-import { isCloudVersion, copyToClipboard, COPY_STATUS } from "@illa-public/utils"
+import {
+  COPY_STATUS,
+  copyToClipboard,
+  isCloudVersion,
+} from "@illa-public/utils"
 import { FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
@@ -22,7 +26,6 @@ import {
   mobileTitleStyle,
   usageCardContainerStyle,
 } from "./style"
-
 
 export const MobileMemberPage: FC = () => {
   const { t } = useTranslation()
@@ -83,24 +86,27 @@ export const MobileMemberPage: FC = () => {
     })
   }
 
-  const handleCopy = useCallback((inviteLink: string) => {
-    const flag = copyToClipboard(
-      t("user_management.modal.custom_copy_text", {
-        inviteLink: inviteLink,
-        teamName: teamInfo.name,
-        userName: currentUserInfo.nickname,
-      }),
-    )
-    if(flag === COPY_STATUS.EMPTY) {
-      message.info({
-        content: t("empty_copied_tips"),
-      })
-    } else {
-      message.success({
-        content: t("copied"),
-      })
-    }
-  }, [currentUserInfo.nickname, message, t, teamInfo.name])
+  const handleCopy = useCallback(
+    (inviteLink: string) => {
+      const flag = copyToClipboard(
+        t("user_management.modal.custom_copy_text", {
+          inviteLink: inviteLink,
+          teamName: teamInfo.name,
+          userName: currentUserInfo.nickname,
+        }),
+      )
+      if (flag === COPY_STATUS.EMPTY) {
+        message.info({
+          content: t("empty_copied_tips"),
+        })
+      } else {
+        message.success({
+          content: t("copied"),
+        })
+      }
+    },
+    [currentUserInfo.nickname, message, t, teamInfo.name],
+  )
 
   return (
     <div css={mobileMemberContainerStyle}>
@@ -139,9 +145,7 @@ export const MobileMemberPage: FC = () => {
       </Button>
       {inviteModalVisible && (
         <InviteMemberMobile
-          redirectURL={`${import.meta.env.ILLA_CLOUD_URL}/workspace/${
-            teamInfo?.identifier
-          }`}
+          redirectURL=""
           onClose={() => setInviteModalVisible(false)}
           canInvite={enableInvite}
           currentUserRole={currentUserRole}
