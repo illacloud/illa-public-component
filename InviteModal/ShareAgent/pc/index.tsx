@@ -24,9 +24,13 @@ import {
 
 export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
   const [activeTab, setActiveTab] = useMergeValue<string>(
-    ShareAgentTab.SHARE_WITH_TEAM,
+    props.canInvite
+      ? ShareAgentTab.SHARE_WITH_TEAM
+      : ShareAgentTab.TO_MARKETPLACE,
     {
-      defaultValue: ShareAgentTab.SHARE_WITH_TEAM,
+      defaultValue: props.canInvite
+        ? ShareAgentTab.SHARE_WITH_TEAM
+        : ShareAgentTab.TO_MARKETPLACE,
     },
   )
 
