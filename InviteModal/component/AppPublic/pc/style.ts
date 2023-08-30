@@ -15,6 +15,17 @@ export const blockContainerStyle = css`
   flex-direction: row;
 `
 
+export const doubtStyle = css`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: ${getColor("grayBlue", "04")};
+`
+
 export const blockLabelStyle = css`
   color: ${getColor("grayBlue", "02")};
   font-size: 14px;

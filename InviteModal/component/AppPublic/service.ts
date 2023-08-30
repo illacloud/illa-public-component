@@ -24,7 +24,7 @@ export const makeAppContribute = (teamID: string, appID: string) => {
   return marketplaceTeamRequest<{}>(
     {
       method: "POST",
-      url: `/apps/${appID}`,
+      url: `/products/apps/${appID}`,
     },
     {
       teamID: teamID,
