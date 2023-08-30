@@ -97,7 +97,7 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
             colorScheme="techPurple"
             value={
               agentContributedLoading ? (
-                <Skeleton text={{ rows: 1, width: 280 }} opac={0.5} animation />
+                <Skeleton text={{ rows: 1 }} opac={0.5} animation flexGrow="1" />
               ) : (
                 getAgentPublicLink(agentID)
               )

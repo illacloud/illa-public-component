@@ -207,7 +207,7 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
             colorScheme="techPurple"
             value={
               getLinkLoading ? (
-                <Skeleton text={{ rows: 1, width: 280 }} opac={0.5} animation />
+                <Skeleton text={{ rows: 1 }} opac={0.5} animation flexGrow="1" />
               ) : (
                 currentInviteLink
               )
