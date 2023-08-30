@@ -1,17 +1,9 @@
-import { FC, HTMLAttributes, useEffect, useMemo } from "react"
-import {
-  applyAvatarStyle,
-  avatarImgStyle,
-} from "@/illa-public-component/Avatar/style"
-import { getColorByString } from "@/utils/colorHelper"
+import { getColorByString } from "@illa-public/utils"
+import { FC, useMemo } from "react"
+import { AvatarProps } from "./interface"
+import { applyAvatarStyle, avatarImgStyle } from "./style"
 
-export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
-  avatarUrl?: string
-  id?: string
-  name?: string
-  onMount?: () => void
-}
-
+export * from "./interface"
 const getFirstChar = (str: string | undefined) => {
   if (!str) return "U"
   const trimStr = str.trim()
@@ -21,7 +13,7 @@ const getFirstChar = (str: string | undefined) => {
 }
 
 export const Avatar: FC<AvatarProps> = (props) => {
-  const { avatarUrl, id, name, className, onMount, ...otherProps } = props
+  const { avatarUrl, id, name, className, size = 40, ...otherProps } = props
 
   const { avatarBgColor, avatarText, emptyStatus } = useMemo(() => {
     return {
@@ -31,14 +23,10 @@ export const Avatar: FC<AvatarProps> = (props) => {
     }
   }, [id, name, avatarUrl])
 
-  useEffect(() => {
-    onMount?.()
-  }, [onMount])
-
   return (
     <div
       className={className}
-      css={applyAvatarStyle(avatarBgColor, emptyStatus)}
+      css={applyAvatarStyle(avatarBgColor, emptyStatus, size)}
       {...otherProps}
     >
       {avatarUrl ? (

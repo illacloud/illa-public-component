@@ -1,6 +1,5 @@
 import { css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
-import { pxToRem } from "@/style"
 
 export const cropperWrapperStyle = css`
   display: inline-flex;
@@ -35,7 +34,8 @@ export const controlStyle = css`
   -moz-appearance: none;
   height: 4px;
   border-radius: 2px;
-  background: linear-gradient(
+  background:
+    linear-gradient(
         ${getColor("techPurple", "01")},
         ${getColor("techPurple", "01")}
       )
@@ -138,16 +138,16 @@ export const rowStyle = css`
 export const mobileModalStyle = css`
   overflow: hidden;
   border: unset;
-  width: ${pxToRem(653)};
-  min-width: ${pxToRem(653)};
-  border-radius: ${pxToRem(16)};
-  padding-bottom: ${pxToRem(24)};
+  width: 653rem;
+  min-width: 653rem;
+  border-radius: 16rem;
+  padding-bottom: 24rem;
 
   & > div {
     &:last-child {
       display: flex;
       justify-content: flex-end;
-      padding: ${pxToRem(48)} ${pxToRem(32)};
+      padding: 48rem 32rem;
     }
   }
 `
@@ -214,10 +214,10 @@ export const mobileCloseIconStyle = css`
 
 export const mobileButtonStyle = css`
   width: 100%;
-  height: ${pxToRem(88)};
-  border-radius: ${pxToRem(16)};
+  height: 88rem;
+  border-radius: 16rem;
 
   & > span {
-    font-size: ${pxToRem(32)};
+    font-size: 32rem;
   }
 `

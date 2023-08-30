@@ -1,0 +1,33 @@
+{
+  "name": "@illa-public/sso-module",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.tsx",
+  "dependencies": {
+    "@illa-public/utils": "workspace:*",
+    "@illa-public/icon": "workspace:*",
+    "react-hook-form": "^7.30.0",
+    "@illa-public/mixpanel-utils": "workspace:*",
+    "react-helmet-async": "^1.3.0",
+    "@illa-public/layout-auto-change": "workspace:*",
+    "@illa-public/text-link": "workspace:*",
+    "@illa-public/illa-net": "workspace:*",
+    "react-router-dom": "^6.14.0"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*",
+    "@types/node": "^18.14.4",
+    "vite-plugin-svgr": "^2.1.0",
+    "@types/mdx": "^2.0.3"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "@illa-design/react": "workspace:*",
+    "@emotion/react": "*",
+    "react-i18next": "^12.1.4",
+    "i18next": "^22.4.9"
+  }
+}

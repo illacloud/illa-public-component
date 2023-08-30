@@ -4,6 +4,7 @@ import { globalColor, illaPrefix } from "@illa-design/react"
 export function applyAvatarStyle(
   background: string,
   emptyStatus: boolean,
+  size: number,
 ): SerializedStyles {
   const statusStyle = emptyStatus
     ? css`
@@ -13,6 +14,7 @@ export function applyAvatarStyle(
     : ""
   return css`
     display: flex;
+    flex: none;
     flex-shrink: 0;
     flex-direction: column;
     justify-content: center;
@@ -20,12 +22,13 @@ export function applyAvatarStyle(
     background: ${background};
     color: ${globalColor(`--${illaPrefix}-white-01`)};
     border: 1px solid ${globalColor(`--${illaPrefix}-grayBlue-09`)};
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
+    width: ${size}px;
+    height: ${size}px;
+    line-height: ${size}px;
     text-align: center;
     border-radius: 50%;
     overflow: hidden;
+    font-size: ${size / 2.5}px;
     ${statusStyle};
   `
 }

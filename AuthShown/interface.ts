@@ -1,5 +1,5 @@
+import { USER_ROLE } from "@illa-public/user-data"
 import { ReactNode } from "react"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
 
 export enum SHOW_RULES {
   "BIGGER" = "BIGGER",
