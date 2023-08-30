@@ -96,12 +96,13 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
             false,
           ) ||
             props.defaultAppContribute ||
-            props.defaultAppPublic) && (
-            <TabPane
-              title={t("user_management.modal.tab.public")}
-              key="public"
-            />
-          )}
+            props.defaultAppPublic) &&
+            isCloudVersion && (
+              <TabPane
+                title={t("user_management.modal.tab.public")}
+                key="public"
+              />
+            )}
         </Tabs>
         <div
           css={closeIconStyle}
