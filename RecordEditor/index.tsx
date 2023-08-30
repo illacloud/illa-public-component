@@ -61,7 +61,7 @@ export const RecordEditor: FC<RecordEditorProps> = (props) => {
                 bdRadius="8px 0 0 8px"
                 placeholder="key"
                 onChange={(value) => {
-                  onChangeKey?.(index, value.trim(), record.value, name)
+                  onChangeKey?.(index, value.replace(/[ {}\s]/g, "").trim(), record.value, name)
                 }}
               />
               <Input
@@ -76,7 +76,7 @@ export const RecordEditor: FC<RecordEditorProps> = (props) => {
                 flexGrow="1"
                 value={record.value}
                 onChange={(value) => {
-                  onChangeValue?.(index, record.key, value.trim(), name)
+                  onChangeValue?.(index, record.key, value, name)
                 }}
               />
               {!(fillOnly || readOnly) && (
