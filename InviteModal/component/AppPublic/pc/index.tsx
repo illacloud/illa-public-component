@@ -31,6 +31,7 @@ import {
 
 export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const {
+    title,
     onShare,
     appID,
     ownerTeamID,
@@ -126,7 +127,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             colorScheme="techPurple"
             value={
               appLinkLoading ? (
-                <Skeleton text={{ rows: 1, width: 280 }} opac={0.5} animation />
+                <Skeleton text={{ rows: 1 }} opac={0.5} animation flexGrow="1" />
               ) : (
                 getPublicLinkTemplate(ownerTeamIdentify, appID)
               )
@@ -195,7 +196,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             colorScheme="techPurple"
             value={
               marketLinkLoading ? (
-                <Skeleton text={{ rows: 1, width: 280 }} opac={0.5} animation />
+                <Skeleton text={{ rows: 1 }} opac={0.5} animation flexGrow="1" />
               ) : (
                 getMarketLinkTemplate(appID)
               )
@@ -230,7 +231,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
           />
           <ShareBlockPC
             onShare={onShare}
-            title={t("user_management.modal.social_media.default_text.app")}
+            title={title}
             shareUrl={
               appContribute
                 ? getMarketLinkTemplate(appID)

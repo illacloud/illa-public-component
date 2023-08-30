@@ -92,6 +92,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
             props.agentID !== "" &&
             props.agentID !== undefined && (
               <AgentToMarketplaceMobile
+                title={props.title}
                 defaultAgentContributed={props.defaultAgentContributed}
                 onAgentContributed={props.onAgentContributed}
                 agentID={props.agentID}

@@ -1,7 +1,6 @@
 import { Avatar } from "@illa-public/avatar"
 import { formatNumForAgent } from "@illa-public/utils"
 import { FC } from "react"
-import { useTranslation } from "react-i18next"
 import { ForkIcon, PlayOutlineIcon, StarOutlineIcon } from "@illa-design/react"
 import { MarketAgentCardProps } from "./interface"
 import {
@@ -20,7 +19,6 @@ import {
 } from "./style"
 
 export const MarketAgentCard: FC<MarketAgentCardProps> = (props) => {
-  const { t } = useTranslation()
   const { marketAIAgent, ...rest } = props
 
   return (
@@ -33,8 +31,7 @@ export const MarketAgentCard: FC<MarketAgentCardProps> = (props) => {
       </div>
       <div>
         <div css={descriptionStyle}>
-          {marketAIAgent.aiAgent.description ||
-            t("new_dashboard.desc.no_description")}
+          {marketAIAgent.aiAgent.description}
         </div>
       </div>
 

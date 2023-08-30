@@ -1,7 +1,8 @@
 import { USER_ROLE } from "@illa-public/user-data"
 import { ShareBlockProps } from "../ShareBlock/interface"
 
-export interface AppPublicProps extends Pick<ShareBlockProps, "onShare"> {
+export interface AppPublicProps
+  extends Pick<ShareBlockProps, "onShare" | "title"> {
   defaultAppPublic: boolean
   defaultAppContribute: boolean
   canUseBillingFeature: boolean

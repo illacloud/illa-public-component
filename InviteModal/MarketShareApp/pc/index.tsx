@@ -42,6 +42,7 @@ export const MarketShareAppPC: FC<MarketShareAppProps> = (props) => {
       </div>
       <div css={contentContainerStyle}>
         <AppPublicPC
+          title={props.title}
           onShare={props.onShare}
           hidePublic={true}
           canUseBillingFeature={props.canUseBillingFeature}

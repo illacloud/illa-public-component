@@ -1,5 +1,5 @@
 export const getMarketLinkTemplate = (appID: string): string => {
-  return `${process.env.ILLA_MARKET_URL}/apps/${appID}/detail`
+  return `${process.env.ILLA_MARKET_URL}/app/${appID}/detail`
 }
 
 export const getPublicLinkTemplate = (teamIdentify: string, appID: string): string => {

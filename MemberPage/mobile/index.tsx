@@ -10,11 +10,11 @@ import {
   teamActions,
 } from "@illa-public/user-data"
 import { canManageInvite, canManagePayment } from "@illa-public/user-role-utils"
-import { isCloudVersion, useCopyToClipboard } from "@illa-public/utils"
+import { isCloudVersion, copyToClipboard, COPY_STATUS } from "@illa-public/utils"
 import { FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { Button } from "@illa-design/react"
+import { Button, useMessage } from "@illa-design/react"
 import { MobileMemberList } from "./List"
 import {
   inviteBtnStyle,
@@ -32,9 +32,9 @@ export const MobileMemberPage: FC = () => {
   const teamInfo = useSelector(getCurrentTeamInfo)!
   const currentUserInfo = useSelector(getCurrentUser)!
   const currentUserRole = teamInfo?.myRole ?? USER_ROLE.VIEWER
-  const copyToClipboard = useCopyToClipboard()
   const upgradeModal = useUpgradeModal()
   const upgradeDrawer = useUpgradeDrawer()
+  const message = useMessage()
 
   const enableInvite = canManageInvite(
     currentUserRole,
@@ -83,6 +83,25 @@ export const MobileMemberPage: FC = () => {
     })
   }
 
+  const handleCopy = useCallback((inviteLink: string) => {
+    const flag = copyToClipboard(
+      t("user_management.modal.custom_copy_text", {
+        inviteLink: inviteLink,
+        teamName: teamInfo.name,
+        userName: currentUserInfo.nickname,
+      }),
+    )
+    if(flag === COPY_STATUS.EMPTY) {
+      message.info({
+        content: t("empty_copied_tips"),
+      })
+    } else {
+      message.success({
+        content: t("copied"),
+      })
+    }
+  }, [currentUserInfo.nickname, message, t, teamInfo.name])
+
   return (
     <div css={mobileMemberContainerStyle}>
       <h1 css={mobileTitleStyle}>{t("user_management.page.member")}</h1>
@@ -129,15 +148,7 @@ export const MobileMemberPage: FC = () => {
           defaultAllowInviteLink={teamInfo.permission.inviteLinkEnabled}
           defaultInviteUserRole={USER_ROLE.VIEWER}
           defaultBalance={teamInfo.currentTeamLicense.balance}
-          onCopyInviteLink={(inviteLink) => {
-            copyToClipboard(
-              t("user_management.modal.custom_copy_text", {
-                inviteLink: inviteLink,
-                teamName: teamInfo.name,
-                userName: currentUserInfo.nickname,
-              }),
-            )
-          }}
+          onCopyInviteLink={handleCopy}
           onInviteLinkStateChange={(isInviteLink) => {
             dispatch(
               teamActions.updateTeamMemberPermissionReducer({

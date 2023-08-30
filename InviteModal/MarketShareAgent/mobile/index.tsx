@@ -19,7 +19,7 @@ export const MarketShareAgentMobile: FC<MarketShareAgentProps> = (props) => {
   return (
     <TriggerProvider renderInBody zIndex={1005}>
       <Drawer
-        _css={inviteModalStyle}
+        css={inviteModalStyle}
         w="100%"
         placement="bottom"
         maskClosable={false}
@@ -40,6 +40,7 @@ export const MarketShareAgentMobile: FC<MarketShareAgentProps> = (props) => {
         </div>
         <div css={contentContainerStyle}>
           <AgentToMarketplaceMobile
+            title={props.title}
             onShare={props.onShare}
             defaultAgentContributed={props.defaultAgentContributed}
             onAgentContributed={props.onAgentContributed}
