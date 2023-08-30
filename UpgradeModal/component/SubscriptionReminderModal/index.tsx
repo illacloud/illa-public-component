@@ -62,7 +62,7 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
 
   const billingUrl = useMemo(() => {
     if (!teamInfo?.identifier) return ""
-    return `${process.env.ILLA_CLOUD_URL}/team/${teamInfo?.identifier}/billing`
+    return `${process.env.ILLA_CLOUD_URL}/setting/${teamInfo?.identifier}/billing`
   }, [teamInfo?.identifier])
 
   const openDrawer = useCallback(() => {
