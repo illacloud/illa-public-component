@@ -1,7 +1,17 @@
-import { publicMarketplaceRequest, marketplaceRequest } from "@illa-public/illa-net"
-import { AppProductResponse, PRODUCT_SORT_BY, ProductListParams } from "./interface"
+import {
+  marketplaceRequest,
+  publicMarketplaceRequest,
+} from "@illa-public/illa-net"
+import {
+  AppProductResponse,
+  PRODUCT_SORT_BY,
+  ProductListParams,
+} from "./interface"
 
-export const fetchAppList = (params: ProductListParams, signal?: AbortSignal) => {
+export const fetchAppList = (
+  params: ProductListParams,
+  signal?: AbortSignal,
+) => {
   const {
     page = 1,
     limit = 10,
@@ -21,7 +31,10 @@ export const fetchAppList = (params: ProductListParams, signal?: AbortSignal) =>
   })
 }
 
-export const fetchStarAppList = (params: ProductListParams, signal?: AbortSignal) => {
+export const fetchStarAppList = (
+  params: ProductListParams,
+  signal?: AbortSignal,
+) => {
   const {
     page = 1,
     limit = 10,
@@ -39,4 +52,16 @@ export const fetchStarAppList = (params: ProductListParams, signal?: AbortSignal
       search,
     },
   })
+}
+
+export const fetchAuthMarketAppList = (
+  params: ProductListParams,
+  signal?: AbortSignal,
+) => {
+  const { sortedBy = PRODUCT_SORT_BY.STARRED } = params
+  if (sortedBy === PRODUCT_SORT_BY.STARRED) {
+    return fetchStarAppList(params, signal)
+  } else {
+    return fetchAppList(params, signal)
+  }
 }
