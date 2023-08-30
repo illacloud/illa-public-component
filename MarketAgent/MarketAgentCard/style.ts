@@ -31,6 +31,14 @@ export const cardStyle = css`
     gap: 12px;
     padding: 16px;
     height: 156px;
+    &:hover {
+      border-color: border: 1px solid ${getColor("grayBlue", "08")};;
+      box-shadow: none;
+      .dashboardAgentEditButton,
+      .dashboardAgentRunButton {
+        visibility: hidden;
+      }
+    }
   `)}
 `
 export const teamInfoStyle = css`
