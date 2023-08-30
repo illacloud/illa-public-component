@@ -4,7 +4,7 @@ import { RoleSelector } from "@illa-public/role-selector"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
-import { EMAIL_FORMAT } from "@illa-public/utils"
+import { EMAIL_FORMAT, isCloudVersion } from "@illa-public/utils"
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -28,6 +28,7 @@ import {
   nicknameStyle,
   roleSelectContainerStyle,
 } from "./style"
+
 
 export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
   const {
@@ -177,14 +178,16 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
           {!inviting ? t("user_management.modal.email.invite") : undefined}
         </Button>
       </div>
-      <div css={licenseContainerStyle}>
-        <div css={licenseLabelStyle}>
-          {t("user_management.modal.tips.license_insufficient")}
+      {isCloudVersion && (
+        <div css={licenseContainerStyle}>
+          <div css={licenseLabelStyle}>
+            {t("user_management.modal.tips.license_insufficient")}
+          </div>
+          <div css={applyLicenseNumberStyle(currentBalance > 0)}>
+            {currentBalance}
+          </div>
         </div>
-        <div css={applyLicenseNumberStyle(currentBalance > 0)}>
-          {currentBalance}
-        </div>
-      </div>
+      )}
       <div css={inviteListContainerStyle}>
         {alreadyInvited.map((user) => {
           return (
