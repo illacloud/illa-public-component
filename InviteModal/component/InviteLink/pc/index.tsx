@@ -1,7 +1,10 @@
 import { RoleSelector } from "@illa-public/role-selector"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import { USER_ROLE } from "@illa-public/user-data"
-import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
+import {
+  isBiggerThanTargetRole,
+  isSmallThanTargetRole,
+} from "@illa-public/user-role-utils"
 import { isCloudVersion } from "@illa-public/utils"
 import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -165,7 +168,8 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
     [message, onInviteLinkStateChange, setAllowInviteLink, t],
   )
 
-  return (
+  return isSmallThanTargetRole(USER_ROLE.ADMIN, currentUserRole, false) &&
+    !allowInviteLink ? null : (
     <div css={inviteLinkContainer}>
       {(allowInviteLink ||
         (!allowInviteLink &&

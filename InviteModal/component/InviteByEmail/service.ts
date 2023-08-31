@@ -28,7 +28,7 @@ export const inviteByEmail = (
         email: email,
         userRole: userRole,
         redirectURL: encodeURIComponent(redirectURL),
-        host: window.location.origin,
+        hosts: window.location.origin,
       }
   return authCloudRequest<IInviteByEmailResponseData>(
     {
