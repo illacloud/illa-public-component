@@ -72,6 +72,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
       </div>
       <div css={inviteByEmailInputContainerStyle}>
         <InputTag
+          saveOnBlur
           flexShrink="1"
           readOnly={inviting}
           flexGrow="1"
