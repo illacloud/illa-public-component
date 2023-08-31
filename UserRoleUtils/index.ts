@@ -1,4 +1,5 @@
 import { SUBSCRIBE_PLAN, USER_ROLE } from "@illa-public/user-data"
+import { isCloudVersion } from "@illa-public/utils"
 import {
   ACTION_ACCESS,
   ACTION_DELETE,
@@ -414,6 +415,7 @@ export const canUseUpgradeFeature = (
   isSubscribe?: boolean,
   isSubscribeAndSufficient?: boolean,
 ) => {
+  if (!isCloudVersion) return true
   if (!isSubscribe) return false
 
   return (

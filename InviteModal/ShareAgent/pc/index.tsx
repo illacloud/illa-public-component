@@ -23,16 +23,9 @@ import {
 } from "./style"
 
 export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
-  const [activeTab, setActiveTab] = useMergeValue<string>(
-    props.canInvite
-      ? ShareAgentTab.SHARE_WITH_TEAM
-      : ShareAgentTab.TO_MARKETPLACE,
-    {
-      defaultValue: props.canInvite
-        ? ShareAgentTab.SHARE_WITH_TEAM
-        : ShareAgentTab.TO_MARKETPLACE,
-    },
-  )
+  const [activeTab, setActiveTab] = useMergeValue<string>(props.defaultTab, {
+    defaultValue: props.defaultTab,
+  })
 
   const { t } = useTranslation()
 

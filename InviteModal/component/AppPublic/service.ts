@@ -31,3 +31,15 @@ export const makeAppContribute = (teamID: string, appID: string) => {
     },
   )
 }
+
+export const fetchRemoveAppToMarket = (teamID: string, appID: string) => {
+  return marketplaceTeamRequest<{}>(
+    {
+      method: "DELETE",
+      url: `/products/apps/${appID}`,
+    },
+    {
+      teamID: teamID,
+    },
+  )
+}

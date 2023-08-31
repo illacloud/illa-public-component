@@ -23,7 +23,11 @@ import {
 } from "@illa-design/react"
 import { ShareBlockPC } from "../../ShareBlock/pc"
 import { AppPublicProps } from "../interface"
-import { makeAppContribute, updateAppPublicConfig } from "../service"
+import {
+  fetchRemoveAppToMarket,
+  makeAppContribute,
+  updateAppPublicConfig,
+} from "../service"
 import {
   blockContainerStyle,
   blockLabelStyle,
@@ -188,14 +192,16 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             colorScheme={getColor("grayBlue", "02")}
             onChange={async (value) => {
               setAppContribute(value)
+              setAppPublic(value)
               try {
                 setMarketLinkLoading(true)
-                await makeAppContribute(ownerTeamID, appID)
-                onAppContribute?.(value)
                 if (value) {
-                  setAppPublic(true)
-                  onAppPublic?.(true)
+                  await makeAppContribute(ownerTeamID, appID)
+                } else {
+                  await fetchRemoveAppToMarket(ownerTeamID, appID)
                 }
+                onAppContribute?.(value)
+                onAppPublic?.(value)
               } catch (e) {
                 message.error({
                   content: t(
@@ -203,6 +209,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
                   ),
                 })
                 setAppContribute(!value)
+                setAppPublic(!value)
               } finally {
                 setMarketLinkLoading(false)
               }
@@ -250,22 +257,15 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
   )
 
   const shareBlock = (
-    <>
-      <div
-        style={{
-          height: 16,
-        }}
-      />
-      <ShareBlockPC
-        onShare={onShare}
-        title={title}
-        shareUrl={
-          appContribute
-            ? getMarketLinkTemplate(appID)
-            : getPublicLinkTemplate(ownerTeamIdentify, appID)
-        }
-      />
-    </>
+    <ShareBlockPC
+      onShare={onShare}
+      title={title}
+      shareUrl={
+        appContribute
+          ? getMarketLinkTemplate(appID)
+          : getPublicLinkTemplate(ownerTeamIdentify, appID)
+      }
+    />
   )
 
   return (

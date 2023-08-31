@@ -11,3 +11,15 @@ export const makeAgentContribute = (teamID: string, agentID: string) => {
     },
   )
 }
+
+export const fetchRemoveToMarketplace = (teamID: string, agentID: string) => {
+  return marketplaceTeamRequest<{}>(
+    {
+      method: "DELETE",
+      url: `/products/aiAgents/${agentID}`,
+    },
+    {
+      teamID: teamID,
+    },
+  )
+}

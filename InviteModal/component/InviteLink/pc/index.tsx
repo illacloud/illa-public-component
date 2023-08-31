@@ -2,6 +2,7 @@ import { RoleSelector } from "@illa-public/role-selector"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
+import { isCloudVersion } from "@illa-public/utils"
 import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -83,7 +84,11 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
           redirectURL,
           controller.signal,
         )
-        setCurrentInviteLink(data.data.inviteLink)
+        const inviteURL = new URL(data.data.inviteLink)
+        if (!isCloudVersion) {
+          inviteURL.host = window.location.host
+        }
+        setCurrentInviteLink(inviteURL.toString())
       } catch (e) {
         message.error({
           content: t("user_management.modal.link.fail"),
@@ -162,42 +167,46 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
 
   return (
     <div css={inviteLinkContainer}>
-      {(allowInviteLink || (!allowInviteLink && isBiggerThanTargetRole(USER_ROLE.ADMIN, currentUserRole))) && <div css={inviteLinkMenuContainer}>
-        <div css={inviteLinkLabelStyle}>
-          {t("user_management.modal.link.invite_title")}
+      {(allowInviteLink ||
+        (!allowInviteLink &&
+          isBiggerThanTargetRole(USER_ROLE.ADMIN, currentUserRole))) && (
+        <div css={inviteLinkMenuContainer}>
+          <div css={inviteLinkLabelStyle}>
+            {t("user_management.modal.link.invite_title")}
+          </div>
+          {allowInviteLink &&
+            isBiggerThanTargetRole(USER_ROLE.ADMIN, currentUserRole) && (
+              <Dropdown
+                trigger="click"
+                position="bottom-end"
+                dropList={
+                  <DropList>
+                    <DropListItem
+                      key={t("user_management.modal.link.update")}
+                      value={t("user_management.modal.link.update")}
+                      title={t("user_management.modal.link.update")}
+                      onClick={async () => {
+                        await renewInviteLinkRequest(teamID, inviteUserRole)
+                      }}
+                    />
+                    <DropListItem
+                      key={t("user_management.modal.link.turn_off")}
+                      value={t("user_management.modal.link.turn_off")}
+                      title={t("user_management.modal.link.turn_off")}
+                      onClick={async () => {
+                        await disableInviteLinkRequest(teamID)
+                      }}
+                    />
+                  </DropList>
+                }
+              >
+                <div css={inviteLinkMenuButtonStyle}>
+                  <SortIcon />
+                </div>
+              </Dropdown>
+            )}
         </div>
-        {allowInviteLink &&
-          isBiggerThanTargetRole(USER_ROLE.ADMIN, currentUserRole) && (
-            <Dropdown
-              trigger="click"
-              position="bottom-end"
-              dropList={
-                <DropList>
-                  <DropListItem
-                    key={t("user_management.modal.link.update")}
-                    value={t("user_management.modal.link.update")}
-                    title={t("user_management.modal.link.update")}
-                    onClick={async () => {
-                      await renewInviteLinkRequest(teamID, inviteUserRole)
-                    }}
-                  />
-                  <DropListItem
-                    key={t("user_management.modal.link.turn_off")}
-                    value={t("user_management.modal.link.turn_off")}
-                    title={t("user_management.modal.link.turn_off")}
-                    onClick={async () => {
-                      await disableInviteLinkRequest(teamID)
-                    }}
-                  />
-                </DropList>
-              }
-            >
-              <div css={inviteLinkMenuButtonStyle}>
-                <SortIcon />
-              </div>
-            </Dropdown>
-          )}
-      </div>}
+      )}
       {allowInviteLink ? (
         <div css={inviteLinkCopyContainer}>
           <Input

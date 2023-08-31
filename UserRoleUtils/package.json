@@ -4,7 +4,8 @@
   "private": true,
   "main": "index.ts",
   "dependencies": {
-    "@illa-public/user-data": "workspace:*"
+    "@illa-public/user-data": "workspace:*",
+    "@illa-public/utils": "workspace:*"
   },
   "devDependencies": {
     "tsconfig": "workspace:*"

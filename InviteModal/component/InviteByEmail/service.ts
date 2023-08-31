@@ -1,5 +1,6 @@
 import { authCloudRequest } from "@illa-public/illa-net"
 import { USER_ROLE } from "@illa-public/user-data"
+import { isCloudVersion } from "@illa-public/utils"
 
 interface IInviteByEmailResponseData {
   aiAgentID: string
@@ -17,15 +18,23 @@ export const inviteByEmail = (
   userRole: USER_ROLE,
   redirectURL: string,
 ) => {
+  const requestBody = isCloudVersion
+    ? {
+        email: email,
+        userRole: userRole,
+        redirectURL: encodeURIComponent(redirectURL),
+      }
+    : {
+        email: email,
+        userRole: userRole,
+        redirectURL: encodeURIComponent(redirectURL),
+        host: window.location.origin,
+      }
   return authCloudRequest<IInviteByEmailResponseData>(
     {
       method: "POST",
       url: `/inviteByEmail`,
-      data: {
-        email: email,
-        userRole: userRole,
-        redirectURL: encodeURIComponent(redirectURL),
-      },
+      data: requestBody,
     },
     {
       teamID: teamID,

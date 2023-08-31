@@ -32,7 +32,9 @@ export const MarketAppCard: FC<MarketAppCardProps> = (props) => {
         </div>
       </div>
       <div>
-        <div css={descriptionStyle}>{app.config.description || fallbackDescription}</div>
+        <div css={descriptionStyle}>
+          {app.config.description || fallbackDescription}
+        </div>
       </div>
       <div css={footerStyle}>
         <div css={teamInfoStyle}>

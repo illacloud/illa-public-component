@@ -4,12 +4,14 @@ import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
   getCurrentTeamInfo,
+  teamActions,
 } from "@illa-public/user-data"
 import { canManagePayment } from "@illa-public/user-role-utils"
 import { isCloudVersion } from "@illa-public/utils"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchCurrentUserTeamsInfo } from "../services"
 import { Header } from "./components/Header"
 import { PCMemberList } from "./components/List"
 import { IPcMemberListProps } from "./components/interface"
@@ -22,6 +24,7 @@ export const PCMemberPage: FC<IPcMemberListProps> = (props) => {
   const { afterLeaveTeam } = props
   const currentTeamInfo = useSelector(getCurrentTeamInfo)!
   const { t } = useTranslation()
+  const dispatch = useDispatch()
   const hasPaymentManagementPermission = canManagePayment(
     currentTeamInfo.myRole,
     currentTeamInfo?.totalTeamLicense?.teamLicenseAllPaid,
@@ -41,7 +44,12 @@ export const PCMemberPage: FC<IPcMemberListProps> = (props) => {
           currentPlan: currentTeamLicense.plan,
           cancelAtPeriodEnd: currentTeamLicense?.cancelAtPeriodEnd,
         },
-        // onSubscribeCallback: onSubscribe,
+        onSubscribeCallback: () => {
+          setTimeout(async () => {
+            const response = await fetchCurrentUserTeamsInfo()
+            dispatch(teamActions.updateTeamItemsReducer(response.data))
+          }, 500)
+        },
       },
     })
   }

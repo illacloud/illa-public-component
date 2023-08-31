@@ -8,7 +8,7 @@ import { ReactComponent as DisableInviteIcon } from "../../../asset/DisableInvit
 import { ReactComponent as InviteIcon } from "../../../asset/InviteLink.svg"
 import { ShareBlockMobile } from "../../ShareBlock/mobile"
 import { AgentToMarketplaceProps } from "../interface"
-import { makeAgentContribute } from "../service"
+import { fetchRemoveToMarketplace, makeAgentContribute } from "../service"
 import {
   inviteButtonStyle,
   inviteLinkContainer,
@@ -49,7 +49,11 @@ export const AgentToMarketplaceMobile: FC<AgentToMarketplaceProps> = (
       setAgentContributedLoading(true)
       setAgentContributed(value)
       try {
-        await makeAgentContribute(ownerTeamID, agentID)
+        if (value) {
+          await makeAgentContribute(ownerTeamID, agentID)
+        } else {
+          await fetchRemoveToMarketplace(ownerTeamID, agentID)
+        }
         onAgentContributed?.(value)
       } catch (e) {
         message.error({

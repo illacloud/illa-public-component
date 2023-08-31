@@ -6,6 +6,8 @@ import {
   updateCurrentIdReducer,
   updateCurrentMemberListReducer,
   updateCurrentRoleReducer,
+  updateCurrentTeamInfoReducer,
+  updateCurrentTeamLicenseByTeamIDReducer,
   updateCurrentTeamLicenseReducer,
   updateCurrentTeamPersonalConfigReducer,
   updateInvitedUserReducer,
@@ -39,6 +41,8 @@ const teamSlice = createSlice({
     deleteMemberListReducer,
     updateInvitedUserReducer,
     deleteTeamInfoReducer,
+    updateCurrentTeamLicenseByTeamIDReducer,
+    updateCurrentTeamInfoReducer,
   },
 })
 
