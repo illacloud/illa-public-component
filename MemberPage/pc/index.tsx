@@ -1,5 +1,4 @@
 import { useUpgradeDrawer } from "@illa-public/upgrade-modal"
-import { fetchTeamSubscription } from "@illa-public/upgrade-modal/service"
 import { UsageCard } from "@illa-public/usage-card"
 import {
   SUBSCRIBE_PLAN,
@@ -12,6 +11,7 @@ import { isCloudVersion } from "@illa-public/utils"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
+import { fetchCurrentUserTeamsInfo } from "../services"
 import { Header } from "./components/Header"
 import { PCMemberList } from "./components/List"
 import { IPcMemberListProps } from "./components/interface"
@@ -44,14 +44,11 @@ export const PCMemberPage: FC<IPcMemberListProps> = (props) => {
           currentPlan: currentTeamLicense.plan,
           cancelAtPeriodEnd: currentTeamLicense?.cancelAtPeriodEnd,
         },
-        onSubscribeCallback: async (teamID) => {
-          const response = await fetchTeamSubscription(teamID)
-          dispatch(
-            teamActions.updateCurrentTeamLicenseByTeamIDReducer({
-              currentTeamLicense: response.data.teamLicense.current,
-              teamID: teamID,
-            }),
-          )
+        onSubscribeCallback: () => {
+          setTimeout(async () => {
+            const response = await fetchCurrentUserTeamsInfo()
+            dispatch(teamActions.updateTeamItemsReducer(response.data))
+          }, 500)
         },
       },
     })

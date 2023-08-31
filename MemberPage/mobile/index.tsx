@@ -20,6 +20,7 @@ import { FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { Button, useMessage } from "@illa-design/react"
+import { fetchCurrentUserTeamsInfo } from "../services"
 import { MobileMemberList } from "./List"
 import {
   inviteBtnStyle,
@@ -82,14 +83,11 @@ export const MobileMemberPage: FC = () => {
           currentPlan: currentTeamLicense.plan,
           cancelAtPeriodEnd: currentTeamLicense?.cancelAtPeriodEnd,
         },
-        onSubscribeCallback: async (teamID) => {
-          const response = await fetchTeamSubscription(teamID)
-          dispatch(
-            teamActions.updateCurrentTeamLicenseByTeamIDReducer({
-              currentTeamLicense: response.data.teamLicense.current,
-              teamID: teamID,
-            }),
-          )
+        onSubscribeCallback: () => {
+          setTimeout(async () => {
+            const response = await fetchCurrentUserTeamsInfo()
+            dispatch(teamActions.updateTeamItemsReducer(response.data))
+          }, 500)
         },
       },
     })
