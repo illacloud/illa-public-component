@@ -154,6 +154,27 @@ export const updateCurrentTeamLicenseReducer: CaseReducer<
   }
 }
 
+export const updateCurrentTeamLicenseByTeamIDReducer: CaseReducer<
+  Team,
+  PayloadAction<{
+    teamID: string
+    currentTeamLicense: SubscribeInfo
+  }>
+> = (state, action) => {
+  if (!state) return
+  const { payload } = action
+  let { items } = state
+  const { teamID, currentTeamLicense } = payload
+  const currentIndex = items?.findIndex((item) => item.id === teamID)
+  if (
+    currentIndex !== undefined &&
+    currentIndex !== -1 &&
+    items?.[currentIndex]
+  ) {
+    items[currentIndex].currentTeamLicense = currentTeamLicense
+  }
+}
+
 export const updateCurrentTeamPersonalConfigReducer: CaseReducer<
   Team,
   PayloadAction<{

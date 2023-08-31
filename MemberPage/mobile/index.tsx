@@ -1,5 +1,6 @@
 import { InviteMemberMobile } from "@illa-public/invite-modal"
 import { useUpgradeDrawer, useUpgradeModal } from "@illa-public/upgrade-modal"
+import { fetchTeamSubscription } from "@illa-public/upgrade-modal/service"
 import { UsageCard } from "@illa-public/usage-card"
 import {
   SUBSCRIBE_PLAN,
@@ -81,7 +82,15 @@ export const MobileMemberPage: FC = () => {
           currentPlan: currentTeamLicense.plan,
           cancelAtPeriodEnd: currentTeamLicense?.cancelAtPeriodEnd,
         },
-        // onSubscribeCallback: onSubscribe,
+        onSubscribeCallback: async (teamID) => {
+          const response = await fetchTeamSubscription(teamID)
+          dispatch(
+            teamActions.updateCurrentTeamLicenseByTeamIDReducer({
+              currentTeamLicense: response.data.teamLicense.current,
+              teamID: teamID,
+            }),
+          )
+        },
       },
     })
   }
