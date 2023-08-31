@@ -8,7 +8,10 @@ import {
   getCurrentUser,
   teamActions,
 } from "@illa-public/user-data"
-import { canManageInvite } from "@illa-public/user-role-utils"
+import {
+  canManageInvite,
+  isBiggerThanTargetRole,
+} from "@illa-public/user-role-utils"
 import {
   COPY_STATUS,
   copyToClipboard,
@@ -84,7 +87,13 @@ export const Header: FC<IPcHeaderProps> = (props) => {
       <div css={headerWrapperStyle}>
         <h1 css={titleStyle}>{t("user_management.page.member")}</h1>
         <div css={buttonGroup}>
-          <MoreAction afterLeaveTeam={afterLeaveTeam} />
+          {isCloudVersion ||
+            (!isCloudVersion &&
+              isBiggerThanTargetRole(
+                USER_ROLE.EDITOR,
+                currentUserRole,
+                false,
+              ) && <MoreAction afterLeaveTeam={afterLeaveTeam} />)}
           <Button
             w="200px"
             colorScheme="techPurple"
