@@ -3,6 +3,7 @@ import { getColor } from "@illa-design/react"
 
 
 export const inviteLinkContainer = css`
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
 `
@@ -17,7 +18,6 @@ export const inviteLinkLabelStyle = css`
 `
 
 export const inviteLinkMenuContainer = css`
-  padding: 8px 0;
   display: flex;
   flex-direction: row;
   overflow: hidden;
@@ -26,6 +26,7 @@ export const inviteLinkMenuContainer = css`
 
 export const inviteLinkCopyContainer = css`
   display: flex;
+  margin-top: 8px;
   flex-direction: row;
   overflow: hidden;
   align-items: center;
@@ -45,6 +46,7 @@ export const inviteLinkMenuButtonStyle = css`
 
 export const closeInviteLinkContainerStyle = css`
   display: flex;
+  margin-top: 8px;
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;

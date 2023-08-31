@@ -258,22 +258,15 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
   )
 
   const shareBlock = (
-    <>
-      <div
-        style={{
-          height: 16,
-        }}
-      />
-      <ShareBlockPC
-        onShare={onShare}
-        title={title}
-        shareUrl={
-          appContribute
-            ? getMarketLinkTemplate(appID)
-            : getPublicLinkTemplate(ownerTeamIdentify, appID)
-        }
-      />
-    </>
+    <ShareBlockPC
+      onShare={onShare}
+      title={title}
+      shareUrl={
+        appContribute
+          ? getMarketLinkTemplate(appID)
+          : getPublicLinkTemplate(ownerTeamIdentify, appID)
+      }
+    />
   )
 
   return (

@@ -2,6 +2,7 @@ import { css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
 
 export const shareContainerStyle = css`
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
 `
@@ -9,14 +10,13 @@ export const shareContainerStyle = css`
 export const shareLabelStyle = css`
   color: ${getColor("grayBlue", "02")};
   font-size: 14px;
-  margin-bottom: 8px;
   font-style: normal;
   font-weight: 500;
   line-height: 22px;
 `
 
 export const shareGridLayoutStyle = css`
-  padding: 8px 0;
+  margin-top: 8px;
   display: grid;
   grid-gap: 8px;
   grid-template-columns: repeat(auto-fill, minmax(146px, 1fr));

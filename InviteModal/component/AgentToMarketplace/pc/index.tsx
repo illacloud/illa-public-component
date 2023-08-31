@@ -132,18 +132,11 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
         </div>
       )}
       {agentContributed && (
-        <>
-          <div
-            style={{
-              height: 16,
-            }}
-          />
-          <ShareBlockPC
-            onShare={onShare}
-            title={title}
-            shareUrl={getAgentPublicLink(agentID)}
-          />
-        </>
+        <ShareBlockPC
+          onShare={onShare}
+          title={title}
+          shareUrl={getAgentPublicLink(agentID)}
+        />
       )}
     </div>
   )

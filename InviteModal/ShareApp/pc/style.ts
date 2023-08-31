@@ -14,7 +14,7 @@ export const headerContainerStyle = css`
 export const contentContainerStyle = css`
   display: flex;
   flex-direction: column;
-  padding: 8px 16px 16px;
+  padding: 0 16px 16px;
 `
 
 export const closeIconStyle = css`

@@ -2,12 +2,12 @@ import { SerializedStyles, css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
 
 export const inviteByEmailContainerStyle = css`
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
 `
 
 export const inviteByEmailLabelStyle = css`
-  padding: 8px 0;
   color: ${getColor("grayBlue", "02")};
   font-size: 14px;
   font-style: normal;
@@ -16,6 +16,7 @@ export const inviteByEmailLabelStyle = css`
 `
 
 export const inviteByEmailInputContainerStyle = css`
+  margin-top: 8px;
   display: flex;
   flex-direction: row;
 `
@@ -47,6 +48,7 @@ export function applyLicenseNumberStyle(isEnough: boolean): SerializedStyles {
 }
 
 export const inviteListContainerStyle = css`
+  margin-top: 8px;
   display: flex;
   flex-direction: column;
 `

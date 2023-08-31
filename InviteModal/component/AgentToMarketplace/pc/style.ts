@@ -9,7 +9,6 @@ export const publicContainerStyle = css`
 
 export const blockContainerStyle = css`
   display: flex;
-  padding: 8px 0;
   align-items: center;
   flex-direction: row;
 `
@@ -23,6 +22,7 @@ export const blockLabelStyle = css`
 `
 
 export const linkCopyContainer = css`
+  margin-top: 8px;
   display: flex;
   flex-direction: row;
   overflow: hidden;
@@ -30,6 +30,7 @@ export const linkCopyContainer = css`
 `
 
 export const contributingDocStyle = css`
+  margin-top: 8px;
   color: ${getColor("grayBlue", "04")};
   margin-right: 54px;
   white-space: break-spaces;
