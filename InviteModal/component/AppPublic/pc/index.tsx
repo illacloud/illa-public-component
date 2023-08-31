@@ -192,6 +192,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             colorScheme={getColor("grayBlue", "02")}
             onChange={async (value) => {
               setAppContribute(value)
+              setAppPublic(value)
               try {
                 setMarketLinkLoading(true)
                 if (value) {
@@ -200,10 +201,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
                   await fetchRemoveAppToMarket(ownerTeamID, appID)
                 }
                 onAppContribute?.(value)
-                if (value) {
-                  setAppPublic(true)
-                  onAppPublic?.(true)
-                }
+                onAppPublic?.(value)
               } catch (e) {
                 message.error({
                   content: t(
@@ -211,6 +209,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
                   ),
                 })
                 setAppContribute(!value)
+                setAppPublic(!value)
               } finally {
                 setMarketLinkLoading(false)
               }

@@ -68,9 +68,9 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
             checked={agentContributed}
             colorScheme={getColor("grayBlue", "02")}
             onChange={async (value) => {
-              setAgentContributedLoading(true)
               setAgentContributed(value)
               try {
+                setAgentContributedLoading(true)
                 if (value) {
                   await makeAgentContribute(ownerTeamID, agentID)
                 } else {
