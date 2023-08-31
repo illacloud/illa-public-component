@@ -266,3 +266,22 @@ export const deleteTeamInfoReducer: CaseReducer<Team, PayloadAction<void>> = (
   state.items = teamList
   state.currentMemberList = []
 }
+
+export const updateCurrentTeamInfoReducer: CaseReducer<
+  Team,
+  PayloadAction<{
+    identifier?: string
+    name?: string
+  }>
+> = (state, action) => {
+  const currentId = state.currentId
+  const teamList = state.items ?? []
+  const index = teamList.findIndex((item) => item.id === currentId)
+  if (index !== -1) {
+    teamList[index] = {
+      ...teamList[index],
+      ...action.payload,
+    }
+  }
+  state.items = teamList
+}
