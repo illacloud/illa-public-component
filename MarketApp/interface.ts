@@ -20,7 +20,7 @@ export interface Editor {
 }
 
 export interface ProductAppDetail {
-  appId: string
+  appID: string
   appName: string
   publishedToMarketplace?: boolean
   description: string
