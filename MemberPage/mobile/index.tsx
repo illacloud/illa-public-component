@@ -1,6 +1,5 @@
 import { InviteMemberMobile } from "@illa-public/invite-modal"
 import { useUpgradeDrawer, useUpgradeModal } from "@illa-public/upgrade-modal"
-import { fetchTeamSubscription } from "@illa-public/upgrade-modal/service"
 import { UsageCard } from "@illa-public/usage-card"
 import {
   SUBSCRIBE_PLAN,
@@ -158,7 +157,9 @@ export const MobileMemberPage: FC = () => {
           currentUserRole={currentUserRole}
           defaultAllowInviteLink={teamInfo.permission.inviteLinkEnabled}
           defaultInviteUserRole={USER_ROLE.VIEWER}
-          defaultBalance={teamInfo.currentTeamLicense.balance}
+          defaultBalance={
+            isCloudVersion ? teamInfo.currentTeamLicense.balance : Infinity
+          }
           onCopyInviteLink={handleCopy}
           onInviteLinkStateChange={(isInviteLink) => {
             dispatch(
