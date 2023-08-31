@@ -21,8 +21,8 @@ export const MarketAppCard: FC<MarketAppCardProps> = (props) => {
   const { app, marketplace, fallbackDescription, onClick } = props
 
   const onCardClick = useCallback(() => {
-    onClick?.(app.appID)
-  }, [onClick, app.appID])
+    onClick?.(app.appId)
+  }, [onClick, app.appId])
 
   return (
     <div css={cardStyle} onClick={onCardClick}>
