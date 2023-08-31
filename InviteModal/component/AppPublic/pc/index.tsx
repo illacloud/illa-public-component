@@ -23,7 +23,11 @@ import {
 } from "@illa-design/react"
 import { ShareBlockPC } from "../../ShareBlock/pc"
 import { AppPublicProps } from "../interface"
-import { makeAppContribute, updateAppPublicConfig } from "../service"
+import {
+  fetchRemoveAppToMarket,
+  makeAppContribute,
+  updateAppPublicConfig,
+} from "../service"
 import {
   blockContainerStyle,
   blockLabelStyle,
@@ -190,7 +194,11 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
               setAppContribute(value)
               try {
                 setMarketLinkLoading(true)
-                await makeAppContribute(ownerTeamID, appID)
+                if (value) {
+                  await makeAppContribute(ownerTeamID, appID)
+                } else {
+                  await fetchRemoveAppToMarket(ownerTeamID, appID)
+                }
                 onAppContribute?.(value)
                 if (value) {
                   setAppPublic(true)

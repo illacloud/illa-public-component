@@ -14,7 +14,7 @@ import {
 } from "@illa-design/react"
 import { ShareBlockPC } from "../../ShareBlock/pc"
 import { AgentToMarketplaceProps } from "../interface"
-import { makeAgentContribute } from "../service"
+import { fetchRemoveToMarketplace, makeAgentContribute } from "../service"
 import {
   blockContainerStyle,
   blockLabelStyle,
@@ -71,7 +71,11 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
               setAgentContributedLoading(true)
               setAgentContributed(value)
               try {
-                await makeAgentContribute(ownerTeamID, agentID)
+                if (value) {
+                  await makeAgentContribute(ownerTeamID, agentID)
+                } else {
+                  await fetchRemoveToMarketplace(ownerTeamID, agentID)
+                }
                 onAgentContributed?.(value)
               } catch (e) {
                 message.error({
@@ -97,7 +101,12 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
             colorScheme="techPurple"
             value={
               agentContributedLoading ? (
-                <Skeleton text={{ rows: 1 }} opac={0.5} animation flexGrow="1" />
+                <Skeleton
+                  text={{ rows: 1 }}
+                  opac={0.5}
+                  animation
+                  flexGrow="1"
+                />
               ) : (
                 getAgentPublicLink(agentID)
               )
