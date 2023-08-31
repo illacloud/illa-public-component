@@ -1,0 +1,37 @@
+{
+  "name": "@illa-public/member-page",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.tsx",
+  "dependencies": {
+    "@illa-public/utils": "workspace:*",
+    "@illa-public/user-role-utils": "workspace:*",
+    "@illa-public/layout-auto-change": "workspace:*",
+    "@illa-public/mixpanel-utils": "workspace:*",
+    "@illa-public/auth-shown": "workspace:*",
+    "@illa-public/icon": "workspace:*",
+    "@illa-public/role-selector": "workspace:*",
+    "@illa-public/usage-card": "workspace:*",
+    "@illa-public/avatar": "workspace:*",
+    "@illa-public/user-data": "workspace:*",
+    "@illa-public/illa-net": "workspace:*",
+    "@illa-public/invite-modal": "workspace:*",
+    "@illa-public/upgrade-modal": "workspace:*",
+    "react-hook-form": "^7.30.0",
+    "copy-to-clipboard": "^3.3.2"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "@illa-design/react": "workspace:*",
+    "@emotion/react": "*",
+    "react-i18next": "^12.1.4",
+    "i18next": "^22.4.9",
+    "react-redux": ">=8.0.5"
+  }
+}

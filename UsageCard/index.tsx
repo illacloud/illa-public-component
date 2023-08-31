@@ -1,3 +1,5 @@
+import { FC, HTMLAttributes, useMemo } from "react"
+import { useTranslation } from "react-i18next"
 import {
   Button,
   ButtonColorScheme,
@@ -5,8 +7,9 @@ import {
   Progress,
   getColor,
 } from "@illa-design/react"
-import { FC, HTMLAttributes, useMemo } from "react"
-import { useTranslation } from "react-i18next"
+import DriveIcon from "./assets/drive.svg"
+import LicenseIcon from "./assets/license.svg"
+import TrafficIcon from "./assets/traffic.svg"
 import {
   actionButtonStyle,
   iconStyle,
@@ -20,10 +23,7 @@ import {
   titleLineStyle,
   usageCardStyle,
   usageProgressStyle,
-} from "@/illa-public-component/UsageCard/style"
-import DriveIcon from "./assets/drive.svg"
-import LicenseIcon from "./assets/license.svg"
-import TrafficIcon from "./assets/traffic.svg"
+} from "./style"
 
 interface UsageCardProps extends HTMLAttributes<HTMLDivElement> {
   type: "License" | "Drive" | "Traffic"

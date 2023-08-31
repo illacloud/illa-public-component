@@ -1,4 +1,8 @@
 import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
+import {
   ChangeEvent,
   FC,
   HTMLAttributes,
@@ -8,10 +12,10 @@ import {
   useRef,
   useState,
 } from "react"
-import EasyCropper, { Area, MediaSize } from "react-easy-crop"
+import EasyCropper, { Area } from "react-easy-crop"
 import { useTranslation } from "react-i18next"
 import { Button, CloseIcon, Modal, Spin, useMessage } from "@illa-design/react"
-import { ReactComponent as RotateRightIcon } from "@/illa-public-component/Cropper/assets/rotate-right.svg"
+import { ReactComponent as RotateRightIcon } from "./assets/rotate-right.svg"
 import {
   applyZoomStyle,
   closeIconStyle,
@@ -33,10 +37,7 @@ import {
   rotateIconStyle,
   rowStyle,
   saveButtonStyle,
-} from "@/illa-public-component/Cropper/style"
-import { ILLA_MIXPANEL_EVENT_TYPE } from "@/illa-public-component/MixpanelUtils/interface"
-import { MixpanelTrackContext } from "@/illa-public-component/MixpanelUtils/mixpanelContext"
-import { pxToRem } from "@/style"
+} from "./style"
 
 export function getRadianAngle(degreeValue: number) {
   return (degreeValue * Math.PI) / 180
@@ -225,18 +226,10 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
     setZoom(zoom)
   }
 
-  const onMediaLoaded = (mediaSize: MediaSize) => {
-    const { height } = mediaSize
-    const _ratioWidth = height * FILE_INIT_ASPECT
-
+  const onMediaLoaded = () => {
     setTimeout(() => {
       setRotation(360)
     }, 200)
-    // if (width > ratioWidth) {
-    //   setCropSize({ width: ratioWidth, height })
-    // } else {
-    //   setCropSize({ width, height: width / FILE_INIT_ASPECT })
-    // }
   }
 
   const handleCrop = async () => {
@@ -317,10 +310,10 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
       return {
         containerStyle: {
           width: "100%",
-          height: pxToRem(653),
+          height: "653rem",
         },
         mediaStyle: {
-          height: pxToRem(653),
+          height: "653rem",
         },
       }
     }
@@ -336,8 +329,8 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
   }, [isMobile])
 
   return (
-    <div {...otherProps}>
-      <div css={cropperWrapperStyle} onClick={handleClick}>
+    <>
+      <div css={cropperWrapperStyle} onClick={handleClick} {...otherProps}>
         {children}
         <input
           style={{ display: "none" }}
@@ -416,6 +409,6 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
           </Spin>
         </Modal>
       )}
-    </div>
+    </>
   )
 }

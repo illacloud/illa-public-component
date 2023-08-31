@@ -1,13 +1,12 @@
-import { FC, useMemo } from "react"
-import {
-  AuthHiddenProps,
-  SHOW_RULES,
-} from "@/illa-public-component/AuthShown/interface"
+import { USER_ROLE } from "@illa-public/user-data"
 import {
   isBiggerThanTargetRole,
   isSmallThanTargetRole,
-} from "@/illa-public-component/UserRoleUtils"
-import { USER_ROLE } from "@/illa-public-component/UserRoleUtils/interface"
+} from "@illa-public/user-role-utils"
+import { FC, useMemo } from "react"
+import { AuthHiddenProps, SHOW_RULES } from "./interface"
+
+export * from "./interface"
 
 export const canAuthShow = (
   currentUserRole: USER_ROLE,

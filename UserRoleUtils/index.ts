@@ -1,4 +1,5 @@
-import { SUBSCRIBE_PLAN } from "@/illa-public-component/MemberList/interface"
+import { SUBSCRIBE_PLAN, USER_ROLE } from "@illa-public/user-data"
+import { isCloudVersion } from "@illa-public/utils"
 import {
   ACTION_ACCESS,
   ACTION_DELETE,
@@ -6,34 +7,17 @@ import {
   ACTION_SPECIAL,
   ATTRIBUTE_CATEGORY,
   ATTRIBUTE_GROUP,
-  USER_ROLE,
 } from "./interface"
+
+export * from "./interface"
 
 export const USER_ROLE_ARRAY = [
   USER_ROLE.OWNER,
   USER_ROLE.ADMIN,
   USER_ROLE.EDITOR,
   USER_ROLE.VIEWER,
-  USER_ROLE.CUSTOM,
+  USER_ROLE.GUEST,
 ]
-export const userRoleMapI18nString = {
-  [USER_ROLE.CUSTOM]: "Custom",
-  [USER_ROLE.OWNER]: "user_management.role.owner",
-  [USER_ROLE.ADMIN]: "user_management.role.admin",
-  [USER_ROLE.EDITOR]: "user_management.role.editor",
-  [USER_ROLE.VIEWER]: "user_management.role.viewer",
-  [USER_ROLE.GUEST]: "Guest",
-}
-
-export const userRoleTipI18nString = {
-  [USER_ROLE.CUSTOM]: "",
-  [USER_ROLE.OWNER]: "",
-  [USER_ROLE.ADMIN]: "new_share.tips.admin",
-  [USER_ROLE.EDITOR]: "new_share.tips.editor",
-  [USER_ROLE.VIEWER]: "new_share.tips.viewer",
-  [USER_ROLE.GUEST]: "",
-}
-
 export const filterUserRole = (
   roles: USER_ROLE[],
   filterRole: USER_ROLE[] = [],
@@ -248,6 +232,9 @@ export const attributeConfigList: AttributeConfigList = {
         [ACTION_MANAGE.CREATE_RESOURCE]: true,
         [ACTION_MANAGE.EDIT_RESOURCE]: true,
       },
+      [ATTRIBUTE_GROUP.AGENT]: {
+        [ACTION_MANAGE.CREATE_AGENT]: true,
+      },
       [ATTRIBUTE_GROUP.HUB]: {},
     },
     [USER_ROLE.ADMIN]: {
@@ -289,12 +276,18 @@ export const attributeConfigList: AttributeConfigList = {
         [ACTION_MANAGE.CREATE_RESOURCE]: true,
         [ACTION_MANAGE.EDIT_RESOURCE]: true,
       },
+      [ATTRIBUTE_GROUP.AGENT]: {
+        [ACTION_MANAGE.CREATE_AGENT]: true,
+      },
       [ATTRIBUTE_GROUP.HUB]: {},
     },
     [USER_ROLE.EDITOR]: {
       [ATTRIBUTE_GROUP.USER]: {
         [ACTION_MANAGE.RENAME_USER]: true,
         [ACTION_MANAGE.UPDATE_USER_AVATAR]: true,
+      },
+      [ATTRIBUTE_GROUP.INVITE]: {
+        [ACTION_MANAGE.INVITE_LINK]: true,
       },
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
@@ -304,6 +297,9 @@ export const attributeConfigList: AttributeConfigList = {
       [ATTRIBUTE_GROUP.RESOURCE]: {
         [ACTION_MANAGE.CREATE_RESOURCE]: true,
         [ACTION_MANAGE.EDIT_RESOURCE]: true,
+      },
+      [ATTRIBUTE_GROUP.AGENT]: {
+        [ACTION_MANAGE.CREATE_AGENT]: true,
       },
       [ATTRIBUTE_GROUP.HUB]: {},
     },
@@ -419,6 +415,7 @@ export const canUseUpgradeFeature = (
   isSubscribe?: boolean,
   isSubscribeAndSufficient?: boolean,
 ) => {
+  if (!isCloudVersion) return true
   if (!isSubscribe) return false
 
   return (
@@ -478,7 +475,7 @@ export const doesNowUserAreEditorOrViewer = (userRole: USER_ROLE) => {
   return userRole === USER_ROLE.EDITOR || userRole === USER_ROLE.VIEWER
 }
 
-export const canManageApp = (
+export const canManageInvite = (
   currentUserRole: USER_ROLE,
   allowEditorManageTeamMember?: boolean,
   allowViewerManageTeamMember?: boolean,
