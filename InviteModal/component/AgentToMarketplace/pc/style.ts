@@ -8,6 +8,7 @@ export const publicContainerStyle = css`
 `
 
 export const blockContainerStyle = css`
+  margin-top: 16px;
   display: flex;
   align-items: center;
   flex-direction: row;
