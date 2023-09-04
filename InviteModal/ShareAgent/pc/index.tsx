@@ -58,7 +58,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
             />
           )}
           {(canManage(
-            props.currentUserRole,
+            props.userRoleForThisAgent,
             ATTRIBUTE_GROUP.AGENT,
             ACTION_MANAGE.CREATE_AGENT,
           ) ||

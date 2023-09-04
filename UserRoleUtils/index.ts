@@ -509,6 +509,7 @@ export const openInviteModal = (teamInfo: TeamInfo) => {
 
 export const showShareAppModal = (
   teamInfo: TeamInfo,
+  userRoleForThisApp: USER_ROLE,
   isPublic: boolean,
   isContributed: boolean,
   isDeployed: boolean,
@@ -519,36 +520,45 @@ export const showShareAppModal = (
     teamInfo.permission.allowViewerManageTeamMember,
   )
 
-  switch (teamInfo.myRole) {
-    case USER_ROLE.OWNER:
-    case USER_ROLE.ADMIN:
-    case USER_ROLE.EDITOR:
-      return true
-    case USER_ROLE.VIEWER:
-      return canInvite || ((isPublic || isContributed) && isDeployed)
-  }
-
-  // guest
-  return (isPublic || isContributed) && isDeployed
+  if (canInvite) {
+    return true
+  } else if (
+    canManage(userRoleForThisApp, ATTRIBUTE_GROUP.APP, ACTION_MANAGE.EDIT_APP)
+  ) {
+    return true
+  } else return (isPublic || isContributed) && isDeployed
 }
 
 export const openShareAppModal = (
   teamInfo: TeamInfo,
+  userRoleForThisApp: USER_ROLE,
   isPublic: boolean,
   isContributed: boolean,
 ) => {
   if (isPublic || isContributed) {
     return true
-  }
-  return canManageInvite(
-    teamInfo.myRole,
-    teamInfo.permission.allowEditorManageTeamMember,
-    teamInfo.permission.allowViewerManageTeamMember,
-  )
+  } else if (
+    canManage(userRoleForThisApp, ATTRIBUTE_GROUP.APP, ACTION_MANAGE.EDIT_APP)
+  ) {
+    return true
+  } else
+    return (
+      canManageInvite(
+        teamInfo.myRole,
+        teamInfo.permission.allowEditorManageTeamMember,
+        teamInfo.permission.allowViewerManageTeamMember,
+      ) &&
+      canUseUpgradeFeature(
+        teamInfo.myRole,
+        teamInfo.totalTeamLicense.teamLicensePurchased,
+        teamInfo.totalTeamLicense.teamLicenseAllPaid,
+      )
+    )
 }
 
 export const showShareAgentModal = (
   teamInfo: TeamInfo,
+  userRoleForThisAgent: USER_ROLE,
   isContributed: boolean,
 ) => {
   const canInvite = canManageInvite(
@@ -556,27 +566,46 @@ export const showShareAgentModal = (
     teamInfo.permission.allowEditorManageTeamMember,
     teamInfo.permission.allowViewerManageTeamMember,
   )
-
-  switch (teamInfo.myRole) {
-    case USER_ROLE.OWNER:
-    case USER_ROLE.ADMIN:
-    case USER_ROLE.EDITOR:
-      return true
-    case USER_ROLE.VIEWER:
-      return canInvite || isContributed
+  if (isContributed) {
+    return true
+  } else if (canInvite) {
+    return true
+  } else {
+    return canManage(
+      userRoleForThisAgent,
+      ATTRIBUTE_GROUP.AGENT,
+      ACTION_MANAGE.CREATE_AGENT,
+    )
   }
 }
 
 export const openShareAgentModal = (
   teamInfo: TeamInfo,
+  userRoleForThisAgent: USER_ROLE,
   isContributed: boolean,
 ) => {
   if (isContributed) {
     return true
+  } else if (
+    canManage(
+      userRoleForThisAgent,
+      ATTRIBUTE_GROUP.AGENT,
+      ACTION_MANAGE.CREATE_AGENT,
+    )
+  ) {
+    return true
+  } else {
+    return (
+      canManageInvite(
+        teamInfo.myRole,
+        teamInfo.permission.allowEditorManageTeamMember,
+        teamInfo.permission.allowViewerManageTeamMember,
+      ) &&
+      canUseUpgradeFeature(
+        teamInfo.myRole,
+        teamInfo.totalTeamLicense.teamLicensePurchased,
+        teamInfo.totalTeamLicense.teamLicenseAllPaid,
+      )
+    )
   }
-  return canManageInvite(
-    teamInfo.myRole,
-    teamInfo.permission.allowEditorManageTeamMember,
-    teamInfo.permission.allowViewerManageTeamMember,
-  )
 }

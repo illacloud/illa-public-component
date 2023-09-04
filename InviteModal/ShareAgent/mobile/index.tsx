@@ -72,7 +72,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                 </div>
               )}
               {(canManage(
-                props.currentUserRole,
+                props.userRoleForThisAgent,
                 ATTRIBUTE_GROUP.AGENT,
                 ACTION_MANAGE.CREATE_AGENT,
               ) ||
@@ -118,7 +118,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                   onInviteLinkStateChange={props.onInviteLinkStateChange}
                   onCopyInviteLink={props.onCopyInviteLink}
                 />
-                <Divider _css={dividerStyle} />
+                <Divider css={dividerStyle} />
                 <InviteByEmailMobile
                   excludeUserRole={[]}
                   onBalanceChange={props.onBalanceChange}
