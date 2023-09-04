@@ -15,7 +15,7 @@ class ILLAMixpanelTools {
 
   constructor() {
     this.enable =
-      process.env.ILLA_API_BASE_URL === "CLOUD" &&
+      process.env.ILLA_INSTANCE_ID === "CLOUD" &&
       !!process.env.ILLA_MIXPANEL_API_KEY
     if (this.enable) {
       mixpanel.init(process.env.ILLA_MIXPANEL_API_KEY as string, {
