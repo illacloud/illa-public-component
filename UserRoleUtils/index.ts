@@ -1,4 +1,4 @@
-import { SUBSCRIBE_PLAN, USER_ROLE } from "@illa-public/user-data"
+import { SUBSCRIBE_PLAN, TeamInfo, USER_ROLE } from "@illa-public/user-data"
 import { isCloudVersion } from "@illa-public/utils"
 import {
   ACTION_ACCESS,
@@ -485,4 +485,98 @@ export const canManageInvite = (
   } else {
     return [USER_ROLE.OWNER, USER_ROLE.ADMIN].includes(currentUserRole)
   }
+}
+
+export const showInviteModal = (teamInfo: TeamInfo) => {
+  return canManageInvite(
+    teamInfo.myRole,
+    teamInfo.permission.allowEditorManageTeamMember,
+    teamInfo.permission.allowViewerManageTeamMember,
+  )
+}
+
+export const openInviteModal = (teamInfo: TeamInfo) => {
+  if (isCloudVersion) {
+    return canUseUpgradeFeature(
+      teamInfo.myRole,
+      teamInfo.totalTeamLicense.teamLicensePurchased,
+      teamInfo.totalTeamLicense.teamLicenseAllPaid,
+    )
+  } else {
+    return true
+  }
+}
+
+export const showShareAppModal = (
+  teamInfo: TeamInfo,
+  isPublic: boolean,
+  isContributed: boolean,
+  isDeployed: boolean,
+) => {
+  const canInvite = canManageInvite(
+    teamInfo.myRole,
+    teamInfo.permission.allowEditorManageTeamMember,
+    teamInfo.permission.allowViewerManageTeamMember,
+  )
+
+  switch (teamInfo.myRole) {
+    case USER_ROLE.OWNER:
+    case USER_ROLE.ADMIN:
+    case USER_ROLE.EDITOR:
+      return true
+    case USER_ROLE.VIEWER:
+      return canInvite || ((isPublic || isContributed) && isDeployed)
+  }
+
+  // guest
+  return (isPublic || isContributed) && isDeployed
+}
+
+export const openShareAppModal = (
+  teamInfo: TeamInfo,
+  isPublic: boolean,
+  isContributed: boolean,
+) => {
+  if (isPublic || isContributed) {
+    return true
+  }
+  return canManageInvite(
+    teamInfo.myRole,
+    teamInfo.permission.allowEditorManageTeamMember,
+    teamInfo.permission.allowViewerManageTeamMember,
+  )
+}
+
+export const showShareAgentModal = (
+  teamInfo: TeamInfo,
+  isContributed: boolean,
+) => {
+  const canInvite = canManageInvite(
+    teamInfo.myRole,
+    teamInfo.permission.allowEditorManageTeamMember,
+    teamInfo.permission.allowViewerManageTeamMember,
+  )
+
+  switch (teamInfo.myRole) {
+    case USER_ROLE.OWNER:
+    case USER_ROLE.ADMIN:
+    case USER_ROLE.EDITOR:
+      return true
+    case USER_ROLE.VIEWER:
+      return canInvite || isContributed
+  }
+}
+
+export const openShareAgentModal = (
+  teamInfo: TeamInfo,
+  isContributed: boolean,
+) => {
+  if (isContributed) {
+    return true
+  }
+  return canManageInvite(
+    teamInfo.myRole,
+    teamInfo.permission.allowEditorManageTeamMember,
+    teamInfo.permission.allowViewerManageTeamMember,
+  )
 }
