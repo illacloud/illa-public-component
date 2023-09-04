@@ -189,7 +189,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
           </div>
         </div>
       )}
-      <div css={inviteListContainerStyle}>
+      {alreadyInvited.length > 0 && <div css={inviteListContainerStyle}>
         {alreadyInvited.map((user) => {
           return (
             <div key={user.email} css={avatarContainerStyle}>
@@ -230,7 +230,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
             </div>
           )
         })}
-      </div>
+      </div>}
     </div>
   )
 }

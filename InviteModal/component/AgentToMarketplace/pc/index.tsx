@@ -50,11 +50,8 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
 
   return (
     <div css={publicContainerStyle}>
-      {isBiggerThanTargetRole(
-        USER_ROLE.VIEWER,
-        userRoleForThisAgent,
-        false,
-      ) && (
+      {(isBiggerThanTargetRole(USER_ROLE.VIEWER, userRoleForThisAgent, false) ||
+        agentContributed) && (
         <div css={blockContainerStyle}>
           <div css={blockLabelStyle}>
             {t("user_management.modal.contribute.label")}
@@ -64,31 +61,37 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
               flexGrow: 1,
             }}
           />
-          <Switch
-            checked={agentContributed}
-            colorScheme={getColor("grayBlue", "02")}
-            onChange={async (value) => {
-              setAgentContributed(value)
-              try {
-                setAgentContributedLoading(true)
-                if (value) {
-                  await makeAgentContribute(ownerTeamID, agentID)
-                } else {
-                  await fetchRemoveToMarketplace(ownerTeamID, agentID)
+          {isBiggerThanTargetRole(
+            USER_ROLE.VIEWER,
+            userRoleForThisAgent,
+            false,
+          ) && (
+            <Switch
+              checked={agentContributed}
+              colorScheme={getColor("grayBlue", "02")}
+              onChange={async (value) => {
+                setAgentContributed(value)
+                try {
+                  setAgentContributedLoading(true)
+                  if (value) {
+                    await makeAgentContribute(ownerTeamID, agentID)
+                  } else {
+                    await fetchRemoveToMarketplace(ownerTeamID, agentID)
+                  }
+                  onAgentContributed?.(value)
+                } catch (e) {
+                  message.error({
+                    content: t(
+                      "user_management.modal.message.make_public_failed",
+                    ),
+                  })
+                  setAgentContributed(!value)
+                } finally {
+                  setAgentContributedLoading(false)
                 }
-                onAgentContributed?.(value)
-              } catch (e) {
-                message.error({
-                  content: t(
-                    "user_management.modal.message.make_public_failed",
-                  ),
-                })
-                setAgentContributed(!value)
-              } finally {
-                setAgentContributedLoading(false)
-              }
-            }}
-          />
+              }}
+            />
+          )}
         </div>
       )}
       {agentContributed ? (
