@@ -122,7 +122,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
               currentBalance < currentValue.length
             ) {
               upgradeModal({
-                modalType: "upgrade",
+                modalType: "add-license",
               })
               return
             }
