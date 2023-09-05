@@ -15,15 +15,17 @@ import {
 } from "./style"
 
 export const ShareAppPC: FC<ShareAppProps> = (props) => {
-  let defTab = "use"
+  let defTab = "public"
 
   if (
     props.canInvite &&
+    props.canUseBillingFeature &&
     isBiggerThanTargetRole(USER_ROLE.VIEWER, props.currentUserRole, false)
   ) {
     defTab = "edit"
   } else if (
     props.canInvite &&
+    props.canUseBillingFeature &&
     USER_ROLE.VIEWER === props.currentUserRole &&
     props.isDeployed
   ) {

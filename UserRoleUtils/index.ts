@@ -1,4 +1,4 @@
-import { SUBSCRIBE_PLAN, USER_ROLE } from "@illa-public/user-data"
+import { SUBSCRIBE_PLAN, TeamInfo, USER_ROLE } from "@illa-public/user-data"
 import { isCloudVersion } from "@illa-public/utils"
 import {
   ACTION_ACCESS,
@@ -484,5 +484,128 @@ export const canManageInvite = (
     return isBiggerThanTargetRole(USER_ROLE.VIEWER, currentUserRole)
   } else {
     return [USER_ROLE.OWNER, USER_ROLE.ADMIN].includes(currentUserRole)
+  }
+}
+
+export const showInviteModal = (teamInfo: TeamInfo) => {
+  return canManageInvite(
+    teamInfo.myRole,
+    teamInfo.permission.allowEditorManageTeamMember,
+    teamInfo.permission.allowViewerManageTeamMember,
+  )
+}
+
+export const openInviteModal = (teamInfo: TeamInfo) => {
+  if (isCloudVersion) {
+    return canUseUpgradeFeature(
+      teamInfo.myRole,
+      teamInfo.totalTeamLicense.teamLicensePurchased,
+      teamInfo.totalTeamLicense.teamLicenseAllPaid,
+    )
+  } else {
+    return true
+  }
+}
+
+export const showShareAppModal = (
+  teamInfo: TeamInfo,
+  userRoleForThisApp: USER_ROLE,
+  isPublic: boolean,
+  isContributed: boolean,
+  isDeployed: boolean,
+) => {
+  const canInvite = canManageInvite(
+    teamInfo.myRole,
+    teamInfo.permission.allowEditorManageTeamMember,
+    teamInfo.permission.allowViewerManageTeamMember,
+  )
+
+  if (canInvite) {
+    return true
+  } else if (
+    canManage(userRoleForThisApp, ATTRIBUTE_GROUP.APP, ACTION_MANAGE.EDIT_APP)
+  ) {
+    return true
+  } else return (isPublic || isContributed) && isDeployed
+}
+
+export const openShareAppModal = (
+  teamInfo: TeamInfo,
+  userRoleForThisApp: USER_ROLE,
+  isPublic: boolean,
+  isContributed: boolean,
+) => {
+  if (isPublic || isContributed) {
+    return true
+  } else if (
+    canManage(userRoleForThisApp, ATTRIBUTE_GROUP.APP, ACTION_MANAGE.EDIT_APP)
+  ) {
+    return true
+  } else
+    return (
+      canManageInvite(
+        teamInfo.myRole,
+        teamInfo.permission.allowEditorManageTeamMember,
+        teamInfo.permission.allowViewerManageTeamMember,
+      ) &&
+      canUseUpgradeFeature(
+        teamInfo.myRole,
+        teamInfo.totalTeamLicense.teamLicensePurchased,
+        teamInfo.totalTeamLicense.teamLicenseAllPaid,
+      )
+    )
+}
+
+export const showShareAgentModal = (
+  teamInfo: TeamInfo,
+  userRoleForThisAgent: USER_ROLE,
+  isContributed: boolean,
+) => {
+  const canInvite = canManageInvite(
+    teamInfo.myRole,
+    teamInfo.permission.allowEditorManageTeamMember,
+    teamInfo.permission.allowViewerManageTeamMember,
+  )
+  if (isContributed) {
+    return true
+  } else if (canInvite) {
+    return true
+  } else {
+    return canManage(
+      userRoleForThisAgent,
+      ATTRIBUTE_GROUP.AGENT,
+      ACTION_MANAGE.CREATE_AGENT,
+    )
+  }
+}
+
+export const openShareAgentModal = (
+  teamInfo: TeamInfo,
+  userRoleForThisAgent: USER_ROLE,
+  isContributed: boolean,
+) => {
+  if (isContributed) {
+    return true
+  } else if (
+    canManage(
+      userRoleForThisAgent,
+      ATTRIBUTE_GROUP.AGENT,
+      ACTION_MANAGE.CREATE_AGENT,
+    )
+  ) {
+    return true
+  } else {
+    return (
+      canManageInvite(
+        teamInfo.myRole,
+        teamInfo.permission.allowEditorManageTeamMember,
+        teamInfo.permission.allowViewerManageTeamMember,
+      ) &&
+      canUseUpgradeFeature(
+        teamInfo.myRole,
+        teamInfo.totalTeamLicense.teamLicensePurchased,
+        teamInfo.totalTeamLicense.teamLicenseAllPaid,
+      )
+    )
   }
 }
