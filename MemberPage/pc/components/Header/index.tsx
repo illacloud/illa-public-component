@@ -87,13 +87,13 @@ export const Header: FC<IPcHeaderProps> = (props) => {
       <div css={headerWrapperStyle}>
         <h1 css={titleStyle}>{t("user_management.page.member")}</h1>
         <div css={buttonGroup}>
-          {isCloudVersion ||
+          {(isCloudVersion ||
             (!isCloudVersion &&
               isBiggerThanTargetRole(
                 USER_ROLE.EDITOR,
                 currentUserRole,
                 false,
-              ) && <MoreAction afterLeaveTeam={afterLeaveTeam} />)}
+              ))) && <MoreAction afterLeaveTeam={afterLeaveTeam} />}
           <Button
             w="200px"
             colorScheme="techPurple"
