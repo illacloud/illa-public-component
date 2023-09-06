@@ -1,4 +1,3 @@
-/* eslint-disable import/no-named-as-default-member */
 import mixpanel from "mixpanel-browser"
 import {
   ILLAProperties,
@@ -23,8 +22,8 @@ class ILLAMixpanelTools {
         test: process.env.ILLA_APP_ENV !== "production",
         ignore_dnt: process.env.ILLA_APP_ENV === "development",
       })
+      this.registerPublicProperties()
     }
-    this.registerPublicProperties()
   }
 
   public async setDeviceID() {

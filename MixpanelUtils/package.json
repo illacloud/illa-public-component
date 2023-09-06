@@ -4,20 +4,20 @@
   "private": true,
   "main": "index.tsx",
   "dependencies": {
-    "mixpanel-browser": "^2.46.0",
-    "@types/mixpanel-browser": "^2.38.1",
     "@fingerprintjs/fingerprintjs": "^3.4.0",
     "@illa-public/illa-storage": "workspace:*",
-    "@illa-public/utils": "workspace:*"
+    "@illa-public/utils": "workspace:*",
+    "mixpanel-browser": "^2.47.0"
   },
   "devDependencies": {
+    "@types/mixpanel-browser": "^2.47.1",
     "@types/node": "^18.14.4",
     "tsconfig": "workspace:*"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10"
+    "@types/react-dom": "^18.0.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
