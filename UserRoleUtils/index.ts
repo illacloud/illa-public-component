@@ -105,7 +105,6 @@ export const attributeConfigList: AttributeConfigList = {
       [ATTRIBUTE_GROUP.BILLING]: { [ACTION_ACCESS.VIEW]: true },
       [ATTRIBUTE_GROUP.APP]: { [ACTION_ACCESS.VIEW]: true },
       [ATTRIBUTE_GROUP.RESOURCE]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.HUB]: { [ACTION_ACCESS.VIEW]: true },
     },
     [USER_ROLE.ADMIN]: {
       [ATTRIBUTE_GROUP.TEAM]: { [ACTION_ACCESS.VIEW]: true },
@@ -122,7 +121,6 @@ export const attributeConfigList: AttributeConfigList = {
       [ATTRIBUTE_GROUP.DOMAIN]: { [ACTION_ACCESS.VIEW]: true },
       [ATTRIBUTE_GROUP.APP]: { [ACTION_ACCESS.VIEW]: true },
       [ATTRIBUTE_GROUP.RESOURCE]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.HUB]: { [ACTION_ACCESS.VIEW]: true },
     },
     [USER_ROLE.EDITOR]: {
       [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_ACCESS.VIEW]: true },
@@ -136,7 +134,6 @@ export const attributeConfigList: AttributeConfigList = {
       },
       [ATTRIBUTE_GROUP.APP]: { [ACTION_ACCESS.VIEW]: true },
       [ATTRIBUTE_GROUP.RESOURCE]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.HUB]: { [ACTION_ACCESS.VIEW]: true },
     },
     [USER_ROLE.VIEWER]: {
       [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_ACCESS.VIEW]: true },
@@ -163,7 +160,6 @@ export const attributeConfigList: AttributeConfigList = {
       [ATTRIBUTE_GROUP.BILLING]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.APP]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.RESOURCE]: { [ACTION_DELETE.DELETE]: true },
-      [ATTRIBUTE_GROUP.HUB]: { [ACTION_DELETE.DELETE]: true },
     },
     [USER_ROLE.ADMIN]: {
       [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_DELETE.DELETE]: true },
@@ -175,13 +171,11 @@ export const attributeConfigList: AttributeConfigList = {
       },
       [ATTRIBUTE_GROUP.APP]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.RESOURCE]: { [ACTION_DELETE.DELETE]: true },
-      [ATTRIBUTE_GROUP.HUB]: { [ACTION_DELETE.DELETE]: true },
     },
     [USER_ROLE.EDITOR]: {
       [ATTRIBUTE_GROUP.USER]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.APP]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.RESOURCE]: { [ACTION_DELETE.DELETE]: true },
-      [ATTRIBUTE_GROUP.HUB]: { [ACTION_DELETE.DELETE]: true },
     },
     [USER_ROLE.VIEWER]: {
       [ATTRIBUTE_GROUP.USER]: { [ACTION_DELETE.DELETE]: true },
@@ -220,22 +214,17 @@ export const attributeConfigList: AttributeConfigList = {
         [ACTION_MANAGE.APP_DOMAIN]: true,
       },
       [ATTRIBUTE_GROUP.BILLING]: {
-        [ACTION_MANAGE.SUBSCRIBE]: true,
+        [ACTION_MANAGE.MANAGE_PAYMENT]: true,
         [ACTION_MANAGE.PAYMENT_INFO]: true,
       },
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
         [ACTION_MANAGE.EDIT_APP]: true,
-        [ACTION_MANAGE.APP_WATER_MARK_CONFIG]: true,
       },
       [ATTRIBUTE_GROUP.RESOURCE]: {
         [ACTION_MANAGE.CREATE_RESOURCE]: true,
         [ACTION_MANAGE.EDIT_RESOURCE]: true,
       },
-      [ATTRIBUTE_GROUP.AGENT]: {
-        [ACTION_MANAGE.CREATE_AGENT]: true,
-      },
-      [ATTRIBUTE_GROUP.HUB]: {},
     },
     [USER_ROLE.ADMIN]: {
       [ATTRIBUTE_GROUP.TEAM]: {
@@ -270,16 +259,11 @@ export const attributeConfigList: AttributeConfigList = {
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
         [ACTION_MANAGE.EDIT_APP]: true,
-        [ACTION_MANAGE.APP_WATER_MARK_CONFIG]: true,
       },
       [ATTRIBUTE_GROUP.RESOURCE]: {
         [ACTION_MANAGE.CREATE_RESOURCE]: true,
         [ACTION_MANAGE.EDIT_RESOURCE]: true,
       },
-      [ATTRIBUTE_GROUP.AGENT]: {
-        [ACTION_MANAGE.CREATE_AGENT]: true,
-      },
-      [ATTRIBUTE_GROUP.HUB]: {},
     },
     [USER_ROLE.EDITOR]: {
       [ATTRIBUTE_GROUP.USER]: {
@@ -292,23 +276,17 @@ export const attributeConfigList: AttributeConfigList = {
       [ATTRIBUTE_GROUP.APP]: {
         [ACTION_MANAGE.CREATE_APP]: true,
         [ACTION_MANAGE.EDIT_APP]: true,
-        [ACTION_MANAGE.APP_WATER_MARK_CONFIG]: true,
       },
       [ATTRIBUTE_GROUP.RESOURCE]: {
         [ACTION_MANAGE.CREATE_RESOURCE]: true,
         [ACTION_MANAGE.EDIT_RESOURCE]: true,
       },
-      [ATTRIBUTE_GROUP.AGENT]: {
-        [ACTION_MANAGE.CREATE_AGENT]: true,
-      },
-      [ATTRIBUTE_GROUP.HUB]: {},
     },
     [USER_ROLE.VIEWER]: {
       [ATTRIBUTE_GROUP.USER]: {
         [ACTION_MANAGE.RENAME_USER]: true,
         [ACTION_MANAGE.UPDATE_USER_AVATAR]: true,
       },
-      [ATTRIBUTE_GROUP.HUB]: {},
     },
   },
   [ATTRIBUTE_CATEGORY.SPECIAL]: {
@@ -430,7 +408,7 @@ export const canManagePayment = (
 ) => {
   const attribute = isSubscribe
     ? ACTION_MANAGE.PAYMENT_INFO
-    : ACTION_MANAGE.SUBSCRIBE
+    : ACTION_MANAGE.MANAGE_PAYMENT
   return !!manageAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[attribute]
 }
 
@@ -573,8 +551,8 @@ export const showShareAgentModal = (
   } else {
     return canManage(
       userRoleForThisAgent,
-      ATTRIBUTE_GROUP.AGENT,
-      ACTION_MANAGE.CREATE_AGENT,
+      ATTRIBUTE_GROUP.AI_AGENT,
+      ACTION_MANAGE.CREATE_AI_AGENT,
     )
   }
 }
@@ -589,8 +567,8 @@ export const openShareAgentModal = (
   } else if (
     canManage(
       userRoleForThisAgent,
-      ATTRIBUTE_GROUP.AGENT,
-      ACTION_MANAGE.CREATE_AGENT,
+      ATTRIBUTE_GROUP.AI_AGENT,
+      ACTION_MANAGE.CREATE_AI_AGENT,
     )
   ) {
     return true
