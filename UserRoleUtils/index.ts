@@ -8,6 +8,10 @@ import {
   ATTRIBUTE_CATEGORY,
   ATTRIBUTE_GROUP,
 } from "./interface"
+import { AttributeConfigList } from "./attributeConfigList"
+import { InvaliedSubscribePlanAttributeConfigList } from "./invaliedSubscribePlanAttributeConfigList"
+import { FreePlanAttributeConfigList } from "./freePlanAttributeConfigList"
+import { SelfHostAttributeConfigList } from "./selfHostAttributeConifgList"
 
 export * from "./interface"
 
@@ -77,236 +81,7 @@ export const isBiggerThanTargetRole = (
     : currentUserRoleIndex < targetRoleIndex
 }
 
-interface AttributeConfigList {
-  [key: string]: {
-    [key: string]: {
-      [key: string]: {
-        [key: string]: boolean
-      }
-    }
-  }
-}
 
-export const attributeConfigList: AttributeConfigList = {
-  [ATTRIBUTE_CATEGORY.ACCESS]: {
-    [USER_ROLE.OWNER]: {
-      [ATTRIBUTE_GROUP.TEAM]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.USER]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.INVITE]: {
-        [ACTION_ACCESS.VIEW]: true,
-        [ACTION_ACCESS.INVITE_BY_LINK]: true,
-        [ACTION_ACCESS.INVITE_BY_EMAIL]: true,
-        [ACTION_ACCESS.INVITE_ADMIN]: true,
-        [ACTION_ACCESS.INVITE_EDITOR]: true,
-        [ACTION_ACCESS.INVITE_VIEWER]: true,
-      },
-      [ATTRIBUTE_GROUP.DOMAIN]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.BILLING]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.APP]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.RESOURCE]: { [ACTION_ACCESS.VIEW]: true },
-    },
-    [USER_ROLE.ADMIN]: {
-      [ATTRIBUTE_GROUP.TEAM]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.USER]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.INVITE]: {
-        [ACTION_ACCESS.VIEW]: true,
-        [ACTION_ACCESS.INVITE_BY_LINK]: true,
-        [ACTION_ACCESS.INVITE_BY_EMAIL]: true,
-        [ACTION_ACCESS.INVITE_ADMIN]: true,
-        [ACTION_ACCESS.INVITE_EDITOR]: true,
-        [ACTION_ACCESS.INVITE_VIEWER]: true,
-      },
-      [ATTRIBUTE_GROUP.DOMAIN]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.APP]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.RESOURCE]: { [ACTION_ACCESS.VIEW]: true },
-    },
-    [USER_ROLE.EDITOR]: {
-      [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.USER]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.INVITE]: {
-        [ACTION_ACCESS.VIEW]: true,
-        [ACTION_ACCESS.INVITE_BY_LINK]: true,
-        [ACTION_ACCESS.INVITE_BY_EMAIL]: true,
-        [ACTION_ACCESS.INVITE_EDITOR]: true,
-        [ACTION_ACCESS.INVITE_VIEWER]: true,
-      },
-      [ATTRIBUTE_GROUP.APP]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.RESOURCE]: { [ACTION_ACCESS.VIEW]: true },
-    },
-    [USER_ROLE.VIEWER]: {
-      [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.USER]: { [ACTION_ACCESS.VIEW]: true },
-      [ATTRIBUTE_GROUP.INVITE]: {
-        [ACTION_ACCESS.VIEW]: true,
-        [ACTION_ACCESS.INVITE_BY_LINK]: true,
-        [ACTION_ACCESS.INVITE_BY_EMAIL]: true,
-        [ACTION_ACCESS.INVITE_VIEWER]: true,
-      },
-      [ATTRIBUTE_GROUP.APP]: { [ACTION_ACCESS.VIEW]: true },
-    },
-  },
-  [ATTRIBUTE_CATEGORY.DELETE]: {
-    [USER_ROLE.OWNER]: {
-      [ATTRIBUTE_GROUP.TEAM]: { [ACTION_DELETE.DELETE]: true },
-      [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_DELETE.DELETE]: true },
-      [ATTRIBUTE_GROUP.USER]: { [ACTION_DELETE.DELETE]: true },
-      [ATTRIBUTE_GROUP.INVITE]: { [ACTION_DELETE.DELETE]: true },
-      [ATTRIBUTE_GROUP.DOMAIN]: {
-        [ACTION_DELETE.TEAM_DOMAIN]: true,
-        [ACTION_DELETE.APP_DOMAIN]: true,
-      },
-      [ATTRIBUTE_GROUP.BILLING]: { [ACTION_DELETE.DELETE]: true },
-      [ATTRIBUTE_GROUP.APP]: { [ACTION_DELETE.DELETE]: true },
-      [ATTRIBUTE_GROUP.RESOURCE]: { [ACTION_DELETE.DELETE]: true },
-    },
-    [USER_ROLE.ADMIN]: {
-      [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_DELETE.DELETE]: true },
-      [ATTRIBUTE_GROUP.USER]: { [ACTION_DELETE.DELETE]: true },
-      [ATTRIBUTE_GROUP.INVITE]: { [ACTION_DELETE.DELETE]: true },
-      [ATTRIBUTE_GROUP.DOMAIN]: {
-        [ACTION_DELETE.TEAM_DOMAIN]: true,
-        [ACTION_DELETE.APP_DOMAIN]: true,
-      },
-      [ATTRIBUTE_GROUP.APP]: { [ACTION_DELETE.DELETE]: true },
-      [ATTRIBUTE_GROUP.RESOURCE]: { [ACTION_DELETE.DELETE]: true },
-    },
-    [USER_ROLE.EDITOR]: {
-      [ATTRIBUTE_GROUP.USER]: { [ACTION_DELETE.DELETE]: true },
-      [ATTRIBUTE_GROUP.APP]: { [ACTION_DELETE.DELETE]: true },
-      [ATTRIBUTE_GROUP.RESOURCE]: { [ACTION_DELETE.DELETE]: true },
-    },
-    [USER_ROLE.VIEWER]: {
-      [ATTRIBUTE_GROUP.USER]: { [ACTION_DELETE.DELETE]: true },
-    },
-  },
-  [ATTRIBUTE_CATEGORY.MANAGE]: {
-    [USER_ROLE.OWNER]: {
-      [ATTRIBUTE_GROUP.TEAM]: {
-        [ACTION_MANAGE.TEAM_NAME]: true,
-        [ACTION_MANAGE.TEAM_ICON]: true,
-        [ACTION_MANAGE.UPDATE_TEAM_DOMAIN]: true,
-        [ACTION_MANAGE.TEAM_CONFIG]: true,
-      },
-      [ATTRIBUTE_GROUP.TEAM_MEMBER]: {
-        [ACTION_MANAGE.REMOVE_MEMBER]: true,
-        [ACTION_MANAGE.ROLE]: true,
-        [ACTION_MANAGE.ROLE_FROM_OWNER]: true,
-        [ACTION_MANAGE.ROLE_FROM_ADMIN]: true,
-        [ACTION_MANAGE.ROLE_FROM_EDITOR]: true,
-        [ACTION_MANAGE.ROLE_FROM_VIEWER]: true,
-        [ACTION_MANAGE.ROLE_TO_OWNER]: true,
-        [ACTION_MANAGE.ROLE_TO_ADMIN]: true,
-        [ACTION_MANAGE.ROLE_TO_EDITOR]: true,
-        [ACTION_MANAGE.ROLE_TO_VIEWER]: true,
-      },
-      [ATTRIBUTE_GROUP.USER]: {
-        [ACTION_MANAGE.RENAME_USER]: true,
-        [ACTION_MANAGE.UPDATE_USER_AVATAR]: true,
-      },
-      [ATTRIBUTE_GROUP.INVITE]: {
-        [ACTION_MANAGE.CONFIG_INVITE]: true,
-        [ACTION_MANAGE.INVITE_LINK]: true,
-      },
-      [ATTRIBUTE_GROUP.DOMAIN]: {
-        [ACTION_MANAGE.TEAM_DOMAIN]: true,
-        [ACTION_MANAGE.APP_DOMAIN]: true,
-      },
-      [ATTRIBUTE_GROUP.BILLING]: {
-        [ACTION_MANAGE.MANAGE_PAYMENT]: true,
-        [ACTION_MANAGE.PAYMENT_INFO]: true,
-      },
-      [ATTRIBUTE_GROUP.APP]: {
-        [ACTION_MANAGE.CREATE_APP]: true,
-        [ACTION_MANAGE.EDIT_APP]: true,
-      },
-      [ATTRIBUTE_GROUP.RESOURCE]: {
-        [ACTION_MANAGE.CREATE_RESOURCE]: true,
-        [ACTION_MANAGE.EDIT_RESOURCE]: true,
-      },
-    },
-    [USER_ROLE.ADMIN]: {
-      [ATTRIBUTE_GROUP.TEAM]: {
-        [ACTION_MANAGE.TEAM_NAME]: true,
-        [ACTION_MANAGE.TEAM_ICON]: true,
-        [ACTION_MANAGE.UPDATE_TEAM_DOMAIN]: true,
-        [ACTION_MANAGE.TEAM_CONFIG]: true,
-      },
-      [ATTRIBUTE_GROUP.TEAM_MEMBER]: {
-        [ACTION_MANAGE.REMOVE_MEMBER]: true,
-        [ACTION_MANAGE.ROLE]: true,
-        [ACTION_MANAGE.ROLE_FROM_ADMIN]: true,
-        [ACTION_MANAGE.ROLE_FROM_EDITOR]: true,
-        [ACTION_MANAGE.ROLE_FROM_VIEWER]: true,
-        [ACTION_MANAGE.ROLE_TO_ADMIN]: true,
-        [ACTION_MANAGE.ROLE_TO_EDITOR]: true,
-        [ACTION_MANAGE.ROLE_TO_VIEWER]: true,
-      },
-      [ATTRIBUTE_GROUP.USER]: {
-        [ACTION_MANAGE.RENAME_USER]: true,
-        [ACTION_MANAGE.UPDATE_USER_AVATAR]: true,
-      },
-      [ATTRIBUTE_GROUP.INVITE]: {
-        [ACTION_MANAGE.CONFIG_INVITE]: true,
-        [ACTION_MANAGE.INVITE_LINK]: true,
-      },
-      [ATTRIBUTE_GROUP.DOMAIN]: {
-        [ACTION_MANAGE.TEAM_DOMAIN]: true,
-        [ACTION_MANAGE.APP_DOMAIN]: true,
-      },
-      [ATTRIBUTE_GROUP.BILLING]: { [ACTION_MANAGE.PAYMENT_INFO]: true },
-      [ATTRIBUTE_GROUP.APP]: {
-        [ACTION_MANAGE.CREATE_APP]: true,
-        [ACTION_MANAGE.EDIT_APP]: true,
-      },
-      [ATTRIBUTE_GROUP.RESOURCE]: {
-        [ACTION_MANAGE.CREATE_RESOURCE]: true,
-        [ACTION_MANAGE.EDIT_RESOURCE]: true,
-      },
-    },
-    [USER_ROLE.EDITOR]: {
-      [ATTRIBUTE_GROUP.USER]: {
-        [ACTION_MANAGE.RENAME_USER]: true,
-        [ACTION_MANAGE.UPDATE_USER_AVATAR]: true,
-      },
-      [ATTRIBUTE_GROUP.INVITE]: {
-        [ACTION_MANAGE.INVITE_LINK]: true,
-      },
-      [ATTRIBUTE_GROUP.APP]: {
-        [ACTION_MANAGE.CREATE_APP]: true,
-        [ACTION_MANAGE.EDIT_APP]: true,
-      },
-      [ATTRIBUTE_GROUP.RESOURCE]: {
-        [ACTION_MANAGE.CREATE_RESOURCE]: true,
-        [ACTION_MANAGE.EDIT_RESOURCE]: true,
-      },
-    },
-    [USER_ROLE.VIEWER]: {
-      [ATTRIBUTE_GROUP.USER]: {
-        [ACTION_MANAGE.RENAME_USER]: true,
-        [ACTION_MANAGE.UPDATE_USER_AVATAR]: true,
-      },
-    },
-  },
-  [ATTRIBUTE_CATEGORY.SPECIAL]: {
-    [USER_ROLE.OWNER]: {
-      [ATTRIBUTE_GROUP.TEAM]: {
-        [ACTION_SPECIAL.EDITOR_AND_VIEWER_CAN_INVITE_BY_LINK_SW]: true,
-      },
-      [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_SPECIAL.TRANSFER_OWNER]: true },
-      [ATTRIBUTE_GROUP.INVITE]: { [ACTION_SPECIAL.INVITE_LINK_RENEW]: true },
-    },
-    [USER_ROLE.ADMIN]: {
-      [ATTRIBUTE_GROUP.TEAM]: {
-        [ACTION_SPECIAL.EDITOR_AND_VIEWER_CAN_INVITE_BY_LINK_SW]: true,
-      },
-      [ATTRIBUTE_GROUP.INVITE]: { [ACTION_SPECIAL.INVITE_LINK_RENEW]: true },
-    },
-    [USER_ROLE.EDITOR]: {},
-    [USER_ROLE.VIEWER]: {},
-  },
-}
 
 interface InviteRoleAttributeMap {
   [key: string]: number
@@ -343,32 +118,82 @@ const modifyRoleToAttributeMap: ModifyRoleToAttributeMap = {
   [USER_ROLE.VIEWER]: ACTION_MANAGE.ROLE_TO_VIEWER,
 }
 
-const accessAttribute = attributeConfigList[ATTRIBUTE_CATEGORY.ACCESS]
-const deleteAttribute = attributeConfigList[ATTRIBUTE_CATEGORY.DELETE]
-const manageAttribute = attributeConfigList[ATTRIBUTE_CATEGORY.MANAGE]
-const specialAttribute = attributeConfigList[ATTRIBUTE_CATEGORY.SPECIAL]
+
+
+export const getAttrbute = (userRole:USER_ROLE,attributeGroup:ATTRIBUTE_GROUP,teamPlan:SUBSCRIBE_PLAN)=>{
+  if(!isCloudVersion){
+    return {
+      accessAttribute:SelfHostAttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[userRole]?.[attributeGroup],
+      deleteAttribute:SelfHostAttributeConfigList?.[ATTRIBUTE_CATEGORY.DELETE]?.[userRole]?.[attributeGroup],
+      manageAttribute:SelfHostAttributeConfigList?.[ATTRIBUTE_CATEGORY.MANAGE]?.[userRole]?.[attributeGroup],
+      specialAttribute:SelfHostAttributeConfigList?.[ATTRIBUTE_CATEGORY.SPECIAL]?.[userRole]?.[attributeGroup],
+     }
+  }
+  switch (teamPlan){
+    case SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM:{
+     return {
+      accessAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[userRole]?.[attributeGroup],
+      deleteAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.DELETE]?.[userRole]?.[attributeGroup],
+      manageAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.MANAGE]?.[userRole]?.[attributeGroup],
+      specialAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.SPECIAL]?.[userRole]?.[attributeGroup],
+     }
+    }
+    case SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE:{
+      return {
+        accessAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[userRole]?.[attributeGroup],
+        deleteAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.DELETE]?.[userRole]?.[attributeGroup],
+        manageAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.MANAGE]?.[userRole]?.[attributeGroup],
+        specialAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.SPECIAL]?.[userRole]?.[attributeGroup],
+       }
+    }
+    case SUBSCRIBE_PLAN.TEAM_LICENSE_INSUFFICIENT:{
+      return {
+        accessAttribute:InvaliedSubscribePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[userRole]?.[attributeGroup],
+        deleteAttribute:InvaliedSubscribePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.DELETE]?.[userRole]?.[attributeGroup],
+        manageAttribute:InvaliedSubscribePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.MANAGE]?.[userRole]?.[attributeGroup],
+        specialAttribute:InvaliedSubscribePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.SPECIAL]?.[userRole]?.[attributeGroup],
+       }
+    }
+    default:{
+      return {
+        accessAttribute:FreePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[userRole]?.[attributeGroup],
+        deleteAttribute:FreePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.DELETE]?.[userRole]?.[attributeGroup],
+        manageAttribute:FreePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.MANAGE]?.[userRole]?.[attributeGroup],
+        specialAttribute:FreePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.SPECIAL]?.[userRole]?.[attributeGroup],
+       }
+    }
+  }
+
+}
+
 
 export const canAccess = (
   userRole: USER_ROLE,
   attributeGroup: ATTRIBUTE_GROUP,
+  teamPlan:SUBSCRIBE_PLAN,
   attribute: ACTION_ACCESS,
 ) => {
-  return !!accessAttribute[userRole]?.[attributeGroup]?.[attribute]
+  const accessAttribute = getAttrbute(userRole,attributeGroup,teamPlan).accessAttribute
+  return !!accessAttribute?.[attribute]
 }
 export const canDelete = (
   userRole: USER_ROLE,
   attributeGroup: ATTRIBUTE_GROUP,
+  teamPlan:SUBSCRIBE_PLAN,
   attribute: ACTION_DELETE,
 ) => {
-  return !!deleteAttribute[userRole]?.[attributeGroup]?.[attribute]
+  const deleteAttribute = getAttrbute(userRole,attributeGroup,teamPlan).deleteAttribute
+  return !!deleteAttribute?.[attribute]
 }
 
 export const canManage = (
   userRole: USER_ROLE,
   attributeGroup: ATTRIBUTE_GROUP,
+  teamPlan:SUBSCRIBE_PLAN,
   attribute: ACTION_MANAGE,
 ) => {
-  return !!manageAttribute[userRole]?.[attributeGroup]?.[attribute]
+  const manageAttribute = getAttrbute(userRole,attributeGroup,teamPlan).manageAttribute
+  return !!manageAttribute?.[attribute]
 }
 
 export const isSubscribeLicense = (subscribePlan?: SUBSCRIBE_PLAN) => {
@@ -380,52 +205,61 @@ export const isSubscribeLicense = (subscribePlan?: SUBSCRIBE_PLAN) => {
 
 export const canAccessManage = (
   userRole: USER_ROLE = USER_ROLE.VIEWER,
+  teamPlan:SUBSCRIBE_PLAN,
   isSubscribeAndSufficient?: boolean,
 ) => {
   if (isSubscribeAndSufficient) return true
-
-  return !!accessAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[
+  const accessAttribute = getAttrbute(userRole,ATTRIBUTE_GROUP.BILLING,teamPlan).accessAttribute
+  return !!accessAttribute?.[
     ACTION_ACCESS.VIEW
   ]
 }
 export const canUseUpgradeFeature = (
   userRole: USER_ROLE = USER_ROLE.VIEWER,
+  teamPlan:SUBSCRIBE_PLAN,
   isSubscribe?: boolean,
   isSubscribeAndSufficient?: boolean,
 ) => {
   if (!isCloudVersion) return true
   if (!isSubscribe) return false
+  const accessAttribute = getAttrbute(userRole,ATTRIBUTE_GROUP.BILLING,teamPlan).accessAttribute
 
   return (
     isSubscribeAndSufficient ||
-    !!accessAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[ACTION_ACCESS.VIEW]
+    !!accessAttribute?.[ACTION_ACCESS.VIEW]
   )
 }
 
 export const canManagePayment = (
   userRole: USER_ROLE = USER_ROLE.VIEWER,
+  teamPlan:SUBSCRIBE_PLAN,
   isSubscribe?: boolean,
 ) => {
   const attribute = isSubscribe
     ? ACTION_MANAGE.PAYMENT_INFO
-    : ACTION_MANAGE.MANAGE_PAYMENT
-  return !!manageAttribute[userRole]?.[ATTRIBUTE_GROUP.BILLING]?.[attribute]
+    : ACTION_MANAGE.PAYMENT
+  const manageAttribute = getAttrbute(userRole,ATTRIBUTE_GROUP.BILLING,teamPlan).accessAttribute
+
+  return !!manageAttribute?.[attribute]
 }
 
 export const canManageSpecial = (
   userRole: USER_ROLE,
   attributeGroup: ATTRIBUTE_GROUP,
+  teamPlan:SUBSCRIBE_PLAN,
   attribute: ACTION_SPECIAL,
 ) => {
-  return !!specialAttribute[userRole]?.[attributeGroup]?.[attribute]
+  const specialAttribute = getAttrbute(userRole,attributeGroup,teamPlan).accessAttribute
+  return !!specialAttribute?.[attribute]
 }
 
-export const canInvite = (userRole: USER_ROLE) => {
+export const canInvite = (userRole: USER_ROLE,  teamPlan:SUBSCRIBE_PLAN) => {
   const attribute = inviteRoleAttributeMap[userRole]
   if (!attribute) {
     return false
   }
-  return !!accessAttribute[userRole]?.[ATTRIBUTE_GROUP.INVITE]?.[attribute]
+  const accessAttribute = getAttrbute(userRole,ATTRIBUTE_GROUP.INVITE,teamPlan).accessAttribute
+  return !!accessAttribute?.[attribute]
 }
 
 // [userRole][group]
@@ -434,12 +268,14 @@ export const canModifyRoleFromTo = (
   attributeGroup: ATTRIBUTE_GROUP,
   fromRole: USER_ROLE,
   toRole: USER_ROLE,
+  teamPlan:SUBSCRIBE_PLAN
 ) => {
   const fromAttribute = modifyRoleFromAttributeMap[fromRole]
   const toAttribute = modifyRoleToAttributeMap[toRole]
   if (!fromAttribute || !toAttribute) {
     return false
   }
+  const manageAttribute =  getAttrbute(userRole,attributeGroup,teamPlan).accessAttribute
   const fromResult =
     manageAttribute[userRole]?.[attributeGroup]?.[fromAttribute]
   const toResult = manageAttribute[userRole]?.[attributeGroup]?.[toAttribute]
@@ -491,6 +327,7 @@ export const showShareAppModal = (
   isPublic: boolean,
   isContributed: boolean,
   isDeployed: boolean,
+  teamPlan:SUBSCRIBE_PLAN
 ) => {
   const canInvite = canManageInvite(
     teamInfo.myRole,
@@ -501,7 +338,7 @@ export const showShareAppModal = (
   if (canInvite) {
     return true
   } else if (
-    canManage(userRoleForThisApp, ATTRIBUTE_GROUP.APP, ACTION_MANAGE.EDIT_APP)
+    canManage(userRoleForThisApp, ATTRIBUTE_GROUP.APP, ACTION_MANAGE.EDIT_APP,teamPlan)
   ) {
     return true
   } else return (isPublic || isContributed) && isDeployed
@@ -512,11 +349,12 @@ export const openShareAppModal = (
   userRoleForThisApp: USER_ROLE,
   isPublic: boolean,
   isContributed: boolean,
+  teamPlan:SUBSCRIBE_PLAN
 ) => {
   if (isPublic || isContributed) {
     return true
   } else if (
-    canManage(userRoleForThisApp, ATTRIBUTE_GROUP.APP, ACTION_MANAGE.EDIT_APP)
+    canManage(userRoleForThisApp, ATTRIBUTE_GROUP.APP, ACTION_MANAGE.EDIT_APP,teamPlan)
   ) {
     return true
   } else
@@ -538,6 +376,7 @@ export const showShareAgentModal = (
   teamInfo: TeamInfo,
   userRoleForThisAgent: USER_ROLE,
   isContributed: boolean,
+  teamPlan:SUBSCRIBE_PLAN
 ) => {
   const canInvite = canManageInvite(
     teamInfo.myRole,
@@ -553,6 +392,7 @@ export const showShareAgentModal = (
       userRoleForThisAgent,
       ATTRIBUTE_GROUP.AI_AGENT,
       ACTION_MANAGE.CREATE_AI_AGENT,
+      teamPlan
     )
   }
 }
@@ -561,6 +401,7 @@ export const openShareAgentModal = (
   teamInfo: TeamInfo,
   userRoleForThisAgent: USER_ROLE,
   isContributed: boolean,
+  teamPlan:SUBSCRIBE_PLAN
 ) => {
   if (isContributed) {
     return true
@@ -569,6 +410,7 @@ export const openShareAgentModal = (
       userRoleForThisAgent,
       ATTRIBUTE_GROUP.AI_AGENT,
       ACTION_MANAGE.CREATE_AI_AGENT,
+      teamPlan
     )
   ) {
     return true

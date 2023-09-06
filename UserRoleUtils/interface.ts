@@ -1,5 +1,15 @@
 import { USER_ROLE } from "@illa-public/user-data"
 
+export interface AttributeConfigListShape {
+  [key: number]: {
+    [key: number]: {
+      [key: number]: {
+        [key: number]: boolean
+      }
+    }
+  }
+}
+
 export type ValidUserRole = Extract<
   USER_ROLE,
   USER_ROLE.OWNER | USER_ROLE.ADMIN | USER_ROLE.EDITOR | USER_ROLE.VIEWER
@@ -77,7 +87,7 @@ export enum ACTION_MANAGE {
   INVITE_LINK,
   TEAM_DOMAIN,
   APP_DOMAIN,
-  MANAGE_PAYMENT,
+  PAYMENT,
   PAYMENT_INFO,
   DASHBOARD_BROADCAST,
   CREATE_APP,
