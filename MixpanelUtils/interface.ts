@@ -98,6 +98,9 @@ export enum ILLA_MIXPANEL_BUILDER_PAGE_NAME {
   PREVIEW = "app_preview",
   DEPLOY = "builder_deploy",
   BUILDER_TUTORIAL_PREVIEW = "builder_tutorial_preview",
+  AI_AGENT_DASHBOARD = 'ai_agent_dashboard',
+  AI_AGENT_RUN = 'ai_agent_run',
+  AI_AGENT_EDIT = 'ai_agent_edit',
 }
 
 export enum ILLA_MIXPANEL_MARKET_PAGE_NAME {

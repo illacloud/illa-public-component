@@ -94,7 +94,6 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
 
   const handleUploadFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
-    e.target.value = ""
     if (files) {
       const file = files[0]
       // file size limit
@@ -124,6 +123,7 @@ export const AvatarUpload: FC<AvatarUploadProps> = (props) => {
         "team_id",
       )
     }
+    e.target.value = ""
   }
 
   const handleZoom = (e: ChangeEvent<HTMLInputElement>) => {
