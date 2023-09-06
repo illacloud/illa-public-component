@@ -59,8 +59,8 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
           )}
           {(canManage(
             props.userRoleForThisAgent,
-            ATTRIBUTE_GROUP.AGENT,
-            ACTION_MANAGE.CREATE_AGENT,
+            ATTRIBUTE_GROUP.AI_AGENT,
+            ACTION_MANAGE.CREATE_AI_AGENT,
           ) ||
             props.defaultAgentContributed) && (
             <TabPane
