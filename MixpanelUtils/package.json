@@ -7,7 +7,7 @@
     "mixpanel-browser": "^2.46.0",
     "@types/mixpanel-browser": "^2.38.1",
     "@fingerprintjs/fingerprintjs": "^3.4.0",
-    "@illa-fe-utils/storage": "latest",
+    "@illa-public/illa-storage": "workspace:*",
     "@illa-public/utils": "workspace:*"
   },
   "devDependencies": {
