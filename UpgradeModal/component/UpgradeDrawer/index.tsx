@@ -220,7 +220,10 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     const { type, subscribeInfo, purchaseInfo } = defaultConfig
     if (loading || !teamID) return
     setLoading(true)
-    const match = matchPath("/setting/:teamIdentifier/billing", location.pathname)
+    const match = matchPath(
+      "/setting/:teamIdentifier/billing",
+      location.pathname,
+    )
     const successRedirect = getSuccessRedirectWithParams({
       returnTo: match
         ? updateHash(type === "license" ? "#license" : "#drive")
@@ -252,7 +255,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
             defaultConfig?.onSubscribeCallback?.(teamID)
           } else {
             await modifySubscribe(teamID, {
-              plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
+              plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
               quantity,
               cycle,
             })
@@ -263,7 +266,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
           }
         } else {
           const res = await subscribe(teamID, {
-            plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
+            plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
             quantity,
             cycle,
             successRedirect,

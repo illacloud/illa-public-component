@@ -7,6 +7,7 @@ import {
   USER_ROLE,
   getCurrentTeamInfo,
   getCurrentUser,
+  getPlanUtils,
   teamActions,
 } from "@illa-public/user-data"
 import { canManageInvite, canManagePayment } from "@illa-public/user-role-utils"
@@ -48,6 +49,7 @@ export const MobileMemberPage: FC = () => {
 
   const hasPaymentManagementPermission = canManagePayment(
     currentTeamInfo.myRole,
+    getPlanUtils(currentTeamInfo),
     currentTeamInfo.totalTeamLicense.teamLicenseAllPaid,
   )
 
@@ -78,7 +80,7 @@ export const MobileMemberPage: FC = () => {
             ? 1
             : currentTeamLicense.volume,
           cycle: currentTeamLicense.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
-          plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
+          plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
           currentPlan: currentTeamLicense.plan,
           cancelAtPeriodEnd: currentTeamLicense?.cancelAtPeriodEnd,
         },

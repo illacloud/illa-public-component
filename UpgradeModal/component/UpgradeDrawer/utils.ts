@@ -4,9 +4,9 @@ import { DrawerSubscribeInfo } from "./interface"
 
 export const isSubscribe = (subscribePlan?: SUBSCRIBE_PLAN) => {
   return (
-    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM ||
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS ||
     subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE ||
-    subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_PAID ||
+    subscribePlan === SUBSCRIBE_PLAN.DRIVE_PAID ||
     subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_INSUFFICIENT ||
     subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_INSUFFICIENT
   )
