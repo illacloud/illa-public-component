@@ -1,11 +1,15 @@
 import { Avatar } from "@illa-public/avatar"
 import { ERROR_FLAG, isILLAAPiError } from "@illa-public/illa-net"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
 import { RoleSelector } from "@illa-public/role-selector"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { EMAIL_FORMAT } from "@illa-public/utils"
-import { FC, KeyboardEvent, useCallback, useState } from "react"
+import { FC, KeyboardEvent, useCallback, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Input, Loading, useMergeValue, useMessage } from "@illa-design/react"
 import { InviteByEmailProps, InvitedUser } from "../interface"
@@ -33,11 +37,12 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
     currentUserRole,
     redirectURL,
     onBalanceChange,
-    onInviteClick,
+    itemID,
   } = props
 
   const message = useMessage()
   const upgradeModal = useUpgradeModal()
+  const { track } = useContext(MixpanelTrackContext)
   const { t } = useTranslation()
 
   const [inviteUserRole, setInviteUserRole] = useMergeValue(
@@ -68,7 +73,10 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
   const handleInvite = useCallback(
     async (e: KeyboardEvent<HTMLInputElement>) => {
       if (!currentValue) return
-      onInviteClick?.()
+      track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+        element: "share_modal_send",
+        parameter5: itemID,
+      })
       e.currentTarget.blur()
       if (
         (isBiggerThanTargetRole(USER_ROLE.EDITOR, inviteUserRole) &&
@@ -139,13 +147,14 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
       currentValue,
       handleValidateEmail,
       inviteUserRole,
+      itemID,
       message,
       onBalanceChange,
-      onInviteClick,
       redirectURL,
       setCurrentBalance,
       t,
       teamID,
+      track,
       upgradeModal,
     ],
   )

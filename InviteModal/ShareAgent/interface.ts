@@ -9,8 +9,6 @@ export interface ShareAgentProps
   onClose: () => void
   canInvite: boolean
   defaultTab: ShareAgentTab
-  onTabChange?: (v: string) => void
-  onInviteClick?: () => void
 }
 
 export enum ShareAgentTab {

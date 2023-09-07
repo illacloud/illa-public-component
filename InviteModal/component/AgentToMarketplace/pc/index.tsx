@@ -1,7 +1,11 @@
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { getAgentPublicLink } from "@illa-public/utils"
-import { FC, useState } from "react"
+import { FC, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Button,
@@ -43,6 +47,7 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
   )
 
   const [agentContributedLoading, setAgentContributedLoading] = useState(false)
+  const { track } = useContext(MixpanelTrackContext)
 
   const { t } = useTranslation()
 
@@ -70,6 +75,11 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
               checked={agentContributed}
               colorScheme={getColor("grayBlue", "02")}
               onChange={async (value) => {
+                track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                  element: "share_modal_contribute_switch",
+                  parameter2: !value,
+                  parameter5: agentID,
+                })
                 setAgentContributed(value)
                 try {
                   setAgentContributedLoading(true)

@@ -1,9 +1,13 @@
 import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
+import {
   ACTION_MANAGE,
   ATTRIBUTE_GROUP,
   canManage,
 } from "@illa-public/user-role-utils"
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { useTranslation } from "react-i18next"
 import {
   CloseIcon,
@@ -37,9 +41,14 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
     },
   )
   const { t } = useTranslation()
+  const { track } = useContext(MixpanelTrackContext)
 
   const handleTabChange = (activeKey: string) => {
-    props.onTabChange?.(activeKey)
+    track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+      element: "share_modal_tab",
+      parameter2: activeKey,
+      parameter5: props.agentID,
+    })
     setActiveTab(activeKey)
   }
 
@@ -134,7 +143,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                   currentUserRole={props.currentUserRole}
                   defaultBalance={props.defaultBalance}
                   redirectURL={props.redirectURL}
-                  onInviteClick={props.onInviteClick}
+                  itemID={props.agentID}
                 />
               </div>
             )}

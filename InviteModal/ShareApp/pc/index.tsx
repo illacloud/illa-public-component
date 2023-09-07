@@ -185,9 +185,6 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
             onCopyContributeLink={props.onCopyContributeLink}
             ownerTeamID={props.ownerTeamID}
             onShare={props.onShare}
-            onContributeButtonClick={props.onContributeButtonClick}
-            onCopyButtonShow={props.onCopyButtonShow}
-            onContributeLinkRequestEnd={props.onContributeLinkRequestEnd}
           />
         )}
       </div>

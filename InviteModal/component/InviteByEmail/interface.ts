@@ -9,7 +9,7 @@ export interface InviteByEmailProps {
   onInvitedChange?: (invitedUsers: InvitedUser[]) => void
   redirectURL: string
   excludeUserRole: USER_ROLE[]
-  onInviteClick?: () => void
+  itemID?: string
 }
 
 export interface InvitedUser {

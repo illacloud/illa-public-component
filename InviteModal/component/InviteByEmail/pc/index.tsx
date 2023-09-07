@@ -1,11 +1,15 @@
 import { Avatar } from "@illa-public/avatar"
 import { ERROR_FLAG, isILLAAPiError } from "@illa-public/illa-net"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
 import { RoleSelector } from "@illa-public/role-selector"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { EMAIL_FORMAT, isCloudVersion } from "@illa-public/utils"
-import { FC, useState } from "react"
+import { FC, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Button,
@@ -39,7 +43,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
     redirectURL,
     currentUserRole,
     onInvitedChange,
-    onInviteClick,
+    itemID,
   } = props
 
   const message = useMessage()
@@ -47,6 +51,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
   const { t } = useTranslation()
 
   const upgradeModal = useUpgradeModal()
+  const { track } = useContext(MixpanelTrackContext)
 
   const [inviteUserRole, setInviteUserRole] = useMergeValue(
     defaultInviteUserRole,
@@ -117,7 +122,10 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
           colorScheme={getColor("grayBlue", "02")}
           loading={inviting}
           onClick={async () => {
-            onInviteClick?.()
+            track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+              element: "share_modal_send",
+              parameter5: itemID,
+            })
             if (
               isBiggerThanTargetRole(USER_ROLE.EDITOR, inviteUserRole) &&
               currentBalance < currentValue.length

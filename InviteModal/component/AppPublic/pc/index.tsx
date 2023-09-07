@@ -1,4 +1,8 @@
 import { UpgradeIcon } from "@illa-public/icon"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
@@ -7,7 +11,7 @@ import {
   getPublicLinkTemplate,
   isCloudVersion,
 } from "@illa-public/utils"
-import { FC, useState } from "react"
+import { FC, useCallback, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Button,
@@ -53,9 +57,6 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
     onCopyContributeLink,
     onCopyPublicLink,
     hidePublic,
-    onContributeButtonClick,
-    onCopyButtonShow,
-    onContributeLinkRequestEnd,
   } = props
 
   const message = useMessage()
@@ -73,6 +74,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const [appContribute, setAppContribute] = useMergeValue(false, {
     defaultValue: defaultAppContribute,
   })
+  const { track } = useContext(MixpanelTrackContext)
 
   const canManageApp = isBiggerThanTargetRole(
     USER_ROLE.VIEWER,
@@ -81,6 +83,67 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
   )
 
   const upgradeModal = useUpgradeModal()
+
+  const handleContributeChange = useCallback(
+    async (value: boolean) => {
+      const currentTime = performance.now()
+      track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+        element: "invite_modal_contribute_switch",
+        parameter4: !value,
+        parameter5: appID,
+      })
+      setAppContribute(value)
+      setAppPublic(value)
+      try {
+        setMarketLinkLoading(true)
+        if (value) {
+          await makeAppContribute(ownerTeamID, appID)
+        } else {
+          await fetchRemoveAppToMarket(ownerTeamID, appID)
+        }
+        track(ILLA_MIXPANEL_EVENT_TYPE.REQUEST, {
+          element: "invite_modal_contribute_switch",
+          consume: performance.now() - currentTime,
+          parameter2: "suc",
+          parameter4: value,
+          parameter5: appID,
+        })
+        onAppContribute?.(value)
+        onAppPublic?.(value)
+        value &&
+          track(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
+            element: "invite_modal_contribute_copy",
+            parameter5: appID,
+          })
+      } catch (e) {
+        message.error({
+          content: t("user_management.modal.message.make_public_failed"),
+        })
+        track(ILLA_MIXPANEL_EVENT_TYPE.REQUEST, {
+          element: "invite_modal_contribute_switch",
+          consume: performance.now() - currentTime,
+          parameter2: "failed",
+          parameter4: value,
+          parameter5: appID,
+        })
+        setAppContribute(!value)
+        setAppPublic(!value)
+      } finally {
+        setMarketLinkLoading(false)
+      }
+    },
+    [
+      appID,
+      message,
+      onAppContribute,
+      onAppPublic,
+      ownerTeamID,
+      setAppContribute,
+      setAppPublic,
+      t,
+      track,
+    ],
+  )
 
   const publicBlock = (
     <>
@@ -193,43 +256,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
           <Switch
             checked={appContribute}
             colorScheme={getColor("grayBlue", "02")}
-            onChange={async (value) => {
-              const currentTime = new Date().getTime()
-              onContributeButtonClick?.(!value)
-              setAppContribute(value)
-              setAppPublic(value)
-              try {
-                setMarketLinkLoading(true)
-                if (value) {
-                  await makeAppContribute(ownerTeamID, appID)
-                } else {
-                  await fetchRemoveAppToMarket(ownerTeamID, appID)
-                }
-                onContributeLinkRequestEnd?.(
-                  value,
-                  new Date().getTime() - currentTime,
-                  true,
-                )
-                onAppContribute?.(value)
-                onAppPublic?.(value)
-                value && onCopyButtonShow?.()
-              } catch (e) {
-                message.error({
-                  content: t(
-                    "user_management.modal.message.make_public_failed",
-                  ),
-                })
-                onContributeLinkRequestEnd?.(
-                  value,
-                  new Date().getTime() - currentTime,
-                  false,
-                )
-                setAppContribute(!value)
-                setAppPublic(!value)
-              } finally {
-                setMarketLinkLoading(false)
-              }
-            }}
+            onChange={handleContributeChange}
           />
         )}
       </div>

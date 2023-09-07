@@ -1,7 +1,11 @@
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { getAgentPublicLink } from "@illa-public/utils"
-import { FC, useCallback, useState } from "react"
+import { FC, useCallback, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, useMergeValue, useMessage } from "@illa-design/react"
 import { ReactComponent as DisableInviteIcon } from "../../../asset/DisableInviteLink.svg"
@@ -40,12 +44,18 @@ export const AgentToMarketplaceMobile: FC<AgentToMarketplaceProps> = (
   )
 
   const [agentContributedLoading, setAgentContributedLoading] = useState(false)
+  const { track } = useContext(MixpanelTrackContext)
   const message = useMessage()
 
   const { t } = useTranslation()
 
   const handleAgentContribute = useCallback(
     async (value: boolean) => {
+      track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+        element: "share_modal_contribute_switch",
+        parameter2: !value,
+        parameter5: agentID,
+      })
       setAgentContributedLoading(true)
       setAgentContributed(value)
       try {
@@ -64,7 +74,15 @@ export const AgentToMarketplaceMobile: FC<AgentToMarketplaceProps> = (
         setAgentContributedLoading(false)
       }
     },
-    [agentID, message, onAgentContributed, ownerTeamID, setAgentContributed, t],
+    [
+      agentID,
+      message,
+      onAgentContributed,
+      ownerTeamID,
+      setAgentContributed,
+      t,
+      track,
+    ],
   )
 
   return (

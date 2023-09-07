@@ -1,9 +1,13 @@
 import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
+import {
   ACTION_MANAGE,
   ATTRIBUTE_GROUP,
   canManage,
 } from "@illa-public/user-role-utils"
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { useTranslation } from "react-i18next"
 import {
   CloseIcon,
@@ -28,6 +32,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
   })
 
   const { t } = useTranslation()
+  const { track } = useContext(MixpanelTrackContext)
 
   return (
     <Modal
@@ -48,7 +53,11 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
           colorScheme="grayBlue"
           withoutBorderLine
           onChange={(activeKey) => {
-            props.onTabChange?.(activeKey)
+            track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+              element: "share_modal_tab",
+              parameter2: activeKey,
+              parameter5: props.agentID,
+            })
             setActiveTab(activeKey)
           }}
         >
@@ -114,7 +123,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
               teamID={props.teamID}
               currentUserRole={props.currentUserRole}
               defaultBalance={props.defaultBalance}
-              onInviteClick={props.onInviteClick}
+              itemID={props.agentID}
             />
           </>
         )}
