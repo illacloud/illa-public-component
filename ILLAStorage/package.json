@@ -1,0 +1,9 @@
+{
+  "name": "@illa-public/illa-storage",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.tsx",
+  "keywords": [],
+  "author": "illacloud",
+  "license": "Apache-2.0"
+}
