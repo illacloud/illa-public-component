@@ -1,12 +1,6 @@
-import { getCurrentTeamInfo } from "@illa-public/user-data"
+import { getCurrentTeamInfo, getPlanUtils } from "@illa-public/user-data"
 import { canManagePayment } from "@illa-public/user-role-utils"
-import {
-  forwardRef,
-  useCallback,
-  useImperativeHandle,
-  useMemo,
-  useState,
-} from "react"
+import { forwardRef, useCallback, useImperativeHandle, useState } from "react"
 import { useSelector } from "react-redux"
 import { InsufficientNoticeModal } from "./component/InsufficientNoticeModal"
 import { INSUFFICIENT_MODAL_CONFIG_KEYS } from "./component/InsufficientNoticeModal/constants"
@@ -48,16 +42,10 @@ export const UpgradeModal = forwardRef<UpgradeModalRef>((_, ref) => {
     UpgradeModalType | InsufficientNoticeModalType
   >()
 
-  const canPay = useMemo(
-    () =>
-      canManagePayment(
-        currentTeamInfo?.myRole,
-        currentTeamInfo?.totalTeamLicense?.teamLicenseAllPaid,
-      ),
-    [
-      currentTeamInfo?.myRole,
-      currentTeamInfo?.totalTeamLicense?.teamLicenseAllPaid,
-    ],
+  const canPay = canManagePayment(
+    currentTeamInfo?.myRole,
+    getPlanUtils(currentTeamInfo),
+    currentTeamInfo?.totalTeamLicense?.teamLicenseAllPaid,
   )
 
   const handleLicenseDrawerVisible = (
