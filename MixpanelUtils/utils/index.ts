@@ -1,5 +1,5 @@
 import { load } from "@fingerprintjs/fingerprintjs"
-import ILLAStorage from "@illa-fe-utils/storage"
+import ILLAStorage from "@illa-public/illa-storage"
 
 const generateUUID = async () => {
   const fp = await load()

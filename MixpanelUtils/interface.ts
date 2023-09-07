@@ -98,9 +98,20 @@ export enum ILLA_MIXPANEL_BUILDER_PAGE_NAME {
   PREVIEW = "app_preview",
   DEPLOY = "builder_deploy",
   BUILDER_TUTORIAL_PREVIEW = "builder_tutorial_preview",
+  AI_AGENT_DASHBOARD = 'ai_agent_dashboard',
+  AI_AGENT_RUN = 'ai_agent_run',
+  AI_AGENT_EDIT = 'ai_agent_edit',
+}
+
+export enum ILLA_MIXPANEL_MARKET_PAGE_NAME {
+  COMMUNITY_AGENT_HOMEPAGE = 'community_agent_homepage',
+  COMMUNITY_AGENT_DETAIL = 'community_agent_detail',
+  COMMUNITY_APP_HOMEPAGE = 'community_app_homepage',
+  COMMUNITY_APP_DETAIL = 'community_app_detail',
 }
 
 export type ILLA_PAGE_NAME =
   | ILLA_MIXPANEL_CLOUD_PAGE_NAME
   | ILLA_MIXPANEL_PUBLIC_PAGE_NAME
   | ILLA_MIXPANEL_BUILDER_PAGE_NAME
+  | ILLA_MIXPANEL_MARKET_PAGE_NAME

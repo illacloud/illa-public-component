@@ -1,11 +1,11 @@
 import { css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
 
-export const cropperWrapperStyle = css`
+export const cropperWrapperStyle = (disabled: boolean) => css`
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
+  cursor: ${disabled ? "default" : "pointer"};
   position: relative;
 `
 

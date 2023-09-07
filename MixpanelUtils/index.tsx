@@ -1,11 +1,10 @@
-/* eslint-disable import/no-named-as-default-member */
 import mixpanel from "mixpanel-browser"
 import {
   ILLAProperties,
   ILLA_MIXPANEL_EVENT_TYPE,
   ILLA_PAGE_NAME,
 } from "./interface"
-import { getBrowserLanguage, getDeviceUUID, getIllaLanguage } from "./utils"
+import { getDeviceUUID } from "./utils"
 
 export * from "./interface"
 export * from "./mixpanelContext"
@@ -22,28 +21,23 @@ class ILLAMixpanelTools {
         debug: process.env.ILLA_APP_ENV === "development",
         test: process.env.ILLA_APP_ENV !== "production",
         ignore_dnt: process.env.ILLA_APP_ENV === "development",
-        loaded(mixpanelProto) {
-          getDeviceUUID().then((deviceID) => {
-            mixpanelProto.identify(deviceID)
-            const originalTrack = mixpanelProto.track
-            mixpanelProto.track = function (event, properties) {
-              originalTrack.call(mixpanelProto, event, {
-                ...properties,
-                $device_id: deviceID,
-                environment:
-                  process.env.ILLA_APP_ENV === "development"
-                    ? "development"
-                    : process.env.ILLA_APP_ENV,
-                browser_language: getBrowserLanguage(),
-                illa_language: getIllaLanguage(),
-                $user_id: properties?.user_id,
-                fe_version_code: process.env.ILLA_APP_VERSION,
-              })
-            }
-          })
-        },
       })
+      this.registerPublicProperties()
     }
+  }
+
+  public async setDeviceID() {
+    const deviceID = await getDeviceUUID()
+    mixpanel.register({
+      ILLA_device_ID: deviceID,
+    })
+  }
+
+  private registerPublicProperties() {
+    mixpanel.register({
+      environment: process.env.ILLA_APP_ENV,
+      fe_version_code: process.env.ILLA_APP_VERSION,
+    })
   }
 
   public static getInstance() {
@@ -81,6 +75,10 @@ class ILLAMixpanelTools {
         team_id: teamIdentifier,
       })
     }
+  }
+
+  public getMixpanelInstance() {
+    return mixpanel
   }
 }
 
