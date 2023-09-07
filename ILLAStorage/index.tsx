@@ -83,7 +83,11 @@ export default class ILLAStorage {
 
   private clearStorage = (type: Storage_Type) => {
     if (typeof window === "undefined") return
-    window[type].clear()
+    Object.keys(window[type]).forEach((key) => {
+      if (key.startsWith(this.prefix)) {
+        window[type].removeItem(key)
+      }
+    })
   }
 
   private removeStorage = (type: Storage_Type, key: string) => {
