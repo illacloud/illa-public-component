@@ -1,5 +1,7 @@
 import { SUBSCRIBE_PLAN, TeamInfo, USER_ROLE } from "@illa-public/user-data"
 import { isCloudVersion } from "@illa-public/utils"
+import { AttributeConfigList } from "./attributeConfigList"
+import { FreePlanAttributeConfigList } from "./freePlanAttributeConfigList"
 import {
   ACTION_ACCESS,
   ACTION_DELETE,
@@ -8,9 +10,7 @@ import {
   ATTRIBUTE_CATEGORY,
   ATTRIBUTE_GROUP,
 } from "./interface"
-import { AttributeConfigList } from "./attributeConfigList"
-import { InvaliedSubscribePlanAttributeConfigList } from "./invaliedSubscribePlanAttributeConfigList"
-import { FreePlanAttributeConfigList } from "./freePlanAttributeConfigList"
+import { InvalidedSubscribePlanAttributeConfigList } from "./invalidedSubscribePlanAttributeConfigList"
 import { SelfHostAttributeConfigList } from "./selfHostAttributeConifgList"
 
 export * from "./interface"
@@ -81,8 +81,6 @@ export const isBiggerThanTargetRole = (
     : currentUserRoleIndex < targetRoleIndex
 }
 
-
-
 interface InviteRoleAttributeMap {
   [key: string]: number
 }
@@ -118,81 +116,153 @@ const modifyRoleToAttributeMap: ModifyRoleToAttributeMap = {
   [USER_ROLE.VIEWER]: ACTION_MANAGE.ROLE_TO_VIEWER,
 }
 
-
-
-export const getAttrbute = (userRole:USER_ROLE,attributeGroup:ATTRIBUTE_GROUP,teamPlan:SUBSCRIBE_PLAN)=>{
-  if(!isCloudVersion){
+export const getAttribute = (
+  userRole: USER_ROLE,
+  attributeGroup: ATTRIBUTE_GROUP,
+  teamPlan: SUBSCRIBE_PLAN,
+) => {
+  if (!isCloudVersion) {
     return {
-      accessAttribute:SelfHostAttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[userRole]?.[attributeGroup],
-      deleteAttribute:SelfHostAttributeConfigList?.[ATTRIBUTE_CATEGORY.DELETE]?.[userRole]?.[attributeGroup],
-      manageAttribute:SelfHostAttributeConfigList?.[ATTRIBUTE_CATEGORY.MANAGE]?.[userRole]?.[attributeGroup],
-      specialAttribute:SelfHostAttributeConfigList?.[ATTRIBUTE_CATEGORY.SPECIAL]?.[userRole]?.[attributeGroup],
-     }
-  }
-  switch (teamPlan){
-    case SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM:{
-     return {
-      accessAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[userRole]?.[attributeGroup],
-      deleteAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.DELETE]?.[userRole]?.[attributeGroup],
-      manageAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.MANAGE]?.[userRole]?.[attributeGroup],
-      specialAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.SPECIAL]?.[userRole]?.[attributeGroup],
-     }
-    }
-    case SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE:{
-      return {
-        accessAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[userRole]?.[attributeGroup],
-        deleteAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.DELETE]?.[userRole]?.[attributeGroup],
-        manageAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.MANAGE]?.[userRole]?.[attributeGroup],
-        specialAttribute:AttributeConfigList?.[ATTRIBUTE_CATEGORY.SPECIAL]?.[userRole]?.[attributeGroup],
-       }
-    }
-    case SUBSCRIBE_PLAN.TEAM_LICENSE_INSUFFICIENT:{
-      return {
-        accessAttribute:InvaliedSubscribePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[userRole]?.[attributeGroup],
-        deleteAttribute:InvaliedSubscribePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.DELETE]?.[userRole]?.[attributeGroup],
-        manageAttribute:InvaliedSubscribePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.MANAGE]?.[userRole]?.[attributeGroup],
-        specialAttribute:InvaliedSubscribePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.SPECIAL]?.[userRole]?.[attributeGroup],
-       }
-    }
-    default:{
-      return {
-        accessAttribute:FreePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[userRole]?.[attributeGroup],
-        deleteAttribute:FreePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.DELETE]?.[userRole]?.[attributeGroup],
-        manageAttribute:FreePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.MANAGE]?.[userRole]?.[attributeGroup],
-        specialAttribute:FreePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.SPECIAL]?.[userRole]?.[attributeGroup],
-       }
+      accessAttribute:
+        SelfHostAttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[userRole]?.[
+          attributeGroup
+        ],
+      deleteAttribute:
+        SelfHostAttributeConfigList?.[ATTRIBUTE_CATEGORY.DELETE]?.[userRole]?.[
+          attributeGroup
+        ],
+      manageAttribute:
+        SelfHostAttributeConfigList?.[ATTRIBUTE_CATEGORY.MANAGE]?.[userRole]?.[
+          attributeGroup
+        ],
+      specialAttribute:
+        SelfHostAttributeConfigList?.[ATTRIBUTE_CATEGORY.SPECIAL]?.[userRole]?.[
+          attributeGroup
+        ],
     }
   }
-
+  switch (teamPlan) {
+    case SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM: {
+      return {
+        accessAttribute:
+          AttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[userRole]?.[
+            attributeGroup
+          ],
+        deleteAttribute:
+          AttributeConfigList?.[ATTRIBUTE_CATEGORY.DELETE]?.[userRole]?.[
+            attributeGroup
+          ],
+        manageAttribute:
+          AttributeConfigList?.[ATTRIBUTE_CATEGORY.MANAGE]?.[userRole]?.[
+            attributeGroup
+          ],
+        specialAttribute:
+          AttributeConfigList?.[ATTRIBUTE_CATEGORY.SPECIAL]?.[userRole]?.[
+            attributeGroup
+          ],
+      }
+    }
+    case SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE: {
+      return {
+        accessAttribute:
+          AttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[userRole]?.[
+            attributeGroup
+          ],
+        deleteAttribute:
+          AttributeConfigList?.[ATTRIBUTE_CATEGORY.DELETE]?.[userRole]?.[
+            attributeGroup
+          ],
+        manageAttribute:
+          AttributeConfigList?.[ATTRIBUTE_CATEGORY.MANAGE]?.[userRole]?.[
+            attributeGroup
+          ],
+        specialAttribute:
+          AttributeConfigList?.[ATTRIBUTE_CATEGORY.SPECIAL]?.[userRole]?.[
+            attributeGroup
+          ],
+      }
+    }
+    case SUBSCRIBE_PLAN.TEAM_LICENSE_INSUFFICIENT: {
+      return {
+        accessAttribute:
+          InvalidedSubscribePlanAttributeConfigList?.[
+            ATTRIBUTE_CATEGORY.ACCESS
+          ]?.[userRole]?.[attributeGroup],
+        deleteAttribute:
+          InvalidedSubscribePlanAttributeConfigList?.[
+            ATTRIBUTE_CATEGORY.DELETE
+          ]?.[userRole]?.[attributeGroup],
+        manageAttribute:
+          InvalidedSubscribePlanAttributeConfigList?.[
+            ATTRIBUTE_CATEGORY.MANAGE
+          ]?.[userRole]?.[attributeGroup],
+        specialAttribute:
+          InvalidedSubscribePlanAttributeConfigList?.[
+            ATTRIBUTE_CATEGORY.SPECIAL
+          ]?.[userRole]?.[attributeGroup],
+      }
+    }
+    default: {
+      return {
+        accessAttribute:
+          FreePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[
+            userRole
+          ]?.[attributeGroup],
+        deleteAttribute:
+          FreePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.DELETE]?.[
+            userRole
+          ]?.[attributeGroup],
+        manageAttribute:
+          FreePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.MANAGE]?.[
+            userRole
+          ]?.[attributeGroup],
+        specialAttribute:
+          FreePlanAttributeConfigList?.[ATTRIBUTE_CATEGORY.SPECIAL]?.[
+            userRole
+          ]?.[attributeGroup],
+      }
+    }
+  }
 }
-
 
 export const canAccess = (
   userRole: USER_ROLE,
   attributeGroup: ATTRIBUTE_GROUP,
-  teamPlan:SUBSCRIBE_PLAN,
+  teamPlan: SUBSCRIBE_PLAN,
   attribute: ACTION_ACCESS,
 ) => {
-  const accessAttribute = getAttrbute(userRole,attributeGroup,teamPlan).accessAttribute
+  const accessAttribute = getAttribute(
+    userRole,
+    attributeGroup,
+    teamPlan,
+  ).accessAttribute
   return !!accessAttribute?.[attribute]
 }
 export const canDelete = (
   userRole: USER_ROLE,
   attributeGroup: ATTRIBUTE_GROUP,
-  teamPlan:SUBSCRIBE_PLAN,
+  teamPlan: SUBSCRIBE_PLAN,
   attribute: ACTION_DELETE,
 ) => {
-  const deleteAttribute = getAttrbute(userRole,attributeGroup,teamPlan).deleteAttribute
+  const deleteAttribute = getAttribute(
+    userRole,
+    attributeGroup,
+    teamPlan,
+  ).deleteAttribute
   return !!deleteAttribute?.[attribute]
 }
 
 export const canManage = (
   userRole: USER_ROLE,
   attributeGroup: ATTRIBUTE_GROUP,
-  teamPlan:SUBSCRIBE_PLAN,
+  teamPlan: SUBSCRIBE_PLAN,
   attribute: ACTION_MANAGE,
 ) => {
-  const manageAttribute = getAttrbute(userRole,attributeGroup,teamPlan).manageAttribute
+  const manageAttribute = getAttribute(
+    userRole,
+    attributeGroup,
+    teamPlan,
+  ).manageAttribute
   return !!manageAttribute?.[attribute]
 }
 
@@ -205,40 +275,47 @@ export const isSubscribeLicense = (subscribePlan?: SUBSCRIBE_PLAN) => {
 
 export const canAccessManage = (
   userRole: USER_ROLE = USER_ROLE.VIEWER,
-  teamPlan:SUBSCRIBE_PLAN,
+  teamPlan: SUBSCRIBE_PLAN,
   isSubscribeAndSufficient?: boolean,
 ) => {
   if (isSubscribeAndSufficient) return true
-  const accessAttribute = getAttrbute(userRole,ATTRIBUTE_GROUP.BILLING,teamPlan).accessAttribute
-  return !!accessAttribute?.[
-    ACTION_ACCESS.VIEW
-  ]
+  const accessAttribute = getAttribute(
+    userRole,
+    ATTRIBUTE_GROUP.BILLING,
+    teamPlan,
+  ).accessAttribute
+  return !!accessAttribute?.[ACTION_ACCESS.VIEW]
 }
 export const canUseUpgradeFeature = (
   userRole: USER_ROLE = USER_ROLE.VIEWER,
-  teamPlan:SUBSCRIBE_PLAN,
+  teamPlan: SUBSCRIBE_PLAN,
   isSubscribe?: boolean,
   isSubscribeAndSufficient?: boolean,
 ) => {
   if (!isCloudVersion) return true
   if (!isSubscribe) return false
-  const accessAttribute = getAttrbute(userRole,ATTRIBUTE_GROUP.BILLING,teamPlan).accessAttribute
+  const accessAttribute = getAttribute(
+    userRole,
+    ATTRIBUTE_GROUP.BILLING,
+    teamPlan,
+  ).accessAttribute
 
-  return (
-    isSubscribeAndSufficient ||
-    !!accessAttribute?.[ACTION_ACCESS.VIEW]
-  )
+  return isSubscribeAndSufficient || !!accessAttribute?.[ACTION_ACCESS.VIEW]
 }
 
 export const canManagePayment = (
   userRole: USER_ROLE = USER_ROLE.VIEWER,
-  teamPlan:SUBSCRIBE_PLAN,
+  teamPlan: SUBSCRIBE_PLAN,
   isSubscribe?: boolean,
 ) => {
   const attribute = isSubscribe
     ? ACTION_MANAGE.PAYMENT_INFO
     : ACTION_MANAGE.PAYMENT
-  const manageAttribute = getAttrbute(userRole,ATTRIBUTE_GROUP.BILLING,teamPlan).accessAttribute
+  const manageAttribute = getAttribute(
+    userRole,
+    ATTRIBUTE_GROUP.BILLING,
+    teamPlan,
+  ).accessAttribute
 
   return !!manageAttribute?.[attribute]
 }
@@ -246,19 +323,27 @@ export const canManagePayment = (
 export const canManageSpecial = (
   userRole: USER_ROLE,
   attributeGroup: ATTRIBUTE_GROUP,
-  teamPlan:SUBSCRIBE_PLAN,
+  teamPlan: SUBSCRIBE_PLAN,
   attribute: ACTION_SPECIAL,
 ) => {
-  const specialAttribute = getAttrbute(userRole,attributeGroup,teamPlan).accessAttribute
+  const specialAttribute = getAttribute(
+    userRole,
+    attributeGroup,
+    teamPlan,
+  ).accessAttribute
   return !!specialAttribute?.[attribute]
 }
 
-export const canInvite = (userRole: USER_ROLE,  teamPlan:SUBSCRIBE_PLAN) => {
+export const canInvite = (userRole: USER_ROLE, teamPlan: SUBSCRIBE_PLAN) => {
   const attribute = inviteRoleAttributeMap[userRole]
   if (!attribute) {
     return false
   }
-  const accessAttribute = getAttrbute(userRole,ATTRIBUTE_GROUP.INVITE,teamPlan).accessAttribute
+  const accessAttribute = getAttribute(
+    userRole,
+    ATTRIBUTE_GROUP.INVITE,
+    teamPlan,
+  ).accessAttribute
   return !!accessAttribute?.[attribute]
 }
 
@@ -268,17 +353,20 @@ export const canModifyRoleFromTo = (
   attributeGroup: ATTRIBUTE_GROUP,
   fromRole: USER_ROLE,
   toRole: USER_ROLE,
-  teamPlan:SUBSCRIBE_PLAN
+  teamPlan: SUBSCRIBE_PLAN,
 ) => {
   const fromAttribute = modifyRoleFromAttributeMap[fromRole]
   const toAttribute = modifyRoleToAttributeMap[toRole]
   if (!fromAttribute || !toAttribute) {
     return false
   }
-  const manageAttribute =  getAttrbute(userRole,attributeGroup,teamPlan).accessAttribute
-  const fromResult =
-    manageAttribute[userRole]?.[attributeGroup]?.[fromAttribute]
-  const toResult = manageAttribute[userRole]?.[attributeGroup]?.[toAttribute]
+  const manageAttribute = getAttribute(
+    userRole,
+    attributeGroup,
+    teamPlan,
+  ).accessAttribute
+  const fromResult = manageAttribute?.[fromAttribute]
+  const toResult = manageAttribute?.[toAttribute]
   if (fromResult == undefined || toResult == undefined) {
     return false
   }
@@ -313,6 +401,7 @@ export const openInviteModal = (teamInfo: TeamInfo) => {
   if (isCloudVersion) {
     return canUseUpgradeFeature(
       teamInfo.myRole,
+      teamInfo.currentTeamLicense.plan,
       teamInfo.totalTeamLicense.teamLicensePurchased,
       teamInfo.totalTeamLicense.teamLicenseAllPaid,
     )
@@ -327,7 +416,7 @@ export const showShareAppModal = (
   isPublic: boolean,
   isContributed: boolean,
   isDeployed: boolean,
-  teamPlan:SUBSCRIBE_PLAN
+  teamPlan: SUBSCRIBE_PLAN,
 ) => {
   const canInvite = canManageInvite(
     teamInfo.myRole,
@@ -338,7 +427,12 @@ export const showShareAppModal = (
   if (canInvite) {
     return true
   } else if (
-    canManage(userRoleForThisApp, ATTRIBUTE_GROUP.APP, ACTION_MANAGE.EDIT_APP,teamPlan)
+    canManage(
+      userRoleForThisApp,
+      ATTRIBUTE_GROUP.APP,
+      teamPlan,
+      ACTION_MANAGE.EDIT_APP,
+    )
   ) {
     return true
   } else return (isPublic || isContributed) && isDeployed
@@ -349,12 +443,17 @@ export const openShareAppModal = (
   userRoleForThisApp: USER_ROLE,
   isPublic: boolean,
   isContributed: boolean,
-  teamPlan:SUBSCRIBE_PLAN
+  teamPlan: SUBSCRIBE_PLAN,
 ) => {
   if (isPublic || isContributed) {
     return true
   } else if (
-    canManage(userRoleForThisApp, ATTRIBUTE_GROUP.APP, ACTION_MANAGE.EDIT_APP,teamPlan)
+    canManage(
+      userRoleForThisApp,
+      ATTRIBUTE_GROUP.APP,
+      teamPlan,
+      ACTION_MANAGE.EDIT_APP,
+    )
   ) {
     return true
   } else
@@ -366,6 +465,7 @@ export const openShareAppModal = (
       ) &&
       canUseUpgradeFeature(
         teamInfo.myRole,
+        teamInfo.currentTeamLicense.plan,
         teamInfo.totalTeamLicense.teamLicensePurchased,
         teamInfo.totalTeamLicense.teamLicenseAllPaid,
       )
@@ -376,7 +476,7 @@ export const showShareAgentModal = (
   teamInfo: TeamInfo,
   userRoleForThisAgent: USER_ROLE,
   isContributed: boolean,
-  teamPlan:SUBSCRIBE_PLAN
+  teamPlan: SUBSCRIBE_PLAN,
 ) => {
   const canInvite = canManageInvite(
     teamInfo.myRole,
@@ -391,8 +491,8 @@ export const showShareAgentModal = (
     return canManage(
       userRoleForThisAgent,
       ATTRIBUTE_GROUP.AI_AGENT,
+      teamPlan,
       ACTION_MANAGE.CREATE_AI_AGENT,
-      teamPlan
     )
   }
 }
@@ -401,7 +501,7 @@ export const openShareAgentModal = (
   teamInfo: TeamInfo,
   userRoleForThisAgent: USER_ROLE,
   isContributed: boolean,
-  teamPlan:SUBSCRIBE_PLAN
+  teamPlan: SUBSCRIBE_PLAN,
 ) => {
   if (isContributed) {
     return true
@@ -409,8 +509,8 @@ export const openShareAgentModal = (
     canManage(
       userRoleForThisAgent,
       ATTRIBUTE_GROUP.AI_AGENT,
+      teamPlan,
       ACTION_MANAGE.CREATE_AI_AGENT,
-      teamPlan
     )
   ) {
     return true
@@ -423,6 +523,7 @@ export const openShareAgentModal = (
       ) &&
       canUseUpgradeFeature(
         teamInfo.myRole,
+        teamInfo.currentTeamLicense.plan,
         teamInfo.totalTeamLicense.teamLicensePurchased,
         teamInfo.totalTeamLicense.teamLicenseAllPaid,
       )
