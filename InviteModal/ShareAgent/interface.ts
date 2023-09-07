@@ -2,7 +2,6 @@ import { AgentToMarketplaceProps } from "../component/AgentToMarketplace/interfa
 import { InviteByEmailProps } from "../component/InviteByEmail/interface"
 import { InviteLinkProps } from "../component/InviteLink/interface"
 
-
 export interface ShareAgentProps
   extends Omit<InviteByEmailProps, "excludeUserRole">,
     Omit<InviteLinkProps, "excludeUserRole">,
@@ -10,6 +9,8 @@ export interface ShareAgentProps
   onClose: () => void
   canInvite: boolean
   defaultTab: ShareAgentTab
+  onTabChange?: (v: string) => void
+  onInviteClick?: () => void
 }
 
 export enum ShareAgentTab {

@@ -15,4 +15,11 @@ export interface AppPublicProps
   onCopyPublicLink: (inviteLink: string) => void
   onCopyContributeLink: (inviteLink: string) => void
   hidePublic: boolean
+  onContributeButtonClick?: (value: boolean) => void
+  onCopyButtonShow?: () => void
+  onContributeLinkRequestEnd?: (
+    value: boolean,
+    consume: number,
+    requestStatus: boolean,
+  ) => void
 }

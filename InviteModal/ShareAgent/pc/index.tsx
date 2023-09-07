@@ -48,6 +48,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
           colorScheme="grayBlue"
           withoutBorderLine
           onChange={(activeKey) => {
+            props.onTabChange?.(activeKey)
             setActiveTab(activeKey)
           }}
         >
@@ -113,6 +114,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
               teamID={props.teamID}
               currentUserRole={props.currentUserRole}
               defaultBalance={props.defaultBalance}
+              onInviteClick={props.onInviteClick}
             />
           </>
         )}

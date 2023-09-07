@@ -38,6 +38,11 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
   )
   const { t } = useTranslation()
 
+  const handleTabChange = (activeKey: string) => {
+    props.onTabChange?.(activeKey)
+    setActiveTab(activeKey)
+  }
+
   return (
     <TriggerProvider renderInBody zIndex={1005}>
       <Drawer
@@ -66,7 +71,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                   css={tabTitleStyle(
                     activeTab === ShareAgentTab.SHARE_WITH_TEAM,
                   )}
-                  onClick={() => setActiveTab(ShareAgentTab.SHARE_WITH_TEAM)}
+                  onClick={() => handleTabChange(ShareAgentTab.SHARE_WITH_TEAM)}
                 >
                   {t("user_management.modal.tab.with_team")}
                 </div>
@@ -83,7 +88,9 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                     css={tabTitleStyle(
                       activeTab === ShareAgentTab.TO_MARKETPLACE,
                     )}
-                    onClick={() => setActiveTab(ShareAgentTab.TO_MARKETPLACE)}
+                    onClick={() =>
+                      handleTabChange(ShareAgentTab.TO_MARKETPLACE)
+                    }
                   >
                     {t("user_management.modal.title.contribute")}
                   </div>
@@ -127,6 +134,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                   currentUserRole={props.currentUserRole}
                   defaultBalance={props.defaultBalance}
                   redirectURL={props.redirectURL}
+                  onInviteClick={props.onInviteClick}
                 />
               </div>
             )}

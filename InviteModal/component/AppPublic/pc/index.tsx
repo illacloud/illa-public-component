@@ -53,6 +53,9 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
     onCopyContributeLink,
     onCopyPublicLink,
     hidePublic,
+    onContributeButtonClick,
+    onCopyButtonShow,
+    onContributeLinkRequestEnd,
   } = props
 
   const message = useMessage()
@@ -191,6 +194,8 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             checked={appContribute}
             colorScheme={getColor("grayBlue", "02")}
             onChange={async (value) => {
+              const currentTime = new Date().getTime()
+              onContributeButtonClick?.(!value)
               setAppContribute(value)
               setAppPublic(value)
               try {
@@ -200,14 +205,25 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
                 } else {
                   await fetchRemoveAppToMarket(ownerTeamID, appID)
                 }
+                onContributeLinkRequestEnd?.(
+                  value,
+                  new Date().getTime() - currentTime,
+                  true,
+                )
                 onAppContribute?.(value)
                 onAppPublic?.(value)
+                value && onCopyButtonShow?.()
               } catch (e) {
                 message.error({
                   content: t(
                     "user_management.modal.message.make_public_failed",
                   ),
                 })
+                onContributeLinkRequestEnd?.(
+                  value,
+                  new Date().getTime() - currentTime,
+                  false,
+                )
                 setAppContribute(!value)
                 setAppPublic(!value)
               } finally {

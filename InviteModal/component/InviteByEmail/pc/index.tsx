@@ -29,7 +29,6 @@ import {
   roleSelectContainerStyle,
 } from "./style"
 
-
 export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
   const {
     excludeUserRole,
@@ -40,6 +39,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
     redirectURL,
     currentUserRole,
     onInvitedChange,
+    onInviteClick,
   } = props
 
   const message = useMessage()
@@ -117,6 +117,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
           colorScheme={getColor("grayBlue", "02")}
           loading={inviting}
           onClick={async () => {
+            onInviteClick?.()
             if (
               isBiggerThanTargetRole(USER_ROLE.EDITOR, inviteUserRole) &&
               currentBalance < currentValue.length
@@ -189,48 +190,50 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
           </div>
         </div>
       )}
-      {alreadyInvited.length > 0 && <div css={inviteListContainerStyle}>
-        {alreadyInvited.map((user) => {
-          return (
-            <div key={user.email} css={avatarContainerStyle}>
-              <Avatar name={user.email} />
-              <div css={nicknameStyle}>{user.email}</div>
-              <RoleSelector
-                currentUserRole={currentUserRole}
-                value={user.userRole}
-                onClickItem={async (item) => {
-                  setInviting(true)
-                  try {
-                    await changeUserRoleByTeamMemberID(
-                      teamID,
-                      user.teamMemberID,
-                      item,
-                    )
-                    const index = alreadyInvited.findIndex(
-                      (u) => u.email === user.email,
-                    )
-                    if (index != -1) {
-                      const newAlreadyInvited = [...alreadyInvited]
-                      newAlreadyInvited[index].userRole = item
-                      setAlreadyInvited(newAlreadyInvited)
-                      onInvitedChange?.(newAlreadyInvited)
+      {alreadyInvited.length > 0 && (
+        <div css={inviteListContainerStyle}>
+          {alreadyInvited.map((user) => {
+            return (
+              <div key={user.email} css={avatarContainerStyle}>
+                <Avatar name={user.email} />
+                <div css={nicknameStyle}>{user.email}</div>
+                <RoleSelector
+                  currentUserRole={currentUserRole}
+                  value={user.userRole}
+                  onClickItem={async (item) => {
+                    setInviting(true)
+                    try {
+                      await changeUserRoleByTeamMemberID(
+                        teamID,
+                        user.teamMemberID,
+                        item,
+                      )
+                      const index = alreadyInvited.findIndex(
+                        (u) => u.email === user.email,
+                      )
+                      if (index != -1) {
+                        const newAlreadyInvited = [...alreadyInvited]
+                        newAlreadyInvited[index].userRole = item
+                        setAlreadyInvited(newAlreadyInvited)
+                        onInvitedChange?.(newAlreadyInvited)
+                      }
+                      message.success({
+                        content: t("user_management.mes.invite_suc"),
+                      })
+                    } catch (e) {
+                      message.error({
+                        content: t("user_management.mes.change_role_fail"),
+                      })
+                    } finally {
+                      setInviting(false)
                     }
-                    message.success({
-                      content: t("user_management.mes.invite_suc"),
-                    })
-                  } catch (e) {
-                    message.error({
-                      content: t("user_management.mes.change_role_fail"),
-                    })
-                  } finally {
-                    setInviting(false)
-                  }
-                }}
-              />
-            </div>
-          )
-        })}
-      </div>}
+                  }}
+                />
+              </div>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }
