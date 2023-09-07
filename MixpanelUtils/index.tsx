@@ -36,10 +36,12 @@ class ILLAMixpanelTools {
   }
 
   public async setDeviceID() {
-    const deviceID = await getDeviceUUID()
-    mixpanel.register({
-      ILLA_device_ID: deviceID,
-    })
+    if (this.enable) {
+      const deviceID = await getDeviceUUID()
+      mixpanel.register({
+        ILLA_device_ID: deviceID,
+      })
+    }
   }
 
   public static getInstance() {
@@ -80,7 +82,9 @@ class ILLAMixpanelTools {
   }
 
   public getMixpanelInstance() {
-    return mixpanel
+    if (this.enable) {
+      return mixpanel
+    }
   }
 }
 
