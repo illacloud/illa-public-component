@@ -119,6 +119,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                   onCopyAgentMarketLink={props.onCopyAgentMarketLink}
                   userRoleForThisAgent={props.userRoleForThisAgent}
                   ownerTeamID={props.ownerTeamID}
+                  onShare={props.onShare}
                 />
               )}
             {activeTab === ShareAgentTab.SHARE_WITH_TEAM && (
