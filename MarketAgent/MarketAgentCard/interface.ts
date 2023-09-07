@@ -64,6 +64,7 @@ export interface AgentRaw {
 
 export interface Agent extends AgentRaw {
   aiAgentID: string
+  teamIdentifier: string
   teamID: string
   teamIcon: string
   teamName: string
