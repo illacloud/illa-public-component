@@ -21,23 +21,27 @@ class ILLAMixpanelTools {
         debug: process.env.ILLA_APP_ENV === "development",
         test: process.env.ILLA_APP_ENV !== "production",
         ignore_dnt: process.env.ILLA_APP_ENV === "development",
+        loaded(mixpanelProto) {
+          const originalTrack = mixpanelProto.track
+          mixpanelProto.track = function (event, properties) {
+            originalTrack.call(mixpanelProto, event, {
+              ...properties,
+              environment: process.env.ILLA_APP_ENV,
+              fe_version_code: process.env.ILLA_APP_VERSION,
+            })
+          }
+        },
       })
-      this.registerPublicProperties()
     }
   }
 
   public async setDeviceID() {
-    const deviceID = await getDeviceUUID()
-    mixpanel.register({
-      ILLA_device_ID: deviceID,
-    })
-  }
-
-  private registerPublicProperties() {
-    mixpanel.register({
-      environment: process.env.ILLA_APP_ENV,
-      fe_version_code: process.env.ILLA_APP_VERSION,
-    })
+    if (this.enable) {
+      const deviceID = await getDeviceUUID()
+      mixpanel.register({
+        ILLA_device_ID: deviceID,
+      })
+    }
   }
 
   public static getInstance() {
@@ -78,7 +82,9 @@ class ILLAMixpanelTools {
   }
 
   public getMixpanelInstance() {
-    return mixpanel
+    if (this.enable) {
+      return mixpanel
+    }
   }
 }
 

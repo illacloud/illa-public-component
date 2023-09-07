@@ -5,7 +5,7 @@ export interface ContributorTeam {
   teamID: string
   icon: string
   name: string
-  teamIdentify: string
+  teamIdentifier: string
 }
 
 export interface MarketplaceInfo {
@@ -64,6 +64,7 @@ export interface AgentRaw {
 
 export interface Agent extends AgentRaw {
   aiAgentID: string
+  teamIdentifier: string
   teamID: string
   teamIcon: string
   teamName: string

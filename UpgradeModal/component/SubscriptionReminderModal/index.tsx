@@ -75,7 +75,7 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
           ? 1
           : currentTeamLicense?.volume ?? 1,
         cycle: currentTeamLicense?.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
-        plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
+        plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
         currentPlan: currentTeamLicense?.plan,
         cancelAtPeriodEnd: currentTeamLicense?.cancelAtPeriodEnd,
       },

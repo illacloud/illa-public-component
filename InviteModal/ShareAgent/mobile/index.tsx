@@ -1,9 +1,13 @@
 import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
+import {
   ACTION_MANAGE,
   ATTRIBUTE_GROUP,
   canManage,
 } from "@illa-public/user-role-utils"
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { useTranslation } from "react-i18next"
 import {
   CloseIcon,
@@ -37,6 +41,16 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
     },
   )
   const { t } = useTranslation()
+  const { track } = useContext(MixpanelTrackContext)
+
+  const handleTabChange = (activeKey: string) => {
+    track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+      element: "share_modal_tab",
+      parameter2: activeKey,
+      parameter5: props.agentID,
+    })
+    setActiveTab(activeKey)
+  }
 
   return (
     <TriggerProvider renderInBody zIndex={1005}>
@@ -66,15 +80,16 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                   css={tabTitleStyle(
                     activeTab === ShareAgentTab.SHARE_WITH_TEAM,
                   )}
-                  onClick={() => setActiveTab(ShareAgentTab.SHARE_WITH_TEAM)}
+                  onClick={() => handleTabChange(ShareAgentTab.SHARE_WITH_TEAM)}
                 >
                   {t("user_management.modal.tab.with_team")}
                 </div>
               )}
               {(canManage(
                 props.userRoleForThisAgent,
-                ATTRIBUTE_GROUP.AGENT,
-                ACTION_MANAGE.CREATE_AGENT,
+                ATTRIBUTE_GROUP.AI_AGENT,
+                props.teamPlan,
+                ACTION_MANAGE.CREATE_AI_AGENT,
               ) ||
                 props.defaultAgentContributed) && (
                 <>
@@ -83,7 +98,9 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                     css={tabTitleStyle(
                       activeTab === ShareAgentTab.TO_MARKETPLACE,
                     )}
-                    onClick={() => setActiveTab(ShareAgentTab.TO_MARKETPLACE)}
+                    onClick={() =>
+                      handleTabChange(ShareAgentTab.TO_MARKETPLACE)
+                    }
                   >
                     {t("user_management.modal.title.contribute")}
                   </div>
@@ -103,6 +120,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                   onCopyAgentMarketLink={props.onCopyAgentMarketLink}
                   userRoleForThisAgent={props.userRoleForThisAgent}
                   ownerTeamID={props.ownerTeamID}
+                  onShare={props.onShare}
                 />
               )}
             {activeTab === ShareAgentTab.SHARE_WITH_TEAM && (
@@ -127,6 +145,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                   currentUserRole={props.currentUserRole}
                   defaultBalance={props.defaultBalance}
                   redirectURL={props.redirectURL}
+                  itemID={props.agentID}
                 />
               </div>
             )}

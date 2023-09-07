@@ -1,7 +1,7 @@
+import { SUBSCRIBE_PLAN } from "@illa-public/user-data"
 import { AgentToMarketplaceProps } from "../component/AgentToMarketplace/interface"
 import { InviteByEmailProps } from "../component/InviteByEmail/interface"
 import { InviteLinkProps } from "../component/InviteLink/interface"
-
 
 export interface ShareAgentProps
   extends Omit<InviteByEmailProps, "excludeUserRole">,
@@ -10,6 +10,7 @@ export interface ShareAgentProps
   onClose: () => void
   canInvite: boolean
   defaultTab: ShareAgentTab
+  teamPlan: SUBSCRIBE_PLAN
 }
 
 export enum ShareAgentTab {

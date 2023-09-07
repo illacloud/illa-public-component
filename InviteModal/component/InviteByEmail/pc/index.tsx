@@ -1,11 +1,15 @@
 import { Avatar } from "@illa-public/avatar"
 import { ERROR_FLAG, isILLAAPiError } from "@illa-public/illa-net"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
 import { RoleSelector } from "@illa-public/role-selector"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { EMAIL_FORMAT, isCloudVersion } from "@illa-public/utils"
-import { FC, useState } from "react"
+import { FC, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Button,
@@ -29,7 +33,6 @@ import {
   roleSelectContainerStyle,
 } from "./style"
 
-
 export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
   const {
     excludeUserRole,
@@ -40,6 +43,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
     redirectURL,
     currentUserRole,
     onInvitedChange,
+    itemID,
   } = props
 
   const message = useMessage()
@@ -47,6 +51,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
   const { t } = useTranslation()
 
   const upgradeModal = useUpgradeModal()
+  const { track } = useContext(MixpanelTrackContext)
 
   const [inviteUserRole, setInviteUserRole] = useMergeValue(
     defaultInviteUserRole,
@@ -117,6 +122,10 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
           colorScheme={getColor("grayBlue", "02")}
           loading={inviting}
           onClick={async () => {
+            track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+              element: "share_modal_send",
+              parameter5: itemID,
+            })
             if (
               isBiggerThanTargetRole(USER_ROLE.EDITOR, inviteUserRole) &&
               currentBalance < currentValue.length
@@ -189,48 +198,50 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
           </div>
         </div>
       )}
-      {alreadyInvited.length > 0 && <div css={inviteListContainerStyle}>
-        {alreadyInvited.map((user) => {
-          return (
-            <div key={user.email} css={avatarContainerStyle}>
-              <Avatar name={user.email} />
-              <div css={nicknameStyle}>{user.email}</div>
-              <RoleSelector
-                currentUserRole={currentUserRole}
-                value={user.userRole}
-                onClickItem={async (item) => {
-                  setInviting(true)
-                  try {
-                    await changeUserRoleByTeamMemberID(
-                      teamID,
-                      user.teamMemberID,
-                      item,
-                    )
-                    const index = alreadyInvited.findIndex(
-                      (u) => u.email === user.email,
-                    )
-                    if (index != -1) {
-                      const newAlreadyInvited = [...alreadyInvited]
-                      newAlreadyInvited[index].userRole = item
-                      setAlreadyInvited(newAlreadyInvited)
-                      onInvitedChange?.(newAlreadyInvited)
+      {alreadyInvited.length > 0 && (
+        <div css={inviteListContainerStyle}>
+          {alreadyInvited.map((user) => {
+            return (
+              <div key={user.email} css={avatarContainerStyle}>
+                <Avatar name={user.email} />
+                <div css={nicknameStyle}>{user.email}</div>
+                <RoleSelector
+                  currentUserRole={currentUserRole}
+                  value={user.userRole}
+                  onClickItem={async (item) => {
+                    setInviting(true)
+                    try {
+                      await changeUserRoleByTeamMemberID(
+                        teamID,
+                        user.teamMemberID,
+                        item,
+                      )
+                      const index = alreadyInvited.findIndex(
+                        (u) => u.email === user.email,
+                      )
+                      if (index != -1) {
+                        const newAlreadyInvited = [...alreadyInvited]
+                        newAlreadyInvited[index].userRole = item
+                        setAlreadyInvited(newAlreadyInvited)
+                        onInvitedChange?.(newAlreadyInvited)
+                      }
+                      message.success({
+                        content: t("user_management.mes.invite_suc"),
+                      })
+                    } catch (e) {
+                      message.error({
+                        content: t("user_management.mes.change_role_fail"),
+                      })
+                    } finally {
+                      setInviting(false)
                     }
-                    message.success({
-                      content: t("user_management.mes.invite_suc"),
-                    })
-                  } catch (e) {
-                    message.error({
-                      content: t("user_management.mes.change_role_fail"),
-                    })
-                  } finally {
-                    setInviting(false)
-                  }
-                }}
-              />
-            </div>
-          )
-        })}
-      </div>}
+                  }}
+                />
+              </div>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }

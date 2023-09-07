@@ -1,4 +1,4 @@
-import { getCurrentTeamInfo } from "@illa-public/user-data"
+import { getCurrentTeamInfo, getPlanUtils } from "@illa-public/user-data"
 import { canManagePayment } from "@illa-public/user-role-utils"
 import { FC, Fragment, useCallback, useEffect, useMemo, useState } from "react"
 import { useSelector } from "react-redux"
@@ -40,6 +40,7 @@ export const UpgradeModalGroup: FC = () => {
     return modalList.map((modal) => {
       const canPay = canManagePayment(
         currentTeamInfo?.myRole,
+        getPlanUtils(currentTeamInfo),
         currentTeamInfo?.totalTeamLicense?.teamLicenseAllPaid,
       )
       let show = canPay
@@ -95,12 +96,7 @@ export const UpgradeModalGroup: FC = () => {
         }
       }
     })
-  }, [
-    currentTeamInfo?.myRole,
-    currentTeamInfo?.totalTeamLicense?.teamLicenseAllPaid,
-    handleLicenseDrawerVisible,
-    modalList,
-  ])
+  }, [currentTeamInfo, handleLicenseDrawerVisible, modalList])
 
   return <>{modals}</>
 }

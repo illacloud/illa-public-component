@@ -4,6 +4,7 @@ import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
   getCurrentTeamInfo,
+  getPlanUtils,
   teamActions,
 } from "@illa-public/user-data"
 import { canManagePayment } from "@illa-public/user-role-utils"
@@ -27,6 +28,7 @@ export const PCMemberPage: FC<IPcMemberListProps> = (props) => {
   const dispatch = useDispatch()
   const hasPaymentManagementPermission = canManagePayment(
     currentTeamInfo.myRole,
+    getPlanUtils(currentTeamInfo),
     currentTeamInfo?.totalTeamLicense?.teamLicenseAllPaid,
   )
   const currentTeamLicense = currentTeamInfo.currentTeamLicense
@@ -40,7 +42,7 @@ export const PCMemberPage: FC<IPcMemberListProps> = (props) => {
             ? 1
             : currentTeamLicense.volume,
           cycle: currentTeamLicense.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
-          plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
+          plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
           currentPlan: currentTeamLicense.plan,
           cancelAtPeriodEnd: currentTeamLicense?.cancelAtPeriodEnd,
         },
