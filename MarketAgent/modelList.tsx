@@ -1,3 +1,4 @@
+import { ReactComponent as MetaIcon } from "./assets/meta.svg"
 import { ReactComponent as OpenAIIcon } from "./assets/openai.svg"
 import { AI_AGENT_MODEL, LLM } from "./interface"
 
@@ -14,12 +15,12 @@ export const freeModelList: LLM[] = [
   {
     name: "GPT-3.5-turbo",
     value: AI_AGENT_MODEL.GPT_3_5_TURBO,
-    logo: <OpenAIIcon />,
+    logo: <OpenAIIcon title="GPT-3.5-turbo Icon" />,
   },
   {
     name: "LLAMA_2_7B",
     value: AI_AGENT_MODEL.LLAMA_2_7B,
-    logo: <OpenAIIcon />,
+    logo: <MetaIcon title="LLAMA_2_7B Icon" />,
   },
 ]
 
@@ -27,17 +28,17 @@ export const premiumModelList: LLM[] = [
   {
     name: "GPT-3.5-turbo-16k",
     value: AI_AGENT_MODEL.GPT_3_5_TURBO_16K,
-    logo: <OpenAIIcon />,
+    logo: <OpenAIIcon title="GPT-3.5-turbo-16k Icon" />,
   },
   {
-    name: "GPT-3.5-turbo",
+    name: "GPT-4",
     value: AI_AGENT_MODEL.GPT_4,
-    logo: <OpenAIIcon />,
+    logo: <OpenAIIcon title="GPT-3.5-turbo Icon" />,
   },
   {
     name: "LLAMA_2_70B",
     value: AI_AGENT_MODEL.LLAMA_2_70B,
-    logo: <OpenAIIcon />,
+    logo: <MetaIcon title="LLAMA_2_70B Icon" />,
   },
 ]
 
