@@ -24,15 +24,17 @@ export const MarketAgentCard: FC<MarketAgentCardProps> = (props) => {
   return (
     <div css={cardStyle} {...rest}>
       <div css={headerStyle}>
+        <img
+          css={agentIconStyle}
+          src={marketAIAgent.aiAgent.icon}
+          alt={marketAIAgent.aiAgent.name}
+        />
         <div css={titleInfoStyle}>
-          <img css={agentIconStyle} src={marketAIAgent.aiAgent.icon} alt="" />
           <span css={nameStyle}>{marketAIAgent.aiAgent.name}</span>
         </div>
       </div>
       <div>
-        <div css={descriptionStyle}>
-          {marketAIAgent.aiAgent.description}
-        </div>
+        <div css={descriptionStyle}>{marketAIAgent.aiAgent.description}</div>
       </div>
 
       <div css={footerStyle}>

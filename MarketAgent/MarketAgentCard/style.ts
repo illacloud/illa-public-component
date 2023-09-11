@@ -85,16 +85,12 @@ export const actionCountStyle = css`
 
 export const headerStyle = css`
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
+  flex-direction: row;
 `
 
 export const titleInfoStyle = css`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
+  flex-direction: column;
   overflow: hidden;
 `
 
