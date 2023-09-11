@@ -10,7 +10,8 @@
     "@illa-public/record-editor": "workspace:*"
   },
   "devDependencies": {
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "vite-plugin-svgr": "^2.1.0"
   },
   "peerDependencies": {
     "react": "^18.2.0",

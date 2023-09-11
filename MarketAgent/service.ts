@@ -1,5 +1,5 @@
 import { marketplaceRequest } from "@illa-public/illa-net"
-import { MarketAIAgent } from "./MarketAgentCard/interface"
+import { MarketAIAgent } from "./interface"
 
 
 export enum MARKET_AGENT_SORTED_OPTIONS {
