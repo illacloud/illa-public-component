@@ -2,6 +2,7 @@ import { Avatar } from "@illa-public/avatar"
 import { formatNumForAgent } from "@illa-public/utils"
 import { FC } from "react"
 import { ForkIcon, PlayOutlineIcon, StarOutlineIcon } from "@illa-design/react"
+import { getLLM } from "../modelList"
 import { MarketAgentCardProps } from "./interface"
 import {
   actionContainerStyle,
@@ -11,6 +12,9 @@ import {
   descriptionStyle,
   footerStyle,
   headerStyle,
+  modelContainerStyle,
+  modelLogoStyle,
+  modelNameStyle,
   nameStyle,
   teamAvatarStyle,
   teamInfoStyle,
@@ -31,6 +35,14 @@ export const MarketAgentCard: FC<MarketAgentCardProps> = (props) => {
         />
         <div css={titleInfoStyle}>
           <span css={nameStyle}>{marketAIAgent.aiAgent.name}</span>
+          <div css={modelContainerStyle}>
+            <div css={modelLogoStyle}>
+              {getLLM(marketAIAgent.aiAgent.model)?.logo}
+            </div>
+            <div css={modelNameStyle}>
+              {getLLM(marketAIAgent.aiAgent.model)?.name}
+            </div>
+          </div>
         </div>
       </div>
       <div>

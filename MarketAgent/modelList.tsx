@@ -39,8 +39,15 @@ export const premiumModelList: LLM[] = [
   {
     name: "GPT-4",
     value: AI_AGENT_MODEL.GPT_4,
-    logo: <OpenAIIcon title="GPT-3.5-turbo Icon" />,
+    logo: <OpenAIIcon title="GPT-4 Icon" />,
     limit: 8192,
+    temperatureRange: [0, 2],
+  },
+  {
+    name: "GPT-4-32k",
+    value: AI_AGENT_MODEL.GPT_4_32K,
+    logo: <OpenAIIcon title="GPT-4-32k Icon" />,
+    limit: 32000,
     temperatureRange: [0, 2],
   },
   {

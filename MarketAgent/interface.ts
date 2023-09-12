@@ -1,7 +1,6 @@
 import { Params } from "@illa-public/record-editor"
 import { ReactNode } from "react"
 
-
 export interface ContributorTeam {
   teamID: string
   icon: string
@@ -44,8 +43,9 @@ export enum AI_AGENT_MODEL {
   GPT_3_5_TURBO = 1,
   GPT_3_5_TURBO_16K = 2,
   GPT_4 = 3,
-  LLAMA_2_7B = 4,
-  LLAMA_2_70B = 5,
+  GPT_4_32K,
+  LLAMA_2_7B = 9,
+  LLAMA_2_70B = 10,
 }
 
 export interface AgentAdvanceConfig {
