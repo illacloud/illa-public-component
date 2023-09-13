@@ -2,7 +2,7 @@
   "name": "@illa-public/market-app",
   "version": "0.0.0",
   "private": true,
-  "main": "index.tsx",
+  "main": "index.ts",
   "dependencies": {
     "@illa-public/avatar": "workspace:*",
     "@illa-public/utils": "workspace:*",

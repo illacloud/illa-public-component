@@ -1,9 +1,8 @@
 import { LayoutAutoChange } from "@illa-public/layout-auto-change"
 import { FC } from "react"
 import { MarketShareAppProps } from "./interface"
+import { MarketShareAppMobile } from "./mobile"
 import { MarketShareAppPC } from "./pc"
-import { MarketShareAppMobile } from "./mobiile"
-
 
 export const MarketShareApp: FC<MarketShareAppProps> = (props) => {
   return (
