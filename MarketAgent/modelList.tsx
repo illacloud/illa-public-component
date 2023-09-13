@@ -20,8 +20,8 @@ export const freeModelList: LLM[] = [
     temperatureRange: [0, 2],
   },
   {
-    name: "LLAMA_2_7B",
-    value: AI_AGENT_MODEL.LLAMA_2_7B,
+    name: "LLAMA_2_CHAT_7B",
+    value: AI_AGENT_MODEL.LLAMA_2_CHAT_7B,
     logo: <MetaIcon title="LLAMA_2_7B Icon" />,
     limit: 4096,
     temperatureRange: [0.1, 4],
@@ -51,9 +51,9 @@ export const premiumModelList: LLM[] = [
     temperatureRange: [0, 2],
   },
   {
-    name: "LLAMA_2_70B",
-    value: AI_AGENT_MODEL.LLAMA_2_70B,
-    logo: <MetaIcon title="LLAMA_2_70B Icon" />,
+    name: "LLAMA_2_CHAT_13B",
+    value: AI_AGENT_MODEL.LLAMA_2_CHAT_13B,
+    logo: <MetaIcon title="LLAMA_2_13B Icon" />,
     limit: 4096,
     temperatureRange: [0.1, 4],
   },
