@@ -2,7 +2,7 @@
   "name": "@illa-public/role-selector",
   "version": "0.0.0",
   "private": true,
-  "main": "index.tsx",
+  "main": "index.ts",
   "dependencies": {
     "@illa-public/user-data": "workspace:*",
     "@illa-public/user-role-utils": "workspace:*"
