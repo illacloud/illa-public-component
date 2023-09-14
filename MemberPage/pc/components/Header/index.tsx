@@ -11,6 +11,7 @@ import {
 import {
   canManageInvite,
   isBiggerThanTargetRole,
+  openInviteModal, showInviteModal,
 } from "@illa-public/user-role-utils"
 import {
   COPY_STATUS,
@@ -25,6 +26,7 @@ import { IPcHeaderProps } from "./interface"
 import { MoreAction } from "./moreAction"
 import { buttonGroup, headerWrapperStyle, titleStyle } from "./style"
 
+
 export const Header: FC<IPcHeaderProps> = (props) => {
   const { t } = useTranslation()
   const { afterLeaveTeam } = props
@@ -36,14 +38,8 @@ export const Header: FC<IPcHeaderProps> = (props) => {
   const upgradeModal = useUpgradeModal()
   const message = useMessage()
 
-  const enableInvite = canManageInvite(
-    currentUserRole,
-    teamInfo?.permission?.allowEditorManageTeamMember,
-    teamInfo?.permission?.allowViewerManageTeamMember,
-  )
-
   const handleClickInviteButton = useCallback(() => {
-    if (!isCloudVersion || teamInfo?.totalTeamLicense?.teamLicenseAllPaid) {
+    if (openInviteModal(teamInfo)) {
       setInviteModalVisible(true)
     } else if (teamInfo?.totalTeamLicense?.balance < 0) {
       upgradeModal({
@@ -54,11 +50,7 @@ export const Header: FC<IPcHeaderProps> = (props) => {
         modalType: "upgrade",
       })
     }
-  }, [
-    teamInfo?.totalTeamLicense?.balance,
-    teamInfo?.totalTeamLicense?.teamLicenseAllPaid,
-    upgradeModal,
-  ])
+  }, [teamInfo, upgradeModal])
 
   const handleCopy = useCallback(
     (inviteLink: string) => {
@@ -94,21 +86,26 @@ export const Header: FC<IPcHeaderProps> = (props) => {
                 currentUserRole,
                 false,
               ))) && <MoreAction afterLeaveTeam={afterLeaveTeam} />}
-          <Button
+          {showInviteModal(teamInfo) && <Button
             w="200px"
             colorScheme="techPurple"
-            disabled={!enableInvite}
             onClick={handleClickInviteButton}
           >
             {t("user_management.page.invite")}
-          </Button>
+          </Button>}
         </div>
       </div>
       {inviteModalVisible && (
         <InviteMemberPC
           redirectURL=""
           onClose={() => setInviteModalVisible(false)}
-          canInvite={enableInvite}
+          canInvite={canManageInvite(
+            teamInfo.myRole,
+            teamInfo.permission
+              .allowEditorManageTeamMember,
+            teamInfo.permission
+              .allowViewerManageTeamMember,
+          )}
           currentUserRole={currentUserRole}
           defaultAllowInviteLink={teamInfo.permission.inviteLinkEnabled}
           defaultInviteUserRole={USER_ROLE.VIEWER}

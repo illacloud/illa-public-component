@@ -10,7 +10,11 @@ import {
   getPlanUtils,
   teamActions,
 } from "@illa-public/user-data"
-import { canManageInvite, canManagePayment } from "@illa-public/user-role-utils"
+import {
+  canManageInvite,
+  canManagePayment,
+  showInviteModal,
+} from "@illa-public/user-role-utils"
 import {
   COPY_STATUS,
   copyToClipboard,
@@ -29,6 +33,7 @@ import {
   usageCardContainerStyle,
 } from "./style"
 
+
 export const MobileMemberPage: FC = () => {
   const { t } = useTranslation()
   const currentTeamInfo = useSelector(getCurrentTeamInfo)!
@@ -40,12 +45,6 @@ export const MobileMemberPage: FC = () => {
   const upgradeModal = useUpgradeModal()
   const upgradeDrawer = useUpgradeDrawer()
   const message = useMessage()
-
-  const enableInvite = canManageInvite(
-    currentUserRole,
-    teamInfo?.permission?.allowEditorManageTeamMember,
-    teamInfo?.permission?.allowViewerManageTeamMember,
-  )
 
   const hasPaymentManagementPermission = canManagePayment(
     currentTeamInfo.myRole,
@@ -142,20 +141,25 @@ export const MobileMemberPage: FC = () => {
         </div>
       ) : null}
       <MobileMemberList />
-      <Button
-        _css={inviteBtnStyle}
-        disabled={!enableInvite}
-        fullWidth
-        colorScheme="techPurple"
-        onClick={handleClickInviteButton}
-      >
-        {t("homepage.workspace.invite")}
-      </Button>
+      {showInviteModal(teamInfo) && (
+        <Button
+          css={inviteBtnStyle}
+          fullWidth
+          colorScheme="techPurple"
+          onClick={handleClickInviteButton}
+        >
+          {t("homepage.workspace.invite")}
+        </Button>
+      )}
       {inviteModalVisible && (
         <InviteMemberMobile
           redirectURL=""
           onClose={() => setInviteModalVisible(false)}
-          canInvite={enableInvite}
+          canInvite={canManageInvite(
+            currentTeamInfo.myRole,
+            currentTeamInfo.permission.allowEditorManageTeamMember,
+            currentTeamInfo.permission.allowViewerManageTeamMember,
+          )}
           currentUserRole={currentUserRole}
           defaultAllowInviteLink={teamInfo.permission.inviteLinkEnabled}
           defaultInviteUserRole={USER_ROLE.VIEWER}

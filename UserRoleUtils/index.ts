@@ -503,6 +503,16 @@ export const showShareAgentModal = (
   }
 }
 
+export const showShareAgentModalOnlyForShare = (
+  teamInfo: TeamInfo,
+) => {
+  return canManageInvite(
+    teamInfo.myRole,
+    teamInfo.permission.allowEditorManageTeamMember,
+    teamInfo.permission.allowViewerManageTeamMember,
+  )
+}
+
 export const openShareAgentModal = (
   teamInfo: TeamInfo,
   userRoleForThisAgent: USER_ROLE,
