@@ -10,7 +10,11 @@ import {
   getPlanUtils,
   teamActions,
 } from "@illa-public/user-data"
-import { canManageInvite, canManagePayment } from "@illa-public/user-role-utils"
+import {
+  canManageInvite,
+  canManagePayment,
+  showInviteModal,
+} from "@illa-public/user-role-utils"
 import {
   COPY_STATUS,
   copyToClipboard,
@@ -28,6 +32,7 @@ import {
   mobileTitleStyle,
   usageCardContainerStyle,
 } from "./style"
+
 
 export const MobileMemberPage: FC = () => {
   const { t } = useTranslation()
@@ -136,24 +141,24 @@ export const MobileMemberPage: FC = () => {
         </div>
       ) : null}
       <MobileMemberList />
-      <Button
-        css={inviteBtnStyle}
-        fullWidth
-        colorScheme="techPurple"
-        onClick={handleClickInviteButton}
-      >
-        {t("homepage.workspace.invite")}
-      </Button>
+      {showInviteModal(teamInfo) && (
+        <Button
+          css={inviteBtnStyle}
+          fullWidth
+          colorScheme="techPurple"
+          onClick={handleClickInviteButton}
+        >
+          {t("homepage.workspace.invite")}
+        </Button>
+      )}
       {inviteModalVisible && (
         <InviteMemberMobile
           redirectURL=""
           onClose={() => setInviteModalVisible(false)}
           canInvite={canManageInvite(
             currentTeamInfo.myRole,
-            currentTeamInfo.permission
-              .allowEditorManageTeamMember,
-            currentTeamInfo.permission
-              .allowViewerManageTeamMember,
+            currentTeamInfo.permission.allowEditorManageTeamMember,
+            currentTeamInfo.permission.allowViewerManageTeamMember,
           )}
           currentUserRole={currentUserRole}
           defaultAllowInviteLink={teamInfo.permission.inviteLinkEnabled}
