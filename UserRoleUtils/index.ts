@@ -505,23 +505,12 @@ export const showShareAgentModal = (
 
 export const showShareAgentModalOnlyForShare = (
   teamInfo: TeamInfo,
-  userRoleForThisAgent: USER_ROLE,
 ) => {
-  const canInvite = canManageInvite(
+  return canManageInvite(
     teamInfo.myRole,
     teamInfo.permission.allowEditorManageTeamMember,
     teamInfo.permission.allowViewerManageTeamMember,
   )
-  if (canInvite) {
-    return true
-  } else {
-    return canManage(
-      userRoleForThisAgent,
-      ATTRIBUTE_GROUP.AI_AGENT,
-      getPlanUtils(teamInfo),
-      ACTION_MANAGE.CREATE_AI_AGENT,
-    )
-  }
 }
 
 export const openShareAgentModal = (
