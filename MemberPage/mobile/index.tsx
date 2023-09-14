@@ -41,12 +41,6 @@ export const MobileMemberPage: FC = () => {
   const upgradeDrawer = useUpgradeDrawer()
   const message = useMessage()
 
-  const enableInvite = canManageInvite(
-    currentUserRole,
-    teamInfo?.permission?.allowEditorManageTeamMember,
-    teamInfo?.permission?.allowViewerManageTeamMember,
-  )
-
   const hasPaymentManagementPermission = canManagePayment(
     currentTeamInfo.myRole,
     getPlanUtils(currentTeamInfo),
@@ -143,8 +137,7 @@ export const MobileMemberPage: FC = () => {
       ) : null}
       <MobileMemberList />
       <Button
-        _css={inviteBtnStyle}
-        disabled={!enableInvite}
+        css={inviteBtnStyle}
         fullWidth
         colorScheme="techPurple"
         onClick={handleClickInviteButton}
@@ -155,7 +148,13 @@ export const MobileMemberPage: FC = () => {
         <InviteMemberMobile
           redirectURL=""
           onClose={() => setInviteModalVisible(false)}
-          canInvite={enableInvite}
+          canInvite={canManageInvite(
+            currentTeamInfo.myRole,
+            currentTeamInfo.permission
+              .allowEditorManageTeamMember,
+            currentTeamInfo.permission
+              .allowViewerManageTeamMember,
+          )}
           currentUserRole={currentUserRole}
           defaultAllowInviteLink={teamInfo.permission.inviteLinkEnabled}
           defaultInviteUserRole={USER_ROLE.VIEWER}
