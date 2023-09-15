@@ -119,6 +119,12 @@ export const modelLogoStyle = css`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 16px;
+  height: 16px;
+  ${applyMobileStyle(css`
+    width: 20px;
+    height: 20px;
+  `)}
 `
 
 export const agentIconStyle = css`
