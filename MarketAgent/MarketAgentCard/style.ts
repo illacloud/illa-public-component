@@ -121,6 +121,10 @@ export const modelLogoStyle = css`
   justify-content: center;
   width: 16px;
   height: 16px;
+  & svg {
+    height: 100%;
+    width: 100%;
+  }
   ${applyMobileStyle(css`
     width: 20px;
     height: 20px;
