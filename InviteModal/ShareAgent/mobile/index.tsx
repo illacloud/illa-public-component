@@ -2,20 +2,16 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
+import { USER_ROLE } from "@illa-public/user-data"
 import {
   ACTION_MANAGE,
   ATTRIBUTE_GROUP,
   canManage,
+  isBiggerThanTargetRole,
 } from "@illa-public/user-role-utils"
-import { FC, useContext } from "react"
+import { FC, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import {
-  CloseIcon,
-  Divider,
-  Drawer,
-  TriggerProvider,
-  useMergeValue,
-} from "@illa-design/react"
+import { CloseIcon, Divider, Drawer, TriggerProvider } from "@illa-design/react"
 import { AgentToMarketplaceMobile } from "../../component/AgentToMarketplace/mobile"
 import { InviteByEmailMobile } from "../../component/InviteByEmail/mobile"
 import { InviteLinkMobile } from "../../component/InviteLink/mobile"
@@ -32,14 +28,35 @@ import {
   tabsContainerStyle,
 } from "./style"
 
+
 export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
   const { onClose } = props
-  const [activeTab, setActiveTab] = useMergeValue<string>(
-    ShareAgentTab.SHARE_WITH_TEAM,
-    {
-      defaultValue: ShareAgentTab.SHARE_WITH_TEAM,
-    },
-  )
+
+  let defTab = ShareAgentTab.TO_MARKETPLACE
+
+  if (
+    props.canInvite &&
+    props.canUseBillingFeature &&
+    USER_ROLE.VIEWER === props.currentUserRole
+  ) {
+    defTab = ShareAgentTab.SHARE_WITH_TEAM
+  } else if (
+    isBiggerThanTargetRole(USER_ROLE.VIEWER, props.currentUserRole) ||
+    props.defaultAgentContributed
+  ) {
+    defTab = ShareAgentTab.TO_MARKETPLACE
+  }
+
+  const [activeTab, setActiveTab] = useState<string>(props.defaultTab ?? defTab)
+
+  useEffect(() => {
+    if (props.defaultTab === undefined) {
+      return
+    } else {
+      setActiveTab(props.defaultTab)
+    }
+  }, [props.defaultTab])
+
   const { t } = useTranslation()
   const { track } = useContext(MixpanelTrackContext)
 
@@ -55,7 +72,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
   return (
     <TriggerProvider renderInBody zIndex={1005}>
       <Drawer
-        _css={inviteModalStyle}
+        css={inviteModalStyle}
         w="100%"
         placement="bottom"
         maskClosable={false}
@@ -75,7 +92,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
               <CloseIcon size="12" />
             </div>
             <div css={tabsContainerStyle}>
-              {props.canInvite && (
+              {props.canInvite && props.canUseBillingFeature && (
                 <div
                   css={tabTitleStyle(
                     activeTab === ShareAgentTab.SHARE_WITH_TEAM,
