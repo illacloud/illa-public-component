@@ -22,6 +22,7 @@ import {
   shareBlockContainerStyle,
 } from "./style"
 
+
 export const AgentToMarketplaceMobile: FC<AgentToMarketplaceProps> = (
   props,
 ) => {
@@ -61,6 +62,7 @@ export const AgentToMarketplaceMobile: FC<AgentToMarketplaceProps> = (
       try {
         if (value) {
           await makeAgentContribute(ownerTeamID, agentID)
+          window.open(getAgentPublicLink(agentID), "_blank")
         } else {
           await fetchRemoveToMarketplace(ownerTeamID, agentID)
         }
