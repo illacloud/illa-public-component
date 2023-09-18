@@ -98,7 +98,6 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
         setMarketLinkLoading(true)
         if (value) {
           await makeAppContribute(ownerTeamID, appID)
-          window.open(getMarketLinkTemplate(appID), "_blank")
         } else {
           await fetchRemoveAppToMarket(ownerTeamID, appID)
         }
