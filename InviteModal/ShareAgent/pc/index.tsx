@@ -2,20 +2,16 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
+import { USER_ROLE } from "@illa-public/user-data"
 import {
   ACTION_MANAGE,
   ATTRIBUTE_GROUP,
   canManage,
+  isBiggerThanTargetRole,
 } from "@illa-public/user-role-utils"
-import { FC, useContext } from "react"
+import { FC, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import {
-  CloseIcon,
-  Modal,
-  TabPane,
-  Tabs,
-  useMergeValue,
-} from "@illa-design/react"
+import { CloseIcon, Modal, TabPane, Tabs } from "@illa-design/react"
 import { AgentToMarketplacePC } from "../../component/AgentToMarketplace/pc"
 import { InviteByEmailPC } from "../../component/InviteByEmail/pc"
 import { InviteLinkPC } from "../../component/InviteLink/pc"
@@ -26,10 +22,32 @@ import {
   headerContainerStyle,
 } from "./style"
 
+
 export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
-  const [activeTab, setActiveTab] = useMergeValue<string>(props.defaultTab, {
-    defaultValue: props.defaultTab,
-  })
+  let defTab = ShareAgentTab.TO_MARKETPLACE
+
+  if (
+    props.canInvite &&
+    props.canUseBillingFeature &&
+    USER_ROLE.VIEWER === props.currentUserRole
+  ) {
+    defTab = ShareAgentTab.SHARE_WITH_TEAM
+  } else if (
+    isBiggerThanTargetRole(USER_ROLE.VIEWER, props.currentUserRole) ||
+    props.defaultAgentContributed
+  ) {
+    defTab = ShareAgentTab.TO_MARKETPLACE
+  }
+
+  const [activeTab, setActiveTab] = useState<string>(props.defaultTab ?? defTab)
+
+  useEffect(() => {
+    if (props.defaultTab === undefined) {
+      return
+    } else {
+      setActiveTab(props.defaultTab)
+    }
+  }, [props.defaultTab])
 
   const { t } = useTranslation()
   const { track } = useContext(MixpanelTrackContext)
@@ -61,7 +79,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
             setActiveTab(activeKey)
           }}
         >
-          {props.canInvite && (
+          {props.canInvite && props.canUseBillingFeature && (
             <TabPane
               title={t("user_management.modal.tab.with_team")}
               key={ShareAgentTab.SHARE_WITH_TEAM}

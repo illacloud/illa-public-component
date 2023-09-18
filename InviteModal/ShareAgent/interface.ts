@@ -9,8 +9,9 @@ export interface ShareAgentProps
     AgentToMarketplaceProps {
   onClose: () => void
   canInvite: boolean
-  defaultTab: ShareAgentTab
   teamPlan: SUBSCRIBE_PLAN
+  canUseBillingFeature: boolean
+  defaultTab?: ShareAgentTab
 }
 
 export enum ShareAgentTab {
