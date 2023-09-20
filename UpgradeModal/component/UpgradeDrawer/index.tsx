@@ -3,8 +3,9 @@ import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
   getCurrentId,
+  getCurrentUserID,
 } from "@illa-public/user-data"
-import { isMobileByWindowSize } from "@illa-public/utils"
+import { isMobileByWindowSize, sendTagEvent } from "@illa-public/utils"
 import { FC, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -68,6 +69,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
   const isMobile = isMobileByWindowSize(width)
   const message = useMessage()
   const teamID = useSelector(getCurrentId)
+  const userID = useSelector(getCurrentUserID)
 
   const [cycle, setCycle] = useState<SUBSCRIPTION_CYCLE>(
     SUBSCRIPTION_CYCLE.MONTHLY,
@@ -239,6 +241,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
           successRedirect,
           cancelRedirect,
         })
+        sendTagEvent("purchase", userID)
         if (res.data.url) {
           window.open(res.data.url, "_self")
         }
@@ -272,6 +275,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
             successRedirect,
             cancelRedirect,
           })
+          sendTagEvent("purchase", userID)
           if (res.data.url) {
             window.open(res.data.url, "_self")
           }
