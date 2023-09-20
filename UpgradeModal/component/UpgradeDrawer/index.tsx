@@ -5,7 +5,7 @@ import {
   getCurrentId,
   getCurrentUserID,
 } from "@illa-public/user-data"
-import { isMobileByWindowSize, sendTagEvent } from "@illa-public/utils"
+import { isMobileByWindowSize } from "@illa-public/utils"
 import { FC, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -231,6 +231,8 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
         ? updateHash(type === "license" ? "#license" : "#drive")
         : window.location.href,
       type,
+      purchaseStatus: "success",
+      userID,
     })
     const cancelRedirect = window.location.href
     try {
@@ -241,7 +243,6 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
           successRedirect,
           cancelRedirect,
         })
-        sendTagEvent("purchase", userID)
         if (res.data.url) {
           window.open(res.data.url, "_self")
         }
@@ -275,7 +276,6 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
             successRedirect,
             cancelRedirect,
           })
-          sendTagEvent("purchase", userID)
           if (res.data.url) {
             window.open(res.data.url, "_self")
           }
