@@ -3,6 +3,7 @@ import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
   getCurrentId,
+  getCurrentUserID,
 } from "@illa-public/user-data"
 import { isMobileByWindowSize } from "@illa-public/utils"
 import { FC, useEffect, useMemo, useState } from "react"
@@ -68,6 +69,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
   const isMobile = isMobileByWindowSize(width)
   const message = useMessage()
   const teamID = useSelector(getCurrentId)
+  const userID = useSelector(getCurrentUserID)
 
   const [cycle, setCycle] = useState<SUBSCRIPTION_CYCLE>(
     SUBSCRIPTION_CYCLE.MONTHLY,
@@ -229,6 +231,8 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
         ? updateHash(type === "license" ? "#license" : "#drive")
         : window.location.href,
       type,
+      purchaseStatus: "success",
+      userID,
     })
     const cancelRedirect = window.location.href
     try {

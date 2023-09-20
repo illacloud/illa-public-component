@@ -86,7 +86,6 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
                   setAgentContributedLoading(true)
                   if (value) {
                     await makeAgentContribute(ownerTeamID, agentID)
-                    window.open(getAgentPublicLink(agentID), "_blank")
                   } else {
                     await fetchRemoveToMarketplace(ownerTeamID, agentID)
                   }
