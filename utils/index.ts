@@ -3,5 +3,6 @@ export * from "./screen"
 export * from "./style"
 export * from "./typeHelper"
 export * from "./formatHelper"
-export * from './copy'
-export * from './getLink'
+export * from "./copy"
+export * from "./getLink"
+export * from "./gtag"
