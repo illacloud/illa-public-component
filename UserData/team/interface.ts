@@ -49,6 +49,7 @@ export enum SUBSCRIBE_PLAN {
   TEAM_LICENSE_ENTERPRISE = "team_license_enterprise",
   TEAM_LICENSE_INSUFFICIENT = "team_license_insufficient",
   TEAM_LICENSE_EXPIRED = "team_license_expired",
+  TEAM_LICENSE_CANCELED = "team_license_canceled",
   TEAM_LICENSE_APPSUMO_TIER_1 = "team_license_appsumo_tier_1",
   TEAM_LICENSE_APPSUMO_TIER_2 = "team_license_appsumo_tier_2",
   TEAM_LICENSE_APPSUMO_TIER_3 = "team_license_appsumo_tier_3",
@@ -67,7 +68,8 @@ export enum SUBSCRIBE_PLAN {
 export enum SUBSCRIPTION_CYCLE {
   FREE = 0,
   MONTHLY = 1,
-  YEARLY,
+  YEARLY = 2,
+  LIFETIME = 3,
 }
 
 export interface SubscribeInfo {
@@ -85,8 +87,23 @@ export interface SubscribeInfo {
 export interface TotalTeamLicense {
   volume: number
   balance: number
-  teamLicensePurchased: boolean // 用于区分免费团队和付费团队
-  teamLicenseAllPaid: boolean // 用于区分团队是否已付费并且license充足
+  teamLicensePurchased: boolean
+  teamLicenseAllPaid: boolean
+}
+
+export interface CollarInfo {
+  volume: number
+  balance: number
+  quantity: number
+  invoiceIssueDate: string
+  cycle: SUBSCRIPTION_CYCLE
+  totalAmount: number
+  plan: SUBSCRIBE_PLAN
+  cancelAtPeriodEnd: boolean
+}
+
+export interface CollarBonusInfo {
+  volume: number
 }
 
 export interface TeamInfo {
@@ -103,6 +120,8 @@ export interface TeamInfo {
   myRole: USER_ROLE
   permission: TeamMemberPermission
   teamMemberPermission: TeamMemberPermissionConfig
+  colla: CollarInfo
+  collaBonus: CollarBonusInfo
 }
 
 export interface Team {

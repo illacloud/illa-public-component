@@ -108,6 +108,7 @@ export enum ACTION_MANAGE {
   FORK_AI_AGENT, // fork AI-Agent
   RUN_AI_AGENT, // run ai-agent
   FORK_APP,
+  MANAGE_COLLAR, // manage collar
 }
 
 export enum ACTION_DELETE {

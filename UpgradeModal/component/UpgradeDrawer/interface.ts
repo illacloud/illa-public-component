@@ -9,10 +9,9 @@ export interface DrawerSubscribeInfo {
   cancelAtPeriodEnd?: boolean
 }
 
-export type DrawerType = "license" | "storage" | "traffic"
-
 export interface UpgradeDrawerProps {
   visible?: boolean
   defaultConfig: DrawerDefaultConfig
   onCancel: () => void
+  afterClose?: () => void
 }

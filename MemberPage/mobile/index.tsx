@@ -73,7 +73,6 @@ export const MobileMemberPage: FC = () => {
   const openDrawer = () => {
     upgradeDrawer({
       defaultConfig: {
-        type: "license",
         subscribeInfo: {
           quantity: currentTeamLicense.cancelAtPeriodEnd
             ? 1

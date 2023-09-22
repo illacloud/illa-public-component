@@ -1,4 +1,6 @@
 import {
+  CollarBonusInfo,
+  CollarInfo,
   SUBSCRIPTION_CYCLE,
   SubscribeInfo,
   TotalTeamLicense,
@@ -10,13 +12,6 @@ export enum CUSTOM_CYCLE {
 export enum REDIRECT_PAGE_TYPE {
   EDIT = "edit",
   RELEASE = "release",
-}
-
-export enum CAPACITY_TYPE {
-  LICENSE = 1, // 团队坐席
-  DRIVE_VOLUME, // drive 容量
-  DRIVE_TRAFFIC, // drive 流量
-  POSTGRES_DATABASE_RECORD_VOLUME, // 数据库条目总数
 }
 
 export enum PurchaseItem {
@@ -50,6 +45,8 @@ export interface TeamSubscription {
     current: DriveSubscribeInfo
   }
   driveTraffic: TrafficSubscribeInfo
+  colla: CollarInfo
+  collaBonus: CollarBonusInfo
 }
 
 export interface PortalURLResponse {
@@ -60,18 +57,34 @@ export interface SubscribeResponse {
   url: string
 }
 
-export const SUBSCRIBE_UNIT_PRICE = {
-  license: {
-    [SUBSCRIPTION_CYCLE.FREE]: 0,
-    [SUBSCRIPTION_CYCLE.MONTHLY]: 20,
-    [SUBSCRIPTION_CYCLE.YEARLY]: 200,
-  },
-  storage: {
-    [SUBSCRIPTION_CYCLE.FREE]: 0,
-    [SUBSCRIPTION_CYCLE.MONTHLY]: 10,
-    [SUBSCRIPTION_CYCLE.YEARLY]: 100,
-  },
-  traffic: {
-    [PurchaseItem.DRIVE_TRAFFIC_1GB]: 10,
-  },
+export interface CollaUsageInfoResponse {
+  driveVolumeUsage: number
+  driveVolumeUsagePercent: number
+  driveTrafficUsage: number
+  driveTrafficUsagePercent: number
+  aiTokenGeneralUsage: number
+  aiTokenGeneralUsagePercent: number
+  totalCollaUsage: number
 }
+
+export const LICENSE_UNIT_PRICE = {
+  [SUBSCRIPTION_CYCLE.FREE]: 0,
+  [SUBSCRIPTION_CYCLE.MONTHLY]: 20,
+  [SUBSCRIPTION_CYCLE.YEARLY]: 200,
+  [SUBSCRIPTION_CYCLE.LIFETIME]: -1,
+}
+export const COLLAR_UNIT_PRICE = {
+  [SUBSCRIPTION_CYCLE.FREE]: 0,
+  [SUBSCRIPTION_CYCLE.MONTHLY]: 10,
+  [SUBSCRIPTION_CYCLE.YEARLY]: 100,
+  [SUBSCRIPTION_CYCLE.LIFETIME]: -1,
+}
+
+export const COLLAR_UNIT_BY_CYCLE = {
+  [SUBSCRIPTION_CYCLE.FREE]: 0,
+  [SUBSCRIPTION_CYCLE.MONTHLY]: 5, // unit collar by month
+  [SUBSCRIPTION_CYCLE.YEARLY]: 60, // unit collar by year
+  [SUBSCRIPTION_CYCLE.LIFETIME]: -1,
+}
+
+export const UNIT_COLLA_BY_STORAGE = 1 // 1GB storage = 1k colla

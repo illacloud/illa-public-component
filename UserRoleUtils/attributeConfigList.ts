@@ -208,6 +208,7 @@ export const AttributeConfigList: AttributeConfigListShape = {
       [ATTRIBUTE_GROUP.BILLING]: {
         [ACTION_MANAGE.PAYMENT]: true,
         [ACTION_MANAGE.PAYMENT_INFO]: true,
+        [ACTION_MANAGE.MANAGE_COLLAR]: true,
       },
       [ATTRIBUTE_GROUP.BUILDER_DASHBOARD]: {
         [ACTION_MANAGE.DASHBOARD_BROADCAST]: true,
@@ -278,6 +279,7 @@ export const AttributeConfigList: AttributeConfigListShape = {
       [ATTRIBUTE_GROUP.BILLING]: {
         [ACTION_MANAGE.PAYMENT]: true,
         [ACTION_MANAGE.PAYMENT_INFO]: true,
+        [ACTION_MANAGE.MANAGE_COLLAR]: true,
       },
       [ATTRIBUTE_GROUP.BUILDER_DASHBOARD]: {
         [ACTION_MANAGE.DASHBOARD_BROADCAST]: true,
