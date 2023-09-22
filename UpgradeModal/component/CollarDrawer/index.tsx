@@ -62,13 +62,6 @@ import {
 } from "./style"
 import { getBtnText, getCurrentCollarType, getDescription } from "./utils"
 
-// collar抽屉只有一种，但是内部有不同的状态，这个状态是由内部决定的
-// COLLA_FREE = "colla_free",
-// COLLA_SUBSCRIBE_PAID = "colla_subscribe_paid",
-// COLLA_SUBSCRIBE_INSUFFICIENT = "colla_subscribe_insufficient",
-// COLLA_SUBSCRIBE_CANCELED = "colla_subscribe_canceled",
-// COLLA_SUBSCRIBE_EXPIRED = "colla_subscribe_expired",
-
 export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
   const { onCancel, visible, afterClose, onSuccessCallback } = props
   const { t } = useTranslation()
@@ -170,7 +163,7 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
         case COLLAR_TYPE.CANCEL_SUBSCRIPTION:
           await cancelSubscribe(
             currentTeamInfo.id,
-            currentTeamInfo?.colla?.plan || SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_PAID,
+            SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_CANCELED,
           )
           onSuccessCallback?.(currentTeamInfo.id, currentCollarType.current)
           message.success({
@@ -180,9 +173,7 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
         case COLLAR_TYPE.ADD_COLLAR:
         case COLLAR_TYPE.REMOVE_COLLAR:
           await modifySubscribe(currentTeamInfo.id, {
-            plan:
-              currentTeamInfo?.colla?.plan ||
-              SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_PAID,
+            plan: SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_PAID,
             quantity: currentQuantity,
             cycle,
           })
@@ -194,9 +185,7 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
         default:
         case COLLAR_TYPE.SUBSCRIBE:
           const res = await subscribe(currentTeamInfo.id, {
-            plan:
-              currentTeamInfo?.colla?.plan ||
-              SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_PAID,
+            plan: SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_PAID,
             quantity: currentQuantity,
             cycle,
             successRedirect,
