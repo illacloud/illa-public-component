@@ -45,7 +45,9 @@ export interface TeamSubscription {
     current: DriveSubscribeInfo
   }
   driveTraffic: TrafficSubscribeInfo
-  colla: CollarInfo
+  colla: {
+    current: CollarInfo
+  }
   collaBonus: CollarBonusInfo
 }
 

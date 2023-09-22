@@ -1,3 +1,4 @@
+import { ERROR_FLAG, isILLAAPiError } from "@illa-public/illa-net"
 import { TextLink } from "@illa-public/text-link"
 import {
   SUBSCRIBE_PLAN,
@@ -17,6 +18,9 @@ import {
   InputNumber,
   useMessage,
 } from "@illa-design/react"
+import { usePayErrorModal } from "../../collaPop/errorModal/hook"
+import { useCollarModal } from "../../collaPop/modal/hook"
+import { CollarModalType } from "../../interface"
 import { modifySubscribe, subscribe } from "../../service"
 import { UNIT_COLLA_BY_STORAGE } from "../../service/interface"
 import { getSuccessRedirectWithParams } from "../../utils"
@@ -43,20 +47,18 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
   const { visible, config, onCancel, afterClose } = props
   const { driveVolume, successCallBack } = config
   const { t } = useTranslation()
+  const collarModal = useCollarModal()
+  const payErrorModal = usePayErrorModal()
 
   const { width } = useWindowSize()
   const isMobile = isMobileByWindowSize(width)
   const message = useMessage()
   const teamID = useSelector(getCurrentId)
 
-  const [quantity, setQuantity] = useState<number>(driveVolume?.quantity || 0)
+  const [quantity, setQuantity] = useState<number>(driveVolume?.quantity || 1)
   const [loading, setLoading] = useState<boolean>(false)
 
   const actionDisabled = useMemo(() => {
-    if (driveVolume?.cycle !== SUBSCRIPTION_CYCLE.MONTHLY) {
-      return quantity === driveVolume?.quantity || quantity === 0
-    }
-
     return driveVolume?.quantity === quantity
   }, [driveVolume, quantity])
 
@@ -84,7 +86,7 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
     try {
       if (driveVolume?.plan && isSubscribeForDrawer(driveVolume?.plan)) {
         await modifySubscribe(teamID, {
-          plan: SUBSCRIBE_PLAN.DRIVE_PAID,
+          plan: SUBSCRIBE_PLAN.DRIVE_VOLUME_PAID,
           quantity,
           cycle: SUBSCRIPTION_CYCLE.MONTHLY,
         })
@@ -94,7 +96,7 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
         successCallBack?.(teamID)
       } else {
         const res = await subscribe(teamID, {
-          plan: SUBSCRIBE_PLAN.DRIVE_PAID,
+          plan: SUBSCRIBE_PLAN.DRIVE_VOLUME_PAID,
           quantity,
           cycle: SUBSCRIPTION_CYCLE.MONTHLY,
           successRedirect,
@@ -105,16 +107,28 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
         }
       }
     } catch (error) {
+      // 王桃峰，手动订阅失败
+      if (
+        isILLAAPiError(error) &&
+        error.data.errorFlag === ERROR_FLAG.ERROR_COLLA_UNSUBSCRIBE
+      ) {
+        collarModal?.({
+          modalType: CollarModalType.STORAGE,
+        })
+        return
+      } else if (
+        isILLAAPiError(error) &&
+        error.data.errorFlag === ERROR_FLAG.ERROR_COLLA_PAY_FAILED
+      ) {
+        payErrorModal?.({
+          modalType: CollarModalType.STORAGE,
+        })
+        return
+      }
       if (driveVolume?.plan && isSubscribeForDrawer(driveVolume?.plan)) {
-        if (quantity === 0) {
-          message.error({
-            content: t("billing.message.failed_to_unsubscrib"),
-          })
-        } else {
-          message.error({
-            content: t("billing.message.failed_to_change"),
-          })
-        }
+        message.error({
+          content: t("billing.message.failed_to_change"),
+        })
       } else {
         message.error({
           content: t("billing.message.error_subscribe"),
