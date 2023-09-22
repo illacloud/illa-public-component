@@ -1,4 +1,3 @@
-import { ERROR_FLAG, isILLAAPiError } from "@illa-public/illa-net"
 import { TextLink } from "@illa-public/text-link"
 import {
   SUBSCRIBE_PLAN,
@@ -18,12 +17,13 @@ import {
   InputNumber,
   useMessage,
 } from "@illa-design/react"
-import { usePayErrorModal } from "../../collaPop/errorModal/hook"
-import { useCollarModal } from "../../collaPop/modal/hook"
 import { CollarModalType } from "../../interface"
 import { modifySubscribe, subscribe } from "../../service"
 import { UNIT_COLLA_BY_STORAGE } from "../../service/interface"
-import { getSuccessRedirectWithParams } from "../../utils"
+import {
+  getSuccessRedirectWithParams,
+  handleCollaPurchaseError,
+} from "../../utils"
 import { LEARN_MORE_LINK } from "./constants"
 import { StorageDrawerProps } from "./interface"
 import {
@@ -47,8 +47,6 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
   const { visible, config, onCancel, afterClose } = props
   const { driveVolume, successCallBack } = config
   const { t } = useTranslation()
-  const collarModal = useCollarModal()
-  const payErrorModal = usePayErrorModal()
 
   const { width } = useWindowSize()
   const isMobile = isMobileByWindowSize(width)
@@ -108,23 +106,8 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
       }
     } catch (error) {
       // 王桃峰，手动订阅失败
-      if (
-        isILLAAPiError(error) &&
-        error.data.errorFlag === ERROR_FLAG.ERROR_COLLA_UNSUBSCRIBE
-      ) {
-        collarModal?.({
-          modalType: CollarModalType.STORAGE,
-        })
-        return
-      } else if (
-        isILLAAPiError(error) &&
-        error.data.errorFlag === ERROR_FLAG.ERROR_COLLA_PAY_FAILED
-      ) {
-        payErrorModal?.({
-          modalType: CollarModalType.STORAGE,
-        })
-        return
-      }
+      const res = handleCollaPurchaseError(error, CollarModalType.STORAGE)
+      if (res) return
       if (driveVolume?.plan && isSubscribeForDrawer(driveVolume?.plan)) {
         message.error({
           content: t("billing.message.failed_to_change"),
