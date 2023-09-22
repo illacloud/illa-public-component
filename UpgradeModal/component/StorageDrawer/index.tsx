@@ -20,10 +20,7 @@ import {
 import { CollarModalType } from "../../interface"
 import { modifySubscribe, subscribe } from "../../service"
 import { UNIT_COLLA_BY_STORAGE } from "../../service/interface"
-import {
-  getSuccessRedirectWithParams,
-  handleCollaPurchaseError,
-} from "../../utils"
+import { handleCollaPurchaseError } from "../../utils"
 import { LEARN_MORE_LINK } from "./constants"
 import { StorageDrawerProps } from "./interface"
 import {
@@ -77,10 +74,6 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
   const handleSubscribe = async () => {
     if (loading || !teamID) return
     setLoading(true)
-    const successRedirect = getSuccessRedirectWithParams({
-      returnTo: window.location.href,
-    })
-    const cancelRedirect = window.location.href
     try {
       if (driveVolume?.plan && isSubscribeForDrawer(driveVolume?.plan)) {
         await modifySubscribe(teamID, {
@@ -93,16 +86,14 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
         })
         successCallBack?.(teamID)
       } else {
-        const res = await subscribe(teamID, {
+        await subscribe(teamID, {
           plan: SUBSCRIBE_PLAN.DRIVE_VOLUME_PAID,
           quantity,
           cycle: SUBSCRIPTION_CYCLE.MONTHLY,
-          successRedirect,
-          cancelRedirect,
         })
-        if (res.data.url) {
-          window.open(res.data.url, "_self")
-        }
+        message.success({
+          content: t("billing.message.successfully_changed"),
+        })
       }
     } catch (error) {
       // 王桃峰，手动订阅失败
