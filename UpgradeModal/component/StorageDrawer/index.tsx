@@ -84,7 +84,7 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
     try {
       if (driveVolume?.plan && isSubscribeForDrawer(driveVolume?.plan)) {
         await modifySubscribe(teamID, {
-          plan: SUBSCRIBE_PLAN.DRIVE_VOLUME_PAID,
+          plan: driveVolume?.plan ?? SUBSCRIBE_PLAN.DRIVE_VOLUME_PAID,
           quantity,
           cycle: SUBSCRIPTION_CYCLE.MONTHLY,
         })

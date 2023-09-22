@@ -184,7 +184,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
         }
       } else {
         const res = await subscribe(teamID, {
-          plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
+          plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
           quantity,
           cycle,
           successRedirect,
