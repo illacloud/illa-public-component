@@ -29,8 +29,8 @@ export const subscribe = async (
     plan: SUBSCRIBE_PLAN
     quantity: number // License quantity
     cycle: SUBSCRIPTION_CYCLE
-    successRedirect: string // Success redirect URL
-    cancelRedirect: string // Cancel redirect URL
+    successRedirect?: string // Success redirect URL
+    cancelRedirect?: string // Cancel redirect URL
   },
 ) => {
   return await authCloudRequest<SubscribeResponse>(

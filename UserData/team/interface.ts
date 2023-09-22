@@ -95,6 +95,7 @@ export interface TotalTeamLicense {
 export interface CollarInfo {
   volume: number
   balance: number
+  balanceConverted: number
   quantity: number
   invoiceIssueDate: string
   cycle: SUBSCRIPTION_CYCLE

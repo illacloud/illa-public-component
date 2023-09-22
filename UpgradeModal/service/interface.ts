@@ -21,14 +21,16 @@ export enum PurchaseItem {
 export interface LicenseSubscribeInfo extends SubscribeInfo {}
 
 export interface AppSumoSubscribeInfo extends Omit<SubscribeInfo, "plan"> {
-  volume: number // volume 代表AppSumo的总额
-  balance: number // balance 代表余额
+  volume: number
+  balance: number
   plan: CUSTOM_CYCLE
 }
 
 export interface DriveSubscribeInfo extends SubscribeInfo {
-  volume: number // 存储容量, 单位为字节,
-  balance: number // 存储容量剩余, 单位为字节
+  volume: number
+  volumeConverted: number
+  balance: number
+  balanceConverted: number
 }
 
 export interface TrafficSubscribeInfo {

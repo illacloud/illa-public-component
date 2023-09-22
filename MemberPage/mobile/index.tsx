@@ -33,7 +33,6 @@ import {
   usageCardContainerStyle,
 } from "./style"
 
-
 export const MobileMemberPage: FC = () => {
   const { t } = useTranslation()
   const currentTeamInfo = useSelector(getCurrentTeamInfo)!
@@ -78,8 +77,7 @@ export const MobileMemberPage: FC = () => {
             ? 1
             : currentTeamLicense.volume,
           cycle: currentTeamLicense.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
-          plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
-          currentPlan: currentTeamLicense.plan,
+          plan: currentTeamLicense.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_FREE,
           cancelAtPeriodEnd: currentTeamLicense?.cancelAtPeriodEnd,
         },
         onSubscribeCallback: () => {
