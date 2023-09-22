@@ -5,11 +5,10 @@ import {
   getCurrentId,
   getCurrentUserID,
 } from "@illa-public/user-data"
-import { isMobileByWindowSize } from "@illa-public/utils"
-import { FC, useEffect, useMemo, useState } from "react"
+import { isMobileByWindowSize, isSubscribeForDrawer } from "@illa-public/utils"
+import { FC, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
-import { matchPath } from "react-router-dom"
 import { useWindowSize } from "react-use"
 import {
   Button,
@@ -22,14 +21,10 @@ import {
   useMessage,
   zIndex,
 } from "@illa-design/react"
-import {
-  cancelSubscribe,
-  modifySubscribe,
-  purchase,
-  subscribe,
-} from "../../service"
-import { PurchaseItem, SUBSCRIBE_UNIT_PRICE } from "../../service/interface"
-import { CONFIG_KEY, LEARN_MORE_LINK } from "./constants"
+import { cancelSubscribe, modifySubscribe, subscribe } from "../../service"
+import { LICENSE_UNIT_PRICE } from "../../service/interface"
+import { getSuccessRedirectWithParams } from "../../utils"
+import { LEARN_MORE_LINK } from "./constants"
 import { UpgradeDrawerProps } from "./interface"
 import {
   appSumoLinkStyle,
@@ -48,21 +43,10 @@ import {
   textCenterStyle,
   titleStyle,
 } from "./style"
-import {
-  getSubscriptionStatus,
-  getSuccessRedirectWithParams,
-  isSubscribe,
-  updateHash,
-} from "./utils"
+import { getSubscriptionStatus } from "./utils"
 
 export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
-  const {
-    defaultConfig = {
-      type: "license",
-    },
-    onCancel,
-    visible,
-  } = props
+  const { defaultConfig, onCancel, visible, afterClose } = props
   const { t } = useTranslation()
 
   const { width } = useWindowSize()
@@ -72,24 +56,16 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
   const userID = useSelector(getCurrentUserID)
 
   const [cycle, setCycle] = useState<SUBSCRIPTION_CYCLE>(
-    SUBSCRIPTION_CYCLE.MONTHLY,
+    defaultConfig?.subscribeInfo?.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
   )
-  const [quantity, setQuantity] = useState<number>(1)
+  const [quantity, setQuantity] = useState<number>(
+    defaultConfig?.subscribeInfo?.quantity || 1,
+  )
   const [loading, setLoading] = useState<boolean>(false)
 
-  const { title, manageLabel } = useMemo(() => {
-    return CONFIG_KEY[defaultConfig?.type ?? "license"]
-  }, [defaultConfig?.type])
-
   const unitPrice = useMemo(() => {
-    if (defaultConfig?.type === "traffic")
-      return SUBSCRIBE_UNIT_PRICE[defaultConfig?.type][
-        defaultConfig?.purchaseInfo?.item ?? PurchaseItem.DRIVE_TRAFFIC_1GB
-      ]
-    return SUBSCRIBE_UNIT_PRICE[defaultConfig?.type][
-      cycle ?? SUBSCRIPTION_CYCLE.MONTHLY
-    ]
-  }, [defaultConfig.type, defaultConfig.purchaseInfo?.item, cycle])
+    return LICENSE_UNIT_PRICE[cycle ?? SUBSCRIPTION_CYCLE.MONTHLY]
+  }, [cycle])
 
   const paymentOptions = [
     {
@@ -106,92 +82,46 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     const translateKey = {
       unitPrice: "$" + unitPrice,
       licenseNum: quantity,
-      storageNum: quantity * 5,
-      trafficNum: quantity * 5,
     }
-    switch (defaultConfig.type) {
-      case "license":
-        return cycle === SUBSCRIPTION_CYCLE.YEARLY
-          ? t(
-              "billing.payment_sidebar.price_cal.next_period_yearly",
-              translateKey,
-            )
-          : t(
-              "billing.payment_sidebar.price_cal.next_period_monthly",
-              translateKey,
-            )
-      case "storage":
-        return cycle === SUBSCRIPTION_CYCLE.YEARLY
-          ? t(
-              "billing.payment_sidebar.price_cal.next_period_yearly_remove_storage",
-              translateKey,
-            )
-          : t(
-              "billing.payment_sidebar.price_cal.next_period_monthly_remove_storage",
-              translateKey,
-            )
-      case "traffic":
-        return t(
-          "billing.payment_sidebar.price_type.payment_description_traffic",
-          translateKey,
-        )
-      default:
-        return ""
-    }
-  }, [defaultConfig.type, unitPrice, cycle, quantity, t])
+    return cycle === SUBSCRIPTION_CYCLE.YEARLY
+      ? t("billing.payment_sidebar.price_cal.next_period_yearly", translateKey)
+      : t("billing.payment_sidebar.price_cal.next_period_monthly", translateKey)
+  }, [cycle, quantity, t, unitPrice])
 
   const actionDisabled = useMemo(() => {
     const subscribeInfo = defaultConfig.subscribeInfo
-
     if (
-      !isSubscribe(subscribeInfo?.currentPlan) ||
+      !isSubscribeForDrawer(subscribeInfo?.currentPlan) ||
       subscribeInfo?.cancelAtPeriodEnd
     ) {
       return quantity === 0
     }
-
-    switch (defaultConfig.type) {
-      case "license":
-      case "storage":
-        return (
-          subscribeInfo?.quantity === quantity && subscribeInfo?.cycle === cycle
-        )
-      case "traffic":
-        return false
-      default:
-        return false
-    }
-  }, [defaultConfig.type, defaultConfig?.subscribeInfo, quantity, cycle])
+    return (
+      subscribeInfo?.quantity === quantity && subscribeInfo?.cycle === cycle
+    )
+  }, [cycle, defaultConfig.subscribeInfo, quantity])
 
   const description = useMemo(() => {
-    const { type, subscribeInfo } = defaultConfig
+    const { subscribeInfo } = defaultConfig
     const statusLabelKeys = {
       unknown: "",
       un_changed: "",
-      subscribed_cancelled: `billing.payment_sidebar.description_title.unsubscribe_${type}`,
-      subscribed_plan_decreased_with_update: `billing.payment_sidebar.description_title.update_plan_remove_${type}`,
-      subscribed_plan_increased_with_update: `billing.payment_sidebar.description_title.update_plan_increase_${type}`,
-      subscribed_quantity_decreased: `billing.payment_sidebar.description_title.remove_${type}`,
-      subscribed_quantity_increased: `billing.payment_sidebar.description_title.add_${type}`,
-      subscribed_yearly: `billing.payment_sidebar.description_title.subscribe_${type}_yearly`,
-      subscribed_monthly: `billing.payment_sidebar.description_title.subscribe_${type}_monthly`,
-      traffic_added: "billing.payment_sidebar.description_title.add_traffic",
+      subscribed_cancelled: `billing.payment_sidebar.description_title.unsubscribe_license`,
+      subscribed_plan_decreased_with_update: `billing.payment_sidebar.description_title.update_plan_remove_license`,
+      subscribed_plan_increased_with_update: `billing.payment_sidebar.description_title.update_plan_increase_license`,
+      subscribed_quantity_decreased: `billing.payment_sidebar.description_title.remove_license`,
+      subscribed_quantity_increased: `billing.payment_sidebar.description_title.add_license`,
+      subscribed_yearly: `billing.payment_sidebar.description_title.subscribe_license_yearly`,
+      subscribed_monthly: `billing.payment_sidebar.description_title.subscribe_license_monthly`,
     }
     const status = getSubscriptionStatus(defaultConfig, quantity, cycle)
-    const changeQuantity =
-      type === "traffic"
-        ? quantity
-        : Math.abs(quantity - (subscribeInfo?.quantity ?? 0))
-    const changeNum =
-      type === "traffic" || type === "storage"
-        ? changeQuantity * 5
-        : changeQuantity
+    const changeQuantity = Math.abs(quantity - (subscribeInfo?.quantity ?? 0))
+    const changeNum = changeQuantity
     return t(statusLabelKeys[status], { changeNum }) ?? ""
   }, [defaultConfig, quantity, cycle, t])
 
   const actionButtonText = useMemo(() => {
-    const { type, subscribeInfo } = defaultConfig
-    const typeKey = type === "license" ? "license" : "storage_traffic"
+    const { subscribeInfo } = defaultConfig
     const statusLabelKeys = {
       unknown: "billing.payment_sidebar.button.subscribe",
       un_changed: "billing.payment_sidebar.button.subscribe",
@@ -200,91 +130,74 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
         "billing.payment_sidebar.button.change_plan",
       subscribed_plan_increased_with_update:
         "billing.payment_sidebar.button.change_plan",
-      subscribed_quantity_decreased: `billing.payment_sidebar.button.${typeKey}_remove`,
-      subscribed_quantity_increased: `billing.payment_sidebar.button.${typeKey}_increase`,
+      subscribed_quantity_decreased: `billing.payment_sidebar.button.license_remove`,
+      subscribed_quantity_increased: `billing.payment_sidebar.button.license_increase`,
       subscribed_yearly: "billing.payment_sidebar.button.subscribe",
       subscribed_monthly: "billing.payment_sidebar.button.subscribe",
-      traffic_added: "billing.payment_sidebar.button.storage_traffic_increase",
     }
     const status = getSubscriptionStatus(defaultConfig, quantity, cycle)
-    const changeQuantity =
-      type === "traffic"
-        ? quantity
-        : Math.abs(quantity - (subscribeInfo?.quantity ?? 0))
-    const changeNum =
-      type === "traffic" || type === "storage"
-        ? changeQuantity * 5
-        : changeQuantity
+    const changeQuantity = Math.abs(quantity - (subscribeInfo?.quantity ?? 0))
+    const changeNum = changeQuantity
     return t(statusLabelKeys[status], { changeNum }) ?? ""
   }, [defaultConfig, quantity, cycle, t])
 
+  const handleNumberChange = (value?: number) => {
+    setQuantity(value ?? 0)
+  }
+
+  const handleOnClose = () => {
+    onCancel?.()
+    afterClose?.()
+  }
+
   const handleSubscribe = async () => {
-    const { type, subscribeInfo, purchaseInfo } = defaultConfig
+    const { subscribeInfo } = defaultConfig
     if (loading || !teamID) return
     setLoading(true)
-    const match = matchPath(
-      "/setting/:teamIdentifier/billing",
-      location.pathname,
-    )
     const successRedirect = getSuccessRedirectWithParams({
-      returnTo: match
-        ? updateHash(type === "license" ? "#license" : "#drive")
-        : window.location.href,
-      type,
+      returnTo: window.location.href,
       purchaseStatus: "success",
       userID,
     })
     const cancelRedirect = window.location.href
     try {
-      if (type === "traffic") {
-        const res = await purchase(teamID, {
-          item: purchaseInfo?.item ?? PurchaseItem.DRIVE_TRAFFIC_1GB,
+      if (
+        subscribeInfo?.currentPlan &&
+        isSubscribeForDrawer(subscribeInfo?.currentPlan)
+      ) {
+        if (quantity === 0) {
+          await cancelSubscribe(teamID, subscribeInfo?.currentPlan)
+          message.success({
+            content: t("billing.message.unsubscription_suc"),
+          })
+          defaultConfig?.onSubscribeCallback?.(teamID)
+        } else {
+          await modifySubscribe(teamID, {
+            plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
+            quantity,
+            cycle,
+          })
+          message.success({
+            content: t("billing.message.successfully_changed"),
+          })
+          defaultConfig?.onSubscribeCallback?.(teamID)
+        }
+      } else {
+        const res = await subscribe(teamID, {
+          plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
           quantity,
+          cycle,
           successRedirect,
           cancelRedirect,
         })
         if (res.data.url) {
           window.open(res.data.url, "_self")
         }
-      } else {
-        if (
-          subscribeInfo?.currentPlan &&
-          isSubscribe(subscribeInfo?.currentPlan)
-        ) {
-          if (quantity === 0) {
-            await cancelSubscribe(teamID, subscribeInfo?.currentPlan)
-            message.success({
-              content: t("billing.message.unsubscription_suc"),
-            })
-            defaultConfig?.onSubscribeCallback?.(teamID)
-          } else {
-            await modifySubscribe(teamID, {
-              plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
-              quantity,
-              cycle,
-            })
-            message.success({
-              content: t("billing.message.successfully_changed"),
-            })
-            defaultConfig?.onSubscribeCallback?.(teamID)
-          }
-        } else {
-          const res = await subscribe(teamID, {
-            plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
-            quantity,
-            cycle,
-            successRedirect,
-            cancelRedirect,
-          })
-          if (res.data.url) {
-            window.open(res.data.url, "_self")
-          }
-        }
       }
     } catch (error) {
       if (
         subscribeInfo?.currentPlan &&
-        isSubscribe(subscribeInfo?.currentPlan)
+        isSubscribeForDrawer(subscribeInfo?.currentPlan)
       ) {
         if (quantity === 0) {
           message.error({
@@ -302,34 +215,9 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       }
     } finally {
       setLoading(false)
-      onCancel?.()
+      handleOnClose()
     }
   }
-
-  useEffect(() => {
-    switch (defaultConfig?.type) {
-      case "license":
-      case "storage":
-        if (defaultConfig?.subscribeInfo) {
-          setCycle(
-            defaultConfig.subscribeInfo.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
-          )
-          setQuantity(defaultConfig.subscribeInfo.quantity)
-        }
-        break
-      case "traffic":
-        if (defaultConfig?.purchaseInfo) {
-          setQuantity(defaultConfig.purchaseInfo.quantity)
-        }
-        break
-      default:
-        break
-    }
-  }, [
-    defaultConfig?.subscribeInfo,
-    defaultConfig?.purchaseInfo,
-    defaultConfig?.type,
-  ])
 
   return (
     <Drawer
@@ -342,37 +230,43 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       closable={false}
       footer={false}
       autoFocus={false}
-      onCancel={onCancel}
+      onCancel={handleOnClose}
+      afterClose={afterClose}
     >
       <div css={drawerContentStyle}>
         <div>
           <div css={drawerPaddingStyle}>
-            <CloseIcon containerStyle={closeIconStyle} onClick={onCancel} />
-            <div css={titleStyle}>{t(title)}</div>
+            <CloseIcon
+              containerStyle={closeIconStyle}
+              onClick={handleOnClose}
+            />
+            <div css={titleStyle}>
+              {t("billing.payment_sidebar.title.manage_licenses")}
+            </div>
             <div css={manageContentStyle}>
-              <label>{t(manageLabel)}</label>
+              <label>{t("billing.payment_sidebar.plan_label.License")}</label>
               <div css={manageItemStyle}>
-                {defaultConfig?.type === "traffic" ? null : (
-                  <Select
-                    w="auto"
-                    colorScheme="techPurple"
-                    value={cycle}
-                    options={paymentOptions}
-                    dropdownProps={{ triggerProps: { zIndex: zIndex.drawer } }}
-                    onChange={(value) => {
-                      setCycle(value as SUBSCRIPTION_CYCLE)
-                    }}
-                  />
-                )}
+                <Select
+                  w="auto"
+                  colorScheme="techPurple"
+                  value={cycle}
+                  options={paymentOptions}
+                  dropdownProps={{ triggerProps: { zIndex: zIndex.drawer } }}
+                  onChange={(value) => {
+                    setCycle(value as SUBSCRIPTION_CYCLE)
+                  }}
+                />
+
                 <InputNumber
                   mode="button"
                   colorScheme="techPurple"
                   value={quantity}
-                  onChange={(value) => {
-                    setQuantity(value ?? 0)
-                  }}
-                  // formatter={quantityFormatter}
-                  min={0}
+                  onChange={handleNumberChange}
+                  min={
+                    isSubscribeForDrawer(defaultConfig?.subscribeInfo?.plan)
+                      ? 0
+                      : 1
+                  }
                 />
               </div>
             </div>

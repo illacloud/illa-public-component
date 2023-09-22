@@ -2,7 +2,7 @@
   "name": "@illa-public/upgrade-modal",
   "version": "0.0.0",
   "private": true,
-  "main": "index.ts",
+  "main": "index.tsx",
   "dependencies": {
     "@illa-public/icon": "workspace:*",
     "@illa-public/illa-net": "workspace:*",

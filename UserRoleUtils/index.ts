@@ -503,9 +503,7 @@ export const showShareAgentModal = (
   }
 }
 
-export const showShareAgentModalOnlyForShare = (
-  teamInfo: TeamInfo,
-) => {
+export const showShareAgentModalOnlyForShare = (teamInfo: TeamInfo) => {
   return canManageInvite(
     teamInfo.myRole,
     teamInfo.permission.allowEditorManageTeamMember,
@@ -544,4 +542,17 @@ export const openShareAgentModal = (
       )
     )
   }
+}
+
+export const canManageCollar = (
+  userRole: USER_ROLE = USER_ROLE.VIEWER,
+  teamPlan: SUBSCRIBE_PLAN = SUBSCRIBE_PLAN.TEAM_LICENSE_FREE,
+) => {
+  const manageAttribute = getAttribute(
+    userRole,
+    ATTRIBUTE_GROUP.BILLING,
+    teamPlan,
+  ).manageAttribute
+
+  return !!manageAttribute?.[ACTION_MANAGE.MANAGE_COLLAR]
 }
