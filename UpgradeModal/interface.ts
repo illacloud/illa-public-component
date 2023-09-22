@@ -1,27 +1,23 @@
-import { InsufficientNoticeModalType } from "./component/InsufficientNoticeModal/interface";
-import { UpgradeModalType } from "./component/SubscriptionReminderModal/interface";
-import { DrawerSubscribeInfo, DrawerType } from "./component/UpgradeDrawer/interface";
-import { UpgradeSuccessModalType } from "./component/UpgradeSuccessModal/interface";
-import { PurchaseItem } from "./service/interface";
+import { SUBSCRIBE_PLAN, SUBSCRIPTION_CYCLE } from "@illa-public/user-data"
+import { DrawerSubscribeInfo } from "./component/UpgradeDrawer/interface"
+import { PurchaseItem } from "./service/interface"
 
-export interface DrawerShowProps {
-  visible?: boolean;
-  id?: string
-  defaultConfig?: DrawerDefaultConfig
+export interface ModalStoreHandler<T> {
+  getModal: () => T
+  setModal: (modal: T) => void
+  subscribe: (onStoreChange: () => void) => SubListener
+  unSubscribe: (listenerId: string) => void
+  remove: () => void
+  update: (modal: T) => void
 }
 
-export interface ModalShowProps {
-  visible?: boolean;
-  id?: string
-  modalType: UpgradeSuccessModalType | UpgradeModalType | InsufficientNoticeModalType
+export interface ModalHandler<T> {
+  (modal: T): string
 }
 
-export interface DrawerHandler {
-  (drawer: DrawerShowProps): string
-}
-
-export interface ModalHandler {
-  (modal: ModalShowProps): string
+export interface ModalStore<T> {
+  listener: SubListener[]
+  modal: T | null
 }
 
 export interface SubListener {
@@ -29,38 +25,7 @@ export interface SubListener {
   onStoreChange: () => void
 }
 
-export interface DrawerStoreHandler {
-  getDrawers: () => DrawerShowProps[]
-  setDrawers: (drawers: DrawerShowProps[]) => void
-  subscribe: (onStoreChange: () => void) => SubListener
-  unSubscribe: (listenerId: string) => void
-  add: (drawer: DrawerShowProps) => void
-  remove: (drawerId: string) => void
-  update: (drawerId: string, drawer: DrawerShowProps) => void
-}
-
-export interface ModalStoreHandler {
-  getModals: () => ModalShowProps[]
-  setModals: (modals: ModalShowProps[]) => void
-  subscribe: (onStoreChange: () => void) => SubListener
-  unSubscribe: (listenerId: string) => void
-  add: (modal: ModalShowProps) => void
-  remove: (modalId: string) => void
-  update: (modalId: string, modal: ModalShowProps) => void
-}
-
-export interface DrawerStore {
-  listener: SubListener[]
-  drawers: DrawerShowProps[]
-}
-
-export interface ModalStore {
-  listener: SubListener[]
-  modals: ModalShowProps[]
-}
-
 export interface DrawerDefaultConfig {
-  type: DrawerType
   subscribeInfo?: DrawerSubscribeInfo
   purchaseInfo?: {
     item: PurchaseItem
@@ -68,4 +33,37 @@ export interface DrawerDefaultConfig {
   }
   appSumoInvoiceURL?: string
   onSubscribeCallback?: (teamID: string) => void
+}
+
+export interface DriveVolumeInfo {
+  plan: SUBSCRIBE_PLAN
+  balanceConverted: number
+  volumeConverted: number
+  quantity: number
+  cycle: SUBSCRIPTION_CYCLE
+  cancelAtPeriodEnd: boolean
+}
+
+export interface StorageDrawerConfig {
+  driveVolume?: DriveVolumeInfo
+  successCallBack?: (teamID: string) => void
+}
+
+export enum CollarModalType {
+  STORAGE = "storage",
+  TOKEN = "token",
+  TRAFFIC = "traffic",
+}
+
+export enum COLLAR_TYPE {
+  SUBSCRIBE = "subscribe",
+  ADD_COLLAR = "addCollar",
+  REMOVE_COLLAR = "removeCollar",
+  CANCEL_SUBSCRIPTION = "cancelSubscription",
+  MODIFY_SUBSCRIPTION = "modifySubscription",
+}
+
+export enum FREE_TEAM_LIMIT_TYPE {
+  CREATE = "create",
+  TRANSFER_OWNER = "transferOwner",
 }

@@ -11,16 +11,6 @@ export const INSUFFICIENT_MODAL_CONFIG_KEY = {
       "billing.modal.upgrade_not_admin.insufficient_license_description",
     buttonText: "billing.modal.upgrade_not_admin.insufficient_license_button",
   },
-  "add-storage": {
-    title: "billing.modal.storage_insufficient.not_owner_title",
-    description: "billing.modal.storage_insufficient.not_owner_description",
-    buttonText: "billing.modal.storage_insufficient.not_owner_button",
-  },
-  "add-traffic": {
-    title: "billing.modal.traffic_insufficient.not_owner_title",
-    description: "billing.modal.traffic_insufficient.not_owner_description",
-    buttonText: "billing.modal.traffic_insufficient.not_owner_button",
-  },
   agent: {
     title: "billing.modal.upgrade_now_not_admin.upgrade_title",
     description: "billing.modal.upgrade_now_not_admin.upgrade_desc",
@@ -28,4 +18,6 @@ export const INSUFFICIENT_MODAL_CONFIG_KEY = {
   },
 }
 
-export const INSUFFICIENT_MODAL_CONFIG_KEYS = Object.keys(INSUFFICIENT_MODAL_CONFIG_KEY)
+export const INSUFFICIENT_MODAL_CONFIG_KEYS = Object.keys(
+  INSUFFICIENT_MODAL_CONFIG_KEY,
+)
