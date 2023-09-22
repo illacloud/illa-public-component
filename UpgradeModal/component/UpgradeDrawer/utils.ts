@@ -18,7 +18,7 @@ export const getSubscriptionStatus = (
   const { subscribeInfo } = defaultConfig
   if (!subscribeInfo) return "unknown"
   if (
-    isSubscribeForDrawer(subscribeInfo?.currentPlan) &&
+    isSubscribeForDrawer(subscribeInfo?.plan) &&
     !subscribeInfo.cancelAtPeriodEnd
   ) {
     if (subscribeInfo.quantity === quantity && subscribeInfo.cycle === cycle) {

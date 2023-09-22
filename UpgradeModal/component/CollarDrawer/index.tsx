@@ -193,7 +193,6 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
             successRedirect,
             cancelRedirect,
           })
-          onSuccessCallback?.(currentTeamInfo.id, currentCollarType.current)
           if (res.data.url) {
             window.open(res.data.url, "_self")
           }

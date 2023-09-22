@@ -91,7 +91,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
   const actionDisabled = useMemo(() => {
     const subscribeInfo = defaultConfig.subscribeInfo
     if (
-      !isSubscribeForDrawer(subscribeInfo?.currentPlan) ||
+      !isSubscribeForDrawer(subscribeInfo?.plan) ||
       subscribeInfo?.cancelAtPeriodEnd
     ) {
       return quantity === 0
@@ -161,19 +161,16 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     })
     const cancelRedirect = window.location.href
     try {
-      if (
-        subscribeInfo?.currentPlan &&
-        isSubscribeForDrawer(subscribeInfo?.currentPlan)
-      ) {
+      if (subscribeInfo?.plan && isSubscribeForDrawer(subscribeInfo?.plan)) {
         if (quantity === 0) {
-          await cancelSubscribe(teamID, subscribeInfo?.currentPlan)
+          await cancelSubscribe(teamID, subscribeInfo?.plan)
           message.success({
             content: t("billing.message.unsubscription_suc"),
           })
           defaultConfig?.onSubscribeCallback?.(teamID)
         } else {
           await modifySubscribe(teamID, {
-            plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
+            plan: subscribeInfo?.plan ?? SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
             quantity,
             cycle,
           })
@@ -184,7 +181,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
         }
       } else {
         const res = await subscribe(teamID, {
-          plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
+          plan: SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
           quantity,
           cycle,
           successRedirect,
@@ -195,10 +192,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
         }
       }
     } catch (error) {
-      if (
-        subscribeInfo?.currentPlan &&
-        isSubscribeForDrawer(subscribeInfo?.currentPlan)
-      ) {
+      if (subscribeInfo?.plan && isSubscribeForDrawer(subscribeInfo?.plan)) {
         if (quantity === 0) {
           message.error({
             content: t("billing.message.failed_to_unsubscrib"),
