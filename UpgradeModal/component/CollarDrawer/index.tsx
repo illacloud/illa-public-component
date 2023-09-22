@@ -5,8 +5,13 @@ import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
   getCurrentTeamInfo,
+  getCurrentUserID,
 } from "@illa-public/user-data"
-import { isMobileByWindowSize, isSubscribeForDrawer } from "@illa-public/utils"
+import {
+  isMobileByWindowSize,
+  isSubscribeForDrawer,
+  sendTagEvent,
+} from "@illa-public/utils"
 import { FC, useRef, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -86,6 +91,7 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
   ]
 
   const currentTeamInfo = useSelector(getCurrentTeamInfo)
+  const userID = useSelector(getCurrentUserID)
 
   const isSubScribe = isSubscribeForDrawer(currentTeamInfo?.colla?.plan)
 
@@ -155,6 +161,8 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
 
     const successRedirect = getSuccessRedirectWithParams({
       returnTo: window.location.href,
+      purchaseStatus: "success",
+      userID,
     })
     const cancelRedirect = window.location.href
     try {
