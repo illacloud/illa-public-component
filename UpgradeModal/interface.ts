@@ -37,7 +37,8 @@ export interface DrawerDefaultConfig {
 
 export interface DriveVolumeInfo {
   plan: SUBSCRIBE_PLAN
-  balance: number
+  balanceConverted: number
+  volumeConverted: number
   quantity: number
   cycle: SUBSCRIPTION_CYCLE
   cancelAtPeriodEnd: boolean
