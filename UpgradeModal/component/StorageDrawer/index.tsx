@@ -99,7 +99,6 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
       }
       successCallBack?.(teamID)
     } catch (error) {
-      // 王桃峰，手动订阅失败
       const res = handleCollaPurchaseError(error, CollarModalType.STORAGE)
       if (res) return
       if (driveVolume?.plan && isSubscribeForDrawer(driveVolume?.plan)) {

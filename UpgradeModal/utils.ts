@@ -1,5 +1,5 @@
 import { ERROR_FLAG, isILLAAPiError } from "@illa-public/illa-net"
-import { createCollarModal, createPayErrorModal } from "./hook"
+import { createPayErrorModal } from "./hook"
 import { CollarModalType } from "./interface"
 
 export function getSuccessRedirectWithParams(
@@ -20,19 +20,15 @@ export const handleCollaPurchaseError = (
   e: unknown,
   modalType: CollarModalType,
 ) => {
-  const collarModal = createCollarModal()
   const payErrorModal = createPayErrorModal()
   if (
     isILLAAPiError(e) &&
-    e.data.errorFlag === ERROR_FLAG.ERROR_COLLA_UNSUBSCRIBE
-  ) {
-    collarModal?.({
-      modalType,
-    })
-    return true
-  } else if (
-    isILLAAPiError(e) &&
-    e.data.errorFlag === ERROR_FLAG.ERROR_COLLA_PAY_FAILED
+    (e.data.errorFlag === ERROR_FLAG.ERROR_FLAG_INSUFFICIENT_COLLA ||
+      e.data.errorFlag === ERROR_FLAG.ERROR_FLAG_INSUFFICIENT_DRIVE_VOLUME ||
+      e.data.errorFlag ===
+        ERROR_FLAG.ERROR_FLAG_INSUFFICIENT_AI_TOKEN_GENERAL ||
+      e.data.errorFlag === ERROR_FLAG.ERROR_FLAG_AUTO_CHARGE_COLLA_FAILED ||
+      e.data.errorFlag === ERROR_FLAG.ERROR_FLAG_INSUFFICIENT_DRIVE_TRAFFIC)
   ) {
     payErrorModal?.({
       modalType,
