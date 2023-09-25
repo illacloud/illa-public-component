@@ -84,7 +84,6 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
         message.success({
           content: t("billing.message.successfully_changed"),
         })
-        successCallBack?.(teamID)
       } else {
         await subscribe(teamID, {
           plan: SUBSCRIBE_PLAN.DRIVE_VOLUME_PAID,
@@ -95,6 +94,7 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
           content: t("billing.message.successfully_changed"),
         })
       }
+      successCallBack?.(teamID)
     } catch (error) {
       // 王桃峰，手动订阅失败
       const res = handleCollaPurchaseError(error, CollarModalType.STORAGE)
