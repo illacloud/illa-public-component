@@ -38,17 +38,20 @@ import {
   subTotalStyle,
   titleStyle,
 } from "./style"
-import { formatCeilNum, geButtonText, getDescText } from "./utils"
+import { geButtonText, getDescText } from "./utils"
 
 export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
   const { visible, config, onCancel, afterClose } = props
   const { driveVolume, successCallBack } = config
+  const { volumeConverted = 0, balanceConverted = 0 } = driveVolume || {}
+
   const { t } = useTranslation()
 
   const { width } = useWindowSize()
   const isMobile = isMobileByWindowSize(width)
   const message = useMessage()
   const teamID = useSelector(getCurrentId)
+  const used = Math.ceil(volumeConverted - balanceConverted)
 
   const [quantity, setQuantity] = useState<number>(driveVolume?.quantity || 1)
   const [loading, setLoading] = useState<boolean>(false)
@@ -115,7 +118,7 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
   }
 
   const handleNumberChange = (value?: number) => {
-    if (quantity < formatCeilNum(driveVolume?.balance)) return
+    if (quantity < used) return
     setQuantity(value ?? 0)
   }
 
@@ -148,7 +151,7 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
                   colorScheme="techPurple"
                   value={quantity}
                   onChange={handleNumberChange}
-                  min={formatCeilNum(driveVolume?.balance || 0)}
+                  min={used || 1}
                 />
               </div>
             </div>
