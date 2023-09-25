@@ -88,7 +88,6 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
 
   const isSubScribe = isSubscribeForDrawer(currentTeamInfo?.colla?.plan)
 
-  // 未订阅的话是不是0
   const teamQuantity = isSubScribe ? currentTeamInfo?.colla?.quantity ?? 0 : 0
   const [currentQuantity, setCurrentQuantity] = useState<number>(
     teamQuantity + 1,
