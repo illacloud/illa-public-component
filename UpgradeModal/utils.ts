@@ -1,4 +1,4 @@
-import { ERROR_FLAG, ILLAApiError, isILLAAPiError } from "@illa-public/illa-net"
+import { ERROR_FLAG, isILLAAPiError } from "@illa-public/illa-net"
 import { createCollarModal, createPayErrorModal } from "./hook"
 import { CollarModalType } from "./interface"
 
