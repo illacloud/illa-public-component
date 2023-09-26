@@ -4,7 +4,11 @@ import { COLLAR_BUTTON_TEXT, COLLAR_MORE_TEXT } from "./constants"
 export const getCurrentCollarType = (
   teamSubscribeNum: number,
   currentSubscribeNum: number,
+  isCanceled?: boolean,
 ) => {
+  if (isCanceled) {
+    return COLLAR_TYPE.MODIFY_SUBSCRIPTION
+  }
   if (teamSubscribeNum === 0) {
     return COLLAR_TYPE.SUBSCRIBE
   } else {
