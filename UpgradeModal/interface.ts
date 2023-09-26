@@ -60,4 +60,5 @@ export enum COLLAR_TYPE {
   ADD_COLLAR = "addCollar",
   REMOVE_COLLAR = "removeCollar",
   CANCEL_SUBSCRIPTION = "cancelSubscription",
+  MODIFY_SUBSCRIPTION = "modifySubscription",
 }

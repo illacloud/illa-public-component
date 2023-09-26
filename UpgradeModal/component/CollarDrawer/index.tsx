@@ -1,17 +1,11 @@
-/* eslint-disable unused-imports/no-unused-imports */
 import { TextLink } from "@illa-public/text-link"
 import {
-  CollarInfo,
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
   getCurrentTeamInfo,
   getCurrentUserID,
 } from "@illa-public/user-data"
-import {
-  isMobileByWindowSize,
-  isSubscribeForDrawer,
-  sendTagEvent,
-} from "@illa-public/utils"
+import { isMobileByWindowSize, isSubscribeForDrawer } from "@illa-public/utils"
 import { FC, useRef, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -87,6 +81,8 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
   const userID = useSelector(getCurrentUserID)
 
   const isSubScribe = isSubscribeForDrawer(currentTeamInfo?.colla?.plan)
+  const isCancelSubscribe =
+    currentTeamInfo?.colla?.plan === SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_CANCELED
 
   const teamQuantity = isSubScribe ? currentTeamInfo?.colla?.quantity ?? 0 : 0
   const [currentQuantity, setCurrentQuantity] = useState<number>(
@@ -99,7 +95,7 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
   )
 
   const currentCollarType = useRef<COLLAR_TYPE>(
-    getCurrentCollarType(teamQuantity, currentQuantity),
+    getCurrentCollarType(teamQuantity, currentQuantity, isCancelSubscribe),
   )
 
   const disabledSubscribe =
@@ -167,6 +163,17 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
           onSuccessCallback?.(currentTeamInfo.id, currentCollarType.current)
           message.success({
             content: t("billing.message.unsubscription_suc"),
+          })
+          break
+        case COLLAR_TYPE.MODIFY_SUBSCRIPTION:
+          await modifySubscribe(currentTeamInfo.id, {
+            plan: SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_PAID,
+            quantity: currentQuantity,
+            cycle,
+          })
+          onSuccessCallback?.(currentTeamInfo.id, currentCollarType.current)
+          message.success({
+            content: t("billing.message.successfully_changed"),
           })
           break
         case COLLAR_TYPE.ADD_COLLAR:
