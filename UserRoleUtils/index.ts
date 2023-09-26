@@ -147,6 +147,7 @@ export const getAttribute = (
     }
   }
   switch (teamPlan) {
+    case SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM:
     case SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS: {
       return {
         accessAttribute:
@@ -274,7 +275,8 @@ export const canManage = (
 export const isSubscribeLicense = (subscribePlan?: SUBSCRIBE_PLAN) => {
   return (
     subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS ||
-    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE ||
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM
   )
 }
 
