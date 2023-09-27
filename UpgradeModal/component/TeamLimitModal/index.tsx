@@ -1,10 +1,8 @@
-import { UpgradeIcon } from "@illa-public/icon"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Modal } from "@illa-design/react"
-import { useCollarDrawer } from "../../hook"
-import { CollarModalType } from "../../interface"
-import { PAY_ERROR_TEXT } from "./constants"
+import { FREE_TEAM_LIMIT_TYPE } from "../../interface"
+import { MODAL_TEXT } from "./constants"
 import {
   descStyle,
   modalMaskStyle,
@@ -14,26 +12,21 @@ import {
   upgradeButtonStyle,
 } from "./style"
 
-interface PayErrorModalProps {
-  modalType: CollarModalType
+interface TeamLimitModalProps {
+  modalType: FREE_TEAM_LIMIT_TYPE
   visible?: boolean
   onCancel?: () => void
   afterClose?: () => void
 }
 
-export const PayErrorModal: FC<PayErrorModalProps> = ({
+export const TeamLimitModal: FC<TeamLimitModalProps> = ({
   visible,
-  modalType = CollarModalType.TOKEN,
+  modalType,
   onCancel,
   afterClose,
 }) => {
-  const openCollaDrawer = useCollarDrawer()
-
-  const handleClick = () => {
-    onCancel?.()
-    openCollaDrawer()
-  }
   const { t } = useTranslation()
+  const { title, desc, buttonText } = MODAL_TEXT[modalType]
   return (
     <Modal
       z={2000}
@@ -47,17 +40,14 @@ export const PayErrorModal: FC<PayErrorModalProps> = ({
       maskClosable
     >
       <div css={parErrorContainerStyle}>
-        <span css={titleStyle}>
-          {t("billing.modal.colla_insufficient_modal.failed.title")}
-        </span>
-        <span css={descStyle}>{t(PAY_ERROR_TEXT[modalType])}</span>
+        <span css={titleStyle}>{t(title)}</span>
+        <span css={descStyle}>{t(desc)}</span>
         <Button
           css={upgradeButtonStyle}
-          leftIcon={<UpgradeIcon />}
           colorScheme="techPurple"
-          onClick={handleClick}
+          onClick={() => onCancel?.()}
         >
-          {t("billing.modal.colla_insufficient_modal.failed.button")}
+          {t(buttonText)}
         </Button>
       </div>
     </Modal>

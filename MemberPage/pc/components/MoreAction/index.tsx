@@ -3,6 +3,10 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
+import {
+  FREE_TEAM_LIMIT_TYPE,
+  handleFreeTeamLimitError,
+} from "@illa-public/upgrade-modal"
 import { USER_ROLE, USER_STATUS, teamActions } from "@illa-public/user-data"
 import { isSmallThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, useCallback, useContext, useEffect, useMemo } from "react"
@@ -132,6 +136,11 @@ export const MoreAction: FC<MoreActionProps> = (props) => {
             content: t("user_management.mes.transfer_suc"),
           })
         } catch (e) {
+          const res = handleFreeTeamLimitError(
+            e,
+            FREE_TEAM_LIMIT_TYPE.TRANSFER_OWNER,
+          )
+          if (res) return
           message.error({
             content: t("user_management.mes.transfer_fail"),
           })

@@ -62,3 +62,8 @@ export enum COLLAR_TYPE {
   CANCEL_SUBSCRIPTION = "cancelSubscription",
   MODIFY_SUBSCRIPTION = "modifySubscription",
 }
+
+export enum FREE_TEAM_LIMIT_TYPE {
+  CREATE = "create",
+  TRANSFER_OWNER = "transferOwner",
+}

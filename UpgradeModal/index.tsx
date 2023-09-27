@@ -1,8 +1,8 @@
 import { UpgradeCollarDrawer } from "./collaPop/drawer"
-import { PayErrorModalPop } from "./collaPop/errorModal"
 import { UpgradeCollarModal } from "./collaPop/modal"
 import { UpgradeLicenseDrawer } from "./licensePop/drawer"
 import { UpgradeLicenseModal } from "./licensePop/modal"
+import { TeamLimitPop } from "./licensePop/teamLimit"
 import { StoragePop } from "./storagePop/index"
 
 export const UpgradeModalGroup = () => {
@@ -12,7 +12,7 @@ export const UpgradeModalGroup = () => {
       <UpgradeLicenseDrawer />
       <UpgradeCollarDrawer />
       <UpgradeCollarModal />
-      <PayErrorModalPop />
+      <TeamLimitPop />
       <StoragePop />
     </>
   )
@@ -20,4 +20,4 @@ export const UpgradeModalGroup = () => {
 export * from "./hook"
 export * from "./service/interface"
 export * from "./interface"
-export { handleCollaPurchaseError } from "./utils"
+export { handleCollaPurchaseError, handleFreeTeamLimitError } from "./utils"
