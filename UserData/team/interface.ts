@@ -102,10 +102,8 @@ export interface CollarInfo {
   totalAmount: number
   plan: SUBSCRIBE_PLAN
   cancelAtPeriodEnd: boolean
-}
-
-export interface CollarBonusInfo {
-  volume: number
+  bonus: number
+  bonusConverted: number
 }
 
 export interface TeamInfo {
@@ -123,7 +121,6 @@ export interface TeamInfo {
   permission: TeamMemberPermission
   teamMemberPermission: TeamMemberPermissionConfig
   colla: CollarInfo
-  collaBonus: CollarBonusInfo
 }
 
 export interface Team {

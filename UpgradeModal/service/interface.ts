@@ -1,5 +1,4 @@
 import {
-  CollarBonusInfo,
   CollarInfo,
   SUBSCRIPTION_CYCLE,
   SubscribeInfo,
@@ -34,7 +33,7 @@ export interface DriveSubscribeInfo extends SubscribeInfo {
 }
 
 export interface TrafficSubscribeInfo {
-  balance: number // 存储流量剩余, 单位为字节
+  balance: number
 }
 
 export interface TeamSubscription {
@@ -50,7 +49,6 @@ export interface TeamSubscription {
   colla: {
     current: CollarInfo
   }
-  collaBonus: CollarBonusInfo
 }
 
 export interface PortalURLResponse {
