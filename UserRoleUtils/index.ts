@@ -147,8 +147,9 @@ export const getAttribute = (
     }
   }
   switch (teamPlan) {
+    case SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS:
     case SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM:
-    case SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS: {
+    case SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE: {
       return {
         accessAttribute:
           AttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[userRole]?.[
