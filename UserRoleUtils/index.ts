@@ -147,7 +147,9 @@ export const getAttribute = (
     }
   }
   switch (teamPlan) {
-    case SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS: {
+    case SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS:
+    case SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM:
+    case SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE: {
       return {
         accessAttribute:
           AttributeConfigList?.[ATTRIBUTE_CATEGORY.ACCESS]?.[userRole]?.[
@@ -274,7 +276,8 @@ export const canManage = (
 export const isSubscribeLicense = (subscribePlan?: SUBSCRIBE_PLAN) => {
   return (
     subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS ||
-    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE ||
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM
   )
 }
 
@@ -503,9 +506,7 @@ export const showShareAgentModal = (
   }
 }
 
-export const showShareAgentModalOnlyForShare = (
-  teamInfo: TeamInfo,
-) => {
+export const showShareAgentModalOnlyForShare = (teamInfo: TeamInfo) => {
   return canManageInvite(
     teamInfo.myRole,
     teamInfo.permission.allowEditorManageTeamMember,
@@ -544,4 +545,17 @@ export const openShareAgentModal = (
       )
     )
   }
+}
+
+export const canManageCollar = (
+  userRole: USER_ROLE = USER_ROLE.VIEWER,
+  teamPlan: SUBSCRIBE_PLAN = SUBSCRIBE_PLAN.TEAM_LICENSE_FREE,
+) => {
+  const manageAttribute = getAttribute(
+    userRole,
+    ATTRIBUTE_GROUP.BILLING,
+    teamPlan,
+  ).manageAttribute
+
+  return !!manageAttribute?.[ACTION_MANAGE.MANAGE_COLLAR]
 }

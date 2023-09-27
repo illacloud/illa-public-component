@@ -49,10 +49,10 @@ export const getPlanUtils = (teamInfo?: TeamInfo) => {
   }
   if (
     currentTeamLicense.plan === SUBSCRIBE_PLAN.TEAM_LICENSE_FREE &&
-    (appSumoTeamLicense.plan === SUBSCRIBE_PLAN.TEAM_LICENSE_APPSUMO_TIER_1 ||
-      appSumoTeamLicense.plan === SUBSCRIBE_PLAN.TEAM_LICENSE_APPSUMO_TIER_2 ||
-      appSumoTeamLicense.plan === SUBSCRIBE_PLAN.TEAM_LICENSE_APPSUMO_TIER_3 ||
-      appSumoTeamLicense.plan === SUBSCRIBE_PLAN.TEAM_LICENSE_APPSUMO_TIER_4)
+    (appSumoTeamLicense?.plan === SUBSCRIBE_PLAN.TEAM_LICENSE_APPSUMO_TIER_1 ||
+      appSumoTeamLicense?.plan === SUBSCRIBE_PLAN.TEAM_LICENSE_APPSUMO_TIER_2 ||
+      appSumoTeamLicense?.plan === SUBSCRIBE_PLAN.TEAM_LICENSE_APPSUMO_TIER_3 ||
+      appSumoTeamLicense?.plan === SUBSCRIBE_PLAN.TEAM_LICENSE_APPSUMO_TIER_4)
   ) {
     return SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS
   }
