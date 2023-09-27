@@ -28,6 +28,33 @@ export const usageProgressStyle = css`
   margin: 24px 0 8px;
 `
 
+export const progressDetailStyle = css`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`
+
+export const usedStyle = css`
+  display: flex;
+  width: 20px;
+  height: 20px;
+  padding: 0px 5px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background: ${getColor("grayBlue", "09")};
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: center;
+`
+
+export const totalStyle = css`
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 20px;
+`
+
 export const currentTextStyle = css`
   padding: 0 5px;
   background: ${getColor("grayBlue", "09")};

@@ -1,4 +1,5 @@
 import {
+  CollarInfo,
   SUBSCRIPTION_CYCLE,
   SubscribeInfo,
   TotalTeamLicense,
@@ -12,13 +13,6 @@ export enum REDIRECT_PAGE_TYPE {
   RELEASE = "release",
 }
 
-export enum CAPACITY_TYPE {
-  LICENSE = 1, // 团队坐席
-  DRIVE_VOLUME, // drive 容量
-  DRIVE_TRAFFIC, // drive 流量
-  POSTGRES_DATABASE_RECORD_VOLUME, // 数据库条目总数
-}
-
 export enum PurchaseItem {
   DRIVE_TRAFFIC_1GB = 1,
 }
@@ -26,18 +20,20 @@ export enum PurchaseItem {
 export interface LicenseSubscribeInfo extends SubscribeInfo {}
 
 export interface AppSumoSubscribeInfo extends Omit<SubscribeInfo, "plan"> {
-  volume: number // volume 代表AppSumo的总额
-  balance: number // balance 代表余额
+  volume: number
+  balance: number
   plan: CUSTOM_CYCLE
 }
 
 export interface DriveSubscribeInfo extends SubscribeInfo {
-  volume: number // 存储容量, 单位为字节,
-  balance: number // 存储容量剩余, 单位为字节
+  volume: number
+  volumeConverted: number
+  balance: number
+  balanceConverted: number
 }
 
 export interface TrafficSubscribeInfo {
-  balance: number // 存储流量剩余, 单位为字节
+  balance: number
 }
 
 export interface TeamSubscription {
@@ -50,6 +46,9 @@ export interface TeamSubscription {
     current: DriveSubscribeInfo
   }
   driveTraffic: TrafficSubscribeInfo
+  colla: {
+    current: CollarInfo
+  }
 }
 
 export interface PortalURLResponse {
@@ -60,18 +59,34 @@ export interface SubscribeResponse {
   url: string
 }
 
-export const SUBSCRIBE_UNIT_PRICE = {
-  license: {
-    [SUBSCRIPTION_CYCLE.FREE]: 0,
-    [SUBSCRIPTION_CYCLE.MONTHLY]: 20,
-    [SUBSCRIPTION_CYCLE.YEARLY]: 200,
-  },
-  storage: {
-    [SUBSCRIPTION_CYCLE.FREE]: 0,
-    [SUBSCRIPTION_CYCLE.MONTHLY]: 10,
-    [SUBSCRIPTION_CYCLE.YEARLY]: 100,
-  },
-  traffic: {
-    [PurchaseItem.DRIVE_TRAFFIC_1GB]: 10,
-  },
+export interface CollaUsageInfoResponse {
+  driveVolumeUsage: number
+  driveVolumeUsagePercent: number
+  driveTrafficUsage: number
+  driveTrafficUsagePercent: number
+  aiTokenGeneralUsage: number
+  aiTokenGeneralUsagePercent: number
+  totalCollaUsage: number
 }
+
+export const LICENSE_UNIT_PRICE = {
+  [SUBSCRIPTION_CYCLE.FREE]: 0,
+  [SUBSCRIPTION_CYCLE.MONTHLY]: 20,
+  [SUBSCRIPTION_CYCLE.YEARLY]: 200,
+  [SUBSCRIPTION_CYCLE.LIFETIME]: -1,
+}
+export const COLLAR_UNIT_PRICE = {
+  [SUBSCRIPTION_CYCLE.FREE]: 0,
+  [SUBSCRIPTION_CYCLE.MONTHLY]: 10,
+  [SUBSCRIPTION_CYCLE.YEARLY]: 100,
+  [SUBSCRIPTION_CYCLE.LIFETIME]: -1,
+}
+
+export const COLLAR_UNIT_BY_CYCLE = {
+  [SUBSCRIPTION_CYCLE.FREE]: 0,
+  [SUBSCRIPTION_CYCLE.MONTHLY]: 5, // unit collar by month
+  [SUBSCRIPTION_CYCLE.YEARLY]: 60, // unit collar by year
+  [SUBSCRIPTION_CYCLE.LIFETIME]: -1,
+}
+
+export const UNIT_COLLA_BY_STORAGE = 1 // 1GB storage = 1k colla
