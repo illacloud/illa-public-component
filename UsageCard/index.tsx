@@ -20,9 +20,12 @@ import {
   mobileTitleLineStyle,
   mobileUsageCardStyle,
   mobileUsageProgressStyle,
+  progressDetailStyle,
   titleLineStyle,
+  totalStyle,
   usageCardStyle,
   usageProgressStyle,
+  usedStyle,
 } from "./style"
 
 interface UsageCardProps extends HTMLAttributes<HTMLDivElement> {
@@ -89,6 +92,9 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
         firstLineStyle: mobileTitleLineStyle,
         iconTypeStyle: mobileIconStyle,
         progressStyle: mobileUsageProgressStyle,
+        processDetailStyle: progressDetailStyle,
+        usedStyle: usedStyle,
+        totalStyle: totalStyle,
         lastActionsStyle: mobileLastLineStyle,
         buttonStyle: mobileActionButtonStyle,
       }
@@ -97,6 +103,9 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
       firstLineStyle: titleLineStyle,
       iconTypeStyle: iconStyle,
       progressStyle: usageProgressStyle,
+      processDetailStyle: progressDetailStyle,
+      usedStyle: usedStyle,
+      totalStyle: totalStyle,
       lastActionsStyle: lastLineStyle,
       buttonStyle: actionButtonStyle,
     }
@@ -118,11 +127,13 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
         showText={false}
       />
       {type === "License" ? (
-        <div>
-          {t("billing.subscription_card.capacity.License", {
-            total: total,
-            used: current,
-          })}
+        <div css={progressDetailStyle}>
+          <span css={usedStyle}>{current}</span>
+          <span css={totalStyle}>
+            {t("billing.subscription_card.capacity.License", {
+              total: total,
+            })}
+          </span>
         </div>
       ) : null}
       <div css={lastActionsStyle}>
