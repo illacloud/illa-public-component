@@ -1,6 +1,6 @@
 import { ERROR_FLAG, isILLAAPiError } from "@illa-public/illa-net"
-import { createCollarModal } from "./hook"
-import { CollarModalType } from "./interface"
+import { createCollarModal, createTeamLimitModal } from "./hook"
+import { CollarModalType, FREE_TEAM_LIMIT_TYPE } from "./interface"
 
 export function getSuccessRedirectWithParams(
   params: Record<string, string>,
@@ -34,6 +34,23 @@ export const handleCollaPurchaseError = (
       e.data.errorFlag === ERROR_FLAG.ERROR_FLAG_OUT_OF_USAGE_VOLUME)
   ) {
     collaModal?.({
+      modalType,
+    })
+    return true
+  }
+  return false
+}
+
+export const handleFreeTeamLimitError = (
+  e: unknown,
+  modalType: FREE_TEAM_LIMIT_TYPE,
+) => {
+  const limitTeamModal = createTeamLimitModal()
+  if (
+    isILLAAPiError(e) &&
+    e.data.errorFlag === ERROR_FLAG.ERROR_FLAG_OVER_MAX_FREE_TEAM_LIMIT
+  ) {
+    limitTeamModal?.({
       modalType,
     })
     return true

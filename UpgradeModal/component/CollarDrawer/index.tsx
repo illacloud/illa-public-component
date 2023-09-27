@@ -143,6 +143,9 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
     onCancel?.()
   }
 
+  const hiddenCalculator = currentQuantity === 0 || changeNum === 0
+  currentCollarType.current !== COLLAR_TYPE.CANCEL_SUBSCRIPTION
+
   const handleSubscribe = async () => {
     if (loading || !currentTeamInfo || !currentTeamInfo?.id) return
     setLoading(true)
@@ -313,10 +316,12 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
               {t(btnText, { changeNum: `${changeNum * unitCollaByCycle}k` })}
             </Button>
           </div>
-          <Calculator
-            changeNum={changeNum}
-            unitCollaByCycle={unitCollaByCycle}
-          />
+          {!hiddenCalculator && (
+            <Calculator
+              changeNum={changeNum}
+              unitCollaByCycle={unitCollaByCycle}
+            />
+          )}
         </div>
         <div css={descriptionStyle}>
           <Trans
