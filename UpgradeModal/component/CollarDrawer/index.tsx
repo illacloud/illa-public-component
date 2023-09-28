@@ -115,6 +115,9 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
   const unitCollaByCycle =
     COLLAR_UNIT_BY_CYCLE[cycle ?? SUBSCRIPTION_CYCLE.MONTHLY]
 
+  const calculatorNum =
+    currentTeamInfo?.colla?.cycle === cycle ? changeNum : currentQuantity
+
   const handleNumChange = (value?: number) => {
     setCurrentQuantity(value ?? 1)
     if (currentTeamInfo?.colla?.cycle !== cycle && isSubScribe) {
@@ -143,7 +146,11 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
     onCancel?.()
   }
 
-  const hiddenCalculator = currentQuantity === 0 || changeNum === 0
+  const hiddenCalculator =
+    currentQuantity === 0 ||
+    // not modify cycle
+    (changeNum === 0 && currentTeamInfo?.colla?.cycle === cycle)
+  // not cancel subscribe
   currentCollarType.current !== COLLAR_TYPE.CANCEL_SUBSCRIPTION
 
   const handleSubscribe = async () => {
@@ -318,7 +325,7 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
           </div>
           {!hiddenCalculator && (
             <Calculator
-              changeNum={changeNum}
+              changeNum={calculatorNum}
               unitCollaByCycle={unitCollaByCycle}
             />
           )}
