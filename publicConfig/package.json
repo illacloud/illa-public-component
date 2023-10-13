@@ -1,0 +1,15 @@
+{
+  "name": "@illa-public/public-configs",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "dependencies": {
+    "@illa-public/public-types": "workspace:*",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.14.4",
+    "@types/uuid": "^9.0.5",
+    "tsconfig": "workspace:*"
+  }
+}
