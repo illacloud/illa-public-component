@@ -21,7 +21,7 @@ import {
   useMessage,
   zIndex,
 } from "@illa-design/react"
-import { COLLAR_TYPE } from "../../interface"
+import { COLLAR_TYPE, PURCHASE_TYPE } from "../../interface"
 import { cancelSubscribe, modifySubscribe, subscribe } from "../../service"
 import {
   COLLAR_UNIT_BY_CYCLE,
@@ -160,6 +160,7 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
     const successRedirect = getSuccessRedirectWithParams({
       returnTo: window.location.href,
       purchaseStatus: "success",
+      purchaseType: PURCHASE_TYPE.COLLA,
       userID,
     })
     const cancelRedirect = window.location.href
