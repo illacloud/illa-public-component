@@ -21,6 +21,7 @@ import {
   useMessage,
   zIndex,
 } from "@illa-design/react"
+import { PURCHASE_TYPE } from "../../interface"
 import { cancelSubscribe, modifySubscribe, subscribe } from "../../service"
 import { LICENSE_UNIT_PRICE } from "../../service/interface"
 import { getSuccessRedirectWithParams } from "../../utils"
@@ -157,6 +158,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     const successRedirect = getSuccessRedirectWithParams({
       returnTo: window.location.href,
       purchaseStatus: "success",
+      purchaseType: PURCHASE_TYPE.LICENSE,
       userID,
     })
     const cancelRedirect = window.location.href

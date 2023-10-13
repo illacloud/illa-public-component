@@ -67,3 +67,8 @@ export enum FREE_TEAM_LIMIT_TYPE {
   CREATE = "create",
   TRANSFER_OWNER = "transferOwner",
 }
+
+export enum PURCHASE_TYPE {
+  COLLA = "colla",
+  LICENSE = "license",
+}
