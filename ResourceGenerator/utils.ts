@@ -1,4 +1,6 @@
-export function getResourceNameFromResourceType(resourceType: string): string {
+export function getResourceNameFromResourceType(
+  resourceType: string | null,
+): string {
   switch (resourceType) {
     case "supabasedb":
       return "Supabase DB"
