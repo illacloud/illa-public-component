@@ -56,6 +56,7 @@ export const ResourceCard: FC<CardProps> = (props) => {
             leftIcon={<PenIcon />}
             colorScheme="grayBlue"
             className="editActionButton"
+            onClick={handleEditResource}
           >
             Edit
           </Button>
