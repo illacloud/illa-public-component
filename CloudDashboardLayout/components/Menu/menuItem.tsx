@@ -17,6 +17,7 @@ export const MenuItem: FC<MenuItemProps> = (props) => {
     inStation,
     icon,
     isSelected = false,
+    customRender,
     onClickCallback,
   } = props
 
@@ -26,7 +27,9 @@ export const MenuItem: FC<MenuItemProps> = (props) => {
 
   return (
     <div key={labelKey} css={menuItemContainerStyle(isSelected)}>
-      {href ? (
+      {customRender ? (
+        customRender(props)
+      ) : href ? (
         <Link
           css={menuItemLinkStyle}
           to={href}

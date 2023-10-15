@@ -41,10 +41,12 @@ export const ResourceCard: FC<CardProps> = (props) => {
           <Suspense>{getIconFromResourceType(resourceType, "24px")}</Suspense>
           <h6 css={resourceNameStyle}>{resourceName}</h6>
         </div>
-        <ResourceMoreAction
-          onEditResource={handleEditResource}
-          onDeleteResource={handleDeleteResource}
-        />
+        {!isMobile && (
+          <ResourceMoreAction
+            onEditResource={handleEditResource}
+            onDeleteResource={handleDeleteResource}
+          />
+        )}
       </header>
       <p css={dbNameStyle(!!dbName)}>{dbName ?? "Null"}</p>
       <footer css={footerContainerStyle}>

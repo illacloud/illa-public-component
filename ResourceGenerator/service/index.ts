@@ -1,4 +1,5 @@
 import { actionRequest } from "@illa-public/illa-net"
+import { notNeedAuthRequest } from "@illa-public/illa-net"
 import { ResourceContent, ResourceType } from "@illa-public/public-types"
 
 interface IActionTestConnectionRequestData {
@@ -18,4 +19,15 @@ export const fetchActionTestConnection = (
       teamID,
     },
   )
+}
+
+interface IWhiteListIPResponse {
+  resources: string[]
+}
+
+export const fetchWhiteListIP = async () => {
+  return await notNeedAuthRequest<IWhiteListIPResponse>({
+    url: "https://peripheral-api.illasoft.com/v1/meta",
+    method: "GET",
+  })
 }

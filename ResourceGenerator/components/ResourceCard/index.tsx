@@ -1,5 +1,5 @@
 import { getIconFromResourceType } from "@illa-public/icon"
-import { FC, Suspense } from "react"
+import { FC } from "react"
 import {
   getResourceNameFromResourceType,
   getResourceSubTitleFromResourceType,
@@ -24,7 +24,7 @@ export const ResourceCard: FC<ResourceCardSelectorProps> = (props) => {
         onSelect?.(resourceType)
       }}
     >
-      <Suspense>{getIconFromResourceType(resourceType, "24px")}</Suspense>
+      {getIconFromResourceType(resourceType, "24px")}
       <div css={titleContainerStyle}>
         <div css={nameStyle}>
           {getResourceNameFromResourceType(resourceType)}

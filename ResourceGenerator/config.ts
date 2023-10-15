@@ -1,11 +1,6 @@
 import { ResourceType } from "@illa-public/public-types"
 import { getI18n } from "react-i18next"
 
-export interface ResourceDataItem {
-  resourceType: ResourceType
-  isDraft: boolean
-}
-
 export const Databases: ResourceType[] = [
   "postgresql",
   "mysql",
