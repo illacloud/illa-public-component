@@ -1,5 +1,5 @@
 export interface ResourceMoreActionProps {
   resourceID: string
-  onEditResource: () => void
-  onDeleteResource: () => void
+  onEditResource: (resourceID: string) => void
+  onDeleteResource: (resourceID: string) => Promise<unknown>
 }

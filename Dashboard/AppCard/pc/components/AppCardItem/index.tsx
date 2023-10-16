@@ -67,7 +67,6 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
   const upgradeModal = useUpgradeModal()
   const [shareVisible, setShareVisible] = useState(false)
   const [appSettingVisible, setAppSettingVisible] = useState(false)
-  const [duplicateLoading, setDuplicateLoading] = useState(false)
 
   const showInvite = canManageInvite(
     teamInfo.myRole,
@@ -91,34 +90,11 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
       },
       "both",
     )
-    if (duplicateLoading) return
-    setDuplicateLoading(true)
-    copyApp(appID)
-    // duplicateApp(appID, teamInfo.id, appName)
-    //   .then(
-    //     (response) => {
-    //       // dispatch(
-    //       //   dashboardAppActions.addDashboardAppReducer({
-    //       //     app: response.data,
-    //       //   }),
-    //       // )
-    //       navigate(`/${teamIdentifier}/app/${response.data.appId}`)
-    //     },
-    //     (failure) => {
-    //       if (isILLAAPiError(failure)) {
-    //         message.error({
-    //           content: t("dashboard.app.duplicate_fail"),
-    //         })
-    //       } else {
-    //         message.error({
-    //           content: t("network_error"),
-    //         })
-    //       }
-    //     },
-    //   )
-    //   .finally(() => {
-    //     setDuplicateLoading(false)
-    //   })
+    copyApp(appID).catch(() => {
+      message.error({
+        content: t("dashboard.app.duplicate_fail"),
+      })
+    })
   }
 
   const handleOpenAppSettingModal = () => {
@@ -203,11 +179,19 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
           "both",
         )
 
-        message.success({
-          content: t("dashboard.app.trash_success"),
-        })
-        deleteApp(appID)
         modal.close(modalId)
+        deleteApp(appID).then(
+          () => {
+            message.success({
+              content: t("dashboard.app.trash_success"),
+            })
+          },
+          () => {
+            message.error({
+              content: t("dashboard.app.trash_failure"),
+            })
+          },
+        )
       },
       onCancel: () => {
         track?.(

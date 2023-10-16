@@ -62,26 +62,20 @@ export const ResourceMoreAction: FC<ResourceMoreActionProps> = (props) => {
           },
           "both",
         )
-        try {
-          await onDeleteResource()
-          message.success({
-            content: t("dashboard.resource.delete_success"),
-          })
-          modal.close(modalId)
-        } catch (e) {
-          // if (isILLAAPiError(e)) {
-          //   message.error({
-          //     content: t("dashboard.resource.delete_fail"),
-          //   })
-          // } else {
-          //   message.error({
-          //     content: t("network_error"),
-          //   })
-          // }
-        }
+        modal.close(modalId)
         modal.update(modalId, {
           okLoading: false,
         })
+        try {
+          await onDeleteResource(resourceID)
+          message.success({
+            content: t("dashboard.resource.delete_success"),
+          })
+        } catch (e) {
+          message.error({
+            content: t("dashboard.resource.delete_fail"),
+          })
+        }
       },
       onCancel: () => {
         track(
@@ -107,7 +101,7 @@ export const ResourceMoreAction: FC<ResourceMoreActionProps> = (props) => {
             value="edit"
             key="edit"
             title={t("dashboard.common.edit")}
-            onClick={onEditResource}
+            onClick={() => onEditResource(resourceID)}
           />
           <DropListItem
             value="delete"

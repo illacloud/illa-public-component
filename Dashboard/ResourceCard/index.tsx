@@ -29,11 +29,7 @@ export const ResourceCard: FC<CardProps> = (props) => {
   const { t } = useTranslation()
 
   const handleEditResource = () => {
-    onEditResource(resourceID)
-  }
-
-  const handleDeleteResource = () => {
-    onDeleteResource(resourceID)
+    onEditResource?.(resourceID)
   }
 
   return (
@@ -47,7 +43,7 @@ export const ResourceCard: FC<CardProps> = (props) => {
           <ResourceMoreAction
             resourceID={resourceID}
             onEditResource={handleEditResource}
-            onDeleteResource={handleDeleteResource}
+            onDeleteResource={onDeleteResource!}
           />
         )}
       </header>
