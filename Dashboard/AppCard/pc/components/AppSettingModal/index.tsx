@@ -1,8 +1,6 @@
-import { getCurrentId } from "@illa-public/user-data"
 import { FC, useCallback, useContext } from "react"
 import { Controller, useForm, useFormState } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import {
   Button,
   CloseIcon,
@@ -12,7 +10,6 @@ import {
   getColor,
   useMessage,
 } from "@illa-design/react"
-// import { fetchUpdateAppConfig } from "../../../services"
 import { AppListContext } from "../../context"
 import { AppSettingModalProps } from "./interface"
 import {
@@ -44,7 +41,6 @@ export const AppSettingModal: FC<AppSettingModalProps> = (props) => {
     onCloseEvent,
   } = props
 
-  const currentTeamID = useSelector(getCurrentId)!
   const { updateAppConfig } = useContext(AppListContext)
 
   const { control, formState, handleSubmit, reset } = useForm<AppSettingFields>(
@@ -190,7 +186,7 @@ export const AppSettingModal: FC<AppSettingModalProps> = (props) => {
             disabled={!isDirty}
             fullWidth
           >
-            {t("save")}
+            {t("new_dashboard.app_setting.save")}
           </Button>
         </form>
       </div>

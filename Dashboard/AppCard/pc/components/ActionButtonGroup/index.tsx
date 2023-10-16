@@ -1,5 +1,9 @@
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
 import { getAuthToken } from "@illa-public/utils"
-import { FC, MouseEvent, useMemo } from "react"
+import { FC, MouseEvent, useContext, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useParams } from "react-router-dom"
 import { Button, Space } from "@illa-design/react"
@@ -10,18 +14,19 @@ export const ActionButtonGroup: FC<ActionButtonGroupProps> = (props) => {
   const { t } = useTranslation()
   const { appID, appDeployed, canEditApp } = props
   const { teamIdentifier } = useParams()
+  const { track } = useContext(MixpanelTrackContext)
 
   const toDeployedApp = useMemo(
     () => (e: MouseEvent) => {
       e.stopPropagation()
-      // ILLAMixpanel.track(
-      //   ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-      //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-      //   {
-      //     element: "app_launch",
-      //     parameter5: appID,
-      //   },
-      // )
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+        {
+          element: "app_launch",
+          parameter5: appID,
+        },
+        "both",
+      )
       window.open(
         `${
           import.meta.env.ILLA_BUILDER_URL
@@ -29,20 +34,20 @@ export const ActionButtonGroup: FC<ActionButtonGroupProps> = (props) => {
         "_blank",
       )
     },
-    [appID, teamIdentifier],
+    [appID, teamIdentifier, track],
   )
 
   const toEditApp = useMemo(
     () => (e: MouseEvent) => {
       e.stopPropagation()
-      // ILLAMixpanel.track(
-      //   ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-      //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-      //   {
-      //     element: "app_edit",
-      //     parameter5: appID,
-      //   },
-      // )
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+        {
+          element: "app_edit",
+          parameter5: appID,
+        },
+        "both",
+      )
       window.open(
         `${
           import.meta.env.ILLA_BUILDER_URL
@@ -50,7 +55,7 @@ export const ActionButtonGroup: FC<ActionButtonGroupProps> = (props) => {
         "_blank",
       )
     },
-    [appID, teamIdentifier],
+    [appID, teamIdentifier, track],
   )
 
   return (

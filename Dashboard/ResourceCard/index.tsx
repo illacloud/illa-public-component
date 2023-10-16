@@ -2,8 +2,8 @@ import { useIsMobile } from "@illa-public/utils"
 import { FC, Suspense } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, PenIcon } from "@illa-design/react"
-import { getIconFromResourceType } from "../../../utils"
-import { ResourceMoreAction } from "../MoreAction"
+import { getIconFromResourceType } from "../utils"
+import { ResourceMoreAction } from "./components/MoreAction"
 import { CardProps } from "./interface"
 import {
   dbNameStyle,

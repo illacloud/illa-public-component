@@ -72,55 +72,6 @@ export const AppConfigSelect: FC<AppConfigSelectProps> = (props) => {
     }
   }
 
-  // const updateAppConfig = async (isPublic: boolean) => {
-  //   // track?.(
-  //   //   ILLA_MIXPANEL_EVENT_TYPE.REQUEST,
-  //   //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-  //   //   {
-  //   //     element: "invite_modal_public_switch",
-  //   //     parameter1: "dashboard",
-  //   //     parameter2: "trigger",
-  //   //     parameter4: !isPublic ? "on" : "off",
-  //   //     parameter5: appId,
-  //   //   },
-  //   // )
-  //   try {
-  //     const res = await fetchUpdateAppConfig(appId, teamInfo?.id!, {
-  //       public: isPublic,
-  //     })
-  //     // track?.(
-  //     //   ILLA_MIXPANEL_EVENT_TYPE.REQUEST,
-  //     //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-  //     //   {
-  //     //     element: "invite_modal_public_switch",
-  //     //     parameter1: "dashboard",
-  //     //     parameter2: "suc",
-  //     //     parameter4: !isPublic ? "on" : "off",
-  //     //     parameter5: appId,
-  //     //   },
-  //     // )
-  //     // dispatch(
-  //     //   dashboardAppActions.updateDashboardAppPublicReducer({
-  //     //     appId,
-  //     //     isPublic,
-  //     //   }),
-  //     // )
-  //   } catch (e) {
-  //     console.error(e)
-  //     // track?.(
-  //     //   ILLA_MIXPANEL_EVENT_TYPE.REQUEST,
-  //     //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-  //     //   {
-  //     //     element: "invite_modal_public_switch",
-  //     //     parameter2: "failed",
-  //     //     parameter3: isILLAAPiError(e) ? e?.data?.errorFlag : "unknown",
-  //     //     parameter4: !isPublic ? "on" : "off",
-  //     //     parameter5: appId,
-  //     //   },
-  //     // )
-  //   }
-  // }
-
   const onVisibleChange = (visible: boolean) => {
     if (popupVisible !== visible) {
       setPopupVisible(visible)

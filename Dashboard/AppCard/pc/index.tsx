@@ -1,4 +1,8 @@
 import { Avatar } from "@illa-public/avatar"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
 import { getCurrentTeamInfo, getPlanUtils } from "@illa-public/user-data"
 import {
   ACTION_MANAGE,
@@ -7,7 +11,7 @@ import {
 } from "@illa-public/user-role-utils"
 import { getAuthToken, isCloudVersion } from "@illa-public/utils"
 import { fromNow } from "@illa-public/utils"
-import { FC, useCallback, useMemo } from "react"
+import { FC, useCallback, useContext, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
@@ -35,6 +39,7 @@ export const PCAppCard: FC<PCAppCardProps> = (props) => {
   const { t } = useTranslation()
   const { appInfo } = props
   const { teamIdentifier } = useParams()
+  const { track } = useContext(MixpanelTrackContext)
 
   const teamInfo = useSelector(getCurrentTeamInfo)!!
 
@@ -46,11 +51,15 @@ export const PCAppCard: FC<PCAppCardProps> = (props) => {
   )
 
   const onClickCard = useCallback(() => {
-    // track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP, {
-    //   element: "card",
-    //   parameter3: "team",
-    //   parameter5: appInfo.appId,
-    // })
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      {
+        element: "card",
+        parameter3: "team",
+        parameter5: appInfo.appId,
+      },
+      "both",
+    )
     if (canEditApp) {
       window.open(
         `${import.meta.env.ILLA_BUILDER_URL}/${teamIdentifier}/app/${
@@ -66,7 +75,7 @@ export const PCAppCard: FC<PCAppCardProps> = (props) => {
         "_blank",
       )
     }
-  }, [appInfo.appId, appInfo.deployed, canEditApp, teamIdentifier])
+  }, [appInfo.appId, appInfo.deployed, canEditApp, teamIdentifier, track])
 
   const editors = useMemo(() => {
     return (
