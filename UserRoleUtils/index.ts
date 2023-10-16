@@ -507,6 +507,30 @@ export const showShareAgentModal = (
   }
 }
 
+export const showShareAgentButtonMobile = (
+  teamInfo: TeamInfo,
+  userRoleForThisAgent: USER_ROLE,
+  isContributed: boolean,
+) => {
+  const canInvite = canManageInvite(
+    teamInfo.myRole,
+    teamInfo.permission.allowEditorManageTeamMember,
+    teamInfo.permission.allowViewerManageTeamMember,
+  )
+  if (isContributed) {
+    return true
+  } else if (canInvite) {
+    return true
+  } else {
+    return canManage(
+      userRoleForThisAgent,
+      ATTRIBUTE_GROUP.AI_AGENT,
+      getPlanUtils(teamInfo),
+      ACTION_MANAGE.CREATE_AI_AGENT,
+    )
+  }
+}
+
 export const showShareAgentModalOnlyForShare = (teamInfo: TeamInfo) => {
   return canManageInvite(
     teamInfo.myRole,

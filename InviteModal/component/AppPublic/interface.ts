@@ -16,3 +16,15 @@ export interface AppPublicProps
   onCopyContributeLink: (inviteLink: string) => void
   hidePublic: boolean
 }
+
+export interface AppHashtagDetail {
+  id: string
+  unitType: number
+  serial: number
+  hashtagID: string
+  hashtagName: string
+  hashtagAmount: number
+}
+export interface AppRecommendHashtagResponse {
+  hashtags: AppHashtagDetail[]
+}

@@ -1,4 +1,10 @@
-import { builderRequest, marketplaceTeamRequest } from "@illa-public/illa-net"
+import {
+  builderRequest,
+  marketplaceTeamRequest,
+  publicHashtagRequest,
+} from "@illa-public/illa-net"
+import { HASHTAG_REQUEST_TYPE } from "../../constants"
+import { AppRecommendHashtagResponse } from "./interface"
 
 export const updateAppPublicConfig = async (
   isPublic: boolean,
@@ -68,4 +74,11 @@ export const fetchReMakeAppContribute = (
       teamID: teamID,
     },
   )
+}
+
+export const fetchRecommendHashTag = () => {
+  return publicHashtagRequest<AppRecommendHashtagResponse>({
+    method: "GET",
+    url: `/defaultHashtagsListFull/unitType/${HASHTAG_REQUEST_TYPE.UNIT_TYPE_APP}`,
+  })
 }
