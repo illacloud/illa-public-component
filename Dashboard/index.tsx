@@ -1,3 +1,3 @@
-export * from "./AppList"
+export * from "./AppCard"
 export * from "./components/ContentEmpty"
-export * from "./ResourceList"
+export * from "./ResourceCard"

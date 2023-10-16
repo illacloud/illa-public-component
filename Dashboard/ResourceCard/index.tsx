@@ -2,8 +2,8 @@ import { useIsMobile } from "@illa-public/utils"
 import { FC, Suspense } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, PenIcon } from "@illa-design/react"
-import { getIconFromResourceType } from "../../../utils"
-import { ResourceMoreAction } from "../MoreAction"
+import { getIconFromResourceType } from "../utils"
+import { ResourceMoreAction } from "./components/MoreAction"
 import { CardProps } from "./interface"
 import {
   dbNameStyle,
@@ -29,11 +29,7 @@ export const ResourceCard: FC<CardProps> = (props) => {
   const { t } = useTranslation()
 
   const handleEditResource = () => {
-    onEditResource(resourceID)
-  }
-
-  const handleDeleteResource = () => {
-    onDeleteResource(resourceID)
+    onEditResource?.(resourceID)
   }
 
   return (
@@ -45,8 +41,9 @@ export const ResourceCard: FC<CardProps> = (props) => {
         </div>
         {!isMobile && (
           <ResourceMoreAction
+            resourceID={resourceID}
             onEditResource={handleEditResource}
-            onDeleteResource={handleDeleteResource}
+            onDeleteResource={onDeleteResource!}
           />
         )}
       </header>

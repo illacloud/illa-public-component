@@ -74,11 +74,14 @@ export enum ILLA_MIXPANEL_CLOUD_PAGE_NAME {
   DRIVE_SHARE = "drive_share",
   DRIVE_CAPACITY = "drive_capacity",
   AUDIT_LOGS = "audit_logs",
-  SETTING = 'setting',
-  PASSWORD_SETTING = 'password_setting',
-  ACCOUNT_SETTING = 'account_setting',
-  LANGUAGE_SETTING = 'language_setting',
-  LINKED_SETTING = 'linked_setting',
+  SETTING = "setting",
+  PASSWORD_SETTING = "password_setting",
+  ACCOUNT_SETTING = "account_setting",
+  LANGUAGE_SETTING = "language_setting",
+  LINKED_SETTING = "linked_setting",
+  APP = "builder_app",
+  RESOURCE = "builder_resource",
+  AI_AGENT_DASHBOARD = "ai_agent_dashboard",
 }
 
 export enum ILLA_MIXPANEL_PUBLIC_PAGE_NAME {
@@ -91,23 +94,21 @@ export enum ILLA_MIXPANEL_PUBLIC_PAGE_NAME {
 }
 
 export enum ILLA_MIXPANEL_BUILDER_PAGE_NAME {
-  APP = "builder_app",
-  RESOURCE = "builder_resource",
   TUTORIAL = "builder_tutorial",
   EDITOR = "builder_editor",
   PREVIEW = "app_preview",
   DEPLOY = "builder_deploy",
   BUILDER_TUTORIAL_PREVIEW = "builder_tutorial_preview",
-  AI_AGENT_DASHBOARD = 'ai_agent_dashboard',
-  AI_AGENT_RUN = 'ai_agent_run',
-  AI_AGENT_EDIT = 'ai_agent_edit',
+  AI_AGENT_RUN = "ai_agent_run",
+  AI_AGENT_EDIT = "ai_agent_edit",
+  RESOURCE_EDIT = "resource_edit",
 }
 
 export enum ILLA_MIXPANEL_MARKET_PAGE_NAME {
-  COMMUNITY_AGENT_HOMEPAGE = 'community_agent_homepage',
-  COMMUNITY_AGENT_DETAIL = 'community_agent_detail',
-  COMMUNITY_APP_HOMEPAGE = 'community_app_homepage',
-  COMMUNITY_APP_DETAIL = 'community_app_detail',
+  COMMUNITY_AGENT_HOMEPAGE = "community_agent_homepage",
+  COMMUNITY_AGENT_DETAIL = "community_agent_detail",
+  COMMUNITY_APP_HOMEPAGE = "community_app_homepage",
+  COMMUNITY_APP_DETAIL = "community_app_detail",
 }
 
 export type ILLA_PAGE_NAME =

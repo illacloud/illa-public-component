@@ -1,6 +1,7 @@
 import { ShareAppPC } from "@illa-public/invite-modal"
 import {
-  ILLA_MIXPANEL_BUILDER_PAGE_NAME, // ILLA_MIXPANEL_EVENT_TYPE,
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
   MixpanelTrackProvider,
 } from "@illa-public/mixpanel-utils"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
@@ -38,7 +39,6 @@ import {
   useModal,
 } from "@illa-design/react"
 import { copyToClipboard } from "../../../../utils"
-// import { track } from "@/utils/mixpanelHelper"
 import { AppListContext } from "../../context"
 import { AppSettingModal } from "../AppSettingModal"
 import { AppCardActionItemProps } from "./interface"
@@ -51,6 +51,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
   const modal = useModal()
   const dispatch = useDispatch()
   const { deleteApp, copyApp, updateAppConfig } = useContext(AppListContext)
+  const { track, pageName } = useContext(MixpanelTrackContext)
 
   const teamInfo = useSelector(getCurrentTeamInfo)!!
 
@@ -66,7 +67,6 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
   const upgradeModal = useUpgradeModal()
   const [shareVisible, setShareVisible] = useState(false)
   const [appSettingVisible, setAppSettingVisible] = useState(false)
-  const [duplicateLoading, setDuplicateLoading] = useState(false)
 
   const showInvite = canManageInvite(
     teamInfo.myRole,
@@ -82,53 +82,42 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
   )
 
   const handleDuplicateApp = async () => {
-    // track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP, {
-    //   element: "app_duplicate",
-    //   parameter5: appID,
-    // })
-    if (duplicateLoading) return
-    setDuplicateLoading(true)
-    copyApp(appID)
-    // duplicateApp(appID, teamInfo.id, appName)
-    //   .then(
-    //     (response) => {
-    //       // dispatch(
-    //       //   dashboardAppActions.addDashboardAppReducer({
-    //       //     app: response.data,
-    //       //   }),
-    //       // )
-    //       navigate(`/${teamIdentifier}/app/${response.data.appId}`)
-    //     },
-    //     (failure) => {
-    //       if (isILLAAPiError(failure)) {
-    //         message.error({
-    //           content: t("dashboard.app.duplicate_fail"),
-    //         })
-    //       } else {
-    //         message.error({
-    //           content: t("network_error"),
-    //         })
-    //       }
-    //     },
-    //   )
-    //   .finally(() => {
-    //     setDuplicateLoading(false)
-    //   })
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      {
+        element: "app_duplicate",
+        parameter5: appID,
+      },
+      "both",
+    )
+    copyApp(appID).catch(() => {
+      message.error({
+        content: t("dashboard.app.duplicate_fail"),
+      })
+    })
   }
 
   const handleOpenAppSettingModal = () => {
     setAppSettingVisible(true)
-    // track(ILLA_MIXPANEL_EVENT_TYPE.SHOW, ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP, {
-    //   element: "app_setting_modal",
-    //   parameter5: appID,
-    // })
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+      {
+        element: "app_setting_modal",
+        parameter5: appID,
+      },
+      "both",
+    )
   }
 
   const handleOpenInviteModal = useCallback(() => {
-    // track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP, {
-    //   element: "app_share",
-    //   parameter5: appID,
-    // })
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      {
+        element: "app_share",
+        parameter5: appID,
+      },
+      "both",
+    )
     if (
       !openShareAppModal(
         teamInfo,
@@ -146,19 +135,29 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
   }, [
     appConfig.public,
     appConfig.publishedToMarketplace,
+    appID,
     teamInfo,
+    track,
     upgradeModal,
   ])
 
   const handleDeleteApp = useCallback(() => {
-    // track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP, {
-    //   element: "app_delete",
-    //   parameter5: appID,
-    // })
-    // track(ILLA_MIXPANEL_EVENT_TYPE.SHOW, ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP, {
-    //   element: "app_delete_modal",
-    //   parameter5: appID,
-    // })
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      {
+        element: "app_delete",
+        parameter5: appID,
+      },
+      "both",
+    )
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      {
+        element: "app_delete_modal",
+        parameter5: appID,
+      },
+      "both",
+    )
     const modalId = modal.show({
       w: "496px",
       blockOkHide: true,
@@ -171,93 +170,105 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
       },
       maskClosable: false,
       onOk: () => {
-        // track(
-        //   ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-        //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-        //   {
-        //     element: "app_delete_modal_delete",
-        //     parameter5: appID,
-        //   },
-        // )
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          {
+            element: "app_delete_modal_delete",
+            parameter5: appID,
+          },
+          "both",
+        )
 
-        message.success({
-          content: t("dashboard.app.trash_success"),
-        })
-        deleteApp(appID)
         modal.close(modalId)
+        deleteApp(appID).then(
+          () => {
+            message.success({
+              content: t("dashboard.app.trash_success"),
+            })
+          },
+          () => {
+            message.error({
+              content: t("dashboard.app.trash_failure"),
+            })
+          },
+        )
       },
       onCancel: () => {
-        // track(
-        //   ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-        //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-        //   {
-        //     element: "app_delete_modal_close",
-        //     parameter5: appID,
-        //   },
-        // )
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          {
+            element: "app_delete_modal_close",
+            parameter5: appID,
+          },
+          "both",
+        )
       },
     })
-  }, [modal, t, message, deleteApp, appID])
+  }, [track, appID, modal, t, message, deleteApp])
 
-  const onVisibleChange = useCallback((visible: boolean) => {
-    if (visible) {
-      // track(
-      //   ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-      //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-      //   { element: "app_more", parameter5: appID },
-      // )
-      // track(
-      //   ILLA_MIXPANEL_EVENT_TYPE.SHOW,
-      //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-      //   { element: "app_duplicate", parameter5: appID },
-      // )
-      // track(
-      //   ILLA_MIXPANEL_EVENT_TYPE.SHOW,
-      //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-      //   { element: "app_delete", parameter5: appID },
-      // )
-      // appDeployed &&
-      //   track(
-      //     ILLA_MIXPANEL_EVENT_TYPE.SHOW,
-      //     ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-      //     { element: "app_share", parameter5: appID },
-      //   )
-    }
-  }, [])
+  const onVisibleChange = useCallback(
+    (visible: boolean) => {
+      if (visible) {
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          { element: "app_more", parameter5: appID },
+          "both",
+        )
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+          { element: "app_duplicate", parameter5: appID },
+          "both",
+        )
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+          { element: "app_delete", parameter5: appID },
+          "both",
+        )
+        appDeployed &&
+          track?.(
+            ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+            { element: "app_share", parameter5: appID },
+            "both",
+          )
+      }
+    },
+    [appDeployed, appID, track],
+  )
 
   useEffect(() => {
     if (canEditApp || (appDeployed && showInvite)) {
-      // track(
-      //   ILLA_MIXPANEL_EVENT_TYPE.SHOW,
-      //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-      //   { element: "app_more", parameter5: appID },
-      // )
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        { element: "app_more", parameter5: appID },
+        "both",
+      )
     }
-  }, [canEditApp, appDeployed, showInvite, appID])
+  }, [canEditApp, appDeployed, showInvite, appID, track])
 
   useEffect(() => {
-    // track(ILLA_MIXPANEL_EVENT_TYPE.SHOW, ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP, {
-    //   element: "app",
-    // })
-  }, [])
+    track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, { element: "app" }, "both")
+  }, [track])
 
-  // useEffect(() => {
-  //   shareVisible &&
-  //     track(
-  //       ILLA_MIXPANEL_EVENT_TYPE.SHOW,
-  //       ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-  //       { element: "invite_modal", parameter5: appID },
-  //     )
-  // }, [appID, shareVisible])
+  useEffect(() => {
+    shareVisible &&
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        {
+          element: "invite_modal",
+          parameter5: appID,
+        },
+        "both",
+      )
+  }, [appID, shareVisible, track])
 
-  // useEffect(() => {
-  //   appSettingVisible &&
-  //     track(
-  //       ILLA_MIXPANEL_EVENT_TYPE.SHOW,
-  //       ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-  //       { element: "app_setting_modal", parameter5: appID },
-  //     )
-  // }, [appID, appSettingVisible])
+  useEffect(() => {
+    appSettingVisible &&
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        { element: "app_setting_modal", parameter5: appID },
+        "both",
+      )
+  }, [appID, appSettingVisible, track])
 
   return (
     <div
@@ -351,16 +362,16 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
             }}
             onVisibleChange={(visible) => {
               if (visible) {
-                // track(
-                //   ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-                //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-                //   { element: "app_more", parameter5: appID },
-                // )
-                // track(
-                //   ILLA_MIXPANEL_EVENT_TYPE.SHOW,
-                //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-                //   { element: "app_share", parameter5: appID },
-                // )
+                track?.(
+                  ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                  { element: "app_more", parameter5: appID },
+                  "both",
+                )
+                track?.(
+                  ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+                  { element: "app_share", parameter5: appID },
+                  "both",
+                )
               }
             }}
             dropList={
@@ -388,8 +399,10 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
         )
       )}
       <MixpanelTrackProvider
-        basicTrack={() => {}}
-        pageName={ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP}
+        basicTrack={(event, pageName, properties, extendProperty) => {
+          track?.(event, properties, extendProperty)
+        }}
+        pageName={pageName}
       >
         {shareVisible && (
           <ShareAppPC
@@ -439,12 +452,6 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
             ownerTeamIdentify={teamInfo.identifier}
             onAppPublic={(isPublic) => {
               updateAppConfig(appID, { public: isPublic })
-              // dispatch(
-              //   dashboardAppActions.updateDashboardAppPublicReducer({
-              //     appId: appID,
-              //     isPublic: isPublic,
-              //   }),
-              // )
             }}
             onAppContribute={(isContributed) => {
               updateAppConfig(appID, {
@@ -466,14 +473,14 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
               )
             }}
             onCopyContributeLink={(link) => {
-              // track(
-              //   ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-              //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.EDITOR,
-              //   {
-              //     element: "invite_modal_public_copy",
-              //     parameter5: appID,
-              //   },
-              // )
+              track?.(
+                ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                {
+                  element: "invite_modal_public_copy",
+                  parameter5: appID,
+                },
+                "both",
+              )
               copyToClipboard(
                 t("user_management.modal.contribute.default_text.app", {
                   appName: appName,
@@ -502,16 +509,16 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
             canUseBillingFeature={canUseBillingFeature}
             onShare={(name) => {
               const { publishedToMarketplace } = appConfig
-              // track(
-              //   ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-              //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.EDITOR,
-              //   {
-              //     element: "share_modal_social_media",
-              //     parameter1: publishedToMarketplace,
-              //     parameter4: name,
-              //     parameter5: appID,
-              //   },
-              // )
+              track?.(
+                ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                {
+                  element: "share_modal_social_media",
+                  parameter1: publishedToMarketplace,
+                  parameter4: name,
+                  parameter5: appID,
+                },
+                "both",
+              )
             }}
           />
         )}
@@ -525,24 +532,24 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
           setAppSettingVisible(visible)
         }}
         onSaveEvent={() => {
-          // track(
-          //   ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-          //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-          //   {
-          //     element: "app_setting_modal_save",
-          //     parameter5: appID,
-          //   },
-          // )
+          track?.(
+            ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+            {
+              element: "app_setting_modal_save",
+              parameter5: appID,
+            },
+            "both",
+          )
         }}
         onCloseEvent={() => {
-          // track(
-          //   ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-          //   ILLA_MIXPANEL_BUILDER_PAGE_NAME.APP,
-          //   {
-          //     element: "app_setting_modal_close",
-          //     parameter5: appID,
-          //   },
-          // )
+          track?.(
+            ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+            {
+              element: "app_setting_modal_close",
+              parameter5: appID,
+            },
+            "both",
+          )
         }}
       />
     </div>
