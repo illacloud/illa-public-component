@@ -88,7 +88,7 @@ export const MobileAppCardItem: FC<MobileCardItemProps> = (props) => {
             size="large"
             w="100%"
           >
-            Launch
+            {t("dashboard.common.launch")}
           </Button>
         </Link>
       </footer>

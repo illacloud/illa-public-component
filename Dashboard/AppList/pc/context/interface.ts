@@ -9,6 +9,6 @@ export interface AppListContextInject {
       publishedToMarketplace?: boolean
     },
   ) => void
-  deleteApp: (appID: string) => void
+  deleteApp: (appID: string) => Promise<{ appID: string }>
   copyApp: (appID: string) => void
 }

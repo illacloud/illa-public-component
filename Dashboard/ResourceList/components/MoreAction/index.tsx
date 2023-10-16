@@ -18,7 +18,7 @@ export const ResourceMoreAction: FC<ResourceMoreActionProps> = (props) => {
           <DropListItem
             value="edit"
             key="edit"
-            title={t("edit")}
+            title={t("dashboard.common.edit")}
             onClick={onEditResource}
           />
           <DropListItem

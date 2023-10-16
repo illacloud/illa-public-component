@@ -88,8 +88,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
     // })
     if (duplicateLoading) return
     setDuplicateLoading(true)
-    const result = await copyApp(appID)
-    console.log("result", result)
+    copyApp(appID)
     // duplicateApp(appID, teamInfo.id, appName)
     //   .then(
     //     (response) => {
@@ -297,7 +296,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
                   title={
                     <div>
                       <DependencyIcon mr="8px" />
-                      <span>{t("share")}</span>
+                      <span>{t("dashboard.common.share")}</span>
                     </div>
                   }
                   onClick={handleOpenInviteModal}
@@ -309,7 +308,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
                 title={
                   <div>
                     <CopyIcon mr="8px" />
-                    <span>{t("duplicate")}</span>
+                    <span>{t("dashboard.common.duplicate")}</span>
                   </div>
                 }
                 onClick={handleDuplicateApp}
@@ -346,7 +345,10 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
           <Dropdown
             position="bottom-end"
             trigger="click"
-            triggerProps={{ closeDelay: 0, openDelay: 0 }}
+            triggerProps={{
+              closeDelay: 0,
+              openDelay: 0,
+            }}
             onVisibleChange={(visible) => {
               if (visible) {
                 // track(
@@ -369,7 +371,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
                   title={
                     <div>
                       <DependencyIcon mr="8px" />
-                      <span>{t("share")}</span>
+                      <span>{t("dashboard.common.share")}</span>
                     </div>
                   }
                   onClick={handleOpenInviteModal}

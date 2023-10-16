@@ -1,5 +1,6 @@
 import { useIsMobile } from "@illa-public/utils"
 import { FC, Suspense } from "react"
+import { useTranslation } from "react-i18next"
 import { Button, PenIcon } from "@illa-design/react"
 import { getIconFromResourceType } from "../../../utils"
 import { ResourceMoreAction } from "../MoreAction"
@@ -25,6 +26,7 @@ export const ResourceCard: FC<CardProps> = (props) => {
   } = props
 
   const isMobile = useIsMobile()
+  const { t } = useTranslation()
 
   const handleEditResource = () => {
     onEditResource(resourceID)
@@ -58,7 +60,7 @@ export const ResourceCard: FC<CardProps> = (props) => {
             className="editActionButton"
             onClick={handleEditResource}
           >
-            Edit
+            {t("dashboard.common.edit")}
           </Button>
         )}
       </footer>

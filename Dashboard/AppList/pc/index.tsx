@@ -5,7 +5,7 @@ import {
   ATTRIBUTE_GROUP,
   canManage,
 } from "@illa-public/user-role-utils"
-import { isCloudVersion } from "@illa-public/utils"
+import { getAuthToken, isCloudVersion } from "@illa-public/utils"
 import { fromNow } from "@illa-public/utils"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -55,14 +55,14 @@ export const PCAppCard: FC<PCAppCardProps> = (props) => {
       window.open(
         `${import.meta.env.ILLA_BUILDER_URL}/${teamIdentifier}/app/${
           appInfo.appId
-        }`,
+        }?token=${getAuthToken()}`,
         "_blank",
       )
     } else if (appInfo.deployed) {
       window.open(
         `${import.meta.env.ILLA_BUILDER_URL}/${teamIdentifier}/deploy/app/${
           appInfo.appId
-        }`,
+        }?token=${getAuthToken()}`,
         "_blank",
       )
     }

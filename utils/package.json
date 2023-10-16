@@ -11,8 +11,7 @@
     "@illa-public/user-data": "workspace:*",
     "dayjs": "^1.11.10",
     "react-use": "^17.4.0",
-    "lodash": "^4.17.21",
-    "fuse.js": "^6.6.2"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/chroma-js": "^2.1.4",

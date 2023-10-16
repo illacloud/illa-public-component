@@ -69,7 +69,7 @@ export const ActionButtonGroup: FC<ActionButtonGroupProps> = (props) => {
           colorScheme="grayBlue"
           onClick={toDeployedApp}
         >
-          {t("launch")}
+          {t("dashboard.common.launch")}
         </Button>
       ) : null}
       {canEditApp ? (
@@ -80,7 +80,7 @@ export const ActionButtonGroup: FC<ActionButtonGroupProps> = (props) => {
           colorScheme="grayBlue"
           onClick={toEditApp}
         >
-          {t("edit")}
+          {t("dashboard.common.edit")}
         </Button>
       ) : null}
     </Space>
