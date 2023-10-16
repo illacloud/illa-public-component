@@ -101,6 +101,7 @@ export enum ILLA_MIXPANEL_BUILDER_PAGE_NAME {
   BUILDER_TUTORIAL_PREVIEW = "builder_tutorial_preview",
   AI_AGENT_RUN = "ai_agent_run",
   AI_AGENT_EDIT = "ai_agent_edit",
+  RESOURCE_EDIT = "resource_edit",
 }
 
 export enum ILLA_MIXPANEL_MARKET_PAGE_NAME {
