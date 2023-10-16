@@ -21,3 +21,11 @@ export const titleStyle = css`
   font-weight: 500;
   line-height: 22px;
 `
+
+export const recommendLabelStyle = css`
+  color: ${getColor("grayBlue", "03")};
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+`

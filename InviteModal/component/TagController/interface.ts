@@ -3,10 +3,9 @@ import { HASHTAG_REQUEST_TYPE } from "../../constants"
 
 
 export interface TagControllerProps {
-  teamID: string
+  teamID?: string
   productID: string
   productType: HASHTAG_REQUEST_TYPE
   defaultAppContribute: boolean
   userRoleForThisProduct: USER_ROLE
-  ownerTeamIdentifier: string
 }
