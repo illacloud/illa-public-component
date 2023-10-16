@@ -3,14 +3,14 @@ import { marketplaceTeamRequest } from "@illa-public/illa-net"
 export const makeAgentContribute = (
   teamID: string,
   agentID: string,
-  hashTags?: string[],
+  hashtags?: string[],
 ) => {
   return marketplaceTeamRequest<{}>(
     {
       method: "POST",
       url: `/products/aiAgents/${agentID}`,
       data: {
-        hashTags,
+        hashtags,
       },
     },
     {
@@ -34,14 +34,14 @@ export const fetchRemoveToMarketplace = (teamID: string, agentID: string) => {
 export const fetchReMakeAgentContribute = (
   teamID: string,
   agentID: string,
-  hashTags?: string[],
+  hashtags?: string[],
 ) => {
   return marketplaceTeamRequest<{}>(
     {
       method: "POST",
       url: `/products/aiAgents/${agentID}/recontribute`,
       data: {
-        hashTags,
+        hashtags,
       },
     },
     {

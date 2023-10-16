@@ -1,3 +1,3 @@
-export interface CardHashTagsProps {
-  cardHashTags: string[]
+export interface CardHashtagsProps {
+  cardHashtags: string[]
 }

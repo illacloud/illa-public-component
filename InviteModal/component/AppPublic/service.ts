@@ -23,14 +23,14 @@ export const updateAppPublicConfig = async (
 export const makeAppContribute = (
   teamID: string,
   appID: string,
-  hashTags?: string[],
+  hashtags?: string[],
 ) => {
   return marketplaceTeamRequest<{}>(
     {
       method: "POST",
       url: `/products/apps/${appID}`,
       data: {
-        hashTags,
+        hashtags,
       },
     },
     {
@@ -54,14 +54,14 @@ export const fetchRemoveAppToMarket = (teamID: string, appID: string) => {
 export const fetchReMakeAppContribute = (
   teamID: string,
   appID: string,
-  hashTags?: string[],
+  hashtags?: string[],
 ) => {
   return marketplaceTeamRequest<{}>(
     {
       method: "POST",
       url: `/products/apps/${appID}/recontribute`,
       data: {
-        hashTags,
+        hashtags,
       },
     },
     {

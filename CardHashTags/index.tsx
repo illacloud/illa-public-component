@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { Tag } from "@illa-design/react"
 import { LIMIT_TAG_NUM } from "./constants"
-import { CardHashTagsProps } from "./interface"
+import { CardHashtagsProps } from "./interface"
 import {
   cardTagsContainerStyle,
   tagContainerCoverStyle,
@@ -10,14 +10,14 @@ import {
 
 export * from "./interface"
 
-export const CardHashTags: FC<CardHashTagsProps> = (props) => {
-  const { cardHashTags } = props
-  const tagLength = cardHashTags.length
+export const CardHashtags: FC<CardHashtagsProps> = (props) => {
+  const { cardHashtags } = props
+  const tagLength = cardHashtags.length
 
-  if (!cardHashTags || tagLength < 1) return null
+  if (!cardHashtags || tagLength < 1) return null
   return (
     <div css={cardTagsContainerStyle}>
-      {cardHashTags.slice(0, LIMIT_TAG_NUM).map((name) => (
+      {cardHashtags.slice(0, LIMIT_TAG_NUM).map((name) => (
         <Tag key={name} colorScheme="grayBlue" css={tagContainerCoverStyle}>
           <span css={tagContentStyle}>
             <span>{name}</span>
@@ -35,4 +35,4 @@ export const CardHashTags: FC<CardHashTagsProps> = (props) => {
   )
 }
 
-CardHashTags.displayName = "CardHashTags"
+CardHashtags.displayName = "CardHashtags"

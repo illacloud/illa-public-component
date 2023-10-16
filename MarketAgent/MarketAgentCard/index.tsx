@@ -1,5 +1,5 @@
 import { Avatar } from "@illa-public/avatar"
-import { CardHashTags } from "@illa-public/card-hash-tags"
+import { CardHashtags } from "@illa-public/card-hash-tags"
 import { formatNumForAgent } from "@illa-public/utils"
 import { FC } from "react"
 import { ForkIcon, PlayOutlineIcon, StarOutlineIcon } from "@illa-design/react"
@@ -25,7 +25,7 @@ import {
 } from "./style"
 
 export const MarketAgentCard: FC<MarketAgentCardProps> = (props) => {
-  const { marketAIAgent, hashTags, ...rest } = props
+  const { marketAIAgent, hashtags, ...rest } = props
 
   return (
     <div css={cardStyle} {...rest}>
@@ -76,8 +76,8 @@ export const MarketAgentCard: FC<MarketAgentCardProps> = (props) => {
           </div>
         </div>
         <div css={descriptionStyle}>{marketAIAgent.aiAgent.description}</div>
-        {hashTags && hashTags.length && (
-          <CardHashTags cardHashTags={hashTags} />
+        {hashtags && hashtags.length && (
+          <CardHashtags cardHashtags={hashtags} />
         )}
       </div>
     </div>
