@@ -1,17 +1,10 @@
 import { marketplaceTeamRequest } from "@illa-public/illa-net"
 
-export const makeAgentContribute = (
-  teamID: string,
-  agentID: string,
-  hashtags?: string[],
-) => {
+export const makeAgentContribute = (teamID: string, agentID: string) => {
   return marketplaceTeamRequest<{}>(
     {
       method: "POST",
       url: `/products/aiAgents/${agentID}`,
-      data: {
-        hashtags,
-      },
     },
     {
       teamID: teamID,
@@ -31,7 +24,7 @@ export const fetchRemoveToMarketplace = (teamID: string, agentID: string) => {
   )
 }
 
-export const fetchReMakeAgentContribute = (
+export const updateContributeAttr = (
   teamID: string,
   agentID: string,
   hashtags?: string[],

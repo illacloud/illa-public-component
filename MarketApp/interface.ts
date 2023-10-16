@@ -39,6 +39,7 @@ export interface MarketplaceInfo {
   marketplaceID?: string
   numStars: number
   numForks: number
+  hashtags: string[]
   isStarredByCurrentUser?: boolean
   contributorTeam: ContributorTeam
 }
