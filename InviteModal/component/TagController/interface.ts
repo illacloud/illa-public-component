@@ -1,14 +1,12 @@
 import { USER_ROLE } from "@illa-public/user-data"
+import { HASHTAG_REQUEST_TYPE } from "../../constants"
+
 
 export interface TagControllerProps {
   teamID: string
   productID: string
-  productType: ProductType
+  productType: HASHTAG_REQUEST_TYPE
+  defaultAppContribute: boolean
   userRoleForThisProduct: USER_ROLE
-  onUpdateHashtags: (hashtags: string[]) => void
-}
-
-export enum ProductType {
-  UNIT_TYPE_APP = 8,
-  UNIT_TYPE_AI_AGENT = 29,
+  ownerTeamIdentifier: string
 }
