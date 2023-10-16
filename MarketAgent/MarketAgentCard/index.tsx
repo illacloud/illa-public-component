@@ -1,4 +1,5 @@
 import { Avatar } from "@illa-public/avatar"
+import { CardHashTags } from "@illa-public/card-hash-tags"
 import { formatNumForAgent } from "@illa-public/utils"
 import { FC } from "react"
 import { ForkIcon, PlayOutlineIcon, StarOutlineIcon } from "@illa-design/react"
@@ -7,23 +8,24 @@ import { MarketAgentCardProps } from "./interface"
 import {
   actionContainerStyle,
   actionCountStyle,
+  actionStyle,
   agentIconStyle,
+  cardContentContainerStyle,
   cardStyle,
   descriptionStyle,
-  footerStyle,
   headerStyle,
-  modelContainerStyle,
+  modalInfoStyle,
   modelLogoStyle,
   modelNameStyle,
   nameStyle,
   teamAvatarStyle,
+  teamInfoContainerStyle,
   teamInfoStyle,
   teamNameStyle,
-  titleInfoStyle,
 } from "./style"
 
 export const MarketAgentCard: FC<MarketAgentCardProps> = (props) => {
-  const { marketAIAgent, ...rest } = props
+  const { marketAIAgent, hashTags, ...rest } = props
 
   return (
     <div css={cardStyle} {...rest}>
@@ -33,48 +35,50 @@ export const MarketAgentCard: FC<MarketAgentCardProps> = (props) => {
           src={marketAIAgent.aiAgent.icon}
           alt={marketAIAgent.aiAgent.name}
         />
-        <div css={titleInfoStyle}>
-          <span css={nameStyle}>{marketAIAgent.aiAgent.name}</span>
-          <div css={modelContainerStyle}>
-            <div css={modelLogoStyle}>
-              {getLLM(marketAIAgent.aiAgent.model)?.logo}
-            </div>
-            <div css={modelNameStyle}>
-              {getLLM(marketAIAgent.aiAgent.model)?.name}
-            </div>
+        <div css={teamInfoContainerStyle}>
+          <div css={teamInfoStyle}>
+            <Avatar
+              css={teamAvatarStyle}
+              avatarUrl={marketAIAgent.marketplace.contributorTeam.icon}
+              name={marketAIAgent.marketplace.contributorTeam.name}
+              id={marketAIAgent.marketplace.contributorTeam.teamID}
+            />
+            <span css={teamNameStyle}>
+              {marketAIAgent.marketplace.contributorTeam.name}
+            </span>
           </div>
-        </div>
-      </div>
-      <div>
-        <div css={descriptionStyle}>{marketAIAgent.aiAgent.description}</div>
-      </div>
-
-      <div css={footerStyle}>
-        <div css={teamInfoStyle}>
-          <Avatar
-            css={teamAvatarStyle}
-            avatarUrl={marketAIAgent.marketplace.contributorTeam.icon}
-            name={marketAIAgent.marketplace.contributorTeam.name}
-            id={marketAIAgent.marketplace.contributorTeam.teamID}
-          />
-          <span css={teamNameStyle}>
-            {marketAIAgent.marketplace.contributorTeam.name}
-          </span>
         </div>
         <div css={actionContainerStyle}>
-          <div css={actionCountStyle}>
-            <ForkIcon size="16px" />
-            {formatNumForAgent(marketAIAgent.marketplace.numForks)}
-          </div>
-          <div css={actionCountStyle}>
-            <StarOutlineIcon size="16px" />
-            {formatNumForAgent(marketAIAgent.marketplace.numStars)}
-          </div>
-          <div css={actionCountStyle}>
-            <PlayOutlineIcon size="16px" />
-            {formatNumForAgent(marketAIAgent.marketplace.numRuns)}
+          <div css={actionStyle}>
+            <div css={actionCountStyle}>
+              <ForkIcon size="16px" />
+              {formatNumForAgent(marketAIAgent.marketplace.numForks)}
+            </div>
+            <div css={actionCountStyle}>
+              <StarOutlineIcon size="16px" />
+              {formatNumForAgent(marketAIAgent.marketplace.numStars)}
+            </div>
+            <div css={actionCountStyle}>
+              <PlayOutlineIcon size="16px" />
+              {formatNumForAgent(marketAIAgent.marketplace.numRuns)}
+            </div>
           </div>
         </div>
+      </div>
+      <div css={cardContentContainerStyle}>
+        <span css={nameStyle}>{marketAIAgent.aiAgent.name}</span>
+        <div css={modalInfoStyle}>
+          <div css={modelLogoStyle}>
+            {getLLM(marketAIAgent.aiAgent.model)?.logo}
+          </div>
+          <div css={modelNameStyle}>
+            {getLLM(marketAIAgent.aiAgent.model)?.name}
+          </div>
+        </div>
+        <div css={descriptionStyle}>{marketAIAgent.aiAgent.description}</div>
+        {hashTags && hashTags.length && (
+          <CardHashTags cardHashTags={hashTags} />
+        )}
       </div>
     </div>
   )

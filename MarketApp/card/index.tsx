@@ -1,4 +1,5 @@
 import { Avatar } from "@illa-public/avatar"
+import { CardHashTags } from "@illa-public/card-hash-tags"
 import { formatNumForAgent } from "@illa-public/utils"
 import { FC, useCallback } from "react"
 import { ForkIcon, StarOutlineIcon } from "@illa-design/react"
@@ -7,6 +8,7 @@ import {
   actionContainerStyle,
   actionCountStyle,
   cardStyle,
+  cardTagContainerStyle,
   descriptionStyle,
   footerStyle,
   headerStyle,
@@ -18,7 +20,7 @@ import {
 } from "./style"
 
 export const MarketAppCard: FC<MarketAppCardProps> = (props) => {
-  const { app, marketplace, fallbackDescription, onClick } = props
+  const { app, marketplace, fallbackDescription, hashTags, onClick } = props
 
   const onCardClick = useCallback(() => {
     onClick?.(app.appId)
@@ -36,6 +38,11 @@ export const MarketAppCard: FC<MarketAppCardProps> = (props) => {
           {app.config.description || fallbackDescription}
         </div>
       </div>
+      {hashTags && hashTags.length && (
+        <div css={cardTagContainerStyle}>
+          <CardHashTags cardHashTags={hashTags} />
+        </div>
+      )}
       <div css={footerStyle}>
         <div css={teamInfoStyle}>
           <Avatar

@@ -21,4 +21,5 @@ export interface ProductListParams {
   limit: number
   sortedBy: PRODUCT_SORT_BY
   search?: string
+  tag?: string
 }

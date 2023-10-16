@@ -2,47 +2,63 @@ import { css } from "@emotion/react"
 import { applyMobileStyle } from "@illa-public/utils"
 import { getColor } from "@illa-design/react"
 
-export const market_agent_card_height = 204
-
 export const cardStyle = css`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 24px;
-  width: 100%;
-  height: ${market_agent_card_height}px;
-  border-radius: 8px;
-  border: 1px solid ${getColor("grayBlue", "08")};
+  width: 220px;
   background: ${getColor("white", "01")};
-  transition: all 0.2s ease-in-out;
   cursor: pointer;
-
-  &:hover {
-    border-color: ${getColor("techPurple", "01")};
-    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.08);
-
-    .dashboardAgentEditButton,
-    .dashboardAgentRunButton {
-      visibility: visible;
-    }
-  }
 
   ${applyMobileStyle(css`
     gap: 12px;
-    padding: 16px;
-    height: 180px;
-
-    &:hover {
-      border-color: ${getColor("grayBlue", "08")};
-      box-shadow: none;
-
-      .dashboardAgentEditButton,
-      .dashboardAgentRunButton {
-        visibility: hidden;
-      }
-    }
+    width: 161px;
   `)}
 `
+export const headerStyle = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 220px;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 16px;
+  position: relative;
+  z-index: 0;
+  ${applyMobileStyle(css`
+    border-radius: 8px;
+    width: 161px;
+    height: 161px;
+  `)}
+`
+
+export const agentIconStyle = css`
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+`
+
+export const teamInfoContainerStyle = css`
+  display: flex;
+  width: 100%;
+  height: 64px;
+  padding: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  flex-shrink: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  ${applyMobileStyle(css`
+    padding: 12px;
+  `)}
+`
+
 export const teamInfoStyle = css`
   display: flex;
   align-items: center;
@@ -53,18 +69,17 @@ export const teamAvatarStyle = css`
   width: 24px;
   height: 24px;
   flex-shrink: 0;
-
-  ${applyMobileStyle(css`
-    width: 28px;
-    height: 28px;
-  `)}
+  border: none;
+  background-color: transparent;
 `
 
 export const teamNameStyle = css`
+  color: ${getColor("white", "01")};
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12);
   font-size: 12px;
+  font-style: normal;
   font-weight: 400;
   line-height: 20px;
-  color: ${getColor("grayBlue", "02")};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -72,38 +87,60 @@ export const teamNameStyle = css`
 
 export const actionContainerStyle = css`
   display: flex;
+  width: 100%;
+  height: 64px;
+  padding: 16px;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 8px;
+  flex-shrink: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  ${applyMobileStyle(css`
+    height: 48px;
+    padding: 4px 12px;
+  `)}
+`
+
+export const actionStyle = css`
+  display: flex;
   align-items: center;
   gap: 16px;
+  ${applyMobileStyle(css`
+    gap: 12px;
+  `)}
 `
 
 export const actionCountStyle = css`
   display: flex;
   align-items: center;
-  color: ${getColor("grayBlue", "04")};
-  font-size: 14px;
+  color: ${getColor("white", "01")};
+  font-size: 12px;
+  padding: 1px 0;
   font-weight: 400;
-  line-height: 22px;
+  line-height: 20px;
+  ${applyMobileStyle(css`
+    line-height: 22px;
+  `)}
 `
 
-export const headerStyle = css`
+export const cardContentContainerStyle = css`
   display: flex;
-  flex-direction: row;
-  align-items: center;
-`
-
-export const titleInfoStyle = css`
-  display: flex;
-  margin-left: 16px;
   flex-direction: column;
-  overflow: hidden;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
 `
 
-export const modelContainerStyle = css`
+export const modalInfoStyle = css`
   display: flex;
-  margin-top: 4px;
-  flex-direction: row;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
+  align-self: stretch;
 `
 
 export const modelNameStyle = css`
@@ -125,23 +162,6 @@ export const modelLogoStyle = css`
     height: 100%;
     width: 100%;
   }
-  ${applyMobileStyle(css`
-    width: 20px;
-    height: 20px;
-  `)}
-`
-
-export const agentIconStyle = css`
-  object-fit: cover;
-  width: 64px;
-  height: 64px;
-  border-radius: 8px;
-  background: ${getColor("grayBlue", "09")};
-
-  ${applyMobileStyle(css`
-    width: 60px;
-    height: 60px;
-  `)}
 `
 
 export const textEllipsisStyle = css`
@@ -151,42 +171,25 @@ export const textEllipsisStyle = css`
 `
 
 export const nameStyle = css`
-  color: #1d2129;
-  font-size: 14px;
+  color: ${getColor("grayBlue", "02")};
+  font-size: 16px;
   font-weight: 500;
-  line-height: 22px;
+  line-height: 24px;
   ${textEllipsisStyle};
-
   ${applyMobileStyle(css`
-    font-size: 16px;
+    font-size: 12px;
+    line-height: 20px;
   `)}
 `
 
 export const descriptionStyle = css`
-  color: #787e85;
-  height: 40px;
+  color: ${getColor("grayBlue", "03")};
   font-size: 12px;
   font-weight: 400;
-  line-height: 20px;
+  line-height: 16px;
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-
-  ${applyMobileStyle(css`
-    height: 36px;
-    line-height: 18px;
-  `)}
-`
-
-export const footerStyle = css`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 24px;
-`
-
-export const applyHiddenStyle = (isHidden: boolean) => css`
-  visibility: ${isHidden ? "hidden" : "visible"};
+  -webkit-line-clamp: 3;
 `

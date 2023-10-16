@@ -1,13 +1,10 @@
 {
-  "name": "@illa-public/market-app",
+  "name": "@illa-public/card-hash-tags",
   "version": "0.0.0",
   "private": true,
-  "main": "index.ts",
+  "main": "index.tsx",
   "dependencies": {
-    "@illa-public/avatar": "workspace:*",
-    "@illa-public/utils": "workspace:*",
-    "@illa-public/illa-net": "workspace:*",
-    "@illa-public/card-hash-tags": "workspace:*"
+    "@illa-public/utils": "workspace:*"
   },
   "devDependencies": {
     "tsconfig": "workspace:*"
@@ -18,7 +15,6 @@
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@illa-design/react": "workspace:*",
-    "@emotion/react": "*",
-    "i18next": "^22.4.9"
+    "@emotion/react": "*"
   }
 }
