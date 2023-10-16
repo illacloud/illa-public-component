@@ -45,6 +45,7 @@ export const ResourceCard: FC<CardProps> = (props) => {
         </div>
         {!isMobile && (
           <ResourceMoreAction
+            resourceID={resourceID}
             onEditResource={handleEditResource}
             onDeleteResource={handleDeleteResource}
           />
