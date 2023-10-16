@@ -28,7 +28,6 @@ import {
   tabsContainerStyle,
 } from "./style"
 
-
 export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
   const { onClose } = props
 
@@ -102,6 +101,17 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                   {t("user_management.modal.tab.with_team")}
                 </div>
               )}
+              {props.canInvite &&
+                props.canUseBillingFeature &&
+                (canManage(
+                  props.userRoleForThisAgent,
+                  ATTRIBUTE_GROUP.AI_AGENT,
+                  props.teamPlan,
+                  ACTION_MANAGE.CREATE_AI_AGENT,
+                ) ||
+                  props.defaultAgentContributed) && (
+                  <div css={spaceLineStyle} />
+                )}
               {(canManage(
                 props.userRoleForThisAgent,
                 ATTRIBUTE_GROUP.AI_AGENT,
@@ -110,7 +120,6 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
               ) ||
                 props.defaultAgentContributed) && (
                 <>
-                  <div css={spaceLineStyle} />
                   <div
                     css={tabTitleStyle(
                       activeTab === ShareAgentTab.TO_MARKETPLACE,

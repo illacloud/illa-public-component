@@ -22,7 +22,6 @@ import {
   headerContainerStyle,
 } from "./style"
 
-
 export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
   let defTab = ShareAgentTab.TO_MARKETPLACE
 
