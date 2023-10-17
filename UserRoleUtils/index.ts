@@ -401,7 +401,8 @@ export const canManageInvite = (
   }
 }
 
-export const showInviteModal = (teamInfo: TeamInfo) => {
+export const showInviteModal = (teamInfo?: TeamInfo) => {
+  if (!teamInfo) return false
   return canManageInvite(
     teamInfo.myRole,
     teamInfo.permission.allowEditorManageTeamMember,

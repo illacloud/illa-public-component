@@ -1,6 +1,8 @@
-import { useIsMobile } from "@illa-public/utils"
+import { USER_ROLE, getCurrentTeamInfo } from "@illa-public/user-data"
+import { getAuthToken, useIsMobile } from "@illa-public/utils"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { Divider } from "@illa-design/react"
 import { ReactComponent as DiscordIcon } from "../../assets/discord.svg"
@@ -15,6 +17,7 @@ export const BottomList: FC<BottomListProps> = (props) => {
   const { onClickMenuItemCallback, extBottomComponent } = props
   const { t } = useTranslation()
   const { teamIdentifier } = useParams()
+  const currentTeamInfo = useSelector(getCurrentTeamInfo)
   const isMobile = useIsMobile()
 
   const bottomList: MenuItemShape[] = [
@@ -44,9 +47,14 @@ export const BottomList: FC<BottomListProps> = (props) => {
       labelKey: "tutorial",
       href: `${
         import.meta.env.ILLA_BUILDER_URL
-      }/${teamIdentifier}/dashboard/tutorial`,
+      }/${teamIdentifier}/guide?token=${getAuthToken()}`,
       icon: <TutorialIcon />,
-      hidden: isMobile,
+      hidden:
+        isMobile ||
+        !teamIdentifier ||
+        ![USER_ROLE.ADMIN, USER_ROLE.EDITOR, USER_ROLE.OWNER].includes(
+          currentTeamInfo?.myRole ?? USER_ROLE.VIEWER,
+        ),
       onClickCallback: onClickMenuItemCallback,
     },
     {
