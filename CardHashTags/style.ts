@@ -10,7 +10,6 @@ export const cardTagsContainerStyle = css`
 
 export const tagContainerCoverStyle = css`
   padding: 1px 8px;
-  border-radius: 12px;
 `
 
 export const tagContentStyle = css`

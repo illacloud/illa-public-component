@@ -38,7 +38,7 @@ export const MarketAppCard: FC<MarketAppCardProps> = (props) => {
           {app?.config?.description || fallbackDescription}
         </div>
       </div>
-      {marketplace?.hashtags && marketplace?.hashtags.length && (
+      {!!(marketplace?.hashtags && marketplace?.hashtags.length) && (
         <div css={cardTagContainerStyle}>
           <CardHashtags cardHashtags={marketplace?.hashtags} />
         </div>

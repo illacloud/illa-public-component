@@ -69,7 +69,7 @@ export const MarketAgentCard: FC<MarketAgentCardProps> = (props) => {
           <div css={modelNameStyle}>{getLLM(aiAgent?.model)?.name}</div>
         </div>
         <div css={descriptionStyle}>{aiAgent?.description}</div>
-        {marketplace?.hashtags && marketplace?.hashtags.length && (
+        {!!(marketplace?.hashtags && marketplace?.hashtags.length) && (
           <CardHashtags cardHashtags={marketplace?.hashtags} />
         )}
       </div>
