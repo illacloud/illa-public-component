@@ -10,8 +10,6 @@ export const inviteHeaderContainerStyle = css`
 `
 
 export const inviteModalStyle = css`
-  height: 70%;
-  width: 100%;
   flex: none;
   border-radius: 12px 12px 0 0;
   padding: 0 12px 0 12px;
@@ -83,7 +81,6 @@ export const contentContainerStyle = css`
   margin-top: 20px;
   overflow-y: auto;
 `
-
 
 export const dividerStyle = css`
   margin-bottom: 24px;
