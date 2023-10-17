@@ -14,6 +14,7 @@ export enum PRODUCT_SORT_BY {
 export interface AppProductResponse {
   products: ProductMarketApp[]
   hasMore: boolean
+  recommendHashtags: string[]
 }
 
 export interface ProductListParams {

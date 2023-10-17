@@ -5,5 +5,4 @@ export interface MarketAppCardProps {
   app: ProductAppDetail
   marketplace: MarketplaceInfo
   fallbackDescription?: string
-  hashtags?: string[]
 }

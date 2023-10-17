@@ -25,26 +25,23 @@ import {
 } from "./style"
 
 export const MarketAgentCard: FC<MarketAgentCardProps> = (props) => {
-  const { marketAIAgent, hashtags, ...rest } = props
+  const { marketAIAgent, ...rest } = props
+  const { aiAgent, marketplace } = marketAIAgent ?? {}
 
   return (
     <div css={cardStyle} {...rest}>
       <div css={headerStyle}>
-        <img
-          css={agentIconStyle}
-          src={marketAIAgent.aiAgent.icon}
-          alt={marketAIAgent.aiAgent.name}
-        />
+        <img css={agentIconStyle} src={aiAgent.icon} alt={aiAgent.name} />
         <div css={teamInfoContainerStyle}>
           <div css={teamInfoStyle}>
             <Avatar
               css={teamAvatarStyle}
-              avatarUrl={marketAIAgent.marketplace.contributorTeam.icon}
-              name={marketAIAgent.marketplace.contributorTeam.name}
-              id={marketAIAgent.marketplace.contributorTeam.teamID}
+              avatarUrl={marketplace?.contributorTeam?.icon}
+              name={marketplace?.contributorTeam?.name}
+              id={marketplace?.contributorTeam?.teamID}
             />
             <span css={teamNameStyle}>
-              {marketAIAgent.marketplace.contributorTeam.name}
+              {marketplace?.contributorTeam?.name}
             </span>
           </div>
         </div>
@@ -52,32 +49,28 @@ export const MarketAgentCard: FC<MarketAgentCardProps> = (props) => {
           <div css={actionStyle}>
             <div css={actionCountStyle}>
               <ForkIcon size="16px" />
-              {formatNumForAgent(marketAIAgent.marketplace.numForks)}
+              {formatNumForAgent(marketplace?.numForks)}
             </div>
             <div css={actionCountStyle}>
               <StarOutlineIcon size="16px" />
-              {formatNumForAgent(marketAIAgent.marketplace.numStars)}
+              {formatNumForAgent(marketplace?.numStars)}
             </div>
             <div css={actionCountStyle}>
               <PlayOutlineIcon size="16px" />
-              {formatNumForAgent(marketAIAgent.marketplace.numRuns)}
+              {formatNumForAgent(marketplace?.numRuns)}
             </div>
           </div>
         </div>
       </div>
       <div css={cardContentContainerStyle}>
-        <span css={nameStyle}>{marketAIAgent.aiAgent.name}</span>
+        <span css={nameStyle}>{aiAgent?.name}</span>
         <div css={modalInfoStyle}>
-          <div css={modelLogoStyle}>
-            {getLLM(marketAIAgent.aiAgent.model)?.logo}
-          </div>
-          <div css={modelNameStyle}>
-            {getLLM(marketAIAgent.aiAgent.model)?.name}
-          </div>
+          <div css={modelLogoStyle}>{getLLM(aiAgent?.model)?.logo}</div>
+          <div css={modelNameStyle}>{getLLM(aiAgent?.model)?.name}</div>
         </div>
-        <div css={descriptionStyle}>{marketAIAgent.aiAgent.description}</div>
-        {hashtags && hashtags.length && (
-          <CardHashtags cardHashtags={hashtags} />
+        <div css={descriptionStyle}>{aiAgent?.description}</div>
+        {marketplace?.hashtags && marketplace?.hashtags.length && (
+          <CardHashtags cardHashtags={marketplace?.hashtags} />
         )}
       </div>
     </div>
