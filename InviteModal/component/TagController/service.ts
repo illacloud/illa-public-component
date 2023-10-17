@@ -4,9 +4,9 @@ import {
   publicMarketplaceRequest,
 } from "@illa-public/illa-net"
 import { MarketAIAgent } from "@illa-public/market-agent"
-import { AppProductResponse } from "@illa-public/market-app"
+import { ProductMarketApp } from "@illa-public/market-app"
 import { HASHTAG_REQUEST_TYPE } from "../../constants"
-import { AgentRecommendHashtagResponse } from "../AgentToMarketplace/interface"
+
 
 export const updateContributeAttr = (
   teamID: string,
@@ -45,20 +45,20 @@ export const updateContributeAttr = (
 }
 
 export const fetchRecommendHashtag = (type: HASHTAG_REQUEST_TYPE) => {
-  return publicHashtagRequest<AgentRecommendHashtagResponse>({
+  return publicHashtagRequest<string[]>({
     method: "GET",
     url: `/defaultHashtagsListFull/unitType/${type}`,
   })
 }
 
 export const fetchAppDetailInfoByAppID = (appID: string) => {
-  return publicMarketplaceRequest<AppProductResponse>({
+  return publicMarketplaceRequest<ProductMarketApp>({
     method: "GET",
     url: `/apps/${appID}`,
   })
 }
 
-export const fetchAgentDetailInfoByAppID = (aiAgentID: string) => {
+export const fetchAgentDetailInfoByAgentID = (aiAgentID: string) => {
   return publicMarketplaceRequest<MarketAIAgent>({
     method: "GET",
     url: `/aiAgents/${aiAgentID}`,

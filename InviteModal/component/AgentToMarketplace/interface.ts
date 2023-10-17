@@ -10,15 +10,3 @@ export interface AgentToMarketplaceProps
   userRoleForThisAgent: USER_ROLE
   ownerTeamID: string
 }
-
-export interface AgentHashtagDetail {
-  id: string
-  unitType: number
-  serial: number
-  hashtagID: string
-  hashtagName: string
-  hashtagAmount: number
-}
-export interface AgentRecommendHashtagResponse {
-  hashtags: AgentHashtagDetail[]
-}

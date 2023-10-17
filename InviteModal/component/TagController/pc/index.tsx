@@ -11,8 +11,14 @@ import {
   getColor,
   useMessage,
 } from "@illa-design/react"
+import { HASHTAG_REQUEST_TYPE } from "../../../constants"
 import { TagControllerProps } from "../interface"
-import { updateContributeAttr } from "../service"
+import {
+  fetchAgentDetailInfoByAgentID,
+  fetchAppDetailInfoByAppID,
+  fetchRecommendHashtag,
+  updateContributeAttr,
+} from "../service"
 import {
   recommendLabelStyle,
   tagContainer,
@@ -28,6 +34,8 @@ export const TagControllerPC: FC<TagControllerProps> = (props) => {
     productID,
     defaultAppContribute,
     teamID,
+    showSave = true,
+    onTagChange,
   } = props
 
   const { t } = useTranslation()
@@ -52,23 +60,49 @@ export const TagControllerPC: FC<TagControllerProps> = (props) => {
       setCurrentHashtags([])
     }
     switch (productType) {
+      case HASHTAG_REQUEST_TYPE.UNIT_TYPE_AI_AGENT:
+        fetchAppDetailInfoByAppID(productID).then((res) => {
+          setSavingHashtags(res.data.marketplace.hashtags)
+          setCurrentHashtags(res.data.marketplace.hashtags)
+        })
+        break
+      case HASHTAG_REQUEST_TYPE.UNIT_TYPE_APP:
+        fetchAgentDetailInfoByAgentID(productID).then((res) => {
+          setSavingHashtags(res.data.marketplace.hashtags)
+          setCurrentHashtags(res.data.marketplace.hashtags)
+        })
+        break
     }
-  }, [productID, productType])
+  }, [defaultAppContribute, productID, productType])
+
+  useEffect(() => {
+    fetchRecommendHashtag(productType).then((res) => {
+      setRecommendTags(res.data)
+    })
+  }, [productType])
 
   return (
     <div css={tagContainer}>
       <div css={titleStyle}>{t("Tag")}</div>
       <div css={tagInputContainerStyle}>
         <InputTag
+          validate={(inputValue, values) => {
+            return !(values as string[]).includes(inputValue)
+          }}
           labelInValue={false}
-          readOnly={readOnly}
+          readOnly={isBiggerThanTargetRole(
+            USER_ROLE.VIEWER,
+            userRoleForThisProduct,
+            false,
+          )}
           saveOnBlur={true}
           value={currentHashtags}
           onChange={(value) => {
             setCurrentHashtags(value as string[])
+            onTagChange?.(value as string[])
           }}
         />
-        {!readOnly && (
+        {!readOnly && showSave && (
           <Button
             ml="8px"
             w="80px"
@@ -93,14 +127,24 @@ export const TagControllerPC: FC<TagControllerProps> = (props) => {
               }
             }}
           >
-            {t("Saving")}
+            {t("Save")}
           </Button>
         )}
       </div>
       <div css={recommendLabelStyle}>{t("recommand tag")}</div>
       <Space mt="8px">
         {recommendTags.map((tag) => (
-          <Tag key={tag}>{tag}</Tag>
+          <Tag
+            key={tag}
+            onClick={() => {
+              if (currentHashtags.includes(tag)) {
+                return
+              }
+              setCurrentHashtags([...currentHashtags, tag])
+            }}
+          >
+            {tag}
+          </Tag>
         ))}
       </Space>
     </div>
