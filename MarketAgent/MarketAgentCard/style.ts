@@ -6,7 +6,7 @@ export const cardStyle = css`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 220px;
+  width: 100%;
   background: ${getColor("white", "01")};
   cursor: pointer;
 
@@ -19,7 +19,7 @@ export const headerStyle = css`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 220px;
+  width: 100%;
   height: 220px;
   overflow: hidden;
   border-radius: 16px;
