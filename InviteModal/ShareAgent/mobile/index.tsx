@@ -2,14 +2,7 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
-import { USER_ROLE } from "@illa-public/user-data"
-import {
-  ACTION_MANAGE,
-  ATTRIBUTE_GROUP,
-  canManage,
-  isBiggerThanTargetRole,
-} from "@illa-public/user-role-utils"
-import { FC, useContext, useEffect, useState } from "react"
+import { FC, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { CloseIcon, Divider, Drawer, TriggerProvider } from "@illa-design/react"
 import { AgentToMarketplaceMobile } from "../../component/AgentToMarketplace/mobile"
@@ -33,28 +26,13 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
 
   let defTab = ShareAgentTab.TO_MARKETPLACE
 
-  if (
-    props.canInvite &&
-    props.canUseBillingFeature &&
-    USER_ROLE.VIEWER === props.currentUserRole
-  ) {
-    defTab = ShareAgentTab.SHARE_WITH_TEAM
-  } else if (
-    isBiggerThanTargetRole(USER_ROLE.VIEWER, props.currentUserRole) ||
-    props.defaultAgentContributed
-  ) {
+  if (props.defaultAgentContributed) {
     defTab = ShareAgentTab.TO_MARKETPLACE
+  } else if (props.canInvite && props.canUseBillingFeature) {
+    defTab = ShareAgentTab.SHARE_WITH_TEAM
   }
 
-  const [activeTab, setActiveTab] = useState<string>(props.defaultTab ?? defTab)
-
-  useEffect(() => {
-    if (props.defaultTab === undefined) {
-      return
-    } else {
-      setActiveTab(props.defaultTab)
-    }
-  }, [props.defaultTab])
+  const [activeTab, setActiveTab] = useState<string>(defTab)
 
   const { t } = useTranslation()
   const { track } = useContext(MixpanelTrackContext)
@@ -104,22 +82,8 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
               )}
               {props.canInvite &&
                 props.canUseBillingFeature &&
-                (canManage(
-                  props.userRoleForThisAgent,
-                  ATTRIBUTE_GROUP.AI_AGENT,
-                  props.teamPlan,
-                  ACTION_MANAGE.CREATE_AI_AGENT,
-                ) ||
-                  props.defaultAgentContributed) && (
-                  <div css={spaceLineStyle} />
-                )}
-              {(canManage(
-                props.userRoleForThisAgent,
-                ATTRIBUTE_GROUP.AI_AGENT,
-                props.teamPlan,
-                ACTION_MANAGE.CREATE_AI_AGENT,
-              ) ||
-                props.defaultAgentContributed) && (
+                props.defaultAgentContributed && <div css={spaceLineStyle} />}
+              {props.defaultAgentContributed && (
                 <>
                   <div
                     css={tabTitleStyle(
@@ -141,12 +105,8 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
               props.agentID !== undefined && (
                 <AgentToMarketplaceMobile
                   title={props.title}
-                  defaultAgentContributed={props.defaultAgentContributed}
-                  onAgentContributed={props.onAgentContributed}
                   agentID={props.agentID}
                   onCopyAgentMarketLink={props.onCopyAgentMarketLink}
-                  userRoleForThisAgent={props.userRoleForThisAgent}
-                  ownerTeamID={props.ownerTeamID}
                   onShare={props.onShare}
                 />
               )}
