@@ -1,17 +1,12 @@
-import { getAgentPublicLink } from "@illa-public/utils"
-import { FC } from "react"
-import { useTranslation } from "react-i18next"
-import { Button } from "@illa-design/react"
-import { ReactComponent as InviteIcon } from "../../../asset/InviteLink.svg"
-import { ShareBlockMobile } from "../../ShareBlock/mobile"
-import { AgentToMarketplaceProps } from "../interface"
-import {
-  inviteButtonStyle,
-  inviteLinkContainer,
-  inviteLinkHeaderStyle,
-  inviteOptionsStyle,
-  shareBlockContainerStyle,
-} from "./style"
+import { getAgentPublicLink } from "@illa-public/utils";
+import { FC } from "react";
+import { useTranslation } from "react-i18next";
+import { Button } from "@illa-design/react";
+import { ReactComponent as InviteIcon } from "../../../asset/InviteLink.svg";
+import { ShareBlockMobile } from "../../ShareBlock/mobile";
+import { AgentToMarketplaceProps } from "../interface";
+import { inviteButtonStyle, inviteLinkContainer, inviteLinkHeaderStyle, inviteOptionsStyle, shareBlockContainerStyle } from "./style";
+
 
 // No editing function, just for sharing.
 export const AgentToMarketplaceMobile: FC<

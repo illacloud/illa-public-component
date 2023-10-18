@@ -1,7 +1,7 @@
 import { debounce } from "lodash"
 import { FC, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Select, Space, Tag } from "@illa-design/react"
+import { Select, Skeleton, Space, Tag } from "@illa-design/react"
 import { HASHTAG_REQUEST_TYPE } from "../../../constants"
 import { fetchFuzzySearchHashTag } from "../../../service"
 import { TagControllerProps } from "../interface"
@@ -71,6 +71,9 @@ export const TagControllerPC: FC<TagControllerProps> = (props) => {
   useEffect(() => {
     fetchRecommendHashtag(productType).then((res) => {
       setRecommendTags(res.data.hashtags)
+      if (currentInputValue.current === "") {
+        setSearchRecommendTags(res.data.hashtags)
+      }
     })
   }, [productType])
 
@@ -115,27 +118,31 @@ export const TagControllerPC: FC<TagControllerProps> = (props) => {
         />
       </div>
       <div css={recommendLabelStyle}>{t("contribute.tag.recommended")}</div>
-      <Space wrap>
-        {recommendTags.map((tag) => (
-          <Tag
-            variant={currentHashtags.includes(tag) ? "outline" : "light"}
-            key={tag}
-            colorScheme={
-              currentHashtags.includes(tag) ? "techPurple" : "grayBlue"
-            }
-            onClick={() => {
-              if (currentHashtags.includes(tag)) {
-                return
+      {recommendTags.length === 0 ? (
+        <Skeleton text={{ rows: 4 }} opac={0.5} animation />
+      ) : (
+        <Space wrap>
+          {recommendTags.map((tag) => (
+            <Tag
+              variant={currentHashtags.includes(tag) ? "outline" : "light"}
+              key={tag}
+              colorScheme={
+                currentHashtags.includes(tag) ? "techPurple" : "grayBlue"
               }
-              const newTags = [...currentHashtags, tag]
-              setCurrentHashtags(newTags)
-              onTagChange?.(newTags)
-            }}
-          >
-            {tag}
-          </Tag>
-        ))}
-      </Space>
+              onClick={() => {
+                if (currentHashtags.includes(tag)) {
+                  return
+                }
+                const newTags = [...currentHashtags, tag]
+                setCurrentHashtags(newTags)
+                onTagChange?.(newTags)
+              }}
+            >
+              {tag}
+            </Tag>
+          ))}
+        </Space>
+      )}
     </div>
   )
 }

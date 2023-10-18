@@ -35,6 +35,7 @@ export const blockLabelStyle = css`
 
 export const linkCopyContainer = css`
   display: flex;
+  gap: 8px;
   flex-direction: row;
   overflow: hidden;
   align-items: center;

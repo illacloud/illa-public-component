@@ -1,8 +1,9 @@
-import { USER_ROLE } from "@illa-public/user-data"
-import { ShareBlockProps } from "../ShareBlock/interface"
+import {USER_ROLE} from "@illa-public/user-data"
+import {ShareBlockProps} from "../ShareBlock/interface"
+import {ContributeAppProps} from "../../ContributeApp/interface";
 
 export interface AppPublicProps
-  extends Pick<ShareBlockProps, "onShare" | "title"> {
+  extends Pick<ShareBlockProps, "onShare" | "title">, Pick<ContributeAppProps, "appDesc" | "appName" | "onAppInfoUpdate"> {
   defaultAppPublic: boolean
   defaultAppContribute: boolean
   canUseBillingFeature: boolean
@@ -25,6 +26,7 @@ export interface AppHashtagDetail {
   hashtagName: string
   hashtagAmount: number
 }
+
 export interface AppRecommendHashtagResponse {
   hashtags: AppHashtagDetail[]
 }

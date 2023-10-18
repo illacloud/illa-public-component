@@ -99,6 +99,7 @@ export const Header: FC<IPcHeaderProps> = (props) => {
       </div>
       {inviteModalVisible && (
         <InviteMemberPC
+          itemID={teamInfo.id}
           redirectURL=""
           onClose={() => setInviteModalVisible(false)}
           canInvite={canManageInvite(
