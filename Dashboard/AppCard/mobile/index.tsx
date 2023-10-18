@@ -1,5 +1,5 @@
 import { Avatar } from "@illa-public/avatar"
-import { fromNow, getAuthToken } from "@illa-public/utils"
+import { fromNow, getAuthToken, getILLABuilderURL } from "@illa-public/utils"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { Link, useParams } from "react-router-dom"
@@ -76,9 +76,7 @@ export const MobileAppCardItem: FC<MobileCardItemProps> = (props) => {
           ))}
         </div>
         <Link
-          to={`${
-            import.meta.env.ILLA_BUILDER_URL
-          }/${teamIdentifier}/deploy/app/${appID}?token=${getAuthToken()}`}
+          to={`${getILLABuilderURL()}/${teamIdentifier}/deploy/app/${appID}?token=${getAuthToken()}`}
           target="_blank"
           css={linkButtonStyle}
         >

@@ -11,3 +11,11 @@ export function isBlobURLOrUrl(url: string): boolean {
   if (!url) return false
   return url.startsWith("blob:") || isURL(url)
 }
+
+export const isServerRender = (function () {
+  try {
+    return !(typeof window !== "undefined" && document !== undefined)
+  } catch (e) {
+    return true
+  }
+})()

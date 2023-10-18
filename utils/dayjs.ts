@@ -43,7 +43,7 @@ const FORMAT_RULE = {
   },
 }
 
-async function initDayjs() {
+export async function initDayjs() {
   const local = localStorage.getItem("i18nextLng") || "en-US"
   const language = formatLanguage(local)
   switch (language) {
@@ -58,8 +58,6 @@ async function initDayjs() {
       break
   }
 }
-
-initDayjs()
 
 export const fromNow = (date: string) => {
   if (!date) return ""
