@@ -130,9 +130,7 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
                   setIsOpenContributeModal(true)
                 }}
               >
-                {!agentContributedLoading
-                  ? t("user_management.modal.link.contribute_update")
-                  : undefined}
+                {t("contribute.update")}
               </Button>
             )}
             <Button
@@ -144,9 +142,7 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
                 onCopyAgentMarketLink?.(getAgentPublicLink(agentID))
               }}
             >
-              {!agentContributedLoading
-                ? t("user_management.modal.link.copy")
-                : undefined}
+              {t("user_management.modal.link.copy")}
             </Button>
           </div>
         ) : (

@@ -301,6 +301,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
           teamID={ownerTeamID}
           onContributed={onAppContribute}
           onAppInfoUpdate={onAppInfoUpdate}
+          onAppPublic={onAppPublic}
           appName={appName}
           appDesc={appDesc}
           productID={appID}

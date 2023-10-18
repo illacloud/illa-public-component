@@ -55,6 +55,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
   if (!props.defaultAppContribute && props.defaultTab === "public") {
     return (
       <ContributeAppPC
+        onAppPublic={props.onAppPublic}
         appDesc={props.appDesc}
         appName={props.appName}
         onAppInfoUpdate={props.onAppInfoUpdate}

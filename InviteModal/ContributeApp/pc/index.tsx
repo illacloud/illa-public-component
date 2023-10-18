@@ -60,6 +60,7 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
           })
           props.onAppInfoUpdate(data.appName, data.appDesc)
           props.onContributed(true)
+          props.onAppPublic(true)
           props.onClose?.()
         } catch (e) {
           message.error({
@@ -82,7 +83,7 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
         hideCancel={!props.productContributed}
         okText={
           props.productContributed
-            ? t("contribute.update_modal_button")
+            ? t("contribute.update_modal.button")
             : t("contribute.first_time_modal.button")
         }
         okButtonProps={{

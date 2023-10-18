@@ -24,7 +24,7 @@ export const ContributeAgentPC: FC<ContributeAgentProps> = (props) => {
       hideCancel={!props.productContributed}
       okText={
         props.productContributed
-          ? t("contribute.update_modal_button")
+          ? t("contribute.update_modal.button")
           : t("contribute.first_time_modal.button")
       }
       onOk={async () => {
