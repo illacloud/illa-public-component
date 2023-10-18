@@ -4,7 +4,7 @@ export const getILLABuilderURL = (): string => {
   if (process.env.ILLA_BUILDER_URL || isCloudVersion || isServerRender) {
     return `${process.env.ILLA_BUILDER_URL}`
   } else {
-    return `${location.origin}/builder`
+    return `${location.origin}/build`
   }
 }
 
