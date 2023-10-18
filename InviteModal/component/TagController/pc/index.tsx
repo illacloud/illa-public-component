@@ -124,6 +124,7 @@ export const TagControllerPC: FC<TagControllerProps> = (props) => {
         <Space wrap>
           {recommendTags.map((tag) => (
             <Tag
+              clickable
               variant={currentHashtags.includes(tag) ? "outline" : "light"}
               key={tag}
               colorScheme={
