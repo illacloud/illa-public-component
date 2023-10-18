@@ -1,5 +1,9 @@
 import { USER_ROLE, getCurrentTeamInfo } from "@illa-public/user-data"
-import { getAuthToken, useIsMobile } from "@illa-public/utils"
+import {
+  getAuthToken,
+  getILLABuilderURL,
+  useIsMobile,
+} from "@illa-public/utils"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -45,9 +49,7 @@ export const BottomList: FC<BottomListProps> = (props) => {
     {
       labelName: t("page.left.menu.tutorial"),
       labelKey: "tutorial",
-      href: `${
-        import.meta.env.ILLA_BUILDER_URL
-      }/${teamIdentifier}/guide?token=${getAuthToken()}`,
+      href: `${getILLABuilderURL()}/${teamIdentifier}/guide?token=${getAuthToken()}`,
       icon: <TutorialIcon />,
       hidden:
         isMobile ||

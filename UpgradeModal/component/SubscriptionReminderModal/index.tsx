@@ -4,6 +4,7 @@ import {
   SUBSCRIPTION_CYCLE,
   getCurrentTeamInfo,
 } from "@illa-public/user-data"
+import { getILLACloudURL } from "@illa-public/utils"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -62,7 +63,7 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
 
   const billingUrl = useMemo(() => {
     if (!teamInfo?.identifier) return ""
-    return `${process.env.ILLA_CLOUD_URL}/setting/${teamInfo?.identifier}/billing`
+    return `${getILLACloudURL()}/setting/${teamInfo?.identifier}/billing`
   }, [teamInfo?.identifier])
 
   const openDrawer = useCallback(() => {

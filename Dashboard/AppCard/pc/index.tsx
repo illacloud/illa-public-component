@@ -9,14 +9,17 @@ import {
   ATTRIBUTE_GROUP,
   canManage,
 } from "@illa-public/user-role-utils"
-import { getAuthToken, isCloudVersion } from "@illa-public/utils"
+import {
+  getAuthToken,
+  getILLABuilderURL,
+  isCloudVersion,
+} from "@illa-public/utils"
 import { fromNow } from "@illa-public/utils"
 import { FC, useCallback, useContext, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { Space, Tag } from "@illa-design/react"
-// import { track } from "@/utils/mixpanelHelper"
 import { PCAppCardProps } from "../interface"
 import { ActionButtonGroup } from "./components/ActionButtonGroup"
 import { AppCardActionItem } from "./components/AppCardItem"
@@ -62,14 +65,14 @@ export const PCAppCard: FC<PCAppCardProps> = (props) => {
     )
     if (canEditApp) {
       window.open(
-        `${import.meta.env.ILLA_BUILDER_URL}/${teamIdentifier}/app/${
+        `${getILLABuilderURL()}/${teamIdentifier}/app/${
           appInfo.appId
         }?token=${getAuthToken()}`,
         "_blank",
       )
     } else if (appInfo.deployed) {
       window.open(
-        `${import.meta.env.ILLA_BUILDER_URL}/${teamIdentifier}/deploy/app/${
+        `${getILLABuilderURL()}/${teamIdentifier}/deploy/app/${
           appInfo.appId
         }?token=${getAuthToken()}`,
         "_blank",

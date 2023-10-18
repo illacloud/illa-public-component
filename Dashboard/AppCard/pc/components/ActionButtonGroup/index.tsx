@@ -2,7 +2,7 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
-import { getAuthToken } from "@illa-public/utils"
+import { getAuthToken, getILLABuilderURL } from "@illa-public/utils"
 import { FC, MouseEvent, useContext, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useParams } from "react-router-dom"
@@ -28,9 +28,7 @@ export const ActionButtonGroup: FC<ActionButtonGroupProps> = (props) => {
         "both",
       )
       window.open(
-        `${
-          import.meta.env.ILLA_BUILDER_URL
-        }/${teamIdentifier}/deploy/app/${appID}?token=${getAuthToken()}`,
+        `${getILLABuilderURL()}/${teamIdentifier}/deploy/app/${appID}?token=${getAuthToken()}`,
         "_blank",
       )
     },
@@ -49,9 +47,7 @@ export const ActionButtonGroup: FC<ActionButtonGroupProps> = (props) => {
         "both",
       )
       window.open(
-        `${
-          import.meta.env.ILLA_BUILDER_URL
-        }/${teamIdentifier}/app/${appID}?token=${getAuthToken()}`,
+        `${getILLABuilderURL()}/${teamIdentifier}/app/${appID}?token=${getAuthToken()}`,
         "_blank",
       )
     },
