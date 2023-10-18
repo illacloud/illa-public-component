@@ -1,23 +1,14 @@
-import { USER_ROLE } from "@illa-public/user-data"
-import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
-import { isEqual } from "lodash"
-import { FC, useEffect, useState } from "react"
+import { debounce } from "lodash"
+import { FC, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import {
-  Button,
-  InputTag,
-  Space,
-  Tag,
-  getColor,
-  useMessage,
-} from "@illa-design/react"
+import { Select, Space, Tag } from "@illa-design/react"
 import { HASHTAG_REQUEST_TYPE } from "../../../constants"
+import { fetchFuzzySearchHashTag } from "../../../service"
 import { TagControllerProps } from "../interface"
 import {
   fetchAgentDetailInfoByAgentID,
   fetchAppDetailInfoByAppID,
   fetchRecommendHashtag,
-  updateContributeAttr,
 } from "../service"
 import {
   recommendLabelStyle,
@@ -28,119 +19,117 @@ import {
 
 
 export const TagControllerPC: FC<TagControllerProps> = (props) => {
-  const {
-    userRoleForThisProduct,
-    productType,
-    productID,
-    defaultAppContribute,
-    teamID,
-    showSave = true,
-    onTagChange,
-  } = props
+  const { productType, productID, productContributed, onTagChange } = props
 
   const { t } = useTranslation()
 
-  const [savingHashtags, setSavingHashtags] = useState<string[]>([])
+  const currentInputValue = useRef<string>("")
 
   const [currentHashtags, setCurrentHashtags] = useState<string[]>([])
 
-  const [saving, setSaving] = useState(false)
-
-  const message = useMessage()
-
   const [recommendTags, setRecommendTags] = useState<string[]>([])
 
-  const readOnly =
-    !isBiggerThanTargetRole(USER_ROLE.VIEWER, userRoleForThisProduct, false) ||
-    teamID === undefined
+  const [searchRecommendTags, setSearchRecommendTags] = useState<string[]>([])
+
+  const [searchRecommendTagsLoading, setSearchRecommendTagsLoading] =
+    useState(false)
 
   useEffect(() => {
-    if (defaultAppContribute) {
-      setSavingHashtags([])
+    if (!productContributed) {
       setCurrentHashtags([])
+      return
     }
     switch (productType) {
-      case HASHTAG_REQUEST_TYPE.UNIT_TYPE_AI_AGENT:
+      case HASHTAG_REQUEST_TYPE.UNIT_TYPE_APP:
         fetchAppDetailInfoByAppID(productID).then((res) => {
-          setSavingHashtags(res.data.marketplace.hashtags)
           setCurrentHashtags(res.data.marketplace.hashtags)
         })
         break
-      case HASHTAG_REQUEST_TYPE.UNIT_TYPE_APP:
+      case HASHTAG_REQUEST_TYPE.UNIT_TYPE_AI_AGENT:
         fetchAgentDetailInfoByAgentID(productID).then((res) => {
-          setSavingHashtags(res.data.marketplace.hashtags)
           setCurrentHashtags(res.data.marketplace.hashtags)
         })
         break
     }
-  }, [defaultAppContribute, productID, productType])
+  }, [productContributed, productID, productType])
+
+  const debounceSearchKeywords = useRef(
+    debounce(async (keywords: string) => {
+      setSearchRecommendTagsLoading(true)
+      try {
+        const match = await fetchFuzzySearchHashTag(keywords)
+        if (currentInputValue.current === keywords) {
+          setSearchRecommendTags(match.data.match)
+        }
+      } catch (e) {
+      } finally {
+        setSearchRecommendTagsLoading(false)
+      }
+    }, 160),
+  )
 
   useEffect(() => {
     fetchRecommendHashtag(productType).then((res) => {
-      setRecommendTags(res.data)
+      setRecommendTags(res.data.hashtags)
     })
   }, [productType])
 
   return (
     <div css={tagContainer}>
-      <div css={titleStyle}>{t("Tag")}</div>
+      <div css={titleStyle}>{t("contribute.tag.tag")}</div>
       <div css={tagInputContainerStyle}>
-        <InputTag
-          validate={(inputValue, values) => {
-            return !(values as string[]).includes(inputValue)
+        <Select
+          loading={searchRecommendTagsLoading}
+          options={searchRecommendTags}
+          multiple
+          flexShrink="1"
+          flexGrow="1"
+          filterOption={(inputValue, option) => {
+            if (inputValue === option.value) {
+              return true
+            } else {
+              return searchRecommendTags.includes(option.value.toString())
+            }
           }}
-          labelInValue={false}
-          readOnly={isBiggerThanTargetRole(
-            USER_ROLE.VIEWER,
-            userRoleForThisProduct,
-            false,
-          )}
-          saveOnBlur={true}
+          defaultFilterOption={(inputValue, option) => {
+            return searchRecommendTags.includes(option.value.toString())
+          }}
+          placeholder="Enter↵"
           value={currentHashtags}
           onChange={(value) => {
-            setCurrentHashtags(value as string[])
             onTagChange?.(value as string[])
+            setCurrentHashtags(value as string[])
           }}
+          onInputValueChange={(value) => {
+            currentInputValue.current = value as string
+            if (value === "") {
+              setSearchRecommendTags(recommendTags)
+            } else {
+              debounceSearchKeywords.current(value as string)
+            }
+          }}
+          colorScheme="techPurple"
+          labelInValue={false}
+          inputAsOption
+          showSearch
         />
-        {!readOnly && showSave && (
-          <Button
-            ml="8px"
-            w="80px"
-            colorScheme={getColor("grayBlue", "02")}
-            loading={saving}
-            disabled={isEqual(savingHashtags, currentHashtags)}
-            onClick={async () => {
-              setSaving(true)
-              try {
-                await updateContributeAttr(
-                  teamID,
-                  productID,
-                  productType,
-                  currentHashtags,
-                )
-              } catch (e) {
-                message.error({
-                  content: t("gg"),
-                })
-              } finally {
-                setSaving(false)
-              }
-            }}
-          >
-            {t("Save")}
-          </Button>
-        )}
       </div>
-      <div css={recommendLabelStyle}>{t("recommand tag")}</div>
-      <Space mt="8px">
+      <div css={recommendLabelStyle}>{t("contribute.tag.recommended")}</div>
+      <Space wrap>
         {recommendTags.map((tag) => (
           <Tag
+            variant={currentHashtags.includes(tag) ? "outline" : "light"}
             key={tag}
+            colorScheme={
+              currentHashtags.includes(tag) ? "techPurple" : "grayBlue"
+            }
             onClick={() => {
               if (currentHashtags.includes(tag)) {
                 return
               }
-              setCurrentHashtags([...currentHashtags, tag])
+              const newTags = [...currentHashtags, tag]
+              setCurrentHashtags(newTags)
+              onTagChange?.(newTags)
             }}
           >
             {tag}

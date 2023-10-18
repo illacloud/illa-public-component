@@ -7,7 +7,6 @@ import { MarketAIAgent } from "@illa-public/market-agent"
 import { ProductMarketApp } from "@illa-public/market-app"
 import { HASHTAG_REQUEST_TYPE } from "../../constants"
 
-
 export const updateContributeAttr = (
   teamID: string,
   productID: string,
@@ -45,9 +44,11 @@ export const updateContributeAttr = (
 }
 
 export const fetchRecommendHashtag = (type: HASHTAG_REQUEST_TYPE) => {
-  return publicHashtagRequest<string[]>({
+  return publicHashtagRequest<{
+    hashtags: string[]
+  }>({
     method: "GET",
-    url: `/defaultHashtagsListFull/unitType/${type}`,
+    url: `/defaultHashtagsList/unitType/${type}`,
   })
 }
 

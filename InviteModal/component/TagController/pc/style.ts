@@ -5,7 +5,7 @@ import { getColor } from "@illa-design/react"
 export const tagContainer = css`
   display: flex;
   flex-direction: column;
-  padding: 8px 24px;
+  padding: 8px 0;
 `
 
 export const tagInputContainerStyle = css`
@@ -15,14 +15,17 @@ export const tagInputContainerStyle = css`
 
 export const titleStyle = css`
   color: ${getColor("grayBlue", "02")};
-  text-align: right;
   font-size: 14px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   font-style: normal;
   font-weight: 500;
   line-height: 22px;
 `
 
 export const recommendLabelStyle = css`
+  margin-top: 8px;
+  margin-bottom: 8px;
   color: ${getColor("grayBlue", "03")};
   font-size: 12px;
   font-style: normal;

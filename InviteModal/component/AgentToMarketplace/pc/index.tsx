@@ -16,7 +16,9 @@ import {
   useMergeValue,
   useMessage,
 } from "@illa-design/react"
+import { HASHTAG_REQUEST_TYPE } from "../../../constants"
 import { ShareBlockPC } from "../../ShareBlock/pc"
+import { TagControllerPC } from "../../TagController/pc"
 import { AgentToMarketplaceProps } from "../interface"
 import { fetchRemoveToMarketplace, makeAgentContribute } from "../service"
 import {
@@ -144,6 +146,13 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
         <div css={contributingDocStyle}>
           {t("user_management.modal.contribute.desc")}
         </div>
+      )}
+      {agentContributed && (
+        <TagControllerPC
+          productID={agentID}
+          productType={HASHTAG_REQUEST_TYPE.UNIT_TYPE_AI_AGENT}
+          productContributed={agentContributed}
+        />
       )}
       {agentContributed && (
         <ShareBlockPC
