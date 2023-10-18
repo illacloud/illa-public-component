@@ -125,6 +125,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
                 />
                 <Divider css={dividerStyle} />
                 <InviteByEmailMobile
+                  onInvitedChange={props.onInvitedChange}
                   excludeUserRole={[]}
                   onBalanceChange={props.onBalanceChange}
                   defaultInviteUserRole={props.defaultInviteUserRole}
