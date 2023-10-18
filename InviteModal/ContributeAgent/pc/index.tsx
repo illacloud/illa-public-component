@@ -1,13 +1,15 @@
 import { FC, useState } from "react"
-import { Modal, getColor } from "@illa-design/react"
+import { useTranslation } from "react-i18next"
+import { Modal, getColor, useMessage } from "@illa-design/react"
 import { TagControllerPC } from "../../component/TagController/pc"
 import { ContributeAgentProps } from "../interface"
 import { contributeAgentWithHashtags, updateAgentContribute } from "../service"
 
-
 export const ContributeAgentPC: FC<ContributeAgentProps> = (props) => {
   const [contributeLoading, setContributeLoading] = useState(false)
   const [currentHashtags, setCurrentHashtags] = useState<string[]>([])
+  const { t } = useTranslation()
+  const message = useMessage()
 
   return (
     <Modal
@@ -20,7 +22,11 @@ export const ContributeAgentPC: FC<ContributeAgentProps> = (props) => {
       maskClosable={false}
       visible={true}
       hideCancel={!props.productContributed}
-      okText={"Contribute"}
+      okText={
+        props.productContributed
+          ? t("contribute.update_modal_button")
+          : t("contribute.first_time_modal.button")
+      }
       onOk={async () => {
         setContributeLoading(true)
         try {
@@ -37,8 +43,12 @@ export const ContributeAgentPC: FC<ContributeAgentProps> = (props) => {
               currentHashtags,
             )
           }
-          props.onClose?.()
           props.onContributed?.(true)
+          props.onClose?.()
+        } catch (e) {
+          message.error({
+            content: t("user_management.modal.message.make_public_failed"),
+          })
         } finally {
           setContributeLoading(false)
         }
@@ -48,7 +58,11 @@ export const ContributeAgentPC: FC<ContributeAgentProps> = (props) => {
         disabled: currentHashtags.length === 0,
         loading: contributeLoading,
       }}
-      title={"Contribute to community"}
+      title={
+        props.productContributed
+          ? t("contribute.update_modal.title")
+          : t("contribute.first_time_modal.title")
+      }
     >
       <TagControllerPC
         productID={props.productID}
