@@ -49,6 +49,7 @@ export const cardItemFooterContainerStyle = css`
 export const editorInfoContainerStyle = css`
   width: 100%;
   overflow: hidden;
+  display: flex;
 `
 
 export const descContainerStyle = css`

@@ -48,13 +48,13 @@ export const MobileMemberPage: FC = () => {
   const hasPaymentManagementPermission = canManagePayment(
     currentTeamInfo.myRole,
     getPlanUtils(currentTeamInfo),
-    currentTeamInfo.totalTeamLicense.teamLicenseAllPaid,
+    currentTeamInfo?.totalTeamLicense?.teamLicenseAllPaid,
   )
 
   const handleClickInviteButton = useCallback(() => {
     if (!isCloudVersion || teamInfo?.totalTeamLicense?.teamLicenseAllPaid) {
       setInviteModalVisible(true)
-    } else if (teamInfo?.totalTeamLicense.balance < 0) {
+    } else if (teamInfo?.totalTeamLicense?.balance < 0) {
       upgradeModal({
         modalType: "add-license",
       })
@@ -64,7 +64,7 @@ export const MobileMemberPage: FC = () => {
       })
     }
   }, [
-    teamInfo?.totalTeamLicense.balance,
+    teamInfo?.totalTeamLicense?.balance,
     teamInfo?.totalTeamLicense?.teamLicenseAllPaid,
     upgradeModal,
   ])
@@ -115,7 +115,7 @@ export const MobileMemberPage: FC = () => {
   return (
     <div css={mobileMemberContainerStyle}>
       <h1 css={mobileTitleStyle}>{t("user_management.page.member")}</h1>
-      {hasPaymentManagementPermission ? (
+      {isCloudVersion && hasPaymentManagementPermission ? (
         <div css={usageCardContainerStyle}>
           <UsageCard
             type="License"
