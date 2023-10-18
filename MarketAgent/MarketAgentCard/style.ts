@@ -12,7 +12,7 @@ export const cardStyle = css`
 
   ${applyMobileStyle(css`
     gap: 12px;
-    width: 161px;
+    width: 100%;
   `)}
 `
 export const headerStyle = css`
@@ -27,7 +27,6 @@ export const headerStyle = css`
   z-index: 0;
   ${applyMobileStyle(css`
     border-radius: 8px;
-    width: 161px;
     height: 161px;
   `)}
 `
@@ -60,6 +59,7 @@ export const teamInfoContainerStyle = css`
 `
 
 export const teamInfoStyle = css`
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 8px;
