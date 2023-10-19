@@ -6,6 +6,8 @@ import {
 } from "@illa-public/mixpanel-utils"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import {
+  MemberInfo,
+  USER_STATUS,
   getCurrentTeamInfo,
   getCurrentUser,
   getPlanUtils,
@@ -410,6 +412,31 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
       >
         {shareVisible && (
           <ShareAppPC
+            itemID={appID}
+            onInvitedChange={(userList) => {
+              const memberListInfo: MemberInfo[] = userList.map((user) => {
+                return {
+                  ...user,
+                  userID: "",
+                  nickname: "",
+                  avatar: "",
+                  userStatus: USER_STATUS.PENDING,
+                  permission: {},
+                  createdAt: "",
+                  updatedAt: "",
+                }
+              })
+              dispatch(teamActions.updateInvitedUserReducer(memberListInfo))
+            }}
+            appDesc={appConfig.description}
+            appName={appName}
+            onAppInfoUpdate={(appName, appDesc) => {
+              updateAppConfig(appID, {
+                ...appConfig,
+                appName,
+                description: appDesc,
+              })
+            }}
             isDeployed={appDeployed}
             title={t("user_management.modal.social_media.default_text.app", {
               appName: appName,
