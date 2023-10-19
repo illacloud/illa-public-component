@@ -11,6 +11,7 @@ export interface MarketAgentListData {
   products: MarketAIAgent[]
   hasMore: boolean
   recommendHashtags: string[]
+  summaryHashtags?: string[]
 }
 
 export const fetchMarketAgentList = (

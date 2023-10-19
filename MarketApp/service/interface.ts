@@ -15,6 +15,7 @@ export interface AppProductResponse {
   products: ProductMarketApp[]
   hasMore: boolean
   recommendHashtags: string[]
+  summaryHashtags?: string[]
 }
 
 export interface ProductListParams {
