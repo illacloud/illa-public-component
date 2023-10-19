@@ -12,18 +12,15 @@ import {
 import { FC, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { CloseIcon, Modal, TabPane, Tabs } from "@illa-design/react"
-import { ContributeAgentPC } from "../../ContributeAgent/pc"
 import { AgentToMarketplacePC } from "../../component/AgentToMarketplace/pc"
 import { InviteByEmailPC } from "../../component/InviteByEmail/pc"
 import { InviteLinkPC } from "../../component/InviteLink/pc"
-import { HASHTAG_REQUEST_TYPE } from "../../constants"
 import { ShareAgentProps, ShareAgentTab } from "../interface"
 import {
   closeIconStyle,
   contentContainerStyle,
   headerContainerStyle,
 } from "./style"
-
 
 export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
   let defTab = ShareAgentTab.TO_MARKETPLACE
@@ -54,121 +51,105 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
   const { t } = useTranslation()
   const { track } = useContext(MixpanelTrackContext)
 
-  if (
-    !props.defaultAgentContributed &&
-    props.defaultTab === ShareAgentTab.TO_MARKETPLACE
-  ) {
-    return (
-      <ContributeAgentPC
-        onContributed={props.onAgentContributed}
-        teamID={props.teamID}
-        onClose={props.onClose}
-        productID={props.agentID}
-        productType={HASHTAG_REQUEST_TYPE.UNIT_TYPE_AI_AGENT}
-        productContributed={false}
-      />
-    )
-  } else {
-    return (
-      <Modal
-        withoutLine={false}
-        withoutPadding
-        w="498px"
-        onCancel={() => {
-          props.onClose?.()
-        }}
-        footer={false}
-        maskClosable={false}
-        visible={true}
-      >
-        <div css={headerContainerStyle}>
-          <Tabs
-            activeKey={activeTab}
-            variant="text"
-            colorScheme="grayBlue"
-            withoutBorderLine
-            onChange={(activeKey) => {
-              track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
-                element: "share_modal_tab",
-                parameter2: activeKey,
-                parameter5: props.agentID,
-              })
-              setActiveTab(activeKey)
-            }}
-          >
-            {props.canInvite && props.canUseBillingFeature && (
-              <TabPane
-                title={t("user_management.modal.tab.with_team")}
-                key={ShareAgentTab.SHARE_WITH_TEAM}
-              />
-            )}
-            {(canManage(
-              props.userRoleForThisAgent,
-              ATTRIBUTE_GROUP.AI_AGENT,
-              props.teamPlan,
-              ACTION_MANAGE.CREATE_AI_AGENT,
-            ) ||
-              props.defaultAgentContributed) && (
-              <TabPane
-                title={t("user_management.modal.title.contribute")}
-                key={ShareAgentTab.TO_MARKETPLACE}
-              />
-            )}
-          </Tabs>
-          <div
-            css={closeIconStyle}
-            onClick={() => {
-              props.onClose?.()
-            }}
-          >
-            <CloseIcon />
-          </div>
-        </div>
-        <div css={contentContainerStyle}>
-          {activeTab === ShareAgentTab.TO_MARKETPLACE &&
-            props.agentID !== "" &&
-            props.agentID !== undefined && (
-              <AgentToMarketplacePC
-                title={props.title}
-                defaultAgentContributed={props.defaultAgentContributed}
-                onAgentContributed={props.onAgentContributed}
-                agentID={props.agentID}
-                onCopyAgentMarketLink={props.onCopyAgentMarketLink}
-                userRoleForThisAgent={props.userRoleForThisAgent}
-                ownerTeamID={props.ownerTeamID}
-                onShare={props.onShare}
-              />
-            )}
-          {activeTab === ShareAgentTab.SHARE_WITH_TEAM && (
-            <>
-              <InviteLinkPC
-                excludeUserRole={[]}
-                redirectURL={props.redirectURL}
-                defaultBalance={props.defaultBalance}
-                defaultInviteUserRole={props.defaultInviteUserRole}
-                defaultAllowInviteLink={props.defaultAllowInviteLink}
-                teamID={props.teamID}
-                currentUserRole={props.currentUserRole}
-                onInviteLinkStateChange={props.onInviteLinkStateChange}
-                onCopyInviteLink={props.onCopyInviteLink}
-              />
-              <InviteByEmailPC
-                excludeUserRole={[]}
-                redirectURL={props.redirectURL}
-                onBalanceChange={props.onBalanceChange}
-                defaultInviteUserRole={props.defaultInviteUserRole}
-                teamID={props.teamID}
-                currentUserRole={props.currentUserRole}
-                defaultBalance={props.defaultBalance}
-                onInvitedChange={props.onInvitedChange}
-                itemID={props.agentID}
-              />
-            </>
+  return (
+    <Modal
+      withoutLine={false}
+      withoutPadding
+      w="498px"
+      onCancel={() => {
+        props.onClose?.()
+      }}
+      footer={false}
+      maskClosable={false}
+      visible={true}
+    >
+      <div css={headerContainerStyle}>
+        <Tabs
+          activeKey={activeTab}
+          variant="text"
+          colorScheme="grayBlue"
+          withoutBorderLine
+          onChange={(activeKey) => {
+            track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+              element: "share_modal_tab",
+              parameter2: activeKey,
+              parameter5: props.agentID,
+            })
+            setActiveTab(activeKey)
+          }}
+        >
+          {props.canInvite && props.canUseBillingFeature && (
+            <TabPane
+              title={t("user_management.modal.tab.with_team")}
+              key={ShareAgentTab.SHARE_WITH_TEAM}
+            />
           )}
+          {(canManage(
+            props.userRoleForThisAgent,
+            ATTRIBUTE_GROUP.AI_AGENT,
+            props.teamPlan,
+            ACTION_MANAGE.CREATE_AI_AGENT,
+          ) ||
+            props.defaultAgentContributed) && (
+            <TabPane
+              title={t("user_management.modal.title.contribute")}
+              key={ShareAgentTab.TO_MARKETPLACE}
+            />
+          )}
+        </Tabs>
+        <div
+          css={closeIconStyle}
+          onClick={() => {
+            props.onClose?.()
+          }}
+        >
+          <CloseIcon />
         </div>
-      </Modal>
-    )
-  }
+      </div>
+      <div css={contentContainerStyle}>
+        {activeTab === ShareAgentTab.TO_MARKETPLACE &&
+          props.agentID !== "" &&
+          props.agentID !== undefined && (
+            <AgentToMarketplacePC
+              title={props.title}
+              defaultAgentContributed={props.defaultAgentContributed}
+              onAgentContributed={props.onAgentContributed}
+              agentID={props.agentID}
+              onCopyAgentMarketLink={props.onCopyAgentMarketLink}
+              userRoleForThisAgent={props.userRoleForThisAgent}
+              ownerTeamID={props.ownerTeamID}
+              onShare={props.onShare}
+            />
+          )}
+        {activeTab === ShareAgentTab.SHARE_WITH_TEAM && (
+          <>
+            <InviteLinkPC
+              excludeUserRole={[]}
+              redirectURL={props.redirectURL}
+              defaultBalance={props.defaultBalance}
+              defaultInviteUserRole={props.defaultInviteUserRole}
+              defaultAllowInviteLink={props.defaultAllowInviteLink}
+              teamID={props.teamID}
+              currentUserRole={props.currentUserRole}
+              onInviteLinkStateChange={props.onInviteLinkStateChange}
+              onCopyInviteLink={props.onCopyInviteLink}
+            />
+            <InviteByEmailPC
+              excludeUserRole={[]}
+              redirectURL={props.redirectURL}
+              onBalanceChange={props.onBalanceChange}
+              defaultInviteUserRole={props.defaultInviteUserRole}
+              teamID={props.teamID}
+              currentUserRole={props.currentUserRole}
+              defaultBalance={props.defaultBalance}
+              onInvitedChange={props.onInvitedChange}
+              itemID={props.agentID}
+            />
+          </>
+        )}
+      </div>
+    </Modal>
+  )
 }
 
 ShareAgentPC.displayName = "ShareAgentPC"
