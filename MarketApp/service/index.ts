@@ -17,7 +17,7 @@ export const fetchAppList = (
     limit = 10,
     sortedBy = PRODUCT_SORT_BY.POPULAR,
     search,
-    hashtag,
+    hashtags,
   } = params
   return publicMarketplaceRequest<AppProductResponse>({
     url: "/apps",
@@ -28,7 +28,7 @@ export const fetchAppList = (
       limit,
       sortedBy,
       search,
-      hashtag,
+      hashtags,
     },
   })
 }
@@ -42,7 +42,7 @@ export const fetchStarAppList = (
     limit = 10,
     sortedBy = PRODUCT_SORT_BY.STARRED,
     search,
-    hashtag,
+    hashtags,
   } = params
   return marketplaceRequest<AppProductResponse>({
     url: "/apps",
@@ -53,7 +53,7 @@ export const fetchStarAppList = (
       limit,
       sortedBy,
       search,
-      hashtag,
+      hashtags,
     },
   })
 }

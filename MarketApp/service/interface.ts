@@ -22,5 +22,5 @@ export interface ProductListParams {
   limit: number
   sortedBy: PRODUCT_SORT_BY
   search?: string
-  hashtag?: string
+  hashtags?: string
 }
