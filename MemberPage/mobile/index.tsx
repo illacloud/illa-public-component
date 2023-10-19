@@ -161,7 +161,7 @@ export const MobileMemberPage: FC = () => {
           defaultAllowInviteLink={teamInfo.permission.inviteLinkEnabled}
           defaultInviteUserRole={USER_ROLE.VIEWER}
           defaultBalance={
-            isCloudVersion ? teamInfo.currentTeamLicense.balance : Infinity
+            isCloudVersion ? teamInfo.totalTeamLicense.balance : Infinity
           }
           onCopyInviteLink={handleCopy}
           onInviteLinkStateChange={(isInviteLink) => {
