@@ -6,6 +6,7 @@ export const cardStyle = css`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  justify-content: space-between;
   padding: 24px;
   width: 100%;
   height: 100%;
@@ -147,4 +148,14 @@ export const footerStyle = css`
 
 export const applyHiddenStyle = (isHidden: boolean) => css`
   visibility: ${isHidden ? "hidden" : "visible"};
+`
+
+export const cardItemStyle = css`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  ${applyMobileStyle(css`
+    gap: 12px;
+  `)}
 `
