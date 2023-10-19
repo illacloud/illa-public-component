@@ -8,7 +8,7 @@ export const updateAgentContribute = (
   return marketplaceTeamRequest<{}>(
     {
       method: "POST",
-      url: `/products/aiAgents/${productID}/recontribute?property=hashtags`,
+      url: `/products/aiAgents/${productID}/updatePropertyWith?property=hashtags`,
       data: {
         hashtags,
       },
