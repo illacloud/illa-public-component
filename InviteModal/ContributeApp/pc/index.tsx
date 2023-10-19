@@ -149,10 +149,6 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
         <Controller
           name="hashtags"
           control={control}
-          rules={{
-            required: true,
-            validate: (value) => value.length > 0,
-          }}
           render={({ field }) => (
             <TagControllerPC
               productID={props.productID}
