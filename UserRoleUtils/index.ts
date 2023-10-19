@@ -447,7 +447,7 @@ export const showShareAppModal = (
     )
   ) {
     return true
-  } else return (isPublic || isContributed) && isDeployed
+  } else return isCloudVersion && (isPublic || isContributed) && isDeployed
 }
 
 export const openShareAppModal = (
