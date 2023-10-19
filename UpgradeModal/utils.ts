@@ -1,4 +1,5 @@
 import { ERROR_FLAG, isILLAAPiError } from "@illa-public/illa-net"
+import { getILLACloudURL } from "@illa-public/utils"
 import { createCollarModal, createTeamLimitModal } from "./hook"
 import { CollarModalType, FREE_TEAM_LIMIT_TYPE } from "./interface"
 
@@ -13,7 +14,7 @@ export function getSuccessRedirectWithParams(
     )
     .join("&")
 
-  return `${process.env.ILLA_CLOUD_URL}${redirectPath}?${paramString}`
+  return `${getILLACloudURL()}${redirectPath}?${paramString}`
 }
 
 export const handleCollaPurchaseError = (

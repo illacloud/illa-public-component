@@ -1,13 +1,11 @@
 import { load } from "@fingerprintjs/fingerprintjs"
-import ILLAStorage from "@illa-public/illa-storage"
+import { ILLAPublicStorage } from "@illa-public/utils"
 
 const generateUUID = async () => {
   const fp = await load()
   const result = await fp.get()
   return result.visitorId
 }
-
-export const ILLAPublicStorage = new ILLAStorage("illa-public", -1)
 
 export const getDeviceUUID = async () => {
   if (!ILLAPublicStorage.getLocalStorage("deviceID")) {

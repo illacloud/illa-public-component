@@ -1,0 +1,29 @@
+{
+  "name": "@illa-public/cloud-dashboard-layout",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.tsx",
+  "dependencies": {
+    "@illa-public/utils": "workspace:*",
+    "@illa-public/avatar": "workspace:*",
+    "@illa-public/user-data": "workspace:*",
+    "@illa-public/user-role-utils": "workspace:*",
+    "@illa-public/invite-modal": "workspace:*",
+    "react-router-dom": "^6.4.4"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*",
+    "vite-plugin-svgr": "^2.1.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "@illa-design/react": "workspace:*",
+    "@emotion/react": "*",
+    "react-i18next": "^12.1.4",
+    "i18next": "^22.4.9",
+    "react-redux": ">=8.0.5"
+  }
+}

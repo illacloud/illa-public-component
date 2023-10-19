@@ -11,7 +11,8 @@ import {
 import {
   canManageInvite,
   isBiggerThanTargetRole,
-  openInviteModal, showInviteModal,
+  openInviteModal,
+  showInviteModal,
 } from "@illa-public/user-role-utils"
 import {
   COPY_STATUS,
@@ -25,7 +26,6 @@ import { Button, useMessage } from "@illa-design/react"
 import { IPcHeaderProps } from "./interface"
 import { MoreAction } from "./moreAction"
 import { buttonGroup, headerWrapperStyle, titleStyle } from "./style"
-
 
 export const Header: FC<IPcHeaderProps> = (props) => {
   const { t } = useTranslation()
@@ -86,13 +86,15 @@ export const Header: FC<IPcHeaderProps> = (props) => {
                 currentUserRole,
                 false,
               ))) && <MoreAction afterLeaveTeam={afterLeaveTeam} />}
-          {showInviteModal(teamInfo) && <Button
-            w="200px"
-            colorScheme="techPurple"
-            onClick={handleClickInviteButton}
-          >
-            {t("user_management.page.invite")}
-          </Button>}
+          {showInviteModal(teamInfo) && (
+            <Button
+              w="200px"
+              colorScheme="techPurple"
+              onClick={handleClickInviteButton}
+            >
+              {t("user_management.page.invite")}
+            </Button>
+          )}
         </div>
       </div>
       {inviteModalVisible && (
@@ -101,16 +103,14 @@ export const Header: FC<IPcHeaderProps> = (props) => {
           onClose={() => setInviteModalVisible(false)}
           canInvite={canManageInvite(
             teamInfo.myRole,
-            teamInfo.permission
-              .allowEditorManageTeamMember,
-            teamInfo.permission
-              .allowViewerManageTeamMember,
+            teamInfo.permission.allowEditorManageTeamMember,
+            teamInfo.permission.allowViewerManageTeamMember,
           )}
           currentUserRole={currentUserRole}
           defaultAllowInviteLink={teamInfo.permission.inviteLinkEnabled}
           defaultInviteUserRole={USER_ROLE.VIEWER}
           defaultBalance={
-            isCloudVersion ? teamInfo?.currentTeamLicense?.balance : Infinity
+            isCloudVersion ? teamInfo?.totalTeamLicense?.balance : Infinity
           }
           onCopyInviteLink={handleCopy}
           onInviteLinkStateChange={(isInviteLink) => {

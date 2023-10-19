@@ -401,7 +401,8 @@ export const canManageInvite = (
   }
 }
 
-export const showInviteModal = (teamInfo: TeamInfo) => {
+export const showInviteModal = (teamInfo?: TeamInfo) => {
+  if (!teamInfo) return false
   return canManageInvite(
     teamInfo.myRole,
     teamInfo.permission.allowEditorManageTeamMember,
@@ -567,4 +568,28 @@ export const canManageCollar = (
   ).manageAttribute
 
   return !!manageAttribute?.[ACTION_MANAGE.MANAGE_COLLAR]
+}
+
+export const canCreateApp = (
+  userRole: USER_ROLE = USER_ROLE.VIEWER,
+  teamPlan: SUBSCRIBE_PLAN = SUBSCRIBE_PLAN.TEAM_LICENSE_FREE,
+) => {
+  const manageAttribute = getAttribute(
+    userRole,
+    ATTRIBUTE_GROUP.APP,
+    teamPlan,
+  ).manageAttribute
+  return !!manageAttribute?.[ACTION_MANAGE.CREATE_APP]
+}
+
+export const canEditApp = (
+  userRole: USER_ROLE = USER_ROLE.VIEWER,
+  teamPlan: SUBSCRIBE_PLAN = SUBSCRIBE_PLAN.TEAM_LICENSE_FREE,
+) => {
+  const manageAttribute = getAttribute(
+    userRole,
+    ATTRIBUTE_GROUP.APP,
+    teamPlan,
+  ).manageAttribute
+  return !!manageAttribute?.[ACTION_MANAGE.EDIT_APP]
 }
