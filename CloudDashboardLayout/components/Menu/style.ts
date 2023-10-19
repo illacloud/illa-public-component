@@ -20,6 +20,7 @@ export const menuItemLinkStyle = css`
   align-items: center;
   gap: 8px;
   overflow: hidden;
+  width: 100%;
 `
 
 export const menuItemButtonStyle = css`
