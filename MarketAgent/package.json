@@ -7,7 +7,8 @@
     "@illa-public/avatar": "workspace:*",
     "@illa-public/utils": "workspace:*",
     "@illa-public/illa-net": "workspace:*",
-    "@illa-public/record-editor": "workspace:*"
+    "@illa-public/record-editor": "workspace:*",
+    "@illa-public/card-hash-tags": "workspace:*"
   },
   "devDependencies": {
     "tsconfig": "workspace:*",

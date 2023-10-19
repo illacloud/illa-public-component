@@ -1,9 +1,5 @@
 import { FC } from "react"
-import {
-  CloseIcon,
-  Drawer,
-  TriggerProvider,
-} from "@illa-design/react"
+import { CloseIcon, Drawer, TriggerProvider } from "@illa-design/react"
 import { AgentToMarketplaceMobile } from "../../component/AgentToMarketplace/mobile"
 import { MarketShareAgentProps } from "../interface"
 import {
@@ -43,12 +39,8 @@ export const MarketShareAgentMobile: FC<MarketShareAgentProps> = (props) => {
           <AgentToMarketplaceMobile
             title={props.title}
             onShare={props.onShare}
-            defaultAgentContributed={props.defaultAgentContributed}
-            onAgentContributed={props.onAgentContributed}
             agentID={props.agentID}
             onCopyAgentMarketLink={props.onCopyAgentMarketLink}
-            userRoleForThisAgent={props.userRoleForThisAgent}
-            ownerTeamID={props.ownerTeamID}
           />
         </div>
       </Drawer>

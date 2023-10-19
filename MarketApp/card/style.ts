@@ -2,13 +2,14 @@ import { css } from "@emotion/react"
 import { applyMobileStyle } from "@illa-public/utils"
 import { getColor } from "@illa-design/react"
 
-
 export const cardStyle = css`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  justify-content: space-between;
   padding: 24px;
   width: 100%;
+  height: 100%;
   border-radius: 8px;
   border: 1px solid ${getColor("grayBlue", "08")};
   background: ${getColor("white", "01")};
@@ -131,6 +132,13 @@ export const descriptionStyle = css`
   `)}
 `
 
+export const cardTagContainerStyle = css`
+  width: 220px;
+  ${applyMobileStyle(css`
+    width: 100%;
+  `)}
+`
+
 export const footerStyle = css`
   display: flex;
   justify-content: space-between;
@@ -140,4 +148,14 @@ export const footerStyle = css`
 
 export const applyHiddenStyle = (isHidden: boolean) => css`
   visibility: ${isHidden ? "hidden" : "visible"};
+`
+
+export const cardItemStyle = css`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  ${applyMobileStyle(css`
+    gap: 12px;
+  `)}
 `
