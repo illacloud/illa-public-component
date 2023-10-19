@@ -5,6 +5,7 @@ import {
 import { FC, useCallback, useContext } from "react"
 import { useTranslation } from "react-i18next"
 import {
+  Button,
   DropList,
   DropListItem,
   Dropdown,
@@ -13,7 +14,6 @@ import {
   useModal,
 } from "@illa-design/react"
 import { ResourceMoreActionProps } from "./interface"
-import { moreIconStyle } from "./style"
 
 export const ResourceMoreAction: FC<ResourceMoreActionProps> = (props) => {
   const { t } = useTranslation()
@@ -113,7 +113,11 @@ export const ResourceMoreAction: FC<ResourceMoreActionProps> = (props) => {
         </DropList>
       }
     >
-      <MoreIcon w="16px" h="16px" css={moreIconStyle} />
+      <Button
+        variant="text"
+        colorScheme="grayBlue"
+        leftIcon={<MoreIcon size="14px" />}
+      />
     </Dropdown>
   )
 }

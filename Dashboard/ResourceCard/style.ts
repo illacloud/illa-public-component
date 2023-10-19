@@ -13,6 +13,8 @@ export const resourceCardContainerStyle = css`
     visibility: hidden;
   }
   :hover {
+    border-color: ${getColor("techPurple", "01")};
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.08);
     .editActionButton {
       visibility: visible;
     }
