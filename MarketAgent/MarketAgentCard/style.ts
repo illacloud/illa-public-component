@@ -129,6 +129,7 @@ export const actionCountStyle = css`
 `
 
 export const cardContentContainerStyle = css`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -171,6 +172,7 @@ export const textEllipsisStyle = css`
 `
 
 export const nameStyle = css`
+  width: 100%;
   color: ${getColor("grayBlue", "02")};
   font-size: 16px;
   font-weight: 500;
