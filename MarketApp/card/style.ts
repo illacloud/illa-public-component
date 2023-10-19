@@ -8,6 +8,7 @@ export const cardStyle = css`
   gap: 16px;
   padding: 24px;
   width: 100%;
+  height: 100%;
   border-radius: 8px;
   border: 1px solid ${getColor("grayBlue", "08")};
   background: ${getColor("white", "01")};
