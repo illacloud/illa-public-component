@@ -56,7 +56,6 @@ export const ContributeAgentPC: FC<ContributeAgentProps> = (props) => {
       }}
       okButtonProps={{
         colorScheme: getColor("grayBlue", "02"),
-        disabled: currentHashtags.length === 0,
         loading: contributeLoading,
       }}
       title={
