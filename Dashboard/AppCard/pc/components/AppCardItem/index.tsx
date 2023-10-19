@@ -20,7 +20,11 @@ import {
   openShareAppModal,
   showShareAppModal,
 } from "@illa-public/user-role-utils"
-import { getMarketLinkTemplate, isCloudVersion } from "@illa-public/utils"
+import {
+  getILLABuilderURL,
+  getMarketLinkTemplate,
+  isCloudVersion,
+} from "@illa-public/utils"
 import { getAuthToken } from "@illa-public/utils"
 import { FC, useCallback, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -410,8 +414,12 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
             title={t("user_management.modal.social_media.default_text.app", {
               appName: appName,
             })}
-            editRedirectURL={`${window.location.origin}/${teamInfo.identifier}/app/${appID}`}
-            useRedirectURL={`${window.location.origin}/${teamInfo.identifier}/deploy/app/${appID}`}
+            editRedirectURL={`${getILLABuilderURL()}/${
+              teamInfo.identifier
+            }/app/${appID}`}
+            useRedirectURL={`${getILLABuilderURL()}/${
+              teamInfo.identifier
+            }/deploy/app/${appID}`}
             defaultAllowInviteLink={teamInfo.permission.inviteLinkEnabled}
             onInviteLinkStateChange={(enableInviteLink) => {
               dispatch(
@@ -429,7 +437,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
             }}
             canInvite={showInvite}
             defaultBalance={
-              isCloudVersion ? teamInfo.currentTeamLicense.balance : Infinity
+              isCloudVersion ? teamInfo.totalTeamLicense.balance : Infinity
             }
             teamID={teamInfo.id}
             currentUserRole={teamInfo.myRole}

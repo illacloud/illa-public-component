@@ -515,6 +515,15 @@ export const showShareAgentModalOnlyForShare = (teamInfo: TeamInfo) => {
   )
 }
 
+export const openShareAgentModalOnlyForShare = (teamInfo: TeamInfo) => {
+  return canUseUpgradeFeature(
+    teamInfo.myRole,
+    getPlanUtils(teamInfo),
+    teamInfo.totalTeamLicense.teamLicensePurchased,
+    teamInfo.totalTeamLicense.teamLicenseAllPaid,
+  )
+}
+
 export const openShareAgentModal = (
   teamInfo: TeamInfo,
   userRoleForThisAgent: USER_ROLE,
