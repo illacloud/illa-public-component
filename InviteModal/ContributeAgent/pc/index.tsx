@@ -20,7 +20,7 @@ export const ContributeAgentPC: FC<ContributeAgentProps> = (props) => {
         props.onClose?.()
       }}
       maskClosable={false}
-      enableOnFormTags={[]}
+      enableOnFormTags={false}
       visible={true}
       hideCancel={!props.productContributed}
       okText={

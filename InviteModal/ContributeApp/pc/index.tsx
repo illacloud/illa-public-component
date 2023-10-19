@@ -36,8 +36,23 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
   const { isValid } = useFormState({ control })
 
   return (
-    <form
-      onSubmit={handleSubmit(async (data) => {
+    <Modal
+      withoutLine
+      w="498px"
+      closable={true}
+      onCancel={() => {
+        props.onClose?.()
+      }}
+      enableOnFormTags={false}
+      maskClosable={false}
+      visible={true}
+      hideCancel={!props.productContributed}
+      okText={
+        props.productContributed
+          ? t("contribute.update_modal.button")
+          : t("contribute.first_time_modal.button")
+      }
+      onOk={handleSubmit(async (data) => {
         setContributeLoading(true)
         try {
           if (props.productContributed) {
@@ -69,99 +84,79 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
           setContributeLoading(false)
         }
       })}
+      okButtonProps={{
+        colorScheme: getColor("grayBlue", "02"),
+        disabled: !isValid,
+        loading: contributeLoading,
+      }}
+      title={
+        props.productContributed
+          ? t("contribute.update_modal.title")
+          : t("contribute.first_time_modal.title")
+      }
     >
-      <Modal
-        withoutLine
-        w="498px"
-        closable={true}
-        onCancel={() => {
-          props.onClose?.()
-        }}
-        enableOnFormTags={[]}
-        maskClosable={false}
-        visible={true}
-        hideCancel={!props.productContributed}
-        okText={
-          props.productContributed
-            ? t("contribute.update_modal.button")
-            : t("contribute.first_time_modal.button")
-        }
-        okButtonProps={{
-          colorScheme: getColor("grayBlue", "02"),
-          disabled: !isValid,
-          loading: contributeLoading,
-        }}
-        title={
-          props.productContributed
-            ? t("contribute.update_modal.title")
-            : t("contribute.first_time_modal.title")
-        }
-      >
-        <Controller
-          name="appName"
-          control={control}
-          render={({ field }) => (
-            <section css={blockStyle}>
-              <label css={blockLabelStyle}>
-                {t("new_dashboard.app_setting.app_name")}
-                <RequireIcon css={blockRequireStyle} />
-              </label>
-              <Input
-                {...field}
-                colorScheme="techPurple"
-                error={!!formState?.errors.appName}
-                placeholder={t(
-                  "new_dashboard.app_setting.placeholder.app_name",
-                )}
-              />
-            </section>
-          )}
-          rules={{
-            required: t("page.user.sign_up.error_message.username.require"),
-            maxLength: {
-              value: 280,
-              message: t("page.user.sign_up.error_message.username.length"),
-            },
-          }}
-        />
-        <Controller
-          name="appDesc"
-          control={control}
-          render={({ field }) => (
-            <section css={blockStyle}>
-              <label css={blockLabelStyle}>
-                {t("new_dashboard.app_setting.description")}
-              </label>
-              <TextArea
-                {...field}
-                showWordLimit
-                maxLength={180}
-                autoSize={{ minRows: 6 }}
-                colorScheme="techPurple"
-                error={!!formState?.errors.appDesc}
-                placeholder={t(
-                  "new_dashboard.app_setting.placeholder.description",
-                )}
-              />
-            </section>
-          )}
-        />
-        <Controller
-          name="hashtags"
-          control={control}
-          render={({ field }) => (
-            <TagControllerPC
-              productID={props.productID}
-              productType={props.productType}
-              productContributed={props.productContributed}
-              onTagChange={(tags) => {
-                field.onChange(tags)
-              }}
+      <Controller
+        name="appName"
+        control={control}
+        render={({ field }) => (
+          <section css={blockStyle}>
+            <label css={blockLabelStyle}>
+              {t("new_dashboard.app_setting.app_name")}
+              <RequireIcon css={blockRequireStyle} />
+            </label>
+            <Input
+              {...field}
+              colorScheme="techPurple"
+              error={!!formState?.errors.appName}
+              placeholder={t("new_dashboard.app_setting.placeholder.app_name")}
             />
-          )}
-        />
-      </Modal>
-    </form>
+          </section>
+        )}
+        rules={{
+          required: t("page.user.sign_up.error_message.username.require"),
+          maxLength: {
+            value: 280,
+            message: t("page.user.sign_up.error_message.username.length"),
+          },
+        }}
+      />
+      <Controller
+        name="appDesc"
+        control={control}
+        render={({ field }) => (
+          <section css={blockStyle}>
+            <label css={blockLabelStyle}>
+              {t("new_dashboard.app_setting.description")}
+            </label>
+            <TextArea
+              {...field}
+              showWordLimit
+              maxLength={180}
+              autoSize={{ minRows: 6 }}
+              colorScheme="techPurple"
+              error={!!formState?.errors.appDesc}
+              placeholder={t(
+                "new_dashboard.app_setting.placeholder.description",
+              )}
+            />
+          </section>
+        )}
+      />
+      <Controller
+        name="hashtags"
+        control={control}
+        render={({ field }) => (
+          <TagControllerPC
+            productID={props.productID}
+            productType={props.productType}
+            productContributed={props.productContributed}
+            onTagChange={(tags) => {
+              field.onChange(tags)
+            }}
+          />
+        )}
+      />
+    </Modal>
   )
 }
 

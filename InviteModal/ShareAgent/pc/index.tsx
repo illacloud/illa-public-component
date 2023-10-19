@@ -55,6 +55,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
     <Modal
       withoutLine={false}
       withoutPadding
+      enableOnFormTags={[]}
       w="498px"
       onCancel={() => {
         props.onClose?.()

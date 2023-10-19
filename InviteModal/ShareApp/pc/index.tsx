@@ -52,6 +52,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
   return (
     <Modal
       withoutLine={false}
+      enableOnFormTags={[]}
       withoutPadding
       w="498px"
       onCancel={() => {
