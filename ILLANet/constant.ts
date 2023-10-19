@@ -20,3 +20,6 @@ export const MARKETPLACE_AUTH_PRODUCT_REQUEST_PREFIX =
   "/marketplace/api/v1/auth/products"
 export const MARKETPLACE_PUBLIC_REQUEST_PREFIX =
   "/marketplace/api/v1/open/products"
+
+export const MARKETPLACE_HASH_TAG_REQUEST_PREFIX =
+  "/marketplace/api/v1/open/hashtags"

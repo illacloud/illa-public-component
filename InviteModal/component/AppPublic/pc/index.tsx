@@ -16,8 +16,6 @@ import { useTranslation } from "react-i18next"
 import {
   Button,
   DoubtIcon,
-  Input,
-  Skeleton,
   Switch,
   Trigger,
   TriggerProvider,
@@ -25,6 +23,8 @@ import {
   useMergeValue,
   useMessage,
 } from "@illa-design/react"
+import { ContributeAppPC } from "../../../ContributeApp/pc"
+import { HASHTAG_REQUEST_TYPE } from "../../../constants"
 import { ShareBlockPC } from "../../ShareBlock/pc"
 import { AppPublicProps } from "../interface"
 import {
@@ -41,9 +41,13 @@ import {
   publicContainerStyle,
 } from "./style"
 
+
 export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const {
     title,
+    appDesc,
+    appName,
+    onAppInfoUpdate,
     onShare,
     appID,
     ownerTeamID,
@@ -70,6 +74,8 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
   })
 
   const [marketLinkLoading, setMarketLinkLoading] = useState(false)
+
+  const [isOpenContributeModal, setIsOpenContributeModal] = useState(false)
 
   const [appContribute, setAppContribute] = useMergeValue(false, {
     defaultValue: defaultAppContribute,
@@ -192,40 +198,17 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
         )}
       </div>
       {appPublic && (
-        <div css={linkCopyContainer}>
-          <Input
-            flexShrink="1"
-            flexGrow="1"
-            w="unset"
-            readOnly
-            colorScheme="techPurple"
-            value={
-              appLinkLoading ? (
-                <Skeleton
-                  text={{ rows: 1 }}
-                  opac={0.5}
-                  animation
-                  flexGrow="1"
-                />
-              ) : (
-                getPublicLinkTemplate(ownerTeamIdentify, appID)
-              )
-            }
-          />
-          <Button
-            ml="8px"
-            w="80px"
-            colorScheme={getColor("grayBlue", "02")}
-            loading={appLinkLoading}
-            onClick={() => {
-              onCopyPublicLink?.(
-                getPublicLinkTemplate(ownerTeamIdentify, appID),
-              )
-            }}
-          >
-            {!appLinkLoading ? t("user_management.modal.link.copy") : undefined}
-          </Button>
-        </div>
+        <Button
+          mt="8px"
+          colorScheme="grayBlue"
+          variant="outline"
+          loading={appLinkLoading}
+          onClick={() => {
+            onCopyPublicLink?.(getPublicLinkTemplate(ownerTeamIdentify, appID))
+          }}
+        >
+          {t("contribute.copy_link")}
+        </Button>
       )}
     </>
   )
@@ -262,37 +245,29 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
       </div>
       {appContribute && (
         <div css={linkCopyContainer}>
-          <Input
-            flexShrink="1"
-            flexGrow="1"
-            w="unset"
-            readOnly
-            colorScheme="techPurple"
-            value={
-              marketLinkLoading ? (
-                <Skeleton
-                  text={{ rows: 1 }}
-                  opac={0.5}
-                  animation
-                  flexGrow="1"
-                />
-              ) : (
-                getMarketLinkTemplate(appID)
-              )
-            }
-          />
+          {canManageApp && (
+            <Button
+              flex="1"
+              colorScheme="grayBlue"
+              variant="outline"
+              loading={marketLinkLoading}
+              onClick={() => {
+                setIsOpenContributeModal(true)
+              }}
+            >
+              {t("contribute.update")}
+            </Button>
+          )}
           <Button
-            ml="8px"
-            w="80px"
-            colorScheme={getColor("grayBlue", "02")}
+            flex="1"
+            colorScheme="grayBlue"
+            variant="outline"
             loading={marketLinkLoading}
             onClick={() => {
               onCopyContributeLink?.(getMarketLinkTemplate(appID))
             }}
           >
-            {!marketLinkLoading
-              ? t("user_management.modal.link.copy")
-              : undefined}
+            {t("contribute.copy_link")}
           </Button>
         </div>
       )}
@@ -312,11 +287,29 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
   )
 
   return (
-    <div css={publicContainerStyle}>
-      {!hidePublic && (appPublic || canManageApp) && publicBlock}
-      {(appContribute || canManageApp) && contributeBlock}
-      {(appContribute || appPublic) && shareBlock}
-    </div>
+    <>
+      <div css={publicContainerStyle}>
+        {!hidePublic && (appPublic || canManageApp) && publicBlock}
+        {(appContribute || canManageApp) && contributeBlock}
+        {(appContribute || appPublic) && shareBlock}
+      </div>
+      {isOpenContributeModal && (
+        <ContributeAppPC
+          onClose={() => {
+            setIsOpenContributeModal(false)
+          }}
+          teamID={ownerTeamID}
+          onContributed={onAppContribute}
+          onAppInfoUpdate={onAppInfoUpdate}
+          onAppPublic={onAppPublic}
+          appName={appName}
+          appDesc={appDesc}
+          productID={appID}
+          productType={HASHTAG_REQUEST_TYPE.UNIT_TYPE_APP}
+          productContributed={appContribute}
+        />
+      )}
+    </>
   )
 }
 

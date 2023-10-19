@@ -1,4 +1,6 @@
-import { marketplaceTeamRequest } from "@illa-public/illa-net"
+import {
+  marketplaceTeamRequest,
+} from "@illa-public/illa-net"
 
 export const makeAgentContribute = (teamID: string, agentID: string) => {
   return marketplaceTeamRequest<{}>(

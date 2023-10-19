@@ -180,7 +180,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
               setCurrentBalance(currentBalance - currentValue.length)
               onBalanceChange(currentBalance - currentValue.length)
             }
-            onInvitedChange?.(finalInviteUserList)
+            onInvitedChange(finalInviteUserList)
             setAlreadyInvited(finalInviteUserList)
             setInviting(false)
           }}

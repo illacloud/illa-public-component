@@ -17,11 +17,6 @@ export const inviteLinkHeaderStyle = css`
     height: 100%;
   }
 `
-export const inviteLinkDisableHeaderStyle = css`
-  margin-top: 125px;
-  margin-bottom: 71px;
-  ${inviteLinkHeaderStyle};
-`
 
 export const inviteButtonStyle = css`
   padding: 12px 16px;

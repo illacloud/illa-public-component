@@ -9,6 +9,7 @@ import {
   DRIVE_REQUEST_PREFIX,
   MARKETPLACE_AUTH_PRODUCT_REQUEST_PREFIX,
   MARKETPLACE_AUTH_REQUEST_PREFIX,
+  MARKETPLACE_HASH_TAG_REQUEST_PREFIX,
   MARKETPLACE_PUBLIC_REQUEST_PREFIX,
   PUBLIC_DRIVE_REQUEST_PREFIX,
 } from "./constant"
@@ -212,6 +213,25 @@ export const publicMarketplaceRequest = async <
   const finalURL = getURLWithPrefix(
     requestConfig.url,
     MARKETPLACE_PUBLIC_REQUEST_PREFIX,
+    options,
+  )
+
+  return await notNeedAuthRequest<ResponseData, RequestData>({
+    ...requestConfig,
+    url: finalURL,
+  })
+}
+
+export const publicHashtagRequest = async <
+  ResponseData = unknown,
+  RequestData = unknown,
+>(
+  requestConfig: AxiosRequestConfig<RequestData>,
+  options?: RequestHandlerOptions,
+) => {
+  const finalURL = getURLWithPrefix(
+    requestConfig.url,
+    MARKETPLACE_HASH_TAG_REQUEST_PREFIX,
     options,
   )
 

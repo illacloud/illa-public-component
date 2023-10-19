@@ -16,6 +16,7 @@ export interface MarketplaceInfo {
   contributorTeam: ContributorTeam
   createdBy: string
   createdAt: string
+  hashtags: string[]
   updatedBy: string
   updatedAt: string
   isStarredByCurrentUser: boolean

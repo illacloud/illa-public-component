@@ -14,6 +14,7 @@ export enum PRODUCT_SORT_BY {
 export interface AppProductResponse {
   products: ProductMarketApp[]
   hasMore: boolean
+  recommendHashtags: string[]
 }
 
 export interface ProductListParams {
@@ -21,4 +22,5 @@ export interface ProductListParams {
   limit: number
   sortedBy: PRODUCT_SORT_BY
   search?: string
+  hashtags?: string
 }

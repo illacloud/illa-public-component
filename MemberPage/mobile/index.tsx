@@ -2,9 +2,11 @@ import { InviteMemberMobile } from "@illa-public/invite-modal"
 import { useUpgradeDrawer, useUpgradeModal } from "@illa-public/upgrade-modal"
 import { UsageCard } from "@illa-public/usage-card"
 import {
+  MemberInfo,
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
   USER_ROLE,
+  USER_STATUS,
   getCurrentTeamInfo,
   getCurrentUser,
   getPlanUtils,
@@ -32,6 +34,7 @@ import {
   mobileTitleStyle,
   usageCardContainerStyle,
 } from "./style"
+
 
 export const MobileMemberPage: FC = () => {
   const { t } = useTranslation()
@@ -150,6 +153,7 @@ export const MobileMemberPage: FC = () => {
       )}
       {inviteModalVisible && (
         <InviteMemberMobile
+          itemID={teamInfo.id}
           redirectURL=""
           onClose={() => setInviteModalVisible(false)}
           canInvite={canManageInvite(
@@ -186,6 +190,21 @@ export const MobileMemberPage: FC = () => {
                 },
               }),
             )
+          }}
+          onInvitedChange={(userList) => {
+            const memberListInfo: MemberInfo[] = userList.map((user) => {
+              return {
+                ...user,
+                userID: "",
+                nickname: "",
+                avatar: "",
+                userStatus: USER_STATUS.PENDING,
+                permission: {},
+                createdAt: "",
+                updatedAt: "",
+              }
+            })
+            dispatch(teamActions.updateInvitedUserReducer(memberListInfo))
           }}
         />
       )}

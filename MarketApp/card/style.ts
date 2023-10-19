@@ -2,7 +2,6 @@ import { css } from "@emotion/react"
 import { applyMobileStyle } from "@illa-public/utils"
 import { getColor } from "@illa-design/react"
 
-
 export const cardStyle = css`
   display: flex;
   flex-direction: column;
@@ -128,6 +127,13 @@ export const descriptionStyle = css`
   ${applyMobileStyle(css`
     height: 36px;
     line-height: 18px;
+  `)}
+`
+
+export const cardTagContainerStyle = css`
+  width: 220px;
+  ${applyMobileStyle(css`
+    width: 100%;
   `)}
 `
 
