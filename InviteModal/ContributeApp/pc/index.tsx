@@ -18,7 +18,6 @@ import {
 } from "../service"
 import { blockLabelStyle, blockRequireStyle, blockStyle } from "./style"
 
-
 export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
   const [contributeLoading, setContributeLoading] = useState(false)
   const { t } = useTranslation()
@@ -78,6 +77,7 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
         onCancel={() => {
           props.onClose?.()
         }}
+        enableOnFormTags={[]}
         maskClosable={false}
         visible={true}
         hideCancel={!props.productContributed}
