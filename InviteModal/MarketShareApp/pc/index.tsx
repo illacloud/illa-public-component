@@ -42,6 +42,9 @@ export const MarketShareAppPC: FC<MarketShareAppProps> = (props) => {
       </div>
       <div css={contentContainerStyle}>
         <AppPublicPC
+          appDesc={props.appDesc}
+          appName={props.appName}
+          onAppInfoUpdate={() => {}}
           title={props.title}
           onShare={props.onShare}
           hidePublic={true}

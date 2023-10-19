@@ -1,7 +1,6 @@
 import { marketplaceRequest } from "@illa-public/illa-net"
 import { MarketAIAgent } from "./interface"
 
-
 export enum MARKET_AGENT_SORTED_OPTIONS {
   POPULAR = "popular",
   LATEST = "latest",
@@ -11,6 +10,8 @@ export enum MARKET_AGENT_SORTED_OPTIONS {
 export interface MarketAgentListData {
   products: MarketAIAgent[]
   hasMore: boolean
+  recommendHashtags: string[]
+  summaryHashtags?: string[]
 }
 
 export const fetchMarketAgentList = (

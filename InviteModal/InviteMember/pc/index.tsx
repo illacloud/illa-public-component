@@ -10,6 +10,7 @@ import {
   headerContainerStyle,
 } from "./style"
 
+
 export const InviteMemberPC: FC<InviteMemberProps> = (props) => {
   const { t } = useTranslation()
 
@@ -54,6 +55,7 @@ export const InviteMemberPC: FC<InviteMemberProps> = (props) => {
           defaultBalance={props.defaultBalance}
         />
         <InviteByEmailPC
+          itemID={props.itemID}
           excludeUserRole={[]}
           redirectURL={props.redirectURL}
           defaultInviteUserRole={props.defaultInviteUserRole}

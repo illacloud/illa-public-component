@@ -22,7 +22,6 @@ import {
   headerContainerStyle,
 } from "./style"
 
-
 export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
   let defTab = ShareAgentTab.TO_MARKETPLACE
 
@@ -143,6 +142,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
               teamID={props.teamID}
               currentUserRole={props.currentUserRole}
               defaultBalance={props.defaultBalance}
+              onInvitedChange={props.onInvitedChange}
               itemID={props.agentID}
             />
           </>

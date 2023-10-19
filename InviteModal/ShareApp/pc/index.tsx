@@ -49,7 +49,6 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
   }, [props.defaultTab])
 
   const { t } = useTranslation()
-
   return (
     <Modal
       withoutLine={false}
@@ -132,6 +131,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
                 onCopyInviteLink={props.onCopyEditInviteLink}
               />
               <InviteByEmailPC
+                itemID={props.appID}
                 excludeUserRole={[USER_ROLE.VIEWER]}
                 redirectURL={props.editRedirectURL}
                 onBalanceChange={props.onBalanceChange}
@@ -139,6 +139,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
                 teamID={props.teamID}
                 currentUserRole={props.currentUserRole}
                 defaultBalance={props.defaultBalance}
+                onInvitedChange={props.onInvitedChange}
               />
             </>
           )}
@@ -158,6 +159,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
                 onCopyInviteLink={props.onCopyUseInviteLink}
               />
               <InviteByEmailPC
+                itemID={props.appID}
                 excludeUserRole={[]}
                 redirectURL={props.useRedirectURL}
                 onBalanceChange={props.onBalanceChange}
@@ -171,6 +173,9 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
           )}
         {activeTab === "public" && isCloudVersion && (
           <AppPublicPC
+            appDesc={props.appDesc}
+            appName={props.appName}
+            onAppInfoUpdate={props.onAppInfoUpdate}
             title={props.title}
             hidePublic={false}
             canUseBillingFeature={props.canUseBillingFeature}
