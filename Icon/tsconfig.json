@@ -1,6 +1,9 @@
 {
   "extends": "tsconfig/react.json",
-  "include": ["."],
+  "include": [
+    ".",
+    "../../../apps/builder/src/page/App/components/Icons/database.tsx"
+  ],
   "compilerOptions": {
     "types": ["node", "vite/client", "vite-plugin-svgr/client"]
   }
