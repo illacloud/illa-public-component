@@ -84,6 +84,7 @@ export const rightContainerStyle = css`
   border-radius: 16px;
   background-color: ${getColor("white", "01")};
   box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.06);
+  position: relative;
 `
 
 export const leftBottomContainerStyle = css`
