@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import AIAgentIcon from "./actionIcons/aiAgent"
 import AirtableIcon from "./actionIcons/airtable"
 import AppwriteIcon from "./actionIcons/appwrite"
 import ClickhouseIcon from "./actionIcons/clickhouse"
@@ -7,6 +8,7 @@ import HydraIcon from "./actionIcons/dydra"
 import DynamoIcon from "./actionIcons/dynamo"
 import ElasticIcon from "./actionIcons/elastic"
 import FirebaseIcon from "./actionIcons/firebase"
+import GlobalDataIcon from "./actionIcons/globalData"
 import GoogleSheetIcon from "./actionIcons/googlesheets"
 import GraphQLIcon from "./actionIcons/graphql"
 import HuggingFaceIcon from "./actionIcons/huggingface"
@@ -24,6 +26,7 @@ import SmtpIcon from "./actionIcons/smtp"
 import SnowflakeIcon from "./actionIcons/snowflake"
 import SupabaseIcon from "./actionIcons/supabase"
 import TidbIcon from "./actionIcons/tidb"
+import TransformerIcon from "./actionIcons/transformer"
 import UpstashIcon from "./actionIcons/upstash"
 
 export function getIconFromResourceType(
@@ -48,6 +51,8 @@ export function getIconFromResourceType(
     case "hfendpoint":
     case "huggingface":
       return <HuggingFaceIcon size={size} />
+    case "transformer":
+      return <TransformerIcon size={size} />
     case "mariadb":
       return <MariaDbIcon size={size} />
     case "tidb":
@@ -84,6 +89,10 @@ export function getIconFromResourceType(
       return <AppwriteIcon size={size} />
     case "airtable":
       return <AirtableIcon size={size} />
+    case "aiagent":
+      return <AIAgentIcon size={size} />
+    case "globalData":
+      return <GlobalDataIcon size={size} />
   }
   return null
 }
