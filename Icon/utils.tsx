@@ -48,6 +48,7 @@ import { ReactComponent as EditableTextIcon } from "./componentIcons/editableTex
 import { ReactComponent as EventCalendarIcon } from "./componentIcons/eventCalendar.svg"
 import { ReactComponent as FormIcon } from "./componentIcons/form.svg"
 import { ReactComponent as IconIcon } from "./componentIcons/icon.svg"
+import { ReactComponent as IFrameIcon } from "./componentIcons/iframe.svg"
 import { ReactComponent as ImageIcon } from "./componentIcons/image.svg"
 import { ReactComponent as InputIcon } from "./componentIcons/input.svg"
 import { ReactComponent as JsonEditorIcon } from "./componentIcons/jsonEditor.svg"
@@ -59,7 +60,7 @@ import { ReactComponent as ModalIcon } from "./componentIcons/modal.svg"
 import { ReactComponent as MultiSelectIcon } from "./componentIcons/multiSelect.svg"
 import { ReactComponent as NumberInputIcon } from "./componentIcons/numberInput.svg"
 import { ReactComponent as PdfIcon } from "./componentIcons/pdf.svg"
-import { ReactComponent as RadioIcon } from "./componentIcons/radioButton.svg"
+import { ReactComponent as RadioButtonIcon } from "./componentIcons/radioButton.svg"
 import { ReactComponent as RadioGroupIcon } from "./componentIcons/radioGroup.svg"
 import { ReactComponent as RangeSliderIcon } from "./componentIcons/rangeSlider.svg"
 import { ReactComponent as RateIcon } from "./componentIcons/rate.svg"
@@ -166,11 +167,11 @@ export function getIconFromWidgetType(widgetType: string, size: string) {
       return <ChartIcon width={size} height={size} />
     case "CHAT_WIDGET":
       return <ChatIcon width={size} height={size} />
-    case "CHECKBOX_WIDGET":
+    case "CHECKBOX_GROUP_WIDGET":
       return <CheckboxIcon width={size} height={size} />
     case "CONTAINER_WIDGET":
       return <ContainerIcon width={size} height={size} />
-    case "CYCLE_PROGRESS_WIDGET":
+    case "CIRCLE_PROGRESS_WIDGET":
       return <CycleProgressIcon width={size} height={size} />
     case "DATE_WIDGET":
       return <DateIcon width={size} height={size} />
@@ -196,7 +197,7 @@ export function getIconFromWidgetType(widgetType: string, size: string) {
       return <InputIcon width={size} height={size} />
     case "JSON_EDITOR_WIDGET":
       return <JsonEditorIcon width={size} height={size} />
-    case "JSON_SCHEMA_WIDGET":
+    case "JSON_SCHEMA_FORM_WIDGET":
       return <JsonSchemaIcon width={size} height={size} />
     case "LIST_WIDGET":
       return <ListIcon width={size} height={size} />
@@ -206,7 +207,7 @@ export function getIconFromWidgetType(widgetType: string, size: string) {
       return <MenuIcon width={size} height={size} />
     case "MODAL_WIDGET":
       return <ModalIcon width={size} height={size} />
-    case "MULTI_SELECT_WIDGET":
+    case "MULTISELECT_WIDGET":
       return <MultiSelectIcon width={size} height={size} />
     case "NUMBER_INPUT_WIDGET":
       return <NumberInputIcon width={size} height={size} />
@@ -214,46 +215,49 @@ export function getIconFromWidgetType(widgetType: string, size: string) {
       return <PdfIcon width={size} height={size} />
     case "RADIO_GROUP_WIDGET":
       return <RadioGroupIcon width={size} height={size} />
-    case "RADIO_WIDGET":
-      return <RadioIcon width={size} height={size} />
+    case "RADIO_BUTTON_WIDGET":
+      return <RadioButtonIcon width={size} height={size} />
     case "RANGE_SLIDER_WIDGET":
       return <RangeSliderIcon width={size} height={size} />
     case "RATE_WIDGET":
       return <RateIcon width={size} height={size} />
     case "RECORDING_WIDGET":
       return <RecordingIcon width={size} height={size} />
-    case "RICH_TEXT_EDITOR_WIDGET":
+    case "RICH_TEXT_WIDGET":
       return <RichtextIcon width={size} height={size} />
     case "SELECT_WIDGET":
       return <SelectIcon width={size} height={size} />
     case "SLIDER_WIDGET":
       return <SliderIcon width={size} height={size} />
-    case "STATS_WIDGET":
+    case "STATISTIC_WIDGET":
       return <StatisticIcon width={size} height={size} />
-    case "STEP_WIDGET":
+    case "STEPS_WIDGET":
       return <StepIcon width={size} height={size} />
     case "SWITCH_WIDGET":
       return <SwitchIcon width={size} height={size} />
     case "SWITCH_GROUP_WIDGET":
       return <SwitchGroupIcon width={size} height={size} />
+    case "DATA_GRID_WIDGET":
     case "TABLE_WIDGET":
       return <TableIcon width={size} height={size} />
     case "TABS_WIDGET":
       return <TabsIcon width={size} height={size} />
     case "TEXT_WIDGET":
       return <TextIcon width={size} height={size} />
-    case "TEXTAREA_WIDGET":
+    case "TEXTAREA_INPUT_WIDGET":
       return <TextareaIcon width={size} height={size} />
     case "TIME_PICKER_WIDGET":
       return <TimePickerIcon width={size} height={size} />
     case "TIME_RANGE_WIDGET":
       return <TimeRangeIcon width={size} height={size} />
-    case "TIME_LINE_WIDGET":
+    case "TIMELINE_WIDGET":
       return <TimeLineIcon width={size} height={size} />
     case "UPLOAD_WIDGET":
       return <UploadIcon width={size} height={size} />
     case "VIDEO_WIDGET":
       return <VideoIcon width={size} height={size} />
+    case "IFRAME_WIDGET":
+      return <IFrameIcon width={size} height={size} />
     case "CANVAS":
       return <CanvasIcon width={size} height={size} />
     default:
