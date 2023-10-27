@@ -6,6 +6,7 @@ export const Databases: ResourceType[] = [
   "mysql",
   "mssql",
   "oracle",
+  "oracle9i",
   "mariadb",
   "tidb",
   "neon",
