@@ -135,6 +135,7 @@ export function getIconFromResourceType(
       return <ClickhouseIcon size={size} />
     case "couchdb":
       return <CouchDBIcon size={size} />
+    case "oracle9i":
     case "oracle":
       return <OracleDBIcon size={size} />
     case "appwrite":
