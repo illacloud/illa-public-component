@@ -70,6 +70,7 @@ export type ResourceType =
   | "couchdb"
   | "upstash"
   | "airtable"
+  | "oracle9i"
 
 export type ResourceContent =
   | HuggingFaceResource

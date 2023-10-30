@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next"
+
 export function getResourceNameFromResourceType(
   resourceType: string | null,
 ): string {
@@ -8,6 +10,8 @@ export function getResourceNameFromResourceType(
       return "MySQL"
     case "mssql":
       return "Microsoft SQL"
+    case "oracle9i":
+      return "Oracle DB 9i"
     case "oracle":
       return "Oracle DB"
     case "restapi":
@@ -40,35 +44,44 @@ export function getResourceNameFromResourceType(
       return "SMTP"
     case "googlesheets":
       return "Google Sheets"
-    case "hfendpoint":
-      return "Hugging Face"
     case "huggingface":
       return "Hugging Face"
-    case "s3":
-      return "Amazon S3"
+    case "hfendpoint":
+      return "Hugging Face"
     case "firebase":
       return "Firebase"
     case "clickhouse":
       return "ClickHouse"
-    case "appwrite":
-      return "Appwrite"
     case "couchdb":
       return "CouchDB"
+    case "appwrite":
+      return "Appwrite"
+    case "s3":
+      return "Amazon S3"
+    case "transformer":
+      return "Transformer"
     case "airtable":
       return "Airtable"
+    case "aiagent":
+      return "AI Agent"
+    case "globalData":
+      return "Global Data"
     default:
       return ""
   }
 }
 
-export function getResourceSubTitleFromResourceType(
-  resourceType: string,
-): string {
+export function useResourceTypeToResourceName(resourceType: string | null) {
+  const { t } = useTranslation()
   switch (resourceType) {
     case "huggingface":
       return "Inference API"
     case "hfendpoint":
       return "Inference Endpoint"
+    case "oracle":
+      return t("editor.action.form.label.new_oracle")
+    case "oracle9i":
+      return t("editor.action.form.label.old_oracle")
     default:
       return ""
   }

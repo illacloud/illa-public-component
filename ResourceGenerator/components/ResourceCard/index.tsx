@@ -2,7 +2,7 @@ import { getIconFromResourceType } from "@illa-public/icon"
 import { FC } from "react"
 import {
   getResourceNameFromResourceType,
-  getResourceSubTitleFromResourceType,
+  useResourceTypeToResourceName,
 } from "../../utils"
 import { ResourceCardSelectorProps } from "./interface"
 import {
@@ -15,7 +15,7 @@ import {
 export const ResourceCard: FC<ResourceCardSelectorProps> = (props) => {
   const { resourceType, onSelect } = props
 
-  const subTitle = getResourceSubTitleFromResourceType(resourceType)
+  const subTitle = useResourceTypeToResourceName(resourceType)
 
   return (
     <div

@@ -1,9 +1,4 @@
-// import {
-//   ILLA_MIXPANEL_BUILDER_PAGE_NAME,
-//   ILLA_MIXPANEL_EVENT_TYPE,
-// } from "@illa-public/mixpanel-utils"
 import { FC } from "react"
-// import { track } from "@/utils/mixpanelHelper"
 import { ResourceTypeList } from "../../config"
 import { ResourceCard } from "../ResourceCard"
 import { WhiteList } from "../WhiteList"
@@ -31,15 +26,7 @@ export const ResourceTypeSelector: FC<ResourceTypeSelectorProps> = (props) => {
           </div>
         </div>
       ))}
-      <WhiteList
-      // onCopyIpReport={() => {
-      //   track(
-      //     ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-      //     ILLA_MIXPANEL_BUILDER_PAGE_NAME.RESOURCE,
-      //     { element: "resource_type_modal_copy" },
-      //   )
-      // }}
-      />
+      <WhiteList />
     </div>
   )
 }
