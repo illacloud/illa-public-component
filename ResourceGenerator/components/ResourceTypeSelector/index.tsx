@@ -14,15 +14,17 @@ export const ResourceTypeSelector: FC<ResourceTypeSelectorProps> = (props) => {
         <div key={category}>
           <span css={categoryStyle}>{title}</span>
           <div css={resourceListStyle}>
-            {item.map((resourceType) => (
-              <ResourceCard
-                key={resourceType}
-                onSelect={(item) => {
-                  onSelect(item)
-                }}
-                resourceType={resourceType}
-              />
-            ))}
+            {item
+              .filter(({ hidden }) => !hidden)
+              .map(({ resourceType }) => (
+                <ResourceCard
+                  key={resourceType}
+                  onSelect={(item) => {
+                    onSelect(item)
+                  }}
+                  resourceType={resourceType}
+                />
+              ))}
           </div>
         </div>
       ))}
