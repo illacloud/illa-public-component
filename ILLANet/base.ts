@@ -4,7 +4,7 @@ import { HTTP_REQUEST_PUBLIC_BASE_URL } from "./constant"
 
 const notNeedAuthAxios = Axios.create({
   baseURL: HTTP_REQUEST_PUBLIC_BASE_URL,
-  timeout: 10000,
+  timeout: 30000,
   headers: {
     "Content-Encoding": "gzip",
     "Content-Type": "application/json",
@@ -13,7 +13,7 @@ const notNeedAuthAxios = Axios.create({
 
 const needAuthAxios = Axios.create({
   baseURL: HTTP_REQUEST_PUBLIC_BASE_URL,
-  timeout: 10000,
+  timeout: 30000,
   headers: {
     "Content-Encoding": "gzip",
     "Content-Type": "application/json",
