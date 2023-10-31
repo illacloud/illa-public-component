@@ -1,6 +1,8 @@
 import { ACTION_TYPE_MAP_DOC_LINK } from "./resource"
 import { WIDGET_TYPE_MAP_DOC_LINK } from "./widget"
 
+export * from "./others"
+
 export const getDocLink = (docType: string, type: string = "") => {
   switch (docType) {
     case "widget": {
