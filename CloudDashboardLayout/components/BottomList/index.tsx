@@ -42,7 +42,7 @@ export const BottomList: FC<BottomListProps> = (props) => {
     {
       labelName: t("page.left.menu.documentation"),
       labelKey: "documentation",
-      href: "https://www.illacloud.com/docs/about-illa",
+      href: "https://docs.illacloud.com/",
       icon: <FileIcon />,
       onClickCallback: onClickMenuItemCallback,
     },
