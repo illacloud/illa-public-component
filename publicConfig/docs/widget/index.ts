@@ -1,4 +1,4 @@
-import { DOC_PREFIX } from "../constans"
+import { DOC_PREFIX } from "../constants"
 
 export const WIDGET_TYPE_MAP_DOC_LINK: Record<string, string> = {
   AUDIO_WIDGET: `${DOC_PREFIX}audio`,
