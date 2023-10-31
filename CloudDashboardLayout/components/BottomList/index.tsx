@@ -1,3 +1,4 @@
+import { DOC_PREFIX } from "@illa-public/public-configs/docs/constans"
 import { USER_ROLE, getCurrentTeamInfo } from "@illa-public/user-data"
 import {
   getAuthToken,
@@ -42,7 +43,7 @@ export const BottomList: FC<BottomListProps> = (props) => {
     {
       labelName: t("page.left.menu.documentation"),
       labelKey: "documentation",
-      href: "https://docs.illacloud.com/",
+      href: DOC_PREFIX,
       icon: <FileIcon />,
       onClickCallback: onClickMenuItemCallback,
     },
