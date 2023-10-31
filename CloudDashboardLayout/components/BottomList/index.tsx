@@ -1,4 +1,4 @@
-import { DOC_PREFIX } from "@illa-public/public-configs/docs/constans"
+import { DOC_PREFIX } from "@illa-public/public-configs"
 import { USER_ROLE, getCurrentTeamInfo } from "@illa-public/user-data"
 import {
   getAuthToken,
