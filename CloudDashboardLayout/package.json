@@ -9,6 +9,7 @@
     "@illa-public/user-data": "workspace:*",
     "@illa-public/user-role-utils": "workspace:*",
     "@illa-public/invite-modal": "workspace:*",
+    "@illa-public/public-configs": "workspace:*",
     "react-router-dom": "^6.4.4"
   },
   "devDependencies": {
