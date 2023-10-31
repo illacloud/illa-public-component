@@ -44,7 +44,6 @@ export enum AI_AGENT_MODEL {
   GPT_3_5_TURBO = 1,
   GPT_3_5_TURBO_16K = 2,
   GPT_4 = 3,
-  GPT_4_32K = 5,
   LLAMA_2_CHAT_7B = 9,
   LLAMA_2_CHAT_13B = 10,
 }
