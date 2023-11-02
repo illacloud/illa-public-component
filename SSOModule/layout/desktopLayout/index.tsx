@@ -57,7 +57,7 @@ export const UserLayout: FC<LayoutProps> = ({ children }) => {
               <TextLink
                 key="text-link"
                 onClick={() => {
-                  handleLinkOpenClick("/terms-and-conditions")
+                  handleLinkOpenClick("/terms-of-service")
                 }}
               />,
             ]}
