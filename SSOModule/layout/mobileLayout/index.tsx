@@ -2,6 +2,7 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
+import { DOC_PREFIX } from "@illa-public/public-configs"
 import { TextLink } from "@illa-public/text-link"
 import { isCloudVersion } from "@illa-public/utils"
 import { FC, useContext } from "react"
@@ -18,7 +19,7 @@ export const MobileUserLayout: FC<LayoutProps> = ({ children }) => {
       track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
         element: /privacy/.test(link) ? "privacy" : "terms",
       })
-      window.open("https://illacloud.com/docs" + link, "_blank")
+      window.open(DOC_PREFIX + link, "_blank")
     } else {
       window.open(link, "_blank")
     }
