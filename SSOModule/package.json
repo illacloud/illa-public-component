@@ -12,6 +12,7 @@
     "@illa-public/layout-auto-change": "workspace:*",
     "@illa-public/text-link": "workspace:*",
     "@illa-public/illa-net": "workspace:*",
+    "@illa-public/public-configs": "workspace:*",
     "react-router-dom": "^6.14.0"
   },
   "devDependencies": {
