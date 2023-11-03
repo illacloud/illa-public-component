@@ -1,4 +1,7 @@
 export { ReactComponent as GithubIcon } from "./assets/github.svg"
 export { ReactComponent as GoogleIcon } from "./assets/google.svg"
 export { ReactComponent as UpgradeIcon } from "./assets/upgradeButtonIcon.svg"
+export { ReactComponent as AnonymousIcon } from "./assets/anonymous.svg"
+export { ReactComponent as FolderIcon } from "./assets/folder.svg"
+export { ReactComponent as ZipIcon } from "./assets/zip.svg"
 export * from "./utils"
