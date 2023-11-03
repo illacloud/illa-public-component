@@ -1,0 +1,14 @@
+{
+  "name": "@illa-public/styleis-plugin",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "dependencies": {
+    "stylis": "^4.1.3",
+    "@emotion/cache": "^11.11.0"
+  },
+  "devDependencies": {
+    "@types/stylis": "^4.0.2",
+    "tsconfig": "workspace:*"
+  }
+}
