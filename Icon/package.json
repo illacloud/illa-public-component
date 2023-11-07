@@ -6,7 +6,9 @@
   "dependencies": {},
   "devDependencies": {
     "tsconfig": "workspace:*",
-    "vite-plugin-svgr": "^2.1.0"
+    "vite-plugin-svgr": "^2.1.0",
+    "@illa-public/utils": "workspace:*",
+    "@illa-public/public-types": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.2.0",
