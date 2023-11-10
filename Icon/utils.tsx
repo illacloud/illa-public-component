@@ -12,6 +12,7 @@ import GlobalDataIcon from "./actionIcons/globalData"
 import GoogleSheetIcon from "./actionIcons/googlesheets"
 import GraphQLIcon from "./actionIcons/graphql"
 import HuggingFaceIcon from "./actionIcons/huggingface"
+import ILLADriveIcon from "./actionIcons/illaDrive"
 import MariaDbIcon from "./actionIcons/mariadb"
 import MicrosoftSqlIcon from "./actionIcons/microsoftsql"
 import MongoDbIcon from "./actionIcons/mongodb"
@@ -147,6 +148,8 @@ export function getIconFromResourceType(
       return <AIAgentIcon size={size} />
     case "globalData":
       return <GlobalDataIcon size={size} />
+    case "illadrive":
+      return <ILLADriveIcon size={size} />
   }
   return null
 }
