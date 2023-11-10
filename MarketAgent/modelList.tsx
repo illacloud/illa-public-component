@@ -2,6 +2,7 @@ import { ReactComponent as MetaIcon } from "./assets/meta.svg"
 import { ReactComponent as OpenAIIcon } from "./assets/openai.svg"
 import { AI_AGENT_MODEL, LLM } from "./interface"
 
+
 export const getLLM = (type: AI_AGENT_MODEL): LLM | undefined => {
   return allModelList.find((item) => item.value === type)
 }
@@ -39,7 +40,7 @@ export const premiumModelList: LLM[] = [
     name: "GPT-4",
     value: AI_AGENT_MODEL.GPT_4,
     logo: <OpenAIIcon title="GPT-4 Icon" />,
-    limit: 128000,
+    limit: 8192,
     temperatureRange: [0.1, 2],
   },
   {
