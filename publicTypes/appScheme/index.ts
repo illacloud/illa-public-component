@@ -5,12 +5,11 @@ export enum CONTAINER_TYPE {
   "EDITOR_LAYOUT_SQUARE" = "EDITOR_LAYOUT_SQUARE",
 }
 
-export interface ComponentNode {
+interface BaseComponentNode {
   version: number
   displayName: string
   parentNode: string | null
   showName: string
-  childrenNode: ComponentNode[]
   type: string
   containerType: CONTAINER_TYPE
   h: number
@@ -26,6 +25,14 @@ export interface ComponentNode {
   props: {
     [key: string]: any
   } | null
+}
+
+export interface ComponentMapNode extends BaseComponentNode {
+  childrenNode: string[]
+}
+
+export interface ComponentTreeNode extends BaseComponentNode {
+  childrenNode: ComponentTreeNode[]
 }
 
 export interface SectionViewShape {
@@ -59,7 +66,12 @@ export type SectionNodeProps =
   | LeftOrRightSectionNodeProps
   | BaseSectionNodeProps
 
-export interface SectionNode extends ComponentNode {
+export interface SectionTreeNode extends ComponentTreeNode {
+  type: "SECTION_NODE"
+  props: SectionNodeProps
+}
+
+export interface SectionMapNode extends ComponentMapNode {
   type: "SECTION_NODE"
   props: SectionNodeProps
 }
@@ -74,7 +86,7 @@ export interface ModalSectionNodeProps {
   currentIndex?: number
 }
 
-export interface ModalSectionNode extends ComponentNode {
+export interface ModalSectionNode extends ComponentTreeNode {
   type: "MODAL_SECTION_NODE"
   props: ModalSectionNodeProps
 }
