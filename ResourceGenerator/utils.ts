@@ -66,6 +66,8 @@ export function getResourceNameFromResourceType(
       return "AI Agent"
     case "globalData":
       return "Global Data"
+    case "illadrive":
+      return "ILLA Drive"
     default:
       return ""
   }
