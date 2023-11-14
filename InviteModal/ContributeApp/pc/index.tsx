@@ -2,6 +2,7 @@ import { FC, useState } from "react"
 import { Controller, useForm, useFormState } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import {
+  Checkbox,
   Input,
   Modal,
   TextArea,
@@ -16,7 +17,12 @@ import {
   updateAppConfig,
   updateAppContribute,
 } from "../service"
-import { blockLabelStyle, blockRequireStyle, blockStyle } from "./style"
+import {
+  blockCheckboxStyle,
+  blockLabelStyle,
+  blockRequireStyle,
+  blockStyle,
+} from "./style"
 
 export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
   const [contributeLoading, setContributeLoading] = useState(false)
@@ -28,6 +34,7 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
       appName: props.appName,
       appDesc: props.appDesc,
       hashtags: [],
+      contributeAgents: false,
     },
   })
 
@@ -54,6 +61,7 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
       }
       onOk={handleSubmit(async (data) => {
         setContributeLoading(true)
+        console.log("data", data)
         try {
           if (props.productContributed) {
             await updateAppContribute(
@@ -66,6 +74,7 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
               props.teamID,
               props.productID,
               data.hashtags,
+              data.contributeAgents,
             )
           }
           await updateAppConfig(props.productID, props.teamID, {
@@ -156,6 +165,24 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
           />
         )}
       />
+      {!props.productContributed && (
+        <Controller
+          name="contributeAgents"
+          control={control}
+          render={({ field }) => (
+            <div css={blockCheckboxStyle}>
+              <Checkbox
+                {...field}
+                value=""
+                checked={field.value}
+                colorScheme="techPurple"
+              >
+                {t("contribute.first_time_modal.contribute_agents")}
+              </Checkbox>
+            </div>
+          )}
+        />
+      )}
     </Modal>
   )
 }

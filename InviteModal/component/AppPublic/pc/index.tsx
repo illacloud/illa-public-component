@@ -41,7 +41,6 @@ import {
   publicContainerStyle,
 } from "./style"
 
-
 export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const {
     title,

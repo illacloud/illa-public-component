@@ -43,6 +43,7 @@ export const contributeAppWithHashtags = (
   teamID: string,
   productID: string,
   hashtags: string[],
+  contributeAgents: boolean = false,
 ) => {
   return marketplaceTeamRequest<{}>(
     {
@@ -50,6 +51,7 @@ export const contributeAppWithHashtags = (
       url: `/products/apps/${productID}/recontributeWith?property=hashtags`,
       data: {
         hashtags,
+        contributeAgents,
       },
     },
     {
