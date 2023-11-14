@@ -1,17 +1,17 @@
 import {
   CONTAINER_TYPE,
-  ComponentNode,
+  ComponentTreeNode,
   ModalSectionNode,
   PADDING_MODE,
   SECTION_POSITION,
-  SectionNode,
+  SectionTreeNode,
 } from "@illa-public/public-types"
 import { v4 } from "uuid"
 
 export const DEFAULT_BODY_COLUMNS_NUMBER = 32
 export const DEFAULT_ASIDE_COLUMNS_NUMBER = 8
 
-export const BASIC_BODY_SECTION_CONFIG: SectionNode = {
+export const BASIC_BODY_SECTION_CONFIG: SectionTreeNode = {
   displayName: "bodySection1",
   parentNode: "page1",
   showName: "bodySection",
@@ -83,7 +83,7 @@ export const BASIC_MODAL_SECTION_CONFIG: ModalSectionNode = {
   childrenNode: [],
 }
 
-export const BASIC_APP_CONFIG: ComponentNode = {
+export const BASIC_APP_CONFIG: ComponentTreeNode = {
   displayName: "root",
   parentNode: "",
   showName: "root",
