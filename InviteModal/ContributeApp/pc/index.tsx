@@ -34,7 +34,7 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
       appName: props.appName,
       appDesc: props.appDesc,
       hashtags: [],
-      contributeAgents: false,
+      contributeAgents: true,
     },
   })
 
@@ -61,7 +61,6 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
       }
       onOk={handleSubmit(async (data) => {
         setContributeLoading(true)
-        console.log("data", data)
         try {
           if (props.productContributed) {
             await updateAppContribute(
@@ -177,7 +176,7 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
                 checked={field.value}
                 colorScheme="techPurple"
               >
-                {t("contribute.first_time_modal.contribute_agents")}
+                {t("contribute.checkbox_ai_agent")}
               </Checkbox>
             </div>
           )}
