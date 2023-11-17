@@ -61,6 +61,11 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
       }
       onOk={handleSubmit(async (data) => {
         setContributeLoading(true)
+        await updateAppConfig(props.productID, props.teamID, {
+          appName: data.appName,
+          description: data.appDesc,
+          publishWithAIAgent: data.publishWithAIAgent,
+        })
         try {
           if (props.productContributed) {
             await updateAppContribute(
@@ -75,11 +80,7 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
               data.hashtags,
             )
           }
-          await updateAppConfig(props.productID, props.teamID, {
-            appName: data.appName,
-            description: data.appDesc,
-            publishWithAIAgent: data.publishWithAIAgent,
-          })
+
           props.onAppInfoUpdate({
             appName: data.appName,
             appDesc: data.appDesc,
