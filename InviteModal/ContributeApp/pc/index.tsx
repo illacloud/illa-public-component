@@ -34,7 +34,7 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
       appName: props.appName,
       appDesc: props.appDesc,
       hashtags: [],
-      contributeAgents: true,
+      publishWithAIAgent: true,
     },
   })
 
@@ -73,14 +73,18 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
               props.teamID,
               props.productID,
               data.hashtags,
-              data.contributeAgents,
             )
           }
           await updateAppConfig(props.productID, props.teamID, {
             appName: data.appName,
             description: data.appDesc,
+            publishWithAIAgent: data.publishWithAIAgent,
           })
-          props.onAppInfoUpdate(data.appName, data.appDesc)
+          props.onAppInfoUpdate({
+            appName: data.appName,
+            appDesc: data.appDesc,
+            publishWithAIAgent: data.publishWithAIAgent,
+          })
           props.onContributed(true)
           props.onAppPublic(true)
           props.onClose?.()
@@ -166,7 +170,7 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
       />
       {!props.productContributed && (
         <Controller
-          name="contributeAgents"
+          name="publishWithAIAgent"
           control={control}
           render={({ field }) => (
             <div css={blockCheckboxStyle}>

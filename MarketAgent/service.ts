@@ -28,9 +28,13 @@ export const fetchMarketAgentList = (
   })
 }
 
-export const getAIAgentMarketplaceInfo = (aiAgentID: string) => {
+export const getAIAgentMarketplaceInfo = (
+  aiAgentID: string,
+  abortSignal?: AbortSignal,
+) => {
   return marketplaceRequest<MarketAIAgent>({
     url: `/aiAgents/${aiAgentID}`,
     method: "GET",
+    signal: abortSignal,
   })
 }

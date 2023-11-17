@@ -1,10 +1,8 @@
+import { AppConfig } from "@illa-public/public-types"
+
 export interface AppCardActionItemProps {
   appID: string
   appDeployed: boolean
   appName: string
-  appConfig: {
-    public: boolean
-    publishedToMarketplace: boolean
-    description?: string
-  }
+  appConfig: AppConfig
 }

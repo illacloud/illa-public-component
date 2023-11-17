@@ -430,11 +430,12 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
             }}
             appDesc={appConfig.description}
             appName={appName}
-            onAppInfoUpdate={(appName, appDesc) => {
+            onAppInfoUpdate={(appConfig) => {
               updateAppConfig(appID, {
                 ...appConfig,
-                appName,
-                description: appDesc,
+                appName: appConfig.appName,
+                description: appConfig.appDesc,
+                publishWithAIAgent: appConfig.publishWithAIAgent,
               })
             }}
             isDeployed={appDeployed}
@@ -448,6 +449,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
               teamInfo.identifier
             }/deploy/app/${appID}`}
             defaultAllowInviteLink={teamInfo.permission.inviteLinkEnabled}
+            defaultPublishWithAIAgent={appConfig.publishWithAIAgent}
             onInviteLinkStateChange={(enableInviteLink) => {
               dispatch(
                 teamActions.updateTeamMemberPermissionReducer({
