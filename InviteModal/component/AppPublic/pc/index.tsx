@@ -259,12 +259,14 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
                   >
                     <div css={labelContainerStyle}>
                       <div css={blockLabelStyle}>
-                        {t("user_management.modal.contribute.label")}
+                        {t("user_management.modal.contribute.contribute_only")}
                       </div>
                       <Trigger
                         trigger="hover"
                         position="top"
-                        content={t("user_management.modal.contribute.app.desc")}
+                        content={t(
+                          "user_management.modal.contribute.contribute_only_tips",
+                        )}
                       >
                         <div css={doubtStyle}>
                           <DoubtIcon />
@@ -280,12 +282,16 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
                   >
                     <div css={labelContainerStyle}>
                       <div css={blockLabelStyle}>
-                        {t("user_management.modal.contribute.with_agent.label")}
+                        {t(
+                          "user_management.modal.contribute.contribute_together",
+                        )}
                       </div>
                       <Trigger
                         trigger="hover"
                         position="top"
-                        content={t("user_management.modal.contribute.app.desc")}
+                        content={t(
+                          "user_management.modal.contribute.contribute_together_tips",
+                        )}
                       >
                         <div css={doubtStyle}>
                           <DoubtIcon />
@@ -299,8 +305,8 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             >
               <div css={blockLabelStyle}>
                 {canManageApp && publishWithAIAgent
-                  ? t("user_management.modal.contribute.with_agent.label")
-                  : t("user_management.modal.contribute.label")}
+                  ? t("user_management.modal.contribute.contribute_together")
+                  : t("user_management.modal.contribute.contribute_only")}
                 {canManageApp &&
                   !appContribute &&
                   (publishModeVisible ? <UpIcon /> : <DownIcon />)}
@@ -310,7 +316,13 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             <Trigger
               trigger="hover"
               position="top"
-              content={t("user_management.modal.contribute.app.desc")}
+              content={
+                canManageApp && publishWithAIAgent
+                  ? t(
+                      "user_management.modal.contribute.contribute_together_tips",
+                    )
+                  : t("user_management.modal.contribute.contribute_only_tips")
+              }
             >
               <div css={doubtStyle}>
                 <DoubtIcon />
