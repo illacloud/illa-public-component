@@ -32,7 +32,7 @@ export const ResourceMoreAction: FC<ResourceMoreActionProps> = (props) => {
       },
       "both",
     )
-    track(
+    track?.(
       ILLA_MIXPANEL_EVENT_TYPE.SHOW,
       {
         element: "resource_more_delete_modal",
@@ -54,7 +54,7 @@ export const ResourceMoreAction: FC<ResourceMoreActionProps> = (props) => {
         modal.update(modalId, {
           okLoading: true,
         })
-        track(
+        track?.(
           ILLA_MIXPANEL_EVENT_TYPE.CLICK,
           {
             element: "resource_more_delete_modal_delete",
@@ -78,7 +78,7 @@ export const ResourceMoreAction: FC<ResourceMoreActionProps> = (props) => {
         }
       },
       onCancel: () => {
-        track(
+        track?.(
           ILLA_MIXPANEL_EVENT_TYPE.CLICK,
           {
             element: "resource_more_delete_modal_close",

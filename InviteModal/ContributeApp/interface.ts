@@ -4,6 +4,7 @@ export interface ContributeAppConfig {
   appName: string
   appDesc?: string
   hashtags: string[]
+  contributeAgents?: boolean
 }
 
 export interface ContributeAppProps extends TagControllerProps {

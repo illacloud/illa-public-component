@@ -182,6 +182,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
             canUseBillingFeature={props.canUseBillingFeature}
             defaultAppPublic={props.defaultAppPublic}
             defaultAppContribute={props.defaultAppContribute}
+            defaultAppAgentContribute={props.defaultAppAgentContribute}
             appID={props.appID}
             userRoleForThisApp={props.userRoleForThisApp}
             ownerTeamIdentify={props.ownerTeamIdentify}

@@ -16,6 +16,9 @@ import { useTranslation } from "react-i18next"
 import {
   Button,
   DoubtIcon,
+  DropList,
+  DropListItem,
+  Dropdown,
   Switch,
   Trigger,
   TriggerProvider,
@@ -36,11 +39,11 @@ import {
   blockContainerStyle,
   blockLabelStyle,
   doubtStyle,
+  labelContainerStyle,
   linkCopyContainer,
   premiumContainerStyle,
   publicContainerStyle,
 } from "./style"
-
 
 export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const {
@@ -55,6 +58,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
     userRoleForThisApp,
     defaultAppPublic,
     defaultAppContribute,
+    defaultAppAgentContribute,
     canUseBillingFeature,
     onAppPublic,
     onAppContribute,
@@ -80,7 +84,14 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const [appContribute, setAppContribute] = useMergeValue(false, {
     defaultValue: defaultAppContribute,
   })
+  const [agentContribute, setAgentContribute] = useMergeValue(false, {
+    defaultValue: defaultAppAgentContribute,
+  })
+
   const { track } = useContext(MixpanelTrackContext)
+  const [contributeMode, setContributeMode] = useMergeValue("appAndAgent", {
+    defaultValue: agentContribute ? "appAndAgent" : "onlyApp",
+  })
 
   const canManageApp = isBiggerThanTargetRole(
     USER_ROLE.VIEWER,
@@ -98,6 +109,9 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
         parameter4: !value,
         parameter5: appID,
       })
+      if (contributeMode === "appAndAgent") {
+        setAgentContribute(value)
+      }
       setAppContribute(value)
       setAppPublic(value)
       try {
@@ -132,6 +146,9 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
           parameter4: value,
           parameter5: appID,
         })
+        if (contributeMode === "appAndAgent") {
+          setAgentContribute(!value)
+        }
         setAppContribute(!value)
         setAppPublic(!value)
       } finally {
@@ -140,10 +157,12 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
     },
     [
       appID,
+      contributeMode,
       message,
       onAppContribute,
       onAppPublic,
       ownerTeamID,
+      setAgentContribute,
       setAppContribute,
       setAppPublic,
       t,
@@ -215,34 +234,97 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
 
   const contributeBlock = (
     <>
-      <div css={blockContainerStyle}>
-        <div css={blockLabelStyle}>
-          {t("user_management.modal.contribute.label")}
-        </div>
-        <TriggerProvider zIndex={1000}>
-          <Trigger
-            trigger="hover"
-            position="top"
-            content={t("user_management.modal.contribute.app.desc")}
-          >
-            <div css={doubtStyle}>
-              <DoubtIcon />
+      <Dropdown
+        triggerProps={{
+          renderInBody: true,
+          zIndex: 1000,
+        }}
+        dropList={
+          <DropList>
+            <DropListItem
+              value="onlyApp"
+              onClick={() => {
+                setContributeMode("onlyApp")
+              }}
+            >
+              <div css={labelContainerStyle}>
+                <div css={blockLabelStyle}>
+                  {t("user_management.modal.contribute.label")}
+                </div>
+                <TriggerProvider zIndex={1000}>
+                  <Trigger
+                    trigger="hover"
+                    position="top"
+                    content={t("user_management.modal.contribute.app.desc")}
+                  >
+                    <div css={doubtStyle}>
+                      <DoubtIcon />
+                    </div>
+                  </Trigger>
+                </TriggerProvider>
+              </div>
+            </DropListItem>
+            <DropListItem
+              value="appAndAgent"
+              onClick={() => {
+                setContributeMode("appAndAgent")
+              }}
+            >
+              <div css={labelContainerStyle}>
+                <div css={blockLabelStyle}>{t("ffff")}</div>
+                <TriggerProvider zIndex={1000}>
+                  <Trigger
+                    trigger="hover"
+                    position="top"
+                    content={t("user_management.modal.contribute.app.desc")}
+                  >
+                    <div css={doubtStyle}>
+                      <DoubtIcon />
+                    </div>
+                  </Trigger>
+                </TriggerProvider>
+              </div>
+            </DropListItem>
+          </DropList>
+        }
+        disabled={!canManageApp || appContribute}
+      >
+        <div css={blockContainerStyle}>
+          <div css={labelContainerStyle}>
+            <div css={blockLabelStyle}>
+              {canManageApp && contributeMode === "onlyApp"
+                ? "user_management.modal.contribute.label"
+                : "ffff"}
             </div>
-          </Trigger>
-        </TriggerProvider>
-        <div
-          style={{
-            flexGrow: 1,
-          }}
-        />
-        {canManageApp && (
-          <Switch
-            checked={appContribute}
-            colorScheme={getColor("grayBlue", "02")}
-            onChange={handleContributeChange}
-          />
-        )}
-      </div>
+            <TriggerProvider zIndex={1000}>
+              <Trigger
+                trigger="hover"
+                position="top"
+                content={t("user_management.modal.contribute.app.desc")}
+              >
+                <div css={doubtStyle}>
+                  <DoubtIcon />
+                </div>
+              </Trigger>
+            </TriggerProvider>
+          </div>
+          {canManageApp && contributeMode === "onlyApp" && (
+            <Switch
+              checked={appContribute}
+              colorScheme={getColor("grayBlue", "02")}
+              onChange={handleContributeChange}
+            />
+          )}
+          {canManageApp && contributeMode === "appAndAgent" && (
+            <Switch
+              checked={agentContribute}
+              colorScheme={getColor("grayBlue", "02")}
+              onChange={handleContributeChange}
+            />
+          )}
+        </div>
+      </Dropdown>
+
       {appContribute && (
         <div css={linkCopyContainer}>
           {canManageApp && (
