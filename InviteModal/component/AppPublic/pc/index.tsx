@@ -302,6 +302,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
                   ? t("user_management.modal.contribute.with_agent.label")
                   : t("user_management.modal.contribute.label")}
                 {canManageApp &&
+                  !appContribute &&
                   (publishModeVisible ? <UpIcon /> : <DownIcon />)}
               </div>
             </Dropdown>
