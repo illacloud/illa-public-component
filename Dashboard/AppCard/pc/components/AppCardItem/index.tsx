@@ -448,6 +448,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
               teamInfo.identifier
             }/deploy/app/${appID}`}
             defaultAllowInviteLink={teamInfo.permission.inviteLinkEnabled}
+            defaultAppAgentContribute={false}
             onInviteLinkStateChange={(enableInviteLink) => {
               dispatch(
                 teamActions.updateTeamMemberPermissionReducer({
