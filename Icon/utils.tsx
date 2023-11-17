@@ -48,6 +48,7 @@ import { ReactComponent as DrivePickerIcon } from "./componentIcons/drivePicker.
 import { ReactComponent as EditableTextIcon } from "./componentIcons/editableText.svg"
 import { ReactComponent as EventCalendarIcon } from "./componentIcons/eventCalendar.svg"
 import { ReactComponent as FormIcon } from "./componentIcons/form.svg"
+import { ReactComponent as GridListIcon } from "./componentIcons/gridList.svg"
 import { ReactComponent as IconIcon } from "./componentIcons/icon.svg"
 import { ReactComponent as IFrameIcon } from "./componentIcons/iframe.svg"
 import { ReactComponent as ImageIcon } from "./componentIcons/image.svg"
@@ -263,6 +264,8 @@ export function getIconFromWidgetType(widgetType: string, size: string) {
       return <IFrameIcon width={size} height={size} />
     case "CANVAS":
       return <CanvasIcon width={size} height={size} />
+    case "GRID_LIST_WIDGET":
+      return <GridListIcon width={size} height={size} />
     default:
       return null
   }
