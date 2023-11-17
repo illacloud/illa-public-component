@@ -7,7 +7,7 @@ export interface AppPublicProps
     Pick<ContributeAppProps, "appDesc" | "appName" | "onAppInfoUpdate"> {
   defaultAppPublic: boolean
   defaultAppContribute: boolean
-  defaultAppAgentContribute: boolean
+  defaultPublishWithAIAgent: boolean
   canUseBillingFeature: boolean
   appID: string
   userRoleForThisApp: USER_ROLE
