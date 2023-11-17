@@ -1,7 +1,6 @@
 import { css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
 
-
 export const blockStyle = css`
   padding: 8px 0;
   display: flex;
@@ -18,4 +17,9 @@ export const blockLabelStyle = css`
 
 export const blockRequireStyle = css`
   margin-left: 4px;
+`
+
+export const blockCheckboxStyle = css`
+  width: 100%;
+  padding-top: 16px;
 `

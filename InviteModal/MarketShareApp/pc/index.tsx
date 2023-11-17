@@ -51,6 +51,7 @@ export const MarketShareAppPC: FC<MarketShareAppProps> = (props) => {
           canUseBillingFeature={props.canUseBillingFeature}
           defaultAppPublic={props.defaultAppPublic}
           defaultAppContribute={props.defaultAppContribute}
+          defaultPublishWithAIAgent={props.defaultPublishWithAIAgent}
           appID={props.appID}
           userRoleForThisApp={props.userRoleForThisApp}
           ownerTeamIdentify={props.ownerTeamIdentify}

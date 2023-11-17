@@ -2,6 +2,7 @@ import { FC, useState } from "react"
 import { Controller, useForm, useFormState } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import {
+  Checkbox,
   Input,
   Modal,
   TextArea,
@@ -16,7 +17,12 @@ import {
   updateAppConfig,
   updateAppContribute,
 } from "../service"
-import { blockLabelStyle, blockRequireStyle, blockStyle } from "./style"
+import {
+  blockCheckboxStyle,
+  blockLabelStyle,
+  blockRequireStyle,
+  blockStyle,
+} from "./style"
 
 export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
   const [contributeLoading, setContributeLoading] = useState(false)
@@ -28,6 +34,7 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
       appName: props.appName,
       appDesc: props.appDesc,
       hashtags: [],
+      publishWithAIAgent: true,
     },
   })
 
@@ -54,6 +61,11 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
       }
       onOk={handleSubmit(async (data) => {
         setContributeLoading(true)
+        await updateAppConfig(props.productID, props.teamID, {
+          appName: data.appName,
+          description: data.appDesc,
+          publishWithAIAgent: data.publishWithAIAgent,
+        })
         try {
           if (props.productContributed) {
             await updateAppContribute(
@@ -68,11 +80,12 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
               data.hashtags,
             )
           }
-          await updateAppConfig(props.productID, props.teamID, {
+
+          props.onAppInfoUpdate({
             appName: data.appName,
-            description: data.appDesc,
+            appDesc: data.appDesc,
+            publishWithAIAgent: data.publishWithAIAgent,
           })
-          props.onAppInfoUpdate(data.appName, data.appDesc)
           props.onContributed(true)
           props.onAppPublic(true)
           props.onClose?.()
@@ -156,6 +169,24 @@ export const ContributeAppPC: FC<ContributeAppProps> = (props) => {
           />
         )}
       />
+      {!props.productContributed && (
+        <Controller
+          name="publishWithAIAgent"
+          control={control}
+          render={({ field }) => (
+            <div css={blockCheckboxStyle}>
+              <Checkbox
+                {...field}
+                value=""
+                checked={field.value}
+                colorScheme="techPurple"
+              >
+                {t("contribute.checkbox_ai_agent")}
+              </Checkbox>
+            </div>
+          )}
+        />
+      )}
     </Modal>
   )
 }

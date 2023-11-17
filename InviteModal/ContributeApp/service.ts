@@ -25,6 +25,7 @@ export const updateAppConfig = async (
   config: {
     description?: string
     appName?: string
+    publishWithAIAgent?: boolean
   },
 ) => {
   return builderRequest<{}>(
@@ -51,6 +52,27 @@ export const contributeAppWithHashtags = (
       data: {
         hashtags,
       },
+    },
+    {
+      teamID: teamID,
+    },
+  )
+}
+
+export const contributeAppWithProperties = (
+  teamID: string,
+  productID: string,
+  contributeData: {
+    hashtags?: string[]
+    publishWithAIAgent?: boolean
+  },
+) => {
+  const properties = Object.keys(contributeData).join(",")
+  return marketplaceTeamRequest<{}>(
+    {
+      method: "POST",
+      url: `/products/apps/${productID}/recontributeWith?property=${properties}`,
+      data: contributeData,
     },
     {
       teamID: teamID,
