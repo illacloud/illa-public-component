@@ -7,6 +7,7 @@ export interface AppConfig {
   public: boolean
   waterMark: boolean
   publishedToMarketplace: boolean
+  publishWithAIAgent: boolean
   description?: string
 }
 

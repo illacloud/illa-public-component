@@ -16,14 +16,20 @@ import { useTranslation } from "react-i18next"
 import {
   Button,
   DoubtIcon,
+  DownIcon,
+  DropList,
+  DropListItem,
+  Dropdown,
   Switch,
   Trigger,
   TriggerProvider,
+  UpIcon,
   getColor,
   useMergeValue,
   useMessage,
 } from "@illa-design/react"
 import { ContributeAppPC } from "../../../ContributeApp/pc"
+import { updateAppConfig } from "../../../ContributeApp/service"
 import { HASHTAG_REQUEST_TYPE } from "../../../constants"
 import { ShareBlockPC } from "../../ShareBlock/pc"
 import { AppPublicProps } from "../interface"
@@ -36,11 +42,11 @@ import {
   blockContainerStyle,
   blockLabelStyle,
   doubtStyle,
+  labelContainerStyle,
   linkCopyContainer,
   premiumContainerStyle,
   publicContainerStyle,
 } from "./style"
-
 
 export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const {
@@ -55,6 +61,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
     userRoleForThisApp,
     defaultAppPublic,
     defaultAppContribute,
+    defaultPublishWithAIAgent,
     canUseBillingFeature,
     onAppPublic,
     onAppContribute,
@@ -80,6 +87,12 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const [appContribute, setAppContribute] = useMergeValue(false, {
     defaultValue: defaultAppContribute,
   })
+  const [publishWithAIAgent, setPublishWithAIAgent] = useMergeValue(false, {
+    defaultValue: defaultPublishWithAIAgent,
+  })
+
+  const [publishModeVisible, setPublishModeVisible] = useState(false)
+
   const { track } = useContext(MixpanelTrackContext)
 
   const canManageApp = isBiggerThanTargetRole(
@@ -102,8 +115,16 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
       setAppPublic(value)
       try {
         setMarketLinkLoading(true)
+        await updateAppConfig(appID, ownerTeamID, {
+          publishWithAIAgent,
+        })
+        props.onAppInfoUpdate({
+          appName,
+          appDesc,
+          publishWithAIAgent,
+        })
         if (value) {
-          await makeAppContribute(ownerTeamID, appID)
+          await makeAppContribute(ownerTeamID, appID, undefined)
         } else {
           await fetchRemoveAppToMarket(ownerTeamID, appID)
         }
@@ -139,11 +160,15 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
       }
     },
     [
+      appDesc,
       appID,
+      appName,
       message,
       onAppContribute,
       onAppPublic,
       ownerTeamID,
+      props,
+      publishWithAIAgent,
       setAppContribute,
       setAppPublic,
       t,
@@ -215,34 +240,104 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
 
   const contributeBlock = (
     <>
-      <div css={blockContainerStyle}>
-        <div css={blockLabelStyle}>
-          {t("user_management.modal.contribute.label")}
+      <TriggerProvider zIndex={1000}>
+        <div css={blockContainerStyle}>
+          <div css={labelContainerStyle}>
+            <Dropdown
+              popupVisible={publishModeVisible}
+              onVisibleChange={setPublishModeVisible}
+              triggerProps={{
+                renderInBody: true,
+              }}
+              dropList={
+                <DropList>
+                  <DropListItem
+                    value="onlyApp"
+                    onClick={() => {
+                      setPublishWithAIAgent(false)
+                    }}
+                  >
+                    <div css={labelContainerStyle}>
+                      <div css={blockLabelStyle}>
+                        {t("user_management.modal.contribute.contribute_only")}
+                      </div>
+                      <Trigger
+                        trigger="hover"
+                        position="top"
+                        content={t(
+                          "user_management.modal.contribute.contribute_only_tips",
+                        )}
+                      >
+                        <div css={doubtStyle}>
+                          <DoubtIcon />
+                        </div>
+                      </Trigger>
+                    </div>
+                  </DropListItem>
+                  <DropListItem
+                    value="appAndAgent"
+                    onClick={() => {
+                      setPublishWithAIAgent(true)
+                    }}
+                  >
+                    <div css={labelContainerStyle}>
+                      <div css={blockLabelStyle}>
+                        {t(
+                          "user_management.modal.contribute.contribute_together",
+                        )}
+                      </div>
+                      <Trigger
+                        trigger="hover"
+                        position="top"
+                        content={t(
+                          "user_management.modal.contribute.contribute_together_tips",
+                        )}
+                      >
+                        <div css={doubtStyle}>
+                          <DoubtIcon />
+                        </div>
+                      </Trigger>
+                    </div>
+                  </DropListItem>
+                </DropList>
+              }
+              disabled={!canManageApp || appContribute}
+            >
+              <div css={blockLabelStyle}>
+                {canManageApp && publishWithAIAgent
+                  ? t("user_management.modal.contribute.contribute_together")
+                  : t("user_management.modal.contribute.contribute_only")}
+                {canManageApp &&
+                  !appContribute &&
+                  (publishModeVisible ? <UpIcon /> : <DownIcon />)}
+              </div>
+            </Dropdown>
+
+            <Trigger
+              trigger="hover"
+              position="top"
+              content={
+                canManageApp && publishWithAIAgent
+                  ? t(
+                      "user_management.modal.contribute.contribute_together_tips",
+                    )
+                  : t("user_management.modal.contribute.contribute_only_tips")
+              }
+            >
+              <div css={doubtStyle}>
+                <DoubtIcon />
+              </div>
+            </Trigger>
+          </div>
+          {canManageApp && (
+            <Switch
+              checked={appContribute}
+              colorScheme={getColor("grayBlue", "02")}
+              onChange={handleContributeChange}
+            />
+          )}
         </div>
-        <TriggerProvider zIndex={1000}>
-          <Trigger
-            trigger="hover"
-            position="top"
-            content={t("user_management.modal.contribute.app.desc")}
-          >
-            <div css={doubtStyle}>
-              <DoubtIcon />
-            </div>
-          </Trigger>
-        </TriggerProvider>
-        <div
-          style={{
-            flexGrow: 1,
-          }}
-        />
-        {canManageApp && (
-          <Switch
-            checked={appContribute}
-            colorScheme={getColor("grayBlue", "02")}
-            onChange={handleContributeChange}
-          />
-        )}
-      </div>
+      </TriggerProvider>
       {appContribute && (
         <div css={linkCopyContainer}>
           {canManageApp && (
