@@ -1,7 +1,6 @@
 import { css } from "@emotion/react"
 import { getColor } from "@illa-design/react"
 
-
 export const publicContainerStyle = css`
   display: flex;
   flex-direction: column;
@@ -12,6 +11,7 @@ export const blockContainerStyle = css`
   margin-top: 16px;
   align-items: center;
   flex-direction: row;
+  justify-content: space-between;
 `
 
 export const doubtStyle = css`
@@ -56,4 +56,9 @@ export const premiumContainerStyle = css`
   line-height: 22px;
   text-transform: capitalize;
   background: ${getColor("techPurple", "07")};
+`
+
+export const labelContainerStyle = css`
+  display: flex;
+  align-items: center;
 `
