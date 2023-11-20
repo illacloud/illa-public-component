@@ -289,9 +289,7 @@ export const MoreAction: FC<IPcMoreActionProps> = (props) => {
           </DropList>
         }
       >
-        <Button w="32px" colorScheme="grayBlue">
-          <MoreIcon />
-        </Button>
+        <Button w="32px" leftIcon={<MoreIcon />} colorScheme="grayBlue" />
       </Dropdown>
     </>
   )
