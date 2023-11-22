@@ -4,18 +4,18 @@
   "private": true,
   "main": "index.tsx",
   "dependencies": {
-    "@illa-public/utils": "workspace:*"
+    "@illa-public/utils": "workspace:*",
+    "@illa-design/react": "workspace:*"
   },
   "devDependencies": {
-    "tsconfig": "workspace:*",
-    "vite-plugin-svgr": "^2.1.0"
+    "tsconfig": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
-    "@illa-design/react": "workspace:*",
-    "@emotion/react": "*"
+    "@emotion/react": "^11.11.1",
+    "vite-plugin-svgr": "^4.2.0"
   }
 }

@@ -12,14 +12,14 @@
     "@illa-public/icon": "workspace:*"
   },
   "devDependencies": {
-    "tsconfig": "workspace:*",
-    "vite-plugin-svgr": "^2.1.0"
+    "tsconfig": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
-    "@emotion/react": "*"
+    "@emotion/react": "^11.11.1",
+    "vite-plugin-svgr": "^4.2.0"
   }
 }

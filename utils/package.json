@@ -22,7 +22,7 @@
     "tsconfig": "workspace:*"
   },
   "peerDependencies": {
-    "@emotion/react": "*",
+    "@emotion/react": "^11.11.1",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "react": "^18.2.0",
