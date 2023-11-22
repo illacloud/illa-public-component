@@ -18,6 +18,7 @@ export const WIDGET_TYPE_MAP_DOC_LINK: Record<string, string> = {
   IMAGE_WIDGET: `${DOC_PREFIX}image`,
   INPUT_WIDGET: `${DOC_PREFIX}input`,
   LIST_WIDGET: `${DOC_PREFIX}list`,
+  GRID_LIST_WIDGET: `${DOC_PREFIX}grid-list`,
   MENU_WIDGET: `${DOC_PREFIX}menu`,
   MODAL_WIDGET: `${DOC_PREFIX}modal`,
   MULTISELECT_WIDGET: `${DOC_PREFIX}multi-select`,
