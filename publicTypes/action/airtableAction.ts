@@ -1,4 +1,4 @@
-type AirtableActionMethodsType =
+export type AirtableActionMethodsType =
   | "list"
   | "get"
   | "create"

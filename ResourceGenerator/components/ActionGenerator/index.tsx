@@ -2,30 +2,12 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
-import { INIT_ACTION_ADVANCED_CONFIG } from "@illa-public/public-configs"
-import { Agent, ResourceType } from "@illa-public/public-types"
+import { ActionType, ResourceType } from "@illa-public/public-types"
 import { FC, useCallback, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useDispatch, useSelector } from "react-redux"
-import { v4 } from "uuid"
-import { Modal, useMessage } from "@illa-design/react"
-import { getIsILLAGuideMode } from "@/redux/config/configSelector"
-import { configActions } from "@/redux/config/configSlice"
-import { actionActions } from "@/redux/currentApp/action/actionSlice"
-import {
-  ActionContent,
-  ActionItem,
-  ActionType,
-  actionItemInitial,
-} from "@/redux/currentApp/action/actionState"
-import { AiAgentActionContent } from "@/redux/currentApp/action/aiAgentAction"
-import {
-  getInitialAgentContent,
-  getInitialContent,
-} from "@/redux/currentApp/action/getInitialContent"
+import { useSelector } from "react-redux"
+import { Modal } from "@illa-design/react"
 import { getAllResources } from "@/redux/resource/resourceSelector"
-import { fetchCreateAction } from "@/services/action"
-import { DisplayNameGenerator } from "@/utils/generators/generateDisplayName"
 import { ResourceCreator } from "../ResourceGenerator/ResourceCreator"
 import { ResourceTypeSelector } from "../ResourceTypeSelector"
 import { AIAgentSelector } from "./AIAgentSelector"
@@ -34,7 +16,6 @@ import { ModalHeader } from "./Header"
 import { ActionCreatorPage, ActionGeneratorProps } from "./interface"
 import { modalContentStyle } from "./style"
 
-export const ACTION_MODAL_WIDTH = 1080
 export const ActionGenerator: FC<ActionGeneratorProps> = function (props) {
   const {
     visible,
@@ -42,6 +23,8 @@ export const ActionGenerator: FC<ActionGeneratorProps> = function (props) {
     defaultStep = "select",
     defaultActionType = null,
     canBackToSelect = true,
+    handleDirectCreateAction,
+    handleCreateAgentAction,
   } = props
   const [currentStep, setCurrentStep] = useState<ActionCreatorPage>(defaultStep)
 
@@ -50,11 +33,8 @@ export const ActionGenerator: FC<ActionGeneratorProps> = function (props) {
   )
 
   const { t } = useTranslation()
-  const message = useMessage()
-  const dispatch = useDispatch()
 
   const allResource = useSelector(getAllResources)
-  const isGuideMode = useSelector(getIsILLAGuideMode)
   const { track } = useContext(MixpanelTrackContext)
 
   useEffect(() => {
@@ -70,116 +50,6 @@ export const ActionGenerator: FC<ActionGeneratorProps> = function (props) {
       }
     }
   }, [currentStep, currentActionType, allResource])
-
-  const handleDirectCreateAction = useCallback(
-    async (
-      resourceID: string,
-      successCallback?: () => void,
-      loadingCallback?: (loading: boolean) => void,
-    ) => {
-      if (currentActionType === null) {
-        return
-      }
-      const displayName =
-        DisplayNameGenerator.generateDisplayName(currentActionType)
-      const initialContent = getInitialContent(currentActionType)
-      const data: Omit<ActionItem<ActionContent>, "actionID"> = {
-        actionType: currentActionType,
-        displayName,
-        resourceID,
-        content: initialContent,
-        isVirtualResource: false,
-        ...actionItemInitial,
-      }
-      data.config = {
-        public: false,
-        advancedConfig: INIT_ACTION_ADVANCED_CONFIG,
-      }
-      if (isGuideMode) {
-        const createActionData: ActionItem<ActionContent> = {
-          ...data,
-          actionID: v4(),
-        }
-        dispatch(actionActions.addActionItemReducer(createActionData))
-        dispatch(configActions.changeSelectedAction(createActionData))
-        successCallback?.()
-        return
-      }
-      loadingCallback?.(true)
-      try {
-        const { data: responseData } = await fetchCreateAction(data)
-        message.success({
-          content: t("editor.action.action_list.message.success_created"),
-        })
-        dispatch(actionActions.addActionItemReducer(responseData))
-        dispatch(configActions.changeSelectedAction(responseData))
-        successCallback?.()
-      } catch (_e) {
-        message.error({
-          content: t("editor.action.action_list.message.failed"),
-        })
-        DisplayNameGenerator.removeDisplayName(displayName)
-      }
-      loadingCallback?.(false)
-    },
-    [currentActionType, dispatch, message, t, isGuideMode],
-  )
-
-  const handleCreateAgentAction = useCallback(
-    async (
-      item: Agent,
-      successCallback?: () => void,
-      loadingCallback?: (loading: boolean) => void,
-    ) => {
-      if (currentActionType !== "aiagent") return
-      const displayName =
-        DisplayNameGenerator.generateDisplayName(currentActionType)
-      const initalAgentContent = getInitialAgentContent(item)
-      const data: Omit<ActionItem<AiAgentActionContent>, "actionID"> = {
-        actionType: currentActionType,
-        displayName,
-        resourceID: item.aiAgentID,
-        content: {
-          ...initalAgentContent,
-          virtualResource: item,
-        },
-        isVirtualResource: true,
-        ...actionItemInitial,
-        config: {
-          public: false,
-          advancedConfig: INIT_ACTION_ADVANCED_CONFIG,
-          icon: item.icon,
-        },
-      }
-      if (isGuideMode) {
-        const createActionData: ActionItem<ActionContent> = {
-          ...data,
-          actionID: v4(),
-        }
-        dispatch(actionActions.addActionItemReducer(createActionData))
-        dispatch(configActions.changeSelectedAction(createActionData))
-        successCallback?.()
-        return
-      }
-      loadingCallback?.(true)
-      try {
-        const { data: responseData } = await fetchCreateAction(data)
-        message.success({
-          content: t("editor.action.action_list.message.success_created"),
-        })
-        dispatch(actionActions.addActionItemReducer(responseData))
-        dispatch(configActions.changeSelectedAction(responseData))
-        successCallback?.()
-      } catch (_e) {
-        message.error({
-          content: t("editor.action.action_list.message.failed"),
-        })
-        DisplayNameGenerator.removeDisplayName(displayName)
-      }
-      loadingCallback?.(false)
-    },
-    [currentActionType, dispatch, isGuideMode, message, t],
-  )
 
   const handleBack = useCallback(
     (page: ActionCreatorPage) => {

@@ -2,30 +2,33 @@
   "name": "@illa-public/resource-generator",
   "version": "0.0.0",
   "private": true,
-  "main": "index.ts",
+  "main": "index.tsx",
   "dependencies": {
-    "@illa-public/utils": "workspace:*",
-    "@illa-public/mixpanel-utils": "workspace:*",
     "@illa-design/react": "workspace:*",
-    "@illa-public/illa-net": "workspace:*",
-    "@illa-public/public-types": "workspace:*",
     "@illa-public/icon": "workspace:*",
+    "@illa-public/illa-net": "workspace:*",
     "@illa-public/market-agent": "workspace:*",
+    "@illa-public/mixpanel-utils": "workspace:*",
     "@illa-public/public-configs": "workspace:*",
-    "uuid": "^9.0.1",
-    "@types/uuid": "^9.0.7"
+    "@illa-public/public-types": "workspace:*",
+    "@illa-public/utils": "workspace:*",
+    "@illa-public/user-data": "workspace:*",
+    "@illa-public/text-link": "workspace:*",
+    "@types/uuid": "^9.0.7",
+    "react-hook-form": "^7.48.2",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "tsconfig": "workspace:*"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@emotion/react": "^11.11.1",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
-    "@emotion/react": "^11.11.1",
-    "vite-plugin-svgr": "^4.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-i18next": "^12.1.4",
-    "vite": "^5.0.0"
+    "vite": "^5.0.0",
+    "vite-plugin-svgr": "^4.2.0"
   }
 }

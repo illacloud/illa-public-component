@@ -1,7 +1,8 @@
 import { ResourceType } from "@illa-public/public-types"
 import { isCloudVersion } from "@illa-public/utils"
+import { getI18n } from "react-i18next"
 
-// import { getI18n } from "react-i18next"
+export const ACTION_MODAL_WIDTH = 1080
 
 interface ResourceItem {
   resourceType: ResourceType
@@ -128,14 +129,12 @@ export const Apis: ResourceItem[] = [
 
 export const ResourceTypeList = [
   {
-    title: "editor.action.type.database",
-    // title: getI18n().t("editor.action.type.database"),
+    title: getI18n().t("editor.action.type.database"),
     item: Databases,
     category: "databases" as const,
   },
   {
-    title: "editor.action.type.api",
-    // title: getI18n().t("editor.action.type.api"),
+    title: getI18n().t("editor.action.type.api"),
     item: Apis,
     category: "apis" as const,
   },

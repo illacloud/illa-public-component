@@ -30,7 +30,7 @@ export enum ILLA_DRIVE_UPLOAD_FILE_TYPE {
   XLSX = "xlsx",
 }
 
-export interface IllaDriveListAllContent {
+export interface ILLADriveListAllContent {
   filterType: ILLA_DRIVE_FILTER_TYPE
   search: string
   fileID: string
@@ -42,7 +42,7 @@ export interface IllaDriveListAllContent {
   page: string
 }
 
-export interface IllaDriveUploadOneContent {
+export interface ILLADriveUploadOneContent {
   overwriteDuplicate: boolean
   fileData: string
   fileName: string
@@ -50,7 +50,7 @@ export interface IllaDriveUploadOneContent {
   path: string
 }
 
-export interface IllaDriveUploadMultipleContent {
+export interface ILLADriveUploadMultipleContent {
   overwriteDuplicate: boolean
   fileNameArray: string
   fileDataArray: string
@@ -58,36 +58,36 @@ export interface IllaDriveUploadMultipleContent {
   path: string
 }
 
-export interface IllaDriveDownloadOneContent {
+export interface ILLADriveDownloadOneContent {
   fileID: string
 }
 
-export interface IllaDriveDownloadMultipleContent {
+export interface ILLADriveDownloadMultipleContent {
   fileIDs: string
 }
 
-export interface IllaDriveDeleteOneContent {
+export interface ILLADriveDeleteOneContent {
   fileID: string
 }
 
-export interface IllaDriveDeleteMultipleContent {
+export interface ILLADriveDeleteMultipleContent {
   fileIDs: string
 }
 
-export interface IllaDriveUpdateContent {
+export interface ILLADriveUpdateContent {
   fileID: string
   fileName: string
 }
 
 export type ILLADriveActionTypeContent =
-  | IllaDriveListAllContent
-  | IllaDriveDownloadOneContent
-  | IllaDriveDownloadMultipleContent
-  | IllaDriveDeleteOneContent
-  | IllaDriveDeleteMultipleContent
-  | IllaDriveUploadOneContent
-  | IllaDriveUploadMultipleContent
-  | IllaDriveUpdateContent
+  | ILLADriveListAllContent
+  | ILLADriveDownloadOneContent
+  | ILLADriveDownloadMultipleContent
+  | ILLADriveDeleteOneContent
+  | ILLADriveDeleteMultipleContent
+  | ILLADriveUploadOneContent
+  | ILLADriveUploadMultipleContent
+  | ILLADriveUpdateContent
 
 export interface ILLADriveAction<T> {
   operation: ILLA_DRIVE_ACTION_REQUEST_TYPE

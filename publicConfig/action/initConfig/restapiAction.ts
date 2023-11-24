@@ -1,8 +1,8 @@
 import {
   Params,
+  RestAPIAction,
+  RestAPIBodyContent,
   RestAPIRawBody,
-  RestApiAction,
-  RestApiBodyContent,
 } from "@illa-public/public-types"
 
 export const RestAPIRawBodyInitial: RestAPIRawBody = {
@@ -10,7 +10,7 @@ export const RestAPIRawBodyInitial: RestAPIRawBody = {
   content: "",
 }
 
-export const RestApiActionInitial: RestApiAction<RestApiBodyContent> = {
+export const RestAPIActionInitial: RestAPIAction<RestAPIBodyContent> = {
   url: "",
   method: "GET",
   urlParams: [{ key: "", value: "" } as Params],

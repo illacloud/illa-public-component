@@ -14,9 +14,9 @@ export interface RestAPIRawBody {
   content: string
 }
 
-export type RestApiBodyContent = null | Params[] | string | RestAPIRawBody
+export type RestAPIBodyContent = null | Params[] | string | RestAPIRawBody
 
-export type RestApiMethod =
+export type RestAPIMethod =
   | "GET"
   | "POST"
   | "PUT"
@@ -25,8 +25,8 @@ export type RestApiMethod =
   | "HEAD"
   | "OPTIONS"
 
-export interface RestApiAction<T extends RestApiBodyContent> {
-  method: RestApiMethod
+export interface RestAPIAction<T extends RestAPIBodyContent> {
+  method: RestAPIMethod
   url: string
   urlParams: Params[]
   headers: Params[]

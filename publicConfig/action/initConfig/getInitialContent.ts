@@ -19,7 +19,7 @@ import { MongoDbActionInitial } from "./mongoDbAction"
 import { MysqlLikeActionInitial } from "./mysqlLikeAction"
 import { OracleDBActionInitial } from "./oracleDBAction"
 import { RedisActionInitial } from "./redisAction"
-import { RestApiActionInitial } from "./restapiAction"
+import { RestAPIActionInitial } from "./restapiAction"
 import { S3ActionInitial } from "./s3Action"
 import { SMTPActionInitial } from "./smtpAction"
 import { TransformerActionInitial } from "./transformerAction"
@@ -42,7 +42,7 @@ export function getInitialContent(actionType: ActionType): ActionContent {
     case "oracle":
       return OracleDBActionInitial
     case "restapi":
-      return RestApiActionInitial
+      return RestAPIActionInitial
     case "transformer":
       return TransformerActionInitial
     case "redis":

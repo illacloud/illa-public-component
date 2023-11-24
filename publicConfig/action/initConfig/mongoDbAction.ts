@@ -18,24 +18,6 @@ import {
   MongoDbUpdateOneContent,
 } from "@illa-public/public-types"
 
-export const MongoDbActionList = [
-  "aggregate",
-  "bulkWrite",
-  "count",
-  "deleteMany",
-  "deleteOne",
-  "distinct",
-  "find",
-  "findOne",
-  "findOneAndUpdate",
-  "insertOne",
-  "insertMany",
-  "listCollections",
-  "updateMany",
-  "updateOne",
-  "command",
-]
-
 export const MongoDbAggregateContentInitial: MongoDbAggregateContent = {
   aggregation: "",
   options: "",

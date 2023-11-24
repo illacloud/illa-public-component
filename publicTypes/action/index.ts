@@ -25,7 +25,7 @@ import { MongoDbAction, MongoDbActionTypeContent } from "./mongoDbAction"
 import { MysqlLikeAction } from "./mysqlLikeAction"
 import { OracleDBAction, OracleDBActionType } from "./oracleDBAction"
 import { RedisAction } from "./redisAction"
-import { RestApiAction, RestApiBodyContent } from "./restapiAction"
+import { RestAPIAction, RestAPIBodyContent } from "./restapiAction"
 import { S3Action, S3ActionTypeContent } from "./s3Action"
 import { SMPTAction } from "./smtpAction"
 import { TransformerAction } from "./transformerAction"
@@ -121,7 +121,7 @@ export type ActionContent =
   | MysqlLikeAction
   | MicrosoftSqlAction<MicrosoftSqlActionType>
   | OracleDBAction<OracleDBActionType>
-  | RestApiAction<RestApiBodyContent>
+  | RestAPIAction<RestAPIBodyContent>
   | TransformerAction
   | AppwriteAction<AppwriteActionTypes>
   | RedisAction

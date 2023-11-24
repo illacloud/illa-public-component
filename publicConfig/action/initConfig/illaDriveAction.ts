@@ -1,20 +1,20 @@
 import {
   EXPIRATION_TYPE,
   ILLADriveAction,
+  ILLADriveDeleteMultipleContent,
+  ILLADriveDeleteOneContent,
+  ILLADriveDownloadMultipleContent,
+  ILLADriveDownloadOneContent,
+  ILLADriveListAllContent,
+  ILLADriveUpdateContent,
+  ILLADriveUploadMultipleContent,
+  ILLADriveUploadOneContent,
   ILLA_DRIVE_ACTION_REQUEST_TYPE,
   ILLA_DRIVE_FILTER_TYPE,
   ILLA_DRIVE_UPLOAD_FILE_TYPE,
-  IllaDriveDeleteMultipleContent,
-  IllaDriveDeleteOneContent,
-  IllaDriveDownloadMultipleContent,
-  IllaDriveDownloadOneContent,
-  IllaDriveListAllContent,
-  IllaDriveUpdateContent,
-  IllaDriveUploadMultipleContent,
-  IllaDriveUploadOneContent,
 } from "@illa-public/public-types"
 
-export const ILLADriveListAllContentInitial: IllaDriveListAllContent = {
+export const ILLADriveListAllContentInitial: ILLADriveListAllContent = {
   filterType: ILLA_DRIVE_FILTER_TYPE.NONE,
   search: "",
   fileID: "",
@@ -26,7 +26,7 @@ export const ILLADriveListAllContentInitial: IllaDriveListAllContent = {
   page: "{{1}}",
 }
 
-export const ILLADriveUploadOneContentInitial: IllaDriveUploadOneContent = {
+export const ILLADriveUploadOneContentInitial: ILLADriveUploadOneContent = {
   overwriteDuplicate: false,
   fileData: "",
   fileName: "",
@@ -34,7 +34,7 @@ export const ILLADriveUploadOneContentInitial: IllaDriveUploadOneContent = {
   path: "",
 }
 
-export const ILLADriveUploadMultipleContentInitial: IllaDriveUploadMultipleContent =
+export const ILLADriveUploadMultipleContentInitial: ILLADriveUploadMultipleContent =
   {
     overwriteDuplicate: false,
     fileNameArray: "",
@@ -43,30 +43,30 @@ export const ILLADriveUploadMultipleContentInitial: IllaDriveUploadMultipleConte
     path: "",
   }
 
-export const ILLADriveDownloadOneContentInitial: IllaDriveDownloadOneContent = {
+export const ILLADriveDownloadOneContentInitial: ILLADriveDownloadOneContent = {
   fileID: "",
 }
 
-export const ILLADriveDownloadMultipleContentInitial: IllaDriveDownloadMultipleContent =
+export const ILLADriveDownloadMultipleContentInitial: ILLADriveDownloadMultipleContent =
   {
     fileIDs: "",
   }
 
-export const ILLADriveDeleteOneContentInitial: IllaDriveDeleteOneContent = {
+export const ILLADriveDeleteOneContentInitial: ILLADriveDeleteOneContent = {
   fileID: "",
 }
 
-export const ILLADriveDeleteMultipleContentInitial: IllaDriveDeleteMultipleContent =
+export const ILLADriveDeleteMultipleContentInitial: ILLADriveDeleteMultipleContent =
   {
     fileIDs: "",
   }
 
-export const ILLADriveUpdateContentInitial: IllaDriveUpdateContent = {
+export const ILLADriveUpdateContentInitial: ILLADriveUpdateContent = {
   fileID: "",
   fileName: "",
 }
 
-export const ILLADriveActionInitial: ILLADriveAction<IllaDriveListAllContent> =
+export const ILLADriveActionInitial: ILLADriveAction<ILLADriveListAllContent> =
   {
     operation: ILLA_DRIVE_ACTION_REQUEST_TYPE.LIST,
     commandArgs: ILLADriveListAllContentInitial,
