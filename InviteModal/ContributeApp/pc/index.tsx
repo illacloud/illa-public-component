@@ -9,7 +9,7 @@ import {
   getColor,
   useMessage,
 } from "@illa-design/react"
-import { ReactComponent as RequireIcon } from "../../asset/require.svg"
+import RequireIcon from "../../asset/require.svg?react"
 import { TagControllerPC } from "../../component/TagController/pc"
 import { ContributeAppConfig, ContributeAppProps } from "../interface"
 import {
