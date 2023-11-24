@@ -9,7 +9,8 @@
     "@illa-public/illa-net": "workspace:*",
     "@illa-public/record-editor": "workspace:*",
     "@illa-public/card-hash-tags": "workspace:*",
-    "@illa-design/react": "workspace:*"
+    "@illa-design/react": "workspace:*",
+    "@illa-public/public-types": "workspace:*"
   },
   "devDependencies": {
     "tsconfig": "workspace:*"
