@@ -1,4 +1,5 @@
 import { ForwardRefRenderFunction, forwardRef } from "react"
+import { getColor } from "@illa-design/react"
 import { IconHotSpotProps } from "./interface"
 import { iconHotSpotContainerStyle } from "./style"
 
@@ -9,9 +10,9 @@ const IconHotSpot: ForwardRefRenderFunction<
   const {
     children,
     iconSize = 16,
-    inactiveColor,
-    activeColor,
-    activeBgColor,
+    inactiveColor = getColor("grayBlue", "04"),
+    activeColor = getColor("grayBlue", "02"),
+    activeBgColor = getColor("grayBlue", "09"),
     ...otherProps
   } = props
 

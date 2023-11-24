@@ -1,11 +1,10 @@
 import { css } from "@emotion/react"
-import { getColor } from "@illa-design/react"
 
 export const iconHotSpotContainerStyle = (
   iconSize: number = 16,
-  activeColor = getColor("grayBlue", "02"),
-  inactiveColor = getColor("grayBlue", "04"),
-  activeBgColor = getColor("grayBlue", "09"),
+  activeColor: string,
+  inactiveColor: string,
+  activeBgColor: string,
 ) => css`
   padding: 4px;
   border-radius: 4px;
