@@ -5,5 +5,4 @@ export interface ConfigElementProviderProps {
   children: ReactNode
   resourceID?: string
   resourceType: ResourceType
-  onFinished: (resourceID: string) => void
 }

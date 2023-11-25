@@ -1,28 +1,26 @@
 import {
   ApiKeyAuth,
-  GraphQLAuth,
   GraphQLAuthValue,
   GraphQLBasicAuth,
   GraphQLBearerAuth,
   GraphQLResource,
+  Resource,
 } from "@illa-public/public-types"
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Divider, WarningCircleIcon } from "@illa-design/react"
-import { optionLabelStyle } from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { InputRecordEditor } from "@/page/App/components/Actions/InputRecordEditor"
+import { ResourceGeneratorContext } from "../../../provider"
+import { urlValidate, validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
+import { InputRecordEditor } from "../../InputRecordEditor"
+import { BaseConfigElementProps } from "../interface"
 import {
+  container,
   errorIconStyle,
   errorMsgStyle,
-} from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/ClickhouseConfigElement/style"
-import { Resource } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { urlValidate, validate } from "@/utils/form"
-import { BaseConfigElementProps } from "../interface"
-import { container } from "../style"
+  optionLabelStyle,
+} from "../style"
 import { APIKeyAuthPanel } from "./APIKeyAuthPanel"
 import { BasicAuthPanel } from "./BasicAuthPanel"
 import { BearerAuthPanel } from "./BearerAuthPanel"
@@ -33,33 +31,30 @@ const GraphQLConfigElement: FC<BaseConfigElementProps> = (props) => {
 
   const { t } = useTranslation()
   const { control, formState, watch } = useFormContext()
-  const resource = useSelector((state: RootState) => {
-    return state.resource.find((r) => r.resourceID === resourceID) as Resource<
-      GraphQLResource<GraphQLAuth>
-    >
-  })
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID) as Resource<GraphQLResource>
 
   const InputRecord = [
     {
       name: "urlParams",
       title: t("editor.action.resource.restapi.label.url_parameters"),
-      defaultValue: resource?.content.urlParams,
+      defaultValue: findResource?.content.urlParams,
     },
     {
       name: "headers",
-      defaultValue: resource?.content.headers,
+      defaultValue: findResource?.content.headers,
       title: t("editor.action.resource.restapi.label.headers"),
     },
     {
       name: "cookies",
-      defaultValue: resource?.content.cookies,
+      defaultValue: findResource?.content.cookies,
       title: t("editor.action.resource.restapi.label.cookies"),
     },
   ]
 
   const authType = watch(
     "authentication",
-    resource?.content.authentication ?? GraphQLAuthValue.NONE,
+    findResource?.content.authentication ?? GraphQLAuthValue.NONE,
   )
 
   return (
@@ -70,10 +65,10 @@ const GraphQLConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           title={t("editor.action.resource.db.label.name")}
           control={control}
-          defaultValue={resource?.resourceName ?? ""}
+          defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -94,7 +89,7 @@ const GraphQLConfigElement: FC<BaseConfigElementProps> = (props) => {
 
         <ControlledElement
           title={t("editor.action.resource.restapi.label.base_url")}
-          defaultValue={resource?.content.baseUrl ?? ""}
+          defaultValue={findResource?.content.baseUrl ?? ""}
           isRequired
           name={"baseUrl"}
           controlledType={"input"}
@@ -161,7 +156,7 @@ const GraphQLConfigElement: FC<BaseConfigElementProps> = (props) => {
         ))}
         <ControlledElement
           title={t("editor.action.resource.restapi.label.authentication")}
-          defaultValue={resource?.content.authentication ?? "none"}
+          defaultValue={findResource?.content.authentication ?? "none"}
           name="authentication"
           controlledType={["select"]}
           control={control}
@@ -171,20 +166,20 @@ const GraphQLConfigElement: FC<BaseConfigElementProps> = (props) => {
         {authType === GraphQLAuthValue.BASIC && (
           <BasicAuthPanel
             control={control}
-            auth={resource?.content.authContent as GraphQLBasicAuth}
+            auth={findResource?.content.authContent as GraphQLBasicAuth}
           />
         )}
         {authType === GraphQLAuthValue.BEARER && (
           <BearerAuthPanel
             control={control}
-            auth={resource?.content.authContent as GraphQLBearerAuth}
+            auth={findResource?.content.authContent as GraphQLBearerAuth}
           />
         )}
         {authType === GraphQLAuthValue.APIKEY && (
           <APIKeyAuthPanel
             watch={watch}
             control={control}
-            auth={resource?.content.authContent as ApiKeyAuth}
+            auth={findResource?.content.authContent as ApiKeyAuth}
           />
         )}
         <Divider
@@ -203,7 +198,7 @@ const GraphQLConfigElement: FC<BaseConfigElementProps> = (props) => {
           contentLabel={t(
             "editor.action.resource.db.label.disable_introspection",
           )}
-          defaultValue={resource?.content.disableIntrospection ?? false}
+          defaultValue={findResource?.content.disableIntrospection ?? false}
           name="disableIntrospection"
           controlledType={["switch"]}
           control={control}

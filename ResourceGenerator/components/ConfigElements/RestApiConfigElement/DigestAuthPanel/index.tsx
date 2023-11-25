@@ -1,21 +1,39 @@
 import { DigestAuth } from "@illa-public/public-types"
 import { FC } from "react"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { ControlledType } from "@/page/App/components/Actions/ControlledElement/interface"
-import { RestApiAuthPanelProps } from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/RestApiConfigElement/interface"
-import { DigestAuthInfo } from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/RestApiConfigElement/values"
+import { useTranslation } from "react-i18next"
+import { ControlledElement } from "../../../ControlledElement"
+import { ControlledType } from "../../../ControlledElement/interface"
+import { RestApiAuthPanelProps } from "../interface"
+
+const options = [
+  {
+    title: "editor.action.resource.restapi.label.digest_auth_username",
+    name: "username",
+    controlledType: "input",
+    defaultValue: "",
+    required: false,
+  },
+  {
+    title: "editor.action.resource.restapi.label.digest_auth_password",
+    name: "password",
+    controlledType: "password",
+    defaultValue: "",
+    required: false,
+  },
+]
 
 export const DigestAuthPanel: FC<RestApiAuthPanelProps> = (props) => {
   const { control } = props
   const auth = props.auth as DigestAuth
 
+  const { t } = useTranslation()
   return (
     <>
-      {DigestAuthInfo.map((item) => {
+      {options.map((item) => {
         return (
           <ControlledElement
             key={item.name}
-            title={item.title}
+            title={t(item.title)}
             defaultValue={
               auth?.[item.name as keyof DigestAuth] ?? item.defaultValue
             }

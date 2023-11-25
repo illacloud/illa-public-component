@@ -4,23 +4,21 @@ import {
   GoogleSheetResource,
 } from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
-import { FC, useCallback, useMemo } from "react"
+import { FC, useCallback, useContext, useMemo } from "react"
 import { useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { WarningCircleIcon } from "@illa-design/react"
-import { useOAuthRefresh } from "@/hooks/useOAuthRefresh"
+import { ResourceGeneratorContext } from "../../../provider"
+import { validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
+import { ResourceDivider } from "../../ResourceDivider"
+import { BaseConfigElementProps } from "../interface"
+import { container } from "../style"
 import {
   getOAuthStatusContentStyle,
   oAuthErrorIconStyle,
   oAuthStatusContainerStyle,
-} from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { ResourceDivider } from "@/page/App/components/Actions/ResourceDivider"
-import { getAllResources } from "@/redux/resource/resourceSelector"
-import { validate } from "@/utils/form"
-import { BaseConfigElementProps } from "../interface"
-import { container } from "../style"
+} from "./style"
 
 const GoogleSheetsConfigElement: FC<BaseConfigElementProps> = (props) => {
   const { resourceID } = props
@@ -28,11 +26,10 @@ const GoogleSheetsConfigElement: FC<BaseConfigElementProps> = (props) => {
   const { control, watch } = useFormContext()
 
   const { t } = useTranslation()
-  const resource = useSelector(getAllResources).find(
-    (r) => r.resourceID === resourceID,
-  )
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID)
 
-  const content = (resource?.content ??
+  const content = (findResource?.content ??
     GoogleSheetResourceInitial) as GoogleSheetResource
 
   const authenticationWatch = watch("authentication", content.authentication)
@@ -50,9 +47,6 @@ const GoogleSheetsConfigElement: FC<BaseConfigElementProps> = (props) => {
     },
     [],
   )
-
-  // refresh Google OAuth Status
-  useOAuthRefresh(resourceID)
 
   const oauthMethodOptions = useMemo(() => {
     if (import.meta.env.ILLA_APP_ENV === "production") {
@@ -84,10 +78,10 @@ const GoogleSheetsConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           title={t("editor.action.resource.db.label.name")}
           control={control}
-          defaultValue={resource?.resourceName ?? ""}
+          defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -133,7 +127,7 @@ const GoogleSheetsConfigElement: FC<BaseConfigElementProps> = (props) => {
             isRequired
             rules={[
               {
-                validate,
+                validate: validateNotEmpty,
               },
             ]}
             controlledType="textarea"

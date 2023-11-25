@@ -1,13 +1,19 @@
 import { getIconFromResourceType } from "@illa-public/icon"
 import {
-  ILLA_MIXPANEL_BUILDER_PAGE_NAME,
   ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
 import { ResourceType } from "@illa-public/public-types"
 import { fromNow } from "@illa-public/utils"
-import { FC, Suspense, useCallback, useEffect, useState } from "react"
+import {
+  FC,
+  Suspense,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import {
   AddIcon,
   Button,
@@ -15,8 +21,7 @@ import {
   List,
   PreviousIcon,
 } from "@illa-design/react"
-import { getAllResources } from "@/redux/resource/resourceSelector"
-import { track } from "@/utils/mixpanelHelper"
+import { ResourceGeneratorContext } from "../../../provider"
 import { ActionResourceSelectorProps } from "./interface"
 import {
   applyResourceItemStyle,
@@ -40,12 +45,12 @@ export const ActionResourceSelector: FC<ActionResourceSelectorProps> = (
 
   const { t } = useTranslation()
 
-  const resourceList = useSelector(getAllResources)
-    .filter((r) => r.resourceType === actionType)
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    )
+  const { getResourceByType } = useContext(ResourceGeneratorContext)
+  const { track } = useContext(MixpanelTrackContext)
+
+  const resourceList = getResourceByType(actionType as ResourceType).sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  )
 
   const [selectedResourceId, setSelectedResourceId] = useState<string>(
     resourceList[0]?.resourceID,
@@ -55,30 +60,37 @@ export const ActionResourceSelector: FC<ActionResourceSelectorProps> = (
 
   const handleClickCreateAction = useCallback(() => {
     handleCreateAction(
+      actionType,
       selectedResourceId,
       () => onCreateAction?.(actionType, selectedResourceId),
       setLoading,
     )
-    track(
+    track?.(
       ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-      ILLA_MIXPANEL_BUILDER_PAGE_NAME.EDITOR,
       {
         element: "resource_list_create_action",
         parameter1: actionType,
       },
+      "both",
     )
-  }, [actionType, handleCreateAction, onCreateAction, selectedResourceId])
+  }, [
+    actionType,
+    handleCreateAction,
+    onCreateAction,
+    selectedResourceId,
+    track,
+  ])
 
   useEffect(() => {
-    track(
+    track?.(
       ILLA_MIXPANEL_EVENT_TYPE.SHOW,
-      ILLA_MIXPANEL_BUILDER_PAGE_NAME.EDITOR,
       {
         element: "resource_list_show",
         parameter1: actionType,
       },
+      "both",
     )
-  }, [actionType])
+  }, [actionType, track])
 
   return (
     <div css={containerStyle}>
@@ -132,13 +144,13 @@ export const ActionResourceSelector: FC<ActionResourceSelectorProps> = (
             leftIcon={<AddIcon />}
             colorScheme="gray"
             onClick={() => {
-              track(
+              track?.(
                 ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-                ILLA_MIXPANEL_BUILDER_PAGE_NAME.EDITOR,
                 {
                   element: "resource_list_new",
                   parameter1: actionType,
                 },
+                "both",
               )
               onCreateResource?.(actionType as ResourceType)
             }}

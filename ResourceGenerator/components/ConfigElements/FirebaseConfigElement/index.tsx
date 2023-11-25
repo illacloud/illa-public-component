@@ -1,11 +1,10 @@
 import { FirebaseResourceInitial } from "@illa-public/public-configs"
-import { FirebaseResource } from "@illa-public/public-types"
+import { FirebaseResource, Resource } from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
 import { isCloudVersion } from "@illa-public/utils"
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import {
   Divider,
   Popover,
@@ -13,23 +12,22 @@ import {
   WarningCircleIcon,
   getColor,
 } from "@illa-design/react"
+import { ResourceGeneratorContext } from "../../../provider"
+import { urlValidate, validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
+import { BaseConfigElementProps } from "../interface"
 import {
   applyConfigItemLabelText,
   configItemTip,
   connectType,
   connectTypeStyle,
+  container,
   errorIconStyle,
   errorMsgStyle,
   labelContainer,
   optionLabelStyle,
   privateKeyItem,
-} from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { Resource } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { urlValidate, validate } from "@/utils/form"
-import { BaseConfigElementProps } from "../interface"
-import { container } from "../style"
+} from "../style"
 
 const FirebaseConfigElement: FC<BaseConfigElementProps> = (props) => {
   const { resourceID } = props
@@ -38,9 +36,8 @@ const FirebaseConfigElement: FC<BaseConfigElementProps> = (props) => {
 
   const { control, formState } = useFormContext()
 
-  const findResource = useSelector((state: RootState) => {
-    return state.resource.find((r) => r.resourceID === resourceID)
-  })
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID)
 
   let content: FirebaseResource
 
@@ -61,7 +58,7 @@ const FirebaseConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -110,7 +107,7 @@ const FirebaseConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
         />

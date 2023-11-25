@@ -1,14 +1,12 @@
 import { AirtableResourceInitial } from "@illa-public/public-configs"
 import { AirtableResource } from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { Resource } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { validate } from "@/utils/form"
+import { ResourceGeneratorContext } from "../../../provider"
+import { validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
 import { BaseConfigElementProps } from "../interface"
 import { container } from "../style"
 
@@ -17,13 +15,10 @@ const AirtableConfigElement: FC<BaseConfigElementProps> = (props) => {
   const { t } = useTranslation()
 
   const { control } = useFormContext()
-  const resource = useSelector((state: RootState) => {
-    return state.resource.find(
-      (r) => r.resourceID === resourceID,
-    ) as Resource<AirtableResource>
-  })
-
-  const content = resource?.content ?? AirtableResourceInitial
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID)
+  const content = (findResource?.content ??
+    AirtableResourceInitial) as AirtableResource
 
   const handleURLClick = (link: string) => window.open(link, "_blank")
 
@@ -35,10 +30,10 @@ const AirtableConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           title={t("editor.action.resource.db.label.name")}
           control={control}
-          defaultValue={resource?.resourceName ?? ""}
+          defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}

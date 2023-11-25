@@ -12,14 +12,9 @@ import {
 } from "./style"
 
 export const ResourceCreatePanel: FC<ResourceCreatePanelProps> = (props) => {
-  const { resourceType, resourceID, handleOnFinished, handleOnClickBack } =
-    props
+  const { resourceType, resourceID, handleOnClickBack } = props
   return (
-    <ConfigElementProvider
-      resourceType={resourceType}
-      resourceID={resourceID}
-      onFinished={handleOnFinished}
-    >
+    <ConfigElementProvider resourceType={resourceType} resourceID={resourceID}>
       <div css={innerContainerStyle}>
         <Header resourceType={resourceType} onClickBack={handleOnClickBack} />
         <Divider />

@@ -1,11 +1,14 @@
 import { SMTPResourceInitial } from "@illa-public/public-configs"
-import { SMTPResource } from "@illa-public/public-types"
+import { Resource, SMTPResource } from "@illa-public/public-types"
 import { isCloudVersion } from "@illa-public/utils"
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Divider, getColor } from "@illa-design/react"
+import { ResourceGeneratorContext } from "../../../provider"
+import { validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
+import { BaseConfigElementProps } from "../interface"
 import {
   applyConfigItemLabelText,
   configItemTip,
@@ -13,21 +16,16 @@ import {
   connectTypeStyle,
   labelContainer,
   optionLabelStyle,
-} from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { Resource } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { validate } from "@/utils/form"
-import { BaseConfigElementProps } from "../interface"
+} from "../style"
 import { container } from "../style"
 
 const SMTPConfigElement: FC<BaseConfigElementProps> = (props) => {
   const { resourceID } = props
   const { t } = useTranslation()
   const { control } = useFormContext()
-  const findResource = useSelector((state: RootState) => {
-    return state.resource.find((r) => r.resourceID === resourceID)
-  })
+
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID)
 
   let content: SMTPResource
   if (findResource === undefined) {
@@ -47,7 +45,7 @@ const SMTPConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -74,7 +72,7 @@ const SMTPConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
             {
               required: true,

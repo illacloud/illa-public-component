@@ -1,8 +1,10 @@
 import { Agent } from "@illa-public/public-types"
+import { getCurrentId } from "@illa-public/user-data"
 import { FC, useCallback, useState } from "react"
+import { useSelector } from "react-redux"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
 import InfiniteLoader from "react-window-infinite-loader"
-import { fetchTeamAgentListByPage } from "@/services/agent"
+import { fetchTeamAgentListByPage } from "../../../../../service"
 import { AGENT_LIST_HEIGHT, TEAM_AGENT_ITEM_HEIGHT } from "../../constants"
 import { ListEmptyState } from "../ListEmptyState"
 import { TeamListItem } from "../TeamListItem"
@@ -15,14 +17,20 @@ export const TeamAgentList: FC<TeamAgentListProps> = (props) => {
   const [hasNextPage, setHasNextPage] = useState(true)
   const [isNextPageLoading, setIsNextPageLoading] = useState(false)
 
+  const currentTeamId = useSelector(getCurrentId)!
+
   const loadMoreItems = useCallback(async () => {
     setIsNextPageLoading(true)
-    const result = await fetchTeamAgentListByPage(currentPage, search)
+    const result = await fetchTeamAgentListByPage(
+      currentTeamId,
+      currentPage,
+      search,
+    )
     setCurrentPage((prev) => prev + 1)
     setIsNextPageLoading(false)
     setHasNextPage(result.data.totalPages > currentPage)
     setTeamList((prev) => prev.concat(result.data.aiAgentList))
-  }, [currentPage, search])
+  }, [currentPage, currentTeamId, search])
 
   const itemCount = hasNextPage ? teamList.length + 1 : teamList.length
 

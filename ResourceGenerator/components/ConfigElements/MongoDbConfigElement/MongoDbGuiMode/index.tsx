@@ -2,35 +2,31 @@ import { MongoDbGuiConfigContentInitial } from "@illa-public/public-configs"
 import {
   MongoDbGuiConfigContent,
   MongoDbResource,
+  Resource,
 } from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
 import { isCloudVersion } from "@illa-public/utils"
-import { FC, useCallback, useState } from "react"
+import { FC, useCallback, useContext, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Alert, getColor } from "@illa-design/react"
+import { ResourceGeneratorContext } from "../../../../provider"
+import { isContainLocalPath } from "../../../../utils"
+import { ControlledElement } from "../../../ControlledElement"
 import {
   applyConfigItemLabelText,
   configItem,
   configItemTip,
   connectTypeStyle,
   labelContainer,
-} from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { MongoDbConfigModeProps } from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/MongoDbConfigElement/interface"
-import { Resource, ResourceContent } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { isContainLocalPath } from "@/utils/form"
+} from "../../style"
+import { MongoDbConfigModeProps } from "../interface"
 
 export const MongoDbGuiMode: FC<MongoDbConfigModeProps> = (props) => {
   const { control, resourceID, watch } = props
 
   const { t } = useTranslation()
-  const findResource: Resource<ResourceContent> | undefined = useSelector(
-    (state: RootState) => {
-      return state.resource.find((r) => r.resourceID === resourceID)
-    },
-  )
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID)
 
   let content: MongoDbGuiConfigContent
   if (findResource === undefined) {

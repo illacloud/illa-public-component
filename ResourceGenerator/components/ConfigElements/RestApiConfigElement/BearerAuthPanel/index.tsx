@@ -1,9 +1,9 @@
 import { RestAPIBearerAuth } from "@illa-public/public-types"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { RestApiAuthPanelProps } from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/RestApiConfigElement/interface"
-import { validate } from "@/utils/form"
+import { validateNotEmpty } from "../../../../utils"
+import { ControlledElement } from "../../../ControlledElement"
+import { RestApiAuthPanelProps } from "../interface"
 
 export const BearerAuthPanel: FC<RestApiAuthPanelProps> = (props) => {
   const { control } = props
@@ -20,7 +20,7 @@ export const BearerAuthPanel: FC<RestApiAuthPanelProps> = (props) => {
       isRequired
       rules={[
         {
-          validate,
+          validate: validateNotEmpty,
         },
       ]}
     />

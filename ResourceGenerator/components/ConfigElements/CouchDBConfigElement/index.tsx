@@ -1,37 +1,34 @@
 import { CouchdbResourceInitial } from "@illa-public/public-configs"
 import { CouchdbResource } from "@illa-public/public-types"
 import { isCloudVersion } from "@illa-public/utils"
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Divider, WarningCircleIcon, getColor } from "@illa-design/react"
+import { ResourceGeneratorContext } from "../../../provider"
+import { urlValidate, validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
+import { BaseConfigElementProps } from "../interface"
 import {
   applyConfigItemLabelText,
   configItemTip,
   connectType,
   connectTypeStyle,
+  container,
   errorIconStyle,
   errorMsgStyle,
   labelContainer,
   optionLabelStyle,
-} from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { RootState } from "@/store"
-import { urlValidate, validate } from "@/utils/form"
-import { BaseConfigElementProps } from "../interface"
-import { container } from "../style"
+} from "../style"
 
 const CouchDBConfigElement: FC<BaseConfigElementProps> = (props) => {
   const { resourceID } = props
   const { t } = useTranslation()
   const { control, formState } = useFormContext()
-  const resource = useSelector((state: RootState) => {
-    return state.resource.find((r) => r.resourceID === resourceID)
-  })
-
-  const content = resource
-    ? (resource.content as CouchdbResource)
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID)
+  const content = findResource
+    ? (findResource.content as CouchdbResource)
     : CouchdbResourceInitial
 
   return (
@@ -42,10 +39,10 @@ const CouchDBConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           title={t("editor.action.resource.db.label.name")}
           control={control}
-          defaultValue={resource?.resourceName ?? ""}
+          defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -93,7 +90,7 @@ const CouchDBConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={content.port}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.form.placeholder.couchdb.port.5984")]}
@@ -107,7 +104,7 @@ const CouchDBConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={content.username}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           name="username"
@@ -120,7 +117,7 @@ const CouchDBConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={content.password}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           name="password"

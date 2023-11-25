@@ -1,25 +1,24 @@
 import { RestApiResourceInit } from "@illa-public/public-configs"
-import { RestApiAuth, RestApiResource } from "@illa-public/public-types"
-import { FC } from "react"
+import {
+  Resource,
+  RestApiAuth,
+  RestApiAuthType,
+  RestApiResource,
+  VerifyMode,
+} from "@illa-public/public-types"
+import { FC, useContext } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Alert, Divider } from "@illa-design/react"
-import { optionLabelStyle } from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { InputRecordEditor } from "@/page/App/components/Actions/InputRecordEditor"
-import { BasicAuthPanel } from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/RestApiConfigElement/BasicAuthPanel"
-import { BearerAuthPanel } from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/RestApiConfigElement/BearerAuthPanel"
-import { DigestAuthPanel } from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/RestApiConfigElement/DigestAuthPanel"
-import {
-  AuthenticationOptions,
-  VerificationModeOptions,
-} from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/RestApiConfigElement/values"
-import { Resource } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { validate } from "@/utils/form"
+import { ResourceGeneratorContext } from "../../../provider"
+import { validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
+import { InputRecordEditor } from "../../InputRecordEditor"
 import { BaseConfigElementProps } from "../interface"
-import { container } from "../style"
+import { container, optionLabelStyle } from "../style"
+import { BasicAuthPanel } from "./BasicAuthPanel"
+import { BearerAuthPanel } from "./BearerAuthPanel"
+import { DigestAuthPanel } from "./DigestAuthPanel"
 
 const RestApiAuthTypeComponentMap = {
   none: null,
@@ -33,12 +32,12 @@ const RestApiConfigElement: FC<BaseConfigElementProps> = (props) => {
 
   const { t } = useTranslation()
   const { control, watch } = useFormContext()
-  const resource = useSelector((state: RootState) => {
-    return state.resource.find((r) => r.resourceID === resourceID) as Resource<
-      RestApiResource<RestApiAuth>
-    >
-  })
-  const content = resource?.content ?? RestApiResourceInit
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID) as Resource<
+    RestApiResource<RestApiAuth>
+  >
+
+  const content = findResource?.content ?? RestApiResourceInit
 
   const showCertificates = (watch("baseUrl", content.baseUrl) ?? "").startsWith(
     "https://",
@@ -55,6 +54,54 @@ const RestApiConfigElement: FC<BaseConfigElementProps> = (props) => {
       authType as keyof typeof RestApiAuthTypeComponentMap
     ]
 
+  const AuthenticationOptions: {
+    label: string
+    value: RestApiAuthType
+  }[] = [
+    {
+      label: t("editor.action.resource.restapi.option.authentication.none"),
+      value: "none",
+    },
+    {
+      label: t(
+        "editor.action.resource.restapi.option.authentication.basic_auth",
+      ),
+      value: "basic",
+    },
+    {
+      label: t("editor.action.resource.restapi.option.authentication.bearer"),
+      value: "bearer",
+    },
+    {
+      label: t("editor.action.form.option.restapi.authentication.digest_auth"),
+      value: "digest",
+    },
+  ]
+
+  const VerificationModeOptions: {
+    label: string
+    value: VerifyMode
+  }[] = [
+    {
+      label: t(
+        "editor.action.form.option.restapi.verification_mode.full_verification",
+      ),
+      value: "verify-full",
+    },
+    {
+      label: t(
+        "editor.action.form.option.restapi.verification_mode.verify_ca_certificat",
+      ),
+      value: "verify-ca",
+    },
+    {
+      label: t(
+        "editor.action.form.option.restapi.verification_mode.skip_ca_certificate_",
+      ),
+      value: "skip",
+    },
+  ]
+
   return (
     <>
       <div css={container}>
@@ -63,10 +110,10 @@ const RestApiConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           title={t("editor.action.resource.db.label.name")}
           control={control}
-          defaultValue={resource?.resourceName ?? ""}
+          defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -91,7 +138,7 @@ const RestApiConfigElement: FC<BaseConfigElementProps> = (props) => {
           name="baseUrl"
           controlledType="input"
           control={control}
-          rules={[{ validate }]}
+          rules={[{ validate: validateNotEmpty }]}
           placeholders={[
             t("editor.action.resource.restapi.placeholder.base_url"),
           ]}

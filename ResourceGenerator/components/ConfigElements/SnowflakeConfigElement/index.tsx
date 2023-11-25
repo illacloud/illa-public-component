@@ -5,19 +5,17 @@ import {
   SnowflakeKeyAuthenticationType,
   SnowflakeResource,
 } from "@illa-public/public-types"
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Divider } from "@illa-design/react"
-import { optionLabelStyle } from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { BasicAuthConfig } from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/SnowflakeConfigElement/BasicAuthConfig"
-import { KeyPairConfig } from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/SnowflakeConfigElement/KeyPairConfig"
-import { RootState } from "@/store"
-import { validate } from "@/utils/form"
+import { ResourceGeneratorContext } from "../../../provider"
+import { validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
 import { BaseConfigElementProps } from "../interface"
-import { container } from "../style"
+import { container, optionLabelStyle } from "../style"
+import { BasicAuthConfig } from "./BasicAuthConfig"
+import { KeyPairConfig } from "./KeyPairConfig"
 import { AuthenticationOptions } from "./constants"
 
 type SnowflakeType = SnowflakeResource<SnowflakeAuthenticationType>
@@ -26,11 +24,10 @@ const SnowflakeConfigElement: FC<BaseConfigElementProps> = (props) => {
   const { resourceID } = props
   const { t } = useTranslation()
   const { control, watch } = useFormContext()
-  const resource = useSelector((state: RootState) => {
-    return state.resource.find((r) => r.resourceID === resourceID)
-  })
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID)
 
-  const content = (resource?.content ??
+  const content = (findResource?.content ??
     snowflakeResourceInitial) as SnowflakeType
   const authenticationType = watch("authentication", content.authentication)
 
@@ -42,10 +39,10 @@ const SnowflakeConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           title={t("editor.action.resource.db.label.name")}
           control={control}
-          defaultValue={resource?.resourceName ?? ""}
+          defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -71,7 +68,7 @@ const SnowflakeConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={content.accountName}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[
@@ -87,7 +84,7 @@ const SnowflakeConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={content.warehouse}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.warehouse")]}
@@ -101,7 +98,7 @@ const SnowflakeConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={content.database}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[

@@ -1,29 +1,31 @@
 import { MicrosoftSqlResourceInitial } from "@illa-public/public-configs"
-import { MicrosoftSqlResource } from "@illa-public/public-types"
+import { MicrosoftSqlResource, Resource } from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
 import { isCloudVersion } from "@illa-public/utils"
-import { FC, useCallback, useState } from "react"
+import { FC, useCallback, useContext, useState } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Alert, Divider, WarningCircleIcon, getColor } from "@illa-design/react"
+import { ResourceGeneratorContext } from "../../../provider"
+import {
+  isContainLocalPath,
+  urlValidate,
+  validateNotEmpty,
+} from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
+import { InputRecordEditor } from "../../InputRecordEditor"
+import { BaseConfigElementProps } from "../interface"
 import {
   applyConfigItemLabelText,
   configItemTip,
   connectType,
   connectTypeStyle,
+  container,
   errorIconStyle,
   errorMsgStyle,
   labelContainer,
   optionLabelStyle,
-} from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { InputRecordEditor } from "@/page/App/components/Actions/InputRecordEditor"
-import { Resource } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { isContainLocalPath, urlValidate, validate } from "@/utils/form"
-import { BaseConfigElementProps } from "../interface"
-import { container } from "../style"
+} from "../style"
 
 const MicrosoftSqlConfigElement: FC<BaseConfigElementProps> = (props) => {
   const { resourceID } = props
@@ -31,15 +33,14 @@ const MicrosoftSqlConfigElement: FC<BaseConfigElementProps> = (props) => {
 
   const { control, formState, watch } = useFormContext()
 
-  const resource = useSelector((state: RootState) => {
-    return state.resource.find(
-      (r) => r.resourceID === resourceID,
-    ) as Resource<MicrosoftSqlResource>
-  })
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(
+    resourceID,
+  ) as Resource<MicrosoftSqlResource>
 
   const [showAlert, setShowAlert] = useState<boolean>(false)
 
-  const content = resource?.content ?? MicrosoftSqlResourceInitial
+  const content = findResource?.content ?? MicrosoftSqlResourceInitial
 
   const sslOpen = watch("ssl", content.ssl.ssl)
 
@@ -66,10 +67,10 @@ const MicrosoftSqlConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           title={t("editor.action.resource.db.label.name")}
           control={control}
-          defaultValue={resource?.resourceName ?? ""}
+          defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -163,7 +164,7 @@ const MicrosoftSqlConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={content.databaseName}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[

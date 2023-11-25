@@ -1,4 +1,5 @@
-import { useTranslation } from "react-i18next"
+import { isBlobURLOrUrl } from "@illa-public/utils"
+import { getI18n, useTranslation } from "react-i18next"
 
 export function getResourceNameFromResourceType(
   resourceType: string | null,
@@ -87,4 +88,17 @@ export function useResourceTypeToResourceName(resourceType: string | null) {
     default:
       return ""
   }
+}
+
+export const validateNotEmpty = (value?: string) =>
+  value != undefined && value.trim() != ""
+
+export const isContainLocalPath = (value: string) => {
+  return /(^(127\.|0\.0\.0\.0)(\.*\d*)+$)|(^localhost)/.test(value)
+}
+
+export const urlValidate = (value: string) => {
+  return isBlobURLOrUrl((value ?? "").trim())
+    ? true
+    : getI18n().t("editor.action.resource.error.invalid_url")
 }

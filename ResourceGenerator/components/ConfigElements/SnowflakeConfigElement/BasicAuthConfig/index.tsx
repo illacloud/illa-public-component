@@ -2,8 +2,8 @@ import { SnowflakeBasicAuthenticationType } from "@illa-public/public-types"
 import { FC } from "react"
 import { Control } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { validate } from "@/utils/form"
+import { validateNotEmpty } from "../../../../utils"
+import { ControlledElement } from "../../../ControlledElement"
 
 export const BasicAuthConfig: FC<
   SnowflakeBasicAuthenticationType & {
@@ -21,7 +21,7 @@ export const BasicAuthConfig: FC<
         isRequired
         rules={[
           {
-            validate,
+            validate: validateNotEmpty,
           },
         ]}
         title={t("editor.action.resource.db.label.username")}

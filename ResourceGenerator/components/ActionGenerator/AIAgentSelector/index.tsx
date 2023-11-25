@@ -1,15 +1,21 @@
 import { MARKET_AGENT_SORTED_OPTIONS } from "@illa-public/market-agent"
 import {
-  ILLA_MIXPANEL_BUILDER_PAGE_NAME,
   ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
 import { Agent } from "@illa-public/public-types"
 import { debounce } from "lodash"
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import {
+  FC,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import { useTranslation } from "react-i18next"
 import { RadioGroup, Search } from "@illa-design/react"
-import i18n from "@/i18n/config"
-import { track } from "@/utils/mixpanelHelper"
 import AgentTypeSelect from "./components/AgentTypeSelect"
 import { MarketAgentList } from "./components/MarketList"
 import { TeamAgentList } from "./components/TeamAgentList"
@@ -19,21 +25,6 @@ import {
   containerStyle,
   headerContainerStyle,
 } from "./style"
-
-export const sortOptions = [
-  {
-    label: i18n.t("dashboard.sort-type.popular"),
-    value: MARKET_AGENT_SORTED_OPTIONS.POPULAR,
-  },
-  {
-    label: i18n.t("dashboard.sort-type.recent"),
-    value: MARKET_AGENT_SORTED_OPTIONS.LATEST,
-  },
-  {
-    label: i18n.t("dashboard.sort-type.star"),
-    value: MARKET_AGENT_SORTED_OPTIONS.STARRED,
-  },
-]
 
 export const AIAgentSelector: FC<ActionResourceSelectorProps> = (props) => {
   const { actionType, onCreateAction, handleCreateAction } = props
@@ -45,6 +36,23 @@ export const AIAgentSelector: FC<ActionResourceSelectorProps> = (props) => {
   const [sortedBy, setSortedBy] = useState<MARKET_AGENT_SORTED_OPTIONS>(
     MARKET_AGENT_SORTED_OPTIONS.POPULAR,
   )
+
+  const { track } = useContext(MixpanelTrackContext)
+
+  const sortOptions = [
+    {
+      label: t("dashboard.sort-type.popular"),
+      value: MARKET_AGENT_SORTED_OPTIONS.POPULAR,
+    },
+    {
+      label: t("dashboard.sort-type.recent"),
+      value: MARKET_AGENT_SORTED_OPTIONS.LATEST,
+    },
+    {
+      label: t("dashboard.sort-type.star"),
+      value: MARKET_AGENT_SORTED_OPTIONS.STARRED,
+    },
+  ]
 
   const debounceSearchKeywords = useRef(
     debounce(
@@ -73,28 +81,28 @@ export const AIAgentSelector: FC<ActionResourceSelectorProps> = (props) => {
     (agentItem: Agent) => {
       if (loading) return
       handleCreateAction(agentItem, () => onCreateAction?.(), setLoading)
-      track(
+      track?.(
         ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-        ILLA_MIXPANEL_BUILDER_PAGE_NAME.EDITOR,
         {
           element: "resource_list_create_action",
           parameter1: actionType,
         },
+        "both",
       )
     },
-    [loading, handleCreateAction, actionType, onCreateAction],
+    [loading, handleCreateAction, track, actionType, onCreateAction],
   )
 
   useEffect(() => {
-    track(
+    track?.(
       ILLA_MIXPANEL_EVENT_TYPE.SHOW,
-      ILLA_MIXPANEL_BUILDER_PAGE_NAME.EDITOR,
       {
         element: "resource_list_show",
         parameter1: actionType,
       },
+      "both",
     )
-  }, [actionType])
+  }, [actionType, track])
 
   return (
     <div css={containerStyle}>

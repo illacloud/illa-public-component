@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { ResourceTypeList } from "../../config"
 import { ResourceCard } from "../ResourceCard"
-import { WhiteList } from "../WhiteList"
+import { WhiteList } from "../RowWhiteList"
 import { ResourceTypeSelectorProps } from "./interface"
 import { categoryStyle, containerStyle, resourceListStyle } from "./style"
 

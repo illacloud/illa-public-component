@@ -1,7 +1,7 @@
 import { APIKeyAddToValue } from "@illa-public/public-types"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
+import { ControlledElement } from "../../../ControlledElement"
 import { APIKeyAddToSelect } from "./constants"
 import { APIKeyAuthPanelProps } from "./interface"
 

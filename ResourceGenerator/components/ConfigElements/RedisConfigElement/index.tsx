@@ -1,28 +1,26 @@
 import { RedisResourceInitial } from "@illa-public/public-configs"
-import { RedisResource } from "@illa-public/public-types"
+import { RedisResource, Resource } from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
 import { isCloudVersion } from "@illa-public/utils"
-import { FC, useCallback, useMemo, useState } from "react"
+import { FC, useCallback, useContext, useMemo, useState } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Alert, Button, Divider, Input, getColor } from "@illa-design/react"
+import { ResourceGeneratorContext } from "../../../provider"
+import { isContainLocalPath, validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
+import { ControlledType } from "../../ControlledElement/interface"
+import { hostInputContainer } from "../../ControlledElement/style"
 import {
   applyConfigItemLabelText,
   configItem,
   configItemTip,
   connectType,
   connectTypeStyle,
+  container,
   labelContainer,
   optionLabelStyle,
-} from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { ControlledType } from "@/page/App/components/Actions/ControlledElement/interface"
-import { hostInputContainer } from "@/page/App/components/Actions/ControlledElement/style"
-import { Resource } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { isContainLocalPath, validate } from "@/utils/form"
-import { container } from "../style"
+} from "../style"
 import { RedisLikeConfigElementProps } from "./interface"
 
 function parseDatabaseConnectionString(
@@ -54,9 +52,8 @@ const RedisConfigElement: FC<RedisLikeConfigElementProps> = (props) => {
   const { resourceID, resourceType } = props
   const { t } = useTranslation()
   const { control, setValue } = useFormContext()
-  const findResource = useSelector((state: RootState) => {
-    return state.resource.find((r) => r.resourceID === resourceID)
-  })
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID)
 
   let content: RedisResource
   if (findResource === undefined) {
@@ -102,7 +99,7 @@ const RedisConfigElement: FC<RedisLikeConfigElementProps> = (props) => {
           defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}

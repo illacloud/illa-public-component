@@ -1,18 +1,16 @@
 import { MongoDbResourceInitial } from "@illa-public/public-configs"
 import { MongoDbConfig, MongoDbResource } from "@illa-public/public-types"
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Divider } from "@illa-design/react"
-import { optionLabelStyle } from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { MongoDbGuiMode } from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/MongoDbConfigElement/MongoDbGuiMode"
-import { MongoDbUriMode } from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/MongoDbConfigElement/MongoDbUriMode"
-import { RootState } from "@/store"
-import { validate } from "@/utils/form"
+import { ResourceGeneratorContext } from "../../../provider"
+import { validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
 import { BaseConfigElementProps } from "../interface"
-import { container } from "../style"
+import { container, optionLabelStyle } from "../style"
+import { MongoDbGuiMode } from "./MongoDbGuiMode"
+import { MongoDbUriMode } from "./MongoDbUriMode"
 
 const MongoDbConfigElement: FC<BaseConfigElementProps> = (props) => {
   const { resourceID } = props
@@ -20,9 +18,8 @@ const MongoDbConfigElement: FC<BaseConfigElementProps> = (props) => {
   const { t } = useTranslation()
   const { control, watch } = useFormContext()
 
-  const findResource = useSelector((state: RootState) => {
-    return state.resource.find((r) => r.resourceID === resourceID)
-  })
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID)
 
   let content: MongoDbResource<MongoDbConfig>
   if (findResource === undefined) {
@@ -45,7 +42,7 @@ const MongoDbConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}

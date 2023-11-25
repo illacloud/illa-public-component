@@ -1,37 +1,34 @@
 import { S3ResourceInitial } from "@illa-public/public-configs"
-import { S3ACL, S3Resource } from "@illa-public/public-types"
+import { Resource, S3ACL, S3Resource } from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
 import { isCloudVersion } from "@illa-public/utils"
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Divider, WarningCircleIcon, getColor } from "@illa-design/react"
+import { ResourceGeneratorContext } from "../../../provider"
+import { urlValidate, validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
+import { BaseConfigElementProps } from "../interface"
 import {
   applyConfigItemLabelText,
   configItemTip,
   connectType,
   connectTypeStyle,
+  container,
   errorIconStyle,
   errorMsgStyle,
   labelContainer,
   optionLabelStyle,
-} from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { Resource } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { urlValidate, validate } from "@/utils/form"
-import { BaseConfigElementProps } from "../interface"
-import { container } from "../style"
+} from "../style"
 
 const S3ConfigElement: FC<BaseConfigElementProps> = (props) => {
   const { resourceID } = props
   const { t } = useTranslation()
   const { control, formState, watch } = useFormContext()
 
-  const findResource = useSelector((state: RootState) => {
-    return state.resource.find((r) => r.resourceID === resourceID)
-  })
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID)
 
   const SelectOptions = Object.keys(S3ACL).map((type) => ({
     label: t(`editor.action.acl.option.${type}`),
@@ -59,7 +56,7 @@ const S3ConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -114,7 +111,7 @@ const S3ConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={content.region}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           controlledType="input"
@@ -166,7 +163,7 @@ const S3ConfigElement: FC<BaseConfigElementProps> = (props) => {
           control={control}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           name="accessKeyID"

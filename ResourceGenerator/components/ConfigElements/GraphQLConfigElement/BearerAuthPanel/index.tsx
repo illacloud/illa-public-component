@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { validate } from "@/utils/form"
+import { validateNotEmpty } from "../../../../utils"
+import { ControlledElement } from "../../../ControlledElement"
 import { BearerAuthPanelProps } from "./interface"
 
 export const BearerAuthPanel: FC<BearerAuthPanelProps> = (props) => {
@@ -18,7 +18,7 @@ export const BearerAuthPanel: FC<BearerAuthPanelProps> = (props) => {
       isRequired
       rules={[
         {
-          validate,
+          validate: validateNotEmpty,
         },
       ]}
     />

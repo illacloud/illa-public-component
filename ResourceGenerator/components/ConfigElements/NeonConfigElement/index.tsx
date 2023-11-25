@@ -1,11 +1,10 @@
 import { neonDefaultPort } from "@illa-public/public-configs"
-import { NeonResource } from "@illa-public/public-types"
+import { NeonResource, Resource } from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
-import { isCloudVersion } from "@illa-public/utils"
-import { FC, useCallback } from "react"
+import { isCloudVersion, isURL } from "@illa-public/utils"
+import { FC, useCallback, useContext } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import {
   Alert,
   Button,
@@ -13,28 +12,27 @@ import {
   WarningCircleIcon,
   getColor,
 } from "@illa-design/react"
+import { ResourceGeneratorContext } from "../../../provider"
+import {
+  isContainLocalPath,
+  urlValidate,
+  validateNotEmpty,
+} from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
+import { hostInputContainer } from "../../ControlledElement/style"
+import { ResourceDivider } from "../../ResourceDivider"
+import { BaseConfigElementProps } from "../interface"
 import {
   applyConfigItemLabelText,
   configItem,
+  configItemTip,
   connectType,
   connectTypeStyle,
+  container,
   errorIconStyle,
   errorMsgStyle,
   labelContainer,
-} from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import {
-  configItemTip,
-  hostInputContainer,
-} from "@/page/App/components/Actions/ControlledElement/style"
-import { ResourceDivider } from "@/page/App/components/Actions/ResourceDivider"
-import { Resource } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { isContainLocalPath, urlValidate, validate } from "@/utils/form"
-import { handleLinkOpen } from "@/utils/navigate"
-import { isURL } from "@/utils/typeHelper"
-import { BaseConfigElementProps } from "../interface"
-import { container } from "../style"
+} from "../style"
 
 const getParsedStringValue = (inputString: string) => {
   const regex = /^postgres:\/\/([^:]+)(?::([^@]*))?@([^\/]+)\/(.+)$/
@@ -86,18 +84,17 @@ const NeonConfigElement: FC<BaseConfigElementProps> = (props) => {
 
   const { t } = useTranslation()
   const { control, reset, getValues, formState, watch } = useFormContext()
-  const resource = useSelector((state: RootState) => {
-    return state.resource.find(
-      (r) => r.resourceID === resourceID,
-    ) as Resource<NeonResource>
-  })
+
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID) as Resource<NeonResource>
+
   const hostValue = watch("host")
   const connectionString = watch("connectionString")
   const showAlert = isContainLocalPath(hostValue ?? "")
   const connectionStringErrorMsg =
     handleConnectionStringValidate(connectionString)
 
-  const handleDocLinkClick = (link: string) => () => handleLinkOpen(link)
+  const handleDocLinkClick = (link: string) => () => window.open(link, "_blank")
 
   const handleConnectionStringParse = useCallback(() => {
     const res = getParsedStringValue(connectionString)
@@ -136,10 +133,10 @@ const NeonConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           title={t("editor.action.resource.db.label.name")}
           control={control}
-          defaultValue={resource?.resourceName ?? ""}
+          defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -201,8 +198,8 @@ const NeonConfigElement: FC<BaseConfigElementProps> = (props) => {
         <ControlledElement
           title={t("editor.action.resource.db.label.hostname_port")}
           defaultValue={[
-            resource?.content.host,
-            +(resource?.content.port ?? neonDefaultPort),
+            findResource?.content.host,
+            +(findResource?.content.port ?? neonDefaultPort),
           ]}
           name={["host", "port"]}
           controlledType={["input", "number"]}
@@ -271,14 +268,14 @@ const NeonConfigElement: FC<BaseConfigElementProps> = (props) => {
 
         <ControlledElement
           title={t("editor.action.resource.db.label.database")}
-          defaultValue={resource?.content.databaseName}
+          defaultValue={findResource?.content.databaseName}
           name="databaseName"
           controlledType="input"
           control={control}
           isRequired
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.database")]}
@@ -286,8 +283,8 @@ const NeonConfigElement: FC<BaseConfigElementProps> = (props) => {
         <ControlledElement
           title={t("editor.action.resource.db.label.username_password")}
           defaultValue={[
-            resource?.content.databaseUsername,
-            resource?.content.databasePassword,
+            findResource?.content.databaseUsername,
+            findResource?.content.databasePassword,
           ]}
           name={["databaseUsername", "databasePassword"]}
           controlledType={["input", "password"]}
@@ -295,7 +292,7 @@ const NeonConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
             {
               required: true,

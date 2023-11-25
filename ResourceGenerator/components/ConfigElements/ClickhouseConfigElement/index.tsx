@@ -2,42 +2,40 @@ import { ClickhouseResourceInitial } from "@illa-public/public-configs"
 import { ClickhouseResource } from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
 import { isCloudVersion } from "@illa-public/utils"
-import { FC, useCallback, useState } from "react"
+import { FC, useCallback, useContext, useState } from "react"
 import { useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Alert, Divider, WarningCircleIcon, getColor } from "@illa-design/react"
+import { ResourceGeneratorContext } from "../../../provider"
 import {
+  isContainLocalPath,
+  urlValidate,
+  validateNotEmpty,
+} from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
+import { BaseConfigElementProps } from "../interface"
+import {
+  applyConfigItemLabelText,
   configItemTip,
   connectType,
   connectTypeStyle,
-  labelContainer,
-  optionLabelStyle,
-} from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { Resource } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { isContainLocalPath, urlValidate, validate } from "@/utils/form"
-import { BaseConfigElementProps } from "../interface"
-import { container } from "../style"
-import {
-  applyConfigItemLabelText,
+  container,
   errorIconStyle,
   errorMsgStyle,
-} from "./style"
+  labelContainer,
+  optionLabelStyle,
+} from "../style"
 
 const ClickhouseConfigElement: FC<BaseConfigElementProps> = (props) => {
   const { resourceID } = props
 
   const { t } = useTranslation()
   const { control, formState, watch } = useFormContext()
-  const resource = useSelector((state: RootState) => {
-    return state.resource.find(
-      (r) => r.resourceID === resourceID,
-    ) as Resource<ClickhouseResource>
-  })
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID)
 
-  const content = resource?.content ?? ClickhouseResourceInitial
+  const content = (findResource?.content ??
+    ClickhouseResourceInitial) as ClickhouseResource
 
   const [showAlert, setShowAlert] = useState<boolean>(false)
 
@@ -67,10 +65,10 @@ const ClickhouseConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           title={t("editor.action.resource.db.label.name")}
           control={control}
-          defaultValue={resource?.resourceName ?? ""}
+          defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -163,7 +161,7 @@ const ClickhouseConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={content.databaseName}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.default")]}
@@ -249,7 +247,7 @@ const ClickhouseConfigElement: FC<BaseConfigElementProps> = (props) => {
               isRequired
               rules={[
                 {
-                  validate,
+                  validate: validateNotEmpty,
                 },
               ]}
               control={control}

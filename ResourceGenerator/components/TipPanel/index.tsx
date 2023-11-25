@@ -3,7 +3,7 @@ import { isCloudVersion } from "@illa-public/utils"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, DocsIcon } from "@illa-design/react"
-import { WhiteList } from "../WhiteList"
+import { WhiteList } from "../ColumnWhiteList"
 import { TipPanelProps } from "./interface"
 import { linkContainerStyle, tipsPanelContainerStyle } from "./style"
 

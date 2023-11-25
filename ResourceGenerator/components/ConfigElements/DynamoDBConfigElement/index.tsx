@@ -1,41 +1,38 @@
 import { DynamoDBResourceInitial } from "@illa-public/public-configs"
-import { DynamoDBResource } from "@illa-public/public-types"
+import { DynamoDBResource, Resource } from "@illa-public/public-types"
 import { isCloudVersion } from "@illa-public/utils"
-import { FC, useMemo } from "react"
+import { FC, useContext, useMemo } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Divider, getColor } from "@illa-design/react"
+import { ResourceGeneratorContext } from "../../../provider"
+import { validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
+import { BaseConfigElementProps } from "../interface"
 import {
   applyConfigItemLabelText,
   configItemTip,
   connectType,
   connectTypeStyle,
+  container,
   labelContainer,
   optionLabelStyle,
-} from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { Resource } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { validate } from "@/utils/form"
-import { BaseConfigElementProps } from "../interface"
-import { container } from "../style"
+} from "../style"
 
 const DynamoDBConfigElement: FC<BaseConfigElementProps> = (props) => {
   const { resourceID } = props
   const { t } = useTranslation()
   const { control } = useFormContext()
-  const resource = useSelector((state: RootState) => {
-    return state.resource.find((r) => r.resourceID === resourceID)
-  })
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID)
 
   const content = useMemo(() => {
-    if (resource === undefined) {
+    if (findResource === undefined) {
       return DynamoDBResourceInitial
     } else {
-      return (resource as Resource<DynamoDBResource>).content
+      return (findResource as Resource<DynamoDBResource>).content
     }
-  }, [resource])
+  }, [findResource])
 
   return (
     <>
@@ -45,10 +42,10 @@ const DynamoDBConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           title={t("editor.action.resource.db.label.name")}
           control={control}
-          defaultValue={resource?.resourceName ?? ""}
+          defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -75,7 +72,7 @@ const DynamoDBConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={content.region}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[
@@ -92,7 +89,7 @@ const DynamoDBConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={content.accessKeyID}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           name="accessKeyID"
@@ -106,7 +103,7 @@ const DynamoDBConfigElement: FC<BaseConfigElementProps> = (props) => {
           defaultValue={content.secretAccessKey}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           name="secretAccessKey"

@@ -1,28 +1,29 @@
-import { HuggingFaceEndpointResource } from "@illa-public/public-types"
+import {
+  HuggingFaceEndpointResource,
+  Resource,
+} from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { FileDefaultIcon, WarningCircleIcon } from "@illa-design/react"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import {
-  errorIconStyle,
-  errorMsgStyle,
-} from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/ClickhouseConfigElement/style"
+import { ResourceGeneratorContext } from "../../../provider"
+import { urlValidate, validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
 import {
   docContainerStyle,
   docItemStyle,
   docsItemContainerStyle,
-  labelContainer,
   labelStyle,
   tipsStyle,
-} from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/HuggingFaceConfigElement/style"
-import { Resource } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { urlValidate, validate } from "@/utils/form"
+} from "../HuggingFaceConfigElement/style"
 import { BaseConfigElementProps } from "../interface"
-import { container } from "../style"
+import {
+  container,
+  errorIconStyle,
+  errorMsgStyle,
+  labelContainer,
+} from "../style"
 
 const HuggingFaceEndpointConfigElement: FC<BaseConfigElementProps> = (
   props,
@@ -31,12 +32,10 @@ const HuggingFaceEndpointConfigElement: FC<BaseConfigElementProps> = (
   const { t } = useTranslation()
 
   const { control, formState } = useFormContext()
-  const resource = useSelector((state: RootState) => {
-    return state.resource.find(
-      (r) => r.resourceID === resourceID,
-    ) as Resource<HuggingFaceEndpointResource>
-  })
-
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(
+    resourceID,
+  ) as Resource<HuggingFaceEndpointResource>
   const handleURLClick = (link: string) => window.open(link, "_blank")
 
   return (
@@ -76,10 +75,10 @@ const HuggingFaceEndpointConfigElement: FC<BaseConfigElementProps> = (
           isRequired
           title={t("editor.action.resource.db.label.name")}
           control={control}
-          defaultValue={resource?.resourceName ?? ""}
+          defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -91,7 +90,7 @@ const HuggingFaceEndpointConfigElement: FC<BaseConfigElementProps> = (
 
         <ControlledElement
           title={t("editor.action.resource.api.label.hf_endpoint")}
-          defaultValue={resource?.content.endpoint ?? ""}
+          defaultValue={findResource?.content.endpoint ?? ""}
           name="endpoint"
           controlledType="input"
           control={control}
@@ -133,7 +132,7 @@ const HuggingFaceEndpointConfigElement: FC<BaseConfigElementProps> = (
         />
         <ControlledElement
           title={t("editor.action.resource.api.label.hf_endpoint_token")}
-          defaultValue={resource?.content.token ?? ""}
+          defaultValue={findResource?.content.token ?? ""}
           name="token"
           controlledType="password"
           control={control}

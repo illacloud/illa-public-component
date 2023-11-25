@@ -1,35 +1,31 @@
-import { HuggingFaceResource } from "@illa-public/public-types"
+import { HuggingFaceResource, Resource } from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { FileDefaultIcon } from "@illa-design/react"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
+import { ResourceGeneratorContext } from "../../../provider"
+import { validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
+import { BaseConfigElementProps } from "../interface"
+import { container, labelContainer } from "../style"
 import {
   docContainerStyle,
   docItemStyle,
   docsItemContainerStyle,
-  labelContainer,
   labelStyle,
   tipsStyle,
-} from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/HuggingFaceConfigElement/style"
-import { Resource } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { validate } from "@/utils/form"
-import { BaseConfigElementProps } from "../interface"
-import { container } from "../style"
+} from "./style"
 
 const HuggingFaceConfigElement: FC<BaseConfigElementProps> = (props) => {
   const { resourceID } = props
   const { t } = useTranslation()
 
   const { control } = useFormContext()
-  const resource = useSelector((state: RootState) => {
-    return state.resource.find(
-      (r) => r.resourceID === resourceID,
-    ) as Resource<HuggingFaceResource>
-  })
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(
+    resourceID,
+  ) as Resource<HuggingFaceResource>
 
   const handleURLClick = (link: string) => window.open(link, "_blank")
 
@@ -68,10 +64,10 @@ const HuggingFaceConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           title={t("editor.action.resource.db.label.name")}
           control={control}
-          defaultValue={resource?.resourceName ?? ""}
+          defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -83,7 +79,7 @@ const HuggingFaceConfigElement: FC<BaseConfigElementProps> = (props) => {
 
         <ControlledElement
           title={t("editor.action.resource.db.label.bear_token")}
-          defaultValue={resource?.content.token ?? ""}
+          defaultValue={findResource?.content.token ?? ""}
           name="token"
           controlledType="password"
           control={control}

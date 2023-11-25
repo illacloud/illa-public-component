@@ -1,6 +1,6 @@
+import IconHotSpot from "@illa-public/icon-hot-spot"
 import { FC } from "react"
 import { CloseIcon } from "@illa-design/react"
-import IconHotSpot from "@/components/IconHotSpot"
 import { ModalHeaderProps } from "./interface"
 import { closeIconContainerStyle, containerStyle, headerStyle } from "./style"
 

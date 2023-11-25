@@ -1,24 +1,32 @@
-import { FC } from "react"
+import { getCurrentId } from "@illa-public/user-data"
+import { FC, useContext } from "react"
 import { FormProvider, useForm } from "react-hook-form"
-import { onActionConfigElementSubmit } from "@/page/App/components/Actions/api"
+import { useSelector } from "react-redux"
+import { onActionConfigElementSubmit } from "../../../formUtils"
+import { ResourceGeneratorContext } from "../../../provider"
 import { ConfigElementProviderProps } from "./interface"
 import { formContainerStyle } from "./style"
 
 export const ConfigElementProvider: FC<ConfigElementProviderProps> = (
   props,
 ) => {
-  const { children, resourceType, resourceID, onFinished } = props
+  const { children, resourceType, resourceID } = props
   const methods = useForm({ mode: "onChange", shouldUnregister: true })
+  const teamID = useSelector(getCurrentId)!
 
+  const { createOrUpdateResourceCallback } = useContext(
+    ResourceGeneratorContext,
+  )
   return (
     <FormProvider {...methods}>
       <form
         autoComplete="off"
         onSubmit={onActionConfigElementSubmit(
+          teamID,
           methods.handleSubmit,
           resourceID,
           resourceType,
-          onFinished,
+          createOrUpdateResourceCallback,
         )}
         css={formContainerStyle}
       >

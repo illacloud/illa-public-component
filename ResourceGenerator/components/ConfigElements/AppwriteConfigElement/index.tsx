@@ -1,43 +1,42 @@
 import { AppWriteResourceInitial } from "@illa-public/public-configs"
 import { AppWriteResource } from "@illa-public/public-types"
 import { isCloudVersion } from "@illa-public/utils"
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Divider, WarningCircleIcon, getColor } from "@illa-design/react"
+import { ResourceGeneratorContext } from "../../../provider"
+import { urlValidate, validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
+import "../ClickhouseConfigElement/style"
+import { BaseConfigElementProps } from "../interface"
 import {
   applyConfigItemLabelText,
   configItemTip,
   connectType,
   connectTypeStyle,
+  container,
   errorIconStyle,
   errorMsgStyle,
   labelContainer,
   optionLabelStyle,
-} from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { RootState } from "@/store"
-import { urlValidate, validate } from "@/utils/form"
-import { BaseConfigElementProps } from "../interface"
-import { container } from "../style"
+} from "../style"
 
 const AppWriteConfigElement: FC<BaseConfigElementProps> = (props) => {
   const { resourceID } = props
   const { t } = useTranslation()
   const { control, formState } = useFormContext()
-  const resource = useSelector((state: RootState) => {
-    return state.resource.find((r) => r.resourceID === resourceID)
-  })
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID)
   let content: AppWriteResource
-  if (!resource) {
+  if (!findResource) {
     content = AppWriteResourceInitial
   } else {
-    content = resource.content as AppWriteResource
+    content = findResource.content as AppWriteResource
   }
 
   const inputValueValidate = {
-    validate,
+    validate: validateNotEmpty,
   }
 
   return (
@@ -48,7 +47,7 @@ const AppWriteConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           title={t("editor.action.resource.db.label.name")}
           control={control}
-          defaultValue={resource?.resourceName ?? ""}
+          defaultValue={findResource?.resourceName ?? ""}
           rules={[inputValueValidate]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
           name="resourceName"

@@ -2,25 +2,21 @@ import { MongoDbUriConfigContentInitial } from "@illa-public/public-configs"
 import {
   MongoDbResource,
   MongoDbUriConfigContent,
+  Resource,
 } from "@illa-public/public-types"
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { MongoDbConfigModeProps } from "@/page/App/components/Actions/ResourceGenerator/ConfigElements/MongoDbConfigElement/interface"
-import { Resource, ResourceContent } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { validate } from "@/utils/form"
+import { ResourceGeneratorContext } from "../../../../provider"
+import { validateNotEmpty } from "../../../../utils"
+import { ControlledElement } from "../../../ControlledElement"
+import { MongoDbConfigModeProps } from "../interface"
 
 export const MongoDbUriMode: FC<MongoDbConfigModeProps> = (props) => {
   const { resourceID, control } = props
 
   const { t } = useTranslation()
-  const findResource: Resource<ResourceContent> | undefined = useSelector(
-    (state: RootState) => {
-      return state.resource.find((r) => r.resourceID === resourceID)
-    },
-  )
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID)
 
   let content: MongoDbUriConfigContent
   if (findResource === undefined) {
@@ -47,7 +43,7 @@ export const MongoDbUriMode: FC<MongoDbConfigModeProps> = (props) => {
       controlledType="input"
       rules={[
         {
-          validate,
+          validate: validateNotEmpty,
         },
       ]}
       isRequired

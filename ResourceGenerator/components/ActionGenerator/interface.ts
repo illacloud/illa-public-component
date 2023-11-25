@@ -1,4 +1,5 @@
 import { ActionType, Agent } from "@illa-public/public-types"
+import { HandleDirectCreateActionFunc } from "./ActionResourceSelector/interface"
 
 export interface ActionGeneratorProps {
   visible?: boolean
@@ -6,11 +7,7 @@ export interface ActionGeneratorProps {
   defaultStep?: ActionCreatorPage
   defaultActionType?: ActionType | null
   canBackToSelect?: boolean
-  handleDirectCreateAction: (
-    resourceID: string,
-    successCallback?: () => void,
-    loadingCallback?: (loading: boolean) => void,
-  ) => void
+  handleDirectCreateAction: HandleDirectCreateActionFunc
   handleCreateAgentAction: (
     item: Agent,
     successCallback?: () => void,

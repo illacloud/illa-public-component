@@ -5,10 +5,10 @@ import {
 import { ActionType, ResourceType } from "@illa-public/public-types"
 import { FC, useCallback, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Modal } from "@illa-design/react"
-import { getAllResources } from "@/redux/resource/resourceSelector"
-import { ResourceCreator } from "../ResourceGenerator/ResourceCreator"
+import { ACTION_MODAL_WIDTH } from "../../config"
+import { ResourceGeneratorContext } from "../../provider"
+import { ResourceCreator } from "../ResourceCreator"
 import { ResourceTypeSelector } from "../ResourceTypeSelector"
 import { AIAgentSelector } from "./AIAgentSelector"
 import { ActionResourceSelector } from "./ActionResourceSelector"
@@ -34,7 +34,7 @@ export const ActionGenerator: FC<ActionGeneratorProps> = function (props) {
 
   const { t } = useTranslation()
 
-  const allResource = useSelector(getAllResources)
+  const { getResourceByType } = useContext(ResourceGeneratorContext)
   const { track } = useContext(MixpanelTrackContext)
 
   useEffect(() => {
@@ -42,14 +42,12 @@ export const ActionGenerator: FC<ActionGeneratorProps> = function (props) {
       if (currentActionType === "aiagent") {
         return
       } else if (
-        allResource.filter((value) => {
-          return value.resourceType === currentActionType
-        }).length === 0
+        getResourceByType(currentActionType as ResourceType).length === 0
       ) {
         setCurrentStep("createResource")
       }
     }
-  }, [currentStep, currentActionType, allResource])
+  }, [currentStep, currentActionType, getResourceByType])
 
   const handleBack = useCallback(
     (page: ActionCreatorPage) => {
@@ -106,24 +104,6 @@ export const ActionGenerator: FC<ActionGeneratorProps> = function (props) {
     onClose()
   }, [onClose])
 
-  const handleFinishCreateNewResource = useCallback(
-    (resourceID?: string) => {
-      track?.(
-        ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-        {
-          element: "resource_configure_save",
-          parameter5: currentActionType,
-        },
-        "both",
-      )
-      if (!resourceID) return
-      handleDirectCreateAction(resourceID, () => {
-        setCurrentStep("select")
-        onClose()
-      })
-    },
-    [handleDirectCreateAction, onClose, track, currentActionType],
-  )
   useEffect(() => {
     if (currentStep === "createResource" && currentActionType && visible) {
       track?.(
@@ -216,7 +196,6 @@ export const ActionGenerator: FC<ActionGeneratorProps> = function (props) {
           <ResourceCreator
             resourceType={currentActionType as ResourceType}
             onBack={handleBack}
-            onFinished={handleFinishCreateNewResource}
           />
         )}
       </div>

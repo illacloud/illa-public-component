@@ -2,25 +2,28 @@ import { OracleResourceInitial } from "@illa-public/public-configs"
 import { OracleResource } from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
 import { isCloudVersion } from "@illa-public/utils"
-import { FC, useCallback, useState } from "react"
+import { FC, useCallback, useContext, useState } from "react"
 import { useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Alert, Divider, WarningCircleIcon, getColor } from "@illa-design/react"
+import { ResourceGeneratorContext } from "../../../provider"
+import {
+  isContainLocalPath,
+  urlValidate,
+  validateNotEmpty,
+} from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
 import {
   applyConfigItemLabelText,
   configItemTip,
   connectType,
   connectTypeStyle,
+  container,
   errorIconStyle,
   errorMsgStyle,
   labelContainer,
   optionLabelStyle,
-} from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { RootState } from "@/store"
-import { isContainLocalPath, urlValidate, validate } from "@/utils/form"
-import { container } from "../style"
+} from "../style"
 import { OracleDBConfigElementProps } from "./interface"
 
 const OracleDBConfigElement: FC<OracleDBConfigElementProps> = (props) => {
@@ -41,10 +44,10 @@ const OracleDBConfigElement: FC<OracleDBConfigElementProps> = (props) => {
 
   const [showAlert, setShowAlert] = useState<boolean>(false)
 
-  const resource = useSelector((state: RootState) => {
-    return state.resource.find((r) => r.resourceID === resourceID)
-  })
-  const content = (resource?.content as OracleResource) ?? OracleResourceInitial
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(resourceID)
+  const content =
+    (findResource?.content as OracleResource) ?? OracleResourceInitial
 
   const handleDocLinkClick = () => {
     window.open("https://www.illacloud.com/docs/illa-cli", "_blank")
@@ -63,10 +66,10 @@ const OracleDBConfigElement: FC<OracleDBConfigElementProps> = (props) => {
           isRequired
           title={t("editor.action.resource.db.label.name")}
           control={control}
-          defaultValue={resource?.resourceName ?? ""}
+          defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -146,7 +149,7 @@ const OracleDBConfigElement: FC<OracleDBConfigElementProps> = (props) => {
           isRequired
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           name="port"
@@ -160,7 +163,7 @@ const OracleDBConfigElement: FC<OracleDBConfigElementProps> = (props) => {
           isRequired
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           name="name"
@@ -175,7 +178,7 @@ const OracleDBConfigElement: FC<OracleDBConfigElementProps> = (props) => {
           isRequired
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           name="connectionType"

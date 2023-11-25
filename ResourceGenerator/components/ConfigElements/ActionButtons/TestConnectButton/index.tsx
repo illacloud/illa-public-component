@@ -35,7 +35,12 @@ export const TestConnectButton: FC<TestConnectButtonProps> = (props) => {
       resourceType,
       content: formatTestConnectValues(data, resourceType) as ResourceContent,
     }
-    await fetchActionTestConnection(currentTeamID, requestBody)
+    try {
+      await fetchActionTestConnection(currentTeamID, requestBody)
+    } catch {
+    } finally {
+      setIsTestLoading(false)
+    }
   }, [track, resourceType, getValues, currentTeamID])
 
   return (

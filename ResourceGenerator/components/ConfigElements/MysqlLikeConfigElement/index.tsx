@@ -1,27 +1,24 @@
-import { MysqlLikeResource } from "@illa-public/public-types"
+import { MysqlLikeResource, Resource } from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
 import { isCloudVersion } from "@illa-public/utils"
-import { FC, useMemo } from "react"
+import { FC, useContext, useMemo } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
 import { Alert, Button, Divider, Input, getColor } from "@illa-design/react"
+import { ResourceGeneratorContext } from "../../../provider"
+import { isContainLocalPath, validateNotEmpty } from "../../../utils"
+import { ControlledElement } from "../../ControlledElement"
+import { hostInputContainer } from "../../ControlledElement/style"
 import {
   applyConfigItemLabelText,
   configItem,
   configItemTip,
   connectType,
   connectTypeStyle,
+  container,
   labelContainer,
   optionLabelStyle,
-} from "@/page/App/Module/ActionEditor/styles"
-import { ControlledElement } from "@/page/App/components/Actions/ControlledElement"
-import { hostInputContainer } from "@/page/App/components/Actions/ControlledElement/style"
-import { Resource } from "@/redux/resource/resourceState"
-import { RootState } from "@/store"
-import { isContainLocalPath, validate } from "@/utils/form"
-import { handleLinkOpen } from "@/utils/navigate"
-import { container } from "../style"
+} from "../style"
 import { tiDBServertCertDefaultValue } from "./constants"
 import { MysqlLikeConfigElementProps } from "./interface"
 
@@ -92,17 +89,16 @@ const MysqlLikeConfigElement: FC<MysqlLikeConfigElementProps> = (props) => {
   const { t } = useTranslation()
   const { control, setValue, watch } = useFormContext()
 
-  const resource = useSelector((state: RootState) => {
-    return state.resource.find(
-      (r) => r.resourceID === resourceID,
-    ) as Resource<MysqlLikeResource>
-  })
+  const { getResourceByID } = useContext(ResourceGeneratorContext)
+  const findResource = getResourceByID(
+    resourceID,
+  ) as Resource<MysqlLikeResource>
 
   const sslDefaultValue =
-    resource?.content.ssl.ssl ??
+    findResource?.content.ssl.ssl ??
     (resourceType === "tidb" || resourceType === "hydra")
   const serverCertDefaultValue =
-    resource?.content.ssl.serverCert ??
+    findResource?.content.ssl.serverCert ??
     (resourceType === "tidb" || resourceType === "hydra"
       ? tiDBServertCertDefaultValue
       : "")
@@ -117,12 +113,14 @@ const MysqlLikeConfigElement: FC<MysqlLikeConfigElementProps> = (props) => {
             key="ca-link"
             onClick={() => {
               if (resourceType === "tidb") {
-                handleLinkOpen(
+                window.open(
                   "https://docs.pingcap.com/tidbcloud/tidb-cloud-tls-connect-to-dedicated-tier",
+                  "_blank",
                 )
               } else if (resourceType === "hydra") {
-                handleLinkOpen(
+                window.open(
                   "https://docs.hydra.so/cloud-warehouse-operations/tls",
+                  "_blank",
                 )
               }
             }}
@@ -139,7 +137,7 @@ const MysqlLikeConfigElement: FC<MysqlLikeConfigElementProps> = (props) => {
   const sslOpenWatch = watch("ssl", sslDefaultValue)
 
   const handleDocLinkClick = () =>
-    handleLinkOpen("https://www.illacloud.com/docs/illa-cli")
+    window.open("https://www.illacloud.com/docs/illa-cli", "_blank")
 
   return (
     <>
@@ -149,10 +147,10 @@ const MysqlLikeConfigElement: FC<MysqlLikeConfigElementProps> = (props) => {
           isRequired
           title={t("editor.action.resource.db.label.name")}
           control={control}
-          defaultValue={resource?.resourceName ?? ""}
+          defaultValue={findResource?.resourceName ?? ""}
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.name")]}
@@ -219,14 +217,17 @@ const MysqlLikeConfigElement: FC<MysqlLikeConfigElementProps> = (props) => {
         />
         <ControlledElement
           title={t("editor.action.resource.db.label.hostname_port")}
-          defaultValue={[resource?.content.host, resource?.content.port]}
+          defaultValue={[
+            findResource?.content.host,
+            findResource?.content.port,
+          ]}
           name={["host", "port"]}
           controlledType={["input", "number"]}
           control={control}
           isRequired
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
             {
               required: true,
@@ -278,14 +279,14 @@ const MysqlLikeConfigElement: FC<MysqlLikeConfigElementProps> = (props) => {
         )}
         <ControlledElement
           title={t("editor.action.resource.db.label.database")}
-          defaultValue={resource?.content.databaseName}
+          defaultValue={findResource?.content.databaseName}
           name="databaseName"
           controlledType="input"
           control={control}
           isRequired
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
           ]}
           placeholders={[t("editor.action.resource.db.placeholder.database")]}
@@ -293,8 +294,8 @@ const MysqlLikeConfigElement: FC<MysqlLikeConfigElementProps> = (props) => {
         <ControlledElement
           title={t("editor.action.resource.db.label.username_password")}
           defaultValue={[
-            resource?.content.databaseUsername,
-            resource?.content.databasePassword,
+            findResource?.content.databaseUsername,
+            findResource?.content.databasePassword,
           ]}
           name={["databaseUsername", "databasePassword"]}
           controlledType={["input", "password"]}
@@ -302,7 +303,7 @@ const MysqlLikeConfigElement: FC<MysqlLikeConfigElementProps> = (props) => {
           isRequired
           rules={[
             {
-              validate,
+              validate: validateNotEmpty,
             },
             {
               required: true,
@@ -359,7 +360,7 @@ const MysqlLikeConfigElement: FC<MysqlLikeConfigElementProps> = (props) => {
               isRequired
               rules={[
                 {
-                  validate,
+                  validate: validateNotEmpty,
                 },
               ]}
               control={control}
@@ -374,7 +375,7 @@ const MysqlLikeConfigElement: FC<MysqlLikeConfigElementProps> = (props) => {
               controlledType={["textarea"]}
               title={t("editor.action.resource.db.label.client_key")}
               control={control}
-              defaultValue={resource?.content.ssl.clientKey}
+              defaultValue={findResource?.content.ssl.clientKey}
               name="clientKey"
               placeholders={[
                 t("editor.action.resource.db.placeholder.certificate"),
@@ -384,7 +385,7 @@ const MysqlLikeConfigElement: FC<MysqlLikeConfigElementProps> = (props) => {
               controlledType={["textarea"]}
               title={t("editor.action.resource.db.label.client_certificate")}
               control={control}
-              defaultValue={resource?.content.ssl.clientCert}
+              defaultValue={findResource?.content.ssl.clientCert}
               name="clientCert"
               placeholders={[
                 t("editor.action.resource.db.placeholder.certificate"),
