@@ -1,9 +1,13 @@
 import { formatNumForAgent } from "@illa-public/utils"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, PlayOutlineIcon, StarOutlineIcon } from "@illa-design/react"
-import EmojiSmileIcon from "@/assets/agent/emojiSmile.svg?react"
-import ForkIcon from "@/assets/tutorial/fork.svg?react"
+import {
+  Button,
+  ForkIcon,
+  PlayOutlineIcon,
+  StarOutlineIcon,
+} from "@illa-design/react"
+import EmojiSmileIcon from "../../../../../assets/emojiSmile.svg"
 import { MarketListItemProps } from "./interface"
 import {
   descStyle,
