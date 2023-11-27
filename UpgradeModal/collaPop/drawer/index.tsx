@@ -18,6 +18,7 @@ export const UpgradeCollarDrawer: FC = () => {
   if (!drawer) return null
   return (
     <CollarDrawer
+      from={drawer.from}
       visible={drawer.visible}
       onCancel={() => {
         if (drawer.id) {
