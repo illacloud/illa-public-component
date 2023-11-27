@@ -3,7 +3,7 @@ import { getCurrentUser } from "@illa-public/user-data"
 import { FC } from "react"
 import { useSelector } from "react-redux"
 import { Drawer } from "@illa-design/react"
-import { ReactComponent as MenuIcon } from "../assets/menu.svg"
+import MenuIcon from "../assets/menu.svg?react"
 import { MobileDashBoardLayoutProps } from "./interface"
 import {
   childrenContainerStyle,

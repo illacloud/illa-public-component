@@ -4,7 +4,8 @@
   "private": true,
   "main": "index.tsx",
   "dependencies": {
-    "@illa-public/utils": "workspace:*"
+    "@illa-public/utils": "workspace:*",
+    "@illa-design/react": "workspace:*"
   },
   "devDependencies": {
     "tsconfig": "workspace:*"
@@ -14,7 +15,6 @@
     "react-dom": "^18.2.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
-    "@illa-design/react": "workspace:*",
-    "@emotion/react": "*"
+    "@emotion/react": "^11.11.1"
   }
 }

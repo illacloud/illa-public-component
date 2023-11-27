@@ -1,11 +1,10 @@
 import { ReactNode } from "react"
-import { ReactComponent as FacebookIcon } from "../../asset/Facebook.svg"
-import { ReactComponent as HackerNewsIcon } from "../../asset/Hackernews.svg"
-import { ReactComponent as LinkedInIcon } from "../../asset/Linkedin.svg"
-import { ReactComponent as RedditIcon } from "../../asset/Reddit.svg"
-import { ReactComponent as WhatsAppIcon } from "../../asset/Whatsapp.svg"
-import { ReactComponent as XIcon } from "../../asset/X.svg"
-
+import FacebookIcon from "../../asset/Facebook.svg?react"
+import HackerNewsIcon from "../../asset/Hackernews.svg?react"
+import LinkedInIcon from "../../asset/Linkedin.svg?react"
+import RedditIcon from "../../asset/Reddit.svg?react"
+import WhatsAppIcon from "../../asset/Whatsapp.svg?react"
+import XIcon from "../../asset/X.svg?react"
 
 export interface ShareBlockProps {
   shareUrl: string

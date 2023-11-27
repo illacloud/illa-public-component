@@ -1,8 +1,8 @@
-import { actionRequest } from "@illa-public/illa-net"
+import { actionRequest, agentRequest } from "@illa-public/illa-net"
 import { notNeedAuthRequest } from "@illa-public/illa-net"
-import { ResourceContent, ResourceType } from "@illa-public/public-types"
+import { Agent, ResourceContent, ResourceType } from "@illa-public/public-types"
 
-interface IActionTestConnectionRequestData {
+export interface IActionTestConnectionRequestData {
   resourceID: string
   resourceName: string
   resourceType: ResourceType
@@ -30,4 +30,37 @@ export const fetchWhiteListIP = async () => {
     url: "https://peripheral-api.illasoft.com/v1/meta",
     method: "GET",
   })
+}
+
+export const forkAIAgentToTeam = (teamID: string, aiAgentID: string) => {
+  return agentRequest<Agent>({
+    url: `/aiAgent/${aiAgentID}/forkTo/teams/${teamID}`,
+    method: "POST",
+  })
+}
+
+export interface TeamAgentListData {
+  aiAgentList: Agent[]
+  totalAIAgentCount: number
+  totalPages: number
+}
+
+export const fetchTeamAgentListByPage = (
+  teamID: string,
+  page: number,
+  keywords: string = "",
+  signal?: AbortSignal,
+) => {
+  return agentRequest<TeamAgentListData>(
+    {
+      url: keywords
+        ? `/aiAgent/list/limit/10/page/${page}/sortBy/id/like/keywords/${keywords}`
+        : `/aiAgent/list/limit/10/page/${page}/sortBy/id`,
+      method: "GET",
+      signal,
+    },
+    {
+      teamID: teamID,
+    },
+  )
 }
