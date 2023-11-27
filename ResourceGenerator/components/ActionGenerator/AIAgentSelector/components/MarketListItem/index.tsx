@@ -7,7 +7,7 @@ import {
   PlayOutlineIcon,
   StarOutlineIcon,
 } from "@illa-design/react"
-import EmojiSmileIcon from "../../../../../assets/emojiSmile.svg"
+import EmojiSmileIcon from "../../../../../assets/emojiSmile.svg?react"
 import { MarketListItemProps } from "./interface"
 import {
   descStyle,
