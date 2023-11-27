@@ -2,24 +2,41 @@
   "name": "@illa-public/resource-generator",
   "version": "0.0.0",
   "private": true,
-  "main": "index.ts",
+  "main": "index.tsx",
   "dependencies": {
-    "@illa-public/utils": "workspace:*",
-    "@illa-public/mixpanel-utils": "workspace:*",
     "@illa-design/react": "workspace:*",
+    "@illa-public/icon": "workspace:*",
+    "@illa-public/icon-hot-spot": "workspace:*",
     "@illa-public/illa-net": "workspace:*",
+    "@illa-public/market-agent": "workspace:*",
+    "@illa-public/mixpanel-utils": "workspace:*",
+    "@illa-public/public-configs": "workspace:*",
     "@illa-public/public-types": "workspace:*",
-    "@illa-public/icon": "workspace:*"
+    "@illa-public/text-link": "workspace:*",
+    "@illa-public/user-data": "workspace:*",
+    "@illa-public/utils": "workspace:*",
+    "@types/uuid": "^9.0.7",
+    "lodash": "^4.17.21",
+    "react-hook-form": "^7.48.2",
+    "react-window": "^1.8.9",
+    "react-window-infinite-loader": "^1.0.9",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "tsconfig": "workspace:*",
-    "vite-plugin-svgr": "^2.1.0"
+    "@types/lodash": "^4.14.202",
+    "@types/node": "^18.14.4",
+    "@types/react-window": "^1.8.5",
+    "@types/react-window-infinite-loader": "^1.0.6",
+    "tsconfig": "workspace:*"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@emotion/react": "^11.11.1",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
-    "@emotion/react": "*"
+    "i18next": "^23.7.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^13.5.0",
+    "react-redux": "^8.1.3"
   }
 }

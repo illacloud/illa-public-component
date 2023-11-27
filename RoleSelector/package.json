@@ -5,20 +5,19 @@
   "main": "index.ts",
   "dependencies": {
     "@illa-public/user-data": "workspace:*",
-    "@illa-public/user-role-utils": "workspace:*"
+    "@illa-public/user-role-utils": "workspace:*",
+    "@illa-design/react": "workspace:*"
   },
   "devDependencies": {
-    "tsconfig": "workspace:*",
-    "vite-plugin-svgr": "^2.1.0"
+    "tsconfig": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
-    "@illa-design/react": "workspace:*",
-    "@emotion/react": "*",
-    "react-i18next": "^12.1.4",
-    "i18next": "^22.4.9"
+    "@emotion/react": "^11.11.1",
+    "react-i18next": "^13.5.0",
+    "i18next": "^23.7.6"
   }
 }

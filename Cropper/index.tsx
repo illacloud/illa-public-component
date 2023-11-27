@@ -14,7 +14,7 @@ import {
 import EasyCropper, { Area } from "react-easy-crop"
 import { useTranslation } from "react-i18next"
 import { Button, CloseIcon, Modal, Spin, useMessage } from "@illa-design/react"
-import { ReactComponent as RotateRightIcon } from "./assets/rotate-right.svg"
+import RotateRightIcon from "./assets/rotate-right.svg?react"
 import {
   FILE_INIT_ASPECT,
   FILE_INIT_CROP,

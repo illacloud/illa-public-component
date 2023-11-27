@@ -13,12 +13,12 @@
     "@illa-public/text-link": "workspace:*",
     "@illa-public/illa-net": "workspace:*",
     "@illa-public/public-configs": "workspace:*",
+    "@illa-design/react": "workspace:*",
     "react-router-dom": "^6.14.0"
   },
   "devDependencies": {
     "tsconfig": "workspace:*",
     "@types/node": "^18.14.4",
-    "vite-plugin-svgr": "^2.1.0",
     "@types/mdx": "^2.0.3"
   },
   "peerDependencies": {
@@ -26,9 +26,8 @@
     "react-dom": "^18.2.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
-    "@illa-design/react": "workspace:*",
-    "@emotion/react": "*",
-    "react-i18next": "^12.1.4",
-    "i18next": "^22.4.9"
+    "@emotion/react": "^11.11.1",
+    "react-i18next": "^13.5.0",
+    "i18next": "^23.7.6"
   }
 }

@@ -16,8 +16,8 @@ import {
   Modal,
   Trigger,
 } from "@illa-design/react"
-import { ReactComponent as TipIcon } from "./assets/pricing-tip.svg"
-import { ReactComponent as ModalDecorate } from "./assets/upgrad-modal-bg.svg"
+import TipIcon from "./assets/pricing-tip.svg?react"
+import ModalDecorate from "./assets/upgrad-modal-bg.svg?react"
 import {
   FEATURE_CONFIG,
   HIGHLIGHT_MAP,

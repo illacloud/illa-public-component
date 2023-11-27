@@ -1,6 +1,7 @@
-import { ReactComponent as MetaIcon } from "./assets/meta.svg"
-import { ReactComponent as OpenAIIcon } from "./assets/openai.svg"
-import { AI_AGENT_MODEL, LLM } from "./interface"
+import { AI_AGENT_MODEL } from "@illa-public/public-types"
+import MetaIcon from "./assets/meta.svg?react"
+import OpenAIIcon from "./assets/openai.svg?react"
+import { LLM } from "./interface"
 
 export const getLLM = (type: AI_AGENT_MODEL): LLM | undefined => {
   return allModelList.find((item) => item.value === type)
