@@ -30,8 +30,8 @@
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@emotion/react": "^11.11.1",
-    "react-i18next": "^12.1.4",
-    "i18next": "^22.4.9",
-    "react-redux": ">=8.0.5"
+    "react-i18next": "^13.5.0",
+    "i18next": "^23.7.6",
+    "react-redux": "^8.1.3"
   }
 }
