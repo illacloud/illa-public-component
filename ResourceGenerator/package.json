@@ -24,7 +24,6 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.202",
-    "@types/node": "^18.14.4",
     "@types/react-window": "^1.8.5",
     "@types/react-window-infinite-loader": "^1.0.6",
     "tsconfig": "workspace:*"
