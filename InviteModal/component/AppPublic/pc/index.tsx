@@ -200,7 +200,10 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             colorScheme={getColor("grayBlue", "02")}
             onChange={async (value) => {
               if (isCloudVersion && !canUseBillingFeature) {
-                upgradeModal({ modalType: "upgrade" })
+                upgradeModal({
+                  modalType: "upgrade",
+                  from: "app_share_public",
+                })
                 return
               }
               setAppPublic(value)

@@ -34,7 +34,7 @@ export const PCMemberPage: FC<IPcMemberListProps> = (props) => {
   const currentTeamLicense = currentTeamInfo.currentTeamLicense
   const upgradeDrawer = useUpgradeDrawer()
   const openDrawer = () => {
-    upgradeDrawer({
+    upgradeDrawer("member_page_manage_seats", {
       defaultConfig: {
         subscribeInfo: {
           quantity: currentTeamLicense.cancelAtPeriodEnd

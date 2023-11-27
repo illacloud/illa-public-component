@@ -1,11 +1,14 @@
 import { UpgradeIcon } from "@illa-public/icon"
+import { ILLA_MIXPANEL_EVENT_TYPE } from "@illa-public/mixpanel-utils"
 import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
+  USER_ROLE,
   getCurrentTeamInfo,
+  getCurrentUserID,
 } from "@illa-public/user-data"
-import { getILLACloudURL } from "@illa-public/utils"
-import { FC, useCallback, useMemo } from "react"
+import { getILLACloudURL, isSubscribeForDrawer } from "@illa-public/utils"
+import { FC, useCallback, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import {
@@ -16,6 +19,7 @@ import {
   Modal,
   Trigger,
 } from "@illa-design/react"
+import { track } from "../../utils"
 import TipIcon from "./assets/pricing-tip.svg?react"
 import ModalDecorate from "./assets/upgrad-modal-bg.svg?react"
 import {
@@ -45,13 +49,16 @@ import {
 export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
   const {
     visible,
+    from,
     configType = "upgrade",
     onCancel,
     handleLicenseDrawerVisible,
+    afterClose,
   } = props
   const { t } = useTranslation()
 
   const teamInfo = useSelector(getCurrentTeamInfo)
+  const userID = useSelector(getCurrentUserID)
 
   const { title, description, buttonText } = useMemo(() => {
     return UPGRADE_MODAL_CONFIG_KEY[configType]
@@ -81,6 +88,24 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
     })
   }, [onCancel, teamInfo?.currentTeamLicense, handleLicenseDrawerVisible])
 
+  const isSubscribe = isSubscribeForDrawer(teamInfo?.currentTeamLicense?.plan)
+  const reportElement = isSubscribe
+    ? "license_increase_modal"
+    : "license_subscribe_modal"
+
+  useEffect(() => {
+    teamInfo?.myRole &&
+      visible &&
+      from &&
+      track(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        { element: reportElement, parameter1: from },
+        USER_ROLE[teamInfo?.myRole],
+        teamInfo?.id,
+        userID,
+      )
+  }, [from, reportElement, teamInfo?.id, teamInfo?.myRole, userID, visible])
+
   return (
     <Modal
       z={2000}
@@ -91,6 +116,7 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
       footer={false}
       onCancel={onCancel}
       maskStyle={modalMaskStyle}
+      afterClose={afterClose}
     >
       <div css={modalCloseIconStyle} onClick={onCancel}>
         <CloseIcon size="12px" />

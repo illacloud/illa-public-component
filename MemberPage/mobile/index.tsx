@@ -72,10 +72,12 @@ export const MobileMemberPage: FC = () => {
     } else if (teamInfo?.totalTeamLicense?.balance < 0) {
       upgradeModal({
         modalType: "add-license",
+        from: "member_page_invite",
       })
     } else {
       upgradeModal({
         modalType: "upgrade",
+        from: "member_page_invite",
       })
     }
   }, [
@@ -86,7 +88,7 @@ export const MobileMemberPage: FC = () => {
   ])
   const currentTeamLicense = currentTeamInfo.currentTeamLicense
   const openDrawer = () => {
-    upgradeDrawer({
+    upgradeDrawer("member_page_manage_seats", {
       defaultConfig: {
         subscribeInfo: {
           quantity: currentTeamLicense.cancelAtPeriodEnd

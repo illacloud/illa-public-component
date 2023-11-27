@@ -1,11 +1,20 @@
 import { UpgradeIcon } from "@illa-public/icon"
-import { SUBSCRIPTION_CYCLE } from "@illa-public/user-data"
-import { FC } from "react"
+import { ILLA_MIXPANEL_EVENT_TYPE } from "@illa-public/mixpanel-utils"
+import {
+  SUBSCRIPTION_CYCLE,
+  USER_ROLE,
+  getCurrentTeamInfo,
+  getCurrentUserID,
+} from "@illa-public/user-data"
+import { isSubscribeForDrawer } from "@illa-public/utils"
+import { FC, useEffect } from "react"
 import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
 import { Button, CloseIcon, Modal } from "@illa-design/react"
 import { useCollarDrawer } from "../../hook"
 import { CollarModalType } from "../../interface"
 import { COLLAR_UNIT_PRICE } from "../../service/interface"
+import { track } from "../../utils"
 import CollarBg from "./assets/collarBg.svg?react"
 import { CollarModalProps } from "./interface"
 import {
@@ -26,6 +35,7 @@ import { getUnitDetailByPrice } from "./utils"
 export const CollarModal: FC<CollarModalProps> = (props) => {
   const {
     visible,
+    from,
     modalType = CollarModalType.TOKEN,
     onCancel,
     afterClose,
@@ -34,11 +44,31 @@ export const CollarModal: FC<CollarModalProps> = (props) => {
   const collarDrawer = useCollarDrawer()
 
   const { title, desc } = getUnitDetailByPrice(modalType)
+  const teamInfo = useSelector(getCurrentTeamInfo)
+  const userID = useSelector(getCurrentUserID)
+  const isSubscribe = isSubscribeForDrawer(teamInfo?.colla?.plan)
+
+  const reportElement = isSubscribe
+    ? "colla_increase_modal"
+    : "colla_subscribe_modal"
 
   const handleClick = () => {
     onCancel?.()
-    collarDrawer()
+    collarDrawer(from)
   }
+
+  useEffect(() => {
+    teamInfo?.myRole &&
+      visible &&
+      from &&
+      track(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        { element: reportElement, parameter1: from },
+        USER_ROLE[teamInfo?.myRole],
+        teamInfo?.id,
+        userID,
+      )
+  }, [from, reportElement, teamInfo?.id, teamInfo?.myRole, userID, visible])
 
   return (
     <Modal
