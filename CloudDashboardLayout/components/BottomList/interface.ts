@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 
 export interface BottomListProps {
-  onClickMenuItemCallback?: () => void
+  onClickMenuItemCallback?: (key: string) => void
   extBottomComponent?: ReactNode
 }

@@ -1,4 +1,8 @@
 import { InviteMemberMobile } from "@illa-public/invite-modal"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
 import { useUpgradeDrawer, useUpgradeModal } from "@illa-public/upgrade-modal"
 import { UsageCard } from "@illa-public/usage-card"
 import {
@@ -22,7 +26,7 @@ import {
   copyToClipboard,
   isCloudVersion,
 } from "@illa-public/utils"
-import { FC, useCallback, useState } from "react"
+import { FC, useCallback, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { Button, useMessage } from "@illa-design/react"
@@ -35,7 +39,6 @@ import {
   usageCardContainerStyle,
 } from "./style"
 
-
 export const MobileMemberPage: FC = () => {
   const { t } = useTranslation()
   const currentTeamInfo = useSelector(getCurrentTeamInfo)!
@@ -47,6 +50,8 @@ export const MobileMemberPage: FC = () => {
   const upgradeModal = useUpgradeModal()
   const upgradeDrawer = useUpgradeDrawer()
   const message = useMessage()
+  const { track } = useContext(MixpanelTrackContext)
+  const showInviteButton = showInviteModal(teamInfo)
 
   const hasPaymentManagementPermission = canManagePayment(
     currentTeamInfo.myRole,
@@ -55,6 +60,13 @@ export const MobileMemberPage: FC = () => {
   )
 
   const handleClickInviteButton = useCallback(() => {
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      {
+        element: "invite_entry",
+      },
+      "both",
+    )
     if (!isCloudVersion || teamInfo?.totalTeamLicense?.teamLicenseAllPaid) {
       setInviteModalVisible(true)
     } else if (teamInfo?.totalTeamLicense?.balance < 0) {
@@ -70,6 +82,7 @@ export const MobileMemberPage: FC = () => {
     teamInfo?.totalTeamLicense?.balance,
     teamInfo?.totalTeamLicense?.teamLicenseAllPaid,
     upgradeModal,
+    track,
   ])
   const currentTeamLicense = currentTeamInfo.currentTeamLicense
   const openDrawer = () => {
@@ -114,6 +127,17 @@ export const MobileMemberPage: FC = () => {
     },
     [currentUserInfo.nickname, message, t, teamInfo.name],
   )
+
+  useEffect(() => {
+    showInviteButton &&
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        {
+          element: "invite_entry",
+        },
+        "both",
+      )
+  }, [showInviteButton, track])
 
   return (
     <div css={mobileMemberContainerStyle}>
