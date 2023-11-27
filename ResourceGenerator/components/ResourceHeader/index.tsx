@@ -14,6 +14,7 @@ import {
   titleNameContainerStyle,
   titleNameStyle,
 } from "./style"
+import GoogleCreateButton from "../ConfigElements/ActionButtons/GoogleCreateButton"
 
 const NOT_NEED_TEST_CONNECT_RESOURCE_TYPE = [
   "restapi",
@@ -52,7 +53,11 @@ export const Header: FC<ResourceHeaderProps> = (props) => {
             {!NOT_NEED_TEST_CONNECT_RESOURCE_TYPE.includes(resourceType) && (
               <TestConnectButton resourceType={resourceType} />
             )}
-            <CreateButton />
+             {import.meta.env.ILLA_APP_ENV === "test" && resourceType === "googlesheets" ? (
+              <GoogleCreateButton />
+            ) : (
+              <CreateButton />
+            )}
           </div>
         </div>
       </div>
