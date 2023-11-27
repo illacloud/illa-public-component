@@ -8,7 +8,6 @@ import { Divider, WarningCircleIcon, getColor } from "@illa-design/react"
 import { ResourceGeneratorContext } from "../../../provider"
 import { urlValidate, validateNotEmpty } from "../../../utils"
 import { ControlledElement } from "../../ControlledElement"
-import "../ClickhouseConfigElement/style"
 import { BaseConfigElementProps } from "../interface"
 import {
   applyConfigItemLabelText,
