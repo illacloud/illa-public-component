@@ -12,6 +12,7 @@
     "@illa-public/user-role-utils": "workspace:*",
     "@illa-public/utils": "workspace:*",
     "@illa-design/react": "workspace:*",
+    "@illa-public/mixpanel-utils": "workspace:*",
     "react-router-dom": "^6.14.0",
     "react-use": "^17.4.0",
     "uuid": "^8.3.2"

@@ -85,6 +85,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
       ) {
         upgradeModal({
           modalType: "upgrade",
+          from: "invite_by_email",
         })
         return
       }

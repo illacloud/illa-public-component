@@ -56,10 +56,12 @@ export const Header: FC<IPcHeaderProps> = (props) => {
     } else if (teamInfo?.totalTeamLicense?.balance < 0) {
       upgradeModal({
         modalType: "add-license",
+        from: "member_page_invite",
       })
     } else {
       upgradeModal({
         modalType: "upgrade",
+        from: "member_page_invite",
       })
     }
   }, [teamInfo, upgradeModal, track])

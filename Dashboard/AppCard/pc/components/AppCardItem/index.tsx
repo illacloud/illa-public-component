@@ -141,6 +141,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
     ) {
       upgradeModal({
         modalType: "upgrade",
+        from: "app_card_more_share",
       })
       return
     }

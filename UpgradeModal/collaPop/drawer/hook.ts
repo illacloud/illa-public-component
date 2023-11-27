@@ -4,10 +4,12 @@ import { collarDrawerStore } from "./store"
 
 // collar
 const showCollarDrawerImpl = (
+  from: string,
   config?: Pick<CollarDrawerShowProps, "onSuccessCallback">,
 ) => {
   let drawer: CollarDrawerShowProps = {
     id: v4(),
+    from,
     onSuccessCallback: config?.onSuccessCallback,
   }
 
@@ -19,9 +21,10 @@ const showCollarDrawerImpl = (
 }
 
 const collarDrawerHandler = (
+  from: string,
   config?: Pick<CollarDrawerShowProps, "onSuccessCallback">,
 ) => {
-  return showCollarDrawerImpl(config)
+  return showCollarDrawerImpl(from, config)
 }
 
 export function useCollarDrawer() {
