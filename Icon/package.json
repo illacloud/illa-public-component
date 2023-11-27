@@ -9,8 +9,7 @@
     "@illa-design/react": "workspace:*"
   },
   "devDependencies": {
-    "tsconfig": "workspace:*",
-    "@types/node": "^18.14.4"
+    "tsconfig": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.2.0",

@@ -4,7 +4,6 @@
   "private": true,
   "main": "index.ts",
   "devDependencies": {
-    "@types/node": "^18.14.4",
     "tsconfig": "workspace:*"
   }
 }
