@@ -9,7 +9,7 @@ import { useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { Button } from "@illa-design/react"
-import { fetchActionTestConnection } from "../../../../service"
+import { onActionConfigElementTest } from "../../../../formUtils"
 import { TestConnectButtonProps } from "./interface"
 import { formatTestConnectValues } from "./utils"
 
@@ -26,21 +26,15 @@ export const TestConnectButton: FC<TestConnectButtonProps> = (props) => {
       element: "resource_configure_test",
       parameter5: resourceType,
     })
-    const data = getValues()
 
-    setIsTestLoading(true)
+    const data = getValues()
     const requestBody = {
       resourceID: data.resourceID,
       resourceName: data.resourceName,
       resourceType,
       content: formatTestConnectValues(data, resourceType) as ResourceContent,
     }
-    try {
-      await fetchActionTestConnection(currentTeamID, requestBody)
-    } catch {
-    } finally {
-      setIsTestLoading(false)
-    }
+    onActionConfigElementTest(currentTeamID, requestBody, setIsTestLoading)
   }, [track, resourceType, getValues, currentTeamID])
 
   return (

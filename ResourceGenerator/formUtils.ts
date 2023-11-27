@@ -16,7 +16,10 @@ import { ILLAPublicStorage } from "@illa-public/utils"
 import { FieldValues, UseFormHandleSubmit } from "react-hook-form"
 import { getI18n } from "react-i18next"
 import { createMessage } from "@illa-design/react"
-import { fetchActionTestConnection } from "./service"
+import {
+  IActionTestConnectionRequestData,
+  fetchActionTestConnection,
+} from "./service"
 import { getOAuthAccessToken, redirectToGoogleOAuth } from "./service/oAuth"
 import {
   requestCreateResource,
@@ -363,20 +366,12 @@ export function onActionConfigElementSubmit(
 
 export async function onActionConfigElementTest(
   teamID: string,
-  data: FieldValues,
-  content: ResourceContent,
-  resourceType: ResourceType,
+  data: IActionTestConnectionRequestData,
   loadingHandler: (value: boolean) => void,
 ) {
   loadingHandler(true)
-  const requestBody = {
-    resourceID: data.resourceID,
-    resourceName: data.resourceName,
-    resourceType,
-    content,
-  }
   try {
-    await fetchActionTestConnection(teamID, requestBody)
+    await fetchActionTestConnection(teamID, data)
     message.success({
       content: getI18n().t("dashboard.resource.test_success"),
     })
@@ -390,6 +385,7 @@ export async function onActionConfigElementTest(
         content: getI18n().t("dashboard.resource.test_fail"),
       })
     }
+  } finally {
+    loadingHandler(false)
   }
-  loadingHandler(false)
 }

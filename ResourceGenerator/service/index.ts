@@ -2,7 +2,7 @@ import { actionRequest, agentRequest } from "@illa-public/illa-net"
 import { notNeedAuthRequest } from "@illa-public/illa-net"
 import { Agent, ResourceContent, ResourceType } from "@illa-public/public-types"
 
-interface IActionTestConnectionRequestData {
+export interface IActionTestConnectionRequestData {
   resourceID: string
   resourceName: string
   resourceType: ResourceType
