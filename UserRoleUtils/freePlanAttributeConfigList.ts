@@ -1,4 +1,4 @@
-import { USER_ROLE } from "@illa-public/user-data"
+import { USER_ROLE } from "@illa-public/public-types"
 import {
   ACTION_ACCESS,
   ACTION_DELETE,

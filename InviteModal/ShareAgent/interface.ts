@@ -1,4 +1,4 @@
-import { SUBSCRIBE_PLAN } from "@illa-public/user-data"
+import { SUBSCRIBE_PLAN } from "@illa-public/public-types"
 import { AgentToMarketplaceProps } from "../component/AgentToMarketplace/interface"
 import { InviteByEmailProps } from "../component/InviteByEmail/interface"
 import { InviteLinkProps } from "../component/InviteLink/interface"

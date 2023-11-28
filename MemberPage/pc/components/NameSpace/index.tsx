@@ -1,5 +1,5 @@
 import { Avatar } from "@illa-public/avatar"
-import { USER_STATUS } from "@illa-public/user-data"
+import { USER_STATUS } from "@illa-public/public-types"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { NameSpaceProps } from "./interface"

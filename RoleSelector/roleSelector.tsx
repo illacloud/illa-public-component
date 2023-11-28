@@ -1,4 +1,4 @@
-import { USER_ROLE } from "@illa-public/user-data"
+import { USER_ROLE } from "@illa-public/public-types"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"

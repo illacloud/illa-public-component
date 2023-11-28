@@ -1,10 +1,6 @@
+import { SUBSCRIBE_PLAN, SUBSCRIPTION_CYCLE } from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
-import {
-  SUBSCRIBE_PLAN,
-  SUBSCRIPTION_CYCLE,
-  getCurrentTeamInfo,
-  getCurrentUserID,
-} from "@illa-public/user-data"
+import { getCurrentTeamInfo, getCurrentUserID } from "@illa-public/user-data"
 import { isMobileByWindowSize, isSubscribeForDrawer } from "@illa-public/utils"
 import { FC, useRef, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"

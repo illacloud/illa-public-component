@@ -1,4 +1,4 @@
-import { SUBSCRIBE_PLAN, SUBSCRIPTION_CYCLE } from "@illa-public/user-data"
+import { SUBSCRIBE_PLAN, SUBSCRIPTION_CYCLE } from "@illa-public/public-types"
 import { DrawerDefaultConfig } from "../../interface"
 
 export interface DrawerSubscribeInfo {

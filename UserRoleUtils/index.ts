@@ -1,9 +1,5 @@
-import {
-  SUBSCRIBE_PLAN,
-  TeamInfo,
-  USER_ROLE,
-  getPlanUtils,
-} from "@illa-public/user-data"
+import { SUBSCRIBE_PLAN, TeamInfo, USER_ROLE } from "@illa-public/public-types"
+import { getPlanUtils } from "@illa-public/user-data"
 import { isCloudVersion } from "@illa-public/utils"
 import { AttributeConfigList } from "./attributeConfigList"
 import { FreePlanAttributeConfigList } from "./freePlanAttributeConfigList"

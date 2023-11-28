@@ -3,7 +3,7 @@ import {
   SUBSCRIPTION_CYCLE,
   SubscribeInfo,
   TotalTeamLicense,
-} from "@illa-public/user-data"
+} from "@illa-public/public-types"
 
 export enum CUSTOM_CYCLE {
   LIFETIME = 3,

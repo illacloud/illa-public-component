@@ -1,5 +1,6 @@
 import { DOC_PREFIX } from "@illa-public/public-configs"
-import { USER_ROLE, getCurrentTeamInfo } from "@illa-public/user-data"
+import { USER_ROLE } from "@illa-public/public-types"
+import { getCurrentTeamInfo } from "@illa-public/user-data"
 import {
   getAuthToken,
   getILLABuilderURL,

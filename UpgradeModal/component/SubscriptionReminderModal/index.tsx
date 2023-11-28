@@ -1,9 +1,6 @@
 import { UpgradeIcon } from "@illa-public/icon"
-import {
-  SUBSCRIBE_PLAN,
-  SUBSCRIPTION_CYCLE,
-  getCurrentTeamInfo,
-} from "@illa-public/user-data"
+import { SUBSCRIBE_PLAN, SUBSCRIPTION_CYCLE } from "@illa-public/public-types"
+import { getCurrentTeamInfo } from "@illa-public/user-data"
 import { getILLACloudURL } from "@illa-public/utils"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"

@@ -6,7 +6,7 @@
   "dependencies": {
     "@illa-public/utils": "workspace:*",
     "@illa-public/user-role-utils": "workspace:*",
-    "@illa-public/user-data": "workspace:*",
+    "@illa-public/public-types": "workspace:*",
     "@illa-design/react": "workspace:*"
   },
   "devDependencies": {
