@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { authAPI } from ".."
 import {
   addTeamItemReducer,
   deleteMemberListReducer,
@@ -43,6 +44,15 @@ const teamSlice = createSlice({
     deleteTeamInfoReducer,
     updateCurrentTeamLicenseByTeamIDReducer,
     updateCurrentTeamInfoReducer,
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      authAPI.endpoints.getUserInfoAndTeamsInfoByToken.matchFulfilled,
+      (state, action) => {
+        state.items = action.payload.teams
+        state.currentId = action.payload.currentTeamID
+      },
+    )
   },
 })
 
