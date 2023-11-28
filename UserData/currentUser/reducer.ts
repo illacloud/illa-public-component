@@ -1,16 +1,16 @@
+import { CurrentUserInfo } from "@illa-public/public-types"
 import { CaseReducer, PayloadAction } from "@reduxjs/toolkit"
-import { CurrentUser } from "./interface"
 
 export const updateCurrentUserReducer: CaseReducer<
-  CurrentUser,
-  PayloadAction<CurrentUser>
+  CurrentUserInfo,
+  PayloadAction<CurrentUserInfo>
 > = (state, action) => {
   state = action.payload
   return state
 }
 
 export const updateUserAvatarReducer: CaseReducer<
-  CurrentUser,
+  CurrentUserInfo,
   PayloadAction<string>
 > = (state, action) => {
   if (!state) return
@@ -22,7 +22,7 @@ export const updateUserAvatarReducer: CaseReducer<
 }
 
 export const updateUserIsTutorialViewedReducer: CaseReducer<
-  CurrentUser,
+  CurrentUserInfo,
   PayloadAction<boolean>
 > = (state, action) => {
   if (!state) return
@@ -31,8 +31,8 @@ export const updateUserIsTutorialViewedReducer: CaseReducer<
 }
 
 export const updateUserInfoReducer: CaseReducer<
-  CurrentUser,
-  PayloadAction<Partial<CurrentUser>>
+  CurrentUserInfo,
+  PayloadAction<Partial<CurrentUserInfo>>
 > = (state, action) => {
   if (!state) return
   const { payload } = action

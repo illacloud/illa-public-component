@@ -1,4 +1,4 @@
-import { USER_ROLE, USER_STATUS } from "@illa-public/user-data"
+import { USER_ROLE, USER_STATUS } from "@illa-public/public-types"
 
 export interface ListItemProps {
   nickName: string

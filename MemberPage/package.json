@@ -19,7 +19,8 @@
     "@illa-public/upgrade-modal": "workspace:*",
     "react-hook-form": "^7.30.0",
     "copy-to-clipboard": "^3.3.2",
-    "@illa-design/react": "workspace:*"
+    "@illa-design/react": "workspace:*",
+    "@illa-public/public-types": "workspace:*"
   },
   "devDependencies": {
     "tsconfig": "workspace:*"

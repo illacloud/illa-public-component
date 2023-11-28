@@ -1,5 +1,5 @@
 import { UpgradeIcon } from "@illa-public/icon"
-import { SUBSCRIPTION_CYCLE } from "@illa-public/user-data"
+import { SUBSCRIPTION_CYCLE } from "@illa-public/public-types"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, CloseIcon, Modal } from "@illa-design/react"

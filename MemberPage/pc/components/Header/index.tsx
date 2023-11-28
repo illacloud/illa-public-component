@@ -1,9 +1,7 @@
 import { InviteMemberPC } from "@illa-public/invite-modal"
+import { MemberInfo, USER_ROLE, USER_STATUS } from "@illa-public/public-types"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import {
-  MemberInfo,
-  USER_ROLE,
-  USER_STATUS,
   getCurrentTeamInfo,
   getCurrentUser,
   teamActions,

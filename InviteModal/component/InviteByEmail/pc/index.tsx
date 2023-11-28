@@ -4,9 +4,9 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
+import { USER_ROLE } from "@illa-public/public-types"
 import { RoleSelector } from "@illa-public/role-selector"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
-import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { EMAIL_FORMAT, isCloudVersion } from "@illa-public/utils"
 import { FC, useContext, useState } from "react"

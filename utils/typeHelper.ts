@@ -19,3 +19,7 @@ export const isServerRender = (function () {
     return true
   }
 })()
+
+export const isInt = (val: string | number): boolean => {
+  return Number.isInteger(val) || (typeof val === "string" && /^\d+$/.test(val))
+}

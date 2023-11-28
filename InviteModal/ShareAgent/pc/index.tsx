@@ -2,7 +2,7 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
-import { USER_ROLE } from "@illa-public/user-data"
+import { USER_ROLE } from "@illa-public/public-types"
 import {
   ACTION_MANAGE,
   ATTRIBUTE_GROUP,

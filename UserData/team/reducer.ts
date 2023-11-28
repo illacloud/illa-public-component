@@ -1,4 +1,3 @@
-import { CaseReducer, PayloadAction } from "@reduxjs/toolkit"
 import {
   MemberInfo,
   SubscribeInfo,
@@ -10,7 +9,8 @@ import {
   UpdateTeamMemberUserRolePayload,
   UpdateTeamSubscribePayload,
   UpdateTransUserRolePayload,
-} from "./interface"
+} from "@illa-public/public-types"
+import { CaseReducer, PayloadAction } from "@reduxjs/toolkit"
 
 export const updateTeamReducer: CaseReducer<Team, PayloadAction<Team>> = (
   state,
