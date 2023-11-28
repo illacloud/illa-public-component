@@ -3,14 +3,16 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
-import { useUpgradeDrawer, useUpgradeModal } from "@illa-public/upgrade-modal"
-import { UsageCard } from "@illa-public/usage-card"
 import {
   MemberInfo,
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
   USER_ROLE,
   USER_STATUS,
+} from "@illa-public/public-types"
+import { useUpgradeDrawer, useUpgradeModal } from "@illa-public/upgrade-modal"
+import { UsageCard } from "@illa-public/usage-card"
+import {
   getCurrentTeamInfo,
   getCurrentUser,
   getPlanUtils,

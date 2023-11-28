@@ -8,6 +8,7 @@
     "@illa-public/illa-net": "workspace:*",
     "@illa-public/text-link": "workspace:*",
     "@illa-public/user-data": "workspace:*",
+    "@illa-public/public-types": "workspace:*",
     "@illa-public/user-role-utils": "workspace:*",
     "@illa-public/utils": "workspace:*",
     "@illa-design/react": "workspace:*",

@@ -1,12 +1,11 @@
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@illa-public/mixpanel-utils"
-import { TextLink } from "@illa-public/text-link"
 import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
   USER_ROLE,
-  getCurrentTeamInfo,
-  getCurrentUserID,
-} from "@illa-public/user-data"
+} from "@illa-public/public-types"
+import { TextLink } from "@illa-public/text-link"
+import { getCurrentTeamInfo, getCurrentUserID } from "@illa-public/user-data"
 import { isMobileByWindowSize, isSubscribeForDrawer } from "@illa-public/utils"
 import { FC, useEffect, useRef, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"

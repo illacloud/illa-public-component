@@ -1,11 +1,7 @@
 import { UpgradeIcon } from "@illa-public/icon"
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@illa-public/mixpanel-utils"
-import {
-  SUBSCRIPTION_CYCLE,
-  USER_ROLE,
-  getCurrentTeamInfo,
-  getCurrentUserID,
-} from "@illa-public/user-data"
+import { SUBSCRIPTION_CYCLE, USER_ROLE } from "@illa-public/public-types"
+import { getCurrentTeamInfo, getCurrentUserID } from "@illa-public/user-data"
 import { isSubscribeForDrawer } from "@illa-public/utils"
 import { FC, useEffect } from "react"
 import { useTranslation } from "react-i18next"

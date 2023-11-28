@@ -4,11 +4,8 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
-import {
-  USER_ROLE,
-  getCurrentTeamInfo,
-  teamActions,
-} from "@illa-public/user-data"
+import { USER_ROLE } from "@illa-public/public-types"
+import { getCurrentTeamInfo, teamActions } from "@illa-public/user-data"
 import { isCloudVersion } from "@illa-public/utils"
 import { FC, MouseEvent, useCallback, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"

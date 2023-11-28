@@ -1,6 +1,6 @@
+import { USER_ROLE } from "@illa-public/public-types"
 import { RoleSelector } from "@illa-public/role-selector"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
-import { USER_ROLE } from "@illa-public/user-data"
 import {
   isBiggerThanTargetRole,
   isSmallThanTargetRole,

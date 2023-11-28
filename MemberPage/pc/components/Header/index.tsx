@@ -3,11 +3,9 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
+import { MemberInfo, USER_ROLE, USER_STATUS } from "@illa-public/public-types"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import {
-  MemberInfo,
-  USER_ROLE,
-  USER_STATUS,
   getCurrentTeamInfo,
   getCurrentUser,
   teamActions,

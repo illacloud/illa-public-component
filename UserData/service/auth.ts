@@ -1,7 +1,7 @@
 import { HTTP_REQUEST_PUBLIC_BASE_URL } from "@illa-public/illa-net"
+import { CurrentUserInfo, TeamInfo } from "@illa-public/public-types"
 import { getAuthToken } from "@illa-public/utils"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { CurrentUser, TeamInfo } from ".."
 
 export const authAPI = createApi({
   reducerPath: "authAPI",
@@ -21,7 +21,7 @@ export const authAPI = createApi({
   endpoints: (builder) => ({
     getUserInfoAndTeamsInfoByToken: builder.query<
       {
-        user: CurrentUser
+        user: CurrentUserInfo
         teams: TeamInfo[]
         currentTeamID: string | undefined
       },
@@ -34,7 +34,7 @@ export const authAPI = createApi({
             error: userInfoResult.error,
           }
         }
-        const userInfo = userInfoResult.data as CurrentUser
+        const userInfo = userInfoResult.data as CurrentUserInfo
         const teamInfoResult = await fetchWithBQ("teams/my")
         if (teamInfoResult.error) {
           return {

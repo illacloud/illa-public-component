@@ -4,7 +4,7 @@
   "private": true,
   "main": "index.ts",
   "dependencies": {
-    "@illa-public/user-data": "workspace:*",
+    "@illa-public/public-types": "workspace:*",
     "@illa-public/user-role-utils": "workspace:*",
     "@illa-design/react": "workspace:*"
   },

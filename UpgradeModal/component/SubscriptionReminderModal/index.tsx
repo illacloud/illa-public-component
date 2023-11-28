@@ -4,9 +4,8 @@ import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
   USER_ROLE,
-  getCurrentTeamInfo,
-  getCurrentUserID,
-} from "@illa-public/user-data"
+} from "@illa-public/public-types"
+import { getCurrentTeamInfo, getCurrentUserID } from "@illa-public/user-data"
 import { getILLACloudURL, isSubscribeForDrawer } from "@illa-public/utils"
 import { FC, useCallback, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"

@@ -1,9 +1,11 @@
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@illa-public/mixpanel-utils"
-import { TextLink } from "@illa-public/text-link"
 import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
   USER_ROLE,
+} from "@illa-public/public-types"
+import { TextLink } from "@illa-public/text-link"
+import {
   getCurrentId,
   getCurrentTeamInfo,
   getCurrentUserID,

@@ -4,6 +4,7 @@
   "private": true,
   "main": "index.ts",
   "dependencies": {
+    "@illa-public/public-types": "workspace:*",
     "@illa-public/user-data": "workspace:*",
     "@illa-public/utils": "workspace:*"
   },
