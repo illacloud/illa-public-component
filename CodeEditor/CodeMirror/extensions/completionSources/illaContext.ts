@@ -3,7 +3,7 @@ import {
   CompletionContext,
   CompletionResult,
 } from "@codemirror/autocomplete"
-import { getStringSnippets } from "../../utils"
+import { getStringSnippets } from "@illa-public/utils"
 
 const isObject = (value: unknown): value is Record<string, unknown> => {
   return typeof value === "object" && value !== null && !Array.isArray(value)
@@ -86,11 +86,14 @@ export const buildIllaContextCompletionSource = (
       return null
     }
 
-    const completeOptionsObject = completeOptions.reduce((result, value) => {
-      const { key, value: valueValue } = value
-      result[key] = valueValue
-      return result
-    }, {} as Record<string, unknown>)
+    const completeOptionsObject = completeOptions.reduce(
+      (result, value) => {
+        const { key, value: valueValue } = value
+        result[key] = valueValue
+        return result
+      },
+      {} as Record<string, unknown>,
+    )
 
     const dataInfo = getDataInfo(completeOptionsObject, validString.text)
     if (!dataInfo) {
