@@ -1,12 +1,14 @@
+import { ILLA_MIXPANEL_EVENT_TYPE } from "@illa-public/mixpanel-utils"
 import { TextLink } from "@illa-public/text-link"
 import {
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
+  USER_ROLE,
   getCurrentTeamInfo,
   getCurrentUserID,
 } from "@illa-public/user-data"
 import { isMobileByWindowSize, isSubscribeForDrawer } from "@illa-public/utils"
-import { FC, useRef, useState } from "react"
+import { FC, useEffect, useRef, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { useWindowSize } from "react-use"
@@ -27,7 +29,7 @@ import {
   COLLAR_UNIT_BY_CYCLE,
   COLLAR_UNIT_PRICE,
 } from "../../service/interface"
-import { getSuccessRedirectWithParams } from "../../utils"
+import { getSuccessRedirectWithParams, track } from "../../utils"
 import { Calculator } from "../Calculator"
 import {
   COLLAR_BUTTON_TEXT,
@@ -57,7 +59,7 @@ import {
 import { getBtnText, getCurrentCollarType, getDescription } from "./utils"
 
 export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
-  const { onCancel, visible, afterClose, onSuccessCallback } = props
+  const { onCancel, visible, afterClose, onSuccessCallback, from } = props
   const { t } = useTranslation()
 
   const { width } = useWindowSize()
@@ -77,7 +79,7 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
     },
   ]
 
-  const currentTeamInfo = useSelector(getCurrentTeamInfo)
+  const currentTeamInfo = useSelector(getCurrentTeamInfo)!
   const userID = useSelector(getCurrentUserID)
 
   const isSubScribe = isSubscribeForDrawer(currentTeamInfo?.colla?.plan)
@@ -118,6 +120,8 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
   const calculatorNum =
     currentTeamInfo?.colla?.cycle === cycle ? changeNum : currentQuantity
 
+  const reportElement = isSubScribe ? "colla_manage" : "colla_subscribe"
+
   const handleNumChange = (value?: number) => {
     setCurrentQuantity(value ?? 1)
     if (currentTeamInfo?.colla?.cycle !== cycle && isSubScribe) {
@@ -156,7 +160,17 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
   const handleSubscribe = async () => {
     if (loading || !currentTeamInfo || !currentTeamInfo?.id) return
     setLoading(true)
-
+    track(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      {
+        element: "billing_side_bar_upgrade_or_manage_button",
+        parameter1: from,
+        parameter2: reportElement,
+      },
+      USER_ROLE[currentTeamInfo?.myRole],
+      currentTeamInfo?.id,
+      userID,
+    )
     const successRedirect = getSuccessRedirectWithParams({
       returnTo: window.location.href,
       purchaseStatus: "success",
@@ -238,6 +252,29 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
       onCancel?.()
     }
   }
+
+  useEffect(() => {
+    from &&
+      visible &&
+      track(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        {
+          element: "billing_side_bar",
+          parameter1: from,
+          parameter2: reportElement,
+        },
+        USER_ROLE[currentTeamInfo?.myRole],
+        currentTeamInfo?.id,
+        userID,
+      )
+  }, [
+    currentTeamInfo?.id,
+    currentTeamInfo?.myRole,
+    from,
+    userID,
+    visible,
+    reportElement,
+  ])
 
   return (
     <Drawer

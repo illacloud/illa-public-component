@@ -20,6 +20,7 @@ export const UpgradeLicenseDrawer: FC = () => {
   return (
     <UpgradeDrawer
       visible={drawer.visible}
+      from={drawer.from}
       defaultConfig={drawer.defaultConfig || {}}
       onCancel={() => {
         if (drawer.id) {

@@ -132,6 +132,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
             ) {
               upgradeModal({
                 modalType: "add-license",
+                from: "invite_by_email",
               })
               return
             }

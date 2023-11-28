@@ -1,3 +1,7 @@
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
 import { DOC_PREFIX } from "@illa-public/public-configs"
 import { USER_ROLE, getCurrentTeamInfo } from "@illa-public/user-data"
 import {
@@ -5,7 +9,7 @@ import {
   getILLABuilderURL,
   useIsMobile,
 } from "@illa-public/utils"
-import { FC } from "react"
+import { FC, useContext, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
@@ -24,6 +28,13 @@ export const BottomList: FC<BottomListProps> = (props) => {
   const { teamIdentifier } = useParams()
   const currentTeamInfo = useSelector(getCurrentTeamInfo)
   const isMobile = useIsMobile()
+  const { track } = useContext(MixpanelTrackContext)
+  const showTutorial =
+    !isMobile &&
+    teamIdentifier &&
+    [USER_ROLE.ADMIN, USER_ROLE.EDITOR, USER_ROLE.OWNER].includes(
+      currentTeamInfo?.myRole ?? USER_ROLE.VIEWER,
+    )
 
   const bottomList: MenuItemShape[] = [
     {
@@ -52,12 +63,7 @@ export const BottomList: FC<BottomListProps> = (props) => {
       labelKey: "tutorial",
       href: `${getILLABuilderURL()}/${teamIdentifier}/guide?token=${getAuthToken()}`,
       icon: <TutorialIcon />,
-      hidden:
-        isMobile ||
-        !teamIdentifier ||
-        ![USER_ROLE.ADMIN, USER_ROLE.EDITOR, USER_ROLE.OWNER].includes(
-          currentTeamInfo?.myRole ?? USER_ROLE.VIEWER,
-        ),
+      hidden: !showTutorial,
       onClickCallback: onClickMenuItemCallback,
     },
     {
@@ -70,6 +76,17 @@ export const BottomList: FC<BottomListProps> = (props) => {
     },
   ]
 
+  useEffect(() => {
+    if (showTutorial) {
+      track(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        {
+          element: "menu_tutorial",
+        },
+        "both",
+      )
+    }
+  }, [showTutorial, track])
   return (
     <>
       <DynamicMenu config={bottomList} />

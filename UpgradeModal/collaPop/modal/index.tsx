@@ -30,7 +30,7 @@ export const UpgradeCollarModal: FC = () => {
 
   const collarModal = useMemo(() => {
     if (!modal) return null
-    if (currentTeamInfo && !canManageThisCollar && modal.visible) {
+    if (!currentTeamInfo || !canManageThisCollar) {
       message.info({
         content: t(OPERATION_NO_PERMISSION[modal.modalType]),
       })
@@ -41,6 +41,7 @@ export const UpgradeCollarModal: FC = () => {
       <CollarModal
         modalType={modal.modalType}
         visible={modal.visible}
+        from={modal.from}
         onCancel={() => {
           if (modal.id) {
             modalStore.update({ ...modal, visible: false })

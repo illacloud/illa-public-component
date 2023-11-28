@@ -15,7 +15,7 @@ import {
 export const InsufficientNoticeModal: FC<InsufficientNoticeModalProps> = (
   props,
 ) => {
-  const { visible, configType = "add-license", onCancel } = props
+  const { visible, configType = "add-license", onCancel, afterClose } = props
   const { t } = useTranslation()
 
   const { title, description, buttonText } = useMemo(() => {
@@ -32,6 +32,7 @@ export const InsufficientNoticeModal: FC<InsufficientNoticeModalProps> = (
       autoFocus={false}
       maskStyle={modalMaskStyle}
       visible={visible}
+      afterClose={afterClose}
     >
       <div css={modalCloseIconStyle} onClick={onCancel}>
         <CloseIcon size="12px" />

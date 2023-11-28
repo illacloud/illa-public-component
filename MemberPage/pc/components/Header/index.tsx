@@ -1,4 +1,8 @@
 import { InviteMemberPC } from "@illa-public/invite-modal"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
 import {
   MemberInfo,
@@ -19,7 +23,7 @@ import {
   copyToClipboard,
   isCloudVersion,
 } from "@illa-public/utils"
-import { FC, useCallback, useState } from "react"
+import { FC, useCallback, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { Button, useMessage } from "@illa-design/react"
@@ -37,20 +41,32 @@ export const Header: FC<IPcHeaderProps> = (props) => {
   const currentUserRole = teamInfo?.myRole ?? USER_ROLE.VIEWER
   const upgradeModal = useUpgradeModal()
   const message = useMessage()
+  const { track } = useContext(MixpanelTrackContext)
+
+  const showInviteButton = showInviteModal(teamInfo)
 
   const handleClickInviteButton = useCallback(() => {
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      {
+        element: "invite_entry",
+      },
+      "both",
+    )
     if (openInviteModal(teamInfo)) {
       setInviteModalVisible(true)
     } else if (teamInfo?.totalTeamLicense?.balance < 0) {
       upgradeModal({
         modalType: "add-license",
+        from: "member_page_invite",
       })
     } else {
       upgradeModal({
         modalType: "upgrade",
+        from: "member_page_invite",
       })
     }
-  }, [teamInfo, upgradeModal])
+  }, [teamInfo, upgradeModal, track])
 
   const handleCopy = useCallback(
     (inviteLink: string) => {
@@ -74,6 +90,17 @@ export const Header: FC<IPcHeaderProps> = (props) => {
     [currentUserInfo.nickname, message, t, teamInfo.name],
   )
 
+  useEffect(() => {
+    showInviteButton &&
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        {
+          element: "invite_entry",
+        },
+        "both",
+      )
+  }, [showInviteButton, track])
+
   return (
     <>
       <div css={headerWrapperStyle}>
@@ -86,7 +113,7 @@ export const Header: FC<IPcHeaderProps> = (props) => {
                 currentUserRole,
                 false,
               ))) && <MoreAction afterLeaveTeam={afterLeaveTeam} />}
-          {showInviteModal(teamInfo) && (
+          {showInviteButton && (
             <Button
               w="200px"
               colorScheme="techPurple"

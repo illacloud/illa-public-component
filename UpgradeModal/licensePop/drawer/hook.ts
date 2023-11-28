@@ -1,11 +1,15 @@
 import { v4 } from "uuid"
-import { ModalHandler } from "../../interface"
 import { DrawerShowProps } from "./interface"
 import { drawerStore } from "./store"
 
-const showDrawerImpl = (drawer: DrawerShowProps) => {
-  if (!drawer.id) {
-    drawer.id = v4()
+const showDrawerImpl = (
+  from: string,
+  config: Pick<DrawerShowProps, "defaultConfig">,
+) => {
+  let drawer: DrawerShowProps = {
+    id: v4(),
+    from,
+    defaultConfig: config.defaultConfig,
   }
   if (!drawer.visible) {
     drawer.visible = true
@@ -14,11 +18,14 @@ const showDrawerImpl = (drawer: DrawerShowProps) => {
   return drawer.id
 }
 
-const drawerHandler = (config: Pick<DrawerShowProps, "defaultConfig">) => {
-  return showDrawerImpl(config)
+const drawerHandler = (
+  from: string,
+  config: Pick<DrawerShowProps, "defaultConfig">,
+) => {
+  return showDrawerImpl(from, config)
 }
 
-export function useUpgradeDrawer(): ModalHandler<DrawerShowProps> {
+export function useUpgradeDrawer() {
   return drawerHandler
 }
 

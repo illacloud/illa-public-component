@@ -20,9 +20,9 @@ export const UpgradeLicenseModal: FC = () => {
 
   const handleLicenseDrawerVisible = useCallback(
     (_: boolean, config: DrawerDefaultConfig) => {
-      drawer({ defaultConfig: config })
+      drawer(modal?.from!, { defaultConfig: config })
     },
-    [drawer],
+    [drawer, modal?.from],
   )
 
   const canPay = canManagePayment(
@@ -52,6 +52,8 @@ export const UpgradeLicenseModal: FC = () => {
                 }
               }}
               handleLicenseDrawerVisible={handleLicenseDrawerVisible}
+              afterClose={() => modalStore.remove()}
+              from={modal.from}
             />
           ) : (
             <InsufficientNoticeModal
@@ -62,6 +64,7 @@ export const UpgradeLicenseModal: FC = () => {
                   modalStore.update({ ...modal, visible: false })
                 }
               }}
+              afterClose={() => modalStore.remove()}
             />
           )}
         </>
