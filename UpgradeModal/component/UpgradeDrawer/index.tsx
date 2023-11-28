@@ -10,7 +10,7 @@ import {
   getCurrentTeamInfo,
   getCurrentUserID,
 } from "@illa-public/user-data"
-import { isMobileByWindowSize, isSubscribeForDrawer } from "@illa-public/utils"
+import { isMobileByWindowSize } from "@illa-public/utils"
 import { FC, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -29,7 +29,11 @@ import {
 import { PURCHASE_TYPE } from "../../interface"
 import { cancelSubscribe, modifySubscribe, subscribe } from "../../service"
 import { LICENSE_UNIT_PRICE } from "../../service/interface"
-import { getSuccessRedirectWithParams, track } from "../../utils"
+import {
+  getSuccessRedirectWithParams,
+  isSubscribeForDrawer,
+  track,
+} from "../../utils"
 import { LEARN_MORE_LINK } from "./constants"
 import { UpgradeDrawerProps } from "./interface"
 import {

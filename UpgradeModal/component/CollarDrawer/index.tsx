@@ -6,7 +6,7 @@ import {
 } from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
 import { getCurrentTeamInfo, getCurrentUserID } from "@illa-public/user-data"
-import { isMobileByWindowSize, isSubscribeForDrawer } from "@illa-public/utils"
+import { isMobileByWindowSize } from "@illa-public/utils"
 import { FC, useEffect, useRef, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -28,7 +28,11 @@ import {
   COLLAR_UNIT_BY_CYCLE,
   COLLAR_UNIT_PRICE,
 } from "../../service/interface"
-import { getSuccessRedirectWithParams, track } from "../../utils"
+import {
+  getSuccessRedirectWithParams,
+  isSubscribeForDrawer,
+  track,
+} from "../../utils"
 import { Calculator } from "../Calculator"
 import {
   COLLAR_BUTTON_TEXT,

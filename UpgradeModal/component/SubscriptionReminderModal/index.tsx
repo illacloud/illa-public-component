@@ -6,7 +6,7 @@ import {
   USER_ROLE,
 } from "@illa-public/public-types"
 import { getCurrentTeamInfo, getCurrentUserID } from "@illa-public/user-data"
-import { getILLACloudURL, isSubscribeForDrawer } from "@illa-public/utils"
+import { getILLACloudURL } from "@illa-public/utils"
 import { FC, useCallback, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -18,7 +18,7 @@ import {
   Modal,
   Trigger,
 } from "@illa-design/react"
-import { track } from "../../utils"
+import { isSubscribeForDrawer, track } from "../../utils"
 import TipIcon from "./assets/pricing-tip.svg?react"
 import ModalDecorate from "./assets/upgrad-modal-bg.svg?react"
 import {
