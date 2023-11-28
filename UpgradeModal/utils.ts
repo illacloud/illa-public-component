@@ -97,3 +97,19 @@ export const isSubscribeForDrawer = (subscribePlan?: SUBSCRIBE_PLAN) => {
     subscribePlan === SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_PAID
   )
 }
+
+export const track = (
+  event: ILLA_MIXPANEL_EVENT_TYPE,
+  properties: Omit<ILLAProperties, "page"> = {},
+  userType: string,
+  teamID: string | undefined,
+  userID: string | undefined,
+) => {
+  ILLAMixpanel.track(event, {
+    page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.PLACEHOLDER,
+    ...properties,
+    team_id: teamID ?? "-1",
+    user_id: userID ?? "-1",
+    parameter11: userType,
+  })
+}
