@@ -1,7 +1,6 @@
-import { CurrentUser } from "./currentUser"
-import { Team } from "./team"
+import { CurrentUserInfo, Team } from "@illa-public/public-types"
 
 export type RootState = {
-  currentUser: CurrentUser
+  currentUser: CurrentUserInfo
   team: Team
 }

@@ -1,15 +1,5 @@
-export enum USER_ROLE {
-  "GUEST" = -1,
-  "OWNER" = 1,
-  "ADMIN",
-  "EDITOR",
-  "VIEWER",
-}
+import { USER_ROLE, USER_STATUS } from "../user"
 
-export enum USER_STATUS {
-  "OK" = 1,
-  "PENDING" = 2,
-}
 export interface MemberInfo {
   teamMemberID: string
   userID: string

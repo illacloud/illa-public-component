@@ -1,6 +1,6 @@
-import { CurrentUser } from "./interface"
+import { CurrentUserInfo } from "@illa-public/public-types"
 
-export const CurrentUserInitialState: CurrentUser = {
+export const CurrentUserInitialState: CurrentUserInfo = {
   userID: "",
   uid: "",
   nickname: "",

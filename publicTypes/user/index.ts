@@ -1,3 +1,16 @@
+export enum USER_ROLE {
+  "GUEST" = -1,
+  "OWNER" = 1,
+  "ADMIN",
+  "EDITOR",
+  "VIEWER",
+}
+
+export enum USER_STATUS {
+  "OK" = 1,
+  "PENDING" = 2,
+}
+
 export interface BaseUserInfo {
   userID: string
   uid: string
@@ -12,7 +25,7 @@ export interface BaseUserInfo {
   updatedAt: string
 }
 
-export interface CurrentUser extends BaseUserInfo {
+export interface CurrentUserInfo extends BaseUserInfo {
   isTutorialViewed?: boolean
   ssoVerified?: {
     github: boolean
