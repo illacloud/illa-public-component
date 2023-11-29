@@ -163,7 +163,7 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
   const handleSubscribe = async () => {
     if (loading || !currentTeamInfo || !currentTeamInfo?.id) return
     setLoading(true)
-    track(
+    track?.(
       ILLA_MIXPANEL_EVENT_TYPE.CLICK,
       {
         element: "billing_side_bar_upgrade_or_manage_button",
@@ -259,7 +259,7 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
   useEffect(() => {
     from &&
       visible &&
-      track(
+      track?.(
         ILLA_MIXPANEL_EVENT_TYPE.SHOW,
         {
           element: "billing_side_bar",
