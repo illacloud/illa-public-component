@@ -3,11 +3,12 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
+import { USER_ROLE, USER_STATUS } from "@illa-public/public-types"
 import {
   FREE_TEAM_LIMIT_TYPE,
   handleFreeTeamLimitError,
 } from "@illa-public/upgrade-modal"
-import { USER_ROLE, USER_STATUS, teamActions } from "@illa-public/user-data"
+import { teamActions } from "@illa-public/user-data"
 import { isSmallThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, useCallback, useContext, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"

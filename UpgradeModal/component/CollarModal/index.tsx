@@ -1,12 +1,12 @@
 import { UpgradeIcon } from "@illa-public/icon"
-import { SUBSCRIPTION_CYCLE } from "@illa-public/user-data"
+import { SUBSCRIPTION_CYCLE } from "@illa-public/public-types"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, CloseIcon, Modal } from "@illa-design/react"
 import { useCollarDrawer } from "../../hook"
 import { CollarModalType } from "../../interface"
 import { COLLAR_UNIT_PRICE } from "../../service/interface"
-import { ReactComponent as CollarBg } from "./assets/collarBg.svg"
+import CollarBg from "./assets/collarBg.svg?react"
 import { CollarModalProps } from "./interface"
 import {
   decorateStyle,

@@ -95,7 +95,7 @@ export type ResourceContent =
   | SnowflakeResource<SnowflakeAuthenticationType>
   | AirtableResource
 
-export interface Resource<T extends ResourceContent> {
+export interface Resource<T extends ResourceContent = ResourceContent> {
   resourceID: string
   resourceName: string
   resourceType: ResourceType

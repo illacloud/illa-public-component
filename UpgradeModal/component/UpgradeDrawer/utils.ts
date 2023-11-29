@@ -1,6 +1,6 @@
-import { SUBSCRIPTION_CYCLE } from "@illa-public/user-data"
-import { isSubscribeForDrawer } from "@illa-public/utils"
+import { SUBSCRIPTION_CYCLE } from "@illa-public/public-types"
 import { DrawerDefaultConfig } from "../../interface"
+import { isSubscribeForDrawer } from "../../utils"
 import { DrawerSubscribeInfo } from "./interface"
 
 export const isCancelSubscribe = (quantity: number) => quantity === 0

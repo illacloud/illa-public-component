@@ -1,12 +1,12 @@
+import { USER_ROLE } from "@illa-public/public-types"
 import { RoleSelector } from "@illa-public/role-selector"
 import { useUpgradeModal } from "@illa-public/upgrade-modal"
-import { USER_ROLE } from "@illa-public/user-data"
 import { isBiggerThanTargetRole } from "@illa-public/user-role-utils"
 import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, useMergeValue, useMessage } from "@illa-design/react"
-import { ReactComponent as DisableInviteIcon } from "../../../asset/DisableInviteLink.svg"
-import { ReactComponent as InviteIcon } from "../../../asset/InviteLink.svg"
+import DisableInviteIcon from "../../../asset/DisableInviteLink.svg?react"
+import InviteIcon from "../../../asset/InviteLink.svg?react"
 import { InviteLinkProps } from "../interface"
 import {
   disableInviteLink,

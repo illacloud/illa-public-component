@@ -1,4 +1,4 @@
-import { USER_STATUS } from "@illa-public/user-data"
+import { USER_STATUS } from "@illa-public/public-types"
 
 export interface NameSpaceProps {
   name: string

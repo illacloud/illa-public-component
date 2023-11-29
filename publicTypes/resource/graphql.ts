@@ -42,7 +42,7 @@ export enum APIKeyAddToValue {
   URLPARAMS = "urlParams",
 }
 
-export interface GraphQLResource<T extends GraphQLAuth> {
+export interface GraphQLResource<T extends GraphQLAuth = GraphQLAuth> {
   baseUrl: string
   urlParams: Params[]
   headers: Params[]

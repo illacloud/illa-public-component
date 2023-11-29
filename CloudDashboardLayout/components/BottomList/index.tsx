@@ -1,5 +1,6 @@
 import { DOC_PREFIX } from "@illa-public/public-configs"
-import { USER_ROLE, getCurrentTeamInfo } from "@illa-public/user-data"
+import { USER_ROLE } from "@illa-public/public-types"
+import { getCurrentTeamInfo } from "@illa-public/user-data"
 import {
   getAuthToken,
   getILLABuilderURL,
@@ -10,11 +11,11 @@ import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { Divider } from "@illa-design/react"
-import { ReactComponent as DiscordIcon } from "../../assets/discord.svg"
-import { ReactComponent as FileIcon } from "../../assets/file.svg"
-import { ReactComponent as IssueIcon } from "../../assets/issue.svg"
-import { ReactComponent as SettingIcon } from "../../assets/setting.svg"
-import { ReactComponent as TutorialIcon } from "../../assets/tutorial.svg"
+import DiscordIcon from "../../assets/discord.svg?react"
+import FileIcon from "../../assets/file.svg?react"
+import IssueIcon from "../../assets/issue.svg?react"
+import SettingIcon from "../../assets/setting.svg?react"
+import TutorialIcon from "../../assets/tutorial.svg?react"
 import { DynamicMenu, MenuItemShape } from "../Menu"
 import { BottomListProps } from "./interface"
 

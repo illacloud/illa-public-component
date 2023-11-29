@@ -1,7 +1,7 @@
 import { ERROR_FLAG, isILLAAPiError } from "@illa-public/illa-net"
+import { USER_ROLE } from "@illa-public/public-types"
 import { RoleSelector } from "@illa-public/role-selector"
 import {
-  USER_ROLE,
   getCurrentMemberList,
   getCurrentTeamInfo,
   teamActions,

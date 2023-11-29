@@ -3,8 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "main": "index.ts",
+  "dependencies": {
+    "@illa-public/illa-net": "workspace:*",
+    "@illa-public/utils": "workspace:*",
+    "@illa-public/public-types": "workspace:*"
+  },
   "devDependencies": {
-    "@types/node": "^18.14.4",
     "tsconfig": "workspace:*"
   },
   "peerDependencies": {
@@ -12,7 +16,7 @@
     "react-dom": "^18.2.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
-    "@reduxjs/toolkit": ">=1.9.1",
-    "react-redux": ">=8.0.5"
+    "@reduxjs/toolkit": "^1.9.7",
+    "react-redux": "^8.1.3"
   }
 }

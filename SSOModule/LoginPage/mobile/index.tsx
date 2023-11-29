@@ -69,7 +69,7 @@ export const MobileLogin: FC<loginProps> = (props) => {
     <form css={formStyle} onSubmit={handleSubmit(onSubmit)}>
       <header css={headerStyle}>
         <div css={formTitleStyle}>{t("page.user.sign_in.title")}</div>
-        {!hideRegister && (
+        {!hideRegister && isCloudVersion && (
           <div css={descriptionStyle}>
             <Trans
               i18nKey="page.user.sign_in.description.register"
@@ -131,8 +131,8 @@ export const MobileLogin: FC<loginProps> = (props) => {
               return value === "root"
                 ? true
                 : EMAIL_FORMAT.test(value)
-                ? true
-                : t("page.user.sign_up.error_message.email.invalid_pattern")
+                  ? true
+                  : t("page.user.sign_up.error_message.email.invalid_pattern")
             },
           }}
         />

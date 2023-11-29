@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { authAPI } from "../service/auth"
 import {
   updateCurrentUserReducer,
   updateUserAvatarReducer,
@@ -15,6 +16,15 @@ const currentUserSlice = createSlice({
     updateUserAvatarReducer,
     updateUserIsTutorialViewedReducer,
     updateUserInfoReducer,
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      authAPI.endpoints.getUserInfoAndTeamsInfoByToken.matchFulfilled,
+      (state, action) => {
+        state = action.payload.user
+        return state
+      },
+    )
   },
 })
 

@@ -1,6 +1,5 @@
 import { authCloudRequest } from "@illa-public/illa-net"
-import { USER_ROLE } from "@illa-public/user-data"
-
+import { USER_ROLE } from "@illa-public/public-types"
 
 export interface InviteLinkResp {
   inviteLink: string

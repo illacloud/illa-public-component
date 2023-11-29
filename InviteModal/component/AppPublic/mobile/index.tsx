@@ -2,7 +2,7 @@ import { getMarketLinkTemplate } from "@illa-public/utils"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "@illa-design/react"
-import { ReactComponent as InviteIcon } from "../../../asset/InviteLink.svg"
+import InviteIcon from "../../../asset/InviteLink.svg?react"
 import { ShareBlockMobile } from "../../ShareBlock/mobile"
 import { AppPublicProps } from "../interface"
 import {

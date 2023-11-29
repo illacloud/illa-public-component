@@ -1,6 +1,6 @@
+import { SUBSCRIBE_PLAN, TeamInfo, USER_ROLE } from "@illa-public/public-types"
 import { createSelector } from "@reduxjs/toolkit"
 import { RootState } from "../store"
-import { SUBSCRIBE_PLAN, TeamInfo, USER_ROLE } from "./interface"
 
 export const getCurrentId = (state: RootState) => {
   return state.team.currentId
