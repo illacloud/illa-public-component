@@ -80,7 +80,7 @@ export const PCLogin: FC<loginProps> = (props) => {
       <form css={gridFormStyle} onSubmit={handleSubmit(onSubmit)}>
         <header css={gridItemStyle}>
           <div css={formTitleStyle}>{t("page.user.sign_in.title")}</div>
-          {!hideRegister && (
+          {!hideRegister && isCloudVersion && (
             <div css={descriptionStyle}>
               <Trans
                 i18nKey="page.user.sign_in.description.register"
@@ -150,10 +150,10 @@ export const PCLogin: FC<loginProps> = (props) => {
                     return value === "root"
                       ? true
                       : EMAIL_FORMAT.test(value)
-                      ? true
-                      : t(
-                          "page.user.sign_up.error_message.email.invalid_pattern",
-                        )
+                        ? true
+                        : t(
+                            "page.user.sign_up.error_message.email.invalid_pattern",
+                          )
                   },
                 }}
               />

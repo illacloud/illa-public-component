@@ -299,25 +299,26 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
                 }
                 onClick={handleOpenAppSettingModal}
               />
-              {showShareAppModal(
-                teamInfo,
-                teamInfo.myRole,
-                appConfig.public,
-                appConfig.publishedToMarketplace,
-                appDeployed,
-              ) && (
-                <DropListItem
-                  key="share"
-                  value="share"
-                  title={
-                    <div>
-                      <DependencyIcon mr="8px" />
-                      <span>{t("dashboard.common.share")}</span>
-                    </div>
-                  }
-                  onClick={handleOpenInviteModal}
-                />
-              )}
+              {isCloudVersion &&
+                showShareAppModal(
+                  teamInfo,
+                  teamInfo.myRole,
+                  appConfig.public,
+                  appConfig.publishedToMarketplace,
+                  appDeployed,
+                ) && (
+                  <DropListItem
+                    key="share"
+                    value="share"
+                    title={
+                      <div>
+                        <DependencyIcon mr="8px" />
+                        <span>{t("dashboard.common.share")}</span>
+                      </div>
+                    }
+                    onClick={handleOpenInviteModal}
+                  />
+                )}
               <DropListItem
                 key="duplicate"
                 value="duplicate"
@@ -351,6 +352,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
           />
         </Dropdown>
       ) : (
+        isCloudVersion &&
         showShareAppModal(
           teamInfo,
           teamInfo.myRole,
@@ -409,7 +411,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
         }}
         pageName={pageName}
       >
-        {shareVisible && (
+        {shareVisible && isCloudVersion && (
           <ShareAppPC
             itemID={appID}
             onInvitedChange={(userList) => {
