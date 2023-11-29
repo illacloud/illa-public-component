@@ -170,21 +170,23 @@ export const PCLogin: FC<loginProps> = (props) => {
               <label css={formLabelStyle}>
                 {t("page.user.sign_in.fields.password")}
               </label>
-              <TextLink
-                css={forgotPwdStyle}
-                onClick={() => {
-                  ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
-                    page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
-                    element: "forget_password",
-                  })
-                  navigate({
-                    pathname: "/forgotPassword",
-                    search: location.search,
-                  })
-                }}
-              >
-                {t("page.user.sign_in.description.forgot_password")}
-              </TextLink>
+              {isCloudVersion && (
+                <TextLink
+                  css={forgotPwdStyle}
+                  onClick={() => {
+                    ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                      page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.LOGIN,
+                      element: "forget_password",
+                    })
+                    navigate({
+                      pathname: "/forgotPassword",
+                      search: location.search,
+                    })
+                  }}
+                >
+                  {t("page.user.sign_in.description.forgot_password")}
+                </TextLink>
+              )}
             </div>
             <div css={gridValidStyle}>
               <Controller
