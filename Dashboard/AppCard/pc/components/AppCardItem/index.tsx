@@ -326,7 +326,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
                 }
                 onClick={handleOpenAppSettingModal}
               />
-              {canShowShareButton && (
+              {isCloudVersion && canShowShareButton && (
                 <DropListItem
                   key="share"
                   value="share"
@@ -372,6 +372,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
           />
         </Dropdown>
       ) : (
+        isCloudVersion &&
         canShowShareButton && (
           <Dropdown
             position="bottom-end"
@@ -411,7 +412,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
         }}
         pageName={pageName}
       >
-        {shareVisible && (
+        {isCloudVersion && shareVisible && (
           <ShareAppPC
             itemID={appID}
             onInvitedChange={(userList) => {
