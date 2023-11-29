@@ -38,7 +38,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
   const { track } = useContext(MixpanelTrackContext)
 
   const handleTabChange = (activeKey: string) => {
-    track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+    track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
       element: "share_modal_tab",
       parameter2: activeKey,
       parameter5: props.agentID,

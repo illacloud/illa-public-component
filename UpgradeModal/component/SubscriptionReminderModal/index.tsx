@@ -96,7 +96,7 @@ export const SubscriptionReminderModal: FC<UpgradeModalProps> = (props) => {
     teamInfo?.myRole &&
       visible &&
       from &&
-      track(
+      track?.(
         ILLA_MIXPANEL_EVENT_TYPE.SHOW,
         { element: reportElement, parameter1: from },
         USER_ROLE[teamInfo?.myRole],

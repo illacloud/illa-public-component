@@ -122,7 +122,7 @@ export const InviteByEmailPC: FC<InviteByEmailProps> = (props) => {
           colorScheme={getColor("grayBlue", "02")}
           loading={inviting}
           onClick={async () => {
-            track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+            track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
               element: "share_modal_send",
               parameter5: itemID,
             })

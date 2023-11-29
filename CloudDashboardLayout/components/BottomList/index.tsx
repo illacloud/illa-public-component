@@ -79,7 +79,7 @@ export const BottomList: FC<BottomListProps> = (props) => {
 
   useEffect(() => {
     if (showTutorial) {
-      track(
+      track?.(
         ILLA_MIXPANEL_EVENT_TYPE.SHOW,
         {
           element: "menu_tutorial",

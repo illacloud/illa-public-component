@@ -169,7 +169,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     const { subscribeInfo } = defaultConfig
     if (loading || !teamID) return
     setLoading(true)
-    track(
+    track?.(
       ILLA_MIXPANEL_EVENT_TYPE.CLICK,
       {
         element: "billing_side_bar_upgrade_or_manage_button",
@@ -243,7 +243,7 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
   useEffect(() => {
     visible &&
       from &&
-      track(
+      track?.(
         ILLA_MIXPANEL_EVENT_TYPE.SHOW,
         {
           element: "billing_side_bar",
