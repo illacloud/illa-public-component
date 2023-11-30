@@ -8,6 +8,7 @@ import {
   S3ReadOneContent,
   S3UploadContent,
   S3UploadMultipleContent,
+  S3_CONTENT_TYPE,
 } from "@illa-public/public-types"
 
 export const S3ListAllContentInitial: S3ListAllContent = {
@@ -45,18 +46,20 @@ export const S3DeleteMultipleContentInitial: S3DeleteMultipleContent = {
 
 export const S3UploadContentInitial: S3UploadContent = {
   bucketName: "",
-  contentType: "",
+  contentType: S3_CONTENT_TYPE.STRING,
   objectKey: "",
   objectData: "",
   expiry: "{{1}}",
+  fx: false,
 }
 
 export const S3UploadMultipleContentInitial: S3UploadMultipleContent = {
   bucketName: "",
-  contentType: "",
+  contentType: S3_CONTENT_TYPE.STRING,
   objectKeyList: "",
   objectDataList: "",
   expiry: "{{1}}",
+  fx: false,
 }
 
 export interface S3Action<T extends S3ActionTypeContent> {
