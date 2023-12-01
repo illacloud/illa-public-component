@@ -8,4 +8,5 @@ export interface MobileCardItemProps {
   appActivity: AppActivity
   description?: string
   editorInfo?: EditorInfo[]
+  showLaunchButton?: boolean
 }
