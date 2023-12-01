@@ -51,22 +51,29 @@ export interface S3DeleteMultipleContent {
   objectKeyList: string
 }
 
-export type S3ContentType = "base64" | "text" | "binary"
+export const enum S3_CONTENT_TYPE {
+  STRING = "text/plain",
+  JSON = "application/json",
+  CSV = "text/csv",
+  BINARY = "binary",
+}
 
 export interface S3UploadContent {
   bucketName: string
-  contentType: string
+  contentType: S3_CONTENT_TYPE
   objectKey: string
   objectData: string
   expiry: string
+  fx: boolean
 }
 
 export interface S3UploadMultipleContent {
   bucketName: string
-  contentType: string
+  contentType: S3_CONTENT_TYPE
   objectKeyList: string
   objectDataList: string
   expiry: string
+  fx: boolean
 }
 
 export type S3ActionTypeContent =
