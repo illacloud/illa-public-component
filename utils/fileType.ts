@@ -44,6 +44,25 @@ export const matchRules = (rules: string[], contentType: string) => {
   return rules.some((rule) => contentType.startsWith(rule))
 }
 
+export const isFile = (contentType: string) => {
+  let mimes = [
+    IMAGE_FILE_TYPE_RULES,
+    EXCEL_FILE_TYPE_RULES,
+    WORD_FILE_TYPE_RULES,
+    AUDIO_FILE_TYPE_RULES,
+    VIDEO_FILE_TYPE_RULES,
+    PDF_FILE_TYPE_RULES,
+    PPT_FILE_TYPE_RULES,
+    ZIP_FILE_TYPE_RULES,
+  ]
+  for (let rules of mimes) {
+    if (rules.some((rule) => contentType.startsWith(rule))) {
+      return true
+    }
+  }
+  return false
+}
+
 export enum ILLA_DRIVE_OBJECT_TYPE {
   IMAGE = "image",
   VIDEO = "video",
