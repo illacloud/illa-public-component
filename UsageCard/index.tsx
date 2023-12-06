@@ -120,7 +120,7 @@ export const UsageCard: FC<UsageCardProps> = (props) => {
       <Progress
         _css={progressStyle}
         color={
-          percent > 75 ? getColor("red", "03") : getColor("techPurple", "01")
+          percent > 75 ? getColor("red", "03") : getColor("techPurple", "03")
         }
         w={"100%"}
         percent={percent > 100 ? 100 : percent}
