@@ -46,7 +46,7 @@ export const EmailCode: FC<EmailCodeProps> = (props) => {
         valueStyle={{
           fontSize: "inherit",
           lineHeight: "inherit",
-          color: getColor("techPurple", "01"),
+          color: getColor("techPurple", "03"),
         }}
         onFinish={() => {
           onCountDownChange(false)
