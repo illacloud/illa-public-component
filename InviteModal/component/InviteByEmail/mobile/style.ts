@@ -38,7 +38,7 @@ export const licenseLabelStyle = css`
 
 export function applyLicenseNumberStyle(isEnough: boolean): SerializedStyles {
   return css`
-    color: ${isEnough ? getColor("techPurple", "01") : getColor("red", "03")};
+    color: ${isEnough ? getColor("techPurple", "03") : getColor("red", "03")};
     font-size: 12px;
     font-style: normal;
     font-weight: 400;

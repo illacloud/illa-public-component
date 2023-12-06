@@ -11,14 +11,14 @@ export const applyEditorWrapperStyle = (editable: boolean) => css`
     transition-property: border;
     &.cm-focused {
       z-index: 1;
-      border: 1px solid ${getColor("techPurple", "01")} !important;
+      border: 1px solid ${getColor("techPurple", "03")} !important;
     }
     .cm-line {
       padding: 0 ${editable ? "16px" : "0"};
     }
     :hover {
       border: ${editable
-        ? `1px solid ${getColor("techPurple", "06")}`
+        ? `1px solid ${getColor("techPurple", "07")}`
         : "none"};
     }
   }
