@@ -20,6 +20,7 @@ export interface IFlowInfoShape {
   config: IFlowConfig
   updatedBy: string
   updatedAt: string
+  deployed: boolean
   workflowActivity: ActivityInfo
   editedBy?: EditorInfo[]
 }

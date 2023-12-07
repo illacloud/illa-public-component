@@ -333,7 +333,7 @@ export const publicDriveRequest = async <
   })
 }
 
-export const FlowRequest = async <
+export const flowRequest = async <
   ResponseData = unknown,
   RequestData = unknown,
 >(
