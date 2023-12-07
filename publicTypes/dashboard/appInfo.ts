@@ -1,7 +1,4 @@
-export interface AppActivity {
-  modifier: string
-  modifiedAt: string
-}
+import { ActivityInfo, EditorInfo } from "./publicInfo"
 
 export interface AppConfig {
   public: boolean
@@ -11,21 +8,13 @@ export interface AppConfig {
   description?: string
 }
 
-export interface EditorInfo {
-  userID: string
-  nickname: string
-  avatar: string
-  email: string
-  editedAt: string
-}
-
 export interface AppInfoShape {
   appId: string
   appName: string
   deployed: boolean
   updatedAt: string
   updatedBy: string
-  appActivity: AppActivity
+  appActivity: ActivityInfo
   config: AppConfig
   editedBy?: EditorInfo[]
 }
