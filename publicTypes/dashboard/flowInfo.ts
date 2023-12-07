@@ -10,13 +10,25 @@ export interface IFlowConfig {
   flowNodes: null
 }
 
+export enum FLOW_ACTIVE_STATUS {
+  ACTIVE = 1,
+  INACTIVE = 2,
+}
+
+export enum FLOW_RUNNING_STATUS {
+  SCHEDULING = 1,
+  RUNNING = 2,
+  STOPPED = 3,
+  ERROR = 4,
+}
+
 export interface IFlowInfoShape {
   workflowID: string
   uid: string
   teamID: string
   workflowName: string
-  active: number // wait to enum
-  runningStatus: number // wait to enum
+  active: FLOW_ACTIVE_STATUS
+  runningStatus: FLOW_RUNNING_STATUS
   config: IFlowConfig
   updatedBy: string
   updatedAt: string
