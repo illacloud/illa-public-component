@@ -1,6 +1,6 @@
 import { css } from "@emotion/react"
-import { getColor } from "@illa-design/react"
 import { applyMobileStyle } from "@illa-public/utils"
+import { getColor } from "@illa-design/react"
 
 export const drawerMaskStyle = css`
   background-color: ${getColor("white", "05")};
@@ -111,7 +111,7 @@ export const priceTotalStyle = css`
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  color: ${getColor("techPurple", "01")};
+  color: ${getColor("techPurple", "03")};
   margin-bottom: 4px;
 
   ${applyMobileStyle(css`

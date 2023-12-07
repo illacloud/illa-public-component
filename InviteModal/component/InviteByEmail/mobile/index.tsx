@@ -73,7 +73,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
   const handleInvite = useCallback(
     async (e: KeyboardEvent<HTMLInputElement>) => {
       if (!currentValue) return
-      track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+      track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
         element: "share_modal_send",
         parameter5: itemID,
       })
@@ -85,6 +85,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
       ) {
         upgradeModal({
           modalType: "upgrade",
+          from: "invite_by_email",
         })
         return
       }

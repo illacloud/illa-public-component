@@ -34,8 +34,8 @@ export const cardContainerStyle = css`
   flex: none;
   cursor: pointer;
   &:hover {
-    border: 1px solid ${getColor("techPurple", "01")};
-    background: ${getColor("techPurple", "07")};
+    border: 1px solid ${getColor("techPurple", "03")};
+    background: ${getColor("techPurple", "08")};
     box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
   }
 `

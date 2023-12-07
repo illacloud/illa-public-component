@@ -84,7 +84,7 @@ export const AgentToMarketplacePC: FC<AgentToMarketplaceProps> = (props) => {
                 checked={agentContributed}
                 colorScheme={getColor("grayBlue", "02")}
                 onChange={async (value) => {
-                  track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                  track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
                     element: "share_modal_contribute_switch",
                     parameter2: !value,
                     parameter5: agentID,
