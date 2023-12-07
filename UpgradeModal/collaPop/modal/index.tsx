@@ -1,5 +1,5 @@
 import { getCurrentTeamInfo, getPlanUtils } from "@illa-public/user-data"
-import { canManageCollar } from "@illa-public/user-role-utils"
+import { canManagePayment } from "@illa-public/user-role-utils"
 import { FC, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -14,7 +14,7 @@ export const UpgradeCollarModal: FC = () => {
   const currentTeamInfo = useSelector(getCurrentTeamInfo)
   const message = useMessage()
   const { t } = useTranslation()
-  const canManageThisCollar = canManageCollar(
+  const canManageThisCollar = canManagePayment(
     currentTeamInfo?.myRole,
     getPlanUtils(currentTeamInfo),
   )
