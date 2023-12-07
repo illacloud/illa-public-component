@@ -30,3 +30,10 @@ export const getPublicLinkTemplate = (
 export const getAgentPublicLink = (agentID: string): string => {
   return `${process.env.ILLA_MARKET_URL}/ai-agent/${agentID}/detail`
 }
+
+export const getFlowEditLink = (
+  teamIdentify: string,
+  flowID: string,
+): string => {
+  return `${process.env.ILLA_FLOW_URL}/${teamIdentify}/flow/${flowID}`
+}

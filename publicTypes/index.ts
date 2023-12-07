@@ -2,7 +2,9 @@ export * from "./public"
 
 export * from "./resource"
 
-export * from "./appInfo"
+export * from "./dashboard/appInfo"
+export * from "./dashboard/flowInfo"
+export * from "./dashboard/publicInfo"
 
 export * from "./appScheme"
 

@@ -3,9 +3,9 @@ import { isCloudVersion } from "@illa-public/utils"
 export const HTTP_REQUEST_PUBLIC_BASE_URL = isCloudVersion
   ? `https://${process.env.ILLA_API_BASE_URL}`
   : // if use self-host,must has protocol,like this:http://localhost:8080
-  process.env.ILLA_API_BASE_URL
-  ? `${location.protocol}//${process.env.ILLA_API_BASE_URL}`
-  : `${location.origin}`
+    process.env.ILLA_API_BASE_URL
+    ? `${location.protocol}//${process.env.ILLA_API_BASE_URL}`
+    : `${location.origin}`
 
 export const BUILDER_REQUEST_PREFIX = "/builder/api/v1"
 export const BUILDER_WS_REQUEST_PREFIX = "/builder-ws/api/v1"
@@ -14,6 +14,7 @@ export const ACTION_REQUEST_PREFIX = "/action/api/v1"
 export const DRIVE_REQUEST_PREFIX = "/drive/api/v1"
 export const PUBLIC_DRIVE_REQUEST_PREFIX = "/drive/f"
 export const AGENT_REQUEST_PREFIX = "/resource-manager/api/v1"
+export const WORKFLOW_REQUEST_PREFIX = "/flow/api/v1"
 
 export const MARKETPLACE_AUTH_REQUEST_PREFIX = "/marketplace/api/v1/auth"
 export const MARKETPLACE_AUTH_PRODUCT_REQUEST_PREFIX =
