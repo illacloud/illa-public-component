@@ -12,8 +12,7 @@
     "@illa-public/invite-modal": "workspace:*",
     "@illa-public/public-configs": "workspace:*",
     "@illa-design/react": "workspace:*",
-    "@illa-public/mixpanel-utils": "workspace:*",
-    "react-router-dom": "^6.4.4"
+    "@illa-public/mixpanel-utils": "workspace:*"
   },
   "devDependencies": {
     "tsconfig": "workspace:*"
