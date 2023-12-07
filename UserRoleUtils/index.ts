@@ -269,14 +269,6 @@ export const canManage = (
   return !!manageAttribute?.[attribute]
 }
 
-export const isSubscribeLicense = (subscribePlan?: SUBSCRIBE_PLAN) => {
-  return (
-    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS ||
-    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE ||
-    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM
-  )
-}
-
 export const canAccessManage = (
   userRole: USER_ROLE = USER_ROLE.VIEWER,
   teamPlan: SUBSCRIBE_PLAN = SUBSCRIBE_PLAN.TEAM_LICENSE_FREE,
@@ -551,19 +543,6 @@ export const openShareAgentModal = (
       )
     )
   }
-}
-
-export const canManageCollar = (
-  userRole: USER_ROLE = USER_ROLE.VIEWER,
-  teamPlan: SUBSCRIBE_PLAN = SUBSCRIBE_PLAN.TEAM_LICENSE_FREE,
-) => {
-  const manageAttribute = getAttribute(
-    userRole,
-    ATTRIBUTE_GROUP.BILLING,
-    teamPlan,
-  ).manageAttribute
-
-  return !!manageAttribute?.[ACTION_MANAGE.MANAGE_COLLAR]
 }
 
 export const canCreateApp = (
