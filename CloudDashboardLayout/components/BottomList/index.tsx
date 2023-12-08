@@ -68,6 +68,12 @@ export const BottomList: FC<BottomListProps> = (props) => {
       onClickCallback: onClickMenuItemCallback,
     },
     {
+      labelName: t("page.left.menu.changelog"),
+      labelKey: "change-log",
+      icon: <TutorialIcon />,
+      onClickCallback: onClickMenuItemCallback,
+    },
+    {
       labelName: t("page.left.menu.setting"),
       labelKey: "setting",
       href: "/setting",
