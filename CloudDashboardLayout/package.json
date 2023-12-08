@@ -11,7 +11,8 @@
     "@illa-public/user-role-utils": "workspace:*",
     "@illa-public/invite-modal": "workspace:*",
     "@illa-public/public-configs": "workspace:*",
-    "@illa-design/react": "workspace:*"
+    "@illa-design/react": "workspace:*",
+    "@illa-public/mixpanel-utils": "workspace:*"
   },
   "devDependencies": {
     "tsconfig": "workspace:*"

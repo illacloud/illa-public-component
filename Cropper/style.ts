@@ -36,8 +36,8 @@ export const controlStyle = css`
   border-radius: 2px;
   background:
     linear-gradient(
-        ${getColor("techPurple", "01")},
-        ${getColor("techPurple", "01")}
+        ${getColor("techPurple", "03")},
+        ${getColor("techPurple", "03")}
       )
       no-repeat,
     ${getColor("grayBlue", "08")};
@@ -47,7 +47,7 @@ export const controlStyle = css`
   &::-moz-range-thumb {
     -webkit-appearance: none;
     -moz-appearance: none;
-    border: 2px solid ${getColor("techPurple", "01")};
+    border: 2px solid ${getColor("techPurple", "03")};
     border-radius: 50%;
     width: 12px;
     height: 12px;
@@ -57,7 +57,7 @@ export const controlStyle = css`
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     -moz-appearance: none;
-    border: 2px solid ${getColor("techPurple", "01")};
+    border: 2px solid ${getColor("techPurple", "03")};
     background: ${getColor("white", "01")};
     border-radius: 50%;
     width: 12px;
@@ -182,13 +182,13 @@ export const mobileControlStyle = css`
   border-radius: 4rem;
 
   &::-moz-range-thumb {
-    border: 4rem solid ${getColor("techPurple", "01")};
+    border: 4rem solid ${getColor("techPurple", "03")};
     width: 24rem;
     height: 24rem;
   }
 
   &::-webkit-slider-thumb {
-    border: 4rem solid ${getColor("techPurple", "01")};
+    border: 4rem solid ${getColor("techPurple", "03")};
     width: 24rem;
     height: 24rem;
   }

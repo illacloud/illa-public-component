@@ -120,7 +120,7 @@ const FirebaseConfigElement: FC<BaseConfigElementProps> = (props) => {
             showArrow={false}
           >
             <div css={labelContainer}>
-              <span css={applyConfigItemLabelText(getColor("red", "02"))}>
+              <span css={applyConfigItemLabelText(getColor("red", "03"))}>
                 *
               </span>
               <span css={applyConfigItemLabelText(getColor("grayBlue", "02"))}>

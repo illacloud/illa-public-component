@@ -71,7 +71,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
           colorScheme="grayBlue"
           withoutBorderLine
           onChange={(activeKey) => {
-            track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+            track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
               element: "share_modal_tab",
               parameter2: activeKey,
               parameter5: props.agentID,

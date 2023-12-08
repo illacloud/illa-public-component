@@ -96,7 +96,11 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
       }
       successCallBack?.(teamID)
     } catch (error) {
-      const res = handleCollaPurchaseError(error, CollarModalType.STORAGE)
+      const res = handleCollaPurchaseError(
+        error,
+        CollarModalType.STORAGE,
+        "billing_storage_balance_manage",
+      )
       if (res) return
       if (driveVolume?.plan && isSubscribeForDrawer(driveVolume?.plan)) {
         message.error({

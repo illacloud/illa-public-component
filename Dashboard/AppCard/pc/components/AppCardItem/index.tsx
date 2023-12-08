@@ -79,6 +79,14 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
     teamInfo.permission.allowViewerManageTeamMember,
   )
 
+  const canShowShareButton = showShareAppModal(
+    teamInfo,
+    teamInfo.myRole,
+    appConfig.public,
+    appConfig.publishedToMarketplace,
+    appDeployed,
+  )
+
   const canUseBillingFeature = canUseUpgradeFeature(
     teamInfo.myRole,
     getPlanUtils(teamInfo),
@@ -118,7 +126,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
     track?.(
       ILLA_MIXPANEL_EVENT_TYPE.CLICK,
       {
-        element: "app_share",
+        element: "invite_entry",
         parameter5: appID,
       },
       "both",
@@ -133,6 +141,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
     ) {
       upgradeModal({
         modalType: "upgrade",
+        from: "app_card_more_share",
       })
       return
     }
@@ -211,7 +220,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
     })
   }, [track, appID, modal, t, message, deleteApp])
 
-  const onVisibleChange = useCallback(
+  const onVisibleChangeForEdit = useCallback(
     (visible: boolean) => {
       if (visible) {
         track?.(
@@ -229,15 +238,33 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
           { element: "app_delete", parameter5: appID },
           "both",
         )
-        appDeployed &&
+        canShowShareButton &&
           track?.(
             ILLA_MIXPANEL_EVENT_TYPE.SHOW,
-            { element: "app_share", parameter5: appID },
+            { element: "invite_entry", parameter5: appID },
             "both",
           )
       }
     },
-    [appDeployed, appID, track],
+    [appID, track, canShowShareButton],
+  )
+
+  const onVisibleChangeForView = useCallback(
+    (visible: boolean) => {
+      if (visible) {
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+          { element: "app_more", parameter5: appID },
+          "both",
+        )
+        track?.(
+          ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+          { element: "invite_entry", parameter5: appID },
+          "both",
+        )
+      }
+    },
+    [appID, track],
   )
 
   useEffect(() => {
@@ -285,7 +312,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
         <Dropdown
           position="bottom-end"
           trigger="click"
-          onVisibleChange={onVisibleChange}
+          onVisibleChange={onVisibleChangeForEdit}
           dropList={
             <DropList w={"184px"}>
               <DropListItem
@@ -299,26 +326,19 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
                 }
                 onClick={handleOpenAppSettingModal}
               />
-              {isCloudVersion &&
-                showShareAppModal(
-                  teamInfo,
-                  teamInfo.myRole,
-                  appConfig.public,
-                  appConfig.publishedToMarketplace,
-                  appDeployed,
-                ) && (
-                  <DropListItem
-                    key="share"
-                    value="share"
-                    title={
-                      <div>
-                        <DependencyIcon mr="8px" />
-                        <span>{t("dashboard.common.share")}</span>
-                      </div>
-                    }
-                    onClick={handleOpenInviteModal}
-                  />
-                )}
+              {canShowShareButton && (
+                <DropListItem
+                  key="share"
+                  value="share"
+                  title={
+                    <div>
+                      <DependencyIcon mr="8px" />
+                      <span>{t("dashboard.common.share")}</span>
+                    </div>
+                  }
+                  onClick={handleOpenInviteModal}
+                />
+              )}
               <DropListItem
                 key="duplicate"
                 value="duplicate"
@@ -352,14 +372,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
           />
         </Dropdown>
       ) : (
-        isCloudVersion &&
-        showShareAppModal(
-          teamInfo,
-          teamInfo.myRole,
-          appConfig.public,
-          appConfig.publishedToMarketplace,
-          appDeployed,
-        ) && (
+        canShowShareButton && (
           <Dropdown
             position="bottom-end"
             trigger="click"
@@ -367,20 +380,7 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
               closeDelay: 0,
               openDelay: 0,
             }}
-            onVisibleChange={(visible) => {
-              if (visible) {
-                track?.(
-                  ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-                  { element: "app_more", parameter5: appID },
-                  "both",
-                )
-                track?.(
-                  ILLA_MIXPANEL_EVENT_TYPE.SHOW,
-                  { element: "app_share", parameter5: appID },
-                  "both",
-                )
-              }
-            }}
+            onVisibleChange={onVisibleChangeForView}
             dropList={
               <DropList w={"184px"}>
                 <DropListItem

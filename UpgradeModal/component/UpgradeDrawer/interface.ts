@@ -9,6 +9,7 @@ export interface DrawerSubscribeInfo {
 }
 
 export interface UpgradeDrawerProps {
+  from: string
   visible?: boolean
   defaultConfig: DrawerDefaultConfig
   onCancel: () => void

@@ -37,7 +37,7 @@ export const docItemStyle = css`
   color: ${getColor("grayBlue", "03")};
   &:not(:first-of-type) {
     cursor: pointer;
-    color: ${getColor("techPurple", "01")};
+    color: ${getColor("techPurple", "03")};
   }
   &:last-child {
     margin-left: 4px;
