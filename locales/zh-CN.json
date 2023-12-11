@@ -2530,7 +2530,7 @@
     "page.left.menu.changeLogs.1.title": "V 3.5",
     "page.left.menu.changeLogs.1.content": "**操作优化**\r\n当API尚未准备好。 您可以使用 Mock 数据模拟\r\n**AI Apps 优化**\r\n应用程序可以直接从 AI Agent\r\n**新组件**\r\n添加的网格列表组件\r\n*2023. 2.07*",
     "page.left.menu.changeLogs.1.changeLogLink": "https://docs.illacloud.com/changelog",
-    "page.left.menu.changeLogs.2.content": "**Component optimization**\r\nYou can directly upload and display files in components like Image\r\n**New action**\r\nYou can use the Action to connect to ILLA Drive and directly upload or retrieve files\r\n*2023.11.23*",
+    "page.left.menu.changeLogs.2.content": "**组件最优化**\r\n您可以直接上传和显示组件中的文件，例如图像\r\n**新动作**\r\n您可以使用操作连接到 ILLA 驱动器并直接上传或检索文件\r\n*2023。 1.23*",
     "page.left.menu.changeLogs.2.title": "V 3.4",
     "page.left.menu.changeLogs.2.changeLogLink": "https://docs.illacloud.com/changelog",
     "page.size.model.fixed": "固定宽度",
