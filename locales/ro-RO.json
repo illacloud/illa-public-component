@@ -2530,7 +2530,7 @@
     "page.left.menu.changeLogs.1.title": "V 3.5",
     "page.left.menu.changeLogs.1.content": "**Optimizarea acţiunii**\r\nCând API-ul nu este încă gata, puteți utiliza date de tipul Mock pentru simularea\r\n**optimizare AI Aplicații**\r\nAplicațiile pot fi create direct din AI Agent\r\n**Componenta nouă**\r\nAdăugat Grid list component\r\n*2023. 2,7",
     "page.left.menu.changeLogs.1.changeLogLink": "https://docs.illacloud.com/changelog",
-    "page.left.menu.changeLogs.2.content": "**Component optimization**\r\nYou can directly upload and display files in components like Image\r\n**New action**\r\nYou can use the Action to connect to ILLA Drive and directly upload or retrieve files\r\n*2023.11.23*",
+    "page.left.menu.changeLogs.2.content": "**Optimizare Componentă**\r\nPuteţi încărca şi afişa direct fişiere în componente precum Imaginea\r\n**Acţiune nouă**\r\nPuteţi utiliza acţiunea pentru a vă conecta la ILLA Drive şi pentru a încărca sau prelua fişierele\r\n*2023. 1,23",
     "page.left.menu.changeLogs.2.title": "V 3.4",
     "page.left.menu.changeLogs.2.changeLogLink": "https://docs.illacloud.com/changelog",
     "page.size.model.fixed": "Fixat",
