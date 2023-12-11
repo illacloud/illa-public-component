@@ -70,22 +70,6 @@ export const handleFreeTeamLimitError = (
   return false
 }
 
-export const track = (
-  event: ILLA_MIXPANEL_EVENT_TYPE,
-  properties: Omit<ILLAProperties, "page"> = {},
-  userType: string,
-  teamID: string | undefined,
-  userID: string | undefined,
-) => {
-  ILLAMixpanel.track(event, {
-    page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.PLACEHOLDER,
-    ...properties,
-    team_id: teamID ?? "-1",
-    user_id: userID ?? "-1",
-    parameter11: userType,
-  })
-}
-
 export const isSubscribeForDrawer = (subscribePlan?: SUBSCRIBE_PLAN) => {
   return (
     subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE ||
