@@ -40,6 +40,9 @@ export const AttributeConfigList: AttributeConfigListShape = {
       [ATTRIBUTE_GROUP.DRIVE]: { [ACTION_ACCESS.VIEW]: true },
       [ATTRIBUTE_GROUP.AUDIT_LOG]: { [ACTION_ACCESS.VIEW]: true },
       [ATTRIBUTE_GROUP.AI_AGENT]: { [ACTION_ACCESS.VIEW]: true },
+      [ATTRIBUTE_GROUP.WORKFLOW]: { [ACTION_ACCESS.VIEW]: true },
+      [ATTRIBUTE_GROUP.FLOW_NODE]: { [ACTION_ACCESS.VIEW]: true },
+      [ATTRIBUTE_GROUP.FLOW_ACTION]: { [ACTION_ACCESS.VIEW]: true },
     },
     [USER_ROLE.ADMIN]: {
       [ATTRIBUTE_GROUP.TEAM]: { [ACTION_ACCESS.VIEW]: true },
@@ -66,6 +69,9 @@ export const AttributeConfigList: AttributeConfigListShape = {
       [ATTRIBUTE_GROUP.DRIVE]: { [ACTION_ACCESS.VIEW]: true },
       [ATTRIBUTE_GROUP.AUDIT_LOG]: { [ACTION_ACCESS.VIEW]: true },
       [ATTRIBUTE_GROUP.AI_AGENT]: { [ACTION_ACCESS.VIEW]: true },
+      [ATTRIBUTE_GROUP.WORKFLOW]: { [ACTION_ACCESS.VIEW]: true },
+      [ATTRIBUTE_GROUP.FLOW_NODE]: { [ACTION_ACCESS.VIEW]: true },
+      [ATTRIBUTE_GROUP.FLOW_ACTION]: { [ACTION_ACCESS.VIEW]: true },
     },
     [USER_ROLE.EDITOR]: {
       [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_ACCESS.VIEW]: true },
@@ -87,6 +93,9 @@ export const AttributeConfigList: AttributeConfigListShape = {
       [ATTRIBUTE_GROUP.CAPACITIES]: { [ACTION_ACCESS.VIEW]: true },
       [ATTRIBUTE_GROUP.DRIVE]: { [ACTION_ACCESS.VIEW]: true },
       [ATTRIBUTE_GROUP.AI_AGENT]: { [ACTION_ACCESS.VIEW]: true },
+      [ATTRIBUTE_GROUP.WORKFLOW]: { [ACTION_ACCESS.VIEW]: true },
+      [ATTRIBUTE_GROUP.FLOW_NODE]: { [ACTION_ACCESS.VIEW]: true },
+      [ATTRIBUTE_GROUP.FLOW_ACTION]: { [ACTION_ACCESS.VIEW]: true },
     },
     [USER_ROLE.VIEWER]: {
       [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_ACCESS.VIEW]: true },
@@ -131,6 +140,9 @@ export const AttributeConfigList: AttributeConfigListShape = {
       [ATTRIBUTE_GROUP.JOB]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.DRIVE]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.AI_AGENT]: { [ACTION_DELETE.DELETE]: true },
+      [ATTRIBUTE_GROUP.WORKFLOW]: { [ACTION_DELETE.DELETE]: true },
+      [ATTRIBUTE_GROUP.FLOW_NODE]: { [ACTION_DELETE.DELETE]: true },
+      [ATTRIBUTE_GROUP.FLOW_ACTION]: { [ACTION_DELETE.DELETE]: true },
     },
     [USER_ROLE.ADMIN]: {
       [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_DELETE.DELETE]: true },
@@ -151,6 +163,9 @@ export const AttributeConfigList: AttributeConfigListShape = {
       [ATTRIBUTE_GROUP.JOB]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.DRIVE]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.AI_AGENT]: { [ACTION_DELETE.DELETE]: true },
+      [ATTRIBUTE_GROUP.WORKFLOW]: { [ACTION_DELETE.DELETE]: true },
+      [ATTRIBUTE_GROUP.FLOW_NODE]: { [ACTION_DELETE.DELETE]: true },
+      [ATTRIBUTE_GROUP.FLOW_ACTION]: { [ACTION_DELETE.DELETE]: true },
     },
     [USER_ROLE.EDITOR]: {
       [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_DELETE.DELETE]: true },
@@ -164,6 +179,9 @@ export const AttributeConfigList: AttributeConfigListShape = {
       [ATTRIBUTE_GROUP.JOB]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.DRIVE]: { [ACTION_DELETE.DELETE]: true },
       [ATTRIBUTE_GROUP.AI_AGENT]: { [ACTION_DELETE.DELETE]: true },
+      [ATTRIBUTE_GROUP.WORKFLOW]: { [ACTION_DELETE.DELETE]: true },
+      [ATTRIBUTE_GROUP.FLOW_NODE]: { [ACTION_DELETE.DELETE]: true },
+      [ATTRIBUTE_GROUP.FLOW_ACTION]: { [ACTION_DELETE.DELETE]: true },
     },
     [USER_ROLE.VIEWER]: {
       [ATTRIBUTE_GROUP.TEAM_MEMBER]: { [ACTION_DELETE.DELETE]: true },
@@ -245,6 +263,17 @@ export const AttributeConfigList: AttributeConfigListShape = {
         [ACTION_MANAGE.FORK_AI_AGENT]: true,
         [ACTION_MANAGE.RUN_AI_AGENT]: true,
       },
+      [ATTRIBUTE_GROUP.WORKFLOW]: {
+        [ACTION_MANAGE.CREATE_WORKFLOW]: true,
+        [ACTION_MANAGE.EDIT_WORKFLOW]: true,
+      },
+      [ATTRIBUTE_GROUP.FLOW_NODE]: {},
+      [ATTRIBUTE_GROUP.FLOW_ACTION]: {
+        [ACTION_MANAGE.CREATE_FLOW_ACTION]: true,
+        [ACTION_MANAGE.EDIT_FLOW_ACTION]: true,
+        [ACTION_MANAGE.PREVIEW_FLOW_ACTION]: true,
+        [ACTION_MANAGE.RUN_FLOW_ACTION]: true,
+      },
     },
     [USER_ROLE.ADMIN]: {
       [ATTRIBUTE_GROUP.TEAM]: {
@@ -315,6 +344,17 @@ export const AttributeConfigList: AttributeConfigListShape = {
         [ACTION_MANAGE.FORK_AI_AGENT]: true,
         [ACTION_MANAGE.RUN_AI_AGENT]: true,
       },
+      [ATTRIBUTE_GROUP.WORKFLOW]: {
+        [ACTION_MANAGE.CREATE_WORKFLOW]: true,
+        [ACTION_MANAGE.EDIT_WORKFLOW]: true,
+      },
+      [ATTRIBUTE_GROUP.FLOW_NODE]: {},
+      [ATTRIBUTE_GROUP.FLOW_ACTION]: {
+        [ACTION_MANAGE.CREATE_FLOW_ACTION]: true,
+        [ACTION_MANAGE.EDIT_FLOW_ACTION]: true,
+        [ACTION_MANAGE.PREVIEW_FLOW_ACTION]: true,
+        [ACTION_MANAGE.RUN_FLOW_ACTION]: true,
+      },
     },
     [USER_ROLE.EDITOR]: {
       [ATTRIBUTE_GROUP.TEAM_MEMBER]: {
@@ -364,6 +404,17 @@ export const AttributeConfigList: AttributeConfigListShape = {
         [ACTION_MANAGE.FORK_AI_AGENT]: true,
         [ACTION_MANAGE.RUN_AI_AGENT]: true,
       },
+      [ATTRIBUTE_GROUP.WORKFLOW]: {
+        [ACTION_MANAGE.CREATE_WORKFLOW]: true,
+        [ACTION_MANAGE.EDIT_WORKFLOW]: true,
+      },
+      [ATTRIBUTE_GROUP.FLOW_NODE]: {},
+      [ATTRIBUTE_GROUP.FLOW_ACTION]: {
+        [ACTION_MANAGE.CREATE_FLOW_ACTION]: true,
+        [ACTION_MANAGE.EDIT_FLOW_ACTION]: true,
+        [ACTION_MANAGE.PREVIEW_FLOW_ACTION]: true,
+        [ACTION_MANAGE.RUN_FLOW_ACTION]: true,
+      },
     },
     [USER_ROLE.VIEWER]: {
       [ATTRIBUTE_GROUP.ACTION]: {
@@ -407,6 +458,7 @@ export const AttributeConfigList: AttributeConfigListShape = {
       [ATTRIBUTE_GROUP.AI_AGENT]: {
         [ACTION_SPECIAL.RUN_SPECIAL_AI_AGENT_MODEL]: true,
       },
+      [ATTRIBUTE_GROUP.WORKFLOW]: { [ACTION_SPECIAL.RELEASE_WORKFLOW]: true },
     },
     [USER_ROLE.ADMIN]: {
       [ATTRIBUTE_GROUP.TEAM]: {
@@ -425,6 +477,7 @@ export const AttributeConfigList: AttributeConfigListShape = {
       [ATTRIBUTE_GROUP.AI_AGENT]: {
         [ACTION_SPECIAL.RUN_SPECIAL_AI_AGENT_MODEL]: true,
       },
+      [ATTRIBUTE_GROUP.WORKFLOW]: { [ACTION_SPECIAL.RELEASE_WORKFLOW]: true },
     },
     [USER_ROLE.EDITOR]: {
       [ATTRIBUTE_GROUP.APP]: {
@@ -439,6 +492,7 @@ export const AttributeConfigList: AttributeConfigListShape = {
       [ATTRIBUTE_GROUP.AI_AGENT]: {
         [ACTION_SPECIAL.RUN_SPECIAL_AI_AGENT_MODEL]: true,
       },
+      [ATTRIBUTE_GROUP.WORKFLOW]: { [ACTION_SPECIAL.RELEASE_WORKFLOW]: true },
     },
     [USER_ROLE.VIEWER]: {
       [ATTRIBUTE_GROUP.AI_AGENT]: {

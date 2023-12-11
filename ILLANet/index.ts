@@ -12,6 +12,7 @@ import {
   MARKETPLACE_HASH_TAG_REQUEST_PREFIX,
   MARKETPLACE_PUBLIC_REQUEST_PREFIX,
   PUBLIC_DRIVE_REQUEST_PREFIX,
+  WORKFLOW_REQUEST_PREFIX,
 } from "./constant"
 import { RequestHandlerOptions } from "./interface"
 
@@ -327,6 +328,25 @@ export const publicDriveRequest = async <
   )
 
   return await notNeedAuthRequest<ResponseData, RequestData>({
+    ...requestConfig,
+    url: finalURL,
+  })
+}
+
+export const flowRequest = async <
+  ResponseData = unknown,
+  RequestData = unknown,
+>(
+  requestConfig: AxiosRequestConfig<RequestData>,
+  options?: RequestHandlerOptions,
+) => {
+  const finalURL = getURLWithPrefix(
+    requestConfig.url,
+    WORKFLOW_REQUEST_PREFIX,
+    options,
+  )
+
+  return await needAuthRequest<ResponseData, RequestData>({
     ...requestConfig,
     url: finalURL,
   })
