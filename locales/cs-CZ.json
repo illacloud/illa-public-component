@@ -3177,7 +3177,7 @@
     "billing.license_price_new.yearly": "{{ price }}/editor/rok",
     "billing.redirect_page.title": "Platba úspěšná",
     "billing.redirect_page.desc1": "Děkujeme za váš nákup. ILLA Cloud vám bude i nadále poskytovat více funkcí.",
-    "billing.redirect_page.desc2": "Redirecting to ILLA Cloud in {{time}} seconds...",
+    "billing.redirect_page.desc2": "Přesměrování do ILLA Cloudu za {{time}} sekund...",
     "billing.redirect_page.button": "Zpět na ILLA Cloud",
     "billing.redirect_to_stripe": "Přesměrování do Stripe",
     "billing.featureList.free.drive.storage": "100 MB úložiště měsíčně pro uložení všech souborů v ILLA Drive",
