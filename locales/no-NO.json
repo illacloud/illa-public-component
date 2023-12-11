@@ -867,7 +867,7 @@
     "editor.action.resource.restapi.label.extra_body_values": "Ekstra kroppsverdier",
     "editor.action.resource.restapi.label.forward_all_cookies": "Videresend alle informasjonskapsler",
     "editor.action.resource.restapi.label.headers": "Overskrifter",
-    "editor.action.resource.restapi.label.list_of_cookies_to_forward": "List Of Cookies To\n Forward",
+    "editor.action.resource.restapi.label.list_of_cookies_to_forward": "Liste over informasjonskapsler som\n Videresend",
     "editor.action.resource.restapi.label.name": "Navn",
     "editor.action.resource.restapi.label.oauth_callback_url": "OAuth callback URL",
     "editor.action.resource.restapi.label.refresh_token": "Oppdater Token",
