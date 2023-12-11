@@ -64,6 +64,7 @@ export const AppConfigSelect: FC<AppConfigSelectProps> = (props) => {
       if (isCloudVersion && !canUseBillingFeature) {
         upgradeModal({
           modalType: "upgrade",
+          from: "app_card_public",
         })
         return
       }

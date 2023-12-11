@@ -14,7 +14,7 @@ export const bodyContainerStyle = css`
 `
 
 export const resourceItemSelectedStyle = css`
-  background: ${globalColor(`--${illaPrefix}-techPurple-07`)};
+  background: ${globalColor(`--${illaPrefix}-techPurple-08`)};
 `
 
 export const applyResourceItemStyle = (selected: boolean) => {

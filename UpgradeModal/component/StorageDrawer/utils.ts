@@ -1,5 +1,5 @@
-import { isSubscribeForDrawer } from "@illa-public/utils"
 import { DriveVolumeInfo } from "../../interface"
+import { isSubscribeForDrawer } from "../../utils"
 
 export const isQuantityDecreased = (
   quantity: number,

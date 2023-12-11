@@ -161,11 +161,12 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
                 value={inviteUserRole}
                 onClickItem={async (role) => {
                   if (
-                    isBiggerThanTargetRole(role, USER_ROLE.VIEWER, false) &&
+                    isBiggerThanTargetRole(USER_ROLE.VIEWER, role, false) &&
                     defaultBalance === 0
                   ) {
                     upgradeModal({
                       modalType: "upgrade",
+                      from: "invite_by_link",
                     })
                   } else {
                     await renewInviteLinkRequest(teamID, role)

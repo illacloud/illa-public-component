@@ -1,5 +1,5 @@
 import { getCurrentTeamInfo, getPlanUtils } from "@illa-public/user-data"
-import { canManageCollar } from "@illa-public/user-role-utils"
+import { canManagePayment } from "@illa-public/user-role-utils"
 import { FC, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -14,7 +14,7 @@ export const UpgradeCollarModal: FC = () => {
   const currentTeamInfo = useSelector(getCurrentTeamInfo)
   const message = useMessage()
   const { t } = useTranslation()
-  const canManageThisCollar = canManageCollar(
+  const canManageThisCollar = canManagePayment(
     currentTeamInfo?.myRole,
     getPlanUtils(currentTeamInfo),
   )
@@ -30,7 +30,7 @@ export const UpgradeCollarModal: FC = () => {
 
   const collarModal = useMemo(() => {
     if (!modal) return null
-    if (currentTeamInfo && !canManageThisCollar && modal.visible) {
+    if (!currentTeamInfo || !canManageThisCollar) {
       message.info({
         content: t(OPERATION_NO_PERMISSION[modal.modalType]),
       })
@@ -41,6 +41,7 @@ export const UpgradeCollarModal: FC = () => {
       <CollarModal
         modalType={modal.modalType}
         visible={modal.visible}
+        from={modal.from}
         onCancel={() => {
           if (modal.id) {
             modalStore.update({ ...modal, visible: false })

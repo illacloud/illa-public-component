@@ -1,4 +1,11 @@
 import { ERROR_FLAG, isILLAAPiError } from "@illa-public/illa-net"
+import {
+  ILLAMixpanel,
+  ILLAProperties,
+  ILLA_MIXPANEL_EVENT_TYPE,
+  ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
+} from "@illa-public/mixpanel-utils"
+import { SUBSCRIBE_PLAN } from "@illa-public/public-types"
 import { getILLACloudURL } from "@illa-public/utils"
 import { createCollarModal, createTeamLimitModal } from "./hook"
 import { CollarModalType, FREE_TEAM_LIMIT_TYPE } from "./interface"
@@ -20,6 +27,7 @@ export function getSuccessRedirectWithParams(
 export const handleCollaPurchaseError = (
   e: unknown,
   modalType: CollarModalType,
+  from: string,
 ) => {
   const collaModal = createCollarModal()
   if (
@@ -38,6 +46,7 @@ export const handleCollaPurchaseError = (
   ) {
     collaModal?.({
       modalType,
+      from,
     })
     return true
   }
@@ -59,4 +68,32 @@ export const handleFreeTeamLimitError = (
     return true
   }
   return false
+}
+
+export const isSubscribeForDrawer = (subscribePlan?: SUBSCRIBE_PLAN) => {
+  return (
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE ||
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM ||
+    subscribePlan === SUBSCRIBE_PLAN.TEAM_LICENSE_INSUFFICIENT ||
+    subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_PAID ||
+    subscribePlan === SUBSCRIBE_PLAN.DRIVE_VOLUME_INSUFFICIENT ||
+    subscribePlan === SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_INSUFFICIENT ||
+    subscribePlan === SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_PAID
+  )
+}
+
+export const track = (
+  event: ILLA_MIXPANEL_EVENT_TYPE,
+  properties: Omit<ILLAProperties, "page"> = {},
+  userType: string,
+  teamID: string | undefined,
+  userID: string | undefined,
+) => {
+  ILLAMixpanel.track(event, {
+    page: ILLA_MIXPANEL_PUBLIC_PAGE_NAME.PLACEHOLDER,
+    ...properties,
+    team_id: teamID ?? "-1",
+    user_id: userID ?? "-1",
+    parameter11: userType,
+  })
 }

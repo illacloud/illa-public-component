@@ -117,8 +117,6 @@ export enum ACTION_MANAGE {
   EDIT_FLOW_ACTION,
   PREVIEW_FLOW_ACTION,
   RUN_FLOW_ACTION,
-
-  MANAGE_COLLAR, // manage collar
 }
 
 export enum ACTION_DELETE {

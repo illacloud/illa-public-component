@@ -106,7 +106,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
   const handleContributeChange = useCallback(
     async (value: boolean) => {
       const currentTime = performance.now()
-      track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+      track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
         element: "invite_modal_contribute_switch",
         parameter4: !value,
         parameter5: appID,
@@ -128,7 +128,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
         } else {
           await fetchRemoveAppToMarket(ownerTeamID, appID)
         }
-        track(ILLA_MIXPANEL_EVENT_TYPE.REQUEST, {
+        track?.(ILLA_MIXPANEL_EVENT_TYPE.REQUEST, {
           element: "invite_modal_contribute_switch",
           consume: performance.now() - currentTime,
           parameter2: "suc",
@@ -138,7 +138,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
         onAppContribute?.(value)
         onAppPublic?.(value)
         value &&
-          track(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
+          track?.(ILLA_MIXPANEL_EVENT_TYPE.SHOW, {
             element: "invite_modal_contribute_copy",
             parameter5: appID,
           })
@@ -146,7 +146,7 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
         message.error({
           content: t("user_management.modal.message.make_public_failed"),
         })
-        track(ILLA_MIXPANEL_EVENT_TYPE.REQUEST, {
+        track?.(ILLA_MIXPANEL_EVENT_TYPE.REQUEST, {
           element: "invite_modal_contribute_switch",
           consume: performance.now() - currentTime,
           parameter2: "failed",
@@ -200,7 +200,10 @@ export const AppPublicPC: FC<AppPublicProps> = (props) => {
             colorScheme={getColor("grayBlue", "02")}
             onChange={async (value) => {
               if (isCloudVersion && !canUseBillingFeature) {
-                upgradeModal({ modalType: "upgrade" })
+                upgradeModal({
+                  modalType: "upgrade",
+                  from: "app_share_public",
+                })
                 return
               }
               setAppPublic(value)

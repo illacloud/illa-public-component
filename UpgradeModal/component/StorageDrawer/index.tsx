@@ -1,7 +1,7 @@
 import { SUBSCRIBE_PLAN, SUBSCRIPTION_CYCLE } from "@illa-public/public-types"
 import { TextLink } from "@illa-public/text-link"
 import { getCurrentId } from "@illa-public/user-data"
-import { isMobileByWindowSize, isSubscribeForDrawer } from "@illa-public/utils"
+import { isMobileByWindowSize } from "@illa-public/utils"
 import { FC, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -17,7 +17,7 @@ import {
 import { CollarModalType } from "../../interface"
 import { modifySubscribe, subscribe } from "../../service"
 import { UNIT_COLLA_BY_STORAGE } from "../../service/interface"
-import { handleCollaPurchaseError } from "../../utils"
+import { handleCollaPurchaseError, isSubscribeForDrawer } from "../../utils"
 import { LEARN_MORE_LINK } from "./constants"
 import { StorageDrawerProps } from "./interface"
 import {
@@ -96,7 +96,11 @@ export const StorageDrawer: FC<StorageDrawerProps> = (props) => {
       }
       successCallBack?.(teamID)
     } catch (error) {
-      const res = handleCollaPurchaseError(error, CollarModalType.STORAGE)
+      const res = handleCollaPurchaseError(
+        error,
+        CollarModalType.STORAGE,
+        "billing_storage_balance_manage",
+      )
       if (res) return
       if (driveVolume?.plan && isSubscribeForDrawer(driveVolume?.plan)) {
         message.error({

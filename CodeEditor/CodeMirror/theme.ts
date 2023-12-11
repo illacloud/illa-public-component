@@ -62,8 +62,8 @@ export const illaCodeMirrorTooltipStyle = css`
           position: relative;
           overflow: hidden;
           &[aria-selected] {
-            background-color: ${getColor("techPurple", "07")};
-            color: ${getColor("techPurple", "01")};
+            background-color: ${getColor("techPurple", "08")};
+            color: ${getColor("techPurple", "03")};
           }
           .cm-completionLabel {
             font-size: 12px;
@@ -115,7 +115,7 @@ export const illaCodeMirrorTooltipStyle = css`
             font-weight: 500;
             font-size: 12px;
             line-height: 20px;
-            color: ${getColor("techPurple", "01")};
+            color: ${getColor("techPurple", "03")};
           }
           .openInfo {
             width: 12px;

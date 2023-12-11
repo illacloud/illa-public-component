@@ -1,6 +1,6 @@
 import { css } from "@emotion/react"
-import { getColor } from "@illa-design/react"
 import { applyMobileStyle } from "@illa-public/utils"
+import { getColor } from "@illa-design/react"
 
 export const modalMaskStyle = css`
   background-color: ${getColor("white", "05")};
@@ -77,7 +77,7 @@ export const descriptionStyle = css`
 `
 
 export const highlightStyle = css`
-  color: ${getColor("purple", "01")};
+  color: ${getColor("purple", "03")};
 `
 
 export const footerStyle = css`
