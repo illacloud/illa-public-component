@@ -2531,7 +2531,7 @@
     "page.left.menu.changeLogs.1.content": "**Action optimization**\r\nWhen the API is not ready yet, you can use Mock data for simulation\r\n**AI Apps optimization**\r\nApps can be directly created from the AI Agent\r\n**New component**\r\nAdded Grid list component\r\n*2023.12.07*",
     "page.left.menu.changeLogs.1.changeLogLink": "https://docs.illacloud.com/changelog",
     "page.left.menu.changeLogs.2.content": "**Component optimization**\r\nYou can directly upload and display files in components like Image\r\n**New action**\r\nYou can use the Action to connect to ILLA Drive and directly upload or retrieve files\r\n*2023.11.23*",
-    "page.left.menu.changeLogs.2.title": "V 3.4",
+    "page.left.menu.changeLogs.2.title": "V 3,4",
     "page.left.menu.changeLogs.2.changeLogLink": "https://docs.illacloud.com/changelog",
     "page.size.model.fixed": "Виправлена",
     "page.size.model.auto": "Авто",
