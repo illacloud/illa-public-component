@@ -2530,7 +2530,7 @@
     "page.left.menu.changeLogs.1.title": "V 3.5",
     "page.left.menu.changeLogs.1.content": "**Ottimizzazione dell'azione**\r\nQuando l'API non è ancora pronta, è possibile utilizzare Mock data for simulation\r\n**AI Apps optimization**\r\nApps can be created directly from the AI Agent\r\n**New component**\r\nAdded Grid list component\r\n*2023. 2,07",
     "page.left.menu.changeLogs.1.changeLogLink": "https://docs.illacloud.com/changelog",
-    "page.left.menu.changeLogs.2.content": "**Component optimization**\r\nYou can directly upload and display files in components like Image\r\n**New action**\r\nYou can use the Action to connect to ILLA Drive and directly upload or retrieve files\r\n*2023.11.23*",
+    "page.left.menu.changeLogs.2.content": "**Ottimizzazione componente**\r\nÈ possibile caricare e visualizzare direttamente i file in componenti come Immagine\r\n**Nuova azione**\r\nÈ possibile utilizzare l'azione per connettersi all'ILLA Drive e caricare o recuperare direttamente i file\r\n*2023. 1,23",
     "page.left.menu.changeLogs.2.title": "V 3.4",
     "page.left.menu.changeLogs.2.changeLogLink": "https://docs.illacloud.com/changelog",
     "page.size.model.fixed": "Fisso",
