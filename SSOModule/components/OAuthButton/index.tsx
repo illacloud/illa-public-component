@@ -14,6 +14,7 @@ import { oAuthButtonStyle } from "./style"
 export const OAuthButton: FC<OAuthButtonProps> = (props) => {
   const [loading, setLoading] = useState(false)
   const [searchParams] = useSearchParams()
+  const utmKeys = ["utm_source", "utm_medium", "utm_campaign"]
 
   const onClickButton = async () => {
     ILLAMixpanel.track(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
@@ -22,6 +23,11 @@ export const OAuthButton: FC<OAuthButtonProps> = (props) => {
     })
 
     const targetURL = new URL(OAUTH_REDIRECT_URL)
+    searchParams.forEach((value, key) => {
+      if (utmKeys.includes(key)) {
+        targetURL.searchParams.set(key, value)
+      }
+    })
     targetURL.searchParams.set(
       "redirectURL",
       searchParams.get("redirectURL") ?? "",
@@ -34,6 +40,7 @@ export const OAuthButton: FC<OAuthButtonProps> = (props) => {
         props.landing,
         targetURL.toString(),
       )
+
       openOAuthUrl(response.data.uri)
     } catch (e) {
       console.error(e)
