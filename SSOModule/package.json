@@ -8,7 +8,6 @@
     "@illa-public/icon": "workspace:*",
     "react-hook-form": "^7.30.0",
     "@illa-public/mixpanel-utils": "workspace:*",
-    "react-helmet-async": "^1.3.0",
     "@illa-public/layout-auto-change": "workspace:*",
     "@illa-public/text-link": "workspace:*",
     "@illa-public/illa-net": "workspace:*",

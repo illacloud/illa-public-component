@@ -27,6 +27,7 @@ export const MobileAppCardItem: FC<MobileCardItemProps> = (props) => {
     description,
     publishedToMarketplace,
     editorInfo,
+    showLaunchButton = true,
   } = props
 
   const { t } = useTranslation()
@@ -75,20 +76,22 @@ export const MobileAppCardItem: FC<MobileCardItemProps> = (props) => {
             />
           ))}
         </div>
-        <Link
-          to={`${getILLABuilderURL()}/${teamIdentifier}/deploy/app/${appID}?token=${getAuthToken()}`}
-          target="_blank"
-          css={linkButtonStyle}
-        >
-          <Button
-            colorScheme="grayBlue"
-            variant="outline"
-            size="large"
-            w="100%"
+        {showLaunchButton && (
+          <Link
+            to={`${getILLABuilderURL()}/${teamIdentifier}/deploy/app/${appID}?token=${getAuthToken()}`}
+            target="_blank"
+            css={linkButtonStyle}
           >
-            {t("dashboard.common.launch")}
-          </Button>
-        </Link>
+            <Button
+              colorScheme="grayBlue"
+              variant="outline"
+              size="large"
+              w="100%"
+            >
+              {t("dashboard.common.launch")}
+            </Button>
+          </Link>
+        )}
       </footer>
     </div>
   )

@@ -45,6 +45,9 @@ export enum ATTRIBUTE_GROUP {
   AUDIT_LOG,
   MARKETPLACE,
   AI_AGENT,
+  WORKFLOW,
+  FLOW_NODE,
+  FLOW_ACTION,
 }
 
 export enum ATTRIBUTE_CATEGORY {
@@ -108,6 +111,12 @@ export enum ACTION_MANAGE {
   FORK_AI_AGENT, // fork AI-Agent
   RUN_AI_AGENT, // run ai-agent
   FORK_APP,
+  CREATE_WORKFLOW,
+  EDIT_WORKFLOW,
+  CREATE_FLOW_ACTION,
+  EDIT_FLOW_ACTION,
+  PREVIEW_FLOW_ACTION,
+  RUN_FLOW_ACTION,
 }
 
 export enum ACTION_DELETE {
@@ -129,4 +138,5 @@ export enum ACTION_SPECIAL {
   RECOVER_SNAPSHOT, //  paid functions
   RUN_SPECIAL_AI_AGENT_MODEL, //  paid functions, AI-Agent Run special AI-Agent model like GPT-4
   RELEASE_PUBLIC_APP, //  paid functions, release public APP
+  RELEASE_WORKFLOW,
 }

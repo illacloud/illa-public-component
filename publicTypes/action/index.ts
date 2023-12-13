@@ -99,16 +99,20 @@ export type ActionType =
 
 export type ActionTriggerMode = "manually" | "automate"
 
-export interface ActionItem<T extends ActionContent = ActionContent> {
+export interface BaseActionItem<T extends unknown = unknown> {
   config?: ActionConfig
-  actionID: string
   displayName: string
-  actionType: ActionType
   transformer: Transformer
   triggerMode: ActionTriggerMode
   resourceID?: string
   content: T
   isVirtualResource: boolean
+}
+
+export interface ActionItem<T extends ActionContent = ActionContent>
+  extends BaseActionItem<T> {
+  actionID: string
+  actionType: ActionType
 }
 
 export type ActionContent =
