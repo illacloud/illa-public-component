@@ -10,6 +10,6 @@ export const fetchOAuthURI = async (
     method: "GET",
     url: `/oauth/${oauthAgency}/uri/redirectTo/${encodeURIComponent(
       redirectURI ?? OAUTH_REDIRECT_URL,
-    )}/landing/${landing}`,
+    )}/landing/${landing}??utm_source=test_oauth&utm_medium=test_oauth`,
   })
 }
