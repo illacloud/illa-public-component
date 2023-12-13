@@ -4,7 +4,7 @@ export const GITHUB_CLIENT_ID = "171a5a900ac20f970f56"
 
 export const GITHUB_AUTHORIZE_URL = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}`
 
-export const OAUTH_REDIRECT_URL = `${getILLACloudURL()}/oauth?utm_source=test_oauth&utm_medium=test_oauth`
+export const OAUTH_REDIRECT_URL = `${getILLACloudURL()}/oauth`
 
 export const openOAuthUrl = (url?: string) => {
   window.open(url, "_self")
