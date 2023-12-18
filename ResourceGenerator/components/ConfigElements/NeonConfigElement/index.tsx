@@ -35,7 +35,8 @@ import {
 } from "../style"
 
 const getParsedStringValue = (inputString: string) => {
-  const regex = /^postgres:\/\/([^:]+)(?::([^@]*))?@([^\/]+)\/(.+)$/
+  const regex = /^(.*):\/\/(.*):(.*)@(.*?)(?::(\d+))?\/(.*)$/
+
   const match = inputString.match(regex)
   if (!match) {
     return {
@@ -45,11 +46,12 @@ const getParsedStringValue = (inputString: string) => {
       dbName: null,
     }
   }
+
   return {
-    roleName: match?.[1] || null,
-    password: match?.[2] || null,
-    hostWithoutPort: match?.[3] || null,
-    dbName: match?.[4] || null,
+    roleName: match[2] || null,
+    password: match[3] || null,
+    hostWithoutPort: match[4] || null,
+    dbName: match[6] || null,
   }
 }
 
