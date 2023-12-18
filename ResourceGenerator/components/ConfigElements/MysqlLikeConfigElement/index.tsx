@@ -39,47 +39,24 @@ const getResourceDefaultPort = (resourceType: string) => {
 }
 
 const checkIsValidConnectionString = (connectionString: string) => {
-  const pattern = /^(mysql|postgres):\/\/([^:]+):([^@]+)@([^/]+)\/(.+)$/
+  const pattern = /^(.*):\/\/(.*):(.*)@(.*?)(?::(\d+))?\/(.*)$/
   return pattern.test(connectionString)
-}
-
-function getPortFromConnectionString(scheme: string): string {
-  switch (scheme) {
-    case "postgres":
-      return "5432"
-    case "mysql":
-      return "3306"
-    default:
-      return ""
-  }
 }
 
 function parseDatabaseConnectionString(
   connectionString: string,
 ): Omit<MysqlLikeResource, "ssl"> | undefined {
-  const regex = /^(mysql|postgres):\/\/([^:]+):([^@]+)@([^/]+)\/(.+)$/
+  const regex = /^(.*):\/\/(.*):(.*)@(.*?)(?::(\d+))?\/(.*)$/
+
   const match = connectionString.match(regex)
+  if (!match) return undefined
 
-  if (match) {
-    const databaseUsername = match[2]
-    const databasePassword = match[3]
-    const hostAndPort = match[4].split(":")
-    const host = hostAndPort[0]
-    const port =
-      hostAndPort.length > 1
-        ? hostAndPort[1]
-        : getPortFromConnectionString(match[1])
-    const databaseName = match[5]
-
-    return {
-      databaseUsername,
-      databasePassword,
-      host,
-      port,
-      databaseName,
-    }
-  } else {
-    return undefined // 无法解析的连接字符串
+  return {
+    databaseUsername: match[2],
+    databasePassword: match[3],
+    host: match[4],
+    port: match[5] ?? 80,
+    databaseName: match[6],
   }
 }
 
