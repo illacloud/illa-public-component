@@ -26,7 +26,7 @@ import { RedisLikeConfigElementProps } from "./interface"
 function parseDatabaseConnectionString(
   connectionString: string,
 ): Omit<RedisResource, "ssl" | "databaseIndex"> | undefined {
-  const regex = /^redis:\/\/([^:]+):([^@]+)@([^:]+):(\d+)$/
+  const regex = /^redis:\/\/(.*):(.*)@(.*?)(?::(\d+))?$/
   const match = connectionString.match(regex)
 
   if (!match || match.length !== 5) {
@@ -39,12 +39,12 @@ function parseDatabaseConnectionString(
     databaseUsername,
     databasePassword,
     host,
-    port,
+    port: port ?? 80,
   }
 }
 
 const checkIsValidConnectionString = (connectionString: string) => {
-  const pattern = /^redis:\/\/([^:]+):([^@]+)@([^:]+):(\d+)$/
+  const pattern = /^redis:\/\/(.*):(.*)@(.*?)(?::(\d+))?$/
   return pattern.test(connectionString)
 }
 
