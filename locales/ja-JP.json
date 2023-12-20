@@ -2427,7 +2427,7 @@
     "widget.switch_group.name": "スイッチグループ",
     "widget.recording.name": "録音",
     "widget.jsonEditor.name": "JSONエディター",
-    "widget.drive_picker.name": "ドライブファイルピッカー",
+    "widget.drive_picker.name": "ILLAファイルピッカー",
     "widget.drive_picker.modal.files": "ファイル",
     "widget.drive_picker.modal.confirm": "確認（fileNumファイル）",
     "widget.drive_picker.modal.cancel": "キャンセル",
