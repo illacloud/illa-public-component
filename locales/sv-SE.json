@@ -2549,7 +2549,7 @@
     "page.left.menu.issue": "Visa ärenden",
     "page.left.menu.documentation": "Dokumentation",
     "page.left.menu.setting": "Inställningar",
-    "page.left.menu.changeLogs.3.content": "**Komponentoptimering**\nOm du behöver visa filer på komponenter som bilder eller videor, du kan direkt ladda upp lokala filer eller välja redan uppladdade filer från ILLA Drive genom panelen Inspektion av komponenten och visa upp dem.\n**Ny åtgärd**\nILLA Drive: Lista, ladda ner, ladda upp, ta bort filer via Actions\n*2023.11.23*",
+    "page.left.menu.changeLogs.3.content": "* Component optimization: If you need to display files on components such as images or videos, you can directly upload local files or select already uploaded files from the ILLA Drive through the Inspect panel of the component and showcase them.\n* ILLA Drive Action: List, download, upload, delete files via Actions\n\n2023.11.23",
     "page.left.menu.changeLogs.3.changeLogLink": "https://docs.illacloud.com/changelog",
     "page.left.menu.changeLogs.3.title": "V 3,5",
     "page.left.menu.changeLogs.2.title": "V 3.6",
