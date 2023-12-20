@@ -1,12 +1,16 @@
 import { FC } from "react"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
-import { Link } from "@illa-design/react"
+import { Link, getColor } from "@illa-design/react"
 import { ILLAMarkdownProps } from "./interface"
 import { applyMarkdownPStyle } from "./style"
 
 export const ILLAMarkdown: FC<ILLAMarkdownProps> = (props) => {
-  const { textString, textColor = "white", urlColor = "white" } = props
+  const {
+    textString,
+    textColor = getColor("white", "01"),
+    urlColor = getColor("white", "01"),
+  } = props
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
