@@ -2427,7 +2427,7 @@
     "widget.switch_group.name": "그룹 전환",
     "widget.recording.name": "녹음",
     "widget.jsonEditor.name": "JSON Editor",
-    "widget.drive_picker.name": "Drive file picker",
+    "widget.drive_picker.name": "ILLA file picker",
     "widget.drive_picker.modal.files": "Files",
     "widget.drive_picker.modal.confirm": "Confirm({{fileNum}} files)",
     "widget.drive_picker.modal.cancel": "종료",
