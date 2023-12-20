@@ -15,9 +15,9 @@ import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { Divider } from "@illa-design/react"
+import ChangeLogIcon from "../../assets/changeLog.svg?react"
 import DiscordIcon from "../../assets/discord.svg?react"
 import FileIcon from "../../assets/file.svg?react"
-import IssueIcon from "../../assets/issue.svg?react"
 import SettingIcon from "../../assets/setting.svg?react"
 import TutorialIcon from "../../assets/tutorial.svg?react"
 import { DynamicMenu, MenuItemShape } from "../Menu"
@@ -46,13 +46,6 @@ export const BottomList: FC<BottomListProps> = (props) => {
       onClickCallback: onClickMenuItemCallback,
     },
     {
-      labelName: t("page.left.menu.issue"),
-      labelKey: "issue",
-      href: "https://github.com/illacloud/illa-builder/issues",
-      icon: <IssueIcon />,
-      onClickCallback: onClickMenuItemCallback,
-    },
-    {
       labelName: t("page.left.menu.documentation"),
       labelKey: "documentation",
       href: DOC_PREFIX,
@@ -70,7 +63,7 @@ export const BottomList: FC<BottomListProps> = (props) => {
     {
       labelName: t("page.left.menu.changelog"),
       labelKey: "change-log",
-      icon: <TutorialIcon />,
+      icon: <ChangeLogIcon />,
       onClickCallback: onClickMenuItemCallback,
     },
     {
