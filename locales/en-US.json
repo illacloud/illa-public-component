@@ -2427,7 +2427,7 @@
     "widget.switch_group.name": "Switch group",
     "widget.recording.name": "Recording",
     "widget.jsonEditor.name": "JSON Editor",
-    "widget.drive_picker.name": "Drive file picker",
+    "widget.drive_picker.name": "ILLA file picker",
     "widget.drive_picker.modal.files": "Files",
     "widget.drive_picker.modal.confirm": "Confirm({{fileNum}} files)",
     "widget.drive_picker.modal.cancel": "Cancel",
