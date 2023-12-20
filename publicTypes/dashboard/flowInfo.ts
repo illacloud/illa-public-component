@@ -35,4 +35,6 @@ export interface IFlowInfoShape {
   deployed: boolean
   workflowActivity: ActivityInfo
   editedBy?: EditorInfo[]
+  mainlineVersion?: number
+  releaseVersion?: number
 }
