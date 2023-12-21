@@ -30,6 +30,7 @@ import TidbIcon from "./actionIcons/tidb"
 import TransformerIcon from "./actionIcons/transformer"
 import UpstashIcon from "./actionIcons/upstash"
 import AudioIcon from "./componentIcons/audio.svg?react"
+import AvatarIcon from "./componentIcons/avatar.svg?react"
 import BarProgressIcon from "./componentIcons/barProgress.svg?react"
 import ButtonIcon from "./componentIcons/button.svg?react"
 import CanvasIcon from "./componentIcons/canvas.svg?react"
@@ -76,6 +77,7 @@ import SwitchIcon from "./componentIcons/switch.svg?react"
 import SwitchGroupIcon from "./componentIcons/switchGroup.svg?react"
 import TableIcon from "./componentIcons/table.svg?react"
 import TabsIcon from "./componentIcons/tabs.svg?react"
+import TagsIcon from "./componentIcons/tags.svg?react"
 import TextIcon from "./componentIcons/text.svg?react"
 import TextareaIcon from "./componentIcons/textAreaInput.svg?react"
 import TimeLineIcon from "./componentIcons/timeLine.svg?react"
@@ -266,6 +268,10 @@ export function getIconFromWidgetType(widgetType: string, size: string) {
       return <CanvasIcon width={size} height={size} />
     case "GRID_LIST_WIDGET":
       return <GridListIcon width={size} height={size} />
+    case "AVATAR_WIDGET":
+      return <AvatarIcon width={size} height={size} />
+    case "TAGS_WIDGET":
+      return <TagsIcon width={size} height={size} />
     default:
       return null
   }
