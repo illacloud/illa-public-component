@@ -2549,7 +2549,7 @@
     "page.left.menu.issue": "Bekijk issues",
     "page.left.menu.documentation": "Documentatie",
     "page.left.menu.setting": "Instellingen",
-    "page.left.menu.changeLogs.3.content": "**Component optimalisatie**\nAls u bestanden wilt weergeven op componenten zoals afbeeldingen of video's, u kunt rechtstreeks lokale bestanden uploaden of bestanden selecteren die al geüpload zijn van de ILLA Drive via het Inspect paneel van de component en deze laten zien.\n**Nieuwe actie**\nILLA Drive: Lijst, downloaden, uploaden, verwijderen van bestanden via Acties\n*2023.11.23*",
+    "page.left.menu.changeLogs.3.content": "* Component optimization: If you need to display files on components such as images or videos, you can directly upload local files or select already uploaded files from the ILLA Drive through the Inspect panel of the component and showcase them.\n* ILLA Drive Action: List, download, upload, delete files via Actions\n\n2023.11.23",
     "page.left.menu.changeLogs.3.changeLogLink": "https://docs.illacloud.com/changelog",
     "page.left.menu.changeLogs.3.title": "V 3.5",
     "page.left.menu.changeLogs.2.title": "V 3.6",
