@@ -2549,7 +2549,7 @@
     "page.left.menu.issue": "Vezi probleme",
     "page.left.menu.documentation": "Documentație",
     "page.left.menu.setting": "Setări",
-    "page.left.menu.changeLogs.3.content": "**Optimizare componente**\nDacă trebuie să afișați fișiere pe componente cum ar fi imagini sau videoclipuri, puteți încărca direct fișiere locale sau să selectați deja fișiere încărcate din ILLA Drive prin panoul de inspectare al componentei și să le prezentați.\n**Acțiune nouă**\nILLA Drive: Listă, descărcare, încărcare, ștergere fișiere prin Acțiunile\n*2023.11.23*",
+    "page.left.menu.changeLogs.3.content": "* Component optimization: If you need to display files on components such as images or videos, you can directly upload local files or select already uploaded files from the ILLA Drive through the Inspect panel of the component and showcase them.\n* ILLA Drive Action: List, download, upload, delete files via Actions\n\n2023.11.23",
     "page.left.menu.changeLogs.3.changeLogLink": "https://docs.illacloud.com/changelog",
     "page.left.menu.changeLogs.3.title": "V 3.5",
     "page.left.menu.changeLogs.2.title": "V 3.6",
