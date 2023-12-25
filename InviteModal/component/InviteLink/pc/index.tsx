@@ -259,6 +259,20 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
             colorScheme={getColor("grayBlue", "02")}
             loading={getLinkLoading}
             onClick={() => {
+              if (
+                isBiggerThanTargetRole(
+                  USER_ROLE.VIEWER,
+                  inviteUserRole,
+                  false,
+                ) &&
+                defaultBalance === 0
+              ) {
+                upgradeModal({
+                  modalType: "upgrade",
+                  from: "invite_by_link",
+                })
+                return
+              }
               const newUrl = new URL(currentInviteLink)
               if (redirectURL !== "") {
                 newUrl.searchParams.set("redirectURL", redirectURL)

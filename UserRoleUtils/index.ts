@@ -456,18 +456,10 @@ export const openShareAppModal = (
   ) {
     return true
   } else
-    return (
-      canManageInvite(
-        teamInfo.myRole,
-        teamInfo.permission.allowEditorManageTeamMember,
-        teamInfo.permission.allowViewerManageTeamMember,
-      ) &&
-      canUseUpgradeFeature(
-        teamInfo.myRole,
-        getPlanUtils(teamInfo),
-        teamInfo.totalTeamLicense.teamLicensePurchased,
-        teamInfo.totalTeamLicense.teamLicenseAllPaid,
-      )
+    return canManageInvite(
+      teamInfo.myRole,
+      teamInfo.permission.allowEditorManageTeamMember,
+      teamInfo.permission.allowViewerManageTeamMember,
     )
 }
 
@@ -503,15 +495,6 @@ export const showShareAgentModalOnlyForShare = (teamInfo: TeamInfo) => {
   )
 }
 
-export const openShareAgentModalOnlyForShare = (teamInfo: TeamInfo) => {
-  return canUseUpgradeFeature(
-    teamInfo.myRole,
-    getPlanUtils(teamInfo),
-    teamInfo.totalTeamLicense.teamLicensePurchased,
-    teamInfo.totalTeamLicense.teamLicenseAllPaid,
-  )
-}
-
 export const openShareAgentModal = (
   teamInfo: TeamInfo,
   userRoleForThisAgent: USER_ROLE,
@@ -529,18 +512,10 @@ export const openShareAgentModal = (
   ) {
     return true
   } else {
-    return (
-      canManageInvite(
-        teamInfo.myRole,
-        teamInfo.permission.allowEditorManageTeamMember,
-        teamInfo.permission.allowViewerManageTeamMember,
-      ) &&
-      canUseUpgradeFeature(
-        teamInfo.myRole,
-        getPlanUtils(teamInfo),
-        teamInfo.totalTeamLicense.teamLicensePurchased,
-        teamInfo.totalTeamLicense.teamLicenseAllPaid,
-      )
+    return canManageInvite(
+      teamInfo.myRole,
+      teamInfo.permission.allowEditorManageTeamMember,
+      teamInfo.permission.allowViewerManageTeamMember,
     )
   }
 }
