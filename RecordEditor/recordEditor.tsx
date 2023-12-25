@@ -1,13 +1,6 @@
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
-import {
-  AddIcon,
-  Button,
-  DeleteIcon,
-  Input,
-  globalColor,
-  illaPrefix,
-} from "@illa-design/react"
+import { AddIcon, Button, DeleteIcon, Input } from "@illa-design/react"
 import { RecordEditorProps } from "./interface"
 import {
   applyRecordEditorContainerStyle,
@@ -118,9 +111,7 @@ export const RecordEditor: FC<RecordEditorProps> = (props) => {
               onClick={() => {
                 onAdd?.(name)
               }}
-              leftIcon={
-                <AddIcon color={globalColor(`--${illaPrefix}-techPurple-08`)} />
-              }
+              leftIcon={<AddIcon />}
             >
               {t("editor.action.panel.btn.new")}
             </Button>
