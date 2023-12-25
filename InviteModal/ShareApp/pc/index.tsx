@@ -19,13 +19,11 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
 
   if (
     props.canInvite &&
-    props.canUseBillingFeature &&
     isBiggerThanTargetRole(USER_ROLE.VIEWER, props.currentUserRole, false)
   ) {
     defTab = "edit"
   } else if (
     props.canInvite &&
-    props.canUseBillingFeature &&
     USER_ROLE.VIEWER === props.currentUserRole &&
     props.isDeployed
   ) {
@@ -73,7 +71,6 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
           }}
         >
           {props.canInvite &&
-            props.canUseBillingFeature &&
             isBiggerThanTargetRole(
               USER_ROLE.VIEWER,
               props.currentUserRole,
@@ -84,14 +81,12 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
                 key="edit"
               />
             )}
-          {props.canInvite &&
-            props.isDeployed &&
-            props.canUseBillingFeature && (
-              <TabPane
-                title={t("user_management.modal.title.invite_to_use")}
-                key="use"
-              />
-            )}
+          {props.canInvite && props.isDeployed && (
+            <TabPane
+              title={t("user_management.modal.title.invite_to_use")}
+              key="use"
+            />
+          )}
           {(isBiggerThanTargetRole(
             USER_ROLE.VIEWER,
             props.userRoleForThisApp,
@@ -116,62 +111,58 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
         </div>
       </div>
       <div css={contentContainerStyle}>
-        {activeTab === "edit" &&
-          props.canInvite &&
-          props.canUseBillingFeature && (
-            <>
-              <InviteLinkPC
-                excludeUserRole={[USER_ROLE.VIEWER]}
-                redirectURL={props.editRedirectURL}
-                defaultBalance={props.defaultBalance}
-                defaultInviteUserRole={USER_ROLE.EDITOR}
-                defaultAllowInviteLink={props.defaultAllowInviteLink}
-                teamID={props.teamID}
-                currentUserRole={props.currentUserRole}
-                onInviteLinkStateChange={props.onInviteLinkStateChange}
-                onCopyInviteLink={props.onCopyEditInviteLink}
-              />
-              <InviteByEmailPC
-                itemID={props.appID}
-                excludeUserRole={[USER_ROLE.VIEWER]}
-                redirectURL={props.editRedirectURL}
-                onBalanceChange={props.onBalanceChange}
-                defaultInviteUserRole={USER_ROLE.EDITOR}
-                teamID={props.teamID}
-                currentUserRole={props.currentUserRole}
-                defaultBalance={props.defaultBalance}
-                onInvitedChange={props.onInvitedChange}
-              />
-            </>
-          )}
-        {activeTab === "use" &&
-          props.canInvite &&
-          props.canUseBillingFeature && (
-            <>
-              <InviteLinkPC
-                excludeUserRole={[]}
-                redirectURL={props.useRedirectURL}
-                defaultBalance={props.defaultBalance}
-                defaultInviteUserRole={USER_ROLE.VIEWER}
-                defaultAllowInviteLink={props.defaultAllowInviteLink}
-                teamID={props.teamID}
-                currentUserRole={props.currentUserRole}
-                onInviteLinkStateChange={props.onInviteLinkStateChange}
-                onCopyInviteLink={props.onCopyUseInviteLink}
-              />
-              <InviteByEmailPC
-                itemID={props.appID}
-                excludeUserRole={[]}
-                redirectURL={props.useRedirectURL}
-                onBalanceChange={props.onBalanceChange}
-                defaultInviteUserRole={USER_ROLE.VIEWER}
-                teamID={props.teamID}
-                currentUserRole={props.currentUserRole}
-                defaultBalance={props.defaultBalance}
-                onInvitedChange={props.onInvitedChange}
-              />
-            </>
-          )}
+        {activeTab === "edit" && props.canInvite && (
+          <>
+            <InviteLinkPC
+              excludeUserRole={[USER_ROLE.VIEWER]}
+              redirectURL={props.editRedirectURL}
+              defaultBalance={props.defaultBalance}
+              defaultInviteUserRole={USER_ROLE.EDITOR}
+              defaultAllowInviteLink={props.defaultAllowInviteLink}
+              teamID={props.teamID}
+              currentUserRole={props.currentUserRole}
+              onInviteLinkStateChange={props.onInviteLinkStateChange}
+              onCopyInviteLink={props.onCopyEditInviteLink}
+            />
+            <InviteByEmailPC
+              itemID={props.appID}
+              excludeUserRole={[USER_ROLE.VIEWER]}
+              redirectURL={props.editRedirectURL}
+              onBalanceChange={props.onBalanceChange}
+              defaultInviteUserRole={USER_ROLE.EDITOR}
+              teamID={props.teamID}
+              currentUserRole={props.currentUserRole}
+              defaultBalance={props.defaultBalance}
+              onInvitedChange={props.onInvitedChange}
+            />
+          </>
+        )}
+        {activeTab === "use" && props.canInvite && (
+          <>
+            <InviteLinkPC
+              excludeUserRole={[]}
+              redirectURL={props.useRedirectURL}
+              defaultBalance={props.defaultBalance}
+              defaultInviteUserRole={USER_ROLE.VIEWER}
+              defaultAllowInviteLink={props.defaultAllowInviteLink}
+              teamID={props.teamID}
+              currentUserRole={props.currentUserRole}
+              onInviteLinkStateChange={props.onInviteLinkStateChange}
+              onCopyInviteLink={props.onCopyUseInviteLink}
+            />
+            <InviteByEmailPC
+              itemID={props.appID}
+              excludeUserRole={[]}
+              redirectURL={props.useRedirectURL}
+              onBalanceChange={props.onBalanceChange}
+              defaultInviteUserRole={USER_ROLE.VIEWER}
+              teamID={props.teamID}
+              currentUserRole={props.currentUserRole}
+              defaultBalance={props.defaultBalance}
+              onInvitedChange={props.onInvitedChange}
+            />
+          </>
+        )}
         {activeTab === "public" && isCloudVersion && (
           <AppPublicPC
             appDesc={props.appDesc}
