@@ -79,7 +79,7 @@ export const ShareAgentPC: FC<ShareAgentProps> = (props) => {
             setActiveTab(activeKey)
           }}
         >
-          {props.canInvite && props.canUseBillingFeature && (
+          {props.canInvite && (
             <TabPane
               title={t("user_management.modal.tab.with_team")}
               key={ShareAgentTab.SHARE_WITH_TEAM}

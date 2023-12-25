@@ -70,7 +70,7 @@ export const ShareAgentMobile: FC<ShareAgentProps> = (props) => {
               <CloseIcon size="12" />
             </div>
             <div css={tabsContainerStyle}>
-              {props.canInvite && props.canUseBillingFeature && (
+              {props.canInvite && (
                 <div
                   css={tabTitleStyle(
                     activeTab === ShareAgentTab.SHARE_WITH_TEAM,
