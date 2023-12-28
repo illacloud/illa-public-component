@@ -1,4 +1,4 @@
-import { ActionType, Agent } from "@illa-public/public-types"
+import { ActionType, Agent, ResourceType } from "@illa-public/public-types"
 import { HandleDirectCreateActionFunc } from "./ActionResourceSelector/interface"
 
 export interface ActionGeneratorProps {
@@ -13,6 +13,7 @@ export interface ActionGeneratorProps {
     successCallback?: () => void,
     loadingCallback?: (loading: boolean) => void,
   ) => void
+  filterResourceType?: (resourceType: ResourceType) => boolean
 }
 
 export type ActionCreatorPage =

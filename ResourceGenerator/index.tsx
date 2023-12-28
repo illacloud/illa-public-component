@@ -21,7 +21,7 @@ export * from "./utils"
 export * from "./config"
 
 export const ResourceGenerator: FC<ResourceGeneratorProps> = (props) => {
-  const { visible, onClose } = props
+  const { visible, onClose, filterResourceType } = props
   const [currentStep, setCurrentStep] = useState<ResourceCreatorPage>("select")
   const { track } = useContext(MixpanelTrackContext)
 
@@ -90,6 +90,7 @@ export const ResourceGenerator: FC<ResourceGeneratorProps> = (props) => {
                 parameter5: resourceType,
               })
             }}
+            filterResourceType={filterResourceType}
           />
         )}
         {currentStep === "createResource" && currentResource != null && (

@@ -4,6 +4,7 @@ import { getColor } from "@illa-design/react"
 export const container = css`
   width: 100%;
   overflow: auto;
+  max-height: 656px;
 `
 
 export function applyConfigItemLabelText(color: string, margin?: boolean) {
