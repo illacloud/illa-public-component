@@ -25,6 +25,7 @@ export const ActionGenerator: FC<ActionGeneratorProps> = function (props) {
     canBackToSelect = true,
     handleDirectCreateAction,
     handleCreateAgentAction,
+    filterResourceType,
   } = props
   const [currentStep, setCurrentStep] = useState<ActionCreatorPage>(defaultStep)
 
@@ -153,7 +154,10 @@ export const ActionGenerator: FC<ActionGeneratorProps> = function (props) {
               )}
               onClickClose={handleCancelModal}
             />
-            <ResourceTypeSelector onSelect={handleActionTypeSelect} />
+            <ResourceTypeSelector
+              onSelect={handleActionTypeSelect}
+              filterResourceType={filterResourceType}
+            />
           </>
         )}
         {currentStep === "createAction" &&

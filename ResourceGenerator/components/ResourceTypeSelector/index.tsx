@@ -6,7 +6,7 @@ import { ResourceTypeSelectorProps } from "./interface"
 import { categoryStyle, containerStyle, resourceListStyle } from "./style"
 
 export const ResourceTypeSelector: FC<ResourceTypeSelectorProps> = (props) => {
-  const { onSelect } = props
+  const { onSelect, filterResourceType } = props
 
   return (
     <div css={containerStyle}>
@@ -16,6 +16,12 @@ export const ResourceTypeSelector: FC<ResourceTypeSelectorProps> = (props) => {
           <div css={resourceListStyle}>
             {item
               .filter(({ hidden }) => !hidden)
+              .filter(({ resourceType }) => {
+                if (filterResourceType) {
+                  return filterResourceType(resourceType)
+                }
+                return resourceType
+              })
               .map(({ resourceType }) => (
                 <ResourceCard
                   key={resourceType}
