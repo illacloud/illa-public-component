@@ -29,9 +29,10 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
   ) {
     defTab = "use"
   } else if (
-    isBiggerThanTargetRole(USER_ROLE.VIEWER, props.currentUserRole) ||
-    props.defaultAppContribute ||
-    props.defaultAppPublic
+    props.canPublic &&
+    (isBiggerThanTargetRole(USER_ROLE.VIEWER, props.currentUserRole) ||
+      props.defaultAppContribute ||
+      props.defaultAppPublic)
   ) {
     defTab = "public"
   }
@@ -87,13 +88,14 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
               key="use"
             />
           )}
-          {(isBiggerThanTargetRole(
-            USER_ROLE.VIEWER,
-            props.userRoleForThisApp,
-            false,
-          ) ||
-            props.defaultAppContribute ||
-            props.defaultAppPublic) &&
+          {props.canPublic &&
+            (isBiggerThanTargetRole(
+              USER_ROLE.VIEWER,
+              props.userRoleForThisApp,
+              false,
+            ) ||
+              props.defaultAppContribute ||
+              props.defaultAppPublic) &&
             isCloudVersion && (
               <TabPane
                 title={t("user_management.modal.tab.public")}
@@ -163,7 +165,7 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
             />
           </>
         )}
-        {activeTab === "public" && isCloudVersion && (
+        {props.canPublic && activeTab === "public" && isCloudVersion && (
           <AppPublicPC
             appDesc={props.appDesc}
             appName={props.appName}
@@ -188,6 +190,10 @@ export const ShareAppPC: FC<ShareAppProps> = (props) => {
       </div>
     </Modal>
   )
+}
+
+ShareAppPC.defaultProps = {
+  canPublic: true,
 }
 
 ShareAppPC.displayName = "ShareAppPC"

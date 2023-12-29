@@ -24,5 +24,6 @@ export interface ShareAppProps
   editRedirectURL: string
   onCopyEditInviteLink: (inviteLink: string) => void
   onCopyUseInviteLink: (inviteLink: string) => void
+  canPublic?: boolean
   defaultTab?: ShareAppPage
 }
