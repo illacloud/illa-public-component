@@ -27,6 +27,7 @@ import {
   isCloudVersion,
 } from "@illa-public/utils"
 import { getAuthToken } from "@illa-public/utils"
+import { AnimatePresence } from "framer-motion"
 import { FC, useCallback, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
@@ -561,35 +562,38 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
           />
         )}
       </MixpanelTrackProvider>
-      <AppSettingModal
-        appID={appID}
-        appDesc={appConfig.description}
-        appName={appName}
-        visible={appSettingVisible}
-        onVisibleChange={(visible) => {
-          setAppSettingVisible(visible)
-        }}
-        onSaveEvent={() => {
-          track?.(
-            ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-            {
-              element: "app_setting_modal_save",
-              parameter5: appID,
-            },
-            "both",
-          )
-        }}
-        onCloseEvent={() => {
-          track?.(
-            ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-            {
-              element: "app_setting_modal_close",
-              parameter5: appID,
-            },
-            "both",
-          )
-        }}
-      />
+      <AnimatePresence>
+        {appSettingVisible && (
+          <AppSettingModal
+            appID={appID}
+            appDesc={appConfig.description}
+            appName={appName}
+            onVisibleChange={(visible) => {
+              setAppSettingVisible(visible)
+            }}
+            onSaveEvent={() => {
+              track?.(
+                ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                {
+                  element: "app_setting_modal_save",
+                  parameter5: appID,
+                },
+                "both",
+              )
+            }}
+            onCloseEvent={() => {
+              track?.(
+                ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+                {
+                  element: "app_setting_modal_close",
+                  parameter5: appID,
+                },
+                "both",
+              )
+            }}
+          />
+        )}
+      </AnimatePresence>
     </div>
   )
 }

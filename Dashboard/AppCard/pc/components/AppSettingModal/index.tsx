@@ -35,7 +35,6 @@ export const AppSettingModal: FC<AppSettingModalProps> = (props) => {
     appID,
     appDesc = "",
     appName = "",
-    visible,
     onVisibleChange,
     onSaveEvent,
     onCloseEvent,
@@ -92,7 +91,7 @@ export const AppSettingModal: FC<AppSettingModalProps> = (props) => {
       maskClosable
       withoutPadding
       w="528px"
-      visible={visible}
+      visible
       footer={false}
       onCancel={() => {
         onCloseEvent()
