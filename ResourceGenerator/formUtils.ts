@@ -49,7 +49,7 @@ function getActionContentByType(data: FieldValues, type: ResourceType) {
                 connectionFormat: data.connectionFormat,
                 databaseName: data.databaseName,
                 databaseUsername: data.databaseUsername,
-                databasePassword: encodeURIComponent(data.databasePassword),
+                databasePassword: data.databasePassword,
               }
             : {
                 uri: data.uri.trim(),
@@ -67,7 +67,7 @@ function getActionContentByType(data: FieldValues, type: ResourceType) {
         port: data.port.toString(),
         databaseName: data.databaseName,
         databaseUsername: data.databaseUsername,
-        databasePassword: encodeURIComponent(data.databasePassword),
+        databasePassword: data.databasePassword,
         ssl: generateSSLConfig(data.ssl, data),
       }
     case "redis":
@@ -76,7 +76,7 @@ function getActionContentByType(data: FieldValues, type: ResourceType) {
         port: data.port.toString(),
         databaseIndex: data.databaseIndex ?? 0,
         databaseUsername: data.databaseUsername,
-        databasePassword: encodeURIComponent(data.databasePassword),
+        databasePassword: data.databasePassword,
         ssl: data.ssl,
       }
     case "upstash":
@@ -85,7 +85,7 @@ function getActionContentByType(data: FieldValues, type: ResourceType) {
         port: data.port.toString(),
         databaseIndex: DATABASE_INDEX,
         databaseUsername: DEFAULT_NAME,
-        databasePassword: encodeURIComponent(data.databasePassword),
+        databasePassword: data.databasePassword,
         ssl: data.ssl,
       }
     case "firebase":
@@ -99,7 +99,7 @@ function getActionContentByType(data: FieldValues, type: ResourceType) {
         host: data.host.trim(),
         port: data.port.toString(),
         username: data.username,
-        password: encodeURIComponent(data.password),
+        password: data.password,
       }
     case "s3":
       return {
@@ -123,7 +123,7 @@ function getActionContentByType(data: FieldValues, type: ResourceType) {
         host: data.host.trim(),
         port: +data.port,
         username: data.username,
-        password: encodeURIComponent(data.password),
+        password: data.password,
         databaseName: data.databaseName,
         ssl: generateSSLConfig(!!data.ssl, data, "clickhouse"),
       }
@@ -143,7 +143,7 @@ function getActionContentByType(data: FieldValues, type: ResourceType) {
         port: data.port.toString(),
         databaseName: data.databaseName,
         username: data.username,
-        password: encodeURIComponent(data.password),
+        password: data.password,
         connectionOpts: data.connectionOpts,
         ssl: generateSSLConfig(!!data.ssl, data, "mssql"),
       }
@@ -176,7 +176,7 @@ function getActionContentByType(data: FieldValues, type: ResourceType) {
           data.authentication === "basic"
             ? {
                 username: data.username,
-                password: encodeURIComponent(data.password),
+                password: data.password,
               }
             : {
                 username: data.username,
