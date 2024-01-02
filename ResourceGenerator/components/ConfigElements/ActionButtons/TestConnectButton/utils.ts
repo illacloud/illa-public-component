@@ -24,7 +24,7 @@ export const formatTestConnectValues = (
         host: data.host.trim(),
         port: +data.port,
         username: data.username,
-        password: encodeURIComponent(data.password),
+        password: data.password,
         databaseName: data.databaseName,
         ssl: generateSSLConfig(data.ssl, data, "clickhouse"),
       }
@@ -47,7 +47,7 @@ export const formatTestConnectValues = (
         host: data.host.trim(),
         port: data.port.toString(),
         username: data.username,
-        password: encodeURIComponent(data.password),
+        password: data.password,
       }
     }
     case "firebase": {
@@ -74,7 +74,7 @@ export const formatTestConnectValues = (
         port: data.port.toString(),
         databaseName: data.databaseName,
         username: data.username,
-        password: encodeURIComponent(data.password),
+        password: data.password,
         connectionOpts: data.connectionOpts,
         ssl: generateSSLConfig(data.ssl, data, "mssql"),
       }
@@ -98,7 +98,7 @@ export const formatTestConnectValues = (
                 connectionFormat: data.connectionFormat,
                 databaseName: data.databaseName,
                 databaseUsername: data.databaseUsername,
-                databasePassword: encodeURIComponent(data.databasePassword),
+                databasePassword: data.databasePassword,
               }
             : { uri: data.uri.trim() },
       }
@@ -115,7 +115,7 @@ export const formatTestConnectValues = (
         port: data.port.toString(),
         databaseName: data.databaseName,
         databaseUsername: data.databaseUsername,
-        databasePassword: encodeURIComponent(data.databasePassword),
+        databasePassword: data.databasePassword,
         ssl: generateSSLConfig(data.ssl, data),
       }
     }
@@ -125,7 +125,7 @@ export const formatTestConnectValues = (
         port: data.port.toString(),
         databaseIndex: data.databaseIndex,
         databaseUsername: data.databaseUsername,
-        databasePassword: encodeURIComponent(data.databasePassword),
+        databasePassword: data.databasePassword,
         ssl: data.ssl,
       }
     }
@@ -135,7 +135,7 @@ export const formatTestConnectValues = (
         port: data.port.toString(),
         databaseIndex: DATABASE_INDEX,
         databaseUsername: data.databaseUsername,
-        databasePassword: encodeURIComponent(data.databasePassword),
+        databasePassword: data.databasePassword,
         ssl: data.ssl,
       }
     }
@@ -161,7 +161,7 @@ export const formatTestConnectValues = (
         host: data.host.trim(),
         port: +data.port,
         username: data.username,
-        password: encodeURIComponent(data.password),
+        password: data.password,
       }
     }
     case "snowflake": {
@@ -176,7 +176,7 @@ export const formatTestConnectValues = (
           data.authentication === "basic"
             ? {
                 username: data.username,
-                password: encodeURIComponent(data.password),
+                password: data.password,
               }
             : {
                 username: data.username,
