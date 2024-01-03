@@ -418,6 +418,8 @@ export const showShareAppModal = (
   isContributed: boolean,
   isDeployed: boolean,
 ) => {
+  if (!isCloudVersion) return false
+
   const canInvite = canManageInvite(
     teamInfo.myRole,
     teamInfo.permission.allowEditorManageTeamMember,
@@ -435,7 +437,7 @@ export const showShareAppModal = (
     )
   ) {
     return true
-  } else return isCloudVersion && (isPublic || isContributed) && isDeployed
+  } else return (isPublic || isContributed) && isDeployed
 }
 
 export const openShareAppModal = (
