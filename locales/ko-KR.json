@@ -2229,7 +2229,7 @@
     "editor.ai-agent.group.information": "Basic information",
     "editor.ai-agent.doc": "문서",
     "editor.common.required": "필수",
-    "editor.runManually.fail": "Failed to run. Please try again later",
+    "editor.runManually.fail": "Failed to run",
     "exit_preview": "미리보기 종료",
     "freeze_collision": "동결 충돌",
     "freeze_messages": "캔버스가 고정되고 구성 요소를 컨테이너 안팎으로 끌 수 있습니다.",
