@@ -2229,6 +2229,7 @@
     "editor.ai-agent.group.information": "基本情報",
     "editor.ai-agent.doc": "ドキュメント",
     "editor.common.required": "必須",
+    "editor.runManually.fail": "実行に失敗しました。後でもう一度お試しください。",
     "exit_preview": "プレビューを終了する",
     "freeze_collision": "衝突を固定する",
     "freeze_messages": "キャンバスが固定されています。コンポーネントをコンテナにドラッグすることができます。",
