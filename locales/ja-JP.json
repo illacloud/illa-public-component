@@ -117,7 +117,7 @@
     "flow.editor.event.error.not_reacha": "トリガーノードから切断されたため到達できません",
     "flow.editor.flow.status.active": "アクティブ",
     "flow.editor.flow.status.inactive": "非アクティブ",
-    "flow.editor.flow.history.suc": "正常に実行: ",
+    "flow.editor.flow.history.suc": "正常に実行",
     "flow.editor.flow.history.no_history": "結果なし",
     "flow.editor.flow.history.running": "実行中",
     "flow.editor.flow.toolbar.history": "結果",
