@@ -2229,6 +2229,7 @@
     "editor.ai-agent.group.information": "Grunnleggende informasjon",
     "editor.ai-agent.doc": "Doc",
     "editor.common.required": "Påkrevd",
+    "editor.runManually.fail": "Kunne ikke kjøre. Vennligst prøv igjen senere",
     "exit_preview": "Avslutt forhåndsvisning",
     "freeze_collision": "Frys kollisjon",
     "freeze_messages": "lerret er frosset. Du kan dra komponenter inn eller ut av beholderen.",
