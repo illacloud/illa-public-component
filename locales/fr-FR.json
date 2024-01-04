@@ -2229,6 +2229,7 @@
     "editor.ai-agent.group.information": "Informations de base",
     "editor.ai-agent.doc": "Doc",
     "editor.common.required": "Requis",
+    "editor.runManually.fail": "Échec de l'exécution. Veuillez réessayer plus tard",
     "exit_preview": "Quitter l'aperçu",
     "freeze_collision": "Geler la collision",
     "freeze_messages": "La toile est gelée. Vous pouvez faire glisser des composants à l'intérieur ou à l'extérieur des conteneurs.",
