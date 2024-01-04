@@ -2229,7 +2229,7 @@
     "editor.ai-agent.group.information": "Basic information",
     "editor.ai-agent.doc": "Doc",
     "editor.common.required": "Required",
-    "editor.runManually.fail": "Failed to run. Please try again later",
+    "editor.runManually.fail": "Failed to run",
     "exit_preview": "Exit Preview",
     "freeze_collision": "Freeze collision",
     "freeze_messages": "The canvas is frozen. You can drag components into or out of containers.",
