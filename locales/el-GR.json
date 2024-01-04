@@ -2229,7 +2229,7 @@
     "editor.ai-agent.group.information": "Βασικές πληροφορίες",
     "editor.ai-agent.doc": "Έγγραφο",
     "editor.common.required": "Απαιτείται",
-    "editor.runManually.fail": "Αποτυχία εκτέλεσης. Παρακαλώ προσπαθήστε ξανά αργότερα",
+    "editor.runManually.fail": "Failed to run",
     "exit_preview": "Έξοδος Προεπισκόπησης",
     "freeze_collision": "Πάγωμα σύγκρουσης",
     "freeze_messages": "Ο καμβάς είναι παγωμένος. Μπορείτε να σύρετε συστατικά μέσα ή έξω από δοχεία.",
