@@ -2229,6 +2229,7 @@
     "editor.ai-agent.group.information": "Základní informace",
     "editor.ai-agent.doc": "Doc",
     "editor.common.required": "Požadováno",
+    "editor.runManually.fail": "Nepodařilo se spustit. Opakujte akci později",
     "exit_preview": "Ukončit náhled",
     "freeze_collision": "Zmrazit srážku",
     "freeze_messages": "Plátno je zmrazené. Můžete přetáhnout komponenty do kontejnerů nebo z nich.",
