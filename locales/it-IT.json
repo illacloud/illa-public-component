@@ -2229,6 +2229,7 @@
     "editor.ai-agent.group.information": "Informazioni di base",
     "editor.ai-agent.doc": "Doc",
     "editor.common.required": "Richiesto",
+    "editor.runManually.fail": "Impossibile eseguire. Riprova più tardi",
     "exit_preview": "Esci Dall'Anteprima",
     "freeze_collision": "Congela collisione",
     "freeze_messages": "La superficie è congelata. È possibile trascinare i componenti dentro o fuori dai contenitori.",
