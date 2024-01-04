@@ -2229,7 +2229,7 @@
     "editor.ai-agent.group.information": "Perustiedot",
     "editor.ai-agent.doc": "Doc",
     "editor.common.required": "Pakollinen",
-    "editor.runManually.fail": "Suoritus epäonnistui. Yritä myöhemmin uudelleen",
+    "editor.runManually.fail": "Failed to run",
     "exit_preview": "Poistu Esikatselusta",
     "freeze_collision": "Jäädytä törmäys",
     "freeze_messages": "Kanava on jäätynyt. Voit vetää osia säiliöihin tai ulos niistä.",
