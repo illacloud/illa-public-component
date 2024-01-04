@@ -2229,6 +2229,7 @@
     "editor.ai-agent.group.information": "Основная информация",
     "editor.ai-agent.doc": "Дакк",
     "editor.common.required": "Требуется",
+    "editor.runManually.fail": "Не удалось запустить. Повторите попытку позже",
     "exit_preview": "Выйти из предпросмотра",
     "freeze_collision": "Заморозить столкновение",
     "freeze_messages": "Холст заморожен. Вы можете перетащить компоненты в контейнеры или из них.",
