@@ -117,7 +117,7 @@
     "flow.editor.event.error.not_reacha": "Keine Verbindung zum Triggerknoten erreichbar",
     "flow.editor.flow.status.active": "Aktiv",
     "flow.editor.flow.status.inactive": "Inaktiv",
-    "flow.editor.flow.history.suc": "Erfolgreich ausgeführt: ",
+    "flow.editor.flow.history.suc": "Erfolgreich ausgeführt",
     "flow.editor.flow.history.no_history": "Kein Ergebnis",
     "flow.editor.flow.history.running": "Laufend",
     "flow.editor.flow.toolbar.history": "Ergebnis",

@@ -117,7 +117,7 @@
     "flow.editor.event.error.not_reacha": "Disconnected from trigger node therefore unreachable",
     "flow.editor.flow.status.active": "Active",
     "flow.editor.flow.status.inactive": "Inactive",
-    "flow.editor.flow.history.suc": "Run successfully: ",
+    "flow.editor.flow.history.suc": "Run successfully",
     "flow.editor.flow.history.no_history": "No result",
     "flow.editor.flow.history.running": "Running",
     "flow.editor.flow.toolbar.history": "Result",

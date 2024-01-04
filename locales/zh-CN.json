@@ -117,7 +117,7 @@
     "flow.editor.event.error.not_reacha": "未连接到触发节点，无法访问",
     "flow.editor.flow.status.active": "启用",
     "flow.editor.flow.status.inactive": "未启用",
-    "flow.editor.flow.history.suc": "运行成功: ",
+    "flow.editor.flow.history.suc": "运行成功",
     "flow.editor.flow.history.no_history": "无结果",
     "flow.editor.flow.history.running": "正在运行",
     "flow.editor.flow.toolbar.history": "运行结果",
