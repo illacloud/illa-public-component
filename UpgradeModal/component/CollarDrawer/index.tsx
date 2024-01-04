@@ -179,6 +179,8 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
       purchaseStatus: "success",
       purchaseType: PURCHASE_TYPE.COLLA,
       userID,
+      purchaseCount: currentQuantity,
+      purchaseValue: unitPrice * currentQuantity,
     })
     const cancelRedirect = window.location.href
     try {
