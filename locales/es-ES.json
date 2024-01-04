@@ -2229,6 +2229,7 @@
     "editor.ai-agent.group.information": "Información básica",
     "editor.ai-agent.doc": "Doc",
     "editor.common.required": "Requerido",
+    "editor.runManually.fail": "Failed to run",
     "exit_preview": "Salir de vista previa",
     "freeze_collision": "Colisión de congelación",
     "freeze_messages": "El lienzo está congelado. Puede arrastrar componentes hacia o hacia fuera de contenedores.",

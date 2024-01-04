@@ -2229,6 +2229,7 @@
     "editor.ai-agent.group.information": "Informações Básicas",
     "editor.ai-agent.doc": "Documentos",
     "editor.common.required": "Obrigatório",
+    "editor.runManually.fail": "Failed to run",
     "exit_preview": "Sair da Pré-visualização",
     "freeze_collision": "Congelar colisão",
     "freeze_messages": "A tela está congelada. Você pode arrastar componentes para dentro ou para fora dos contêineres.",

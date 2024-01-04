@@ -2229,6 +2229,7 @@
     "editor.ai-agent.group.information": "Grundläggande information",
     "editor.ai-agent.doc": "Doc",
     "editor.common.required": "Krävs",
+    "editor.runManually.fail": "Failed to run",
     "exit_preview": "Avsluta förhandsgranskning",
     "freeze_collision": "Frys kollision",
     "freeze_messages": "Tyget är fruset. Du kan dra komponenter till eller ut ur behållare.",
