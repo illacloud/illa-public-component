@@ -2229,6 +2229,7 @@
     "editor.ai-agent.group.information": "Informatii de baza",
     "editor.ai-agent.doc": "Document",
     "editor.common.required": "Necesar",
+    "editor.runManually.fail": "Esuare executie. Te rugam sa incerci din nou mai tarziu",
     "exit_preview": "Ieșiți din previzualizare",
     "freeze_collision": "Îngheață coliziunea",
     "freeze_messages": "Pânza este îngheţată. Puteţi trage componente în sau în afara containerelor.",
