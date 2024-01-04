@@ -185,6 +185,8 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       purchaseStatus: "success",
       purchaseType: PURCHASE_TYPE.LICENSE,
       userID,
+      purchaseCount: quantity,
+      purchaseValue: unitPrice * quantity,
     })
     const cancelRedirect = window.location.href
     try {
