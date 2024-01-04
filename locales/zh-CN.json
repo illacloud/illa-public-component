@@ -2229,6 +2229,7 @@
     "editor.ai-agent.group.information": "基本信息",
     "editor.ai-agent.doc": "文档",
     "editor.common.required": "是否必填",
+    "editor.runManually.fail": "运行失败",
     "exit_preview": "退出预览",
     "freeze_collision": "冻结碰撞",
     "freeze_messages": "画布已冻结。您可以将组件拖放到容器中或从容器中拖出。",

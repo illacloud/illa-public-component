@@ -2229,6 +2229,7 @@
     "editor.ai-agent.group.information": "Grundlegende Informationen",
     "editor.ai-agent.doc": "Doc",
     "editor.common.required": "Erforderlich",
+    "editor.runManually.fail": "Fehler beim Ausführen",
     "exit_preview": "Vorschau beenden",
     "freeze_collision": "Kollision einfrieren",
     "freeze_messages": "Die Leinwand ist eingefroren. Sie können Komponenten in Container ziehen oder entfernen.",

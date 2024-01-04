@@ -2229,6 +2229,7 @@
     "editor.ai-agent.group.information": "Podstawowe informacje",
     "editor.ai-agent.doc": "Doc",
     "editor.common.required": "Wymagane",
+    "editor.runManually.fail": "Failed to run",
     "exit_preview": "Wyjdź z podglądu",
     "freeze_collision": "Zamroź kolizję",
     "freeze_messages": "Płótno jest zamrożone. Możesz przeciągać elementy do lub z pojemników.",
