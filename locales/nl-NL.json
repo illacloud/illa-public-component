@@ -2229,7 +2229,7 @@
     "editor.ai-agent.group.information": "Basis informatie",
     "editor.ai-agent.doc": "Doc",
     "editor.common.required": "vereist",
-    "editor.runManually.fail": "Uitvoeren mislukt. Probeer het later opnieuw",
+    "editor.runManually.fail": "Failed to run",
     "exit_preview": "Voorvertoning afsluiten",
     "freeze_collision": "Blokkeer botsing",
     "freeze_messages": "Het canvas is bevroren. Je kunt onderdelen naar of uit containers slepen.",
