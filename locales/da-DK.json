@@ -2229,6 +2229,7 @@
     "editor.ai-agent.group.information": "Grundlæggende oplysninger",
     "editor.ai-agent.doc": "Doc",
     "editor.common.required": "Påkrævet",
+    "editor.runManually.fail": "Kunne ikke køre. Prøv igen senere",
     "exit_preview": "Afslut Forhåndsvisning",
     "freeze_collision": "Frys kollision",
     "freeze_messages": "Lærredet er frosset. Du kan trække komponenter ind i eller ud af beholdere.",
