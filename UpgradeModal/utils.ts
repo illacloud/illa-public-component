@@ -11,7 +11,7 @@ import { createCollarModal, createTeamLimitModal } from "./hook"
 import { CollarModalType, FREE_TEAM_LIMIT_TYPE } from "./interface"
 
 export function getSuccessRedirectWithParams(
-  params: Record<string, string>,
+  params: Record<string, string | number>,
 ): string {
   const redirectPath = "/landing/subscribed"
   const paramString = Object.entries(params)
