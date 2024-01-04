@@ -2229,6 +2229,7 @@
     "editor.ai-agent.group.information": "Основна інформація",
     "editor.ai-agent.doc": "Доки",
     "editor.common.required": "Обов'язково",
+    "editor.runManually.fail": "Не вдалося запустити. Будь ласка, спробуйте ще раз пізніше",
     "exit_preview": "Вийти з режиму перегляду",
     "freeze_collision": "Крижане зіткнення",
     "freeze_messages": "Полотно заморожено. Ви можете перетягнути компоненти в або з контейнерів.",
