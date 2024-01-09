@@ -1,7 +1,7 @@
-import { UpgradeModalType } from "./interface";
+import { UpgradeModalType } from "./interface"
 
 export const HIGHLIGHT_MAP: Partial<Record<UpgradeModalType, string>> = {
-  ['agent']: "billing.modal.ai-agent.string1",
+  ["agent"]: "billing.modal.ai-agent.string1",
 }
 
 export const FEATURE_CONFIG = [
@@ -32,11 +32,6 @@ export const UPGRADE_MODAL_CONFIG_KEY = {
     title: "billing.modal.upgrade_now_admin.upgrade_to_plus",
     description: "billing.modal.upgrade_now_admin.this_feature_is_avai",
     buttonText: "billing.modal.upgrade_now_admin.upgrade",
-  },
-  expired: {
-    title: "billing.modal.expired.your_subscription_ha",
-    description: "billing.modal.expired.all_members_except_f",
-    buttonText: "billing.modal.expired.upgrade",
   },
   agent: {
     title: "billing.modal.upgrade_now_admin.upgrade_to_plus",

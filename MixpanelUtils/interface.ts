@@ -82,6 +82,7 @@ export enum ILLA_MIXPANEL_CLOUD_PAGE_NAME {
   APP = "builder_app",
   RESOURCE = "builder_resource",
   AI_AGENT_DASHBOARD = "ai_agent_dashboard",
+  FLOW_DASHBOARD = "flow_dashboard",
 }
 
 export enum ILLA_MIXPANEL_PUBLIC_PAGE_NAME {
@@ -111,8 +112,13 @@ export enum ILLA_MIXPANEL_MARKET_PAGE_NAME {
   COMMUNITY_APP_DETAIL = "community_app_detail",
 }
 
+export enum ILLA_MIXPANEL_FLOW_PAGE_NAME {
+  EDITOR = "flow_editor",
+}
+
 export type ILLA_PAGE_NAME =
   | ILLA_MIXPANEL_CLOUD_PAGE_NAME
   | ILLA_MIXPANEL_PUBLIC_PAGE_NAME
   | ILLA_MIXPANEL_BUILDER_PAGE_NAME
   | ILLA_MIXPANEL_MARKET_PAGE_NAME
+  | ILLA_MIXPANEL_FLOW_PAGE_NAME
