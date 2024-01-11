@@ -10,7 +10,7 @@ export const ClickhouseSSLInitial: ClickhouseSSL = {
 
 export const ClickhouseResourceInitial: ClickhouseResource = {
   host: "",
-  port: "",
+  port: "8443",
   databaseName: "",
   username: "",
   password: "",

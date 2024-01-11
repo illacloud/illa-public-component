@@ -146,7 +146,7 @@ export const MongoDbGuiMode: FC<MongoDbConfigModeProps> = (props) => {
           name="port"
           controlledType="number"
           control={control}
-          placeholders={["3306"]}
+          placeholders={["27017"]}
           isRequired
           rules={[
             {

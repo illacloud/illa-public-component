@@ -4,5 +4,5 @@ export const ElasticSearchResourceInitial: ElasticSearchResource = {
   username: "",
   password: "",
   host: "",
-  port: "",
+  port: "9200",
 }
