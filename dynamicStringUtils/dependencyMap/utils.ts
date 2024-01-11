@@ -85,9 +85,7 @@ export const extractInfoFromBinding = (
   script: string,
   allKeys: Record<string, true>,
 ) => {
-  console.log("script", script)
   const { references } = extractIdentifierInfoFromCode(script)
-  console.log("references", references)
   return getPrunedReferences(references, allKeys)
 }
 
