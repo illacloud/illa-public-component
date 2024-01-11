@@ -115,6 +115,8 @@
     "flow.editor.event.error.no_input": "入力なし",
     "flow.editor.event.error.failed": "実行に失敗しました",
     "flow.editor.event.error.not_reacha": "トリガーノードから切断されたため到達できません",
+    "flow.editor.event.message.undeploy": "変更はデプロイされていません",
+    "flow.editor.event.message.undeploy_desc": "変更はフロー内の実行時には反映されません。",
     "flow.editor.flow.status.active": "アクティブ",
     "flow.editor.flow.status.inactive": "非アクティブ",
     "flow.editor.flow.history.suc": "正常に実行",
