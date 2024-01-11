@@ -1,0 +1,23 @@
+{
+  "name": "@illa-public/dynamic-string",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "devDependencies": {
+    "@types/deep-diff": "^1.0.5",
+    "@types/lodash-es": "^4.17.12",
+    "@types/toposort": "^2.0.7",
+    "@types/unescape-js": "^1.0.2",
+    "tsconfig": "workspace:*"
+  },
+  "dependencies": {
+    "acorn": "^8.11.3",
+    "acorn-walk": "^8.3.1",
+    "deep-diff": "^1.0.2",
+    "fast-sort": "^3.4.0",
+    "klona": "^2.0.6",
+    "lodash-es": "^4.17.21",
+    "toposort": "^2.0.2",
+    "unescape-js": "^1.1.4"
+  }
+}
