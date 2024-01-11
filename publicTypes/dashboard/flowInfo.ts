@@ -8,6 +8,7 @@ export interface IFlowConfig {
   publishWithApp: boolean
   cover: string
   flowNodes: null
+  modified: boolean
 }
 
 export enum FLOW_ACTIVE_STATUS {
