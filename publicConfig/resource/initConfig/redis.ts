@@ -5,6 +5,6 @@ export const RedisResourceInitial: RedisResource = {
   databasePassword: "",
   databaseUsername: "",
   host: "",
-  port: "",
+  port: "6379",
   ssl: false,
 }

@@ -93,7 +93,7 @@ const CouchDBConfigElement: FC<BaseConfigElementProps> = (props) => {
               validate: validateNotEmpty,
             },
           ]}
-          placeholders={[t("editor.action.form.placeholder.couchdb.port.5984")]}
+          placeholders={["5984"]}
           name="port"
         />
         <ControlledElement
