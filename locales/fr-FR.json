@@ -115,6 +115,8 @@
     "flow.editor.event.error.no_input": "Aucune entrée",
     "flow.editor.event.error.failed": "Échec de l'exécution",
     "flow.editor.event.error.not_reacha": "Déconnecté du noeud de déclenchement injoignable",
+    "flow.editor.event.message.undeploy": "Annuler le déploiement des modifications",
+    "flow.editor.event.message.undeploy_desc": "Les changements ne prendront pas effet pendant le temps d'exécution dans le flux.",
     "flow.editor.flow.status.active": "Actif",
     "flow.editor.flow.status.inactive": "Inactif",
     "flow.editor.flow.history.suc": "Exécuter avec succès : ",
