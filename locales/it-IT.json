@@ -115,6 +115,8 @@
     "flow.editor.event.error.no_input": "Nessun input",
     "flow.editor.event.error.failed": "Esecuzione non riuscita",
     "flow.editor.event.error.not_reacha": "Disconnesso dal nodo trigger quindi irraggiungibile",
+    "flow.editor.event.message.undeploy": "Annulla le modifiche",
+    "flow.editor.event.message.undeploy_desc": "Le modifiche non avranno effetto durante il runtime nel flusso.",
     "flow.editor.flow.status.active": "Attivo",
     "flow.editor.flow.status.inactive": "Inattivo",
     "flow.editor.flow.history.suc": "Esegui con successo: ",

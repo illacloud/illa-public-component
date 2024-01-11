@@ -115,6 +115,8 @@
     "flow.editor.event.error.no_input": "Sem entradas",
     "flow.editor.event.error.failed": "Falha ao executar",
     "flow.editor.event.error.not_reacha": "Desconectado do nó de gatilho por isso inacessível",
+    "flow.editor.event.message.undeploy": "Desimplantar mudanças",
+    "flow.editor.event.message.undeploy_desc": "As alterações não terão efeito durante o tempo de execução no fluxo.",
     "flow.editor.flow.status.active": "ativo",
     "flow.editor.flow.status.inactive": "Inativo",
     "flow.editor.flow.history.suc": "Executado com sucesso: ",

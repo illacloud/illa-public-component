@@ -115,6 +115,8 @@
     "flow.editor.event.error.no_input": "Ingen indgange",
     "flow.editor.event.error.failed": "Mislykkedes at køre",
     "flow.editor.event.error.not_reacha": "Afbrudt fra udløsningsknude kan derfor ikke nås",
+    "flow.editor.event.message.undeploy": "Deaktiver ændringer",
+    "flow.editor.event.message.undeploy_desc": "Ændringerne vil ikke træde i kraft under kørslen i flowet.",
     "flow.editor.flow.status.active": "Aktiv",
     "flow.editor.flow.status.inactive": "Inaktiv",
     "flow.editor.flow.history.suc": "Kør succesfuldt: ",

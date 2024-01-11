@@ -115,6 +115,8 @@
     "flow.editor.event.error.no_input": "Žádné vstupy",
     "flow.editor.event.error.failed": "Spuštění se nezdařilo",
     "flow.editor.event.error.not_reacha": "Odpojeno od spouštěcího uzlu je proto nedostupné",
+    "flow.editor.event.message.undeploy": "Zrušit nasazení změn",
+    "flow.editor.event.message.undeploy_desc": "Změny se neprojeví během provozu v průtoku.",
     "flow.editor.flow.status.active": "Aktivní",
     "flow.editor.flow.status.inactive": "Neaktivní",
     "flow.editor.flow.history.suc": "Úspěšně spuštěno: ",

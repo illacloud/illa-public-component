@@ -115,6 +115,8 @@
     "flow.editor.event.error.no_input": "Немає входів",
     "flow.editor.event.error.failed": "Не вдалося запустити",
     "flow.editor.event.error.not_reacha": "Від'єднано від вузла тригера, тому недосяжний",
+    "flow.editor.event.message.undeploy": "Скасувати видалення змін",
+    "flow.editor.event.message.undeploy_desc": "Зміни набудуть чинності не під час виконання потоку.",
     "flow.editor.flow.status.active": "Активний",
     "flow.editor.flow.status.inactive": "Неактивний",
     "flow.editor.flow.history.suc": "Успішно виконано: ",

@@ -115,6 +115,8 @@
     "flow.editor.event.error.no_input": "Ei syötteitä",
     "flow.editor.event.error.failed": "Ei voitu suorittaa",
     "flow.editor.event.error.not_reacha": "Irrota laukaisusolmusta, joten tavoittamaton",
+    "flow.editor.event.message.undeploy": "Poista muutokset käytöstä",
+    "flow.editor.event.message.undeploy_desc": "Muutokset eivät tule voimaan ajon aikana virtauksessa.",
     "flow.editor.flow.status.active": "Aktiivinen",
     "flow.editor.flow.status.inactive": "Passiivinen",
     "flow.editor.flow.history.suc": "Suorita onnistuneesti: ",

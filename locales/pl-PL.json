@@ -115,6 +115,8 @@
     "flow.editor.event.error.no_input": "Brak danych wejściowych",
     "flow.editor.event.error.failed": "Nie udało się uruchomić",
     "flow.editor.event.error.not_reacha": "Odłączone od węzła wyzwalacza więc nieosiągalne",
+    "flow.editor.event.message.undeploy": "Odrzuć zmiany",
+    "flow.editor.event.message.undeploy_desc": "Zmiany nie wejdą w życie w czasie pracy.",
     "flow.editor.flow.status.active": "Aktywne",
     "flow.editor.flow.status.inactive": "Nieaktywny",
     "flow.editor.flow.history.suc": "Wykonano pomyślnie: ",
