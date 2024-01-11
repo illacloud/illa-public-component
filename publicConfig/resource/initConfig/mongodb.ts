@@ -7,7 +7,7 @@ import {
 export const MongoDbGuiConfigContentInitial: MongoDbGuiConfigContent = {
   host: "",
   connectionFormat: "standard",
-  port: "",
+  port: "27017",
   databaseName: "",
   databaseUsername: "",
   databasePassword: "",

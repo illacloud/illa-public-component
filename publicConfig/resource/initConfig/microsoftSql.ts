@@ -21,7 +21,7 @@ export const MicrosoftSqlResourceInitial: MicrosoftSqlResource = {
   databaseName: "",
   host: "",
   password: "",
-  port: "",
+  port: "1433",
   ssl: MicrosoftSqlSSLInitial,
   username: "",
 }

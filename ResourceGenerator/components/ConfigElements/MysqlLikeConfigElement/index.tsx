@@ -196,7 +196,7 @@ const MysqlLikeConfigElement: FC<MysqlLikeConfigElementProps> = (props) => {
           title={t("editor.action.resource.db.label.hostname_port")}
           defaultValue={[
             findResource?.content.host,
-            findResource?.content.port,
+            findResource?.content.port ?? getResourceDefaultPort(resourceType),
           ]}
           name={["host", "port"]}
           controlledType={["input", "number"]}

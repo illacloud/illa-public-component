@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next"
 import { Button, PreviousIcon } from "@illa-design/react"
 import { getResourceNameFromResourceType } from "../../utils"
 import { CreateButton } from "../ConfigElements/ActionButtons/CreateButton"
+import GoogleCreateButton from "../ConfigElements/ActionButtons/GoogleCreateButton"
 import { TestConnectButton } from "../ConfigElements/ActionButtons/TestConnectButton"
 import { ResourceHeaderProps } from "./interface"
 import {
@@ -14,7 +15,6 @@ import {
   titleNameContainerStyle,
   titleNameStyle,
 } from "./style"
-import GoogleCreateButton from "../ConfigElements/ActionButtons/GoogleCreateButton"
 
 const NOT_NEED_TEST_CONNECT_RESOURCE_TYPE = [
   "restapi",
@@ -53,7 +53,8 @@ export const Header: FC<ResourceHeaderProps> = (props) => {
             {!NOT_NEED_TEST_CONNECT_RESOURCE_TYPE.includes(resourceType) && (
               <TestConnectButton resourceType={resourceType} />
             )}
-             {import.meta.env.ILLA_APP_ENV === "test" && resourceType === "googlesheets" ? (
+            {import.meta.env.ILLA_APP_ENV === "test" &&
+            resourceType === "googlesheets" ? (
               <GoogleCreateButton />
             ) : (
               <CreateButton />

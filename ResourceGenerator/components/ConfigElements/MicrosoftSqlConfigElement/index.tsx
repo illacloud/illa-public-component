@@ -93,7 +93,7 @@ const MicrosoftSqlConfigElement: FC<BaseConfigElementProps> = (props) => {
           isRequired
           title={t("editor.action.resource.db.label.hostname_port")}
           control={control}
-          defaultValue={[content.host, content.port]}
+          defaultValue={[content.host, content.port ?? 1433]}
           rules={[
             {
               required: t("editor.action.resource.error.invalid_url"),
