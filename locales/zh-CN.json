@@ -115,6 +115,8 @@
     "flow.editor.event.error.no_input": "没有输入",
     "flow.editor.event.error.failed": "运行失败",
     "flow.editor.event.error.not_reacha": "未连接到触发节点，无法访问",
+    "flow.editor.event.message.undeploy": "变更未部署",
+    "flow.editor.event.message.undeploy_desc": "Flow运行时，变更将不会生效",
     "flow.editor.flow.status.active": "启用",
     "flow.editor.flow.status.inactive": "未启用",
     "flow.editor.flow.history.suc": "运行成功",
