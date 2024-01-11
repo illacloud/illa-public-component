@@ -115,6 +115,8 @@
     "flow.editor.event.error.no_input": "Nici o intrare",
     "flow.editor.event.error.failed": "Eșec la rulare",
     "flow.editor.event.error.not_reacha": "Deconectat de la nodul de declanșare prin urmare inaccesibil",
+    "flow.editor.event.message.undeploy": "Deplasare modificări",
+    "flow.editor.event.message.undeploy_desc": "Schimbările nu vor intra în vigoare în timpul derulării fluxului.",
     "flow.editor.flow.status.active": "Activ",
     "flow.editor.flow.status.inactive": "Inactiv",
     "flow.editor.flow.history.suc": "Rulare cu succes: ",
