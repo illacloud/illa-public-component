@@ -1,5 +1,8 @@
-import { getStringSnippets, isDynamicStringSnippet } from "@illa-public/utils"
-import { debounce } from "lodash"
+import {
+  getStringSnippets,
+  isDynamicStringSnippet,
+} from "@illa-public/dynamic-string"
+import { debounce } from "lodash-es"
 import { forwardRef, useMemo } from "react"
 import { ILLACodeMirrorCore } from "./CodeMirror/core"
 import { IExpressionShape } from "./CodeMirror/extensions/interface"

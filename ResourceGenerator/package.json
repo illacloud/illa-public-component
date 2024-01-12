@@ -16,14 +16,14 @@
     "@illa-public/user-data": "workspace:*",
     "@illa-public/utils": "workspace:*",
     "@types/uuid": "^9.0.7",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "react-hook-form": "^7.48.2",
     "react-window": "^1.8.9",
     "react-window-infinite-loader": "^1.0.9",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.202",
+    "@types/lodash-es": "^4.17.12",
     "@types/react-window": "^1.8.5",
     "@types/react-window-infinite-loader": "^1.0.6",
     "tsconfig": "workspace:*"
