@@ -117,6 +117,7 @@
     "flow.editor.event.error.not_reacha": "Desconectado del nodo desencadenante, por lo tanto inalcanzable",
     "flow.editor.event.message.undeploy": "Desdesplegar cambios",
     "flow.editor.event.message.undeploy_desc": "Los cambios no tendrán efecto durante el tiempo de ejecución en el flujo.",
+    "flow.editor.event.message.deployed": "Desplegado con éxito",
     "flow.editor.flow.status.active": "Activo",
     "flow.editor.flow.status.inactive": "Inactivo",
     "flow.editor.flow.history.suc": "Ejecutar con éxito: ",
