@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { ResourceTypeList } from "../../config"
 import { ResourceCard } from "../ResourceCard"
-import { WhiteList } from "../RowWhiteList"
+import { SuggestResourceCard } from "../ResourceCard/suggestCard"
 import { ResourceTypeSelectorProps } from "./interface"
 import { categoryStyle, containerStyle, resourceListStyle } from "./style"
 
@@ -13,28 +13,33 @@ export const ResourceTypeSelector: FC<ResourceTypeSelectorProps> = (props) => {
       {ResourceTypeList.map(({ title, item, category }) => (
         <div key={category}>
           <span css={categoryStyle}>{title}</span>
-          <div css={resourceListStyle}>
-            {item
-              .filter(({ hidden }) => !hidden)
-              .filter(({ resourceType }) => {
-                if (filterResourceType) {
-                  return filterResourceType(resourceType)
-                }
-                return resourceType
-              })
-              .map(({ resourceType }) => (
-                <ResourceCard
-                  key={resourceType}
-                  onSelect={(item) => {
-                    onSelect(item)
-                  }}
-                  resourceType={resourceType}
-                />
-              ))}
-          </div>
+          {category === "notFind" ? (
+            <div css={resourceListStyle}>
+              <SuggestResourceCard />
+            </div>
+          ) : (
+            <div css={resourceListStyle}>
+              {item
+                .filter(({ hidden }) => !hidden)
+                .filter(({ resourceType }) => {
+                  if (filterResourceType) {
+                    return filterResourceType(resourceType)
+                  }
+                  return resourceType
+                })
+                .map(({ resourceType }) => (
+                  <ResourceCard
+                    key={resourceType}
+                    onSelect={(item) => {
+                      onSelect(item)
+                    }}
+                    resourceType={resourceType}
+                  />
+                ))}
+            </div>
+          )}
         </div>
       ))}
-      <WhiteList />
     </div>
   )
 }
