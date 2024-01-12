@@ -4,7 +4,7 @@ import {
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
 import { Agent } from "@illa-public/public-types"
-import { debounce } from "lodash"
+import { debounce } from "lodash-es"
 import {
   FC,
   useCallback,

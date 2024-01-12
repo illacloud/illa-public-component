@@ -4,37 +4,37 @@
   "private": true,
   "main": "index.ts",
   "dependencies": {
-    "@illa-public/utils": "workspace:*",
-    "@illa-public/user-role-utils": "workspace:*",
-    "@illa-public/layout-auto-change": "workspace:*",
-    "@illa-public/mixpanel-utils": "workspace:*",
-    "@illa-public/auth-shown": "workspace:*",
-    "@illa-public/icon": "workspace:*",
-    "@illa-public/role-selector": "workspace:*",
-    "@illa-public/usage-card": "workspace:*",
-    "@illa-public/avatar": "workspace:*",
-    "@illa-public/public-types": "workspace:*",
-    "@illa-public/illa-net": "workspace:*",
-    "@illa-public/upgrade-modal": "workspace:*",
-    "@illa-public/market-app": "workspace:*",
-    "@illa-public/market-agent": "workspace:*",
     "@illa-design/react": "workspace:*",
-    "react-share": "^4.4.1",
-    "react-hook-form": "^7.30.0",
+    "@illa-public/auth-shown": "workspace:*",
+    "@illa-public/avatar": "workspace:*",
+    "@illa-public/icon": "workspace:*",
+    "@illa-public/illa-net": "workspace:*",
+    "@illa-public/layout-auto-change": "workspace:*",
+    "@illa-public/market-agent": "workspace:*",
+    "@illa-public/market-app": "workspace:*",
+    "@illa-public/mixpanel-utils": "workspace:*",
+    "@illa-public/public-types": "workspace:*",
+    "@illa-public/role-selector": "workspace:*",
+    "@illa-public/upgrade-modal": "workspace:*",
+    "@illa-public/usage-card": "workspace:*",
+    "@illa-public/user-role-utils": "workspace:*",
+    "@illa-public/utils": "workspace:*",
     "copy-to-clipboard": "^3.3.2",
-    "lodash": "^4.17.21"
+    "lodash-es": "^4.17.21",
+    "react-hook-form": "^7.30.0",
+    "react-share": "^4.4.1"
   },
   "devDependencies": {
-    "tsconfig": "workspace:*",
-    "@types/lodash": "^4.14.199"
+    "@types/lodash-es": "^4.17.12",
+    "tsconfig": "workspace:*"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@emotion/react": "^11.11.1",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
-    "@emotion/react": "^11.11.1",
-    "react-i18next": "^13.5.0",
-    "i18next": "^23.7.6"
+    "i18next": "^23.7.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^13.5.0"
   }
 }
