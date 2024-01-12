@@ -4,7 +4,7 @@ import i18next from "i18next"
 
 export const ACTION_MODAL_WIDTH = 1080
 
-interface ResourceItem {
+export interface ResourceItem {
   resourceType: ResourceType
   hidden?: boolean
 }
@@ -137,5 +137,10 @@ export const ResourceTypeList = [
     title: i18next.t("editor.action.type.api"),
     item: Apis,
     category: "apis" as const,
+  },
+  {
+    title: i18next.t("editor.action.form.title.feedback"),
+    item: [],
+    category: "notFind" as const,
   },
 ]
