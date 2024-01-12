@@ -117,6 +117,7 @@
     "flow.editor.event.error.not_reacha": "Keine Verbindung zum Triggerknoten erreichbar",
     "flow.editor.event.message.undeploy": "Änderungen deinstallieren",
     "flow.editor.event.message.undeploy_desc": "Die Änderungen werden während der Laufzeit im Fluss nicht wirksam.",
+    "flow.editor.event.message.deployed": "Erfolgreich verteilt",
     "flow.editor.flow.status.active": "Aktiv",
     "flow.editor.flow.status.inactive": "Inaktiv",
     "flow.editor.flow.history.suc": "Erfolgreich ausgeführt",

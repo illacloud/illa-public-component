@@ -117,6 +117,7 @@
     "flow.editor.event.error.not_reacha": "Disconnected from trigger node therefore unreachable",
     "flow.editor.event.message.undeploy": "Undeployed changes",
     "flow.editor.event.message.undeploy_desc": "The changes will not take effect when running.",
+    "flow.editor.event.message.deployed": "Deployed successfully",
     "flow.editor.flow.status.active": "Active",
     "flow.editor.flow.status.inactive": "Inactive",
     "flow.editor.flow.history.suc": "Run successfully",

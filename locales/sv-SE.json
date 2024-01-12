@@ -117,6 +117,7 @@
     "flow.editor.event.error.not_reacha": "Frånkopplad från utlösarnoden kan därför inte nås",
     "flow.editor.event.message.undeploy": "Ej distribuera ändringar",
     "flow.editor.event.message.undeploy_desc": "Förändringarna kommer inte att träda i kraft under körtiden i flödet.",
+    "flow.editor.event.message.deployed": "Utplacerad framgångsrikt",
     "flow.editor.flow.status.active": "Aktiv",
     "flow.editor.flow.status.inactive": "Inaktiv",
     "flow.editor.flow.history.suc": "Kör framgångsrikt: ",
