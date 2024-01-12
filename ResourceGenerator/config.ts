@@ -4,7 +4,7 @@ import i18next from "i18next"
 
 export const ACTION_MODAL_WIDTH = 1080
 
-interface ResourceItem {
+export interface ResourceItem {
   resourceType: ResourceType
   hidden?: boolean
 }
