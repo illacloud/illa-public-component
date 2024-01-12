@@ -117,6 +117,7 @@
     "flow.editor.event.error.not_reacha": "Koblet fra utløsernode og kan derfor ikke nås",
     "flow.editor.event.message.undeploy": "Udistribuere endringer",
     "flow.editor.event.message.undeploy_desc": "Endringene vil ikke tre i kraft når strømmen kjøres.",
+    "flow.editor.event.message.deployed": "Utlevert vellykket",
     "flow.editor.flow.status.active": "Aktiv",
     "flow.editor.flow.status.inactive": "Inaktiv",
     "flow.editor.flow.history.suc": "Kjør vellykket: ",
