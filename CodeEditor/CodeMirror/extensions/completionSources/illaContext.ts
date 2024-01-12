@@ -3,7 +3,7 @@ import {
   CompletionContext,
   CompletionResult,
 } from "@codemirror/autocomplete"
-import { getStringSnippets } from "@illa-public/utils"
+import { getStringSnippets } from "@illa-public/dynamic-string"
 
 const isObject = (value: unknown): value is Record<string, unknown> => {
   return typeof value === "object" && value !== null && !Array.isArray(value)

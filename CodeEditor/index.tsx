@@ -1,4 +1,7 @@
-import { getStringSnippets, isDynamicStringSnippet } from "@illa-public/utils"
+import {
+  getStringSnippets,
+  isDynamicStringSnippet,
+} from "@illa-public/dynamic-string"
 import { debounce } from "lodash"
 import { forwardRef, useMemo } from "react"
 import { ILLACodeMirrorCore } from "./CodeMirror/core"
