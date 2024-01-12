@@ -1,4 +1,4 @@
-import { debounce } from "lodash"
+import { debounce } from "lodash-es"
 import { FC, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Select, Skeleton, Space, Tag } from "@illa-design/react"
@@ -16,7 +16,6 @@ import {
   tagInputContainerStyle,
   titleStyle,
 } from "./style"
-
 
 export const TagControllerPC: FC<TagControllerProps> = (props) => {
   const { productType, productID, productContributed, onTagChange } = props
