@@ -117,6 +117,7 @@
     "flow.editor.event.error.not_reacha": "Αποσυνδέθηκε από τον κόμβο ενεργοποίησης ως εκ τούτου μη προσβάσιμο",
     "flow.editor.event.message.undeploy": "Κατάργηση ανάπτυξης αλλαγών",
     "flow.editor.event.message.undeploy_desc": "Οι αλλαγές δεν θα τεθούν σε ισχύ κατά τη διάρκεια εκτέλεσης της ροής.",
+    "flow.editor.event.message.deployed": "Επιτυχής ανάπτυξη",
     "flow.editor.flow.status.active": "Ενεργό",
     "flow.editor.flow.status.inactive": "Ανενεργό",
     "flow.editor.flow.history.suc": "Επιτυχής εκτέλεση: ",
