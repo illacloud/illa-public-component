@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
-import { PlusIcon } from "@illa-design/react"
+import { CommentIcon } from "@illa-design/react"
 import { applyItemStyle, nameStyle, titleContainerStyle } from "./style"
 
 export const SuggestResourceCard: FC = () => {
@@ -15,9 +15,9 @@ export const SuggestResourceCard: FC = () => {
         )
       }}
     >
-      <PlusIcon size="24px" />
+      <CommentIcon size="24px" />
       <div css={titleContainerStyle}>
-        <div css={nameStyle}>{t("editor.action.resource.suggestMore")}</div>
+        <div css={nameStyle}>{t("editor.action.form.option.tell_us")}</div>
       </div>
     </div>
   )

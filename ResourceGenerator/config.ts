@@ -138,4 +138,9 @@ export const ResourceTypeList = [
     item: Apis,
     category: "apis" as const,
   },
+  {
+    title: i18next.t("editor.action.form.title.feedback"),
+    item: [],
+    category: "notFind" as const,
+  },
 ]
