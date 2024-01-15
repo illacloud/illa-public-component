@@ -602,6 +602,8 @@
     "editor.action.panel.label.tips.drive.file_type_array": "Un tableau de type de fichiers à télécharger. Vous pouvez utiliser {{upload1.files.map(file =>file.type)}} pour obtenir les types de fichiers depuis le composant de téléchargement. ",
     "editor.action.panel.label.tips.drive.target_file_name": "Utilisé pour définir le nouveau nom",
     "editor.action.panel.label.tips.drive.overwrite": "Si l'écrasement, nous remplacerons le fichier par le nouveau. Si ce n'est pas le cas, nous renommerons le nouveau fichier avec une chaîne de caractères aléatoire. ",
+    "editor.action.panel.label.tips.desc.safe_mode": "To mitigate the potential risk of SQL injection, Safe mode is enabled by default. When using variables with {{ in this mode, errors may occur. If you prefer to continue using variables, please switch to Unsafe mode.",
+    "editor.action.panel.label.tips.title.safe_mode": "Vous pouvez utiliser des variables. ",
     "editor.action.panel.label.advanced.advanced": "AVANCÉ",
     "editor.action.panel.label.advanced.page_trigger": "Déclencher Timing",
     "editor.action.panel.label.advanced.loading_page": "Chargement de la page",
