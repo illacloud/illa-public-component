@@ -602,6 +602,8 @@
     "editor.action.panel.label.tips.drive.file_type_array": "Et array af typen af de filer, der skal uploades. Du kan bruge {{upload1.files.map(file =>file.type)}} til at hente filtyperne fra upload-komponenten. ",
     "editor.action.panel.label.tips.drive.target_file_name": "Bruges til at angive det nye navn",
     "editor.action.panel.label.tips.drive.overwrite": "Hvis overskrive, vil vi erstatte filen med den nye. Hvis ikke overskrive, vil vi omdøbe den nye fil til en tilfældig streng. ",
+    "editor.action.panel.label.tips.desc.safe_mode": "To mitigate the potential risk of SQL injection, Safe mode is enabled by default. When using variables with {{ in this mode, errors may occur. If you prefer to continue using variables, please switch to Unsafe mode.",
+    "editor.action.panel.label.tips.title.safe_mode": "Du kan bruge variabler. ",
     "editor.action.panel.label.advanced.advanced": "AVANCERET",
     "editor.action.panel.label.advanced.page_trigger": "Udløser Timing",
     "editor.action.panel.label.advanced.loading_page": "Indlæser side",
