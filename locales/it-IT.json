@@ -602,6 +602,8 @@
     "editor.action.panel.label.tips.drive.file_type_array": "Un array di tipo dei file da caricare. Puoi usare {{upload1.files.map(file =>file.type)}} per ottenere i tipi di file dal componente di caricamento. ",
     "editor.action.panel.label.tips.drive.target_file_name": "Usato per impostare il nuovo nome",
     "editor.action.panel.label.tips.drive.overwrite": "Se sovrascrittura, sostituiremo il file con quello nuovo. Se non sovrascritteremo, rinomineremo la fine del nuovo file con una stringa casuale. ",
+    "editor.action.panel.label.tips.desc.safe_mode": "To mitigate the potential risk of SQL injection, Safe mode is enabled by default. When using variables with {{ in this mode, errors may occur. If you prefer to continue using variables, please switch to Unsafe mode.",
+    "editor.action.panel.label.tips.title.safe_mode": "Si consiglia di utilizzare le variabili. ",
     "editor.action.panel.label.advanced.advanced": "AVANZATO",
     "editor.action.panel.label.advanced.page_trigger": "Tempi Di Attivazione",
     "editor.action.panel.label.advanced.loading_page": "Caricamento pagina",
