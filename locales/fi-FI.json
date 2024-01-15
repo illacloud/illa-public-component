@@ -602,6 +602,8 @@
     "editor.action.panel.label.tips.drive.file_type_array": "Joukko tiedostotyyppejä, jotka ladataan. Voit käyttää {{upload1.files.map(file =>file.type)}} saadaksesi tiedostotyypit ladattavan komponentin kautta. ",
     "editor.action.panel.label.tips.drive.target_file_name": "Käytetään uuden nimen asettamiseen",
     "editor.action.panel.label.tips.drive.overwrite": "Jos ylikirjoitus, korvaamme tiedoston uudella tiedostolla. Jos sitä ei ylikirjoiteta, nimetään uusi tiedosto uudelleen satunnaisella merkkijonolla. ",
+    "editor.action.panel.label.tips.desc.safe_mode": "To mitigate the potential risk of SQL injection, Safe mode is enabled by default. When using variables with {{ in this mode, errors may occur. If you prefer to continue using variables, please switch to Unsafe mode.",
+    "editor.action.panel.label.tips.title.safe_mode": "Saatat haluta käyttää muuttujia. ",
     "editor.action.panel.label.advanced.advanced": "LISÄTTY",
     "editor.action.panel.label.advanced.page_trigger": "Käynnistimen Ajoitus",
     "editor.action.panel.label.advanced.loading_page": "Ladataan sivua",
