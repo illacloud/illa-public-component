@@ -602,6 +602,8 @@
     "editor.action.panel.label.tips.drive.file_type_array": "要上传的文件类型的数组。您可以使用上传组件的{{upload1.files.map(file => file.type)}}获取文件类型。",
     "editor.action.panel.label.tips.drive.target_file_name": "用于设置新名称。",
     "editor.action.panel.label.tips.drive.overwrite": "如果覆盖，我们将使用新的文件替换原有文件。如果不覆盖，我们将为新文件命名，并在末尾添加一个随机字符串。",
+    "editor.action.panel.label.tips.desc.safe_mode": "为了降低 SQL 注入的潜在风险，默认启用安全模式。 在此模式下使用带有 {{ 的变量时，可能会运行错误。 如果您想继续使用变量，可以切换到不安全模式。",
+    "editor.action.panel.label.tips.title.safe_mode": "您可能想要使用变量。 ",
     "editor.action.panel.label.advanced.advanced": "高级",
     "editor.action.panel.label.advanced.page_trigger": "触发时机",
     "editor.action.panel.label.advanced.loading_page": "加载页面",
