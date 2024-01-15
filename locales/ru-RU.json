@@ -602,6 +602,8 @@
     "editor.action.panel.label.tips.drive.file_type_array": "Массив типов файлов для загрузки. Вы можете использовать {{upload1.files.map(file =>file.type)}} чтобы получить типы файлов из компонента загрузки. ",
     "editor.action.panel.label.tips.drive.target_file_name": "Используется для установки нового имени",
     "editor.action.panel.label.tips.drive.overwrite": "Если перезаписать, мы заменим файл на новый. Если не перезапишем, мы переименуем новый файл с случайной строкой. ",
+    "editor.action.panel.label.tips.desc.safe_mode": "To mitigate the potential risk of SQL injection, Safe mode is enabled by default. When using variables with {{ in this mode, errors may occur. If you prefer to continue using variables, please switch to Unsafe mode.",
+    "editor.action.panel.label.tips.title.safe_mode": "Вы можете захотеть использовать переменные. ",
     "editor.action.panel.label.advanced.advanced": "ДОБАВЛЕНО",
     "editor.action.panel.label.advanced.page_trigger": "Тайминг триггера",
     "editor.action.panel.label.advanced.loading_page": "Загрузка страницы",
