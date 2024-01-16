@@ -103,6 +103,7 @@
     "flow.editor.trigger.webhook.key_blank": "鍵がありません",
     "flow.editor.trigger.webhook.collapse_a": "すべて閉じる",
     "flow.editor.trigger.webhook.new": "新規作成",
+    "flow.editor.trigger.webhook.boolean": "ブール値",
     "flow.editor.event.type.inputs": "Inputs",
     "flow.editor.event.type.data": "応答データ",
     "flow.editor.event.type.action": "アクション",
