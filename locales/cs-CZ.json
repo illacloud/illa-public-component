@@ -103,6 +103,7 @@
     "flow.editor.trigger.webhook.key_blank": "Chybějící klíč",
     "flow.editor.trigger.webhook.collapse_a": "Sbalit vše",
     "flow.editor.trigger.webhook.new": "Nové",
+    "flow.editor.trigger.webhook.boolean": "Boolean",
     "flow.editor.event.type.inputs": "Inputs",
     "flow.editor.event.type.data": "Údaje",
     "flow.editor.event.type.action": "Akce",
