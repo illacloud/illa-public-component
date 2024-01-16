@@ -103,6 +103,7 @@
     "flow.editor.trigger.webhook.key_blank": "Ontbrekende sleutel",
     "flow.editor.trigger.webhook.collapse_a": "Alles inklappen",
     "flow.editor.trigger.webhook.new": "Nieuw",
+    "flow.editor.trigger.webhook.boolean": "Boolean",
     "flow.editor.event.type.inputs": "Inputs",
     "flow.editor.event.type.data": "Data",
     "flow.editor.event.type.action": "actie",
