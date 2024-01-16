@@ -103,6 +103,7 @@
     "flow.editor.trigger.webhook.key_blank": "Chiave mancante",
     "flow.editor.trigger.webhook.collapse_a": "Comprimi tutto",
     "flow.editor.trigger.webhook.new": "Nuovo",
+    "flow.editor.trigger.webhook.boolean": "Boolean",
     "flow.editor.event.type.inputs": "Inputs",
     "flow.editor.event.type.data": "Dati",
     "flow.editor.event.type.action": "Azione",
