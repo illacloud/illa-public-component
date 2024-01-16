@@ -103,6 +103,7 @@
     "flow.editor.trigger.webhook.key_blank": "Fehlender Schlüssel",
     "flow.editor.trigger.webhook.collapse_a": "Alle einklappen",
     "flow.editor.trigger.webhook.new": "Neu",
+    "flow.editor.trigger.webhook.boolean": "Boolescher Wert",
     "flow.editor.event.type.inputs": "Inputs",
     "flow.editor.event.type.data": "Data",
     "flow.editor.event.type.action": "Aktion",
