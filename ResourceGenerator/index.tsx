@@ -21,12 +21,14 @@ export * from "./utils"
 export * from "./config"
 
 export const ResourceGenerator: FC<ResourceGeneratorProps> = (props) => {
-  const { visible, onClose, filterResourceType } = props
-  const [currentStep, setCurrentStep] = useState<ResourceCreatorPage>("select")
+  const { visible, onClose, filterResourceType, defaultConfig } = props
+  const [currentStep, setCurrentStep] = useState<ResourceCreatorPage>(
+    defaultConfig?.defaultStep ?? "select",
+  )
   const { track } = useContext(MixpanelTrackContext)
 
   const [currentResource, setCurrentResource] = useState<ResourceType | null>(
-    null,
+    defaultConfig?.defaultResourceType ?? null,
   )
 
   const onCancel = () => {
