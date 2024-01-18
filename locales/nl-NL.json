@@ -814,6 +814,8 @@
     "editor.action.panel.desc.missing_resource.some_resources_of_th": "Sommige bronnen van de acties in deze app zijn verwijderd, dit kan problemen veroorzaken met het gebruik van deze app. Gelieve te bevestigen. ",
     "editor.action.panel.button.missing_resource.configure": "Configureren",
     "editor.action.panel.button.missing_resource.deploy": "Implementeren",
+    "editor.action.panel.button.missing_resource.cancel": "annuleren",
+    "editor.action.panel.button.missing_resource.save": "Opslaan",
     "editor.action.resource.card.coming_soon": "Binnenkort beschikbaar",
     "editor.action.resource.db.invalid_private.key": "Ongeldige privésleutel. ",
     "editor.action.resource.db.label.ca_certificate": "CA-certificaat",
