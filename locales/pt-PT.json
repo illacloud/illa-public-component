@@ -814,6 +814,8 @@
     "editor.action.panel.desc.missing_resource.some_resources_of_th": "Alguns recursos das ações deste aplicativo foram excluídos, o que pode causar erros ao usar este aplicativo. Por favor, confirme. ",
     "editor.action.panel.button.missing_resource.configure": "Configurar",
     "editor.action.panel.button.missing_resource.deploy": "Implantar",
+    "editor.action.panel.button.missing_resource.cancel": "cancelar",
+    "editor.action.panel.button.missing_resource.save": "Guardar",
     "editor.action.resource.card.coming_soon": "Em breve",
     "editor.action.resource.db.invalid_private.key": "Chave privada inválida. ",
     "editor.action.resource.db.label.ca_certificate": "Certificado CA",
