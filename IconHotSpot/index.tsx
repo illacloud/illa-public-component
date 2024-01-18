@@ -4,7 +4,7 @@ import { IconHotSpotProps } from "./interface"
 import { iconHotSpotContainerStyle } from "./style"
 
 const IconHotSpot: ForwardRefRenderFunction<
-  HTMLSpanElement,
+  HTMLButtonElement,
   IconHotSpotProps
 > = (props, ref) => {
   const {
@@ -17,7 +17,7 @@ const IconHotSpot: ForwardRefRenderFunction<
   } = props
 
   return (
-    <span
+    <button
       {...otherProps}
       css={iconHotSpotContainerStyle(
         iconSize,
@@ -28,8 +28,8 @@ const IconHotSpot: ForwardRefRenderFunction<
       ref={ref}
     >
       {children}
-    </span>
+    </button>
   )
 }
 
-export default forwardRef<HTMLSpanElement, IconHotSpotProps>(IconHotSpot)
+export default forwardRef<HTMLButtonElement, IconHotSpotProps>(IconHotSpot)
