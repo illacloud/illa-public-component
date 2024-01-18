@@ -61,7 +61,7 @@ export interface ActionConfig {
   advancedConfig?: IAdvancedConfig
   icon?: string
   mockConfig?: IMockConfig
-  tutorialHref?: string
+  tutorialLink?: string
 }
 
 export type ActionType =
