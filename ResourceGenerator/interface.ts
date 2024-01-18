@@ -7,6 +7,7 @@ export interface ResourceGeneratorProps {
   defaultConfig?: {
     defaultStep: ResourceCreatorPage
     defaultResourceType: ResourceType
+    canBack?: boolean
   }
 }
 

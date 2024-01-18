@@ -23,7 +23,7 @@ const MissingResources: FC<{
   return createPortal(
     <Modal
       visible={shown}
-      w="720px"
+      w="800px"
       autoFocus={false}
       footer={false}
       onCancel={handleCloseModal}

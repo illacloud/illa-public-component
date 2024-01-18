@@ -98,12 +98,16 @@ export const ResourceGenerator: FC<ResourceGeneratorProps> = (props) => {
         {currentStep === "createResource" && currentResource != null && (
           <ResourceCreator
             onBack={() => {
-              setCurrentStep("select")
-              setCurrentResource(null)
-              track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
-                element: "resource_configure_back",
-                parameter5: currentResource,
-              })
+              if (defaultConfig?.canBack ?? true) {
+                setCurrentStep("select")
+                setCurrentResource(null)
+                track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                  element: "resource_configure_back",
+                  parameter5: currentResource,
+                })
+              } else {
+                onCancel()
+              }
             }}
             resourceType={currentResource}
           />

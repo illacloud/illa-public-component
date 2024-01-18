@@ -79,10 +79,10 @@ export const ListItem: FC<ItemProps> = (props) => {
       <div css={cellStyle("128px")}>
         <span css={cellFontStyle}>{shownNames}</span>
       </div>
-      <div css={cellStyle("64px")}>
+      <div css={cellStyle("104px")}>
         <span css={cellFontStyle}>{resourceType}</span>
       </div>
-      <div css={cellStyle("200px")}>
+      <div css={cellStyle("224px")}>
         <ResourceChoose
           resourceID={replacementResourceID}
           changeResourceID={changeResourceID}

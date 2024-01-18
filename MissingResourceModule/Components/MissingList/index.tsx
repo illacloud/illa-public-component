@@ -98,7 +98,8 @@ const MissingList: FC<MissingListProps> = (props) => {
     })
 
     await updateActions(updateActionList)
-
+    setReplaceInfo(new Map())
+    handleCancelModal()
     setIsSaving(false)
   }
 
@@ -109,10 +110,10 @@ const MissingList: FC<MissingListProps> = (props) => {
           <p css={cellStyle("128px")}>
             {t("editor.action.panel.label.missing_resource.affected_actions")}
           </p>
-          <p css={cellStyle("64px")}>
+          <p css={cellStyle("104px")}>
             {t("editor.action.panel.label.missing_resource.type")}
           </p>
-          <p css={cellStyle("200px")}>
+          <p css={cellStyle("224px")}>
             {t("editor.action.panel.label.missing_resource.replacement")}
           </p>
           <p css={cellStyle("96px")}>

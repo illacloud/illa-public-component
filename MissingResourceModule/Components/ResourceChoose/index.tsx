@@ -141,6 +141,7 @@ const ResourceChoose: FC<ResourceChooseProps> = ({
           defaultConfig={{
             defaultResourceType: origanResourceType as ResourceType,
             defaultStep: isMysqlLike ? "select" : "createResource",
+            canBack: false,
           }}
           filterResourceType={(resourceType) => {
             if (isMysqlLike) {
