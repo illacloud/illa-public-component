@@ -814,6 +814,8 @@
     "editor.action.panel.desc.missing_resource.some_resources_of_th": "Unele resurse ale acțiunilor din această aplicație au fost șterse, ceea ce poate cauza o eroare la utilizarea acestei aplicații. Vă rugăm să confirmați. ",
     "editor.action.panel.button.missing_resource.configure": "Configurare",
     "editor.action.panel.button.missing_resource.deploy": "Desfășurare",
+    "editor.action.panel.button.missing_resource.cancel": "Anulează",
+    "editor.action.panel.button.missing_resource.save": "Salvează",
     "editor.action.resource.card.coming_soon": "În curând",
     "editor.action.resource.db.invalid_private.key": "Cheie privată invalidă. ",
     "editor.action.resource.db.label.ca_certificate": "Certificat CA",

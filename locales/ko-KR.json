@@ -814,6 +814,8 @@
     "editor.action.panel.desc.missing_resource.some_resources_of_th": "Some resources of the actions in this app have been deleted, which may cause error the using this app. Please confirm. ",
     "editor.action.panel.button.missing_resource.configure": "Configure",
     "editor.action.panel.button.missing_resource.deploy": "Deploy",
+    "editor.action.panel.button.missing_resource.cancel": "Cancel",
+    "editor.action.panel.button.missing_resource.save": "Save",
     "editor.action.resource.card.coming_soon": "곧 업데이트됩니다",
     "editor.action.resource.db.invalid_private.key": "올바르지 않은 개인 키 ",
     "editor.action.resource.db.label.ca_certificate": "서버 인증서",

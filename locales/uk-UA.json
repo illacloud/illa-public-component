@@ -814,6 +814,8 @@
     "editor.action.panel.desc.missing_resource.some_resources_of_th": "Деякі ресурси дій у цьому додатку були видалені, що може призвести до помилок у цьому додатку. Будь ласка, підтвердіть. ",
     "editor.action.panel.button.missing_resource.configure": "Настроїти",
     "editor.action.panel.button.missing_resource.deploy": "Розгортання",
+    "editor.action.panel.button.missing_resource.cancel": "Скасувати",
+    "editor.action.panel.button.missing_resource.save": "Зберегти",
     "editor.action.resource.card.coming_soon": "Скоро",
     "editor.action.resource.db.invalid_private.key": "Недійсний приватний ключ. ",
     "editor.action.resource.db.label.ca_certificate": "Сертифікат центру сертифікації",
