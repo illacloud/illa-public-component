@@ -814,6 +814,8 @@
     "editor.action.panel.desc.missing_resource.some_resources_of_th": "Einige Ressourcen der Aktionen in dieser App wurden gelöscht. Dies kann zu Fehlern bei der Verwendung dieser App führen. Bitte bestätigen. ",
     "editor.action.panel.button.missing_resource.configure": "Konfigurieren",
     "editor.action.panel.button.missing_resource.deploy": "Deploy",
+    "editor.action.panel.button.missing_resource.cancel": "Abbrechen",
+    "editor.action.panel.button.missing_resource.save": "Speichern",
     "editor.action.resource.card.coming_soon": "Demnächst",
     "editor.action.resource.db.invalid_private.key": "Ungültiger privater Schlüssel. ",
     "editor.action.resource.db.label.ca_certificate": "CA-Zertifikat",
