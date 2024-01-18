@@ -61,6 +61,7 @@ export interface ActionConfig {
   advancedConfig?: IAdvancedConfig
   icon?: string
   mockConfig?: IMockConfig
+  tutorialLink?: string
 }
 
 export type ActionType =
@@ -100,7 +101,7 @@ export type ActionType =
 export type ActionTriggerMode = "manually" | "automate"
 
 export interface BaseActionItem<T extends unknown = unknown> {
-  config?: ActionConfig
+  config: ActionConfig
   displayName: string
   transformer: Transformer
   triggerMode: ActionTriggerMode

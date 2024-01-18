@@ -1,0 +1,27 @@
+{
+  "name": "@illa-public/missing-resource-module",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.tsx",
+  "dependencies": {
+    "@illa-design/react": "workspace:*",
+    "@illa-public/icon": "workspace:^",
+    "@illa-public/icon-hot-spot": "workspace:^",
+    "@illa-public/mixpanel-utils": "workspace:^",
+    "@illa-public/public-types": "workspace:*",
+    "@illa-public/resource-generator": "workspace:^",
+    "@illa-public/user-role-utils": "workspace:*",
+    "@illa-public/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*"
+  },
+  "peerDependencies": {
+    "@emotion/react": "^11.11.1",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^13.5.0"
+  }
+}

@@ -1,6 +1,5 @@
 import { Resource, ResourceType } from "@illa-public/public-types"
 import { FC, ReactNode, createContext, useCallback, useMemo } from "react"
-import { useSelector } from "react-redux"
 
 interface IInject {
   getResourceByType: (type: ResourceType) => Resource[]
@@ -14,7 +13,7 @@ interface IInject {
 export const ResourceGeneratorContext = createContext<IInject>({} as IInject)
 
 interface ResourceGeneratorProverProps {
-  getAllResourceSelector: (rootState: any) => Resource[]
+  allResource: Resource[]
   createOrUpdateResourceCallback: (
     resource: Resource,
     isUpdate: boolean,
@@ -25,10 +24,7 @@ interface ResourceGeneratorProverProps {
 export const ResourceGeneratorProvider: FC<ResourceGeneratorProverProps> = (
   props,
 ) => {
-  const { children, getAllResourceSelector, createOrUpdateResourceCallback } =
-    props
-
-  const allResource = useSelector(getAllResourceSelector)
+  const { children, allResource, createOrUpdateResourceCallback } = props
 
   const getResourceByType = useCallback(
     (resourceType: ResourceType) => {
