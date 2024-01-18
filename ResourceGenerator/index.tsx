@@ -21,12 +21,14 @@ export * from "./utils"
 export * from "./config"
 
 export const ResourceGenerator: FC<ResourceGeneratorProps> = (props) => {
-  const { visible, onClose, filterResourceType } = props
-  const [currentStep, setCurrentStep] = useState<ResourceCreatorPage>("select")
+  const { visible, onClose, filterResourceType, defaultConfig } = props
+  const [currentStep, setCurrentStep] = useState<ResourceCreatorPage>(
+    defaultConfig?.defaultStep ?? "select",
+  )
   const { track } = useContext(MixpanelTrackContext)
 
   const [currentResource, setCurrentResource] = useState<ResourceType | null>(
-    null,
+    defaultConfig?.defaultResourceType ?? null,
   )
 
   const onCancel = () => {
@@ -96,12 +98,16 @@ export const ResourceGenerator: FC<ResourceGeneratorProps> = (props) => {
         {currentStep === "createResource" && currentResource != null && (
           <ResourceCreator
             onBack={() => {
-              setCurrentStep("select")
-              setCurrentResource(null)
-              track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
-                element: "resource_configure_back",
-                parameter5: currentResource,
-              })
+              if (defaultConfig?.canBack ?? true) {
+                setCurrentStep("select")
+                setCurrentResource(null)
+                track?.(ILLA_MIXPANEL_EVENT_TYPE.CLICK, {
+                  element: "resource_configure_back",
+                  parameter5: currentResource,
+                })
+              } else {
+                onCancel()
+              }
             }}
             resourceType={currentResource}
           />

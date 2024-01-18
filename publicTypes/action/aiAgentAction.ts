@@ -13,5 +13,5 @@ export interface BaseAiAgentActionContent {
 }
 
 export interface AiAgentActionContent extends BaseAiAgentActionContent {
-  virtualResource: Agent
+  virtualResource?: Agent
 }
