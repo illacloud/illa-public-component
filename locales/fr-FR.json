@@ -814,6 +814,8 @@
     "editor.action.panel.desc.missing_resource.some_resources_of_th": "Certaines ressources des actions de cette application ont été supprimées, ce qui peut causer des erreurs avec l'utilisation de cette application. Veuillez confirmer. ",
     "editor.action.panel.button.missing_resource.configure": "Configurer",
     "editor.action.panel.button.missing_resource.deploy": "Déployer",
+    "editor.action.panel.button.missing_resource.cancel": "Abandonner",
+    "editor.action.panel.button.missing_resource.save": "Enregistrer",
     "editor.action.resource.card.coming_soon": "Bientôt disponible",
     "editor.action.resource.db.invalid_private.key": "Clé privée invalide. ",
     "editor.action.resource.db.label.ca_certificate": "Certificat d'AC",
