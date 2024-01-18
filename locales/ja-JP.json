@@ -814,6 +814,8 @@
     "editor.action.panel.desc.missing_resource.some_resources_of_th": "このアプリのアクションのいくつかのリソースが削除されました。このアプリを使用してエラーが発生する可能性があります。確認してください。 ",
     "editor.action.panel.button.missing_resource.configure": "設定",
     "editor.action.panel.button.missing_resource.deploy": "デプロイ",
+    "editor.action.panel.button.missing_resource.cancel": "キャンセル",
+    "editor.action.panel.button.missing_resource.save": "保存",
     "editor.action.resource.card.coming_soon": "すぐに更新されます",
     "editor.action.resource.db.invalid_private.key": "無効な秘密鍵です。",
     "editor.action.resource.db.label.ca_certificate": "CA証明書",
