@@ -814,6 +814,8 @@
     "editor.action.panel.desc.missing_resource.some_resources_of_th": "Noen ressurser av handlingene i denne appen er slettet, noe som kan forårsake feil ved bruk av denne appen. Vennligst bekreft. ",
     "editor.action.panel.button.missing_resource.configure": "Konfigurer",
     "editor.action.panel.button.missing_resource.deploy": "Installer",
+    "editor.action.panel.button.missing_resource.cancel": "Avbryt",
+    "editor.action.panel.button.missing_resource.save": "Lagre",
     "editor.action.resource.card.coming_soon": "Kommer snart",
     "editor.action.resource.db.invalid_private.key": "Ugyldig privat nøkkel. ",
     "editor.action.resource.db.label.ca_certificate": "CA sertifikat",
