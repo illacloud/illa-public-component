@@ -129,28 +129,30 @@ const ResourceChoose: FC<ResourceChooseProps> = ({
         }}
       />
 
-      <ResourceGeneratorProvider
-        allResource={resourceList}
-        createOrUpdateResourceCallback={createOrUpdateResourceCallback}
-      >
-        <ResourceGenerator
-          visible={generatorVisible}
-          onClose={() => {
-            setGeneratorVisible(false)
-          }}
-          defaultConfig={{
-            defaultResourceType: origanResourceType as ResourceType,
-            defaultStep: isMysqlLike ? "select" : "createResource",
-            canBack: false,
-          }}
-          filterResourceType={(resourceType) => {
-            if (isMysqlLike) {
-              return LIKE_MYSQL_TYPES.includes(resourceType)
-            }
-            return true
-          }}
-        />
-      </ResourceGeneratorProvider>
+      {generatorVisible && (
+        <ResourceGeneratorProvider
+          allResource={resourceList}
+          createOrUpdateResourceCallback={createOrUpdateResourceCallback}
+        >
+          <ResourceGenerator
+            visible={generatorVisible}
+            onClose={() => {
+              setGeneratorVisible(false)
+            }}
+            defaultConfig={{
+              defaultResourceType: origanResourceType as ResourceType,
+              defaultStep: isMysqlLike ? "select" : "createResource",
+              canBack: false,
+            }}
+            filterResourceType={(resourceType) => {
+              if (isMysqlLike) {
+                return LIKE_MYSQL_TYPES.includes(resourceType)
+              }
+              return true
+            }}
+          />
+        </ResourceGeneratorProvider>
+      )}
     </>
   )
 }
