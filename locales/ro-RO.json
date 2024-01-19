@@ -3361,6 +3361,7 @@
     "new_dashboard.create_from_resource.input_type_option.password": "Parolă",
     "new_dashboard.create_from_resource.input_type_option.email": "E-mail",
     "new_dashboard.create_from_resource.input_type_option.url": "URL",
+    "new_dashboard.create_from_template.all_template": "Toate șabloanele",
     "new_deploy.title.private_app": "Aplicație privată",
     "new_deploy.title.public_app": "Aplicație publică",
     "new_deploy.desc.private_app": "Numai membrii echipei pot accesa aplicația trimisă",
