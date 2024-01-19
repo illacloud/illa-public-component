@@ -187,7 +187,7 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
   }
 
   const createResourceCallback = async (resource: Resource) => {
-    await updateResourceList([...resourceList, resource])
+    await updateResourceList(resource)
     await getDetails(resource.resourceID)
     setSelectResourceID(resource.resourceID)
     setShowResourceGenerate(false)

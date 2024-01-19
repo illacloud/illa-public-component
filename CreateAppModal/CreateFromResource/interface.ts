@@ -13,7 +13,7 @@ export interface CreateWithResourceProps {
     appInfo: ComponentTreeNode,
     actionsInfo: BuildActionInfo[],
   ) => void
-  updateResourceList: (resourceList: Resource[]) => void
+  updateResourceList: (resource: Resource) => void
 }
 
 export interface DatasetTableRows {
