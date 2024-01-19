@@ -1,7 +1,4 @@
-import {
-  INIT_ACTION_MOCK_CONFIG,
-  TransformerInitial,
-} from "@illa-public/public-configs"
+import { generateBaseActionItem } from "@illa-public/public-configs"
 import { ACTION_RUN_TIME, ActionType } from "@illa-public/public-types"
 import { v4 } from "uuid"
 import { BuildActionInfo, COLUMN_TYPE, DatasetTableRows } from "../interface"
@@ -12,20 +9,10 @@ const getBaseActionConfig = (
   resourceID: string,
   displayName: string,
 ): BuildActionInfo => {
+  const baseActionItem = generateBaseActionItem(displayName, resourceID)
   return {
+    ...baseActionItem,
     actionType,
-    config: {
-      public: false,
-      advancedConfig: {
-        runtime: ACTION_RUN_TIME.NONE,
-        pages: [],
-        delayWhenLoaded: "",
-        displayLoadingPage: false,
-        isPeriodically: false,
-        periodInterval: "",
-      },
-      mockConfig: INIT_ACTION_MOCK_CONFIG,
-    },
     content: {
       mode: "sql-safe",
       query,
@@ -38,11 +25,6 @@ const getBaseActionConfig = (
         },
       ],
     },
-    displayName,
-    isVirtualResource: false,
-    resourceID,
-    transformer: TransformerInitial,
-    triggerMode: "manually",
   }
 }
 
@@ -52,6 +34,7 @@ const buildListDataAction = (
   modelName: string,
   rows: DatasetTableRows[],
 ): BuildActionInfo => {
+  const baseActionItem = generateBaseActionItem("listData", resourceID)
   let query = `select * from ${modelName}\nwhere {{!input1.value}}`
   rows.forEach(({ name, inputType: { valueType } }) => {
     if (valueType === COLUMN_TYPE.TEXT) {
@@ -59,6 +42,7 @@ const buildListDataAction = (
     }
   })
   return {
+    ...baseActionItem,
     actionType,
     config: {
       public: false,
@@ -70,16 +54,11 @@ const buildListDataAction = (
         isPeriodically: false,
         periodInterval: "",
       },
-      mockConfig: INIT_ACTION_MOCK_CONFIG,
     },
     content: {
       mode: "sql-safe",
       query,
     },
-    displayName: "listData",
-    isVirtualResource: false,
-    resourceID,
-    transformer: TransformerInitial,
     triggerMode: "automate",
   }
 }

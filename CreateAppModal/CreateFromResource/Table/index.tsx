@@ -2,7 +2,6 @@ import { StyledEngineProvider, ThemeProvider, createTheme } from "@mui/material"
 import {
   DataGridPremium,
   GridApi,
-  GridCellEditStopReasons,
   GridColDef,
   GridRowId,
   GridRowModel,
@@ -14,10 +13,6 @@ import { BIGGER_THAN_MODAL } from "../constants"
 import EditInput from "./EditLabel"
 import EditSelect from "./EditSelect"
 import { containerStyle } from "./style"
-
-function isKeyboardEvent(event: any): event is KeyboardEvent {
-  return !!event.key
-}
 
 interface DatasetTableProps {
   rows: GridRowModel[]
@@ -114,18 +109,6 @@ const DatasetTable: FC<DatasetTableProps> = ({ rows, dataGridRef }) => {
               rowSelectionModel={selectRowIds}
               onRowSelectionModelChange={setSelectRowIds}
               columns={columns}
-              onCellEditStop={(params, event) => {
-                if (params.reason !== GridCellEditStopReasons.enterKeyDown) {
-                  return
-                }
-                if (
-                  isKeyboardEvent(event) &&
-                  !event.ctrlKey &&
-                  !event.metaKey
-                ) {
-                  event.defaultMuiPrevented = true
-                }
-              }}
             />
           </ThemeProvider>
         </StyledEngineProvider>
