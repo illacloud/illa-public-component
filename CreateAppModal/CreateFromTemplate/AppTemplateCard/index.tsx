@@ -1,4 +1,5 @@
 import { FC, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { Button, Loading, applyBoxStyle } from "@illa-design/react"
 import { AppTemplateCardProps } from "./interface"
 import {
@@ -25,6 +26,7 @@ export const AppTemplateCard: FC<AppTemplateCardProps> = ({
 }) => {
   const [showMask, setShowMask] = useState(false)
   const [loading, setLoading] = useState(false)
+  const { t } = useTranslation()
   const forkApp = async () => {
     setLoading(true)
     try {
@@ -54,7 +56,9 @@ export const AppTemplateCard: FC<AppTemplateCardProps> = ({
           {loading ? (
             <Loading colorScheme="techPurple" />
           ) : (
-            <Button colorScheme="techPurple">Use template</Button>
+            <Button colorScheme="techPurple">
+              {t("new_dashboard.create_new.use_this_template")}
+            </Button>
           )}
         </div>
       </div>

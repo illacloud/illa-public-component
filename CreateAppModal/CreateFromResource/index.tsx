@@ -1,24 +1,32 @@
 import { getIconFromResourceType } from "@illa-public/icon"
 import { Resource } from "@illa-public/public-types"
+import {
+  ResourceGenerator,
+  ResourceGeneratorProvider,
+} from "@illa-public/resource-generator"
 import { getCurrentTeamInfo } from "@illa-public/user-data"
 import { useGridApiRef } from "@mui/x-data-grid-premium"
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { FC, useCallback, useMemo, useRef, useState } from "react"
 import { createPortal } from "react-dom"
+import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import {
+  AddIcon,
   Button,
   CloseIcon,
   Empty,
   Modal,
   Select,
   SelectValue,
+  TriggerProvider,
   isObject,
 } from "@illa-design/react"
 import { CreateLoading } from "../Loading"
-import { fetchResourceMeta, fetchResources } from "../service"
+import { fetchResourceMeta } from "../service"
 import DatasetTable from "./Table"
 import { buildAppWithResourceSchema } from "./config"
 import { buildActionInfo } from "./config/buildActions"
+import { BIGGER_THAN_MODAL_RESOURCE, CREATE_RESOURCE } from "./constants"
 import { useSelectOptions } from "./hooks/useSelectOptions"
 import {
   CreateWithResourceProps,
@@ -40,13 +48,15 @@ import {
 import { formateLabel } from "./utils"
 
 export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
+  resourceList = [],
+  getResourceLoading,
+  updateResourceList,
   closeModal,
   createCallBack,
 }) => {
   const teamInfo = useSelector(getCurrentTeamInfo)!
   const teamID = teamInfo?.id
-  const [resourceList, setResourceList] = useState<Resource[]>([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const modelList = useRef<Map<string, ISchemaData>>()
   const [modelKeyList, setModelKeyList] = useState<string[]>([])
   const [selectModelName, setSelectModelName] = useState<string>("")
@@ -54,6 +64,8 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
   const [createLoading, setCreateLoading] = useState(false)
   const { getInputType } = useSelectOptions()
   const controllerRef = useRef<AbortController>()
+  const { t } = useTranslation()
+  const [showResourceGenerate, setShowResourceGenerate] = useState(false)
 
   const resourceOptions = resourceList.map((resource) => {
     return {
@@ -66,6 +78,16 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
       value: resource.resourceID,
     }
   })
+
+  const a = {
+    label: (
+      <div css={resourceOptionStyle}>
+        <AddIcon size="14px" />
+        <span>create</span>
+      </div>
+    ),
+    value: CREATE_RESOURCE,
+  }
   const [selectResourceID, setSelectResourceID] = useState<string>()
 
   const selectResource = useMemo(() => {
@@ -92,6 +114,10 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
 
   const getDetails = useCallback(
     async (resourceID?: SelectValue) => {
+      if (resourceID === CREATE_RESOURCE) {
+        setShowResourceGenerate(true)
+        return
+      }
       setLoading(true)
       setSelectResourceID(resourceID as string)
       try {
@@ -160,99 +186,102 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
     }
   }
 
-  useEffect(() => {
-    const controller = new AbortController()
-    setLoading(true)
-    const request = async () => {
-      try {
-        const res = await fetchResources(teamID, controller.signal)
-        if (!res.data) return
-        const { data } = res
-        const resourceList = data.filter((item) =>
-          Object.values(RESOURCE_TYPE).includes(
-            item.resourceType as RESOURCE_TYPE,
-          ),
-        )
-        setResourceList(resourceList)
-        setSelectResourceID(resourceList[0].resourceID)
-        await getDetails(resourceList[0].resourceID)
-      } catch (e) {
-      } finally {
-        setLoading(false)
-      }
-    }
-    request()
-    return () => {
-      controller.abort()
-    }
-  }, [getDetails, teamID])
+  const createResourceCallback = async (resource: Resource) => {
+    await updateResourceList([...resourceList, resource])
+    await getDetails(resource.resourceID)
+    setSelectResourceID(resource.resourceID)
+    setShowResourceGenerate(false)
+  }
 
   return createPortal(
-    <div css={modalContainerStyle}>
-      <Modal
-        w="auto"
-        visible
-        footer={false}
-        closable
-        withoutPadding
-        onCancel={closeModal}
-      >
-        <div css={modalCloseIconStyle} onClick={closeModal}>
-          <CloseIcon size="12px" />
-        </div>
-        <div css={containerStyle}>
-          <div css={headerStyle}>
-            <div css={labelStyle}>
-              <span>Source</span>
-              <Select
-                w="100%"
-                flex="1"
-                colorScheme="techPurple"
-                value={selectResourceID}
-                options={resourceOptions}
-                onChange={getDetails}
-              />
-            </div>
-            <div css={labelStyle}>
-              <span>Model</span>
-              <Select
-                w="100%"
-                flex="1"
-                colorScheme="techPurple"
-                value={selectModelName}
-                options={modelKeyList}
-                onChange={(name) => setSelectModelName(name as string)}
-              />
-            </div>
+    <>
+      <div css={modalContainerStyle}>
+        <Modal
+          w="auto"
+          visible
+          footer={false}
+          closable
+          withoutPadding
+          onCancel={closeModal}
+        >
+          <div css={modalCloseIconStyle} onClick={closeModal}>
+            <CloseIcon size="12px" />
           </div>
-          <div css={contentContainerStyle}>
-            {loading ? (
-              <CreateLoading />
-            ) : showModelList && showModelList.length !== 0 ? (
-              <DatasetTable
-                closeModal={closeModal}
-                rows={showModelList || []}
-                dataGridRef={dataGridRef}
-              />
-            ) : (
-              <div css={emptyStyle}>
-                <Empty />
+          <div css={containerStyle}>
+            <div css={headerStyle}>
+              <div css={labelStyle}>
+                <span>{t("new_dashboard.create_from_resource.resource")}</span>
+                <Select
+                  w="100%"
+                  flex="1"
+                  colorScheme="techPurple"
+                  value={selectResourceID}
+                  options={[a, ...resourceOptions]}
+                  onChange={getDetails}
+                />
               </div>
-            )}
+              <div css={labelStyle}>
+                <span>{t("new_dashboard.create_from_resource.table")}</span>
+                <Select
+                  w="100%"
+                  flex="1"
+                  colorScheme="techPurple"
+                  value={selectModelName}
+                  options={modelKeyList}
+                  onChange={(name) => setSelectModelName(name as string)}
+                />
+              </div>
+            </div>
+            <div css={contentContainerStyle}>
+              {getResourceLoading || loading ? (
+                <CreateLoading />
+              ) : showModelList && showModelList.length !== 0 ? (
+                <DatasetTable
+                  closeModal={closeModal}
+                  rows={showModelList || []}
+                  dataGridRef={dataGridRef}
+                />
+              ) : (
+                <div css={emptyStyle}>
+                  <Empty />
+                </div>
+              )}
+            </div>
+            <div css={footerStyle}>
+              <Button
+                w="200px"
+                loading={createLoading}
+                colorScheme="techPurple"
+                onClick={handleCreate}
+              >
+                {t(
+                  "new_dashboard.create_from_resource.input_type_option.create",
+                )}
+              </Button>
+            </div>
           </div>
-          <div css={footerStyle}>
-            <Button
-              w="200px"
-              loading={createLoading}
-              colorScheme="techPurple"
-              onClick={handleCreate}
-            >
-              Create
-            </Button>
-          </div>
-        </div>
-      </Modal>
-    </div>,
+        </Modal>
+      </div>
+
+      <TriggerProvider zIndex={BIGGER_THAN_MODAL_RESOURCE}>
+        <ResourceGeneratorProvider
+          allResource={resourceList}
+          createOrUpdateResourceCallback={createResourceCallback}
+        >
+          <ResourceGenerator
+            visible={showResourceGenerate}
+            onClose={() => {
+              setShowResourceGenerate(false)
+            }}
+            filterResourceType={(resourceType) =>
+              Object.values(RESOURCE_TYPE).includes(
+                resourceType as RESOURCE_TYPE,
+              )
+            }
+          />
+        </ResourceGeneratorProvider>
+      </TriggerProvider>
+    </>,
     document.body,
   )
 }

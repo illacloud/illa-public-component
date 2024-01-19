@@ -8,8 +8,9 @@ import {
   GridRowOrderChangeParams,
 } from "@mui/x-data-grid-premium"
 import { FC, MutableRefObject, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { TriggerProvider, getColor } from "@illa-design/react"
-import { BIGGER_THAN_MODAL } from "../constants"
+import { BIGGER_THAN_MODAL_SELECT } from "../constants"
 import EditInput from "./EditLabel"
 import EditSelect from "./EditSelect"
 import { containerStyle } from "./style"
@@ -22,6 +23,7 @@ interface DatasetTableProps {
 const DatasetTable: FC<DatasetTableProps> = ({ rows, dataGridRef }) => {
   const [rowsState, setRowsState] = useState(rows)
   const [selectRowIds, setSelectRowIds] = useState<GridRowId[]>([])
+  const { t } = useTranslation()
 
   const handleRowOrderChange = async (params: GridRowOrderChangeParams) => {
     const rowsClone = [...rowsState]
@@ -33,21 +35,21 @@ const DatasetTable: FC<DatasetTableProps> = ({ rows, dataGridRef }) => {
   const columns: GridColDef[] = [
     {
       field: "name",
-      headerName: "Column name",
+      headerName: t("new_dashboard.create_from_resource.column_name"),
       type: "string",
       cellClassName: "uneditable-cell",
       width: 150,
     },
     {
       field: "type",
-      headerName: "Column  type",
+      headerName: t("new_dashboard.create_from_resource.data_type"),
       type: "string",
       cellClassName: "uneditable-cell",
       width: 150,
     },
     {
       field: "label",
-      headerName: "Label",
+      headerName: t("new_dashboard.create_from_resource.label"),
       type: "string",
       editable: true,
       flex: 1,
@@ -56,7 +58,7 @@ const DatasetTable: FC<DatasetTableProps> = ({ rows, dataGridRef }) => {
     },
     {
       field: "inputType",
-      headerName: "Input type",
+      headerName: t("new_dashboard.create_from_resource.input_type"),
       editable: true,
       cellClassName: "editable-cell",
       type: "string",
@@ -75,7 +77,7 @@ const DatasetTable: FC<DatasetTableProps> = ({ rows, dataGridRef }) => {
   }, [rows])
 
   return (
-    <TriggerProvider zIndex={BIGGER_THAN_MODAL}>
+    <TriggerProvider zIndex={BIGGER_THAN_MODAL_SELECT}>
       <div css={containerStyle}>
         <StyledEngineProvider injectFirst>
           <ThemeProvider
