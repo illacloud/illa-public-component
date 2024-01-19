@@ -1,6 +1,5 @@
 import { FC, useState } from "react"
 import { AddIcon, Loading, getColor } from "@illa-design/react"
-import { useCreateFromResource } from "../../CreateFromResource/ModalHandler/hooks"
 import { CreateOptionsProps } from "./interface"
 import {
   createOptionsContainerStyle,
@@ -43,15 +42,12 @@ const CreateBlankApp: FC<CreateOptionsProps> = ({
 
 const CreateFromDatabase: FC<CreateOptionsProps> = ({
   isInModal = false,
-  handleCreateFromResource,
+  handleOpenCreateFromResource,
   closeModal,
 }) => {
-  const createFromResource = useCreateFromResource()
   const createFromDatabase = async () => {
-    createFromResource({
-      createCallBack: handleCreateFromResource!,
-    })
     closeModal?.()
+    handleOpenCreateFromResource?.()
   }
   return (
     <div

@@ -1,10 +1,10 @@
 import { ProductMarketApp } from "@illa-public/market-app"
 import { FC } from "react"
 import { Empty } from "@illa-design/react"
-import { CreateLoading } from "../../../Loading"
-import AppTemplateCard from "../../AppTemplateCard"
-import CreateOptions from "../../CreateOptions"
-import { CreateFromTemplateProps } from "../../interface"
+import { CreateLoading } from "../../Loading"
+import AppTemplateCard from "../AppTemplateCard"
+import CreateOptions from "../CreateOptions"
+import { CreateFromTemplateProps } from "../interface"
 import {
   baseContentContainerStyle,
   contentContainerStyle,
@@ -24,7 +24,7 @@ const TemplateContent: FC<TemplateContentProps> = ({
   loading,
   templateList = [],
   handleCreateBlankApp,
-  handleCreateFromResource,
+  handleOpenCreateFromResource,
   handleForkApp,
   closeModal,
 }) => {
@@ -36,8 +36,8 @@ const TemplateContent: FC<TemplateContentProps> = ({
           <CreateOptions
             isInModal
             handleCreateBlankApp={handleCreateBlankApp}
-            handleCreateFromResource={handleCreateFromResource}
             closeModal={closeModal}
+            handleOpenCreateFromResource={handleOpenCreateFromResource}
           />
         </div>
       )}

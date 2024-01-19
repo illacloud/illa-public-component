@@ -2,5 +2,8 @@ import { CreateFromTemplateProps } from "../interface"
 
 export type CreateOptionsProps = Pick<
   CreateFromTemplateProps,
-  "closeModal" | "handleCreateBlankApp" | "handleCreateFromResource"
-> & { isInModal?: boolean }
+  "closeModal" | "handleCreateBlankApp"
+> & {
+  isInModal?: boolean
+  handleOpenCreateFromResource?: () => void
+}

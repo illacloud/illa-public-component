@@ -2,7 +2,6 @@ import { ComponentTreeNode } from "@illa-public/public-types"
 import { BuildActionInfo } from "../interface"
 
 export interface CreateFromTemplateProps {
-  visible?: boolean
   hiddenCreateBlank?: boolean
   handleCreateBlankApp?: () => void
   handleCreateFromResource?: (
@@ -10,6 +9,6 @@ export interface CreateFromTemplateProps {
     actionsInfo: BuildActionInfo[],
   ) => void
   handleForkApp: (appID: string, teamIdentifier?: string) => void
+  handleOpenCreateFromResource: () => void
   closeModal?: () => void
-  afterClose?: () => void
 }

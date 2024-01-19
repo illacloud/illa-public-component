@@ -5,13 +5,11 @@ import {
 } from "@illa-public/public-types"
 
 export interface CreateWithResourceProps {
-  visible?: boolean
   closeModal?: () => void
   createCallBack: (
     appInfo: ComponentTreeNode,
     actionsInfo: BuildActionInfo[],
   ) => void
-  afterClose?: () => void
 }
 
 export interface DatasetTableRows {

@@ -1,39 +1,84 @@
-import { FC, useEffect, useState } from "react"
-import FromTemplateModalContent from "./FromTemplateModalContent"
-import { Modal } from "./ModalHandler/interface"
-import { fromTemplateStore } from "./ModalHandler/store"
+import { ProductMarketApp } from "@illa-public/market-app"
+import { FC, useCallback, useEffect, useRef, useState } from "react"
+import { Modal } from "@illa-design/react"
+import { FetchTemplateListParams, fetchTemplateList } from "../service"
+import TemplateContent from "./TemplateContent"
+import TemplateHeader from "./TemplateHeader"
+import TemplateMenu from "./TemplateMenu"
+import { CreateFromTemplateProps } from "./interface"
+import { templateContainerStyle } from "./style"
 
-const CreateFromTemplate: FC = () => {
-  const [modal, setModal] = useState<Modal | null>()
+export const FromTemplateModalContent: FC<CreateFromTemplateProps> = (
+  props,
+) => {
+  const { closeModal } = props
+  const [loading, setLoading] = useState(false)
+  const [templateList, setTemplateList] = useState<ProductMarketApp[]>([])
+  const [menuItems, setMenuItems] = useState<string[]>([])
+  const cacheSearch = useRef<string | undefined>()
+  const cacheMenu = useRef<string | undefined>()
+
+  const getTemplateList = useCallback(
+    async (
+      params: FetchTemplateListParams,
+      needSetMenu: boolean,
+      signal?: AbortSignal,
+    ) => {
+      try {
+        setLoading(true)
+        const { data } = await fetchTemplateList(params, signal)
+        setTemplateList(data.products)
+        needSetMenu && setMenuItems(data.recommendHashtags)
+      } catch (e) {
+      } finally {
+        setLoading(false)
+      }
+    },
+    [],
+  )
 
   useEffect(() => {
-    const listener = fromTemplateStore.subscribe(() => {
-      setModal(fromTemplateStore.getModal())
-    })
+    const controller = new AbortController()
+    getTemplateList({}, true, controller.signal)
     return () => {
-      fromTemplateStore.unSubscribe(listener.listenerId)
+      controller.abort()
     }
-  }, [])
-
-  if (!modal) return null
-
+  }, [getTemplateList])
   return (
-    <FromTemplateModalContent
-      {...modal}
-      visible={modal.visible}
-      closeModal={() => {
-        if (modal.id) {
-          fromTemplateStore.update({
-            ...modal,
-            visible: false,
-          })
-        }
-      }}
-      afterClose={() => {
-        fromTemplateStore.remove()
-      }}
-    />
+    <Modal
+      w="896px"
+      visible
+      footer={false}
+      closable
+      withoutPadding
+      onCancel={closeModal}
+    >
+      <TemplateHeader
+        closeModal={closeModal}
+        onSearch={(search?: string) => {
+          cacheSearch.current = search
+          getTemplateList({ search, hashtags: cacheMenu.current }, false)
+        }}
+      />
+      <div css={templateContainerStyle}>
+        <TemplateMenu
+          menuItems={menuItems}
+          onMenuClick={(tag?: string) => {
+            cacheMenu.current = tag
+            getTemplateList(
+              { hashtags: tag, search: cacheSearch.current },
+              false,
+            )
+          }}
+        />
+        <TemplateContent
+          {...props}
+          loading={loading}
+          templateList={templateList}
+        />
+      </div>
+    </Modal>
   )
 }
 
-export default CreateFromTemplate
+export default FromTemplateModalContent
