@@ -3361,6 +3361,7 @@
     "new_dashboard.create_from_resource.input_type_option.password": "Пароль",
     "new_dashboard.create_from_resource.input_type_option.email": "Почта",
     "new_dashboard.create_from_resource.input_type_option.url": "URL",
+    "new_dashboard.create_from_template.all_template": "Все шаблоны",
     "new_deploy.title.private_app": "Приватное приложение",
     "new_deploy.title.public_app": "Публичное приложение",
     "new_deploy.desc.private_app": "Только члены команды могут получить доступ к развернутому приложению",
