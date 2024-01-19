@@ -3361,6 +3361,7 @@
     "new_dashboard.create_from_resource.input_type_option.password": "パスワード",
     "new_dashboard.create_from_resource.input_type_option.email": "Eメール",
     "new_dashboard.create_from_resource.input_type_option.url": "URL",
+    "new_dashboard.create_from_template.all_template": "すべてのテンプレート",
     "new_deploy.title.private_app": "非公開アプリ",
     "new_deploy.title.public_app": "公開アプリ",
     "new_deploy.desc.private_app": "チームメンバーのみがデプロイされたアプリにアクセスできます",
