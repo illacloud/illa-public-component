@@ -7,7 +7,6 @@ import {
   GridRowId,
   GridRowModel,
   GridRowOrderChangeParams,
-  LicenseInfo,
 } from "@mui/x-data-grid-premium"
 import { FC, MutableRefObject, useEffect, useState } from "react"
 import { TriggerProvider, getColor } from "@illa-design/react"
@@ -15,8 +14,6 @@ import { BIGGER_THAN_MODAL } from "../constants"
 import EditInput from "./EditLabel"
 import EditSelect from "./EditSelect"
 import { containerStyle } from "./style"
-
-LicenseInfo.setLicenseKey(process.env.ILLA_MUI_LICENSE || "")
 
 function isKeyboardEvent(event: any): event is KeyboardEvent {
   return !!event.key
