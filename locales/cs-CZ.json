@@ -3361,6 +3361,7 @@
     "new_dashboard.create_from_resource.input_type_option.password": "Heslo",
     "new_dashboard.create_from_resource.input_type_option.email": "E-mailová adresa",
     "new_dashboard.create_from_resource.input_type_option.url": "URL",
+    "new_dashboard.create_from_template.all_template": "Všechny šablony",
     "new_deploy.title.private_app": "Soukromá aplikace",
     "new_deploy.title.public_app": "Veřejná aplikace",
     "new_deploy.desc.private_app": "Pouze členové týmu mají přístup k nasazené aplikaci",
