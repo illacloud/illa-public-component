@@ -3,6 +3,7 @@ import { Resource } from "@illa-public/public-types"
 import { getCurrentTeamInfo } from "@illa-public/user-data"
 import { useGridApiRef } from "@mui/x-data-grid-premium"
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { createPortal } from "react-dom"
 import { useSelector } from "react-redux"
 import {
   Button,
@@ -38,7 +39,7 @@ import {
 } from "./style"
 import { formateLabel } from "./utils"
 
-export const FromResourceModalContent: FC<CreateWithResourceProps> = ({
+export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
   closeModal,
   createCallBack,
 }) => {
@@ -186,7 +187,7 @@ export const FromResourceModalContent: FC<CreateWithResourceProps> = ({
     }
   }, [getDetails, teamID])
 
-  return (
+  return createPortal(
     <div css={modalContainerStyle}>
       <Modal
         w="auto"
@@ -251,8 +252,9 @@ export const FromResourceModalContent: FC<CreateWithResourceProps> = ({
           </div>
         </div>
       </Modal>
-    </div>
+    </div>,
+    document.body,
   )
 }
 
-export default FromResourceModalContent
+export default CreateFromResourceModal

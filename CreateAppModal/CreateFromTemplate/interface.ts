@@ -9,6 +9,6 @@ export interface CreateFromTemplateProps {
     actionsInfo: BuildActionInfo[],
   ) => void
   handleForkApp: (appID: string, teamIdentifier?: string) => void
-  handleOpenCreateFromResource: () => void
+  handleOpenCreateFromResource?: () => void
   closeModal?: () => void
 }

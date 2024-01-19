@@ -1,5 +1,6 @@
 import { ProductMarketApp } from "@illa-public/market-app"
 import { FC, useCallback, useEffect, useRef, useState } from "react"
+import { createPortal } from "react-dom"
 import { Modal } from "@illa-design/react"
 import { FetchTemplateListParams, fetchTemplateList } from "../service"
 import TemplateContent from "./TemplateContent"
@@ -8,9 +9,7 @@ import TemplateMenu from "./TemplateMenu"
 import { CreateFromTemplateProps } from "./interface"
 import { templateContainerStyle } from "./style"
 
-export const FromTemplateModalContent: FC<CreateFromTemplateProps> = (
-  props,
-) => {
+export const CreateFromTemplateModal: FC<CreateFromTemplateProps> = (props) => {
   const { closeModal } = props
   const [loading, setLoading] = useState(false)
   const [templateList, setTemplateList] = useState<ProductMarketApp[]>([])
@@ -44,7 +43,8 @@ export const FromTemplateModalContent: FC<CreateFromTemplateProps> = (
       controller.abort()
     }
   }, [getTemplateList])
-  return (
+
+  return createPortal(
     <Modal
       w="896px"
       visible
@@ -77,8 +77,9 @@ export const FromTemplateModalContent: FC<CreateFromTemplateProps> = (
           templateList={templateList}
         />
       </div>
-    </Modal>
+    </Modal>,
+    document.body,
   )
 }
 
-export default FromTemplateModalContent
+export default CreateFromTemplateModal
