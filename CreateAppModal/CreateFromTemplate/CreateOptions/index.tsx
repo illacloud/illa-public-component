@@ -1,4 +1,5 @@
 import { FC, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { AddIcon, Loading, getColor } from "@illa-design/react"
 import { CreateOptionsProps } from "./interface"
 import {
@@ -13,6 +14,7 @@ const CreateBlankApp: FC<CreateOptionsProps> = ({
   closeModal,
 }) => {
   const [loading, setLoading] = useState(false)
+  const { t } = useTranslation()
   const createBlankApp = async () => {
     setLoading(true)
     try {
@@ -35,7 +37,7 @@ const CreateBlankApp: FC<CreateOptionsProps> = ({
       <div css={iconStyle}>
         {loading ? <Loading colorScheme="white" /> : <AddIcon size="16px" />}
       </div>
-      <span>Create blank app</span>
+      <span>{t("new_dashboard.create_new.create_a_blank_app")}</span>
     </div>
   )
 }
@@ -45,6 +47,7 @@ const CreateFromDatabase: FC<CreateOptionsProps> = ({
   handleOpenCreateFromResource,
   closeModal,
 }) => {
+  const { t } = useTranslation()
   const createFromDatabase = async () => {
     closeModal?.()
     handleOpenCreateFromResource?.()
@@ -57,7 +60,7 @@ const CreateFromDatabase: FC<CreateOptionsProps> = ({
       <div css={iconStyle}>
         <AddIcon size="16px" />
       </div>
-      <span>Generate from database</span>
+      <span>{t("new_dashboard.create_new.generate_crud_app_fr")}</span>
     </div>
   )
 }

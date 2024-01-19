@@ -1,5 +1,6 @@
 import { ProductMarketApp } from "@illa-public/market-app"
 import { FC } from "react"
+import { useTranslation } from "react-i18next"
 import { Empty } from "@illa-design/react"
 import { CreateLoading } from "../../Loading"
 import AppTemplateCard from "../AppTemplateCard"
@@ -28,11 +29,14 @@ const TemplateContent: FC<TemplateContentProps> = ({
   handleForkApp,
   closeModal,
 }) => {
+  const { t } = useTranslation()
   return (
     <div css={templateContentContainerStyle}>
       {!hiddenCreateBlank && (
         <div css={baseContentContainerStyle}>
-          <span css={contentTitleStyle}>Create a app</span>
+          <span css={contentTitleStyle}>
+            {t("new_dashboard.create_new.create_an_app")}
+          </span>
           <CreateOptions
             isInModal
             handleCreateBlankApp={handleCreateBlankApp}
@@ -43,7 +47,9 @@ const TemplateContent: FC<TemplateContentProps> = ({
       )}
       <div css={contentContainerStyle}>
         {!hiddenCreateBlank && (
-          <span css={contentTitleStyle}>Get started with a template</span>
+          <span css={contentTitleStyle}>
+            {t("new_dashboard.create_new.get_started_with_a_t")}
+          </span>
         )}
         {loading && <CreateLoading />}
         {!loading && templateList.length === 0 && (

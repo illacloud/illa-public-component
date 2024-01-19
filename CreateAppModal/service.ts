@@ -1,11 +1,6 @@
 import { builderRequest, marketplaceTeamRequest } from "@illa-public/illa-net"
 import { AppProductResponse } from "@illa-public/market-app"
-import {
-  ActionContent,
-  ActionItem,
-  Resource,
-  ResourceContent,
-} from "@illa-public/public-types"
+import { ActionContent, ActionItem } from "@illa-public/public-types"
 import { IResourceMeta } from "./CreateFromResource/interface"
 
 export const fetchResourceMeta = async (
@@ -22,17 +17,6 @@ export const fetchResourceMeta = async (
     {
       teamID,
     },
-  )
-}
-
-export const fetchResources = (teamID: string, signal: AbortSignal) => {
-  return builderRequest<Resource<ResourceContent>[]>(
-    {
-      url: "/resources",
-      method: "GET",
-      signal: signal,
-    },
-    { teamID },
   )
 }
 

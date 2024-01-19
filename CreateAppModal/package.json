@@ -13,6 +13,7 @@
     "@illa-public/user-data": "workspace:*",
     "@illa-public/utils": "workspace:*",
     "@illa-public/market-app": "workspace:*",
+    "@illa-public/resource-generator": "workspace:^",
     "@mui/material": "^5.15.3",
     "@mui/x-data-grid-premium": "^6.18.7",
     "klona": "^2.0.6",

@@ -2,14 +2,18 @@ import {
   ActionContent,
   ActionItem,
   ComponentTreeNode,
+  Resource,
 } from "@illa-public/public-types"
 
 export interface CreateWithResourceProps {
   closeModal?: () => void
+  getResourceLoading?: boolean
+  resourceList: Resource[]
   createCallBack: (
     appInfo: ComponentTreeNode,
     actionsInfo: BuildActionInfo[],
   ) => void
+  updateResourceList: (resource: Resource) => void
 }
 
 export interface DatasetTableRows {
