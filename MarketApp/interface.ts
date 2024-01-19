@@ -8,6 +8,7 @@ export interface ActionsDetail {
 
 export interface Config {
   description: string
+  cover: string
   components: string[]
   actions: ActionsDetail[]
 }
