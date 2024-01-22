@@ -3351,6 +3351,7 @@
     "new_dashboard.create_new.get_started_with_a_t": "从模板开始",
     "new_dashboard.create_new.use_this_template": "使用此模板",
     "new_dashboard.create_new.more": "更多",
+    "new_dashboard.create_new.generate_crud_short": "从数据库创建",
     "new_dashboard.create_from_resource.resource": "资源",
     "new_dashboard.create_from_resource.table": "表",
     "new_dashboard.create_from_resource.column_name": "列名",

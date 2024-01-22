@@ -3351,6 +3351,7 @@
     "new_dashboard.create_new.get_started_with_a_t": "テンプレートから始める",
     "new_dashboard.create_new.use_this_template": "このテンプレートを使用",
     "new_dashboard.create_new.more": "もっと見る",
+    "new_dashboard.create_new.generate_crud_short": "データベースから作成",
     "new_dashboard.create_from_resource.resource": "リソース",
     "new_dashboard.create_from_resource.table": "表",
     "new_dashboard.create_from_resource.column_name": "カラム名",

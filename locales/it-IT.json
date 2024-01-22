@@ -3351,6 +3351,7 @@
     "new_dashboard.create_new.get_started_with_a_t": "Inizia con un modello",
     "new_dashboard.create_new.use_this_template": "Usa questo modello",
     "new_dashboard.create_new.more": "Altro",
+    "new_dashboard.create_new.generate_crud_short": "Crea dal database",
     "new_dashboard.create_from_resource.resource": "Risorsa",
     "new_dashboard.create_from_resource.table": "Tabella",
     "new_dashboard.create_from_resource.column_name": "Nome colonna",

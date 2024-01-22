@@ -3351,6 +3351,7 @@
     "new_dashboard.create_new.get_started_with_a_t": "Kom igång med en mall",
     "new_dashboard.create_new.use_this_template": "Använd denna mall",
     "new_dashboard.create_new.more": "Mer",
+    "new_dashboard.create_new.generate_crud_short": "Skapa från databas",
     "new_dashboard.create_from_resource.resource": "Resurs",
     "new_dashboard.create_from_resource.table": "Tabell",
     "new_dashboard.create_from_resource.column_name": "Kolumnens namn",
