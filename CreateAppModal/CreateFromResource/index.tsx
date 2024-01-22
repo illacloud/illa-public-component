@@ -318,6 +318,7 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
             visible={showResourceGenerate}
             onClose={() => {
               setShowResourceGenerate(false)
+              ;(!resourceList || resourceList.length === 0) && closeModal?.()
             }}
             filterResourceType={(resourceType) =>
               Object.values(RESOURCE_TYPE).includes(

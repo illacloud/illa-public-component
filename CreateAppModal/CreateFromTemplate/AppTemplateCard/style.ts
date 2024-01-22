@@ -39,12 +39,13 @@ export const cardMaskStyle = (show: boolean) => css`
   justify-content: center;
   align-items: center;
   background-color: ${getColor("blackAlpha", "05")};
-  height: ${show ? "100%" : 0};
+  height: 100%;
   width: 100%;
   bottom: 0;
   left: 0;
   overflow: hidden;
-  transition: height 0.2s ease-in-out;
+  opacity: ${show ? 1 : 0};
+  transition: opacity 0.2s ease-in-out;
 `
 
 export const cardContentContainerStyle = css`
