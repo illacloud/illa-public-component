@@ -1,5 +1,10 @@
+import { LicenseInfo } from "@mui/x-data-grid-premium"
 import { isString } from "@illa-design/react"
 import { COLUMN_TYPE, RESOURCE_TYPE } from "./interface"
+
+export const initMulDataGridLicense = (key: string) => {
+  LicenseInfo.setLicenseKey(key)
+}
 
 export const formateLabel = (label: string) => {
   if (!label || !isString(label)) return ""
