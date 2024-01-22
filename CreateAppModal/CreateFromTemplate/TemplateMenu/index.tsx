@@ -1,4 +1,5 @@
 import { FC, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { menuContainerStyle, menuItemStyle } from "./style"
 
 interface TemplateMenuProps {
@@ -8,6 +9,7 @@ interface TemplateMenuProps {
 
 const TemplateMenu: FC<TemplateMenuProps> = ({ menuItems, onMenuClick }) => {
   const [activeKey, setActiveKey] = useState<string | undefined>()
+  const { t } = useTranslation()
   const handleClick = (key: string | undefined) => {
     onMenuClick(key)
     setActiveKey(key)
@@ -19,7 +21,7 @@ const TemplateMenu: FC<TemplateMenuProps> = ({ menuItems, onMenuClick }) => {
         css={menuItemStyle(!activeKey)}
         onClick={() => handleClick(undefined)}
       >
-        {"All Template"}
+        {t("new_dashboard.create_from_template.all_template")}
       </div>
       {menuItems.map((item) => (
         <div

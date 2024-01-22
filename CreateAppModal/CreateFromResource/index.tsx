@@ -1,4 +1,8 @@
 import { getIconFromResourceType } from "@illa-public/icon"
+import {
+  ILLA_MIXPANEL_EVENT_TYPE,
+  MixpanelTrackContext,
+} from "@illa-public/mixpanel-utils"
 import { Resource } from "@illa-public/public-types"
 import {
   ResourceGenerator,
@@ -6,7 +10,15 @@ import {
 } from "@illa-public/resource-generator"
 import { getCurrentTeamInfo } from "@illa-public/user-data"
 import { useGridApiRef } from "@mui/x-data-grid-premium"
-import { FC, useCallback, useMemo, useRef, useState } from "react"
+import {
+  FC,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -66,28 +78,34 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
   const controllerRef = useRef<AbortController>()
   const { t } = useTranslation()
   const [showResourceGenerate, setShowResourceGenerate] = useState(false)
+  const { track } = useContext(MixpanelTrackContext)
 
-  const resourceOptions = resourceList.map((resource) => {
-    return {
-      label: (
-        <div css={resourceOptionStyle}>
-          {getIconFromResourceType(resource.resourceType, "14px")}
-          <span>{resource.resourceName}</span>
-        </div>
-      ),
-      value: resource.resourceID,
-    }
-  })
+  const resourceOptions = useMemo(() => {
+    const list = resourceList.map((resource) => {
+      return {
+        label: (
+          <div css={resourceOptionStyle}>
+            {getIconFromResourceType(resource.resourceType, "14px")}
+            <span>{resource.resourceName}</span>
+          </div>
+        ),
+        value: resource.resourceID,
+      }
+    })
+    return [
+      {
+        label: (
+          <div css={resourceOptionStyle}>
+            <AddIcon size="14px" />
+            <span>create</span>
+          </div>
+        ),
+        value: CREATE_RESOURCE,
+      },
+      ...list,
+    ]
+  }, [resourceList])
 
-  const a = {
-    label: (
-      <div css={resourceOptionStyle}>
-        <AddIcon size="14px" />
-        <span>create</span>
-      </div>
-    ),
-    value: CREATE_RESOURCE,
-  }
   const [selectResourceID, setSelectResourceID] = useState<string>()
 
   const selectResource = useMemo(() => {
@@ -116,6 +134,7 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
     async (resourceID?: SelectValue) => {
       if (resourceID === CREATE_RESOURCE) {
         setShowResourceGenerate(true)
+        setSelectResourceID(undefined)
         return
       }
       setLoading(true)
@@ -154,6 +173,13 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
   const handleCreate = async () => {
     if (!selectResourceID || !selectResource?.resourceType) return
     setCreateLoading(true)
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      {
+        element: "create_from_db_modal_create",
+      },
+      "both",
+    )
     try {
       const rows = dataGridRef.current?.getAllRowIds().map((id) => {
         const isSelected = dataGridRef.current.isRowSelected(id)
@@ -193,6 +219,22 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
     setShowResourceGenerate(false)
   }
 
+  useEffect(() => {
+    ;(!resourceList || resourceList.length === 0) &&
+      setShowResourceGenerate(true)
+  }, [resourceList])
+
+  useEffect(() => {
+    showResourceGenerate &&
+      track?.(
+        ILLA_MIXPANEL_EVENT_TYPE.SHOW,
+        {
+          element: "create_from_db_modal",
+        },
+        "both",
+      )
+  }, [showResourceGenerate, track])
+
   return createPortal(
     <>
       <div css={modalContainerStyle}>
@@ -216,7 +258,7 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
                   flex="1"
                   colorScheme="techPurple"
                   value={selectResourceID}
-                  options={[a, ...resourceOptions]}
+                  options={resourceOptions}
                   onChange={getDetails}
                 />
               </div>
