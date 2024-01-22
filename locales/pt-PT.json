@@ -3365,7 +3365,7 @@
     "new_dashboard.create_from_resource.input_type_option.password": "Palavra-passe",
     "new_dashboard.create_from_resource.input_type_option.email": "e-mail",
     "new_dashboard.create_from_resource.input_type_option.url": "URL:",
-    "new_dashboard.create_from_template.all_template": "Todos os modelos",
+    "new_dashboard.create_from_template.all_template": "Recommended",
     "new_deploy.title.private_app": "Aplicativo privado",
     "new_deploy.title.public_app": "Aplicativo público",
     "new_deploy.desc.private_app": "Somente os membros da equipe podem acessar o app implementado",
