@@ -3351,6 +3351,7 @@
     "new_dashboard.create_new.get_started_with_a_t": "Розпочати з шаблону",
     "new_dashboard.create_new.use_this_template": "Використовувати цей шаблон",
     "new_dashboard.create_new.more": "Більше",
+    "new_dashboard.create_new.generate_crud_short": "Створити з бази даних",
     "new_dashboard.create_from_resource.resource": "Ресурси",
     "new_dashboard.create_from_resource.table": "Стіл",
     "new_dashboard.create_from_resource.column_name": "Назва стовпця",
