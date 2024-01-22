@@ -3365,7 +3365,7 @@
     "new_dashboard.create_from_resource.input_type_option.password": "Lösenord",
     "new_dashboard.create_from_resource.input_type_option.email": "E-post",
     "new_dashboard.create_from_resource.input_type_option.url": "URL",
-    "new_dashboard.create_from_template.all_template": "Alla mallar",
+    "new_dashboard.create_from_template.all_template": "Recommended",
     "new_deploy.title.private_app": "Privat app",
     "new_deploy.title.public_app": "Publik app",
     "new_deploy.desc.private_app": "Endast teammedlemmar kan komma åt den distribuerade appen",
