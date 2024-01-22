@@ -1,5 +1,4 @@
 import { Node, Options, parse } from "acorn"
-import { has, toPath } from "lodash-es"
 import { IdentifierInfo, NodeList } from "./interface"
 import { sanitizeScript } from "./utils"
 import { ancestorWalk } from "./walk"
@@ -17,10 +16,7 @@ export const wrapCode = (code: string) => {
     `
 }
 
-export const extractIdentifierInfoFromCode = (
-  code: string,
-  invalidIdentifiers?: Record<string, unknown>,
-): IdentifierInfo => {
+export const extractIdentifierInfoFromCode = (code: string): IdentifierInfo => {
   let ast: Node = { end: 0, start: 0, type: "" }
   try {
     const sanitizedScript = sanitizeScript(code)
@@ -38,13 +34,8 @@ export const extractIdentifierInfoFromCode = (
     const { functionalParams, references, variableDeclarations }: NodeList =
       ancestorWalk(ast)
     const referencesArr = Array.from(references).filter((reference) => {
-      // To remove references derived from declared variables and function params,
-      // We extract the topLevelIdentifier Eg. Api1.name => Api1
-      const topLevelIdentifier = toPath(reference)[0]
       return !(
-        functionalParams.has(topLevelIdentifier) ||
-        variableDeclarations.has(topLevelIdentifier) ||
-        has(invalidIdentifiers, topLevelIdentifier)
+        functionalParams.has(reference) || variableDeclarations.has(reference)
       )
     })
     return {
