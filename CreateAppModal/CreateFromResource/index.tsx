@@ -177,6 +177,7 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
       ILLA_MIXPANEL_EVENT_TYPE.CLICK,
       {
         element: "create_from_db_modal_create",
+        parameter5: selectResource?.resourceType,
       },
       "both",
     )
@@ -217,6 +218,16 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
     await getDetails(resource.resourceID)
     setSelectResourceID(resource.resourceID)
     setShowResourceGenerate(false)
+  }
+  const handleResourceSelectClick = () => {
+    track?.(
+      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
+      {
+        element: "create_from_db_modal_table",
+        parameter5: selectResource?.resourceType,
+      },
+      "both",
+    )
   }
 
   useEffect(() => {
@@ -263,6 +274,7 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
                   colorScheme="techPurple"
                   value={selectResourceID}
                   options={resourceOptions}
+                  onClick={handleResourceSelectClick}
                   onChange={getDetails}
                 />
               </div>

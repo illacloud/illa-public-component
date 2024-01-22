@@ -1,13 +1,9 @@
 import {
-  ILLA_MIXPANEL_EVENT_TYPE,
-  MixpanelTrackContext,
-} from "@illa-public/mixpanel-utils"
-import {
   GridRenderEditCellParams,
   GridValidRowModel,
   useGridApiContext,
 } from "@mui/x-data-grid-premium"
-import { FC, useCallback, useContext, useMemo, useState } from "react"
+import { FC, useCallback, useMemo, useState } from "react"
 import {
   Select,
   SelectOptionObject,
@@ -30,7 +26,6 @@ const EditSelect: FC<
   const [valueState, setValueState] = useState(propsValue?.value)
   const { getSelectValue } = useSelectOptions()
   const apiRef = useGridApiContext()
-  const { track } = useContext(MixpanelTrackContext)
 
   const options = useMemo(
     () => getSelectValue(propsValue?.valueType)?.options || [],
@@ -52,16 +47,6 @@ const EditSelect: FC<
     [apiRef, field, id, options, propsValue],
   )
 
-  const handleClick = () => {
-    track?.(
-      ILLA_MIXPANEL_EVENT_TYPE.CLICK,
-      {
-        element: "create_from_db_modal_table",
-      },
-      "both",
-    )
-  }
-
   if (!valueState) return
   return (
     <Select
@@ -70,7 +55,6 @@ const EditSelect: FC<
       colorScheme="techPurple"
       value={valueState}
       options={options as SelectOptionObject[]}
-      onClick={handleClick}
       onChange={handleChange}
     />
   )
