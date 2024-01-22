@@ -3351,6 +3351,7 @@
     "new_dashboard.create_new.get_started_with_a_t": "Erste Schritte mit einer Vorlage",
     "new_dashboard.create_new.use_this_template": "Diese Vorlage verwenden",
     "new_dashboard.create_new.more": "Mehr",
+    "new_dashboard.create_new.generate_crud_short": "Aus Datenbank erstellen",
     "new_dashboard.create_from_resource.resource": "Ressource",
     "new_dashboard.create_from_resource.table": "Tisch",
     "new_dashboard.create_from_resource.column_name": "Spaltenname",

@@ -3351,6 +3351,7 @@
     "new_dashboard.create_new.get_started_with_a_t": "Începeți cu un șablon",
     "new_dashboard.create_new.use_this_template": "Utilizați acest șablon",
     "new_dashboard.create_new.more": "Mai",
+    "new_dashboard.create_new.generate_crud_short": "Creează din baza de date",
     "new_dashboard.create_from_resource.resource": "Resursă",
     "new_dashboard.create_from_resource.table": "Tabel",
     "new_dashboard.create_from_resource.column_name": "Numele coloanei",

@@ -3351,6 +3351,7 @@
     "new_dashboard.create_new.get_started_with_a_t": "Comece com um modelo",
     "new_dashboard.create_new.use_this_template": "Utilizar este modelo",
     "new_dashboard.create_new.more": "MAIS",
+    "new_dashboard.create_new.generate_crud_short": "Criar a partir do banco de dados",
     "new_dashboard.create_from_resource.resource": "Recurso",
     "new_dashboard.create_from_resource.table": "Classificações",
     "new_dashboard.create_from_resource.column_name": "Nome da coluna",

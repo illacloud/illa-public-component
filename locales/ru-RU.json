@@ -3351,6 +3351,7 @@
     "new_dashboard.create_new.get_started_with_a_t": "Начните с шаблона",
     "new_dashboard.create_new.use_this_template": "Использовать этот шаблон",
     "new_dashboard.create_new.more": "Ещё",
+    "new_dashboard.create_new.generate_crud_short": "Создать из базы данных",
     "new_dashboard.create_from_resource.resource": "Ресурс",
     "new_dashboard.create_from_resource.table": "Таблица",
     "new_dashboard.create_from_resource.column_name": "Название столбца",

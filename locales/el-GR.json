@@ -3351,6 +3351,7 @@
     "new_dashboard.create_new.get_started_with_a_t": "Ξεκινήστε με ένα πρότυπο",
     "new_dashboard.create_new.use_this_template": "Χρησιμοποιήστε αυτό το πρότυπο",
     "new_dashboard.create_new.more": "Περισσότερα",
+    "new_dashboard.create_new.generate_crud_short": "Δημιουργία από βάση δεδομένων",
     "new_dashboard.create_from_resource.resource": "Πόρος",
     "new_dashboard.create_from_resource.table": "Πίνακας",
     "new_dashboard.create_from_resource.column_name": "Όνομα στήλης",

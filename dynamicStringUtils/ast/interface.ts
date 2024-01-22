@@ -110,6 +110,11 @@ export interface AwaitExpressionNode extends Expression {
   argument: Expression
 }
 
+export interface VariableDeclarationNode extends Node {
+  type: NodeTypes.VariableDeclaration
+  declarations: VariableDeclaratorNode[]
+}
+
 export interface VariableDeclaratorNode extends Node {
   type: NodeTypes.VariableDeclarator
   id: IdentifierNode

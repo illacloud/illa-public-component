@@ -5,6 +5,7 @@ export enum NodeTypes {
   Property = "Property",
   FunctionDeclaration = "FunctionDeclaration",
   ExportDefaultDeclaration = "ExportDefaultDeclaration",
+  VariableDeclaration = "VariableDeclaration",
   VariableDeclarator = "VariableDeclarator",
   MemberExpression = "MemberExpression",
   FunctionExpression = "FunctionExpression",
