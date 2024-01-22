@@ -3365,7 +3365,7 @@
     "new_dashboard.create_from_resource.input_type_option.password": "Wachtwoord",
     "new_dashboard.create_from_resource.input_type_option.email": "E-mailadres",
     "new_dashboard.create_from_resource.input_type_option.url": "URL",
-    "new_dashboard.create_from_template.all_template": "Alle sjablonen",
+    "new_dashboard.create_from_template.all_template": "Recommended",
     "new_deploy.title.private_app": "Privé app",
     "new_deploy.title.public_app": "Publieke app",
     "new_deploy.desc.private_app": "Alleen de teamleden hebben toegang tot de geïmplementeerde app",
