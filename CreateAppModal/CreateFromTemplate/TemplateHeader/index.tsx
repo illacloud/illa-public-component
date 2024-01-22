@@ -33,6 +33,7 @@ const TemplateHeader: FC<TemplateHeaderProps> = ({ closeModal, onSearch }) => {
           size="large"
           variant="fill"
           placeholder="Search"
+          colorScheme="techPurple"
           onChange={handleChangeSearch.current()}
           allowClear
         />
