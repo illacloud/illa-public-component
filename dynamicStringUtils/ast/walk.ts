@@ -13,7 +13,7 @@ import {
   isFunctionExpression,
   isIdentifierNode,
   isMemberExpressionNode,
-  isVariableDeclarator,
+  isVariableDeclaration,
 } from "./typeHelper"
 import {
   constructFinalMemberExpIdentifier,
@@ -90,9 +90,10 @@ export const ancestorWalk = (ast: Node): NodeList => {
       }
     },
     VariableDeclaration(node: Node) {
-      if (isVariableDeclarator(node)) {
-        variableDeclarations.add(node.id.name)
-      }
+      if (isVariableDeclaration(node))
+        node.declarations.forEach((declaration) => {
+          variableDeclarations.add(declaration.id.name)
+        })
     },
     FunctionDeclaration(node: Node) {
       // params in function declarations are also counted as references so we keep
