@@ -20,6 +20,7 @@ import {
   ObjectExpression,
   PropertyNode,
   ThisExpressionNode,
+  VariableDeclarationNode,
   VariableDeclaratorNode,
 } from "./interface"
 
@@ -53,6 +54,12 @@ export const isBinaryExpressionNode = (
   node: Node,
 ): node is BinaryExpressionNode => {
   return node.type === NodeTypes.BinaryExpression
+}
+
+export const isVariableDeclaration = (
+  node: Node,
+): node is VariableDeclarationNode => {
+  return node.type === NodeTypes.VariableDeclaration
 }
 
 export const isVariableDeclarator = (
