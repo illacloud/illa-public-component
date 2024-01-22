@@ -8,7 +8,6 @@ export interface ActionsDetail {
 
 export interface Config {
   description: string
-  cover: string
   components: string[]
   actions: ActionsDetail[]
 }
@@ -36,11 +35,15 @@ export interface ContributorTeam {
   name: string
 }
 
+export interface MarketplaceConfig {
+  cover: string
+}
 export interface MarketplaceInfo {
   marketplaceID?: string
   numStars: number
   numForks: number
   hashtags: string[]
+  config: MarketplaceConfig
   isStarredByCurrentUser?: boolean
   contributorTeam: ContributorTeam
 }
