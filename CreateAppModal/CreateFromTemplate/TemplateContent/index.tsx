@@ -67,7 +67,7 @@ const TemplateContent: FC<TemplateContentProps> = ({
                 closeModal={closeModal}
                 appID={app?.appId}
                 appName={app?.appName}
-                cover={app?.config?.cover}
+                cover={marketplace?.config?.cover}
                 teamIdentifier={marketplace?.contributorTeam?.teamIdentifier}
                 appDescription={app?.config?.description}
               />
