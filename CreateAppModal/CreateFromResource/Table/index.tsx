@@ -13,6 +13,7 @@ import { TriggerProvider, getColor } from "@illa-design/react"
 import { BIGGER_THAN_MODAL_SELECT } from "../constants"
 import EditInput from "./EditLabel"
 import EditSelect from "./EditSelect"
+import ShowLabel from "./ShowLabel"
 import { containerStyle } from "./style"
 
 interface DatasetTableProps {
@@ -54,6 +55,7 @@ const DatasetTable: FC<DatasetTableProps> = ({ rows, dataGridRef }) => {
       editable: true,
       flex: 1,
       cellClassName: "editable-cell",
+      renderCell: (params) => <ShowLabel value={params.value} />,
       renderEditCell: (params) => <EditInput {...params} />,
     },
     {
@@ -63,7 +65,7 @@ const DatasetTable: FC<DatasetTableProps> = ({ rows, dataGridRef }) => {
       cellClassName: "editable-cell",
       type: "string",
       flex: 1,
-      renderCell: (params) => <div>{params.value.label}</div>,
+      renderCell: (params) => <ShowLabel value={params.value.label} />,
       renderEditCell: (params) => <EditSelect {...params} />,
     },
   ]
