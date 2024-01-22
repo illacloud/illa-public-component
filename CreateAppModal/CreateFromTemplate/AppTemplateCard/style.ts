@@ -11,7 +11,7 @@ import { CardSize } from "./interface"
 export const cardContainerStyle = (size: CardSize) => css`
   display: flex;
   flex: none;
-  width: ${size === "normal" ? CARD_NORMAL_WIDTH : CARD_LARGE_WIDTH}px;
+  min-width: ${size === "normal" ? CARD_NORMAL_WIDTH : CARD_LARGE_WIDTH}px;
   padding-bottom: 16px;
   flex-direction: column;
   align-items: flex-start;
