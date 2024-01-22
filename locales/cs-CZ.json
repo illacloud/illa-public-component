@@ -3351,6 +3351,7 @@
     "new_dashboard.create_new.get_started_with_a_t": "Začněte se šablonou",
     "new_dashboard.create_new.use_this_template": "Použít tuto šablonu",
     "new_dashboard.create_new.more": "Více",
+    "new_dashboard.create_new.generate_crud_short": "Vytvořit z databáze",
     "new_dashboard.create_from_resource.resource": "Zdroj",
     "new_dashboard.create_from_resource.table": "Stupeň úvěrové kvality 1",
     "new_dashboard.create_from_resource.column_name": "Název sloupce",
