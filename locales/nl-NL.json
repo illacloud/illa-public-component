@@ -3351,6 +3351,7 @@
     "new_dashboard.create_new.get_started_with_a_t": "Aan de slag met een sjabloon",
     "new_dashboard.create_new.use_this_template": "Gebruik deze template",
     "new_dashboard.create_new.more": "Meer",
+    "new_dashboard.create_new.generate_crud_short": "Aanmaken vanuit database",
     "new_dashboard.create_from_resource.resource": "Bron",
     "new_dashboard.create_from_resource.table": "Tabel",
     "new_dashboard.create_from_resource.column_name": "Kolomnaam",

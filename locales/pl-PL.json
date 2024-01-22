@@ -3351,6 +3351,7 @@
     "new_dashboard.create_new.get_started_with_a_t": "Zacznij od szablonu",
     "new_dashboard.create_new.use_this_template": "Użyj tego szablonu",
     "new_dashboard.create_new.more": "Więcej",
+    "new_dashboard.create_new.generate_crud_short": "Utwórz z bazy danych",
     "new_dashboard.create_from_resource.resource": "Zasoby",
     "new_dashboard.create_from_resource.table": "Tabela",
     "new_dashboard.create_from_resource.column_name": "Nazwa kolumny",

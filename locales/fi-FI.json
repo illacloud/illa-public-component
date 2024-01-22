@@ -3351,6 +3351,7 @@
     "new_dashboard.create_new.get_started_with_a_t": "Aloita mallin avulla",
     "new_dashboard.create_new.use_this_template": "Käytä tätä mallia",
     "new_dashboard.create_new.more": "Lisää",
+    "new_dashboard.create_new.generate_crud_short": "Luo tietokannasta",
     "new_dashboard.create_from_resource.resource": "Resurssi",
     "new_dashboard.create_from_resource.table": "Taulukko",
     "new_dashboard.create_from_resource.column_name": "Sarakkeen nimi",

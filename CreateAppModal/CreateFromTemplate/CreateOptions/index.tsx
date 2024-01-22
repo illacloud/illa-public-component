@@ -60,7 +60,7 @@ const CreateFromDatabase: FC<CreateOptionsProps> = ({
       <div css={iconStyle}>
         <AddIcon size="16px" />
       </div>
-      <span>{t("new_dashboard.create_new.generate_crud_app_fr")}</span>
+      <span>{t("new_dashboard.create_new.generate_crud_short")}</span>
     </div>
   )
 }
