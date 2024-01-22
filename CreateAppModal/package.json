@@ -1,0 +1,39 @@
+{
+  "name": "@illa-public/create-app",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.tsx",
+  "dependencies": {
+    "@emotion/styled": "^11.11.0",
+    "@illa-design/react": "workspace:*",
+    "@illa-public/icon": "workspace:*",
+    "@illa-public/illa-net": "workspace:*",
+    "@illa-public/public-configs": "workspace:*",
+    "@illa-public/public-types": "workspace:*",
+    "@illa-public/user-data": "workspace:*",
+    "@illa-public/utils": "workspace:*",
+    "@illa-public/market-app": "workspace:*",
+    "@illa-public/resource-generator": "workspace:^",
+    "@illa-public/mixpanel-utils": "workspace:^",
+    "@mui/material": "^5.15.3",
+    "@mui/x-data-grid-premium": "^6.18.7",
+    "klona": "^2.0.6",
+    "lodash-es": "^4.17.21",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.12",
+    "@types/uuid": "^9.0.7",
+    "tsconfig": "workspace:*"
+  },
+  "peerDependencies": {
+    "@emotion/react": "^11.11.1",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "i18next": "^23.7.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^13.5.0",
+    "react-redux": "^9.0.4"
+  }
+}

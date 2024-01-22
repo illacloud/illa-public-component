@@ -35,11 +35,15 @@ export interface ContributorTeam {
   name: string
 }
 
+export interface MarketplaceConfig {
+  cover: string
+}
 export interface MarketplaceInfo {
   marketplaceID?: string
   numStars: number
   numForks: number
   hashtags: string[]
+  config: MarketplaceConfig
   isStarredByCurrentUser?: boolean
   contributorTeam: ContributorTeam
 }
