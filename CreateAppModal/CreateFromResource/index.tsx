@@ -220,9 +220,13 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
   }
 
   useEffect(() => {
-    ;(!resourceList || resourceList.length === 0) &&
+    if (resourceList && resourceList.length !== 0) {
+      setSelectResourceID(resourceList[0].resourceID)
+      getDetails(resourceList[0].resourceID)
+    } else {
       setShowResourceGenerate(true)
-  }, [resourceList])
+    }
+  }, [getDetails, resourceList])
 
   useEffect(() => {
     showResourceGenerate &&
