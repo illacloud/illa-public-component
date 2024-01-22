@@ -6,4 +6,4 @@ export { CARD_NORMAL_WIDTH } from "./CreateFromTemplate/AppTemplateCard/constant
 export { CreateFromResourceModal } from "./CreateFromResource"
 export { CreateFromTemplateModal } from "./CreateFromTemplate"
 export { initMulDataGridLicense } from "./CreateFromResource/utils"
-export { REPORT_PARAMETER } from "./constants"
+export { REPORT_PARAMETER, REPORT_TEMPLATE_STATUS } from "./constants"

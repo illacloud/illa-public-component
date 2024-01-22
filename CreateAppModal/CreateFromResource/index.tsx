@@ -220,6 +220,11 @@ export const CreateFromResourceModal: FC<CreateWithResourceProps> = ({
   }
 
   useEffect(() => {
+    ;(!resourceList || resourceList.length === 0) &&
+      setShowResourceGenerate(true)
+  }, [resourceList])
+
+  useEffect(() => {
     showResourceGenerate &&
       track?.(
         ILLA_MIXPANEL_EVENT_TYPE.SHOW,

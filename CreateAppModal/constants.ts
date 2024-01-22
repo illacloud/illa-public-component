@@ -7,3 +7,8 @@ export enum REPORT_PARAMETER {
   DASHBOARD_CREATE_NEW = "dashboard_create_new",
   BLANK_APP_CREATE = "blank_app_create",
 }
+
+export enum REPORT_TEMPLATE_STATUS {
+  IS_MODAL_TEMPLATE = 1,
+  UN_MODAL_TEMPLATE = 0,
+}
