@@ -3365,7 +3365,7 @@
     "new_dashboard.create_from_resource.input_type_option.password": "Adgangskode",
     "new_dashboard.create_from_resource.input_type_option.email": "E-mail",
     "new_dashboard.create_from_resource.input_type_option.url": "URL",
-    "new_dashboard.create_from_template.all_template": "Recommended",
+    "new_dashboard.create_from_template.all_template": "Alle skabeloner",
     "new_deploy.title.private_app": "Privat app",
     "new_deploy.title.public_app": "Offentlig app",
     "new_deploy.desc.private_app": "Kun teammedlemmer kan tilgå den implementerede app",

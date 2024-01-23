@@ -3365,7 +3365,7 @@
     "new_dashboard.create_from_resource.input_type_option.password": "Salasana",
     "new_dashboard.create_from_resource.input_type_option.email": "Sähköposti",
     "new_dashboard.create_from_resource.input_type_option.url": "URL-osoite",
-    "new_dashboard.create_from_template.all_template": "Recommended",
+    "new_dashboard.create_from_template.all_template": "Kaikki mallit",
     "new_deploy.title.private_app": "Yksityinen sovellus",
     "new_deploy.title.public_app": "Julkinen sovellus",
     "new_deploy.desc.private_app": "Vain tiimin jäsenet voivat käyttää käyttöön otettua sovellusta",

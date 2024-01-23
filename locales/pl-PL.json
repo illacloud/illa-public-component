@@ -3365,7 +3365,7 @@
     "new_dashboard.create_from_resource.input_type_option.password": "Hasło",
     "new_dashboard.create_from_resource.input_type_option.email": "E-mail",
     "new_dashboard.create_from_resource.input_type_option.url": "Adres URL",
-    "new_dashboard.create_from_template.all_template": "Recommended",
+    "new_dashboard.create_from_template.all_template": "Wszystkie szablony",
     "new_deploy.title.private_app": "Prywatna aplikacja",
     "new_deploy.title.public_app": "Publiczna aplikacja",
     "new_deploy.desc.private_app": "Tylko członkowie zespołu mogą uzyskać dostęp do wdrożonej aplikacji",

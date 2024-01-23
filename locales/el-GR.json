@@ -3365,7 +3365,7 @@
     "new_dashboard.create_from_resource.input_type_option.password": "Κωδικός",
     "new_dashboard.create_from_resource.input_type_option.email": "E-mail",
     "new_dashboard.create_from_resource.input_type_option.url": "URL",
-    "new_dashboard.create_from_template.all_template": "Recommended",
+    "new_dashboard.create_from_template.all_template": "Όλα τα πρότυπα",
     "new_deploy.title.private_app": "Ιδιωτική εφαρμογή",
     "new_deploy.title.public_app": "Δημόσια εφαρμογή",
     "new_deploy.desc.private_app": "Μόνο τα μέλη της ομάδας μπορούν να έχουν πρόσβαση στην αναπτυγμένη εφαρμογή",

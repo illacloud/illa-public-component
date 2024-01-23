@@ -3365,7 +3365,7 @@
     "new_dashboard.create_from_resource.input_type_option.password": "Пароль",
     "new_dashboard.create_from_resource.input_type_option.email": "Ел. пошта",
     "new_dashboard.create_from_resource.input_type_option.url": "Адреса",
-    "new_dashboard.create_from_template.all_template": "Recommended",
+    "new_dashboard.create_from_template.all_template": "Всі шаблони",
     "new_deploy.title.private_app": "Приватний додаток",
     "new_deploy.title.public_app": "Публічний додаток",
     "new_deploy.desc.private_app": "Тільки члени команди можуть отримувати доступ до розгорнутого додатка",
