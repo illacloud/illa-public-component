@@ -319,6 +319,7 @@
     "editor.action.form.label.airtable.authentication": "입증",
     "editor.action.form.label.old_oracle": "9i or below",
     "editor.action.form.label.new_oracle": "9i above",
+    "editor.action.form.label.ai_agent.ai_agents": "AI Agents",
     "editor.action.form.placeholder.url": "여기에 요청 URL 입력",
     "editor.action.form.placeholder.appwrite.host": "호스트 이름 또는 IP",
     "editor.action.form.placeholder.appwrite.dbid": "데이터베이스 ID",
