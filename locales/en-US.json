@@ -319,6 +319,7 @@
     "editor.action.form.label.airtable.authentication": "Authentication",
     "editor.action.form.label.old_oracle": "9i or below",
     "editor.action.form.label.new_oracle": "9i above",
+    "editor.action.form.label.ai_agent.ai_agents": "AI Agents",
     "editor.action.form.placeholder.url": "Enter request URL here",
     "editor.action.form.placeholder.appwrite.host": "HOSTNAME OR IP",
     "editor.action.form.placeholder.appwrite.dbid": "Database ID",
