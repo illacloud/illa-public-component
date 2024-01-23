@@ -6,7 +6,7 @@ import {
   ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
 } from "@illa-public/mixpanel-utils"
 import { SUBSCRIBE_PLAN } from "@illa-public/public-types"
-import { getILLACloudURL } from "@illa-public/utils"
+import { getILLACloudURL, isIllaErrorInterface } from "@illa-public/utils"
 import { createCollarModal, createTeamLimitModal } from "./hook"
 import { CollarModalType, FREE_TEAM_LIMIT_TYPE } from "./interface"
 
@@ -42,6 +42,34 @@ export const handleCollaPurchaseError = (
       e.data.errorFlag === ERROR_FLAG.ERROR_FLAG_OUT_OF_USAGE_TRAFFIC ||
       e.data.errorFlag === ERROR_FLAG.ERROR_FLAG_OUT_OF_USAGE_VOLUME ||
       e.data.errorFlag ===
+        ERROR_FLAG.ERROR_FLAG_AI_AGENT_MAX_TOKEN_OVER_COLLA_BALANCE)
+  ) {
+    collaModal?.({
+      modalType,
+      from,
+    })
+    return true
+  }
+  return false
+}
+
+export const handleCollaPurchaseErrorByILLAInnerError = (
+  e: unknown,
+  modalType: CollarModalType,
+  from: string,
+) => {
+  const collaModal = createCollarModal()
+  if (
+    isIllaErrorInterface(e) &&
+    (e.errorFlag === ERROR_FLAG.ERROR_FLAG_INSUFFICIENT_COLLA ||
+      e.errorFlag === ERROR_FLAG.ERROR_FLAG_INSUFFICIENT_DRIVE_VOLUME ||
+      e.errorFlag === ERROR_FLAG.ERROR_FLAG_INSUFFICIENT_AI_TOKEN_GENERAL ||
+      e.errorFlag === ERROR_FLAG.ERROR_FLAG_AUTO_CHARGE_COLLA_FAILED ||
+      e.errorFlag === ERROR_FLAG.ERROR_FLAG_INSUFFICIENT_DRIVE_TRAFFIC ||
+      e.errorFlag === ERROR_FLAG.ERROR_FLAG_COLLA_PAYMENT_FAILURE ||
+      e.errorFlag === ERROR_FLAG.ERROR_FLAG_OUT_OF_USAGE_TRAFFIC ||
+      e.errorFlag === ERROR_FLAG.ERROR_FLAG_OUT_OF_USAGE_VOLUME ||
+      e.errorFlag ===
         ERROR_FLAG.ERROR_FLAG_AI_AGENT_MAX_TOKEN_OVER_COLLA_BALANCE)
   ) {
     collaModal?.({
