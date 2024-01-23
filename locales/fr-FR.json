@@ -3365,7 +3365,7 @@
     "new_dashboard.create_from_resource.input_type_option.password": "Mot de passe",
     "new_dashboard.create_from_resource.input_type_option.email": "Courriel",
     "new_dashboard.create_from_resource.input_type_option.url": "URL",
-    "new_dashboard.create_from_template.all_template": "Tous les modèles",
+    "new_dashboard.create_from_template.all_template": "Recommended",
     "new_deploy.title.private_app": "Application privée",
     "new_deploy.title.public_app": "Application publique",
     "new_deploy.desc.private_app": "Seuls les membres de l'équipe peuvent accéder à l'application déployée",

@@ -3365,7 +3365,7 @@
     "new_dashboard.create_from_resource.input_type_option.password": "Contraseña",
     "new_dashboard.create_from_resource.input_type_option.email": "E-mail",
     "new_dashboard.create_from_resource.input_type_option.url": "URL",
-    "new_dashboard.create_from_template.all_template": "Todas las plantillas",
+    "new_dashboard.create_from_template.all_template": "Recommended",
     "new_deploy.title.private_app": "App privada",
     "new_deploy.title.public_app": "App pública",
     "new_deploy.desc.private_app": "Sólo los miembros del equipo pueden acceder a la aplicación desplegada",
