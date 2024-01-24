@@ -602,7 +602,7 @@
     "editor.action.panel.label.tips.airtable.time_zone": "すべてのサポートされているタイムゾーンを確認するには<0>こちらをクリック</0>してください。",
     "editor.action.panel.label.tips.airtable.user_locales": "すべてのサポートされているロケールを確認するには<0>こちらをクリック</0>してください。",
     "editor.action.panel.label.tips.global-data.how-to-use": "{{globalData.state1}}を使用してこのグローバルデータを利用します",
-    "editor.action.panel.label.tips.general.safe_mode": "セーフモードを使用すると、SQLは変数の場所にのみ参照できます。たとえば、where name = 'input1.value' のような変数を参照することができます。これにより、ユーザーが input1 に '; drop table;' のようなステートメントを入力することでデータベースを危険にさらすことを防ぐことができます。アンセーフモードを使用する場合、SQL構文の単語も変数で置き換えることができます。たとえば、where input1.value input2.value 'input3.value' のように変数で置き換えることができます。ただし、この場合、ユーザーが入力する内容によってデータベースが危険にさらされる可能性があります。このモードの使用はお勧めしません。",
+    "editor.action.panel.label.tips.general.safe_mode": "安全モードを使用する場合、\"{{ }}\"内の内容は完全な文字列として扱われるため、演算ロジックやSQLの構文などを含めることはできません。もし\"{{ }}\"内で演算ロジックを使用する必要がある場合は、安全モードからアンセーフモードに切り替えてください。ただし、アンセーフモードにはSQLインジェクションのリスクがあるため、注意して使用してください。",
     "editor.action.panel.label.tips.drive.method": "ドライブ上で実行するアクションを設定するために使用します。",
     "editor.action.panel.label.tips.drive.filter_type": "ファイルをフィルタリングする場合、この設定オプションを使用してファイル名またはファイルIDによるフィルタリングを指定できます。ファイル名は曖昧なマッチングを使用し、ファイルIDは完全一致を使用します。",
     "editor.action.panel.label.tips.drive.file_name": "ファイルの曖昧なマッチングに使用されます。",
