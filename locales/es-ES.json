@@ -121,6 +121,7 @@
     "flow.editor.event.error.no_input": "No hay entradas",
     "flow.editor.event.error.failed": "Error al ejecutar",
     "flow.editor.event.error.not_reacha": "Desconectado del nodo desencadenante, por lo tanto inalcanzable",
+    "flow.editor.event.error.space": "Hay espacios en blanco iniciales o finales u otros caracteres vacíos en la entrada que harán que el resultado sea siempre verdadero.",
     "flow.editor.event.message.undeploy": "Desdesplegar cambios",
     "flow.editor.event.message.undeploy_desc": "Los cambios no tendrán efecto durante el tiempo de ejecución en el flujo.",
     "flow.editor.event.message.deployed": "Desplegado con éxito",
