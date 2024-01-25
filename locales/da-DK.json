@@ -121,6 +121,7 @@
     "flow.editor.event.error.no_input": "Ingen indgange",
     "flow.editor.event.error.failed": "Mislykkedes at køre",
     "flow.editor.event.error.not_reacha": "Afbrudt fra udløsningsknude kan derfor ikke nås",
+    "flow.editor.event.error.space": "Der er ledende eller afsluttende hvide mellemrum eller andre tomme tegn i dit input, hvilket vil bevirke, at resultatet altid er sandt.",
     "flow.editor.event.message.undeploy": "Deaktiver ændringer",
     "flow.editor.event.message.undeploy_desc": "Ændringerne vil ikke træde i kraft under kørslen i flowet.",
     "flow.editor.event.message.deployed": "Implementeret med succes",
