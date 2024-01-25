@@ -1093,7 +1093,7 @@
     "editor.inspect.setter_content.widget_action_type_name.onRowSelectionModelChange": "Изменение выбора строки",
     "editor.inspect.setter_content.widget_action_type_name.onSortModelChange": "Изменить сортировку",
     "editor.inspect.setter_content.widget_action_type_name.onColumnVisibilityModelChange": "Изменение видимости столбцов",
-    "editor.inspect.setter_content.widget_action_type_name.on_menu_logo_click": "При нажатии логотипа",
+    "editor.inspect.setter_content.widget_action_type_name.onMenuLogoClick": "При нажатии логотипа",
     "editor.inspect.setter_content.image_list.title": "Изображения",
     "editor.inspect.setter_content.image_list.empty": "Нет изображений",
     "editor.inspect.setter_content.image_list.model_title": "Редактировать изображения",
