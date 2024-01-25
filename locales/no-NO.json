@@ -2623,7 +2623,7 @@
     "page.left.menu.changeLogs.2.content": "* Introducing the ability to create CRUD apps directly from your database. Now, you can create a fully functional app in just 10 seconds!\n* We've also added the option to create apps from templates, allowing you to seamlessly replace data with just a single click.\n\n2024.01.22",
     "page.left.menu.changeLogs.1.title": "V 4.3.6",
     "page.left.menu.changeLogs.1.changeLogLink": "https://docs.illacloud.com/4-3-6",
-    "page.left.menu.changeLogs.1.content": "* Component optimization: If you need to display files on components such as images or videos, you can directly upload local files or select already uploaded files from the ILLA Drive through the Inspect panel of the component and showcase them.\n* ILLA Drive Action: List, download, upload, delete files via Actions\n\n2023.11.23",
+    "page.left.menu.changeLogs.1.content": "* New features in ILLA Flow: Added support for AI Agent, allowing the usage of ILLA Flow to run AI Agents; Introduced support for Condition nodes, enabling the input of conditional statements in IF/Else blocks to handle different events based on the results.\n\n* Component optimization: Menu component now supports the \"On logo clicked\" method, which allows for handling events such as logo clicks for redirection or executing queries.\n\n* Bug Fixes:\nFixed an issue with the pagination of the Data grid component's paginator on the server-side.\n\n2024.01.25",
     "page.left.menu.changelog": "Hva er nytt",
     "page.size.model.fixed": "Fast",
     "page.size.model.auto": "Automatisk",
