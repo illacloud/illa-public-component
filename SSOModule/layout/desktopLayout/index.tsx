@@ -7,6 +7,7 @@ import { TextLink } from "@illa-public/text-link"
 import { isCloudVersion } from "@illa-public/utils"
 import { FC, useContext } from "react"
 import { Trans, useTranslation } from "react-i18next"
+import DesktopLeftContent from "../../assets/desktop-left-content.svg?react"
 import ILLALogoWhite from "../../assets/illa-logo-white.svg?react"
 import { LayoutProps } from "../interface"
 import {
@@ -16,6 +17,7 @@ import {
   policyStyle,
   rightAsideWrapperStyle,
   sectionBackgroundStyle,
+  sectionBgContentStyle,
   sloganStyle,
 } from "./style"
 
@@ -39,7 +41,11 @@ export const UserLayout: FC<LayoutProps> = ({ children }) => {
       <aside css={leftAsideWrapperStyle}>
         <ILLALogoWhite css={illaLogoStyle} />
         <span css={sloganStyle}>{t("page.user.description")}</span>
-        <section css={sectionBackgroundStyle} />
+        <section css={sectionBackgroundStyle}>
+          <span css={sectionBgContentStyle}>
+            <DesktopLeftContent />
+          </span>
+        </section>
       </aside>
       <aside css={rightAsideWrapperStyle}>
         {children}
