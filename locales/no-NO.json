@@ -121,6 +121,7 @@
     "flow.editor.event.error.no_input": "Ingen inndata",
     "flow.editor.event.error.failed": "Kunne ikke kjøre",
     "flow.editor.event.error.not_reacha": "Koblet fra utløsernode og kan derfor ikke nås",
+    "flow.editor.event.error.space": "There are leading or trailing white spaces or other empty characters in your input which will cause the result to be always true.",
     "flow.editor.event.message.undeploy": "Udistribuere endringer",
     "flow.editor.event.message.undeploy_desc": "Endringene vil ikke tre i kraft når strømmen kjøres.",
     "flow.editor.event.message.deployed": "Utlevert vellykket",
