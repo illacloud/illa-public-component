@@ -11,7 +11,8 @@ export const layoutWrapperStyle = css`
 export const leftAsideWrapperStyle = css`
   background: linear-gradient(165deg, #000 0%, #000 100%);
   height: 100%;
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   position: relative;
   z-index: 1;
   overflow-x: hidden;
@@ -26,6 +27,7 @@ export const sectionBgContentStyle = css`
 export const rightAsideWrapperStyle = css`
   max-height: 100%;
   width: 100%;
+  min-width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
