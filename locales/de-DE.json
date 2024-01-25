@@ -1093,7 +1093,7 @@
     "editor.inspect.setter_content.widget_action_type_name.onRowSelectionModelChange": "Auswahlmodell der Zeile ändern",
     "editor.inspect.setter_content.widget_action_type_name.onSortModelChange": "Sortiermodell ändern",
     "editor.inspect.setter_content.widget_action_type_name.onColumnVisibilityModelChange": "Sichtbarkeitsmodell der Spalte ändern",
-    "editor.inspect.setter_content.widget_action_type_name.on_menu_logo_click": "Auf Logo geklickt",
+    "editor.inspect.setter_content.widget_action_type_name.onMenuLogoClick": "Auf Logo geklickt",
     "editor.inspect.setter_content.image_list.title": "Bilder",
     "editor.inspect.setter_content.image_list.empty": "Keine Bilder",
     "editor.inspect.setter_content.image_list.model_title": "Bilder bearbeiten",
