@@ -9,13 +9,18 @@ export const layoutWrapperStyle = css`
 `
 
 export const leftAsideWrapperStyle = css`
-  background: linear-gradient(164.87deg, #654aec 0%, #4d4aec 100%);
+  background: linear-gradient(165deg, #000 0%, #000 100%);
   height: 100%;
-  width: 520px;
+  width: 600px;
   position: relative;
-  display: flex;
-  align-items: center;
-  padding: 0 40px;
+  z-index: 1;
+  overflow-x: hidden;
+`
+
+export const sectionBgContentStyle = css`
+  position: absolute;
+  bottom: 0;
+  left: 0;
 `
 
 export const rightAsideWrapperStyle = css`
@@ -35,6 +40,7 @@ export const sectionBackgroundStyle = css`
   height: 100%;
   left: 0;
   top: 0;
+  z-index: -1;
 `
 
 export const illaLogoStyle = css`
@@ -49,6 +55,9 @@ export const sloganStyle = css`
   line-height: 50px;
   color: ${globalColor(`--${illaPrefix}-white-01`)};
   word-break: break-word;
+  margin: 0 48px;
+  position: absolute;
+  top: 23%;
 `
 export const policyStyle = css`
   margin-top: 24px;
