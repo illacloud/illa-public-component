@@ -121,6 +121,7 @@
     "flow.editor.event.error.no_input": "Нет входов",
     "flow.editor.event.error.failed": "Не удалось запустить",
     "flow.editor.event.error.not_reacha": "Отключено от триггера поэтому недоступно",
+    "flow.editor.event.error.space": "There are leading or trailing white spaces or other empty characters in your input which will cause the result to be always true.",
     "flow.editor.event.message.undeploy": "Отключать изменения",
     "flow.editor.event.message.undeploy_desc": "Изменения не вступят в силу во время работы потока.",
     "flow.editor.event.message.deployed": "Успешно развернуто",
