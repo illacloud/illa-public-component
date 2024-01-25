@@ -121,6 +121,7 @@
     "flow.editor.event.error.no_input": "Немає входів",
     "flow.editor.event.error.failed": "Не вдалося запустити",
     "flow.editor.event.error.not_reacha": "Від'єднано від вузла тригера, тому недосяжний",
+    "flow.editor.event.error.space": "There are leading or trailing white spaces or other empty characters in your input which will cause the result to be always true.",
     "flow.editor.event.message.undeploy": "Скасувати видалення змін",
     "flow.editor.event.message.undeploy_desc": "Зміни набудуть чинності не під час виконання потоку.",
     "flow.editor.event.message.deployed": "Успішно розгорнуто",
