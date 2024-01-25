@@ -121,6 +121,7 @@
     "flow.editor.event.error.no_input": "Nessun input",
     "flow.editor.event.error.failed": "Esecuzione non riuscita",
     "flow.editor.event.error.not_reacha": "Disconnesso dal nodo trigger quindi irraggiungibile",
+    "flow.editor.event.error.space": "There are leading or trailing white spaces or other empty characters in your input which will cause the result to be always true.",
     "flow.editor.event.message.undeploy": "Annulla le modifiche",
     "flow.editor.event.message.undeploy_desc": "Le modifiche non avranno effetto durante il runtime nel flusso.",
     "flow.editor.event.message.deployed": "Dispiegato con successo",
