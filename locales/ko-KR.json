@@ -121,6 +121,7 @@
     "flow.editor.event.error.no_input": "No inputs",
     "flow.editor.event.error.failed": "Failed to run",
     "flow.editor.event.error.not_reacha": "Disconnected from trigger node therefore unreachable",
+    "flow.editor.event.error.space": "There are leading or trailing white spaces or other empty characters in your input which will cause the result to be always true.",
     "flow.editor.event.message.undeploy": "Undeployed changes",
     "flow.editor.event.message.undeploy_desc": "The changes will not take effect when running.",
     "flow.editor.event.message.deployed": "Deployed successfully",
