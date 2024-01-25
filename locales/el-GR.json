@@ -121,6 +121,7 @@
     "flow.editor.event.error.no_input": "Καμία είσοδος",
     "flow.editor.event.error.failed": "Αποτυχία εκτέλεσης",
     "flow.editor.event.error.not_reacha": "Αποσυνδέθηκε από τον κόμβο ενεργοποίησης ως εκ τούτου μη προσβάσιμο",
+    "flow.editor.event.error.space": "There are leading or trailing white spaces or other empty characters in your input which will cause the result to be always true.",
     "flow.editor.event.message.undeploy": "Κατάργηση ανάπτυξης αλλαγών",
     "flow.editor.event.message.undeploy_desc": "Οι αλλαγές δεν θα τεθούν σε ισχύ κατά τη διάρκεια εκτέλεσης της ροής.",
     "flow.editor.event.message.deployed": "Επιτυχής ανάπτυξη",
