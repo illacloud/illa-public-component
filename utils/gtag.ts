@@ -12,6 +12,7 @@ export const initDateReport = () => {
     const linkedInSendScript = document.createElement("script")
     const linkedNoScript = document.createElement("noscript")
     const adsTwitterScript = document.createElement("script")
+    const rdtScript = document.createElement("script")
     gaSendScript.innerHTML = `
     window.dataLayer = window.dataLayer || []
       function gtag() {
@@ -59,6 +60,31 @@ export const initDateReport = () => {
       a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
       twq('config','ogv2a');
     `
+    rdtScript.innerHTML = `
+    !(function (w, d) {
+      if (!w.rdt) {
+        var p = (w.rdt = function () {
+          p.sendEvent
+            ? p.sendEvent.apply(p, arguments)
+            : p.callQueue.push(arguments)
+        })
+        p.callQueue = []
+        var t = d.createElement("script")
+        ;(t.src = "https://www.redditstatic.com/ads/pixel.js"), (t.async = !0)
+        var s = d.getElementsByTagName("script")[0]
+        s.parentNode.insertBefore(t, s)
+      }
+    })(window, document)
+    rdt("init", "a2_e9dpt64dsguj", {
+      optOut: false,
+      useDecimalCurrencyValues: true,
+      aaid: "<AAID-HERE>",
+      email: "<EMAIL-HERE>",
+      externalId: "<EXTERNAL-ID-HERE>",
+      idfa: "<IDFA-HERE>",
+    })
+    rdt("track", "PageVisit")
+    `
     document.body.append(
       gaScript,
       gaSendScript,
@@ -66,6 +92,7 @@ export const initDateReport = () => {
       linkedInSendScript,
       linkedNoScript,
       adsTwitterScript,
+      rdtScript,
     )
   }
 }
