@@ -12,6 +12,8 @@ interface CalculatorProps {
   unitCollaByCycle: number
 }
 
+const TOKEN_DISCOUNT = 2
+
 export const Calculator: FC<CalculatorProps> = ({
   changeNum,
   unitCollaByCycle,
@@ -38,7 +40,7 @@ export const Calculator: FC<CalculatorProps> = ({
         <span css={orStyle}>{t("or")}</span>
         <span>
           {`${t("billing.payment_sidebar.colla.4", {
-            tokenNum: `${changeNum * unitCollaByCycle * 10}k`,
+            tokenNum: `${changeNum * unitCollaByCycle * TOKEN_DISCOUNT * 10}k`,
           })}`}
         </span>
       </div>
