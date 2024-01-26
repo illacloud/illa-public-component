@@ -75,7 +75,7 @@ export const initDateReport = () => {
         s.parentNode.insertBefore(t, s)
       }
     })(window, document)
-    rdt("init", "a2_e9dpt64dsguj", {
+    rdt("init", "a2_edw0ai5y5tk6", {
       optOut: false,
       useDecimalCurrencyValues: true,
       aaid: "<AAID-HERE>",

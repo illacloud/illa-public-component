@@ -121,6 +121,7 @@
     "flow.editor.event.error.no_input": "Ei syötteitä",
     "flow.editor.event.error.failed": "Ei voitu suorittaa",
     "flow.editor.event.error.not_reacha": "Irrota laukaisusolmusta, joten tavoittamaton",
+    "flow.editor.event.error.space": "There are leading or trailing white spaces or other empty characters in your input which will cause the result to be always true.",
     "flow.editor.event.message.undeploy": "Poista muutokset käytöstä",
     "flow.editor.event.message.undeploy_desc": "Muutokset eivät tule voimaan ajon aikana virtauksessa.",
     "flow.editor.event.message.deployed": "Käyttöönotto onnistui",

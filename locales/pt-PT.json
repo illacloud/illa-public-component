@@ -121,6 +121,7 @@
     "flow.editor.event.error.no_input": "Sem entradas",
     "flow.editor.event.error.failed": "Falha ao executar",
     "flow.editor.event.error.not_reacha": "Desconectado do nó de gatilho por isso inacessível",
+    "flow.editor.event.error.space": "There are leading or trailing white spaces or other empty characters in your input which will cause the result to be always true.",
     "flow.editor.event.message.undeploy": "Desimplantar mudanças",
     "flow.editor.event.message.undeploy_desc": "As alterações não terão efeito durante o tempo de execução no fluxo.",
     "flow.editor.event.message.deployed": "Implantado com sucesso",

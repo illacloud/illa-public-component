@@ -121,6 +121,7 @@
     "flow.editor.event.error.no_input": "Geen inputs",
     "flow.editor.event.error.failed": "Uitvoeren mislukt",
     "flow.editor.event.error.not_reacha": "Verbinding met trigger node is daarom onbereikbaar",
+    "flow.editor.event.error.space": "There are leading or trailing white spaces or other empty characters in your input which will cause the result to be always true.",
     "flow.editor.event.message.undeploy": "Wijzigingen ongedaan maken",
     "flow.editor.event.message.undeploy_desc": "De wijzigingen zullen niet van kracht zijn tijdens de runtime in de stroom.",
     "flow.editor.event.message.deployed": "Succesvol geïnstalleerd",
