@@ -1,7 +1,9 @@
 import {
   AppwriteAction,
   AppwriteDocumentOperations,
+  AppwriteFilterParams,
   AppwriteListDocuments,
+  Params,
 } from "@illa-public/public-types"
 
 export const AppwriteDocumentOperationsInitial: AppwriteDocumentOperations = {
@@ -9,6 +11,14 @@ export const AppwriteDocumentOperationsInitial: AppwriteDocumentOperations = {
   documentID: "",
   data: "",
 }
+
+export const AppwriteFilterInitial: AppwriteFilterParams = {
+  key: "",
+  operator: "equal",
+  value: "",
+}
+
+export const AppwriteOrderByInitial: Params = { key: "", value: "asc" }
 
 export const AppwriteListDocumentsInitial: AppwriteListDocuments = {
   collectionID: "",
