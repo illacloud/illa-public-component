@@ -90,3 +90,7 @@ export const COLLAR_UNIT_BY_CYCLE = {
 }
 
 export const UNIT_COLLA_BY_STORAGE = 1 // 1GB storage = 1k colla
+
+export const UNIT_COLLA_CONVERSION_STORAGE = 1
+export const UNIT_COLLA_CONVERSION_TRAFFIC = 1
+export const UNIT_COLLA_CONVERSION_TOKEN = 20
