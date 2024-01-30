@@ -18,7 +18,7 @@ class ILLAMixpanelTools {
     this.enable =
       process.env.ILLA_INSTANCE_ID === "CLOUD" &&
       !!process.env.ILLA_MIXPANEL_API_KEY &&
-      !!process.env.ILLA_AMPLITUDEAPI_KEY
+      !!process.env.ILLA_AMPLITUDE_API_KEY
     if (this.enable) {
       mixpanel.init(process.env.ILLA_MIXPANEL_API_KEY as string, {
         debug: process.env.ILLA_APP_ENV === "development",
@@ -35,7 +35,7 @@ class ILLAMixpanelTools {
           }
         },
       })
-      amplitude.init(process.env.ILLA_AMPLITUDEAPI_KEY as string, undefined, {
+      amplitude.init(process.env.ILLA_AMPLITUDE_API_KEY as string, undefined, {
         logLevel:
           process.env.ILLA_APP_ENV === "development"
             ? amplitude.Types.LogLevel.Debug
