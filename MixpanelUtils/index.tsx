@@ -1,3 +1,4 @@
+import * as amplitude from "@amplitude/analytics-browser"
 import mixpanel from "mixpanel-browser"
 import {
   ILLAProperties,
@@ -8,6 +9,7 @@ import { getDeviceUUID } from "./utils"
 
 export * from "./interface"
 export * from "./mixpanelContext"
+
 class ILLAMixpanelTools {
   private static instance: ILLAMixpanelTools | null = null
   private enable: boolean = false
@@ -15,7 +17,8 @@ class ILLAMixpanelTools {
   constructor() {
     this.enable =
       process.env.ILLA_INSTANCE_ID === "CLOUD" &&
-      !!process.env.ILLA_MIXPANEL_API_KEY
+      !!process.env.ILLA_MIXPANEL_API_KEY &&
+      !!process.env.ILLA_AMPLITUDE_API_KEY
     if (this.enable) {
       mixpanel.init(process.env.ILLA_MIXPANEL_API_KEY as string, {
         debug: process.env.ILLA_APP_ENV === "development",
@@ -32,6 +35,12 @@ class ILLAMixpanelTools {
           }
         },
       })
+      amplitude.init(process.env.ILLA_AMPLITUDE_API_KEY as string, undefined, {
+        logLevel:
+          process.env.ILLA_APP_ENV === "development"
+            ? amplitude.Types.LogLevel.Debug
+            : amplitude.Types.LogLevel.None,
+      })
     }
   }
 
@@ -41,6 +50,7 @@ class ILLAMixpanelTools {
       mixpanel.register({
         ILLA_device_ID: deviceID,
       })
+      amplitude.setDeviceId(deviceID)
     }
   }
 
@@ -48,7 +58,6 @@ class ILLAMixpanelTools {
     if (!this.instance) {
       this.instance = new ILLAMixpanelTools()
     }
-
     return this.instance
   }
 
@@ -57,12 +66,43 @@ class ILLAMixpanelTools {
       mixpanel.track(event, {
         ...properties,
       })
+      amplitude.track(event, {
+        ...properties,
+        environment: process.env.ILLA_APP_ENV,
+        fe_version_code: process.env.ILLA_APP_VERSION,
+      })
     }
   }
 
   public setGroup(teamIdentifier: string | string[]) {
     if (this.enable) {
       mixpanel.set_group("team", teamIdentifier)
+      amplitude.setGroup("team", teamIdentifier)
+    }
+  }
+
+  public setUserID(userID: string) {
+    if (this.enable) {
+      mixpanel.identify(userID)
+      amplitude.setUserId(userID)
+    }
+  }
+
+  public setUserProperties(properties: Record<string, any>) {
+    if (this.enable) {
+      mixpanel.people.set(properties)
+      const identifyEvent = new amplitude.Identify()
+      for (let propertiesKey in properties) {
+        identifyEvent.set(propertiesKey, properties[propertiesKey])
+      }
+      amplitude.identify(identifyEvent)
+    }
+  }
+
+  public reset() {
+    if (this.enable) {
+      mixpanel.reset()
+      amplitude.reset()
     }
   }
 
@@ -78,12 +118,6 @@ class ILLAMixpanelTools {
         page: pageName,
         team_id: teamIdentifier,
       })
-    }
-  }
-
-  public getMixpanelInstance() {
-    if (this.enable) {
-      return mixpanel
     }
   }
 }
