@@ -1,4 +1,5 @@
 import * as amplitude from "@amplitude/analytics-browser"
+import { isServerRender } from "@illa-public/utils"
 import mixpanel from "mixpanel-browser"
 import {
   ILLAProperties,
@@ -18,7 +19,8 @@ class ILLAMixpanelTools {
     this.enable =
       process.env.ILLA_INSTANCE_ID === "CLOUD" &&
       !!process.env.ILLA_MIXPANEL_API_KEY &&
-      !!process.env.ILLA_AMPLITUDE_API_KEY
+      !!process.env.ILLA_AMPLITUDE_API_KEY &&
+      !isServerRender
     if (this.enable) {
       mixpanel.init(process.env.ILLA_MIXPANEL_API_KEY as string, {
         debug: process.env.ILLA_APP_ENV === "development",
