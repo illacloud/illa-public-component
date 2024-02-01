@@ -1586,6 +1586,8 @@
     "editor.inspect.setter_label.tag_color": "Barva štítků",
     "editor.inspect.setter_label.weight": "Hmotnost",
     "editor.inspect.setter_label.aggregation": "Agregace",
+    "editor.inspect.setter_label.qr_code.background": "Pozadí",
+    "editor.inspect.setter_label.qr_code.foreground": "Popředí",
     "editor.inspect.setter_tooltip.action": "Vaše akce pro komponenty spouštějí dotazy, ovládají komponenty nebo volají data ve vašich zdrojích. Více asynchronních akcí bude provedeno souběžně.",
     "editor.inspect.setter_tooltip.cascader_data": "Každá možnost musí být formátu JSON a musí obsahovat dvě klíče, hodnotu a popisek. Používáním polí můžete vytvořit možnosti na stejné úrovni. A podřízené možnosti lze vytvořit pomocí atributu \"děti\". ",
     "editor.inspect.setter_tooltip.component_default_value": "Počáteční hodnota komponenty. Počáteční hodnotu můžete dynamicky změnit zadáním JavaScriptu do {{}}.",
