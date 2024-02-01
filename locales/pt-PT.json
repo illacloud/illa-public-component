@@ -1586,6 +1586,8 @@
     "editor.inspect.setter_label.tag_color": "Cor das tags",
     "editor.inspect.setter_label.weight": "Peso",
     "editor.inspect.setter_label.aggregation": "Agregação",
+    "editor.inspect.setter_label.qr_code.background": "Fundo",
+    "editor.inspect.setter_label.qr_code.foreground": "Primeiro plano",
     "editor.inspect.setter_tooltip.action": "Suas ações para componentes desencadear consultas, componentes de controle ou chamar os dados em seus recursos. Múltiplas ações async serão executadas em paralelo.",
     "editor.inspect.setter_tooltip.cascader_data": "Cada opção deve ser um formato JSON e conter duas chaves, valor e etiqueta. Ao usar matrizes, você pode criar opções no mesmo nível. E as opções filhas podem ser criadas usando o atributo \"filhos\". ",
     "editor.inspect.setter_tooltip.component_default_value": "O valor inicial do componente. Você pode dinamicamente alterar o valor inicial digitando JavaScript em {{}}.",
