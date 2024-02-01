@@ -1586,6 +1586,8 @@
     "editor.inspect.setter_label.tag_color": "Farge på tagger",
     "editor.inspect.setter_label.weight": "Vekt",
     "editor.inspect.setter_label.aggregation": "Aggregering",
+    "editor.inspect.setter_label.qr_code.background": "Bakgrunn",
+    "editor.inspect.setter_label.qr_code.foreground": "Forgrunn",
     "editor.inspect.setter_tooltip.action": "Handlinger for komponenter utløser spørringer, kontroller eller ringe data i ressursene dine. Flere async handlinger vil utføres parallelt.",
     "editor.inspect.setter_tooltip.cascader_data": "Hvert alternativ må være JSON-format og inneholde to nøkler, verdi og etikett. Ved å bruke matriser kan du opprette alternativer på samme nivå. Og underalternativer kan opprettes ved å bruke \"barn\"-attributt. ",
     "editor.inspect.setter_tooltip.component_default_value": "Den innledende verdien til komponenten. Du kan dynamisk endre den opprinnelige verdien ved å skrive JavaScript i {{}}.",
