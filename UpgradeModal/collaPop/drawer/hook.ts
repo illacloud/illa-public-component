@@ -5,11 +5,12 @@ import { collarDrawerStore } from "./store"
 // collar
 const showCollarDrawerImpl = (
   from: string,
-  config?: Pick<CollarDrawerShowProps, "onSuccessCallback">,
+  config?: Pick<CollarDrawerShowProps, "onSuccessCallback" | "subCycle">,
 ) => {
   let drawer: CollarDrawerShowProps = {
     id: v4(),
     from,
+    subCycle: config?.subCycle,
     onSuccessCallback: config?.onSuccessCallback,
   }
 
@@ -22,7 +23,7 @@ const showCollarDrawerImpl = (
 
 const collarDrawerHandler = (
   from: string,
-  config?: Pick<CollarDrawerShowProps, "onSuccessCallback">,
+  config?: Pick<CollarDrawerShowProps, "onSuccessCallback" | "subCycle">,
 ) => {
   return showCollarDrawerImpl(from, config)
 }
