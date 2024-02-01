@@ -1586,6 +1586,8 @@
     "editor.inspect.setter_label.tag_color": "Kolor tagów",
     "editor.inspect.setter_label.weight": "Waga",
     "editor.inspect.setter_label.aggregation": "Agregacja",
+    "editor.inspect.setter_label.qr_code.background": "Kontekst",
+    "editor.inspect.setter_label.qr_code.foreground": "Pierwszy plan",
     "editor.inspect.setter_tooltip.action": "Twoje działania do komponentów wyzwalają zapytania, sterują komponentami lub wywołują dane w zasobach. Wiele akcji asynchronicznych będzie wykonywanych równolegle.",
     "editor.inspect.setter_tooltip.cascader_data": "Każda opcja musi mieć format JSON i zawierać dwa klucze, wartość i etykietę. Używając tablic, możesz tworzyć opcje na tym samym poziomie. A opcje podrzędne mogą być tworzone za pomocą atrybutu \"podrzędne\". ",
     "editor.inspect.setter_tooltip.component_default_value": "Początkowa wartość komponentu. Możesz dynamicznie zmienić wartość początkową wpisując JavaScript w {{}}.",
