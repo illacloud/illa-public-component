@@ -1586,6 +1586,8 @@
     "editor.inspect.setter_label.tag_color": "Culoarea etichetelor",
     "editor.inspect.setter_label.weight": "Greutate",
     "editor.inspect.setter_label.aggregation": "Agregare",
+    "editor.inspect.setter_label.qr_code.background": "Context",
+    "editor.inspect.setter_label.qr_code.foreground": "prim-plan",
     "editor.inspect.setter_tooltip.action": "Acțiunile dvs pentru a declanșa interogări, a controla componente sau a apela datele din resursele dvs. Acțiuni multiple async vor fi executate în paralel.",
     "editor.inspect.setter_tooltip.cascader_data": "Fiecare opțiune trebuie să aibă format JSON și să conțină două chei, valoare și etichetă. Folosind array-uri, poți crea opțiuni la același nivel. Iar opțiunile pentru copii pot fi create folosind atributul \"copii\". ",
     "editor.inspect.setter_tooltip.component_default_value": "Valoarea iniţială a componentei. Puteţi schimba dinamic valoarea iniţială tastând JavaScript în {{}}.",
