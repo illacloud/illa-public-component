@@ -1586,6 +1586,8 @@
     "editor.inspect.setter_label.tag_color": "Couleur des tags",
     "editor.inspect.setter_label.weight": "Poids",
     "editor.inspect.setter_label.aggregation": "Agrégation",
+    "editor.inspect.setter_label.qr_code.background": "Arrière-plan",
+    "editor.inspect.setter_label.qr_code.foreground": "Premier plan",
     "editor.inspect.setter_tooltip.action": "Vos actions pour déclencher des requêtes, contrôler des composants ou appeler les données dans vos ressources. Plusieurs actions asynchrones seront exécutées en parallèle.",
     "editor.inspect.setter_tooltip.cascader_data": "Chaque option doit être au format JSON et contenir deux clés, valeur et étiquette. En utilisant des tableaux, vous pouvez créer des options au même niveau. Et les options enfants peuvent être créées en utilisant l'attribut \"children\". ",
     "editor.inspect.setter_tooltip.component_default_value": "La valeur initiale du composant, vous pouvez changer dynamiquement la valeur initiale en tapant JavaScript dans {{}}.",
