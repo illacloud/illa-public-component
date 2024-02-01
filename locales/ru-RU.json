@@ -1586,6 +1586,8 @@
     "editor.inspect.setter_label.tag_color": "Цвет тегов",
     "editor.inspect.setter_label.weight": "Вес",
     "editor.inspect.setter_label.aggregation": "Агрегация",
+    "editor.inspect.setter_label.qr_code.background": "Справочная информация",
+    "editor.inspect.setter_label.qr_code.foreground": "Передний план",
     "editor.inspect.setter_tooltip.action": "Ваши действия для компонентов триггерные запросы, контрольные компоненты или вызов данных в ваших ресурсах. Несколько асинхронных действий будут выполняться параллельно.",
     "editor.inspect.setter_tooltip.cascader_data": "Каждая опция должна быть в формате JSON и содержать два ключа, значение и метку. Используя массивы, вы можете создать параметры на том же уровне. А дочерние параметры могут быть созданы с помощью атрибута «Детский». ",
     "editor.inspect.setter_tooltip.component_default_value": "Начальное значение компонента. Вы можете динамически изменить начальное значение, набрав JavaScript в {{}}.",
