@@ -1586,6 +1586,8 @@
     "editor.inspect.setter_label.tag_color": "标签颜色",
     "editor.inspect.setter_label.weight": "加粗",
     "editor.inspect.setter_label.aggregation": "聚合",
+    "editor.inspect.setter_label.qr_code.background": "背景",
+    "editor.inspect.setter_label.qr_code.foreground": "前景",
     "editor.inspect.setter_tooltip.action": "您的操作会触发组件查询、控制组件或调用资源中的数据。多个异步操作将并行执行。",
     "editor.inspect.setter_tooltip.cascader_data": "每个选项必须是JSON格式，并包含两个键，value和label。通过使用数组，您可以在同一级别创建选项。并且可以使用\"children\"属性创建子选项。",
     "editor.inspect.setter_tooltip.component_default_value": "组件的初始值。您可以通过键入JavaScript动态更改初始值。",
