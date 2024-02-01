@@ -28,6 +28,7 @@ export const UpgradeCollarDrawer: FC = () => {
           })
         }
       }}
+      subCycle={drawer.subCycle}
       afterClose={() => collarDrawerStore.remove()}
       onSuccessCallback={drawer.onSuccessCallback}
     />

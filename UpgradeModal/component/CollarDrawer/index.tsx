@@ -62,7 +62,8 @@ import {
 import { getBtnText, getCurrentCollarType, getDescription } from "./utils"
 
 export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
-  const { onCancel, visible, afterClose, onSuccessCallback, from } = props
+  const { onCancel, visible, afterClose, onSuccessCallback, from, subCycle } =
+    props
   const { t } = useTranslation()
 
   const { width } = useWindowSize()
@@ -96,7 +97,7 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
   const [cycle, setCycle] = useState<SUBSCRIPTION_CYCLE>(
     isSubScribe
       ? currentTeamInfo?.colla?.cycle ?? SUBSCRIPTION_CYCLE.MONTHLY
-      : SUBSCRIPTION_CYCLE.MONTHLY,
+      : subCycle ?? SUBSCRIPTION_CYCLE.MONTHLY,
   )
 
   const currentCollarType = useRef<COLLAR_TYPE>(
