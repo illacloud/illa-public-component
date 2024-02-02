@@ -39,6 +39,7 @@ import CascaderIcon from "./componentIcons/cascader.svg?react"
 import ChartIcon from "./componentIcons/chart.svg?react"
 import ChatIcon from "./componentIcons/chat.svg?react"
 import CheckboxIcon from "./componentIcons/checkBox.svg?react"
+import CodeScannerWidgetIcon from "./componentIcons/codeScanner.svg?react"
 import ContainerIcon from "./componentIcons/container.svg?react"
 import CycleProgressIcon from "./componentIcons/cycleProgress.svg?react"
 import DateIcon from "./componentIcons/date.svg?react"
@@ -63,6 +64,7 @@ import ModalIcon from "./componentIcons/modal.svg?react"
 import MultiSelectIcon from "./componentIcons/multiSelect.svg?react"
 import NumberInputIcon from "./componentIcons/numberInput.svg?react"
 import PdfIcon from "./componentIcons/pdf.svg?react"
+import QrCodeWidgetIcon from "./componentIcons/qrCode.svg?react"
 import RadioButtonIcon from "./componentIcons/radioButton.svg?react"
 import RadioGroupIcon from "./componentIcons/radioGroup.svg?react"
 import RangeSliderIcon from "./componentIcons/rangeSlider.svg?react"
@@ -272,6 +274,10 @@ export function getIconFromWidgetType(widgetType: string, size: string) {
       return <AvatarIcon width={size} height={size} />
     case "TAGS_WIDGET":
       return <TagsIcon width={size} height={size} />
+    case "QR_CODE_WIDGET":
+      return <QrCodeWidgetIcon width={size} height={size} />
+    case "CODE_SCANNER_WIDGET":
+      return <CodeScannerWidgetIcon width={size} height={size} />
     default:
       return null
   }
