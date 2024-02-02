@@ -11,6 +11,16 @@ export enum USER_STATUS {
   "PENDING" = 2,
 }
 
+export enum PROMOTION_CODE_USAGE {
+  DEFAULT_REGISTER = 1,
+}
+
+export interface BasePromotionCode {
+  promotionCode: string
+  expiresAt: string
+  maxRedemptions: number
+  usage: PROMOTION_CODE_USAGE
+}
 export interface BaseUserInfo {
   userID: string
   uid: string
@@ -23,6 +33,7 @@ export interface BaseUserInfo {
   isNewUser: boolean
   createdAt: string
   updatedAt: string
+  promotionCode?: BasePromotionCode[]
 }
 
 export interface CurrentUserInfo extends BaseUserInfo {

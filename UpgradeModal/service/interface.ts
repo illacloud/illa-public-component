@@ -102,3 +102,5 @@ export const UNIT_COLLA_BY_STORAGE = 1 // 1GB storage = 1k colla
 export const UNIT_COLLA_CONVERSION_STORAGE = 1
 export const UNIT_COLLA_CONVERSION_TRAFFIC = 1
 export const UNIT_COLLA_CONVERSION_TOKEN = 20
+
+export const LICENSE_NEW_USER_DISCOUNT = 0.8 // 20% off for new user
