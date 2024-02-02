@@ -213,7 +213,9 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
       purchaseType: PURCHASE_TYPE.LICENSE,
       userID,
       purchaseCount: quantity,
-      purchaseValue: unitPrice * quantity,
+      purchaseValue: canUseDiscount
+        ? unitPrice * quantity * LICENSE_NEW_USER_DISCOUNT
+        : unitPrice * quantity,
     })
     const cancelRedirect = window.location.href
     try {
