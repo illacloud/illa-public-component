@@ -1,5 +1,6 @@
 import { ILLA_MIXPANEL_EVENT_TYPE } from "@illa-public/mixpanel-utils"
 import {
+  PROMOTION_CODE_USAGE,
   SUBSCRIBE_PLAN,
   SUBSCRIPTION_CYCLE,
   USER_ROLE,
@@ -8,6 +9,7 @@ import { TextLink } from "@illa-public/text-link"
 import {
   getCurrentId,
   getCurrentTeamInfo,
+  getCurrentUser,
   getCurrentUserID,
 } from "@illa-public/user-data"
 import { isMobileByWindowSize } from "@illa-public/utils"
@@ -22,13 +24,15 @@ import {
   Drawer,
   InputNumber,
   Link,
-  Select,
+  Radio,
   useMessage,
-  zIndex,
 } from "@illa-design/react"
 import { PURCHASE_TYPE } from "../../interface"
 import { cancelSubscribe, modifySubscribe, subscribe } from "../../service"
-import { LICENSE_UNIT_PRICE } from "../../service/interface"
+import {
+  LICENSE_NEW_USER_DISCOUNT,
+  LICENSE_UNIT_PRICE,
+} from "../../service/interface"
 import {
   getSuccessRedirectWithParams,
   isSubscribeForDrawer,
@@ -40,15 +44,23 @@ import {
   appSumoLinkStyle,
   closeIconStyle,
   descriptionStyle,
+  discountStyle,
   drawerContentStyle,
   drawerMaskStyle,
   drawerPaddingStyle,
   drawerStyle,
-  manageContentStyle,
+  extraStyle,
+  hasExtraRadioStyle,
+  labelStyle,
   manageItemStyle,
+  monthPriceStyle,
+  monthUnitStyle,
+  priceLabelContainerStyle,
   priceStyle,
   priceTotalLabelStyle,
   priceTotalStyle,
+  radioContainerStyle,
+  subTotalLeftStyle,
   subTotalStyle,
   textCenterStyle,
   titleStyle,
@@ -65,6 +77,21 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
   const teamID = useSelector(getCurrentId)
   const userID = useSelector(getCurrentUserID)
   const currentTeamInfo = useSelector(getCurrentTeamInfo)!
+  const promotionCodes = useSelector(getCurrentUser)?.promotionCode
+
+  const canUseDiscount = useMemo(() => {
+    if (!promotionCodes || !Array.isArray(promotionCodes)) return false
+    const index = promotionCodes.findIndex((item) => {
+      const ddl = new Date(item.expiresAt)?.getTime()
+      const now = new Date().getTime()
+      return (
+        item.usage === PROMOTION_CODE_USAGE.DEFAULT_REGISTER &&
+        item.maxRedemptions > 0 &&
+        ddl - now > 0
+      )
+    })
+    return index !== -1
+  }, [promotionCodes])
 
   const [cycle, setCycle] = useState<SUBSCRIPTION_CYCLE>(
     defaultConfig?.subscribeInfo?.cycle || SUBSCRIPTION_CYCLE.MONTHLY,
@@ -78,30 +105,30 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
     return LICENSE_UNIT_PRICE[cycle ?? SUBSCRIPTION_CYCLE.MONTHLY]
   }, [cycle])
 
-  const paymentOptions = [
-    {
-      label: t("billing.payment_sidebar.select_option.Yearly"),
-      value: SUBSCRIPTION_CYCLE.YEARLY,
-    },
-    {
-      label: t("billing.payment_sidebar.select_option.Monthly"),
-      value: SUBSCRIPTION_CYCLE.MONTHLY,
-    },
-  ]
-
   const reportElement = isSubscribeForDrawer(defaultConfig?.subscribeInfo?.plan)
     ? "license_manage"
     : "colla_subscrlicense_subscribeibe"
 
+  const monthUnitePrice =
+    cycle === SUBSCRIPTION_CYCLE.MONTHLY
+      ? `$${unitPrice}`
+      : `$${(unitPrice / 12).toFixed(1)}`
+
   const priceLabel = useMemo(() => {
     const translateKey = {
-      unitPrice: "$" + unitPrice,
+      unitPrice: monthUnitePrice,
       licenseNum: quantity,
     }
-    return cycle === SUBSCRIPTION_CYCLE.YEARLY
-      ? t("billing.payment_sidebar.price_cal.next_period_yearly", translateKey)
-      : t("billing.payment_sidebar.price_cal.next_period_monthly", translateKey)
-  }, [cycle, quantity, t, unitPrice])
+    if (cycle === SUBSCRIPTION_CYCLE.YEARLY) {
+      return quantity > 1
+        ? t("billing.first_time_off.year", translateKey)
+        : t("billing.first_time_off.year_plural", translateKey)
+    } else {
+      return quantity > 1
+        ? t("billing.first_time_off.month", translateKey)
+        : t("billing.first_time_off.month_plural", translateKey)
+    }
+  }, [cycle, quantity, t, monthUnitePrice])
 
   const actionDisabled = useMemo(() => {
     const subscribeInfo = defaultConfig.subscribeInfo
@@ -289,43 +316,74 @@ export const UpgradeDrawer: FC<UpgradeDrawerProps> = (props) => {
             <div css={titleStyle}>
               {t("billing.payment_sidebar.title.manage_licenses")}
             </div>
-            <div css={manageContentStyle}>
-              <label>{t("billing.payment_sidebar.plan_label.License")}</label>
-              <div css={manageItemStyle}>
-                <Select
-                  w="auto"
-                  colorScheme="techPurple"
-                  value={cycle}
-                  options={paymentOptions}
-                  dropdownProps={{ triggerProps: { zIndex: zIndex.drawer } }}
-                  onChange={(value) => {
-                    setCycle(value as SUBSCRIPTION_CYCLE)
-                  }}
-                />
-
-                <InputNumber
-                  mode="button"
-                  colorScheme="techPurple"
-                  value={quantity}
-                  onChange={handleNumberChange}
-                  min={
-                    isSubscribeForDrawer(defaultConfig?.subscribeInfo?.plan)
-                      ? 0
-                      : 1
-                  }
-                />
+            <div css={manageItemStyle}>
+              <div css={radioContainerStyle}>
+                <Radio
+                  colorScheme="grayBlue"
+                  checked={cycle === SUBSCRIPTION_CYCLE.MONTHLY}
+                  onChange={() => setCycle(SUBSCRIPTION_CYCLE.MONTHLY)}
+                >
+                  <span css={labelStyle}>
+                    {t("billing.payment_sidebar.select_option.Monthly")}
+                  </span>
+                </Radio>
+                <div css={hasExtraRadioStyle}>
+                  <Radio
+                    colorScheme="grayBlue"
+                    checked={cycle === SUBSCRIPTION_CYCLE.YEARLY}
+                    onChange={() => setCycle(SUBSCRIPTION_CYCLE.YEARLY)}
+                  >
+                    <span css={labelStyle}>
+                      {t("billing.payment_sidebar.select_option.Yearly")}
+                    </span>
+                  </Radio>
+                  <span css={extraStyle}>
+                    {t("billing.new_pricing.buy_10_months")}
+                  </span>
+                </div>
               </div>
+              <div>
+                <span css={monthPriceStyle}>{monthUnitePrice}</span>
+                <span css={monthUnitStyle}>
+                  {t("billing.first_time_off.unit")}
+                </span>
+              </div>
+              <InputNumber
+                mode="button"
+                colorScheme="techPurple"
+                value={quantity}
+                onChange={handleNumberChange}
+                min={
+                  isSubscribeForDrawer(defaultConfig?.subscribeInfo?.plan)
+                    ? 0
+                    : 1
+                }
+              />
             </div>
           </div>
           <Divider />
           <div css={drawerPaddingStyle}>
             <div css={subTotalStyle}>
-              <div>{t("billing.payment_sidebar.price_label.total")}</div>
+              <span css={subTotalLeftStyle}>
+                {t("billing.payment_sidebar.price_label.total")}
+              </span>
               <div css={priceStyle}>
-                <div css={priceTotalStyle}>
-                  ${(unitPrice * quantity).toFixed(2)}
+                <div css={priceLabelContainerStyle}>
+                  <span css={priceTotalLabelStyle}>{priceLabel}</span>
+                  {canUseDiscount && (
+                    <span css={discountStyle}>
+                      {t("billing.first_time_off.discount")}
+                    </span>
+                  )}
                 </div>
-                <div css={priceTotalLabelStyle}>{priceLabel}</div>
+                <span css={priceTotalStyle}>
+                  $
+                  {(
+                    unitPrice *
+                    quantity *
+                    (canUseDiscount ? LICENSE_NEW_USER_DISCOUNT : 1)
+                  ).toFixed(2)}
+                </span>
               </div>
             </div>
             <Button
