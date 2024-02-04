@@ -2839,6 +2839,7 @@
     "team_setting.branding.custom_domain.subscription_error": "Die Funktionalität wurde deaktiviert, da das Team veraltet ist. Es wird aktiviert, sobald das Upgrade abgeschlossen ist.",
     "team_setting.branding.custom_domain.save": "Speichern",
     "team_setting.branding.custom_domain.preview": "Browser-Vorschau",
+    "team_setting.branding.custom_domain.illa_domain_error": "Bitte verwenden Sie Ihre eigene Domain.",
     "team_setting.branding.custom_domain_expired.desc": "Aufgrund des abgelaufenen Team-Abonnements ist die benutzerdefinierte Domain nicht aktiv. Bitte gehen Sie zu ILLA Cloud, um die Konfiguration abzuschließen.",
     "team_setting.branding.custom_domain_expired.button": "Zurück zur ILLA Cloud",
     "team_setting.branding.custom_domain_expired.title": "Zugriff fehlgeschlagen",
