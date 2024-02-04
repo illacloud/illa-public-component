@@ -15,6 +15,7 @@ export const DRIVE_REQUEST_PREFIX = "/drive/api/v1"
 export const PUBLIC_DRIVE_REQUEST_PREFIX = "/drive/f"
 export const AGENT_REQUEST_PREFIX = "/resource-manager/api/v1"
 export const WORKFLOW_REQUEST_PREFIX = "/flow/api/v1"
+export const DOMAIN_REQUEST_PREFIX = "/domain/api/v1"
 
 export const MARKETPLACE_AUTH_REQUEST_PREFIX = "/marketplace/api/v1/auth"
 export const MARKETPLACE_AUTH_PRODUCT_REQUEST_PREFIX =
