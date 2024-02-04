@@ -2839,6 +2839,7 @@
     "team_setting.branding.custom_domain.subscription_error": "Toiminto on poistettu käytöstä, koska joukkue on vanhentunut. Se aktivoituu, kun päivitys on valmis.",
     "team_setting.branding.custom_domain.save": "Tallenna",
     "team_setting.branding.custom_domain.preview": "Selaimen esikatselu",
+    "team_setting.branding.custom_domain.illa_domain_error": "Ole hyvä ja käytä omaa verkkotunnusta.",
     "team_setting.branding.custom_domain_expired.desc": "Due to the expired team subscription, the custom domain is not active. Please go to ILLA Cloud to complete the configuration.",
     "team_setting.branding.custom_domain_expired.button": "Takaisin ILLA-pilveen",
     "team_setting.branding.custom_domain_expired.title": "Pääsy epäonnistui",
