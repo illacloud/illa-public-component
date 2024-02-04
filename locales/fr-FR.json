@@ -2839,6 +2839,7 @@
     "team_setting.branding.custom_domain.subscription_error": "La fonctionnalité a été désactivée car l'équipe est dépassée à jour. Elle deviendra active une fois la mise à niveau terminée.",
     "team_setting.branding.custom_domain.save": "Enregistrer",
     "team_setting.branding.custom_domain.preview": "Aperçu du navigateur",
+    "team_setting.branding.custom_domain.illa_domain_error": "Veuillez utiliser votre propre domaine.",
     "team_setting.branding.custom_domain_expired.desc": "Due to the expired team subscription, the custom domain is not active. Please go to ILLA Cloud to complete the configuration.",
     "team_setting.branding.custom_domain_expired.button": "Retour au Cloud ILLA",
     "team_setting.branding.custom_domain_expired.title": "Échec de l'accès",
