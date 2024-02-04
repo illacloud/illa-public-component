@@ -2839,6 +2839,7 @@
     "team_setting.branding.custom_domain.subscription_error": "Funcționalitatea a fost dezactivată din cauza faptului că echipa a devenit învechită. Va deveni activă după finalizarea actualizării.",
     "team_setting.branding.custom_domain.save": "Salvează",
     "team_setting.branding.custom_domain.preview": "Previzualizare browser",
+    "team_setting.branding.custom_domain.illa_domain_error": "Vă rugăm să folosiţi propriul domeniu.",
     "team_setting.branding.custom_domain_expired.desc": "Due to the expired team subscription, the custom domain is not active. Please go to ILLA Cloud to complete the configuration.",
     "team_setting.branding.custom_domain_expired.button": "Înapoi la ILLA Cloud",
     "team_setting.branding.custom_domain_expired.title": "Nu s-a putut accesa",
