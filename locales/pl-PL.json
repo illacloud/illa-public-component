@@ -2839,6 +2839,7 @@
     "team_setting.branding.custom_domain.subscription_error": "Funkcja została wyłączona z powodu przestarzałego zespołu. Będzie ona aktywna po zakończeniu aktualizacji.",
     "team_setting.branding.custom_domain.save": "Zapisz",
     "team_setting.branding.custom_domain.preview": "Podgląd przeglądarki",
+    "team_setting.branding.custom_domain.illa_domain_error": "Proszę użyć własnej domeny.",
     "team_setting.branding.custom_domain_expired.desc": "Due to the expired team subscription, the custom domain is not active. Please go to ILLA Cloud to complete the configuration.",
     "team_setting.branding.custom_domain_expired.button": "Wróć do chmury ILLA",
     "team_setting.branding.custom_domain_expired.title": "Nie można uzyskać dostępu",
