@@ -1593,6 +1593,8 @@
     "editor.inspect.setter_label.qr_code.foreground": "Foreground",
     "editor.inspect.setter_label.scan.button_text": "Button text",
     "editor.inspect.setter_label.scan.close_after_scan": "Automatically close after scan",
+    "editor.inspect.setter_label.scan.front": "Front camera",
+    "editor.inspect.setter_label.scan.rear": "Rear camera",
     "editor.inspect.setter_tooltip.action": "Your actions to components trigger queries, control components, or call the data in your resources. Multiple async actions will be executed in parallel.",
     "editor.inspect.setter_tooltip.cascader_data": "Each option must be JSON format and contain two keys, value and label. By using arrays, you can create options at the same level. And child options can be created by using \"children\" attribute. ",
     "editor.inspect.setter_tooltip.component_default_value": "The initial value of the component. You can dynamically change the initial value by typing JavaScript in {{}}.",

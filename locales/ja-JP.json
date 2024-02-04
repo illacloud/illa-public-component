@@ -1593,6 +1593,8 @@
     "editor.inspect.setter_label.qr_code.foreground": "フォアグラウンド",
     "editor.inspect.setter_label.scan.button_text": "ボタンのテキスト",
     "editor.inspect.setter_label.scan.close_after_scan": "スキャン後に自動的に閉じる",
+    "editor.inspect.setter_label.scan.front": "フロントカメラ",
+    "editor.inspect.setter_label.scan.rear": "背面カメラ",
     "editor.inspect.setter_tooltip.action": "コンポーネントがクエリをトリガーしたり、コンポーネントを制御したり、リソースのデータを呼び出したりするためのアクションです。複数の非同期アクションは並行して実行されます。",
     "editor.inspect.setter_tooltip.cascader_data": "各オプションはJSON形式であり、valueとlabelの2つのキーを含んでいる必要があります。配列を使用することで、同じレベルでオプションを作成できます。また、「children」属性を使用して子のオプションを作成することもできます。",
     "editor.inspect.setter_tooltip.component_default_value": "コンポーネントの初期値です。JavaScriptを入力することで初期値を動적に変更することができます。",

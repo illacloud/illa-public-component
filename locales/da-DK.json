@@ -1593,6 +1593,8 @@
     "editor.inspect.setter_label.qr_code.foreground": "Forgrund",
     "editor.inspect.setter_label.scan.button_text": "Knap tekst",
     "editor.inspect.setter_label.scan.close_after_scan": "Luk automatisk efter scanning",
+    "editor.inspect.setter_label.scan.front": "Forside kamera",
+    "editor.inspect.setter_label.scan.rear": "Bageste kamera",
     "editor.inspect.setter_tooltip.action": "Dine handlinger til komponenter udløser forespørgsler, styrer komponenter eller kalder data i dine ressourcer. Flere async handlinger vil blive udført parallelt.",
     "editor.inspect.setter_tooltip.cascader_data": "Hver mulighed skal være JSON-format og indeholde to nøgler, værdi og etiket. Ved at bruge arrays, kan du oprette indstillinger på samme niveau. Og der kan oprettes underordnede indstillinger ved hjælp af \"børn\" attribut. ",
     "editor.inspect.setter_tooltip.component_default_value": "Indledningsværdien for komponenten. Du kan dynamisk ændre startværdien ved at skrive JavaScript i {{}}.",
