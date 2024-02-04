@@ -2839,6 +2839,7 @@
     "team_setting.branding.custom_domain.subscription_error": "Funksjonsfunksjonen er deaktivert på grunn av at gruppen har blitt utdatert. Den vil bli aktiv så snart oppgraderingen er fullført.",
     "team_setting.branding.custom_domain.save": "Lagre",
     "team_setting.branding.custom_domain.preview": "Forhåndsvisning av nettleser",
+    "team_setting.branding.custom_domain.illa_domain_error": "Vennligst bruk ditt eget domene.",
     "team_setting.branding.custom_domain_expired.desc": "Due to the expired team subscription, the custom domain is not active. Please go to ILLA Cloud to complete the configuration.",
     "team_setting.branding.custom_domain_expired.button": "Tilbake til ILLA Sky",
     "team_setting.branding.custom_domain_expired.title": "Tilgang mislyktes",
