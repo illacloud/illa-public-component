@@ -2839,6 +2839,7 @@
     "team_setting.branding.custom_domain.subscription_error": "Funkce byla zakázána, protože tým je zastaralý. Bude aktivní, jakmile bude aktualizace dokončena.",
     "team_setting.branding.custom_domain.save": "Uložit",
     "team_setting.branding.custom_domain.preview": "Náhled prohlížeče",
+    "team_setting.branding.custom_domain.illa_domain_error": "Použijte svou vlastní doménu.",
     "team_setting.branding.custom_domain_expired.desc": "Due to the expired team subscription, the custom domain is not active. Please go to ILLA Cloud to complete the configuration.",
     "team_setting.branding.custom_domain_expired.button": "Zpět na ILLA Cloud",
     "team_setting.branding.custom_domain_expired.title": "Přístup se nezdařil",
