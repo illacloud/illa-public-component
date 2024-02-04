@@ -2839,6 +2839,7 @@
     "team_setting.branding.custom_domain.subscription_error": "Η λειτουργικότητα έχει απενεργοποιηθεί επειδή η ομάδα έχει γίνει ξεπερασμένη. Θα ενεργοποιηθεί μόλις ολοκληρωθεί η αναβάθμιση.",
     "team_setting.branding.custom_domain.save": "Αποθήκευση",
     "team_setting.branding.custom_domain.preview": "Προεπισκόπηση προγράμματος περιήγησης",
+    "team_setting.branding.custom_domain.illa_domain_error": "Παρακαλούμε χρησιμοποιήστε το δικό σας τομέα.",
     "team_setting.branding.custom_domain_expired.desc": "Due to the expired team subscription, the custom domain is not active. Please go to ILLA Cloud to complete the configuration.",
     "team_setting.branding.custom_domain_expired.button": "Πίσω στο Cloud ILLA",
     "team_setting.branding.custom_domain_expired.title": "Αποτυχία πρόσβασης",
