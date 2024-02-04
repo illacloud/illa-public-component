@@ -2839,6 +2839,7 @@
     "team_setting.branding.custom_domain.subscription_error": "由于团队订阅已经过期，功能已被禁用。一旦升级完成，功能将被重新激活。",
     "team_setting.branding.custom_domain.save": "保存",
     "team_setting.branding.custom_domain.preview": "浏览器预览",
+    "team_setting.branding.custom_domain.illa_domain_error": "请使用您自己的域名。",
     "team_setting.branding.custom_domain_expired.desc": "由于团队订阅已过期，自定义域名未激活。请前往ILLA Cloud完成配置。",
     "team_setting.branding.custom_domain_expired.button": "返回ILLA Cloud",
     "team_setting.branding.custom_domain_expired.title": "访问失败",
