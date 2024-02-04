@@ -311,7 +311,7 @@ const buildDate = (
         view === FORM_VIEW.EDIT
           ? `{{dataGrid1.selectedRows[0].${valueKey}}}`
           : undefined,
-      dateFormat: "YYYY_MM_DD",
+      dateFormat: "YYYY-MM-DD",
       colorScheme: "blue",
       label: labelKey,
       labelAlign: "left",
@@ -352,7 +352,7 @@ const buildDateTime = (
           ? `{{dataGrid1.selectedRows[0].${valueKey}}}`
           : undefined,
       placeholder: "Select time",
-      format: "YYYY_MM_DD HH:mm:ss",
+      format: "YYYY-MM-DD HH:mm:ss",
       minuteStep: "{{1}}",
       colorScheme: "blue",
       label: labelKey,
