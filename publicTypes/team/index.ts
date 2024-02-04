@@ -96,6 +96,12 @@ export interface CollarInfo {
   bonusConverted: number
 }
 
+export interface ITeamCustomInfo {
+  customDomain: string
+  favicon: string
+  title: string
+}
+
 export interface TeamInfo {
   id: string
   uid: string
@@ -111,6 +117,7 @@ export interface TeamInfo {
   permission: TeamMemberPermission
   teamMemberPermission: TeamMemberPermissionConfig
   colla: CollarInfo
+  customInfo: ITeamCustomInfo
 }
 
 export interface Team {
