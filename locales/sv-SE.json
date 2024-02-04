@@ -2839,6 +2839,7 @@
     "team_setting.branding.custom_domain.subscription_error": "Funktionaliteten har inaktiverats på grund av att teamet blivit föråldrade. Det kommer att bli aktivt när uppgraderingen är klar.",
     "team_setting.branding.custom_domain.save": "Spara",
     "team_setting.branding.custom_domain.preview": "Förhandsgranskning av webbläsare",
+    "team_setting.branding.custom_domain.illa_domain_error": "Vänligen använd din egen domän.",
     "team_setting.branding.custom_domain_expired.desc": "Due to the expired team subscription, the custom domain is not active. Please go to ILLA Cloud to complete the configuration.",
     "team_setting.branding.custom_domain_expired.button": "Tillbaka till ILLA Cloud",
     "team_setting.branding.custom_domain_expired.title": "Misslyckades att komma åt",
