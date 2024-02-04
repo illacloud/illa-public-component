@@ -1593,6 +1593,8 @@
     "editor.inspect.setter_label.qr_code.foreground": "prim-plan",
     "editor.inspect.setter_label.scan.button_text": "Text buton",
     "editor.inspect.setter_label.scan.close_after_scan": "Închide automat după scanare",
+    "editor.inspect.setter_label.scan.front": "Camera frontală",
+    "editor.inspect.setter_label.scan.rear": "Camera din spate",
     "editor.inspect.setter_tooltip.action": "Acțiunile dvs pentru a declanșa interogări, a controla componente sau a apela datele din resursele dvs. Acțiuni multiple async vor fi executate în paralel.",
     "editor.inspect.setter_tooltip.cascader_data": "Fiecare opțiune trebuie să aibă format JSON și să conțină două chei, valoare și etichetă. Folosind array-uri, poți crea opțiuni la același nivel. Iar opțiunile pentru copii pot fi create folosind atributul \"copii\". ",
     "editor.inspect.setter_tooltip.component_default_value": "Valoarea iniţială a componentei. Puteţi schimba dinamic valoarea iniţială tastând JavaScript în {{}}.",
