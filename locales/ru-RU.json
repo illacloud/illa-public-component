@@ -2839,6 +2839,7 @@
     "team_setting.branding.custom_domain.subscription_error": "Функциональность была отключена из-за того, что команда устарела. Она станет активной после завершения обновления.",
     "team_setting.branding.custom_domain.save": "Сохранить",
     "team_setting.branding.custom_domain.preview": "Просмотр браузера",
+    "team_setting.branding.custom_domain.illa_domain_error": "Пожалуйста, используйте свой собственный домен.",
     "team_setting.branding.custom_domain_expired.desc": "Due to the expired team subscription, the custom domain is not active. Please go to ILLA Cloud to complete the configuration.",
     "team_setting.branding.custom_domain_expired.button": "Вернуться в облако ILLA",
     "team_setting.branding.custom_domain_expired.title": "Ошибка доступа",
