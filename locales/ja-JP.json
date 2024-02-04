@@ -2839,6 +2839,7 @@
     "team_setting.branding.custom_domain.subscription_error": "この機能はチームが古くなっているため無効になっています。アップグレードが完了すると有効になります。",
     "team_setting.branding.custom_domain.save": "保存",
     "team_setting.branding.custom_domain.preview": "ブラウザーのプレビュー",
+    "team_setting.branding.custom_domain.illa_domain_error": "自分のドメインを使用してください。",
     "team_setting.branding.custom_domain_expired.desc": "チームのサブスクリプションが期限切れのため、カスタムドメインはアクティブではありません。設定を完了するには、ILLA Cloudに移動してください。",
     "team_setting.branding.custom_domain_expired.button": "ILLA Cloudに戻る",
     "team_setting.branding.custom_domain_expired.title": "アクセスに失敗しました",
