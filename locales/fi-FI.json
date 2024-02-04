@@ -1593,6 +1593,8 @@
     "editor.inspect.setter_label.qr_code.foreground": "Etuala",
     "editor.inspect.setter_label.scan.button_text": "Painikkeen teksti",
     "editor.inspect.setter_label.scan.close_after_scan": "Sulje automaattisesti skannauksen jälkeen",
+    "editor.inspect.setter_label.scan.front": "Etukamera",
+    "editor.inspect.setter_label.scan.rear": "Takakamera",
     "editor.inspect.setter_tooltip.action": "Tekemäsi komponentit käynnistävät kyselyt, ohjaavat komponentteja tai soittavat resurssejesi tietoihin. Useita async toimintoja suoritetaan samanaikaisesti.",
     "editor.inspect.setter_tooltip.cascader_data": "Jokaisen valinnan on oltava JSON-formaatti, ja siinä on oltava kaksi näppäintä, arvo ja etiketti. Käyttämällä taulukoita voit luoda vaihtoehtoja samalla tasolla. Ja lapsi vaihtoehtoja voidaan luoda käyttämällä \"lapset\" ominaisuutta. ",
     "editor.inspect.setter_tooltip.component_default_value": "Komponentin alkuarvo. Voit muuttaa alkuperäistä arvoa dynaamisesti kirjoittamalla JavaScriptin {{}}.",
