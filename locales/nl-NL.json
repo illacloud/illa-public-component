@@ -1593,6 +1593,8 @@
     "editor.inspect.setter_label.qr_code.foreground": "Voorgrond",
     "editor.inspect.setter_label.scan.button_text": "Knop tekst",
     "editor.inspect.setter_label.scan.close_after_scan": "Automatisch sluiten na scannen",
+    "editor.inspect.setter_label.scan.front": "Camera aan voorzijde",
+    "editor.inspect.setter_label.scan.rear": "Camera aan achterzijde",
     "editor.inspect.setter_tooltip.action": "Uw acties voor componenten trigger van queries, beheer componenten of roep de gegevens in uw bronnen op. Meerdere async acties worden parallel uitgevoerd.",
     "editor.inspect.setter_tooltip.cascader_data": "Elke optie moet JSON formaat zijn en twee sleutels, waarde en label bevatten. Door arrays te gebruiken, kunt u opties op hetzelfde niveau maken. En subopties kunnen worden gemaakt door gebruik te maken van het 'kinder'-attribuut. ",
     "editor.inspect.setter_tooltip.component_default_value": "De initiële waarde van het component. U kunt de initiële waarde dynamisch wijzigen door JavaScript in {{}}.",

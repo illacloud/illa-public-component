@@ -1593,6 +1593,8 @@
     "editor.inspect.setter_label.qr_code.foreground": "Активний режим",
     "editor.inspect.setter_label.scan.button_text": "Текст кнопки",
     "editor.inspect.setter_label.scan.close_after_scan": "Автоматично закривати після сканування",
+    "editor.inspect.setter_label.scan.front": "Передня камера",
+    "editor.inspect.setter_label.scan.rear": "Задня камера",
     "editor.inspect.setter_tooltip.action": "Ваші дії до компонентів тригерують запити, керуючі компоненти, або викликайте дані у ваших ресурсах. Декілька дій асингу буде виконано паралельно.",
     "editor.inspect.setter_tooltip.cascader_data": "Кожна опція повинна бути у форматі JSON і містити два ключі, значення та мітку. Використовуючи масиви, ви можете створювати варіанти на одному рівні. І параметри дітей можна створити за допомогою атрибуту \"дітей\". ",
     "editor.inspect.setter_tooltip.component_default_value": "Початкове значення компонента. Ви можете динамічно змінити початкове значення, набравши JavaScript у {{}}.",

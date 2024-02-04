@@ -1593,6 +1593,8 @@
     "editor.inspect.setter_label.qr_code.foreground": "Προσκήνιο",
     "editor.inspect.setter_label.scan.button_text": "Κείμενο κουμπιού",
     "editor.inspect.setter_label.scan.close_after_scan": "Αυτόματο κλείσιμο μετά τη σάρωση",
+    "editor.inspect.setter_label.scan.front": "Μπροστινή κάμερα",
+    "editor.inspect.setter_label.scan.rear": "Πίσω κάμερα",
     "editor.inspect.setter_tooltip.action": "Οι ενέργειές σας στα στοιχεία ενεργοποιούν ερωτήματα, ελέγχουν τα στοιχεία ή καλούν τα δεδομένα στους πόρους σας. Πολλαπλές ενέργειες async θα εκτελεστούν παράλληλα.",
     "editor.inspect.setter_tooltip.cascader_data": "Κάθε επιλογή πρέπει να είναι μορφή JSON και να περιέχει δύο κλειδιά, τιμή και ετικέτα. Χρησιμοποιώντας πίνακες, μπορείτε να δημιουργήσετε επιλογές στο ίδιο επίπεδο. Και οι επιλογές για παιδιά μπορούν να δημιουργηθούν χρησιμοποιώντας το χαρακτηριστικό \"παιδιά\". ",
     "editor.inspect.setter_tooltip.component_default_value": "Η αρχική τιμή του στοιχείου. Μπορείτε να αλλάξετε δυναμικά την αρχική τιμή πληκτρολογώντας JavaScript στο {}}.",

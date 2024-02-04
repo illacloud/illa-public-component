@@ -1593,6 +1593,8 @@
     "editor.inspect.setter_label.qr_code.foreground": "Förgrund",
     "editor.inspect.setter_label.scan.button_text": "Knappens text",
     "editor.inspect.setter_label.scan.close_after_scan": "Stäng automatiskt efter skanning",
+    "editor.inspect.setter_label.scan.front": "Främre kamera",
+    "editor.inspect.setter_label.scan.rear": "Bakre kamera",
     "editor.inspect.setter_tooltip.action": "Dina åtgärder för komponenter utlöser frågor, kontrollkomponenter eller anropar data i dina resurser. Flera asynska åtgärder kommer att utföras parallellt.",
     "editor.inspect.setter_tooltip.cascader_data": "Varje alternativ måste vara JSON-format och innehålla två nycklar, värde och etikett. Genom att använda arrayer, kan du skapa alternativ på samma nivå. Och barnalternativ kan skapas genom att använda \"barn\" attribut. ",
     "editor.inspect.setter_tooltip.component_default_value": "Komponentens initiala värde. Du kan dynamiskt ändra det initiala värdet genom att skriva JavaScript i {{}}.",

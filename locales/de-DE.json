@@ -1593,6 +1593,8 @@
     "editor.inspect.setter_label.qr_code.foreground": "Vordergrund",
     "editor.inspect.setter_label.scan.button_text": "Schaltflächentext",
     "editor.inspect.setter_label.scan.close_after_scan": "Nach Scan automatisch schließen",
+    "editor.inspect.setter_label.scan.front": "Frontkamera",
+    "editor.inspect.setter_label.scan.rear": "Rückkamera",
     "editor.inspect.setter_tooltip.action": "Ihre Aktionen auf Komponenten lösen Abfragen aus, steuern Komponenten oder rufen Daten aus Ihren Ressourcen auf. Mehrere asynchrone Aktionen werden parallel ausgeführt.",
     "editor.inspect.setter_tooltip.cascader_data": "Jede Option muss im JSON-Format vorliegen und zwei Schlüssel enthalten: Wert und Beschriftung. Mit Arrays können Sie Optionen auf der gleichen Ebene erstellen. Kindoptionen können durch Verwendung des \"children\"-Attributs erstellt werden.",
     "editor.inspect.setter_tooltip.component_default_value": "Der Anfangswert der Komponente. Sie können den Anfangswert dynamisch durch Eingabe von JavaScript ändern.",

@@ -1593,6 +1593,8 @@
     "editor.inspect.setter_label.qr_code.foreground": "Primo Piano",
     "editor.inspect.setter_label.scan.button_text": "Testo pulsante",
     "editor.inspect.setter_label.scan.close_after_scan": "Chiudi automaticamente dopo la scansione",
+    "editor.inspect.setter_label.scan.front": "Fotocamera anteriore",
+    "editor.inspect.setter_label.scan.rear": "Fotocamera posteriore",
     "editor.inspect.setter_tooltip.action": "Le tue azioni per i componenti attivano interrogazioni, controllano i componenti o chiamano i dati nelle tue risorse. Più azioni di asincronizzazione saranno eseguite in parallelo.",
     "editor.inspect.setter_tooltip.cascader_data": "Ogni opzione deve essere formato JSON e contenere due chiavi, valore ed etichetta. Utilizzando gli arrays, è possibile creare opzioni allo stesso livello. E le opzioni figlio possono essere create utilizzando l'attributo \"children\". ",
     "editor.inspect.setter_tooltip.component_default_value": "Il valore iniziale del componente. Puoi cambiare dinamicamente il valore iniziale digitando JavaScript in {{}}.",
