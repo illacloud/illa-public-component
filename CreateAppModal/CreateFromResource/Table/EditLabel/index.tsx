@@ -23,6 +23,7 @@ const EditInput: FC<GridRenderEditCellParams<any, string>> = (props) => {
     <Input
       _css={editInputStyle}
       colorScheme="techPurple"
+      autoFocus
       size="large"
       value={valueState}
       onChange={handleChange}
