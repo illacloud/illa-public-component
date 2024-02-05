@@ -110,6 +110,13 @@ const DatasetTable: FC<DatasetTableProps> = ({ rows, dataGridRef }) => {
               getRowId={(row) => {
                 return row.name
               }}
+              onCellClick={(cell) => {
+                if (!cell.isEditable || cell.cellMode === "edit") return
+                dataGridRef.current.startCellEditMode({
+                  id: cell.id,
+                  field: cell.field,
+                })
+              }}
               rowSelectionModel={selectRowIds}
               onRowSelectionModelChange={setSelectRowIds}
               columns={columns}
