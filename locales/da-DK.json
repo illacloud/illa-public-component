@@ -2194,6 +2194,7 @@
     "editor.history.operation.Moved": "Flyttet {{operationTargetName}}",
     "editor.history.operation.Reseted": "Nulstillede {{operationTargetName}}",
     "editor.history.operation.Restored": "Genoprettet fra {{versionName}}",
+    "editor.history.operation.Created": "Tilføjet {{operationTargetName}}",
     "editor.history.save": "Gem som historik",
     "editor.history.history": "Historik",
     "editor.history.more": "Mere",
