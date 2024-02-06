@@ -17,12 +17,14 @@ export const inviteByEmail = (
   email: string,
   userRole: USER_ROLE,
   redirectURL: string,
+  customDomain?: string,
 ) => {
   const requestBody = isCloudVersion
     ? {
         email: email,
         userRole: userRole,
         redirectURL: encodeURIComponent(redirectURL),
+        customDomain: customDomain,
       }
     : {
         email: email,

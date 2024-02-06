@@ -37,6 +37,7 @@ export const MobileRegister: FC<RegisterProps> = (props) => {
     errorMsg,
     loading,
     showCountDown,
+    hideOAuth,
     onCountDownChange,
     sendEmail,
   } = props
@@ -308,7 +309,7 @@ export const MobileRegister: FC<RegisterProps> = (props) => {
       >
         {t("page.user.sign_up.actions.create")}
       </Button>
-      {isCloudVersion && (
+      {isCloudVersion && !hideOAuth && (
         <div css={[oAuthButtonGroupStyle]}>
           <OAuthButton
             icon={<GithubIcon css={oAuthIconStyle} />}
