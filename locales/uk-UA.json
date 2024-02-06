@@ -2194,6 +2194,7 @@
     "editor.history.operation.Moved": "Переміщено {{operationTargetName}}",
     "editor.history.operation.Reseted": "Скинуто {{operationTargetName}}",
     "editor.history.operation.Restored": "Відновлено з {{versionName}}",
+    "editor.history.operation.Created": "Додано {{operationTargetName}}",
     "editor.history.save": "Зберегти як історію",
     "editor.history.history": "Історія",
     "editor.history.more": "Більше",

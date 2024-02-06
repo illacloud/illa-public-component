@@ -2194,6 +2194,7 @@
     "editor.history.operation.Moved": "Przeniesiono {{operationTargetName}}",
     "editor.history.operation.Reseted": "Przesłano {{operationTargetName}}",
     "editor.history.operation.Restored": "Przywrócono z {{versionName}}",
+    "editor.history.operation.Created": "Dodano {{operationTargetName}}",
     "editor.history.save": "Zapisz jako historię",
     "editor.history.history": "Historia",
     "editor.history.more": "Więcej",

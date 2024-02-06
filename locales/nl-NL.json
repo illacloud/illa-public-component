@@ -2194,6 +2194,7 @@
     "editor.history.operation.Moved": "Verplaatst {{operationTargetName}}",
     "editor.history.operation.Reseted": "{{operationTargetName}} gereset",
     "editor.history.operation.Restored": "Hersteld van {{versionName}}",
+    "editor.history.operation.Created": "Toegevoegd {{operationTargetName}}",
     "editor.history.save": "Opslaan als geschiedenis",
     "editor.history.history": "Geschiedenis",
     "editor.history.more": "Meer",

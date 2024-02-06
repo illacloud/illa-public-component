@@ -2194,6 +2194,7 @@
     "editor.history.operation.Moved": "Moved {{operationTargetName}}",
     "editor.history.operation.Reseted": "Reseted {{operationTargetName}}",
     "editor.history.operation.Restored": "Restored from {{versionName}}",
+    "editor.history.operation.Created": "Added {{operationTargetName}}",
     "editor.history.save": "Save as history",
     "editor.history.history": "History",
     "editor.history.more": "More",

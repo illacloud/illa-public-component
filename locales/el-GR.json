@@ -2194,6 +2194,7 @@
     "editor.history.operation.Moved": "Moved {{operationTargetName}}",
     "editor.history.operation.Reseted": "Reseted {{operationTargetName}}",
     "editor.history.operation.Restored": "Επαναφορά από το {{versionName}}",
+    "editor.history.operation.Created": "Προστέθηκε {{operationTargetName}}",
     "editor.history.save": "Αποθήκευση ως ιστορικό",
     "editor.history.history": "Ιστορικό",
     "editor.history.more": "Περισσότερα",

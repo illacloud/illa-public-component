@@ -2194,6 +2194,7 @@
     "editor.history.operation.Moved": "移动了{{operationTargetName}}",
     "editor.history.operation.Reseted": "重置了 operationTargetName",
     "editor.history.operation.Restored": "从{{versionName}}恢复",
+    "editor.history.operation.Created": "新增了{{operationTargetName}}",
     "editor.history.save": "保存历史记录",
     "editor.history.history": "历史记录",
     "editor.history.more": "更多",
