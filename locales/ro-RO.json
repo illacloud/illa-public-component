@@ -2194,6 +2194,7 @@
     "editor.history.operation.Moved": "Mutat {{operationTargetName}}",
     "editor.history.operation.Reseted": "Resetat {{operationTargetName}}",
     "editor.history.operation.Restored": "Restaurat de la {{versionName}}",
+    "editor.history.operation.Created": "Adăugat {{operationTargetName}}",
     "editor.history.save": "Salvează ca istoric",
     "editor.history.history": "Istoric",
     "editor.history.more": "Mai",
