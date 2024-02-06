@@ -2194,6 +2194,7 @@
     "editor.history.operation.Moved": "Flyttad {{operationTargetName}}",
     "editor.history.operation.Reseted": "Återställt {{operationTargetName}}",
     "editor.history.operation.Restored": "Återställd från {{versionName}}",
+    "editor.history.operation.Created": "Lade till {{operationTargetName}}",
     "editor.history.save": "Spara som historik",
     "editor.history.history": "Historik",
     "editor.history.more": "Mer",
