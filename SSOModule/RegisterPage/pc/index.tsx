@@ -47,6 +47,7 @@ export const PCRegister: FC<RegisterProps> = (props) => {
     showCountDown,
     onCountDownChange,
     sendEmail,
+    hideOAuth,
   } = props
   const navigate = useNavigate()
   const { handleSubmit, control, formState, getValues, trigger } =
@@ -361,7 +362,7 @@ export const PCRegister: FC<RegisterProps> = (props) => {
           {t("page.user.sign_up.actions.create")}
         </Button>
       </form>
-      {isCloudVersion && (
+      {isCloudVersion && !hideOAuth && (
         <div>
           <Divider
             mg="24px 0"

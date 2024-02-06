@@ -9,16 +9,24 @@ export const getInviteLink = (
   teamID: string,
   userRole: USER_ROLE,
   redirectURL: string,
+  customDomain?: string,
   signal?: AbortSignal,
 ) => {
+  let requestURL = `/inviteLink/userRole/${userRole}`
+  if (redirectURL) {
+    requestURL += `?redirectURL=${encodeURIComponent(redirectURL)}`
+  }
+  if (customDomain) {
+    if (redirectURL) {
+      requestURL += `&customDomain=${customDomain}`
+    } else {
+      requestURL += `?customDomain=${customDomain}`
+    }
+  }
+
   return authCloudRequest<InviteLinkResp>(
     {
-      url:
-        redirectURL !== ""
-          ? `/inviteLink/userRole/${userRole}?redirectURL=${encodeURIComponent(
-              redirectURL,
-            )}`
-          : `/inviteLink/userRole/${userRole}`,
+      url: requestURL,
       method: "GET",
       signal: signal,
     },
@@ -32,15 +40,22 @@ export const renewInviteLink = (
   teamID: string,
   redirectURL: string,
   userRole: USER_ROLE,
+  customDomain?: string,
 ) => {
+  let requestURL = `/inviteLink/userRole/${userRole}`
+  if (redirectURL) {
+    requestURL += `?redirectURL=${encodeURIComponent(redirectURL)}`
+  }
+  if (customDomain) {
+    if (redirectURL) {
+      requestURL += `&customDomain=${customDomain}`
+    } else {
+      requestURL += `?customDomain=${customDomain}`
+    }
+  }
   return authCloudRequest<InviteLinkResp>(
     {
-      url:
-        redirectURL !== ""
-          ? `/newInviteLink/userRole/${userRole}?redirectURL=${encodeURIComponent(
-              redirectURL,
-            )}`
-          : `/newInviteLink/userRole/${userRole}`,
+      url: requestURL,
       method: "GET",
     },
     {
