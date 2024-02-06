@@ -2194,6 +2194,7 @@
     "editor.history.operation.Moved": "Přesunuto {{operationTargetName}}",
     "editor.history.operation.Reseted": "Resetováno {{operationTargetName}}",
     "editor.history.operation.Restored": "Obnoveno z {{versionName}}",
+    "editor.history.operation.Created": "Přidáno {{operationTargetName}}",
     "editor.history.save": "Uložit jako historii",
     "editor.history.history": "Historie",
     "editor.history.more": "Více",
