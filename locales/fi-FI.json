@@ -2194,6 +2194,7 @@
     "editor.history.operation.Moved": "Siirretty {{operationTargetName}}",
     "editor.history.operation.Reseted": "Palautettu {{operationTargetName}}",
     "editor.history.operation.Restored": "Restored from {{versionName}}",
+    "editor.history.operation.Created": "Lisätty {{operationTargetName}}",
     "editor.history.save": "Tallenna historiana",
     "editor.history.history": "Historia",
     "editor.history.more": "Lisää",
