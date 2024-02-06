@@ -2194,6 +2194,7 @@
     "editor.history.operation.Moved": "移動された{{operationTargetName}}",
     "editor.history.operation.Reseted": "リセットされた{{operationTargetName}}",
     "editor.history.operation.Restored": "{{versionName}}から復元されました",
+    "editor.history.operation.Created": "{{operationTargetName}} を追加しました",
     "editor.history.save": "履歴として保存",
     "editor.history.history": "履歴",
     "editor.history.more": "もっと",
