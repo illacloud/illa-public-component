@@ -444,10 +444,10 @@ export const AppCardActionItem: FC<AppCardActionItemProps> = (props) => {
             title={t("user_management.modal.social_media.default_text.app", {
               appName: appName,
             })}
-            editRedirectURL={`${getILLABuilderURL()}/${
+            editRedirectURL={`${getILLABuilderURL(window.customDomain)}/${
               teamInfo.identifier
             }/app/${appID}`}
-            useRedirectURL={`${getILLABuilderURL()}/${
+            useRedirectURL={`${getILLABuilderURL(window.customDomain)}/${
               teamInfo.identifier
             }/deploy/app/${appID}`}
             defaultAllowInviteLink={teamInfo.permission.inviteLinkEnabled}

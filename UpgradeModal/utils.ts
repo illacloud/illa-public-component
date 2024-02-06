@@ -21,7 +21,7 @@ export function getSuccessRedirectWithParams(
     )
     .join("&")
 
-  return `${getILLACloudURL()}${redirectPath}?${paramString}`
+  return `${getILLACloudURL(window.customDomain)}${redirectPath}?${paramString}`
 }
 
 export const handleCollaPurchaseError = (
