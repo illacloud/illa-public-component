@@ -12,22 +12,22 @@ export const errorHandlerInterceptor = (error: AxiosError) => {
   switch (status) {
     case 401: {
       removeAuthToken()
-      window.location.href = `${getILLACloudURL()}?redirectURL=${encodeURIComponent(
-        location.origin + location.pathname,
-      )}`
+      window.location.href = `${getILLACloudURL(
+        window.customDomain,
+      )}?redirectURL=${encodeURIComponent(location.origin + location.pathname)}`
       break
     }
     case 403: {
-      window.location.href = `${getILLABuilderURL()}/403`
+      window.location.href = `${getILLABuilderURL(window.customDomain)}/403`
       break
     }
     case 500: {
-      window.location.href = `${getILLABuilderURL()}/500`
+      window.location.href = `${getILLABuilderURL(window.customDomain)}/500`
       break
     }
     default: {
       if (status >= 500) {
-        window.location.href = `${getILLABuilderURL()}/500`
+        window.location.href = `${getILLABuilderURL(window.customDomain)}/500`
         break
       }
       break

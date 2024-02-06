@@ -78,7 +78,9 @@ export const MobileAppCardItem: FC<MobileCardItemProps> = (props) => {
         </div>
         {showLaunchButton && (
           <Link
-            to={`${getILLABuilderURL()}/${teamIdentifier}/deploy/app/${appID}?token=${getAuthToken()}`}
+            to={`${getILLABuilderURL(
+              window.customDomain,
+            )}/${teamIdentifier}/deploy/app/${appID}?token=${getAuthToken()}`}
             target="_blank"
             css={linkButtonStyle}
           >
