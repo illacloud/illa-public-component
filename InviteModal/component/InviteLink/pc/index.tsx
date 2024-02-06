@@ -85,6 +85,7 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
           teamID,
           inviteUserRole,
           redirectURL,
+          window.customDomain,
           controller.signal,
         )
         const inviteURL = new URL(data.data.inviteLink)
@@ -118,7 +119,12 @@ export const InviteLinkPC: FC<InviteLinkProps> = (props) => {
     async (teamID: string, userRole: USER_ROLE) => {
       setGetLinkLoading(true)
       try {
-        const data = await renewInviteLink(teamID, redirectURL, userRole)
+        const data = await renewInviteLink(
+          teamID,
+          redirectURL,
+          userRole,
+          window.customDomain,
+        )
         setCurrentInviteLink(data.data.inviteLink)
       } catch (e) {
         message.error({
