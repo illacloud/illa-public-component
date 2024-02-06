@@ -55,7 +55,9 @@ export const BottomList: FC<BottomListProps> = (props) => {
     {
       labelName: t("page.left.menu.tutorial"),
       labelKey: "tutorial",
-      href: `${getILLABuilderURL()}/${teamIdentifier}/guide?token=${getAuthToken()}`,
+      href: `${getILLABuilderURL(
+        window.customDomain,
+      )}/${teamIdentifier}/guide?token=${getAuthToken()}`,
       icon: <TutorialIcon />,
       hidden: !showTutorial,
       onClickCallback: onClickMenuItemCallback,
