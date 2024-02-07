@@ -1,4 +1,5 @@
 import {
+  ITeamCustomInfo,
   MemberInfo,
   SubscribeInfo,
   Team,
@@ -281,6 +282,25 @@ export const updateCurrentTeamInfoReducer: CaseReducer<
     teamList[index] = {
       ...teamList[index],
       ...action.payload,
+    }
+  }
+  state.items = teamList
+}
+
+export const updateTargetTeamInfoCustomInfoReducer: CaseReducer<
+  Team,
+  PayloadAction<{
+    teamID: string
+    customInfo: Partial<ITeamCustomInfo>
+  }>
+> = (state, action) => {
+  const { teamID, customInfo } = action.payload
+  const teamList = state.items ?? []
+  const index = teamList.findIndex((item) => item.id === teamID)
+  if (index !== -1) {
+    teamList[index].customInfo = {
+      ...teamList[index].customInfo,
+      ...customInfo,
     }
   }
   state.items = teamList
