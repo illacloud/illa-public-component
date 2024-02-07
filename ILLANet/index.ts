@@ -6,6 +6,7 @@ import {
   BUILDER_REQUEST_PREFIX,
   BUILDER_WS_REQUEST_PREFIX,
   CLOUD_REQUEST_PREFIX,
+  DOMAIN_REQUEST_PREFIX,
   DRIVE_REQUEST_PREFIX,
   MARKETPLACE_AUTH_PRODUCT_REQUEST_PREFIX,
   MARKETPLACE_AUTH_REQUEST_PREFIX,
@@ -347,6 +348,20 @@ export const flowRequest = async <
   )
 
   return await needAuthRequest<ResponseData, RequestData>({
+    ...requestConfig,
+    url: finalURL,
+  })
+}
+
+export const domainRequest = async <
+  ResponseData = unknown,
+  RequestData = unknown,
+>(
+  requestConfig: AxiosRequestConfig<RequestData>,
+) => {
+  const finalURL = getURLWithPrefix(requestConfig.url, DOMAIN_REQUEST_PREFIX)
+
+  return await notNeedAuthRequest<ResponseData, RequestData>({
     ...requestConfig,
     url: finalURL,
   })

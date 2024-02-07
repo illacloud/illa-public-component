@@ -13,6 +13,7 @@ export type RegisterErrorMsg = Partial<Record<keyof RegisterFields, string>>
 export interface RegisterPageProps {
   loading: boolean
   errorMsg: RegisterErrorMsg
+  hideOAuth?: boolean
   onSubmit: SubmitHandler<RegisterFields>
   sendEmail: (email: string) => void
 }
