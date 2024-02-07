@@ -13,12 +13,14 @@ const IconHotSpot: ForwardRefRenderFunction<
     inactiveColor = getColor("grayBlue", "04"),
     activeColor = getColor("grayBlue", "02"),
     activeBgColor = getColor("grayBlue", "09"),
+    type = "button",
     ...otherProps
   } = props
 
   return (
     <button
       {...otherProps}
+      type={type}
       css={iconHotSpotContainerStyle(
         iconSize,
         activeColor,
