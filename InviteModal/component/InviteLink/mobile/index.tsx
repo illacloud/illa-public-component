@@ -72,6 +72,7 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
           teamID,
           inviteUserRole,
           redirectURL,
+          window.customDomain,
           controller.signal,
         )
         setCurrentInviteLink(data.data.inviteLink)
@@ -99,7 +100,12 @@ export const InviteLinkMobile: FC<InviteLinkProps> = (props) => {
     async (teamID: string, userRole: USER_ROLE) => {
       setGetLinkLoading(true)
       try {
-        const data = await renewInviteLink(teamID, redirectURL, userRole)
+        const data = await renewInviteLink(
+          teamID,
+          redirectURL,
+          userRole,
+          window.customDomain,
+        )
         setCurrentInviteLink(data.data.inviteLink)
       } catch (e) {
         message.error({ content: t("user_management.modal.link.fail") })

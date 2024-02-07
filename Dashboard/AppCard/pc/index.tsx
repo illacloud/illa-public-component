@@ -65,14 +65,16 @@ export const PCAppCard: FC<PCAppCardProps> = (props) => {
     )
     if (canEditApp) {
       window.open(
-        `${getILLABuilderURL()}/${teamIdentifier}/app/${
+        `${getILLABuilderURL(window.customDomain)}/${teamIdentifier}/app/${
           appInfo.appId
         }?token=${getAuthToken()}`,
         "_blank",
       )
     } else if (appInfo.deployed) {
       window.open(
-        `${getILLABuilderURL()}/${teamIdentifier}/deploy/app/${
+        `${getILLABuilderURL(
+          window.customDomain,
+        )}/${teamIdentifier}/deploy/app/${
           appInfo.appId
         }?token=${getAuthToken()}`,
         "_blank",

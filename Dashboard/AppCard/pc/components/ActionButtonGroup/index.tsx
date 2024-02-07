@@ -28,7 +28,9 @@ export const ActionButtonGroup: FC<ActionButtonGroupProps> = (props) => {
         "both",
       )
       window.open(
-        `${getILLABuilderURL()}/${teamIdentifier}/deploy/app/${appID}?token=${getAuthToken()}`,
+        `${getILLABuilderURL(
+          window.customDomain,
+        )}/${teamIdentifier}/deploy/app/${appID}?token=${getAuthToken()}`,
         "_blank",
       )
     },
@@ -47,7 +49,9 @@ export const ActionButtonGroup: FC<ActionButtonGroupProps> = (props) => {
         "both",
       )
       window.open(
-        `${getILLABuilderURL()}/${teamIdentifier}/app/${appID}?token=${getAuthToken()}`,
+        `${getILLABuilderURL(
+          window.customDomain,
+        )}/${teamIdentifier}/app/${appID}?token=${getAuthToken()}`,
         "_blank",
       )
     },

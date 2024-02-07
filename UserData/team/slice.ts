@@ -13,6 +13,7 @@ import {
   updateCurrentTeamPersonalConfigReducer,
   updateInvitedUserReducer,
   updateMemberListReducer,
+  updateTargetTeamInfoCustomInfoReducer,
   updateTeamItemsReducer,
   updateTeamMemberPermissionReducer,
   updateTeamMemberSubscribeReducer,
@@ -44,6 +45,7 @@ const teamSlice = createSlice({
     deleteTeamInfoReducer,
     updateCurrentTeamLicenseByTeamIDReducer,
     updateCurrentTeamInfoReducer,
+    updateTargetTeamInfoCustomInfoReducer,
   },
   extraReducers: (builder) => {
     builder.addMatcher(

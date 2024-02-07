@@ -106,6 +106,7 @@ export const InviteByEmailMobile: FC<InviteByEmailProps> = (props) => {
           currentValue,
           inviteUserRole,
           redirectURL,
+          window.customDomain,
         )
         const currentIndex = finalInviteUserList.findIndex(
           (item) => item.email === currentValue,

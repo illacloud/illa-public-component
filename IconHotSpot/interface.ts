@@ -7,4 +7,5 @@ export interface IconHotSpotProps extends HTMLAttributes<HTMLButtonElement> {
   activeColor?: string
   activeBgColor?: string
   inactiveColor?: string
+  type?: "button" | "submit" | "reset"
 }

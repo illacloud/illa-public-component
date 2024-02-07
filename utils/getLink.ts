@@ -1,6 +1,9 @@
 import { isCloudVersion, isServerRender } from "./typeHelper"
 
-export const getILLABuilderURL = (): string => {
+export const getILLABuilderURL = (customDomain?: string): string => {
+  if (customDomain) {
+    return `https://${customDomain}/builder`
+  }
   if (process.env.ILLA_BUILDER_URL || isCloudVersion || isServerRender) {
     return `${process.env.ILLA_BUILDER_URL}`
   } else {
@@ -8,12 +11,22 @@ export const getILLABuilderURL = (): string => {
   }
 }
 
-export const getILLACloudURL = (): string => {
+export const getILLACloudURL = (customDomain?: string): string => {
+  if (customDomain) {
+    return `https://${customDomain}/cloud`
+  }
   if (process.env.ILLA_CLOUD_URL || isCloudVersion || isServerRender) {
     return `${process.env.ILLA_CLOUD_URL}`
   } else {
     return `${location.origin}/cloud`
   }
+}
+
+export const getILLAFlowURL = (customDomain?: string): string => {
+  if (customDomain) {
+    return `https://${customDomain}/flow`
+  }
+  return `${process.env.ILLA_FLOW_URL}`
 }
 
 export const getMarketLinkTemplate = (appID: string): string => {
@@ -34,6 +47,7 @@ export const getAgentPublicLink = (agentID: string): string => {
 export const getFlowEditLink = (
   teamIdentify: string,
   flowID: string,
+  customDomain?: string,
 ): string => {
-  return `${process.env.ILLA_FLOW_URL}/${teamIdentify}/flow/${flowID}`
+  return `${getILLAFlowURL(customDomain)}/${teamIdentify}/flow/${flowID}`
 }
