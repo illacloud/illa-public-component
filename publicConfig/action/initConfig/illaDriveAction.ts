@@ -12,6 +12,7 @@ import {
   ILLA_DRIVE_ACTION_REQUEST_TYPE,
   ILLA_DRIVE_FILTER_TYPE,
   ILLA_DRIVE_UPLOAD_FILE_TYPE,
+  SORTED_TYPE,
 } from "@illa-public/public-types"
 
 export const ILLADriveListAllContentInitial: ILLADriveListAllContent = {
@@ -24,6 +25,8 @@ export const ILLADriveListAllContentInitial: ILLADriveListAllContent = {
   expiry: "",
   limit: "{{20}}",
   page: "{{1}}",
+  sortedBy: "lastModifiedAt",
+  sortedType: SORTED_TYPE.ascend,
 }
 
 export const ILLADriveUploadOneContentInitial: ILLADriveUploadOneContent = {

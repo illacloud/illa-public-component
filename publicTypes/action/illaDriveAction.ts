@@ -1,4 +1,4 @@
-import { EXPIRATION_TYPE, UPLOAD_FILE_STATUS } from "../drive"
+import { EXPIRATION_TYPE, SORTED_TYPE, UPLOAD_FILE_STATUS } from "../drive"
 
 export enum ILLA_DRIVE_ACTION_REQUEST_TYPE {
   LIST = "ListFiles",
@@ -40,6 +40,8 @@ export interface ILLADriveListAllContent {
   hotlinkProtection: boolean
   limit: string
   page: string
+  sortedBy: string
+  sortedType: SORTED_TYPE
 }
 
 export interface ILLADriveUploadOneContent {
