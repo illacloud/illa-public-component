@@ -2844,6 +2844,7 @@
     "team_setting.branding.custom_domain.save": "Gem",
     "team_setting.branding.custom_domain.preview": "Browser forhåndsvisning",
     "team_setting.branding.custom_domain.illa_domain_error": "Brug venligst dit eget domæne.",
+    "team_setting.branding.custom_domain.get_cname_error": "Failed to get the CNAME",
     "team_setting.branding.custom_domain_expired.desc": "Due to the expired team subscription, the custom domain is not active. Please go to ILLA Cloud to complete the configuration.",
     "team_setting.branding.custom_domain_expired.button": "Tilbage til ILLA Cloud",
     "team_setting.branding.custom_domain_expired.title": "Kunne ikke tilgå",
