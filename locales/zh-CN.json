@@ -2510,7 +2510,7 @@
     "widget.jsonEditor.name": "JSON编辑器",
     "widget.drive_picker.name": "ILLA文件选择器",
     "widget.drive_picker.modal.files": "文件",
-    "widget.drive_picker.modal.confirm": "确定（fileNum个文件）",
+    "widget.drive_picker.modal.confirm": "确定（{{fileNum}}个文件）",
     "widget.drive_picker.modal.cancel": "取消",
     "widget.drive_picker.modal.no_file": "没有文件",
     "widget.jsonSchemaForm.name": "JSON Schema表单",
