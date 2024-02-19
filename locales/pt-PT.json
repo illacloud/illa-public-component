@@ -2844,6 +2844,7 @@
     "team_setting.branding.custom_domain.save": "Guardar",
     "team_setting.branding.custom_domain.preview": "Visualização do navegador",
     "team_setting.branding.custom_domain.illa_domain_error": "Utilize o seu próprio domínio.",
+    "team_setting.branding.custom_domain.get_cname_error": "Failed to get the CNAME",
     "team_setting.branding.custom_domain_expired.desc": "Due to the expired team subscription, the custom domain is not active. Please go to ILLA Cloud to complete the configuration.",
     "team_setting.branding.custom_domain_expired.button": "Voltar para ILLA Cloud",
     "team_setting.branding.custom_domain_expired.title": "Falha ao acessar",
