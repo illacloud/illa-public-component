@@ -1,9 +1,12 @@
 import { Avatar } from "@illa-public/avatar"
+import { APP_TYPE } from "@illa-public/public-types"
 import { fromNow, getAuthToken, getILLABuilderURL } from "@illa-public/utils"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { Link, useParams } from "react-router-dom"
 import { Button, Tag } from "@illa-design/react"
+import DesktopIcon from "../assets/desktop.svg?react"
+import MobileIcon from "../assets/mobile.svg?react"
 import { MobileCardItemProps } from "./interface"
 import {
   cardItemContainerStyle,
@@ -27,7 +30,8 @@ export const MobileAppCardItem: FC<MobileCardItemProps> = (props) => {
     description,
     publishedToMarketplace,
     editorInfo,
-    showLaunchButton = true,
+    appType = APP_TYPE.PC,
+    cardType,
   } = props
 
   const { t } = useTranslation()
@@ -53,6 +57,15 @@ export const MobileAppCardItem: FC<MobileCardItemProps> = (props) => {
               {t("new_dashboard.status.undeploy")}
             </Tag>
           )}
+          {cardType === "app" && appType === APP_TYPE.MOBILE ? (
+            <Tag colorScheme="grayBlue" size="small" icon={<MobileIcon />}>
+              {t("new_dashboard.type.mobile")}
+            </Tag>
+          ) : (
+            <Tag colorScheme="grayBlue" size="small" icon={<DesktopIcon />}>
+              {t("new_dashboard.type.desktop")}
+            </Tag>
+          )}
           {publishedToMarketplace && (
             <Tag size="small" colorScheme="techPurple">
               {t("dashboard.common.marketplace")}
@@ -76,7 +89,7 @@ export const MobileAppCardItem: FC<MobileCardItemProps> = (props) => {
             />
           ))}
         </div>
-        {showLaunchButton && (
+        {cardType === "app" && (
           <Link
             to={`${getILLABuilderURL(
               window.customDomain,

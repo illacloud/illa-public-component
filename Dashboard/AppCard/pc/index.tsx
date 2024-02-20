@@ -3,6 +3,7 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   MixpanelTrackContext,
 } from "@illa-public/mixpanel-utils"
+import { APP_TYPE } from "@illa-public/public-types"
 import { getCurrentTeamInfo, getPlanUtils } from "@illa-public/user-data"
 import {
   ACTION_MANAGE,
@@ -20,6 +21,8 @@ import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { Space, Tag } from "@illa-design/react"
+import DesktopIcon from "../assets/desktop.svg?react"
+import MobileIcon from "../assets/mobile.svg?react"
 import { PCAppCardProps } from "../interface"
 import { ActionButtonGroup } from "./components/ActionButtonGroup"
 import { AppCardActionItem } from "./components/AppCardItem"
@@ -119,6 +122,15 @@ export const PCAppCard: FC<PCAppCardProps> = (props) => {
             ) : (
               <Tag colorScheme="grayBlue" size="small">
                 {t("new_dashboard.status.undeploy")}
+              </Tag>
+            )}
+            {appInfo.config.appType === APP_TYPE.MOBILE ? (
+              <Tag colorScheme="grayBlue" size="small" icon={<MobileIcon />}>
+                {t("new_dashboard.type.mobile")}
+              </Tag>
+            ) : (
+              <Tag colorScheme="grayBlue" size="small" icon={<DesktopIcon />}>
+                {t("new_dashboard.type.desktop")}
               </Tag>
             )}
             {appInfo.config.publishedToMarketplace && (
