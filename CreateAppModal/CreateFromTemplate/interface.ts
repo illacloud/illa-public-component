@@ -1,14 +1,14 @@
-import { ComponentTreeNode } from "@illa-public/public-types"
+import { APP_TYPE, ComponentTreeNode } from "@illa-public/public-types"
 import { BuildActionInfo } from "../interface"
 
 export interface CreateFromTemplateProps {
   hiddenCreateBlank?: boolean
-  handleCreateBlankApp?: () => void
-  handleCreateFromResource?: (
+  handleCreateBlankApp: (appType: APP_TYPE) => Promise<void>
+  handleOpenCreateFromResource: () => void
+  handleCreateFromResource: (
     appInfo: ComponentTreeNode,
     actionsInfo: BuildActionInfo[],
-  ) => void
-  handleForkApp: (appID: string, teamIdentifier?: string) => void
-  handleOpenCreateFromResource?: () => void
+  ) => Promise<void>
+  handleForkApp: (appID: string, teamIdentifier?: string) => Promise<void>
   closeModal?: () => void
 }

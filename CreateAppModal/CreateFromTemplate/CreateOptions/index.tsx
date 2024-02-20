@@ -1,14 +1,19 @@
+import { APP_TYPE } from "@illa-public/public-types"
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { AddIcon, Loading, getColor } from "@illa-design/react"
-import { CreateOptionsProps } from "./interface"
+import {
+  ICreateBlankAppProps,
+  ICreateFromDatabaseProps,
+  ICreateOptionsProps,
+} from "./interface"
 import {
   createOptionsContainerStyle,
   createOptionsStyle,
   iconStyle,
 } from "./style"
 
-const CreateBlankApp: FC<CreateOptionsProps> = ({
+const CreatePCBlankApp: FC<ICreateBlankAppProps> = ({
   isInModal = false,
   handleCreateBlankApp,
   closeModal,
@@ -18,7 +23,7 @@ const CreateBlankApp: FC<CreateOptionsProps> = ({
   const createBlankApp = async () => {
     setLoading(true)
     try {
-      await handleCreateBlankApp?.()
+      await handleCreateBlankApp(APP_TYPE.PC)
     } catch (e) {
     } finally {
       setLoading(false)
@@ -42,7 +47,41 @@ const CreateBlankApp: FC<CreateOptionsProps> = ({
   )
 }
 
-const CreateFromDatabase: FC<CreateOptionsProps> = ({
+const CreateMobileBlankApp: FC<ICreateBlankAppProps> = ({
+  isInModal = false,
+  handleCreateBlankApp,
+  closeModal,
+}) => {
+  const [loading, setLoading] = useState(false)
+  const { t } = useTranslation()
+  const createBlankApp = async () => {
+    setLoading(true)
+    try {
+      await handleCreateBlankApp(APP_TYPE.MOBILE)
+    } catch (e) {
+    } finally {
+      setLoading(false)
+    }
+    closeModal?.()
+  }
+  return (
+    <div
+      css={createOptionsContainerStyle(
+        isInModal,
+        getColor("blue", "03"),
+        loading,
+      )}
+      onClick={createBlankApp}
+    >
+      <div css={iconStyle}>
+        {loading ? <Loading colorScheme="white" /> : <AddIcon size="16px" />}
+      </div>
+      <span>{t("new_dashboard.create_new.create_mobile_app")}</span>
+    </div>
+  )
+}
+
+const CreateFromDatabase: FC<ICreateFromDatabaseProps> = ({
   isInModal = false,
   handleOpenCreateFromResource,
   closeModal,
@@ -50,7 +89,7 @@ const CreateFromDatabase: FC<CreateOptionsProps> = ({
   const { t } = useTranslation()
   const createFromDatabase = async () => {
     closeModal?.()
-    handleOpenCreateFromResource?.()
+    handleOpenCreateFromResource()
   }
   return (
     <div
@@ -65,11 +104,30 @@ const CreateFromDatabase: FC<CreateOptionsProps> = ({
   )
 }
 
-export const CreateOptions: FC<CreateOptionsProps> = (props) => {
+export const CreateOptions: FC<ICreateOptionsProps> = (props) => {
+  const {
+    isInModal,
+    handleCreateBlankApp,
+    handleOpenCreateFromResource,
+    closeModal,
+  } = props
   return (
     <div css={createOptionsStyle}>
-      <CreateBlankApp {...props} />
-      <CreateFromDatabase {...props} />
+      <CreatePCBlankApp
+        closeModal={closeModal}
+        isInModal={isInModal}
+        handleCreateBlankApp={handleCreateBlankApp}
+      />
+      <CreateMobileBlankApp
+        closeModal={closeModal}
+        isInModal={isInModal}
+        handleCreateBlankApp={handleCreateBlankApp}
+      />
+      <CreateFromDatabase
+        closeModal={closeModal}
+        isInModal={isInModal}
+        handleOpenCreateFromResource={handleOpenCreateFromResource}
+      />
     </div>
   )
 }
