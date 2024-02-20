@@ -1,4 +1,4 @@
-import { EditorInfo } from "@illa-public/public-types"
+import { APP_TYPE, EditorInfo } from "@illa-public/public-types"
 import { ActivityInfo } from "@illa-public/public-types"
 
 export interface MobileCardItemProps {
@@ -10,4 +10,6 @@ export interface MobileCardItemProps {
   description?: string
   editorInfo?: EditorInfo[]
   showLaunchButton?: boolean
+  appType?: APP_TYPE
+  cardType: "app" | "flow"
 }
