@@ -10,6 +10,7 @@ export enum ILLA_DRIVE_ACTION_REQUEST_TYPE {
   UPLOAD_MULTIPLE = "GetMultipleUploadAddress",
   UPDATE = "RenameFile",
   UPDATE_FILE_STATUS = "UpdateFileStatus",
+  LIST_FOLDERS = "ListFolders",
 }
 
 export enum ILLA_DRIVE_FILTER_TYPE {
@@ -41,7 +42,22 @@ export interface ILLADriveListAllContent {
   limit: string
   page: string
   sortedBy: string
+  sortedByFx: boolean
   sortedType: SORTED_TYPE
+  sortedTypeFx: boolean
+}
+
+export interface ILLADriveListFoldersContent {
+  filterType: ILLA_DRIVE_FILTER_TYPE
+  search: string
+  folderID: string
+  path: string
+  limit: string
+  page: string
+  sortedBy: string
+  sortedByFx: boolean
+  sortedType: SORTED_TYPE
+  sortedTypeFx: boolean
 }
 
 export interface ILLADriveUploadOneContent {
@@ -83,6 +99,7 @@ export interface ILLADriveUpdateContent {
 
 export type ILLADriveActionTypeContent =
   | ILLADriveListAllContent
+  | ILLADriveListFoldersContent
   | ILLADriveDownloadOneContent
   | ILLADriveDownloadMultipleContent
   | ILLADriveDeleteOneContent

@@ -6,6 +6,7 @@ import {
   ILLADriveDownloadMultipleContent,
   ILLADriveDownloadOneContent,
   ILLADriveListAllContent,
+  ILLADriveListFoldersContent,
   ILLADriveUpdateContent,
   ILLADriveUploadMultipleContent,
   ILLADriveUploadOneContent,
@@ -26,7 +27,22 @@ export const ILLADriveListAllContentInitial: ILLADriveListAllContent = {
   limit: "{{20}}",
   page: "{{1}}",
   sortedBy: "lastModifiedAt",
+  sortedByFx: false,
   sortedType: SORTED_TYPE.ascend,
+  sortedTypeFx: false,
+}
+
+export const ILLADriveListFoldersContentInitial: ILLADriveListFoldersContent = {
+  filterType: ILLA_DRIVE_FILTER_TYPE.NONE,
+  search: "",
+  folderID: "",
+  path: "",
+  limit: "{{20}}",
+  page: "{{1}}",
+  sortedBy: "lastModifiedAt",
+  sortedByFx: false,
+  sortedType: SORTED_TYPE.ascend,
+  sortedTypeFx: false,
 }
 
 export const ILLADriveUploadOneContentInitial: ILLADriveUploadOneContent = {
