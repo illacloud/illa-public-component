@@ -41,7 +41,9 @@ export interface ILLADriveListAllContent {
   limit: string
   page: string
   sortedBy: string
+  sortedByFx: boolean
   sortedType: SORTED_TYPE
+  sortedTypeFx: boolean
 }
 
 export interface ILLADriveUploadOneContent {

@@ -26,7 +26,9 @@ export const ILLADriveListAllContentInitial: ILLADriveListAllContent = {
   limit: "{{20}}",
   page: "{{1}}",
   sortedBy: "lastModifiedAt",
+  sortedByFx: false,
   sortedType: SORTED_TYPE.ascend,
+  sortedTypeFx: false,
 }
 
 export const ILLADriveUploadOneContentInitial: ILLADriveUploadOneContent = {
