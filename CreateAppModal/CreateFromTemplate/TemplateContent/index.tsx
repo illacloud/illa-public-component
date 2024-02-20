@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next"
 import { Empty } from "@illa-design/react"
 import { CreateLoading } from "../../Loading"
 import AppTemplateCard from "../AppTemplateCard"
-import { CreateFromTemplateProps } from "../interface"
 import {
   contentContainerStyle,
   contentTitleStyle,
@@ -13,7 +12,10 @@ import {
   templateListContainerStyle,
 } from "./style"
 
-interface TemplateContentProps extends CreateFromTemplateProps {
+interface TemplateContentProps {
+  hiddenCreateBlank?: boolean
+  handleForkApp: (appID: string, teamIdentifier?: string) => Promise<void>
+  closeModal?: () => void
   loading: boolean
   templateList: ProductMarketApp[]
   prevContentNode?: ReactNode
