@@ -40,6 +40,7 @@ export const createOptionsContainerStyle = (
     pointer-events: ${loading ? "none" : "auto"};
     cursor: pointer;
     ${isInModal ? isInModalStyle : isNotInModalStyle}
+    position: relative;
   `
 }
 
@@ -54,4 +55,24 @@ export const iconStyle = css`
   border-radius: 50%;
   background-color: ${getColor("white", "07")};
   position: relative;
+`
+
+export const upgradeTagStyle = css`
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 0 0 0 16px;
+  background-color: ${getColor("white", "09")};
+  display: flex;
+  padding: 6px 8px;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+`
+
+export const upgradeIconStyle = css`
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  flex: none;
 `

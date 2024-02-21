@@ -1,6 +1,9 @@
-import { APP_TYPE } from "@illa-public/public-types"
+import { UpgradeIcon } from "@illa-public/icon"
+import { APP_TYPE, SUBSCRIBE_PLAN } from "@illa-public/public-types"
+import { getCurrentTeamInfo, getPlanUtils } from "@illa-public/user-data"
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
 import { AddIcon, Loading, getColor } from "@illa-design/react"
 import {
   ICreateBlankAppProps,
@@ -11,6 +14,8 @@ import {
   createOptionsContainerStyle,
   createOptionsStyle,
   iconStyle,
+  upgradeIconStyle,
+  upgradeTagStyle,
 } from "./style"
 
 const CreatePCBlankApp: FC<ICreateBlankAppProps> = ({
@@ -64,6 +69,13 @@ const CreateMobileBlankApp: FC<ICreateBlankAppProps> = ({
     }
     closeModal?.()
   }
+
+  const currentTeamInfo = useSelector(getCurrentTeamInfo)
+
+  const teamPlan = getPlanUtils(currentTeamInfo)
+  const canUsePremium =
+    teamPlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS ||
+    teamPlan === SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM
   return (
     <div
       css={createOptionsContainerStyle(
@@ -76,6 +88,12 @@ const CreateMobileBlankApp: FC<ICreateBlankAppProps> = ({
       <div css={iconStyle}>
         {loading ? <Loading colorScheme="white" /> : <AddIcon size="16px" />}
       </div>
+      {!canUsePremium && (
+        <div css={upgradeTagStyle}>
+          <UpgradeIcon css={upgradeIconStyle} />{" "}
+          <span>{t("billing.new_pricing.upgrade")}</span>
+        </div>
+      )}
       <span>{t("new_dashboard.create_new.create_mobile_app")}</span>
     </div>
   )
