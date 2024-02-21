@@ -1926,7 +1926,7 @@
     "editor.inspect.setter_option.table.column_type.date": "Data",
     "editor.inspect.setter_option.table.column_type.tag": "Znacznik",
     "editor.inspect.setter_option.table.column_type.time": "Czas",
-    "editor.inspect.setter_option.table.column_type.datetime": "Data czasu",
+    "editor.inspect.setter_option.table.column_type.datetime": "Czas",
     "editor.inspect.setter_option.table.column_type.number": "Numer",
     "editor.inspect.setter_option.table.column_type.percent": "Procent",
     "editor.inspect.setter_option.table.column_type.link": "Link",
