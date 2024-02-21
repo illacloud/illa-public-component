@@ -1926,7 +1926,7 @@
     "editor.inspect.setter_option.table.column_type.date": "Datum",
     "editor.inspect.setter_option.table.column_type.tag": "Markierung",
     "editor.inspect.setter_option.table.column_type.time": "Zeit",
-    "editor.inspect.setter_option.table.column_type.datetime": "Datum und Zeit",
+    "editor.inspect.setter_option.table.column_type.datetime": "Zeit",
     "editor.inspect.setter_option.table.column_type.number": "Nummer",
     "editor.inspect.setter_option.table.column_type.percent": "Prozent",
     "editor.inspect.setter_option.table.column_type.link": "Link",
