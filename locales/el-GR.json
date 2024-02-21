@@ -1926,7 +1926,7 @@
     "editor.inspect.setter_option.table.column_type.date": "Ημερομηνία",
     "editor.inspect.setter_option.table.column_type.tag": "Ετικέτα",
     "editor.inspect.setter_option.table.column_type.time": "Ώρα",
-    "editor.inspect.setter_option.table.column_type.datetime": "Ώρα",
+    "editor.inspect.setter_option.table.column_type.datetime": "Date time",
     "editor.inspect.setter_option.table.column_type.number": "Αριθμός",
     "editor.inspect.setter_option.table.column_type.percent": "Ποσοστό",
     "editor.inspect.setter_option.table.column_type.link": "Σύνδεσμος",
