@@ -3228,6 +3228,7 @@
     "billing.message.no_traffic": "Pas assez de trafic. Veuillez contacter l'administrateur pour augmenter Colla.",
     "billing.message.no_storage": "Espace de stockage insuffisant. Veuillez contacter l'administrateur pour augmenter Colla.",
     "billing.message.no_token": "Jeton insuffisant. Veuillez contacter l'administrateur pour augmenter Colla.",
+    "billing.message.in_subscription_can_not_delete": "Pour éviter des frais supplémentaires, veuillez annuler votre abonnement avant de supprimer l'équipe.",
     "billing.modal.colla_insufficient_modal.storage.title": "Espace de stockage insuffisant",
     "billing.modal.colla_insufficient_modal.storage.desc.1": "Votre stockage est insuffisant. Veuillez vous abonner à Colla ou ajouter Colla pour augmenter votre stockage.",
     "billing.modal.colla_insufficient_modal.storage.desc.2": "Après s'être abonné à Colla, votre Colla peut être utilisé pour augmenter le stockage, augmenter le trafic, et le jeton d'amélioration, qui seront automatiquement alloués en fonction de vos besoins.",
