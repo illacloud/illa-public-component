@@ -87,7 +87,6 @@ export function getInitialAgentContent(agent: Agent): BaseAiAgentActionContent {
     variables: agent.variables,
     input: "",
     modelConfig: {
-      maxTokens: agent.modelConfig.maxTokens,
       stream: false,
     },
   }
