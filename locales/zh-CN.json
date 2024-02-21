@@ -1926,7 +1926,7 @@
     "editor.inspect.setter_option.table.column_type.date": "日期",
     "editor.inspect.setter_option.table.column_type.tag": "标签",
     "editor.inspect.setter_option.table.column_type.time": "时间",
-    "editor.inspect.setter_option.table.column_type.datetime": "时间",
+    "editor.inspect.setter_option.table.column_type.datetime": "日期时间",
     "editor.inspect.setter_option.table.column_type.number": "数字",
     "editor.inspect.setter_option.table.column_type.percent": "百分比",
     "editor.inspect.setter_option.table.column_type.link": "链接",
