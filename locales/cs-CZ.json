@@ -1926,7 +1926,7 @@
     "editor.inspect.setter_option.table.column_type.date": "Datum:",
     "editor.inspect.setter_option.table.column_type.tag": "Značka",
     "editor.inspect.setter_option.table.column_type.time": "Čas",
-    "editor.inspect.setter_option.table.column_type.datetime": "Čas",
+    "editor.inspect.setter_option.table.column_type.datetime": "Date time",
     "editor.inspect.setter_option.table.column_type.number": "Číslo",
     "editor.inspect.setter_option.table.column_type.percent": "Procento",
     "editor.inspect.setter_option.table.column_type.link": "Odkaz",
