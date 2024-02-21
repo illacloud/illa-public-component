@@ -31,6 +31,4 @@ export interface LLM {
   name: string
   logo: ReactNode
   value: AI_AGENT_MODEL
-  limit: number
-  temperatureRange: [number, number]
 }
