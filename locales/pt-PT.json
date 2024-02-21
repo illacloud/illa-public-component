@@ -3228,6 +3228,7 @@
     "billing.message.no_traffic": "Tráfego insuficiente. Por favor, contate o administrador para aumentar a Colla.",
     "billing.message.no_storage": "Armazenamento insuficiente. Por favor, contate o administrador para aumentar a Colla.",
     "billing.message.no_token": "Token insuficiente. Por favor, contate o administrador para aumentar a Colla.",
+    "billing.message.in_subscription_can_not_delete": "Para evitar a cobrança de custos adicionais, cancele sua assinatura antes de excluir a equipe.",
     "billing.modal.colla_insufficient_modal.storage.title": "Armazenamento insuficiente",
     "billing.modal.colla_insufficient_modal.storage.desc.1": "Seu armazenamento é insuficiente. Por favor, inscreva-se em Colla ou adicione Colla para aumentar seu armazenamento.",
     "billing.modal.colla_insufficient_modal.storage.desc.2": "Após se inscrever no Colla, sua Colla pode ser utilizada para aumentar o armazenamento, aumentar o tráfego, e token de aumento, que será automaticamente alocado com base em suas necessidades.",
