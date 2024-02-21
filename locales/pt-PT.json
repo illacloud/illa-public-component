@@ -1926,7 +1926,7 @@
     "editor.inspect.setter_option.table.column_type.date": "Encontro",
     "editor.inspect.setter_option.table.column_type.tag": "Etiqueta",
     "editor.inspect.setter_option.table.column_type.time": "Horário",
-    "editor.inspect.setter_option.table.column_type.datetime": "Horário",
+    "editor.inspect.setter_option.table.column_type.datetime": "Date time",
     "editor.inspect.setter_option.table.column_type.number": "numero",
     "editor.inspect.setter_option.table.column_type.percent": "Porcentagem",
     "editor.inspect.setter_option.table.column_type.link": "Vincular",
