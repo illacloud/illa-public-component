@@ -1926,7 +1926,7 @@
     "editor.inspect.setter_option.table.column_type.date": "Data",
     "editor.inspect.setter_option.table.column_type.tag": "Etichetă",
     "editor.inspect.setter_option.table.column_type.time": "Timp",
-    "editor.inspect.setter_option.table.column_type.datetime": "Timp",
+    "editor.inspect.setter_option.table.column_type.datetime": "Date time",
     "editor.inspect.setter_option.table.column_type.number": "Număr",
     "editor.inspect.setter_option.table.column_type.percent": "Procent",
     "editor.inspect.setter_option.table.column_type.link": "Link-ul",
