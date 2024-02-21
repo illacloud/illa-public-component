@@ -3228,6 +3228,7 @@
     "billing.message.no_traffic": "Nedostatečný provoz. Obraťte se na správce, abyste zvýšili Kolu.",
     "billing.message.no_storage": "Nedostatek úložiště. Obraťte se na správce pro zvýšení Colla.",
     "billing.message.no_token": "Nedostatek tokenu. Obraťte se na správce pro zvýšení Colla.",
+    "billing.message.in_subscription_can_not_delete": "Chcete-li se vyhnout dalším poplatkům, zrušte prosím své předplatné před smazáním týmu.",
     "billing.modal.colla_insufficient_modal.storage.title": "Nedostatek úložiště",
     "billing.modal.colla_insufficient_modal.storage.desc.1": "Vaše úložiště je nedostatečné. Přihlaste se k odběru Colla nebo přidejte Colla pro zvýšení vašeho úložiště.",
     "billing.modal.colla_insufficient_modal.storage.desc.2": "Po přihlášení do Colly lze vaše Colla využít k rozšíření úložiště, zvýšení provozu, a rozšiřující token, který bude automaticky přidělen na základě vašich potřeb.",
