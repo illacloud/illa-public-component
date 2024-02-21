@@ -1926,7 +1926,7 @@
     "editor.inspect.setter_option.table.column_type.date": "Date",
     "editor.inspect.setter_option.table.column_type.tag": "Tag",
     "editor.inspect.setter_option.table.column_type.time": "시간",
-    "editor.inspect.setter_option.table.column_type.datetime": "Date time",
+    "editor.inspect.setter_option.table.column_type.datetime": "Time",
     "editor.inspect.setter_option.table.column_type.number": "Number",
     "editor.inspect.setter_option.table.column_type.percent": "Percent",
     "editor.inspect.setter_option.table.column_type.link": "Link",
