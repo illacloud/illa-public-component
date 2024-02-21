@@ -3228,6 +3228,7 @@
     "billing.message.no_traffic": "Utilstrækkelig trafik. Kontakt venligst administratoren for at øge Colla.",
     "billing.message.no_storage": "Utilstrækkelig lagerplads. Kontakt venligst administratoren for at øge Colla.",
     "billing.message.no_token": "Utilstrækkelig token. Kontakt venligst administratoren for at øge Colla.",
+    "billing.message.in_subscription_can_not_delete": "For at undgå yderligere gebyrer bedes du annullere dit abonnement, før du sletter teamet.",
     "billing.modal.colla_insufficient_modal.storage.title": "Utilstrækkelig lagerplads",
     "billing.modal.colla_insufficient_modal.storage.desc.1": "Din lagerplads er utilstrækkelig. Abonnér venligst på Colla eller tilføj Colla for at øge din lagerplads.",
     "billing.modal.colla_insufficient_modal.storage.desc.2": "Når du har abonneret på Colla, kan din Colla bruges til at øge lagerpladsen, øge trafikken, og augment token, som automatisk vil blive allokeret baseret på dine behov.",
