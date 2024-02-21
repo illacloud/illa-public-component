@@ -1926,7 +1926,7 @@
     "editor.inspect.setter_option.table.column_type.date": "Dato",
     "editor.inspect.setter_option.table.column_type.tag": "Mærke",
     "editor.inspect.setter_option.table.column_type.time": "Tid",
-    "editor.inspect.setter_option.table.column_type.datetime": "Dato tid",
+    "editor.inspect.setter_option.table.column_type.datetime": "Tid",
     "editor.inspect.setter_option.table.column_type.number": "Nummer",
     "editor.inspect.setter_option.table.column_type.percent": "Procent",
     "editor.inspect.setter_option.table.column_type.link": "Link",
