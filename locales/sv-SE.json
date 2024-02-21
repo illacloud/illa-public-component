@@ -3228,6 +3228,7 @@
     "billing.message.no_traffic": "Otillräcklig trafik. Kontakta administratören för att öka Colla.",
     "billing.message.no_storage": "Otillräckligt lagringsutrymme. Kontakta administratören för att öka Colla.",
     "billing.message.no_token": "Otillräcklig token. Kontakta administratören för att öka Colla.",
+    "billing.message.in_subscription_can_not_delete": "För att undvika ytterligare avgifter, vänligen avsluta din prenumeration innan du tar bort teamet.",
     "billing.modal.colla_insufficient_modal.storage.title": "Otillräckligt lagringsutrymme",
     "billing.modal.colla_insufficient_modal.storage.desc.1": "Ditt lagringsutrymme är otillräckligt. Vänligen prenumerera på Colla eller lägg till Colla för att öka ditt lagringsutrymme.",
     "billing.modal.colla_insufficient_modal.storage.desc.2": "Efter att du prenumererat på Colla, kan din Colla användas för att öka lagring, öka trafiken, och augment token, som automatiskt tilldelas baserat på dina behov.",
