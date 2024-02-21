@@ -1926,7 +1926,7 @@
     "editor.inspect.setter_option.table.column_type.date": "Data",
     "editor.inspect.setter_option.table.column_type.tag": "Tag",
     "editor.inspect.setter_option.table.column_type.time": "Tempo",
-    "editor.inspect.setter_option.table.column_type.datetime": "Tempo",
+    "editor.inspect.setter_option.table.column_type.datetime": "Date time",
     "editor.inspect.setter_option.table.column_type.number": "Numero",
     "editor.inspect.setter_option.table.column_type.percent": "Percentuale",
     "editor.inspect.setter_option.table.column_type.link": "Link",
