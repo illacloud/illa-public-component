@@ -1926,7 +1926,7 @@
     "editor.inspect.setter_option.table.column_type.date": "Дата",
     "editor.inspect.setter_option.table.column_type.tag": "Тег",
     "editor.inspect.setter_option.table.column_type.time": "Время",
-    "editor.inspect.setter_option.table.column_type.datetime": "Дата и время",
+    "editor.inspect.setter_option.table.column_type.datetime": "Время",
     "editor.inspect.setter_option.table.column_type.number": "Номер",
     "editor.inspect.setter_option.table.column_type.percent": "Процент",
     "editor.inspect.setter_option.table.column_type.link": "Ссылка",
