@@ -1926,7 +1926,7 @@
     "editor.inspect.setter_option.table.column_type.date": "Дата",
     "editor.inspect.setter_option.table.column_type.tag": "Тег",
     "editor.inspect.setter_option.table.column_type.time": "Час",
-    "editor.inspect.setter_option.table.column_type.datetime": "Час",
+    "editor.inspect.setter_option.table.column_type.datetime": "Date time",
     "editor.inspect.setter_option.table.column_type.number": "Номер",
     "editor.inspect.setter_option.table.column_type.percent": "Відсоток",
     "editor.inspect.setter_option.table.column_type.link": "Лінк",
