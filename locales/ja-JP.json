@@ -1926,7 +1926,7 @@
     "editor.inspect.setter_option.table.column_type.date": "日付",
     "editor.inspect.setter_option.table.column_type.tag": "タグ",
     "editor.inspect.setter_option.table.column_type.time": "時間",
-    "editor.inspect.setter_option.table.column_type.datetime": "日時",
+    "editor.inspect.setter_option.table.column_type.datetime": "時刻",
     "editor.inspect.setter_option.table.column_type.number": "数値",
     "editor.inspect.setter_option.table.column_type.percent": "パーセント",
     "editor.inspect.setter_option.table.column_type.link": "リンク",
