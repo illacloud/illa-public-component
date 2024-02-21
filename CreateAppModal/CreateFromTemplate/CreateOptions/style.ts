@@ -14,9 +14,9 @@ export const createOptionsContainerStyle = (
   loading?: boolean,
 ) => {
   const isInModalStyle = css`
-    height: 118px;
+    height: 126px;
     width: 200px;
-    padding: 24px;
+    padding: 28px 24px;
     flex-direction: column;
     text-align: center;
     gap: 8px;
@@ -64,10 +64,11 @@ export const upgradeTagStyle = css`
   border-radius: 0 0 0 16px;
   background-color: ${getColor("white", "09")};
   display: flex;
-  padding: 6px 8px;
+  padding: 4px 8px;
   align-items: center;
   gap: 4px;
   font-size: 12px;
+  line-height: 13px;
 `
 
 export const upgradeIconStyle = css`
