@@ -1926,7 +1926,7 @@
     "editor.inspect.setter_option.table.column_type.date": "Päivämäärä",
     "editor.inspect.setter_option.table.column_type.tag": "Tunniste",
     "editor.inspect.setter_option.table.column_type.time": "Aika",
-    "editor.inspect.setter_option.table.column_type.datetime": "Aika",
+    "editor.inspect.setter_option.table.column_type.datetime": "Date time",
     "editor.inspect.setter_option.table.column_type.number": "Numero",
     "editor.inspect.setter_option.table.column_type.percent": "Prosenttia",
     "editor.inspect.setter_option.table.column_type.link": "Linkki",
