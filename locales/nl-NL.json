@@ -1926,7 +1926,7 @@
     "editor.inspect.setter_option.table.column_type.date": "Datum:",
     "editor.inspect.setter_option.table.column_type.tag": "Tagnaam",
     "editor.inspect.setter_option.table.column_type.time": "Tijd",
-    "editor.inspect.setter_option.table.column_type.datetime": "Datum tijd",
+    "editor.inspect.setter_option.table.column_type.datetime": "Time",
     "editor.inspect.setter_option.table.column_type.number": "Nummer",
     "editor.inspect.setter_option.table.column_type.percent": "Percentage",
     "editor.inspect.setter_option.table.column_type.link": "Koppeling",
