@@ -10,7 +10,7 @@ import { CreateFromTemplateProps } from "./interface"
 import { templateContainerStyle } from "./style"
 
 export const CreateFromTemplateModal: FC<CreateFromTemplateProps> = (props) => {
-  const { closeModal } = props
+  const { closeModal, prevContentNode } = props
   const [loading, setLoading] = useState(false)
   const [templateList, setTemplateList] = useState<ProductMarketApp[]>([])
   const [menuItems, setMenuItems] = useState<string[]>([])
@@ -75,6 +75,7 @@ export const CreateFromTemplateModal: FC<CreateFromTemplateProps> = (props) => {
           {...props}
           loading={loading}
           templateList={templateList}
+          prevContentNode={prevContentNode}
         />
       </div>
     </Modal>,

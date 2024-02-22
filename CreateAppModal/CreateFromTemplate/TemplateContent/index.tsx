@@ -1,13 +1,10 @@
 import { ProductMarketApp } from "@illa-public/market-app"
-import { FC } from "react"
+import { FC, ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 import { Empty } from "@illa-design/react"
 import { CreateLoading } from "../../Loading"
 import AppTemplateCard from "../AppTemplateCard"
-import CreateOptions from "../CreateOptions"
-import { CreateFromTemplateProps } from "../interface"
 import {
-  baseContentContainerStyle,
   contentContainerStyle,
   contentTitleStyle,
   emptyStyle,
@@ -15,36 +12,27 @@ import {
   templateListContainerStyle,
 } from "./style"
 
-interface TemplateContentProps extends CreateFromTemplateProps {
+interface TemplateContentProps {
+  hiddenCreateBlank?: boolean
+  handleForkApp: (appID: string, teamIdentifier?: string) => Promise<void>
+  closeModal?: () => void
   loading: boolean
   templateList: ProductMarketApp[]
+  prevContentNode?: ReactNode
 }
 
 const TemplateContent: FC<TemplateContentProps> = ({
   hiddenCreateBlank = false,
   loading,
   templateList = [],
-  handleCreateBlankApp,
-  handleOpenCreateFromResource,
+  prevContentNode,
   handleForkApp,
   closeModal,
 }) => {
   const { t } = useTranslation()
   return (
     <div css={templateContentContainerStyle}>
-      {!hiddenCreateBlank && (
-        <div css={baseContentContainerStyle}>
-          <span css={contentTitleStyle}>
-            {t("new_dashboard.create_new.create_an_app")}
-          </span>
-          <CreateOptions
-            isInModal
-            handleCreateBlankApp={handleCreateBlankApp}
-            closeModal={closeModal}
-            handleOpenCreateFromResource={handleOpenCreateFromResource}
-          />
-        </div>
-      )}
+      {prevContentNode}
       <div css={contentContainerStyle}>
         {!hiddenCreateBlank && (
           <span css={contentTitleStyle}>
