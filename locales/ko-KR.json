@@ -3228,6 +3228,7 @@
     "billing.message.no_traffic": "Insufficient traffic. Please contact the administrator to increase Colla.",
     "billing.message.no_storage": "Insufficient storage. Please contact the administrator to increase Colla.",
     "billing.message.no_token": "Insufficient token. Please contact the administrator to increase Colla.",
+    "billing.message.in_subscription_can_not_delete": "To avoid incurring further charges, please cancel your subscription before deleting the team.",
     "billing.modal.colla_insufficient_modal.storage.title": "Insufficient storage",
     "billing.modal.colla_insufficient_modal.storage.desc.1": "Your storage is insufficient.  Please subscribe to Colla or add Colla to increase your storage.",
     "billing.modal.colla_insufficient_modal.storage.desc.2": "After subscribing to Colla, your Colla can be utilized to increase storage, boost traffic, and augment token, which will be automatically allocated based on your needs.",

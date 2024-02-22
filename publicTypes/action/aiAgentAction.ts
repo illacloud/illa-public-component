@@ -7,7 +7,6 @@ export interface BaseAiAgentActionContent {
   variables: Params[]
   input: string
   modelConfig: {
-    maxTokens: number
     stream: boolean
   }
 }

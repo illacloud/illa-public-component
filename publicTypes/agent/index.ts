@@ -1,11 +1,8 @@
 import { Params } from ".."
 
 export enum AI_AGENT_MODEL {
-  GPT_3_5_TURBO = 1,
-  GPT_3_5_TURBO_16K = 2,
+  GPT_3_5 = 1,
   GPT_4 = 3,
-  LLAMA_2_CHAT_7B = 9,
-  LLAMA_2_CHAT_13B = 10,
 }
 
 export enum AI_AGENT_TYPE {
@@ -14,8 +11,6 @@ export enum AI_AGENT_TYPE {
 }
 
 export interface AgentAdvanceConfig {
-  temperature: number
-  maxTokens: number
   stream: boolean
 }
 

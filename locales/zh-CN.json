@@ -3228,6 +3228,7 @@
     "billing.message.no_traffic": "流量不足，请联系管理员增加 Colla。",
     "billing.message.no_storage": "存储不足，请联系管理员增加 Colla。",
     "billing.message.no_token": "Token不足，请联系管理员增加 Colla。",
+    "billing.message.in_subscription_can_not_delete": "为了避免引起进一步的费用，请在删除团队之前取消您的订阅。",
     "billing.modal.colla_insufficient_modal.storage.title": "存储空间不足",
     "billing.modal.colla_insufficient_modal.storage.desc.1": "您的存储空间不足。请订阅Colla或添加Colla以增加存储空间。",
     "billing.modal.colla_insufficient_modal.storage.desc.2": "订阅Colla后，您可以利用Colla增加存储空间、增强流量和增加Token，它将根据您的需求自动分配。",
