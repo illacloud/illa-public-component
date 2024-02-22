@@ -1,9 +1,20 @@
-import { CreateFromTemplateProps } from "../interface"
+import { APP_TYPE } from "@illa-public/public-types"
 
-export type CreateOptionsProps = Pick<
-  CreateFromTemplateProps,
-  "closeModal" | "handleCreateBlankApp"
-> & {
-  isInModal?: boolean
-  handleOpenCreateFromResource?: () => void
+export interface ICreateOptionsProps {
+  isInModal: boolean
+  handleCreateBlankApp: (appType: APP_TYPE) => Promise<void>
+  handleOpenCreateFromResource: () => void
+  closeModal?: () => void
+}
+
+export interface ICreateBlankAppProps {
+  isInModal: boolean
+  handleCreateBlankApp: (appType: APP_TYPE) => Promise<void>
+  closeModal?: () => void
+}
+
+export interface ICreateFromDatabaseProps {
+  isInModal: boolean
+  handleOpenCreateFromResource: () => void
+  closeModal?: () => void
 }

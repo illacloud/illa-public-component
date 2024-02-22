@@ -3228,6 +3228,7 @@
     "billing.message.no_traffic": "Unzureichendes Datenvolumen. Bitte kontaktieren Sie den Administrator, um Colla zu erhöhen.",
     "billing.message.no_storage": "Unzureichender Speicherplatz. Bitte kontaktieren Sie den Administrator, um Colla zu erhöhen.",
     "billing.message.no_token": "Unzureichender Token. Bitte kontaktieren Sie den Administrator, um Colla zu erhöhen.",
+    "billing.message.in_subscription_can_not_delete": "Um weitere Kosten zu vermeiden, kündigen Sie bitte Ihr Abonnement ab, bevor Sie das Team löschen.",
     "billing.modal.colla_insufficient_modal.storage.title": "Unzureichender Speicherplatz",
     "billing.modal.colla_insufficient_modal.storage.desc.1": "Ihr Speicherplatz ist nicht ausreichend. Bitte abonnieren Sie Colla oder fügen Sie Colla hinzu, um Ihren Speicherplatz zu erhöhen.",
     "billing.modal.colla_insufficient_modal.storage.desc.2": "Nach dem Abonnieren von Colla kann Ihr Colla verwendet werden, um den Speicherplatz zu erhöhen, den Datenverkehr zu steigern und Token zu verbessern. Diese werden automatisch entsprechend Ihren Bedürfnissen zugewiesen.",
