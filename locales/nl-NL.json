@@ -3465,7 +3465,7 @@
     "new_dashboard.create_new.generate_crud_short": "Aanmaken vanuit database",
     "new_dashboard.create_new.onboarding_cloud": "U hebt met succes de constructie van de\r\nOnboarding app voltooid. Ga door en maak uw eigen app. ",
     "new_dashboard.create_new.create_from_template": "Creëer van template",
-    "new_dashboard.create_new.create_mobile_app": "Create mobile Web app",
+    "new_dashboard.create_new.create_mobile_app": "Create mobile app",
     "new_dashboard.create_from_resource.resource": "Bron",
     "new_dashboard.create_from_resource.table": "Tabel",
     "new_dashboard.create_from_resource.column_name": "Kolomnaam",
