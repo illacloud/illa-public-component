@@ -3465,7 +3465,7 @@
     "new_dashboard.create_new.generate_crud_short": "Δημιουργία από βάση δεδομένων",
     "new_dashboard.create_new.onboarding_cloud": "Έχετε ολοκληρώσει με επιτυχία την κατασκευή της εφαρμογής\r\nOnboarding. Προχωρήστε και δημιουργήστε τη δική σας εφαρμογή. ",
     "new_dashboard.create_new.create_from_template": "Δημιουργία από πρότυπο",
-    "new_dashboard.create_new.create_mobile_app": "Create mobile Web app",
+    "new_dashboard.create_new.create_mobile_app": "Create mobile app",
     "new_dashboard.create_from_resource.resource": "Πόρος",
     "new_dashboard.create_from_resource.table": "Πίνακας",
     "new_dashboard.create_from_resource.column_name": "Όνομα στήλης",
