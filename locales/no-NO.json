@@ -3465,7 +3465,7 @@
     "new_dashboard.create_new.generate_crud_short": "Opprett fra database",
     "new_dashboard.create_new.onboarding_cloud": "Du har fullført byggingen av\r\nOnboarding-appen. Gå videre og lag din egen app. ",
     "new_dashboard.create_new.create_from_template": "Opprett fra mal",
-    "new_dashboard.create_new.create_mobile_app": "Create mobile Web app",
+    "new_dashboard.create_new.create_mobile_app": "Create mobile app",
     "new_dashboard.create_from_resource.resource": "Ressurs",
     "new_dashboard.create_from_resource.table": "Tabell",
     "new_dashboard.create_from_resource.column_name": "Kolonne navn",
