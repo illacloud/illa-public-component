@@ -3465,7 +3465,7 @@
     "new_dashboard.create_new.generate_crud_short": "Vytvořit z databáze",
     "new_dashboard.create_new.onboarding_cloud": "Úspěšně jste dokončili výstavbu\r\nOnboarding aplikace. Pokračujte a vytvořte si vlastní aplikaci. ",
     "new_dashboard.create_new.create_from_template": "Vytvořit ze šablony",
-    "new_dashboard.create_new.create_mobile_app": "Create mobile Web app",
+    "new_dashboard.create_new.create_mobile_app": "Create mobile app",
     "new_dashboard.create_from_resource.resource": "Zdroj",
     "new_dashboard.create_from_resource.table": "Stupeň úvěrové kvality 1",
     "new_dashboard.create_from_resource.column_name": "Název sloupce",
