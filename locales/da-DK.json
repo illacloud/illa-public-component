@@ -3465,7 +3465,7 @@
     "new_dashboard.create_new.generate_crud_short": "Opret fra database",
     "new_dashboard.create_new.onboarding_cloud": "Du har gennemført konstruktionen af\r\nOnboarding-appen. Gå videre og opret din egen app. ",
     "new_dashboard.create_new.create_from_template": "Opret fra skabelon",
-    "new_dashboard.create_new.create_mobile_app": "Create mobile Web app",
+    "new_dashboard.create_new.create_mobile_app": "Create mobile app",
     "new_dashboard.create_from_resource.resource": "Ressource",
     "new_dashboard.create_from_resource.table": "Tabel",
     "new_dashboard.create_from_resource.column_name": "Kolonne navn",
