@@ -136,11 +136,11 @@ export const CreateOptions: FC<ICreateOptionsProps> = (props) => {
         isInModal={isInModal}
         handleCreateBlankApp={handleCreateBlankApp}
       />
-      <CreateMobileBlankApp
+      {/* <CreateMobileBlankApp
         closeModal={closeModal}
         isInModal={isInModal}
         handleCreateBlankApp={handleCreateBlankApp}
-      />
+      /> */}
       <CreateFromDatabase
         closeModal={closeModal}
         isInModal={isInModal}
