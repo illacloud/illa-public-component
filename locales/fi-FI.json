@@ -3465,7 +3465,7 @@
     "new_dashboard.create_new.generate_crud_short": "Luo tietokannasta",
     "new_dashboard.create_new.onboarding_cloud": "Olet suorittanut onnistuneesti\r\nOnboarding -sovelluksen rakentamisen. Mene eteenpäin ja luo oma sovellus. ",
     "new_dashboard.create_new.create_from_template": "Luo mallista",
-    "new_dashboard.create_new.create_mobile_app": "Create mobile Web app",
+    "new_dashboard.create_new.create_mobile_app": "Create mobile app",
     "new_dashboard.create_from_resource.resource": "Resurssi",
     "new_dashboard.create_from_resource.table": "Taulukko",
     "new_dashboard.create_from_resource.column_name": "Sarakkeen nimi",
