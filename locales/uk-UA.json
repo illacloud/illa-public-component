@@ -3465,7 +3465,7 @@
     "new_dashboard.create_new.generate_crud_short": "Створити з бази даних",
     "new_dashboard.create_new.onboarding_cloud": "Ви успішно завершили будівництво\r\nOnboarding для цього додатка. Створіть власний додаток. ",
     "new_dashboard.create_new.create_from_template": "Створити з шаблону",
-    "new_dashboard.create_new.create_mobile_app": "Create mobile Web app",
+    "new_dashboard.create_new.create_mobile_app": "Create mobile app",
     "new_dashboard.create_from_resource.resource": "Ресурси",
     "new_dashboard.create_from_resource.table": "Стіл",
     "new_dashboard.create_from_resource.column_name": "Назва стовпця",
