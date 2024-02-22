@@ -3465,7 +3465,7 @@
     "new_dashboard.create_new.generate_crud_short": "Crear desde base de datos",
     "new_dashboard.create_new.onboarding_cloud": "Has completado con éxito la construcción de la aplicación\r\n. Sigue adelante y crea tu propia aplicación. ",
     "new_dashboard.create_new.create_from_template": "Crear desde plantilla",
-    "new_dashboard.create_new.create_mobile_app": "Create mobile Web app",
+    "new_dashboard.create_new.create_mobile_app": "Create mobile app",
     "new_dashboard.create_from_resource.resource": "Recurso",
     "new_dashboard.create_from_resource.table": "Tabla",
     "new_dashboard.create_from_resource.column_name": "Nombre de columna",
