@@ -3465,7 +3465,7 @@
     "new_dashboard.create_new.generate_crud_short": "Creează din baza de date",
     "new_dashboard.create_new.onboarding_cloud": "Ați finalizat cu succes construcția aplicației\r\nÎnregistrare. Continuați și creați-vă propria aplicație. ",
     "new_dashboard.create_new.create_from_template": "Creați din șablon",
-    "new_dashboard.create_new.create_mobile_app": "Create mobile Web app",
+    "new_dashboard.create_new.create_mobile_app": "Create mobile app",
     "new_dashboard.create_from_resource.resource": "Resursă",
     "new_dashboard.create_from_resource.table": "Tabel",
     "new_dashboard.create_from_resource.column_name": "Numele coloanei",
