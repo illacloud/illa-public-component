@@ -124,6 +124,7 @@
     "flow.editor.event.error.not_reacha": "Odłączone od węzła wyzwalacza więc nieosiągalne",
     "flow.editor.event.error.space": "Istnieją wiodące lub wyczerpujące białe spacje lub inne puste znaki w twoim podaniu, co sprawi, że wynik będzie zawsze prawdziwy.",
     "flow.editor.event.error.cannot_connect_to_main_flow": "Obsługa błędów nie może być podłączona do głównego przepływu wykonania",
+    "flow.editor.event.error.already_error_handler": "Obsługa błędów nie może być podłączona do innych ścieżek wykonania.",
     "flow.editor.event.message.undeploy": "Odrzuć zmiany",
     "flow.editor.event.message.undeploy_desc": "Zmiany nie wejdą w życie w czasie pracy.",
     "flow.editor.event.message.deployed": "Wdrożono pomyślnie",
