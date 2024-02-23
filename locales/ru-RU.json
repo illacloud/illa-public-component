@@ -124,6 +124,7 @@
     "flow.editor.event.error.not_reacha": "Отключено от триггера поэтому недоступно",
     "flow.editor.event.error.space": "В вводе есть пробелы или пробелы в концах или другие пустые символы, что приведет к тому, что результат будет всегда истинным.",
     "flow.editor.event.error.cannot_connect_to_main_flow": "Обработчик ошибок не может быть подключен к основному потоку выполнения",
+    "flow.editor.event.error.already_error_handler": "Обработчик ошибок не может быть подключен к другим путям выполнения.",
     "flow.editor.event.message.undeploy": "Отключать изменения",
     "flow.editor.event.message.undeploy_desc": "Изменения не вступят в силу во время работы потока.",
     "flow.editor.event.message.deployed": "Успешно развернуто",

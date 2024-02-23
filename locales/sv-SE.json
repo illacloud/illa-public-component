@@ -124,6 +124,7 @@
     "flow.editor.event.error.not_reacha": "Frånkopplad från utlösarnoden kan därför inte nås",
     "flow.editor.event.error.space": "Det finns ledande eller efterföljande vita mellanslag eller andra tomma tecken i din inmatning som kommer att göra resultatet alltid sant.",
     "flow.editor.event.error.cannot_connect_to_main_flow": "En felhanterare kan inte anslutas till huvudflödet för körning",
+    "flow.editor.event.error.already_error_handler": "En felhanterare kan inte anslutas till andra körvägar.",
     "flow.editor.event.message.undeploy": "Ej distribuera ändringar",
     "flow.editor.event.message.undeploy_desc": "Förändringarna kommer inte att träda i kraft under körtiden i flödet.",
     "flow.editor.event.message.deployed": "Utplacerad framgångsrikt",

@@ -124,6 +124,7 @@
     "flow.editor.event.error.not_reacha": "Αποσυνδέθηκε από τον κόμβο ενεργοποίησης ως εκ τούτου μη προσβάσιμο",
     "flow.editor.event.error.space": "Υπάρχουν αρχικά ή καταληκτικά κενά κενά ή άλλοι άδειοι χαρακτήρες στην είσοδό σας που θα προκαλέσουν το αποτέλεσμα να είναι πάντα αληθές.",
     "flow.editor.event.error.cannot_connect_to_main_flow": "Ένας χειριστής σφαλμάτων δεν μπορεί να συνδεθεί με την κύρια ροή εκτέλεσης",
+    "flow.editor.event.error.already_error_handler": "Ένας χειριστής σφαλμάτων δεν μπορεί να συνδεθεί με άλλες διαδρομές εκτέλεσης.",
     "flow.editor.event.message.undeploy": "Κατάργηση ανάπτυξης αλλαγών",
     "flow.editor.event.message.undeploy_desc": "Οι αλλαγές δεν θα τεθούν σε ισχύ κατά τη διάρκεια εκτέλεσης της ροής.",
     "flow.editor.event.message.deployed": "Επιτυχής ανάπτυξη",

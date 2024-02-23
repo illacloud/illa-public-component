@@ -124,6 +124,7 @@
     "flow.editor.event.error.not_reacha": "Disconnected from trigger node therefore unreachable",
     "flow.editor.event.error.space": "There are leading or trailing white spaces or other empty characters in your input which will cause the result to be always true.",
     "flow.editor.event.error.cannot_connect_to_main_flow": "An error handler cannot be connected to the main execution flow",
+    "flow.editor.event.error.already_error_handler": "An error handler cannot be connected to other execution paths.",
     "flow.editor.event.message.undeploy": "Undeployed changes",
     "flow.editor.event.message.undeploy_desc": "The changes will not take effect when running.",
     "flow.editor.event.message.deployed": "Deployed successfully",

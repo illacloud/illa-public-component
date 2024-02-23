@@ -124,6 +124,7 @@
     "flow.editor.event.error.not_reacha": "Verbinding met trigger node is daarom onbereikbaar",
     "flow.editor.event.error.space": "Er zijn voor- of achterliggende witte spaties of andere lege tekens in uw invoer die ervoor zorgen dat het resultaat altijd waar zal zijn.",
     "flow.editor.event.error.cannot_connect_to_main_flow": "Een error handler kan niet worden aangesloten op de hoofduitvoeringsstroom",
+    "flow.editor.event.error.already_error_handler": "Een error handler kan niet worden aangesloten op een ander uitvoeringspaden.",
     "flow.editor.event.message.undeploy": "Wijzigingen ongedaan maken",
     "flow.editor.event.message.undeploy_desc": "De wijzigingen zullen niet van kracht zijn tijdens de runtime in de stroom.",
     "flow.editor.event.message.deployed": "Succesvol geïnstalleerd",
