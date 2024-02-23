@@ -124,6 +124,7 @@
     "flow.editor.event.error.not_reacha": "Disconnesso dal nodo trigger quindi irraggiungibile",
     "flow.editor.event.error.space": "Ci sono spazi bianchi iniziali o finali o altri caratteri vuoti nel tuo input che faranno sì che il risultato sia sempre vero.",
     "flow.editor.event.error.cannot_connect_to_main_flow": "Un gestore di errori non può essere collegato al flusso di esecuzione principale",
+    "flow.editor.event.error.already_error_handler": "Un gestore di errori non può essere collegato ad altri percorsi di esecuzione.",
     "flow.editor.event.message.undeploy": "Annulla le modifiche",
     "flow.editor.event.message.undeploy_desc": "Le modifiche non avranno effetto durante il runtime nel flusso.",
     "flow.editor.event.message.deployed": "Dispiegato con successo",

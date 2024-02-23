@@ -124,6 +124,7 @@
     "flow.editor.event.error.not_reacha": "Keine Verbindung zum Triggerknoten erreichbar",
     "flow.editor.event.error.space": "Es gibt Leerzeichen oder andere leere Zeichen in Ihrer Eingabe, die dazu führen, dass das Ergebnis immer wahr ist.",
     "flow.editor.event.error.cannot_connect_to_main_flow": "Ein Fehlerbehandler kann nicht mit dem Hauptausführungsfluss verbunden werden",
+    "flow.editor.event.error.already_error_handler": "Ein Fehlerbehandler kann nicht mit anderen Ausführungspfaden verbunden werden.",
     "flow.editor.event.message.undeploy": "Änderungen deinstallieren",
     "flow.editor.event.message.undeploy_desc": "Die Änderungen werden während der Laufzeit im Fluss nicht wirksam.",
     "flow.editor.event.message.deployed": "Erfolgreich verteilt",

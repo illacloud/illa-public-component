@@ -124,6 +124,7 @@
     "flow.editor.event.error.not_reacha": "Desconectado do nó de gatilho por isso inacessível",
     "flow.editor.event.error.space": "Há a liderar ou a seguir espaços brancos ou outros caracteres vazios em sua entrada, o que fará com que o resultado seja sempre verdadeiro.",
     "flow.editor.event.error.cannot_connect_to_main_flow": "Um manipulador de erro não pode ser conectado ao fluxo de execução principal",
+    "flow.editor.event.error.already_error_handler": "Um manipulador de erro não pode ser conectado a outros caminhos de execução.",
     "flow.editor.event.message.undeploy": "Desimplantar mudanças",
     "flow.editor.event.message.undeploy_desc": "As alterações não terão efeito durante o tempo de execução no fluxo.",
     "flow.editor.event.message.deployed": "Implantado com sucesso",

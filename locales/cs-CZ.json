@@ -124,6 +124,7 @@
     "flow.editor.event.error.not_reacha": "Odpojeno od spouštěcího uzlu je proto nedostupné",
     "flow.editor.event.error.space": "There are leading or trailing white spaces or other empty characters in your input which will cause the result to be always true.",
     "flow.editor.event.error.cannot_connect_to_main_flow": "K hlavnímu aktivnímu toku nelze připojit ovladač chyb",
+    "flow.editor.event.error.already_error_handler": "Obsluha chyb nemůže být připojena k jiným cestám spuštění.",
     "flow.editor.event.message.undeploy": "Zrušit nasazení změn",
     "flow.editor.event.message.undeploy_desc": "Změny se neprojeví během provozu v průtoku.",
     "flow.editor.event.message.deployed": "Úspěšně vsazeno",

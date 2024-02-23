@@ -124,6 +124,7 @@
     "flow.editor.event.error.not_reacha": "トリガーノードから切断されたため到達できません",
     "flow.editor.event.error.space": "入力には先頭または末尾の空白または他の空の文字が含まれています。これにより、結果は常に真になります。",
     "flow.editor.event.error.cannot_connect_to_main_flow": "エラーハンドラはメインの実行フローに接続できません",
+    "flow.editor.event.error.already_error_handler": "エラーハンドラは他の実行パスに接続できません。",
     "flow.editor.event.message.undeploy": "変更はデプロイされていません",
     "flow.editor.event.message.undeploy_desc": "変更はフロー内の実行時には反映されません。",
     "flow.editor.event.message.deployed": "デプロイに成功しました",
