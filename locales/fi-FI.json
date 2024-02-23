@@ -124,6 +124,7 @@
     "flow.editor.event.error.not_reacha": "Irrota laukaisusolmusta, joten tavoittamaton",
     "flow.editor.event.error.space": "There are leading or trailing white spaces or other empty characters in your input which will cause the result to be always true.",
     "flow.editor.event.error.cannot_connect_to_main_flow": "Virheen käsittelijää ei voi yhdistää pääasialliseen suorituksen kulkuun",
+    "flow.editor.event.error.already_error_handler": "Virheen käsittelijää ei voi yhdistää muihin suorituksen poluihin.",
     "flow.editor.event.message.undeploy": "Poista muutokset käytöstä",
     "flow.editor.event.message.undeploy_desc": "Muutokset eivät tule voimaan ajon aikana virtauksessa.",
     "flow.editor.event.message.deployed": "Käyttöönotto onnistui",
