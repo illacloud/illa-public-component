@@ -124,6 +124,7 @@
     "flow.editor.event.error.not_reacha": "Deconectat de la nodul de declanșare prin urmare inaccesibil",
     "flow.editor.event.error.space": "There are leading or trailing white spaces or other empty characters in your input which will cause the result to be always true.",
     "flow.editor.event.error.cannot_connect_to_main_flow": "Un gestionar de erori nu poate fi conectat la fluxul principal de execuție",
+    "flow.editor.event.error.already_error_handler": "Un gestionar de erori nu poate fi conectat la alte căi de execuție.",
     "flow.editor.event.message.undeploy": "Modificări nemontate",
     "flow.editor.event.message.undeploy_desc": "Modificările nu vor intra în vigoare în timpul rulării.",
     "flow.editor.event.message.deployed": "Departizat cu succes",
