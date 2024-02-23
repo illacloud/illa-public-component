@@ -124,6 +124,7 @@
     "flow.editor.event.error.not_reacha": "Afbrudt fra udløsningsknude kan derfor ikke nås",
     "flow.editor.event.error.space": "Der er ledende eller afsluttende hvide mellemrum eller andre tomme tegn i dit input, hvilket vil bevirke, at resultatet altid er sandt.",
     "flow.editor.event.error.cannot_connect_to_main_flow": "En fejlhåndtering kan ikke forbindes til hovedkørselsflowet",
+    "flow.editor.event.error.already_error_handler": "En fejlhandler kan ikke forbindes til andre kørselsstier.",
     "flow.editor.event.message.undeploy": "Deaktiver ændringer",
     "flow.editor.event.message.undeploy_desc": "Ændringerne vil ikke træde i kraft under kørslen i flowet.",
     "flow.editor.event.message.deployed": "Implementeret med succes",
