@@ -118,7 +118,7 @@
     "flow.editor.event.type.delay": "Задержка",
     "flow.editor.event.type.log": "Логи",
     "flow.editor.event.type.global_error_handler": "Обработчик глобальных ошибок",
-    "flow.editor.event.type.response": "Ответ на вебхук",
+    "flow.editor.event.type.response": "Response",
     "flow.editor.event.status.running": "Выполняется",
     "flow.editor.event.error.no_input": "Нет входов",
     "flow.editor.event.error.failed": "Не удалось запустить",

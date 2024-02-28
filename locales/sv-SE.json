@@ -118,7 +118,7 @@
     "flow.editor.event.type.delay": "Fördröjning",
     "flow.editor.event.type.log": "Loggar",
     "flow.editor.event.type.global_error_handler": "Global felhanterare",
-    "flow.editor.event.type.response": "Svar på webhook",
+    "flow.editor.event.type.response": "Response",
     "flow.editor.event.status.running": "Körs",
     "flow.editor.event.error.no_input": "Inga ingångar",
     "flow.editor.event.error.failed": "Det gick inte att köra",

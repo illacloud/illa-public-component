@@ -118,7 +118,7 @@
     "flow.editor.event.type.delay": "Viive",
     "flow.editor.event.type.log": "Lokit",
     "flow.editor.event.type.global_error_handler": "Globaali virheiden käsittelijä",
-    "flow.editor.event.type.response": "Vastaa webkoukulle",
+    "flow.editor.event.type.response": "Response",
     "flow.editor.event.status.running": "Käynnissä",
     "flow.editor.event.error.no_input": "Ei syötteitä",
     "flow.editor.event.error.failed": "Ei voitu suorittaa",

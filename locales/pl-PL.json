@@ -118,7 +118,7 @@
     "flow.editor.event.type.delay": "Opóźnienie",
     "flow.editor.event.type.log": "Logi",
     "flow.editor.event.type.global_error_handler": "Globalna obsługa błędów",
-    "flow.editor.event.type.response": "Odpowiedź na webhook",
+    "flow.editor.event.type.response": "Response",
     "flow.editor.event.status.running": "Uruchamianie",
     "flow.editor.event.error.no_input": "Brak danych wejściowych",
     "flow.editor.event.error.failed": "Nie udało się uruchomić",
