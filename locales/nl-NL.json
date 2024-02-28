@@ -118,7 +118,7 @@
     "flow.editor.event.type.delay": "Vertraging",
     "flow.editor.event.type.log": "Logboeken",
     "flow.editor.event.type.global_error_handler": "Globale fouthandeling",
-    "flow.editor.event.type.response": "Reageer op webhook",
+    "flow.editor.event.type.response": "Response",
     "flow.editor.event.status.running": "Lopend",
     "flow.editor.event.error.no_input": "Geen inputs",
     "flow.editor.event.error.failed": "Uitvoeren mislukt",
