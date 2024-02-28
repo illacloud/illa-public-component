@@ -118,7 +118,7 @@
     "flow.editor.event.type.delay": "Retraso",
     "flow.editor.event.type.log": "Registros",
     "flow.editor.event.type.global_error_handler": "Controlador de errores global",
-    "flow.editor.event.type.response": "Respuesta a webhook",
+    "flow.editor.event.type.response": "Response",
     "flow.editor.event.status.running": "Ejecutando",
     "flow.editor.event.error.no_input": "No hay entradas",
     "flow.editor.event.error.failed": "Error al ejecutar",
