@@ -118,7 +118,7 @@
     "flow.editor.event.type.delay": "Forsinkelse",
     "flow.editor.event.type.log": "Logger",
     "flow.editor.event.type.global_error_handler": "Global feilbehandler",
-    "flow.editor.event.type.response": "Svar på webhook",
+    "flow.editor.event.type.response": "Response",
     "flow.editor.event.status.running": "Kjører",
     "flow.editor.event.error.no_input": "Ingen inndata",
     "flow.editor.event.error.failed": "Kunne ikke kjøre",
