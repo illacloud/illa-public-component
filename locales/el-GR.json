@@ -118,7 +118,7 @@
     "flow.editor.event.type.delay": "Καθυστέρηση",
     "flow.editor.event.type.log": "Καταγραφή",
     "flow.editor.event.type.global_error_handler": "Γενικός χειριστής σφαλμάτων",
-    "flow.editor.event.type.response": "Απάντηση στο webhook",
+    "flow.editor.event.type.response": "Response",
     "flow.editor.event.status.running": "Εκτελείται",
     "flow.editor.event.error.no_input": "Καμία είσοδος",
     "flow.editor.event.error.failed": "Αποτυχία εκτέλεσης",
