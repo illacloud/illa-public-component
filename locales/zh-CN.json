@@ -118,7 +118,7 @@
     "flow.editor.event.type.delay": "延迟",
     "flow.editor.event.type.log": "日志",
     "flow.editor.event.type.global_error_handler": "全局错误处理器",
-    "flow.editor.event.type.response": "Webhook响应数据",
+    "flow.editor.event.type.response": "响应",
     "flow.editor.event.status.running": "正在运行",
     "flow.editor.event.error.no_input": "没有输入",
     "flow.editor.event.error.failed": "运行失败",
