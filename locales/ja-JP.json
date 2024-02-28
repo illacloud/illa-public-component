@@ -118,7 +118,7 @@
     "flow.editor.event.type.delay": "遅延",
     "flow.editor.event.type.log": "ログ",
     "flow.editor.event.type.global_error_handler": "Global error handler",
-    "flow.editor.event.type.response": "Webhookへの応答",
+    "flow.editor.event.type.response": "応答",
     "flow.editor.event.status.running": "実行中",
     "flow.editor.event.error.no_input": "入力なし",
     "flow.editor.event.error.failed": "実行に失敗しました",

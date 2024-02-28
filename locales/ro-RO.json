@@ -118,7 +118,7 @@
     "flow.editor.event.type.delay": "Întârziere",
     "flow.editor.event.type.log": "Jurnale",
     "flow.editor.event.type.global_error_handler": "Gestionar de erori globale",
-    "flow.editor.event.type.response": "Răspuns la webhook",
+    "flow.editor.event.type.response": "Response",
     "flow.editor.event.status.running": "Rulează",
     "flow.editor.event.error.no_input": "Nici o intrare",
     "flow.editor.event.error.failed": "Eșec la rulare",
