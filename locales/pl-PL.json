@@ -2312,6 +2312,7 @@
     "editor.ai-agent.group.advanced_settings": "Ustawienia zaawansowane",
     "editor.ai-agent.group.information": "Podstawowe informacje",
     "editor.ai-agent.doc": "Doc",
+    "editor.ai-agent.copy_code": "Kopiuj kod",
     "editor.common.required": "Wymagane",
     "editor.runManually.fail": "Failed to run",
     "exit_preview": "Wyjdź z podglądu",
