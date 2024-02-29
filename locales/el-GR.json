@@ -2312,6 +2312,7 @@
     "editor.ai-agent.group.advanced_settings": "Ρυθμίσεις για προχωρημένους",
     "editor.ai-agent.group.information": "Βασικές πληροφορίες",
     "editor.ai-agent.doc": "Έγγραφο",
+    "editor.ai-agent.copy_code": "Αντιγραφή κώδικα",
     "editor.common.required": "Απαιτείται",
     "editor.runManually.fail": "Failed to run",
     "exit_preview": "Έξοδος Προεπισκόπησης",
