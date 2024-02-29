@@ -2312,6 +2312,7 @@
     "editor.ai-agent.group.advanced_settings": "高度な設定",
     "editor.ai-agent.group.information": "基本情報",
     "editor.ai-agent.doc": "ドキュメント",
+    "editor.ai-agent.copy_code": "コードをコピー",
     "editor.common.required": "必須",
     "editor.runManually.fail": "実行に失敗しました",
     "exit_preview": "プレビューを終了する",
