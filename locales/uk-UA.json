@@ -2312,6 +2312,7 @@
     "editor.ai-agent.group.advanced_settings": "Розширені налаштування",
     "editor.ai-agent.group.information": "Основна інформація",
     "editor.ai-agent.doc": "Доки",
+    "editor.ai-agent.copy_code": "Копіювати код",
     "editor.common.required": "Обов'язково",
     "editor.runManually.fail": "Failed to run",
     "exit_preview": "Вийти з режиму перегляду",
