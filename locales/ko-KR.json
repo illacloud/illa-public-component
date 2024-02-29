@@ -2312,6 +2312,7 @@
     "editor.ai-agent.group.advanced_settings": "Advanced settings",
     "editor.ai-agent.group.information": "Basic information",
     "editor.ai-agent.doc": "문서",
+    "editor.ai-agent.copy_code": "Copy code",
     "editor.common.required": "필수",
     "editor.runManually.fail": "Failed to run",
     "exit_preview": "미리보기 종료",
