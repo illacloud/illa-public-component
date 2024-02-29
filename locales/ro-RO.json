@@ -2312,6 +2312,7 @@
     "editor.ai-agent.group.advanced_settings": "Setări avansate",
     "editor.ai-agent.group.information": "Informatii de baza",
     "editor.ai-agent.doc": "Document",
+    "editor.ai-agent.copy_code": "Copiază codul",
     "editor.common.required": "Necesar",
     "editor.runManually.fail": "Execuție eșuată",
     "exit_preview": "Ieșiți din previzualizare",
