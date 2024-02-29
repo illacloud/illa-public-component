@@ -14,6 +14,12 @@ export interface AgentAdvanceConfig {
   stream: boolean
 }
 
+export interface KnowledgeFile {
+  name: string
+  type: string
+  value?: string
+}
+
 export interface AgentRaw {
   name: string
   agentType: AI_AGENT_TYPE
@@ -23,6 +29,7 @@ export interface AgentRaw {
   modelConfig: AgentAdvanceConfig
   icon: string
   description: string
+  knowledge: KnowledgeFile[]
 }
 
 export interface AgentEditor {
