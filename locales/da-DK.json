@@ -2312,6 +2312,7 @@
     "editor.ai-agent.group.advanced_settings": "Avancerede indstillinger",
     "editor.ai-agent.group.information": "Grundlæggende oplysninger",
     "editor.ai-agent.doc": "Doc",
+    "editor.ai-agent.copy_code": "Kopier kode",
     "editor.common.required": "Påkrævet",
     "editor.runManually.fail": "Failed to run",
     "exit_preview": "Afslut Forhåndsvisning",
