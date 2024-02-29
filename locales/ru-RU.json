@@ -2312,6 +2312,7 @@
     "editor.ai-agent.group.advanced_settings": "Расширенные настройки",
     "editor.ai-agent.group.information": "Основная информация",
     "editor.ai-agent.doc": "Дакк",
+    "editor.ai-agent.copy_code": "Копировать код",
     "editor.common.required": "Требуется",
     "editor.runManually.fail": "Failed to run",
     "exit_preview": "Выйти из предпросмотра",
