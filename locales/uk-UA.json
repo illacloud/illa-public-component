@@ -1126,6 +1126,8 @@
     "editor.inspect.setter_content.widget_action_type_name.closeScanner": "Закрити сканер",
     "editor.inspect.setter_content.widget_action_type_name.DragOrClickNoEventArea": "Перетягніть або натисніть кнопку відсутності ділянки подій",
     "editor.inspect.setter_content.widget_action_type_name.invalid": "Недійсний",
+    "editor.inspect.setter_content.widget_action_type_name.success": "Успіх",
+    "editor.inspect.setter_content.widget_action_type_name.fail": "Не вдалося",
     "editor.inspect.setter_default_value.fill": "Заливка рядка",
     "editor.inspect.setter_default_value.message_type.error": "Помилка",
     "editor.inspect.setter_default_value.message_type.info": "Інформація",
