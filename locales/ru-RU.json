@@ -1126,6 +1126,8 @@
     "editor.inspect.setter_content.widget_action_type_name.closeScanner": "Закрыть сканер",
     "editor.inspect.setter_content.widget_action_type_name.DragOrClickNoEventArea": "Перетащите или не кликните по области событий",
     "editor.inspect.setter_content.widget_action_type_name.invalid": "Некорректный",
+    "editor.inspect.setter_content.widget_action_type_name.success": "Успешно",
+    "editor.inspect.setter_content.widget_action_type_name.fail": "Неудачный",
     "editor.inspect.setter_default_value.fill": "Заполнить",
     "editor.inspect.setter_default_value.message_type.error": "Ошибка",
     "editor.inspect.setter_default_value.message_type.info": "Инфо",
