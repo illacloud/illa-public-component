@@ -1126,6 +1126,8 @@
     "editor.inspect.setter_content.widget_action_type_name.closeScanner": "Închide scanerul",
     "editor.inspect.setter_content.widget_action_type_name.DragOrClickNoEventArea": "Trage sau fă clic pe zona de eveniment",
     "editor.inspect.setter_content.widget_action_type_name.invalid": "Nevalid",
+    "editor.inspect.setter_content.widget_action_type_name.success": "Succes",
+    "editor.inspect.setter_content.widget_action_type_name.fail": "Eșuat",
     "editor.inspect.setter_default_value.fill": "Completează",
     "editor.inspect.setter_default_value.message_type.error": "Eroare",
     "editor.inspect.setter_default_value.message_type.info": "Info",
