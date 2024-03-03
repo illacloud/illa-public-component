@@ -1126,6 +1126,8 @@
     "editor.inspect.setter_content.widget_action_type_name.closeScanner": "スキャナーを閉じる",
     "editor.inspect.setter_content.widget_action_type_name.DragOrClickNoEventArea": "イベントエリアをドラッグまたはクリックしない",
     "editor.inspect.setter_content.widget_action_type_name.invalid": "無効",
+    "editor.inspect.setter_content.widget_action_type_name.success": "成功",
+    "editor.inspect.setter_content.widget_action_type_name.fail": "失敗しました",
     "editor.inspect.setter_default_value.fill": "フィル",
     "editor.inspect.setter_default_value.message_type.error": "エラー",
     "editor.inspect.setter_default_value.message_type.info": "情報",
