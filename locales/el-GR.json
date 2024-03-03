@@ -1126,6 +1126,8 @@
     "editor.inspect.setter_content.widget_action_type_name.closeScanner": "Κλείσιμο σαρωτή",
     "editor.inspect.setter_content.widget_action_type_name.DragOrClickNoEventArea": "Σύρετε ή μην κάνετε κλικ στην περιοχή γεγονότων",
     "editor.inspect.setter_content.widget_action_type_name.invalid": "Μη Έγκυρο",
+    "editor.inspect.setter_content.widget_action_type_name.success": "Επιτυχία",
+    "editor.inspect.setter_content.widget_action_type_name.fail": "Απέτυχε",
     "editor.inspect.setter_default_value.fill": "Γέμισμα",
     "editor.inspect.setter_default_value.message_type.error": "Σφάλμα",
     "editor.inspect.setter_default_value.message_type.info": "Πληροφορίες",
