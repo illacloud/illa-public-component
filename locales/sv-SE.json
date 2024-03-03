@@ -1126,6 +1126,8 @@
     "editor.inspect.setter_content.widget_action_type_name.closeScanner": "Stäng scanner",
     "editor.inspect.setter_content.widget_action_type_name.DragOrClickNoEventArea": "Dra eller klicka på inget händelseområde",
     "editor.inspect.setter_content.widget_action_type_name.invalid": "Ogiltig",
+    "editor.inspect.setter_content.widget_action_type_name.success": "Klart",
+    "editor.inspect.setter_content.widget_action_type_name.fail": "Misslyckades",
     "editor.inspect.setter_default_value.fill": "Fyll",
     "editor.inspect.setter_default_value.message_type.error": "Fel",
     "editor.inspect.setter_default_value.message_type.info": "Information",
