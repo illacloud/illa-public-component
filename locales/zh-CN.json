@@ -1126,6 +1126,8 @@
     "editor.inspect.setter_content.widget_action_type_name.closeScanner": "关闭扫描器",
     "editor.inspect.setter_content.widget_action_type_name.DragOrClickNoEventArea": "拖动或单击无事件区域",
     "editor.inspect.setter_content.widget_action_type_name.invalid": "无效",
+    "editor.inspect.setter_content.widget_action_type_name.success": "成功",
+    "editor.inspect.setter_content.widget_action_type_name.fail": "失败",
     "editor.inspect.setter_default_value.fill": "填充",
     "editor.inspect.setter_default_value.message_type.error": "错误",
     "editor.inspect.setter_default_value.message_type.info": "信息",
