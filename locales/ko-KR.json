@@ -240,7 +240,7 @@
     "dashboard.message.please_use_a_file_wi": "Please use a file with a size not exceeding 20MB.",
     "dashboard.message.no_usable_text_conte": "No usable text content was detected.",
     "dashboard.message.support_for_up_to_10": "Support for up to 10 files at most.",
-    "dashboard.message.support_for_uploadin": "Support for uploading files (up to 10, each 10MB maximum). Allowed file formats include pdf, xlsx, csv, mdx, doc, txt, etc.",
+    "dashboard.message.support_for_uploadin": "Support for uploading files (up to 10, each 20MB maximum). Allowed file formats include pdf, xlsx, csv, mdx, doc, txt, etc.",
     "dashboard.create": "창조하다",
     "dashboard.pwa.guide.title": "Add ILLA Cloud to your desktop",
     "dashboard.pwa.guide.desc": "Add to your desktop to access to your workspace quickly. Boost your efficiency. ",
