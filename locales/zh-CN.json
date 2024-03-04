@@ -2312,6 +2312,7 @@
     "editor.ai-agent.group.advanced_settings": "高级设置",
     "editor.ai-agent.group.information": "基本信息",
     "editor.ai-agent.doc": "文档",
+    "editor.ai-agent.copy_code": "复制代码",
     "editor.common.required": "是否必填",
     "editor.runManually.fail": "运行失败",
     "exit_preview": "退出预览",

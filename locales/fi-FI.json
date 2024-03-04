@@ -2312,6 +2312,7 @@
     "editor.ai-agent.group.advanced_settings": "Edistyneet asetukset",
     "editor.ai-agent.group.information": "Perustiedot",
     "editor.ai-agent.doc": "Doc",
+    "editor.ai-agent.copy_code": "Kopioi koodi",
     "editor.common.required": "Pakollinen",
     "editor.runManually.fail": "Failed to run",
     "exit_preview": "Poistu Esikatselusta",
