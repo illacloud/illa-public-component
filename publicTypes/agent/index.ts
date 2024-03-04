@@ -3,6 +3,11 @@ import { Params } from ".."
 export enum AI_AGENT_MODEL {
   GPT_3_5 = 1,
   GPT_4 = 3,
+  GLM_4 = 12,
+  MISTRAL = 13,
+  MINIMAX = 14,
+  CLAUDE = 15,
+  MOONSHOT = 16,
 }
 
 export enum AI_AGENT_TYPE {
