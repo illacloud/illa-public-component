@@ -1126,6 +1126,8 @@
     "editor.inspect.setter_content.widget_action_type_name.closeScanner": "Sulje skanneri",
     "editor.inspect.setter_content.widget_action_type_name.DragOrClickNoEventArea": "Vedä tai klikkaa ei tapahtuma-aluetta",
     "editor.inspect.setter_content.widget_action_type_name.invalid": "Virheellinen",
+    "editor.inspect.setter_content.widget_action_type_name.success": "Onnistui",
+    "editor.inspect.setter_content.widget_action_type_name.fail": "Epäonnistui",
     "editor.inspect.setter_default_value.fill": "Täytä",
     "editor.inspect.setter_default_value.message_type.error": "Virhe",
     "editor.inspect.setter_default_value.message_type.info": "Tiedot",

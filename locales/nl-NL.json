@@ -1126,6 +1126,8 @@
     "editor.inspect.setter_content.widget_action_type_name.closeScanner": "Sluit scanner",
     "editor.inspect.setter_content.widget_action_type_name.DragOrClickNoEventArea": "Sleep of klik op geen enkel event gebied",
     "editor.inspect.setter_content.widget_action_type_name.invalid": "Ongeldig",
+    "editor.inspect.setter_content.widget_action_type_name.success": "Geslaagd",
+    "editor.inspect.setter_content.widget_action_type_name.fail": "Mislukt",
     "editor.inspect.setter_default_value.fill": "Invullen",
     "editor.inspect.setter_default_value.message_type.error": "Foutmelding",
     "editor.inspect.setter_default_value.message_type.info": "Informatie",

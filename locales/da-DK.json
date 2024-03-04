@@ -1126,6 +1126,8 @@
     "editor.inspect.setter_content.widget_action_type_name.closeScanner": "Luk scanner",
     "editor.inspect.setter_content.widget_action_type_name.DragOrClickNoEventArea": "Træk eller klik intet event område",
     "editor.inspect.setter_content.widget_action_type_name.invalid": "Ugyldig",
+    "editor.inspect.setter_content.widget_action_type_name.success": "Succes",
+    "editor.inspect.setter_content.widget_action_type_name.fail": "Mislykkedes",
     "editor.inspect.setter_default_value.fill": "Udfyld",
     "editor.inspect.setter_default_value.message_type.error": "Fejl",
     "editor.inspect.setter_default_value.message_type.info": "Info",

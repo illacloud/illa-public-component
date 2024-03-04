@@ -1126,6 +1126,8 @@
     "editor.inspect.setter_content.widget_action_type_name.closeScanner": "Zavřít skener",
     "editor.inspect.setter_content.widget_action_type_name.DragOrClickNoEventArea": "Přetáhněte nebo neklepněte na žádnou událost",
     "editor.inspect.setter_content.widget_action_type_name.invalid": "Neplatné",
+    "editor.inspect.setter_content.widget_action_type_name.success": "Úspěšně",
+    "editor.inspect.setter_content.widget_action_type_name.fail": "Selhalo",
     "editor.inspect.setter_default_value.fill": "Vyplnit",
     "editor.inspect.setter_default_value.message_type.error": "Chyba",
     "editor.inspect.setter_default_value.message_type.info": "Info",

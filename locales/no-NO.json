@@ -1126,6 +1126,8 @@
     "editor.inspect.setter_content.widget_action_type_name.closeScanner": "Lukk skanner",
     "editor.inspect.setter_content.widget_action_type_name.DragOrClickNoEventArea": "Dra eller klikk ikke på noe hendelsesområde",
     "editor.inspect.setter_content.widget_action_type_name.invalid": "Ugyldig",
+    "editor.inspect.setter_content.widget_action_type_name.success": "Vellykket",
+    "editor.inspect.setter_content.widget_action_type_name.fail": "Mislyktes",
     "editor.inspect.setter_default_value.fill": "Fyll",
     "editor.inspect.setter_default_value.message_type.error": "Feil",
     "editor.inspect.setter_default_value.message_type.info": "Informasjon",

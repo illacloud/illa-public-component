@@ -1126,6 +1126,8 @@
     "editor.inspect.setter_content.widget_action_type_name.closeScanner": "Fechar scanner",
     "editor.inspect.setter_content.widget_action_type_name.DragOrClickNoEventArea": "Arraste ou clique em nenhuma área de evento",
     "editor.inspect.setter_content.widget_action_type_name.invalid": "Inválido",
+    "editor.inspect.setter_content.widget_action_type_name.success": "Sucesso",
+    "editor.inspect.setter_content.widget_action_type_name.fail": "Falhou",
     "editor.inspect.setter_default_value.fill": "Preencher",
     "editor.inspect.setter_default_value.message_type.error": "ERRO",
     "editor.inspect.setter_default_value.message_type.info": "Informações",
