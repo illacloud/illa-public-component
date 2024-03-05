@@ -241,6 +241,7 @@
     "dashboard.message.no_usable_text_conte": "Nebyl zjištěn žádný použitelný textový obsah.",
     "dashboard.message.support_for_up_to_10": "Podpora maximálně pro 10 souborů.",
     "dashboard.message.support_for_uploadin": "Podpora nahrávání souborů (až 10, každý maximálně 10MB). Povolené formáty souborů zahrnují pdf, xlsx, csv, mdx, doc, txt, atd.",
+    "dashboard.message.bad_file": "Soubor může být poškozen. Prosím nahraďte soubor.",
     "dashboard.create": "Vytvořit",
     "dashboard.pwa.guide.title": "Přidat zástupce do zařízení",
     "dashboard.pwa.guide.desc": "Pro rychlý přístup do pracovního prostoru přidejte zařízení. Zvyšte svou efektivitu. ",
