@@ -1,7 +1,5 @@
 import { AI_AGENT_MODEL } from "@illa-public/public-types"
-import { Image } from "@illa-design/react"
 import ClaudeIcon from "./assets/claude.svg?react"
-import MiniMaxIcon from "./assets/minimax.png"
 import MistralIcon from "./assets/mistral.svg?react"
 import MoonshotIcon from "./assets/moonshot.svg?react"
 import OpenAIIcon from "./assets/openai.svg?react"
@@ -39,13 +37,6 @@ export const premiumModelList: LLM[] = [
     name: "GLM-4",
     value: AI_AGENT_MODEL.GLM_4,
     logo: <ZhipuIcon title="GLM-4" />,
-  },
-  {
-    name: "MiniMax",
-    value: AI_AGENT_MODEL.MINIMAX,
-    logo: (
-      <Image src={MiniMaxIcon} width="100%" height="100%" objectFit="contain" />
-    ),
   },
   {
     name: "Claude",

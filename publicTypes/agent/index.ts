@@ -5,7 +5,6 @@ export enum AI_AGENT_MODEL {
   GPT_4 = 3,
   GLM_4 = 12,
   MISTRAL = 13,
-  MINIMAX = 14,
   CLAUDE = 15,
   MOONSHOT = 16,
 }
