@@ -241,6 +241,7 @@
     "dashboard.message.no_usable_text_conte": "Er is geen bruikbare tekstinhoud gevonden.",
     "dashboard.message.support_for_up_to_10": "Ondersteuning tot maximaal 10 bestanden.",
     "dashboard.message.support_for_uploadin": "Ondersteuning voor het uploaden van bestanden (maximaal 10, elke 10MB per bestandsformaat). Toegestane bestandsformaten zijn pdf, xlsx, csv, mdx, doc, txt, etc.",
+    "dashboard.message.bad_file": "Het bestand kan beschadigd worden. Vervang het bestand.",
     "dashboard.create": "Aanmaken",
     "dashboard.pwa.guide.title": "Voeg ILLA Cloud toe aan je desktop",
     "dashboard.pwa.guide.desc": "Voeg toe aan bureaublad om snel toegang te krijgen tot uw werkruimte. Vergroot uw efficiëntie. ",
