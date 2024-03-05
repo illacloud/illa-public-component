@@ -3336,6 +3336,8 @@
     "billing.modal.change_confirm.title": "Schimbați planul?",
     "billing.modal.change_confirm.button_cancel": "Anulează",
     "billing.modal.change_confirm.button_confirm": "Confirmare",
+    "billing.modal.ai-agent.string1": "Aceasta este o caracteristică avansată pentru echipele Premium. ",
+    "billing.modal.ai-agent.string2": "Faceți upgrade la Premium și obțineți acces la funcții mai avansate. ",
     "billing.homepage.get_access_to_advanc": "Obțineți acces la funcții avansate",
     "billing.homepage.upgrade": "Actualizează",
     "billing.homepage.cancel": "Anulează",
