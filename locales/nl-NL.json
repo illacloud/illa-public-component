@@ -3336,6 +3336,8 @@
     "billing.modal.change_confirm.title": "Abonnement wijzigen?",
     "billing.modal.change_confirm.button_cancel": "annuleren",
     "billing.modal.change_confirm.button_confirm": "Bevestigen",
+    "billing.modal.ai-agent.string1": "Dit is een geavanceerde functie voor Premium teams. ",
+    "billing.modal.ai-agent.string2": "Upgrade naar Premium en krijg toegang tot meer geavanceerde functies. ",
     "billing.homepage.get_access_to_advanc": "Krijg toegang tot geavanceerde functies",
     "billing.homepage.upgrade": "Upgraden",
     "billing.homepage.cancel": "annuleren",

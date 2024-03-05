@@ -3336,6 +3336,8 @@
     "billing.modal.change_confirm.title": "Plan ändern?",
     "billing.modal.change_confirm.button_cancel": "Abbrechen",
     "billing.modal.change_confirm.button_confirm": "Bestätigen",
+    "billing.modal.ai-agent.string1": "Dies ist eine erweiterte Funktion für Premium-Teams. ",
+    "billing.modal.ai-agent.string2": "Upgraden Sie auf Premium und erhalten Sie Zugriff auf erweiterte Funktionen. ",
     "billing.homepage.get_access_to_advanc": "Erhalten Sie Zugriff auf erweiterte Funktionen",
     "billing.homepage.upgrade": "Probiere die kostenlose Version aus",
     "billing.homepage.cancel": "Abbrechen",

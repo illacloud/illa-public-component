@@ -3336,6 +3336,8 @@
     "billing.modal.change_confirm.title": "Змінити план?",
     "billing.modal.change_confirm.button_cancel": "Скасувати",
     "billing.modal.change_confirm.button_confirm": "Підтвердити",
+    "billing.modal.ai-agent.string1": "Це розширена функція для преміум команд. ",
+    "billing.modal.ai-agent.string2": "Оновіться до Premium-підписки та отримайте доступ до більш просунутих функцій. ",
     "billing.homepage.get_access_to_advanc": "Отримати доступ до додаткових функцій",
     "billing.homepage.upgrade": "Апґрейд",
     "billing.homepage.cancel": "Скасувати",
