@@ -3336,6 +3336,8 @@
     "billing.modal.change_confirm.title": "Skift abonnement?",
     "billing.modal.change_confirm.button_cancel": "Annuller",
     "billing.modal.change_confirm.button_confirm": "Bekræft",
+    "billing.modal.ai-agent.string1": "Dette er en avanceret funktion for Premium teams. ",
+    "billing.modal.ai-agent.string2": "Opgrader til Premium og få adgang til mere avancerede funktioner. ",
     "billing.homepage.get_access_to_advanc": "Få adgang til avancerede funktioner",
     "billing.homepage.upgrade": "Opgradér",
     "billing.homepage.cancel": "Annuller",
