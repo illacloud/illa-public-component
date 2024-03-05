@@ -241,6 +241,7 @@
     "dashboard.message.no_usable_text_conte": "使用可能なテキストコンテンツが検出されませんでした。",
     "dashboard.message.support_for_up_to_10": "最大10個までのファイルをサポートします。",
     "dashboard.message.support_for_uploadin": "ファイルのアップロードのサポート (最大 10, 各 20MB まで) 許可されているファイル形式は、pdf、xlsx、csv、mdx、doc、txtなどです。",
+    "dashboard.message.bad_file": "ファイルが破損している可能性があります。ファイルを交換してください。",
     "dashboard.create": "作成",
     "dashboard.pwa.guide.title": "ILLA Cloudをデスクトップに追加",
     "dashboard.pwa.guide.desc": "デスクトップに追加して、ワークスペースに素早くアクセスします。効率を向上させましょう。",
