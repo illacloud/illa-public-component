@@ -241,6 +241,7 @@
     "dashboard.message.no_usable_text_conte": "Не знайдено користувацького текстового вмісту.",
     "dashboard.message.support_for_up_to_10": "Підтримує не більше 10 файлів.",
     "dashboard.message.support_for_uploadin": "Підтримка завантаження файлів (до 10, кожен 10 Мб максимум). Дозволені формати файлів включають pdf, xlsx, csv, mdx, doc, txt, тощо.",
+    "dashboard.message.bad_file": "Файл може бути пошкоджений. Будь ласка, замініть файл.",
     "dashboard.create": "Створити",
     "dashboard.pwa.guide.title": "Додайте ILLA Cloud до свого робочого столу",
     "dashboard.pwa.guide.desc": "Додайте на свій комп'ютер, щоб швидко отримати доступ до робочого простору. Підвищіть свою ефективність. ",

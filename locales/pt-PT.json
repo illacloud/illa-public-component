@@ -241,6 +241,7 @@
     "dashboard.message.no_usable_text_conte": "Nenhum conteúdo de texto utilizável foi detectado.",
     "dashboard.message.support_for_up_to_10": "Suporte para até 10 arquivos, no máximo.",
     "dashboard.message.support_for_uploadin": "Suporte para o upload de arquivos (até 10, cada tamanho máximo de 10MB). Formatos permitidos incluem pdf, xlsx, csv, mdx, doc, txt, etc.",
+    "dashboard.message.bad_file": "O arquivo pode estar danificado. Por favor, substitua o arquivo.",
     "dashboard.create": "Crio",
     "dashboard.pwa.guide.title": "Adicionar ILLA Cloud para sua área de trabalho",
     "dashboard.pwa.guide.desc": "Adicione ao seu computador para acessar o seu espaço de trabalho rapidamente. Aumente a sua eficiência. ",
