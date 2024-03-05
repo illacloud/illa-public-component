@@ -241,6 +241,7 @@
     "dashboard.message.no_usable_text_conte": "Non è stato rilevato alcun contenuto di testo utilizzabile.",
     "dashboard.message.support_for_up_to_10": "Supporto per un massimo di 10 file.",
     "dashboard.message.support_for_uploadin": "Supporto per il caricamento dei file (fino a 10, ogni massimo 10 MB). I formati di file consentiti includono pdf, xlsx, csv, mdx, doc, txt, ecc.",
+    "dashboard.message.bad_file": "Il file potrebbe essere danneggiato. Sostituire il file.",
     "dashboard.create": "Crea",
     "dashboard.pwa.guide.title": "Aggiungi ILLA Cloud al tuo desktop",
     "dashboard.pwa.guide.desc": "Aggiungi al tuo desktop per accedere rapidamente al tuo spazio di lavoro. Migliora la tua efficienza. ",
