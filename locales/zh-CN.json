@@ -3336,6 +3336,8 @@
     "billing.modal.change_confirm.title": "确认更改计划？",
     "billing.modal.change_confirm.button_cancel": "取消",
     "billing.modal.change_confirm.button_confirm": "确认",
+    "billing.modal.ai-agent.string1": "这是为Premium团队提供的功能。 ",
+    "billing.modal.ai-agent.string2": "升级到Premium并获得更高级功能的访问权限。 ",
     "billing.homepage.get_access_to_advanc": "获取高级功能",
     "billing.homepage.upgrade": "升级",
     "billing.homepage.cancel": "取消",
