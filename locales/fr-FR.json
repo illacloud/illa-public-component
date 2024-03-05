@@ -241,6 +241,7 @@
     "dashboard.message.no_usable_text_conte": "Aucun contenu de texte utilisable n'a été détecté.",
     "dashboard.message.support_for_up_to_10": "Prise en charge de jusqu'à 10 fichiers au maximum.",
     "dashboard.message.support_for_uploadin": "Prise en charge du téléchargement de fichiers (jusqu'à 10 Mo au maximum). Les formats de fichiers autorisés incluent pdf, xlsx, csv, mdx, doc, txt, etc.",
+    "dashboard.message.bad_file": "Le fichier peut être endommagé. Veuillez remplacer le fichier.",
     "dashboard.create": "Créer",
     "dashboard.pwa.guide.title": "Ajouter le nuage ILLA à votre bureau",
     "dashboard.pwa.guide.desc": "Ajoutez à votre bureau pour accéder rapidement à votre espace de travail. Boostez votre efficacité. ",

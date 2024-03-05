@@ -241,6 +241,7 @@
     "dashboard.message.no_usable_text_conte": "Δεν ανιχνεύτηκε κανένα χρησιμοποιήσιμο περιεχόμενο κειμένου.",
     "dashboard.message.support_for_up_to_10": "Υποστήριξη για έως και 10 αρχεία το πολύ.",
     "dashboard.message.support_for_uploadin": "Υποστήριξη για το ανέβασμα αρχείων (μέχρι 10, κάθε 10MB το μέγιστο). Επιτρεπόμενες μορφές αρχείων περιλαμβάνουν pdf, xlsx, csv, mdx, doc, txt, κλπ.",
+    "dashboard.message.bad_file": "Το αρχείο μπορεί να είναι κατεστραμμένο. Παρακαλώ αντικαταστήστε το αρχείο.",
     "dashboard.create": "Δημιουργία",
     "dashboard.pwa.guide.title": "Προσθήκη συντόμευσης στη συσκευή σας",
     "dashboard.pwa.guide.desc": "Προσθέστε στη συσκευή σας για να αποκτήσετε πρόσβαση στο χώρο εργασίας σας γρήγορα. ",

@@ -3,6 +3,10 @@ import { Params } from ".."
 export enum AI_AGENT_MODEL {
   GPT_3_5 = 1,
   GPT_4 = 3,
+  GLM_4 = 12,
+  MISTRAL = 13,
+  CLAUDE = 15,
+  MOONSHOT = 16,
 }
 
 export enum AI_AGENT_TYPE {
@@ -14,6 +18,12 @@ export interface AgentAdvanceConfig {
   stream: boolean
 }
 
+export interface KnowledgeFile {
+  name: string
+  type: string
+  value?: string
+}
+
 export interface AgentRaw {
   name: string
   agentType: AI_AGENT_TYPE
@@ -23,6 +33,7 @@ export interface AgentRaw {
   modelConfig: AgentAdvanceConfig
   icon: string
   description: string
+  knowledge: KnowledgeFile[]
 }
 
 export interface AgentEditor {
