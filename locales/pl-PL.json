@@ -3336,6 +3336,8 @@
     "billing.modal.change_confirm.title": "Zmienić plan?",
     "billing.modal.change_confirm.button_cancel": "Anuluj",
     "billing.modal.change_confirm.button_confirm": "Potwierdź",
+    "billing.modal.ai-agent.string1": "To jest zaawansowana funkcja dla drużyn Premium. ",
+    "billing.modal.ai-agent.string2": "Uaktualnij do wersji Premium i uzyskaj dostęp do bardziej zaawansowanych funkcji. ",
     "billing.homepage.get_access_to_advanc": "Uzyskaj dostęp do zaawansowanych funkcji",
     "billing.homepage.upgrade": "Ulepsz",
     "billing.homepage.cancel": "Anuluj",

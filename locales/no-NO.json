@@ -3336,6 +3336,8 @@
     "billing.modal.change_confirm.title": "Endre plan?",
     "billing.modal.change_confirm.button_cancel": "Avbryt",
     "billing.modal.change_confirm.button_confirm": "Bekreft",
+    "billing.modal.ai-agent.string1": "Dette er en avansert funksjon for Premium-lag. ",
+    "billing.modal.ai-agent.string2": "Oppgrader til Premium og få tilgang til mer avanserte funksjoner. ",
     "billing.homepage.get_access_to_advanc": "Få tilgang til avanserte funksjoner",
     "billing.homepage.upgrade": "Oppgrader",
     "billing.homepage.cancel": "Avbryt",

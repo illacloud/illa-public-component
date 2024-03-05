@@ -3336,6 +3336,8 @@
     "billing.modal.change_confirm.title": "Αλλαγή σχεδίου?",
     "billing.modal.change_confirm.button_cancel": "Ακύρωση",
     "billing.modal.change_confirm.button_confirm": "Επιβεβαίωση",
+    "billing.modal.ai-agent.string1": "Αυτή είναι μια προηγμένη λειτουργία για τις Premium ομάδες. ",
+    "billing.modal.ai-agent.string2": "Αναβαθμίστε σε Premium και αποκτήστε πρόσβαση σε πιο προηγμένες λειτουργίες. ",
     "billing.homepage.get_access_to_advanc": "Αποκτήστε πρόσβαση σε προηγμένες λειτουργίες",
     "billing.homepage.upgrade": "Αναβάθμιση",
     "billing.homepage.cancel": "Ακύρωση",
