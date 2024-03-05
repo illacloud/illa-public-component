@@ -3336,6 +3336,8 @@
     "billing.modal.change_confirm.title": "Vaihda suunnitelma?",
     "billing.modal.change_confirm.button_cancel": "Peruuta",
     "billing.modal.change_confirm.button_confirm": "Vahvista",
+    "billing.modal.ai-agent.string1": "Tämä on edistynyt ominaisuus Premium-tiimeille. ",
+    "billing.modal.ai-agent.string2": "Päivitä Premiumiin ja saat käyttöösi kehittyneempiä ominaisuuksia. ",
     "billing.homepage.get_access_to_advanc": "Hanki pääsy kehittyneisiin ominaisuuksiin",
     "billing.homepage.upgrade": "Päivitä",
     "billing.homepage.cancel": "Peruuta",
