@@ -241,6 +241,7 @@
     "dashboard.message.no_usable_text_conte": "Nie wykryto użytecznej zawartości tekstu.",
     "dashboard.message.support_for_up_to_10": "Obsługa maksymalnie 10 plików.",
     "dashboard.message.support_for_uploadin": "Obsługa przesyłania plików (do 10, każdy maksimum 10 MB). Dozwolone formaty plików obejmują pdf, xlsx, csv, mdx, doc, txt, itp.",
+    "dashboard.message.bad_file": "Plik może zostać uszkodzony. Proszę zastąpić plik.",
     "dashboard.create": "Utwórz",
     "dashboard.pwa.guide.title": "Dodaj Chmury ILLA do swojego pulpitu",
     "dashboard.pwa.guide.desc": "Dodaj do swojego pulpitu aby szybko uzyskać dostęp do swojego obszaru roboczego. Zwiększ swoją wydajność. ",
