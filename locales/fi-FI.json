@@ -241,6 +241,7 @@
     "dashboard.message.no_usable_text_conte": "Käytettävissä olevaa tekstin sisältöä ei havaittu.",
     "dashboard.message.support_for_up_to_10": "Tuki enintään 10 tiedostolle",
     "dashboard.message.support_for_uploadin": "Tuki tiedostojen lataamiseen (enintään 10, jokainen enintään 10 Mt). Sallittuja tiedostomuotoja ovat pdf, xlsx, csv, mdx, doc, txt, jne.",
+    "dashboard.message.bad_file": "Tiedosto voi olla vioittunut. Korvaa tiedosto.",
     "dashboard.create": "Luo",
     "dashboard.pwa.guide.title": "Lisää pikakuvake laitteeseesi",
     "dashboard.pwa.guide.desc": "Lisää laitteeseesi, jotta voit käyttää työtilaasi nopeasti. Tehosta tehokkuuttasi. ",
