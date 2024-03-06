@@ -72,6 +72,7 @@ import RateIcon from "./componentIcons/rate.svg?react"
 import RecordingIcon from "./componentIcons/recording.svg?react"
 import RichtextIcon from "./componentIcons/richText.svg?react"
 import SelectIcon from "./componentIcons/select.svg?react"
+import SignatureWidgetIcon from "./componentIcons/signature.svg?react"
 import SliderIcon from "./componentIcons/slider.svg?react"
 import StatisticIcon from "./componentIcons/statistic.svg?react"
 import StepIcon from "./componentIcons/step.svg?react"
@@ -278,6 +279,8 @@ export function getIconFromWidgetType(widgetType: string, size: string) {
       return <QrCodeWidgetIcon width={size} height={size} />
     case "CODE_SCANNER_WIDGET":
       return <CodeScannerWidgetIcon width={size} height={size} />
+    case "SIGNATURE_WIDGET":
+      return <SignatureWidgetIcon width={size} height={size} />
     default:
       return null
   }
