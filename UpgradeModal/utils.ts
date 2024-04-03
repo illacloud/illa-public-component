@@ -5,7 +5,7 @@ import {
   ILLA_MIXPANEL_EVENT_TYPE,
   ILLA_MIXPANEL_PUBLIC_PAGE_NAME,
 } from "@illa-public/mixpanel-utils"
-import { SUBSCRIBE_PLAN } from "@illa-public/public-types"
+import { SUBSCRIBE_PLAN, TeamInfo } from "@illa-public/public-types"
 import { getILLACloudURL, isIllaErrorInterface } from "@illa-public/utils"
 import { createCollarModal, createTeamLimitModal } from "./hook"
 import { CollarModalType, FREE_TEAM_LIMIT_TYPE } from "./interface"
@@ -124,4 +124,32 @@ export const track = (
     user_id: userID ?? "-1",
     parameter11: userType,
   })
+}
+
+export const isSubscribeForUseDrive = (teamInfo: TeamInfo) => {
+  const { appSumoTeamLicense, currentTeamLicense, colla } = teamInfo
+  const subscribeTeamPlans = [
+    SUBSCRIBE_PLAN.TEAM_LICENSE_PLUS,
+    SUBSCRIBE_PLAN.TEAM_LICENSE_PREMIUM,
+    SUBSCRIBE_PLAN.TEAM_LICENSE_ENTERPRISE,
+    SUBSCRIBE_PLAN.TEAM_LICENSE_CANCELED,
+  ]
+  const subscribeCollaPlans = [
+    SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_PAID,
+    SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_CANCELED,
+  ]
+  const subscribeAppsumoPlans = [
+    SUBSCRIBE_PLAN.TEAM_LICENSE_APPSUMO_TIER_1,
+    SUBSCRIBE_PLAN.TEAM_LICENSE_APPSUMO_TIER_2,
+    SUBSCRIBE_PLAN.TEAM_LICENSE_APPSUMO_TIER_3,
+    SUBSCRIBE_PLAN.TEAM_LICENSE_APPSUMO_TIER_4,
+  ]
+  if (
+    subscribeAppsumoPlans.includes(appSumoTeamLicense?.plan) ||
+    subscribeTeamPlans.includes(currentTeamLicense.plan) ||
+    subscribeCollaPlans.includes(colla.plan)
+  ) {
+    return true
+  }
+  return false
 }
