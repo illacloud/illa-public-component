@@ -3294,7 +3294,7 @@
     "billing.modal.sub_suc.the_change_to_the_su": "サブスクリプション期間の変更は次の請求サイクルから有効になります。",
     "billing.modal.sub_suc.got_it": "了解しました",
     "billing.modal.upgrade_now_admin.upgrade_to_plus": "プレミアムにアップグレード",
-    "billing.modal.upgrade_now_admin.this_feature_is_avai": "この機能はプレミアムユーザーのみ利用可能です。ご利用いただくにはプラスにアップグレードしてください。プレミアムにアップグレードすると、以下の機能も利用できます。",
+    "billing.modal.upgrade_now_admin.this_feature_is_avai": "この機能はプレミアムユーザーのみ利用可能です。ご利用いただくにはプレミアムにアップグレードしてください。プレミアムにアップグレードすると、以下の機能も利用できます。",
     "billing.modal.upgrade_now_admin.add_unlimited_viewer": "無制限の閲覧のみメンバーを無料で追加",
     "billing.modal.upgrade_now_admin.publish_public_appli": "公開アプリケーションの公開",
     "billing.modal.upgrade_now_admin.ai_sql_generation": "AI SQL生成",
