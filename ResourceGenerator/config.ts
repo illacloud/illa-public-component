@@ -144,3 +144,11 @@ export const ResourceTypeList = [
     category: "notFind" as const,
   },
 ]
+
+export const WHITE_LIST_IP = [
+  "143.198.75.2",
+  "146.190.51.14",
+  "146.190.35.24",
+  "64.23.134.60",
+  "146.190.59.192",
+]

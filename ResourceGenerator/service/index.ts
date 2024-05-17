@@ -1,5 +1,4 @@
 import { actionRequest, agentRequest } from "@illa-public/illa-net"
-import { notNeedAuthRequest } from "@illa-public/illa-net"
 import { Agent, ResourceContent, ResourceType } from "@illa-public/public-types"
 
 export interface IActionTestConnectionRequestData {
@@ -19,17 +18,6 @@ export const fetchActionTestConnection = (
       teamID,
     },
   )
-}
-
-interface IWhiteListIPResponse {
-  resources: string[]
-}
-
-export const fetchWhiteListIP = async () => {
-  return await notNeedAuthRequest<IWhiteListIPResponse>({
-    url: "https://peripheral-api.illasoft.com/v1/meta",
-    method: "GET",
-  })
 }
 
 export const forkAIAgentToTeam = (teamID: string, aiAgentID: string) => {
