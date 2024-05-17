@@ -3294,7 +3294,7 @@
     "billing.modal.sub_suc.the_change_to_the_su": "订阅周期的更改将从下一个计费周期开始生效。",
     "billing.modal.sub_suc.got_it": "知道了",
     "billing.modal.upgrade_now_admin.upgrade_to_plus": "升级到Premium",
-    "billing.modal.upgrade_now_admin.this_feature_is_avai": "此功能仅供Premium用户使用。若要使用它，请升级至Premium。 通过升级到 Plus，您也可以访问以下功能。 ",
+    "billing.modal.upgrade_now_admin.this_feature_is_avai": "此功能仅供Premium用户使用。若要使用它，请升级至Premium。 通过升级到Premium，您也可以访问以下功能。 ",
     "billing.modal.upgrade_now_admin.add_unlimited_viewer": "免费添加无限个终端用户",
     "billing.modal.upgrade_now_admin.publish_public_appli": "发布公开应用",
     "billing.modal.upgrade_now_admin.ai_sql_generation": "AI SQL生成",

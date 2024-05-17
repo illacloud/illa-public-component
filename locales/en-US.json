@@ -3294,7 +3294,7 @@
     "billing.modal.sub_suc.the_change_to_the_su": "The change to the subscription period will take effect from the next billing cycle.",
     "billing.modal.sub_suc.got_it": "Got it",
     "billing.modal.upgrade_now_admin.upgrade_to_plus": "Upgrade to Premium",
-    "billing.modal.upgrade_now_admin.this_feature_is_avai": "This feature is available for Premium users only. To use it, please upgrade to Plus. By upgrading to Premium, you will also have access to the following features. ",
+    "billing.modal.upgrade_now_admin.this_feature_is_avai": "This feature is available for Premium users only. To use it, please upgrade to Premium. By upgrading to Premium, you will also have access to the following features. ",
     "billing.modal.upgrade_now_admin.add_unlimited_viewer": "Add unlimited viewer for FREE",
     "billing.modal.upgrade_now_admin.publish_public_appli": "Publish public applications",
     "billing.modal.upgrade_now_admin.ai_sql_generation": "AI SQL Generation",
