@@ -3,7 +3,7 @@ import {
   copyToClipboard,
   isCloudVersion,
 } from "@illa-public/utils"
-import { FC, useCallback, useEffect, useState } from "react"
+import { FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Card,
@@ -12,7 +12,7 @@ import {
   UpIcon,
   useMessage,
 } from "@illa-design/react"
-import { fetchWhiteListIP } from "../../service"
+import { WHITE_LIST_IP } from "../../config"
 import {
   ipListContainerStyle,
   ipListStyle,
@@ -35,17 +35,6 @@ export const WhiteList: FC<IWhiteList> = (props) => {
   const { onCopyIpReport } = props
 
   const [showIPList, setShowIPList] = useState<boolean>(false)
-  const [ipList, setIPList] = useState<string[]>([])
-
-  useEffect(() => {
-    if (!isCloudVersion) {
-      return
-    }
-    fetchWhiteListIP().then((response) => {
-      const { resources } = response.data
-      setIPList(resources)
-    })
-  }, [])
 
   const handleOperationIconClick = () => {
     setShowIPList((prevState) => !prevState)
@@ -53,7 +42,7 @@ export const WhiteList: FC<IWhiteList> = (props) => {
 
   const handleCopyClick = useCallback(() => {
     onCopyIpReport && onCopyIpReport()
-    const copyResult = copyToClipboard(ipList.join("\n"))
+    const copyResult = copyToClipboard(WHITE_LIST_IP.join("\n"))
     if (copyResult === COPY_STATUS.SUCCESS) {
       message.success({
         content: t("copied"),
@@ -63,7 +52,7 @@ export const WhiteList: FC<IWhiteList> = (props) => {
         content: t("copy_failed"),
       })
     }
-  }, [ipList, message, onCopyIpReport, t])
+  }, [message, onCopyIpReport, t])
 
   return (
     <div>
@@ -95,7 +84,7 @@ export const WhiteList: FC<IWhiteList> = (props) => {
         <div css={ipListContainerStyle}>
           <Card>
             <div css={ipListStyle}>
-              {ipList.map((ip) => (
+              {WHITE_LIST_IP.map((ip) => (
                 <div key={ip}>{ip}</div>
               ))}
             </div>

@@ -1,6 +1,6 @@
-import { FC, useEffect, useState } from "react"
+import { FC } from "react"
 import { useTranslation } from "react-i18next"
-import { fetchWhiteListIP } from "../../service"
+import { WHITE_LIST_IP } from "../../config"
 import {
   descriptionContainerStyle,
   headerContainerStyle,
@@ -11,15 +11,6 @@ import {
 
 export const WhiteList: FC = () => {
   const { t } = useTranslation()
-
-  const [ipList, setIPList] = useState<string[]>([])
-
-  useEffect(() => {
-    fetchWhiteListIP().then((response) => {
-      const { resources } = response.data
-      setIPList(resources)
-    })
-  }, [])
 
   return (
     <>
@@ -32,7 +23,7 @@ export const WhiteList: FC = () => {
         </p>
       </div>
       <div css={ipListContainerStyle}>
-        {ipList.map((ip) => (
+        {WHITE_LIST_IP.map((ip) => (
           <p key={ip} css={ipItemStyle}>
             {ip}
           </p>

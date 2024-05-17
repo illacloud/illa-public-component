@@ -189,7 +189,7 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
         case COLLAR_TYPE.CANCEL_SUBSCRIPTION:
           await cancelSubscribe(
             currentTeamInfo.id,
-            currentTeamInfo.colla?.plan || SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_PAID,
+            SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_PAID,
           )
           onSuccessCallback?.(currentTeamInfo.id, currentCollarType.current)
           message.success({
@@ -210,9 +210,7 @@ export const CollarDrawer: FC<CollarDrawerProps> = (props) => {
         case COLLAR_TYPE.ADD_COLLAR:
         case COLLAR_TYPE.REMOVE_COLLAR:
           await modifySubscribe(currentTeamInfo.id, {
-            plan:
-              currentTeamInfo.colla?.plan ??
-              SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_PAID,
+            plan: SUBSCRIBE_PLAN.COLLA_SUBSCRIBE_PAID,
             quantity: currentQuantity,
             cycle,
           })
