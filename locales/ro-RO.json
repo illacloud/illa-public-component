@@ -2678,7 +2678,7 @@
     "page.left.menu.changeLogs.4.content": "* Introducerea capacității de a crea aplicații CRUD direct din baza dvs. de date. Acum, puteți crea o aplicație complet funcțională în doar 10 secunde!\n* Am adăugat de asemenea opțiunea de a crea aplicații din șabloane, permițându-vă să înlocuiți perfect datele cu un singur clic.\n\n2024.01.22",
     "page.left.menu.changeLogs.3.title": "V 4.3.6",
     "page.left.menu.changeLogs.3.changeLogLink": "https://docs.illacloud.com/4-3-6",
-    "page.left.menu.changeLogs.3.content": "* Scanner component: Able to access the device's camera to scan QR codes and barcodes.\n* QR Code: component: Generating QR codes for URLs, numbers, and other strings.\n\n2024.02.04",
+    "page.left.menu.changeLogs.3.content": "* Custom domain: You can customize the domain name for your ILLA Cloud team, allowing you to access ILLA Cloud using your own domain name.\n\n2024.02.07",
     "page.left.menu.changeLogs.2.title": "V 4.4",
     "page.left.menu.changeLogs.2.content": "* Componenta de scanare: Posibil să acceseze camera foto a dispozitivului pentru a scana codurile QR și codurile de bare.\n* Codul QR: Generarea codurilor QR pentru URL-uri, numere și alte șiruri.\n\n2024.02.04",
     "page.left.menu.changeLogs.2.changeLogLink": "https://docs.illacloud.com/4-4",
