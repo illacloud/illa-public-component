@@ -2684,7 +2684,7 @@
     "page.left.menu.changeLogs.2.title": "V 4.8.2",
     "page.left.menu.changeLogs.1.title": "V 4.8.4",
     "page.left.menu.changeLogs.1.content": "* Bug Fixes:\nFixed an issue with the pagination of the Data grid component's paginator on the server-side.\n\n2024.07.25",
-    "page.left.menu.changeLogs.1.changeLogLink": "https://docs.illacloud.com/4-3-6",
+    "page.left.menu.changeLogs.1.changeLogLink": "https://docs.illacloud.com/4-8-4",
     "page.left.menu.changelog": "What's new",
     "page.size.model.fixed": "Fixed",
     "page.size.model.auto": "Auto",
