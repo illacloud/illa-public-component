@@ -2684,7 +2684,7 @@
     "page.left.menu.changeLogs.2.title": "V 4.8.2",
     "page.left.menu.changeLogs.1.title": "V 4.8.4",
     "page.left.menu.changeLogs.1.content": "* 问题修复：修复了服务端分页的Data grid组件分页器偶现的问题。\n\n2024.07.25",
-    "page.left.menu.changeLogs.1.changeLogLink": "https://docs.illacloud.com/4-3-6",
+    "page.left.menu.changeLogs.1.changeLogLink": "https://docs.illacloud.com/4-8-4",
     "page.left.menu.changelog": "更新日志",
     "page.size.model.fixed": "固定",
     "page.size.model.auto": "自动",
