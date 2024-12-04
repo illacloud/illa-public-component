@@ -145,8 +145,4 @@ export const ResourceTypeList = [
   },
 ]
 
-export const WHITE_LIST_IP = [
-  "137.184.185.47",
-  "137.184.176.232",
-  "137.184.180.151",
-]
+export const WHITE_LIST_IP = ["146.190.156.21"]
