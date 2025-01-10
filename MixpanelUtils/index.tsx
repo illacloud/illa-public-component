@@ -1,4 +1,3 @@
-import * as amplitude from "@amplitude/analytics-browser"
 import { isServerRender } from "@illa-public/utils"
 import mixpanel from "mixpanel-browser"
 import {
@@ -37,12 +36,6 @@ class ILLAMixpanelTools {
           }
         },
       })
-      amplitude.init(process.env.ILLA_AMPLITUDE_API_KEY as string, undefined, {
-        logLevel:
-          process.env.ILLA_APP_ENV === "development"
-            ? amplitude.Types.LogLevel.Debug
-            : amplitude.Types.LogLevel.None,
-      })
     }
   }
 
@@ -52,7 +45,6 @@ class ILLAMixpanelTools {
       mixpanel.register({
         ILLA_device_ID: deviceID,
       })
-      amplitude.setDeviceId(deviceID)
     }
   }
 
@@ -68,25 +60,18 @@ class ILLAMixpanelTools {
       mixpanel.track(event, {
         ...properties,
       })
-      amplitude.track(event, {
-        ...properties,
-        environment: process.env.ILLA_APP_ENV,
-        fe_version_code: process.env.ILLA_APP_VERSION,
-      })
     }
   }
 
   public setGroup(teamIdentifier: string | string[]) {
     if (this.enable) {
       mixpanel.set_group("team", teamIdentifier)
-      amplitude.setGroup("team", teamIdentifier)
     }
   }
 
   public setUserID(userID: string) {
     if (this.enable) {
       mixpanel.identify(userID)
-      amplitude.setUserId(userID)
     }
   }
 
@@ -97,14 +82,12 @@ class ILLAMixpanelTools {
       for (let propertiesKey in properties) {
         identifyEvent.set(propertiesKey, properties[propertiesKey])
       }
-      amplitude.identify(identifyEvent)
     }
   }
 
   public reset() {
     if (this.enable) {
       mixpanel.reset()
-      amplitude.reset()
     }
   }
 
