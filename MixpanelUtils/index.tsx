@@ -78,10 +78,6 @@ class ILLAMixpanelTools {
   public setUserProperties(properties: Record<string, any>) {
     if (this.enable) {
       mixpanel.people.set(properties)
-      const identifyEvent = new amplitude.Identify()
-      for (let propertiesKey in properties) {
-        identifyEvent.set(propertiesKey, properties[propertiesKey])
-      }
     }
   }
 
